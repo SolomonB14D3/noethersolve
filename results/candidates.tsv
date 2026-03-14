@@ -143,3 +143,4 @@ timestamp	hypothesis	margin_mean	n_pass	verdict	classification
 2026-03-13	Q_n = Σ ΓᵢΓⱼ rᵢⱼ^n family (n=0.5,1,1.5,2,3,-1,-0.5)	pending	7/7	CHECKER-PASS	ALL powers pass; n=2 EXACT (1e-11); others approximate (1e-5 to 1e-4); generalizes Q to arbitrary power law
 2026-03-13	Q_f = Σ f(rᵢⱼ) on figure-8 3-body	pending	4/8	CHECKER-PASS(partial)	r,r²,sqrt(r),exp(-r) PASS; 1/r,1/r²,ln(r),sin(r) FAIL; gravitational more constrained than vortex
 2026-03-13	Regular N-gon vortices (N=5,6)	pending	2/2	CHECKER-PASS	EXACT (1e-12) because relative equilibrium; all rᵢⱼ constant; trivially conserved
+2026-03-13	Weighting comparison: ΓᵢΓⱼ vs alternatives	pending	N/A	ANALYSIS	ΓᵢΓⱼ is optimal; min(|Γ|) fails for non-hierarchical; |ΓᵢΓⱼ| worse for dipoles; signed product captures sign correlations
