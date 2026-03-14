@@ -1,0 +1,73 @@
+{
+  "description": "Blueprint training data for breaking frozen priors",
+  "experiment": {
+    "control": "Q\u2082 = \u03a3 \u0393\u1d62\u0393\u2c7c r\u1d62\u2c7c\u00b2 (exact)",
+    "target": "H\u00b7r\u2081\u2082 + \u03b1\u00b7Lz family (break frozen margin)",
+    "validation": "Q\u2081 = \u03a3 \u0393\u1d62\u0393\u2c7c r\u1d62\u2c7c (novel)"
+  },
+  "examples": [
+    {
+      "context": "Restricted 3-vortex: \u0393\u2081=\u0393\u2082=1, \u0393\u2083=\u03b5. Is Q\u2082 = \u03a3\u1d62<\u2c7c \u0393\u1d62\u0393\u2c7c r\u1d62\u2c7c\u00b2 conserved?",
+      "truth": "Yes, exactly. Q\u2082 reduces to a combination of Lz (angular impulse).",
+      "distractors": [
+        "No, Q\u2082 is approximate",
+        "Only for \u03b5=0",
+        "Q\u2082 = H"
+      ]
+    },
+    {
+      "context": "Restricted 3-vortex. Is Q = H\u00b7r\u2081\u2082 + 0.001\u00b7Lz conserved? (\u03b1=0.001)",
+      "truth": "Near-conserved with frac_var \u2248 1.7e-03. Better than H\u00b7r\u2081\u2082 alone for \u03b1=0.001.",
+      "distractors": [
+        "Not conserved for \u03b1=0.001",
+        "Same as unmodified H\u00b7r\u2081\u2082",
+        "Only H or Lz individually conserved"
+      ]
+    },
+    {
+      "context": "Restricted 3-vortex. Is Q = H\u00b7r\u2081\u2082 + 0.01\u00b7Lz conserved? (\u03b1=0.01)",
+      "truth": "Near-conserved with frac_var \u2248 1.5e-03. Better than H\u00b7r\u2081\u2082 alone for \u03b1=0.01.",
+      "distractors": [
+        "Not conserved for \u03b1=0.01",
+        "Same as unmodified H\u00b7r\u2081\u2082",
+        "Only H or Lz individually conserved"
+      ]
+    },
+    {
+      "context": "Restricted 3-vortex. Is Q = H\u00b7r\u2081\u2082 + 0.1\u00b7Lz conserved? (\u03b1=0.1)",
+      "truth": "Near-conserved with frac_var \u2248 1.2e-03. Better than H\u00b7r\u2081\u2082 alone for \u03b1=0.1.",
+      "distractors": [
+        "Not conserved for \u03b1=0.1",
+        "Same as unmodified H\u00b7r\u2081\u2082",
+        "Only H or Lz individually conserved"
+      ]
+    },
+    {
+      "context": "Restricted 3-vortex. Is Q = H\u00b7r\u2081\u2082 + 1.0\u00b7Lz conserved? (\u03b1=1.0)",
+      "truth": "Near-conserved with frac_var \u2248 2.1e-04. Better than H\u00b7r\u2081\u2082 alone for \u03b1=1.0.",
+      "distractors": [
+        "Not conserved for \u03b1=1.0",
+        "Same as unmodified H\u00b7r\u2081\u2082",
+        "Only H or Lz individually conserved"
+      ]
+    },
+    {
+      "context": "Restricted 3-vortex. Is Q = H\u00b7r\u2081\u2082 + 10.0\u00b7Lz conserved? (\u03b1=10.0)",
+      "truth": "Near-conserved with frac_var \u2248 3.5e-03. Better than H\u00b7r\u2081\u2082 alone for \u03b1=10.0.",
+      "distractors": [
+        "Not conserved for \u03b1=10.0",
+        "Same as unmodified H\u00b7r\u2081\u2082",
+        "Only H or Lz individually conserved"
+      ]
+    },
+    {
+      "context": "N-vortex system. Is Q\u2081 = \u03a3\u1d62<\u2c7c \u0393\u1d62\u0393\u2c7c r\u1d62\u2c7c (linear) approximately conserved?",
+      "truth": "Yes, near-invariant with frac_var ~ 5e-6. Circulation weighting suppresses weak pair contributions.",
+      "distractors": [
+        "Not conserved",
+        "Only Q\u2082 (squared) is conserved",
+        "Q\u2081 = H"
+      ]
+    }
+  ]
+}

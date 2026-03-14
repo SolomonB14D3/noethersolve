@@ -144,3 +144,7 @@ timestamp	hypothesis	margin_mean	n_pass	verdict	classification
 2026-03-13	Q_f = Σ f(rᵢⱼ) on figure-8 3-body	pending	4/8	CHECKER-PASS(partial)	r,r²,sqrt(r),exp(-r) PASS; 1/r,1/r²,ln(r),sin(r) FAIL; gravitational more constrained than vortex
 2026-03-13	Regular N-gon vortices (N=5,6)	pending	2/2	CHECKER-PASS	EXACT (1e-12) because relative equilibrium; all rᵢⱼ constant; trivially conserved
 2026-03-13	Weighting comparison: ΓᵢΓⱼ vs alternatives	pending	N/A	ANALYSIS	ΓᵢΓⱼ is optimal; min(|Γ|) fails for non-hierarchical; |ΓᵢΓⱼ| worse for dipoles; signed product captures sign correlations
+vp_frozen_prior_Hrα	H·r₁₂ + α·Lz family	restricted	oracle_margin ~ -77.5 ± 1.7 for α=0.001 to 10.0	frozen prior confirmed
+vp_Q2_exact_gap	Q₂ = Σ ΓᵢΓⱼ rᵢⱼ² exact	generic	oracle_margin = -43.9	physics gap: model doesn't recognize exact invariant
+vp_Q1_novel	Q₁ = Σ ΓᵢΓⱼ rᵢⱼ linear	restricted	oracle_margin = -68.1	validation target for training
+vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoretical explanation complete
