@@ -2,15 +2,16 @@
 
 **https://github.com/SolomonB14D3/noethersolve** · **https://solomonb14d3.github.io/noethersolve**
 
-[![Paper: Breaking Frozen Priors](https://img.shields.io/badge/Paper%2010-Breaking%20Frozen%20Priors-blue)](paper/breaking_frozen_priors.pdf)
+[![Paper: Breaking Frozen Priors](https://img.shields.io/badge/Paper%2010-Breaking%20Frozen%20Priors-blue)](paper/breaking_frozen_priors.pdf) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290)
 
 **Find what LLMs don't know about what the universe conserves. Then fix it.**
 
 ### Paper
 
 **Breaking Frozen Priors: Teaching Language Models to Discover Conservation Laws from Numerical Simulation** (Sanchez, 2026)
+DOI: [10.5281/zenodo.19017290](https://doi.org/10.5281/zenodo.19017290)
 
-Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a physics-aware ranking engine (Spearman rho = 0.932). Novel Q_f = Sum Gamma_i Gamma_j f(r_ij) family verified across N=3-9 chaotic vortex systems. See [`paper/breaking_frozen_priors.pdf`](paper/breaking_frozen_priors.pdf).
+Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a physics-aware ranking engine (Spearman rho = 0.893 from baseline -0.143). Novel Q_f = Sigma Gamma_i Gamma_j f(r_ij) family verified across N=3-9 chaotic vortex systems and extended to continuous 2D/3D Euler equations. See [`paper/breaking_frozen_priors.pdf`](paper/breaking_frozen_priors.pdf).
 
 Emmy Noether proved that every continuous symmetry of a physical system
 corresponds to a conserved quantity. NoetherSolve finds where LLMs fail to
@@ -103,14 +104,39 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
+### Discrete Point-Vortex
+
 | Date | Domain | Expression | frac_var | Oracle | Status |
 |------|--------|------------|----------|--------|--------|
 | 2026-03-13 | Figure-8 3-body | e₁ = r₁₂+r₁₃+r₂₃ | 5.54e-04 | +4.50 | **DUAL-PASS** |
 | 2026-03-13 | Figure-8 3-body | e₂ = r₁₂r₁₃+r₁₂r₂₃+r₁₃r₂₃ | 2.69e-03 | -1.67→**+1.30** | **FLIPPED** |
-| 2026-03-13 | Figure-8 3-body | r_rms = √((r₁₂²+r₁₃²+r₂₃²)/3) | 7.69e-04 | -0.49 | GAP (open) |
-| 2026-03-13 | Point-vortex | Q = r₁₂+Γ₃(r₁₃+r₂₃) | 5.36e-06 | -29.96 | GAP (adapter training) |
+| 2026-03-13 | Point-vortex | Q = Σ ΓᵢΓⱼ rᵢⱼ | 5.36e-06 | -29.96→**+3.99** | **FLIPPED** |
+| 2026-03-13 | Point-vortex | Q₂ = Σ ΓᵢΓⱼ rᵢⱼ² (= Γ·Lz) | 9.62e-12 | -43.9→**+29.6** | **FLIPPED** (exact) |
+| 2026-03-13 | Point-vortex | Q_f family (7 powers, N=3-9) | 1e-5 to 1e-11 | ranked ρ=0.893 | **RANKING LEARNED** |
+| 2026-03-13 | Point-vortex | K = Σ Γᵢ vᵢ² (kinetic) | 1e-5 to 1e-7 | low margin | GAP (independent of Q_f) |
+| 2026-03-13 | Point-vortex | H - Lz | 9.48e-12 | -19.6→**+26.1** | **FLIPPED** |
 
-Full history: `results/candidates.tsv`
+### Continuous Fluid Extension (2D/3D Euler)
+
+The Q_f family extends from discrete vortices to continuous vorticity fields:
+
+```
+Q_f[ω] = ∫∫ ω(x) ω(y) f(|x-y|) dx dy ≈ const
+```
+
+Verified across 6 test scenarios (laminar, turbulent 2D, 3D vortex rings, viscous NS):
+
+| f(r) | 2D Laminar | 2D Turbulent | 3D Rings | Status |
+|------|-----------|-------------|---------|--------|
+| -ln(r) | 4.32e-03 | 2.77e-03 | — | Known (energy) |
+| e^(-r) | 3.09e-04 | 5.42e-03 | 1.79e-03 | **NEW** |
+| tanh(r) | — | 6.82e-03 | — | **NEW** |
+| √r | 3.48e-04 | 1.07e-02 | 2.95e-03 | **NEW** |
+| 1/r | — | — | 3.78e-04 | **NEW** (3D best) |
+
+Viscous (Navier-Stokes) decay scales linearly with ν: Q_f provides anti-concentration bounds on vorticity. See `results/discoveries/qf_family_comprehensive.md` and `research/qf_regularity_connection.md`.
+
+Full history: `results/candidates.tsv` (159 entries)
 
 ---
 
@@ -139,8 +165,10 @@ Claims expire after 4 hours. See `CONTRIBUTING.md` for the full protocol.
 
 ```
 NoetherSolve
-├── oracle_wrapper.py          ← Oracle + repair + quadrant diagnosis
+├── oracle_wrapper.py          ← Oracle + repair + ranking + quadrant diagnosis
 ├── claim.py                   ← Coordination: THINK/CLAIM/RELEASE
+├── autonomy_loop.py           ← Fully autonomous sweep + hypothesis generation
+├── dashboard.py               ← Results dashboard from candidates.tsv
 ├── claims.json                ← Live claims registry
 │
 ├── problems/                  ← Domain plugins (fork here)
@@ -153,13 +181,28 @@ NoetherSolve
 │   ├── e2_symmetric_poly.py
 │   └── __init__.py
 │
-├── adapters/                  ← Trained domain adapters (gitignored)
-│   ├── adapter_choreography.npz
-│   └── adapter_vortex.npz
+├── research/                  ← Continuous Q_f extension experiments
+│   ├── test_continuous_qf.py  ← 2D laminar vortex verification
+│   ├── test_qf_turbulence.py  ← 2D turbulent dynamics
+│   ├── test_3d_vortex_qf.py   ← 3D vortex ring verification
+│   ├── test_qf_viscous.py     ← Navier-Stokes viscous decay
+│   ├── test_qf_concentration.py ← Concentration scaling response
+│   ├── test_3d_stretching.py  ← 3D vortex stretching
+│   ├── learn_optimal_f.py     ← Gradient descent for optimal f(r)
+│   └── qf_regularity_connection.md ← NS regularity analysis
+│
+├── train_ranking_v2.py        ← Ranking adapter (ListNet + hard negatives)
+├── train_vortex_adapter.py    ← Domain-specific logit adapter (MLX)
+├── train_choreography_adapter.py ← Figure-8 choreography adapter (MLX)
+│
+├── adapters/                  ← Trained adapter weights (gitignored)
+│
+├── paper/
+│   └── breaking_frozen_priors.pdf ← Paper 10
 │
 └── results/
-    ├── candidates.tsv         ← All tested hypotheses
-    └── discoveries/           ← Discovery notes for DUAL-PASS / FLIPPED
+    ├── candidates.tsv         ← All tested hypotheses (159 entries)
+    └── discoveries/           ← Discovery notes (19 files)
 ```
 
 ---
@@ -179,3 +222,15 @@ NoetherSolve
   [github.com/mutable-state-inc/autoresearch-at-home](https://github.com/mutable-state-inc/autoresearch-at-home)
 
 - **Noether's theorem** (Emmy Noether, 1915) — the reason any of this works.
+
+## Cite
+
+```bibtex
+@article{sanchez2026breaking,
+  title={Breaking Frozen Priors: Teaching Language Models to Discover Conservation Laws from Numerical Simulation},
+  author={Sanchez, Bryan},
+  year={2026},
+  doi={10.5281/zenodo.19017290},
+  url={https://doi.org/10.5281/zenodo.19017290}
+}
+```
