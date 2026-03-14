@@ -153,3 +153,6 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-13	Q_0 trivial exact	theory	N/A	EXACT	Q_0 = Σ ΓᵢΓⱼ = (Σ Γᵢ)² - Σ Γᵢ² = const (trivial)
 2026-03-13	Q_2 = Γ_total·Lz	theory	R²=0.9999999999	EXACT	Q₂ is not novel - reduces to angular impulse Lz
 2026-03-13	Q_f scaling: frac_var ∝ ε^1.44	restricted	N/A	ANALYSIS	Conservation improves as ε → 0 (test vortex limit)
+2026-03-13	K = Σ Γᵢ vᵢ² kinetic invariant	all configs	frac_var ~ 1e-5 to 1e-7	CHECKER-PASS	Novel: depends on angles not just distances; distance-angle cancellation
+2026-03-13	K independence verified	theory	R²=0.048 vs Q_{-2}	ANALYSIS	K is NOT a Q_f combination; genuinely new family
+2026-03-13	K_dist vs K_angle cancellation	theory	K_angle varies 0.1, K total 1e-7	ANALYSIS	Remarkable cancellation: distance and angular variations cancel
