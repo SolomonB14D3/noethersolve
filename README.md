@@ -4,18 +4,18 @@
 
 [![Paper: Breaking Frozen Priors](https://img.shields.io/badge/Paper%2010-Breaking%20Frozen%20Priors-blue)](paper/breaking_frozen_priors.pdf) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290)
 
-**Find what LLMs don't know about what the universe conserves. Then fix it.**
+**Use LLM knowledge gaps as a compass to find underexplored science.**
+
+LLMs are trained on what the field has collectively written about and taught. Where the model is confidently wrong or completely blank, the literature is thin. NoetherSolve turns that signal into a systematic search: verify a candidate truth numerically, check whether the model knows it, and if not, you've found a gap worth investigating.
+
+The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, and gravitational mechanics so far. Any field where you can numerically verify a claim and ask a model about it is fair game.
 
 ### Paper
 
 **Breaking Frozen Priors: Teaching Language Models to Discover Conservation Laws from Numerical Simulation** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19017290](https://doi.org/10.5281/zenodo.19017290)
 
-Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a physics-aware ranking engine (Spearman rho = 0.893 from baseline -0.143). Novel Q_f = Sigma Gamma_i Gamma_j f(r_ij) family verified across N=3-9 chaotic vortex systems and extended to continuous 2D/3D Euler equations. See [`paper/breaking_frozen_priors.pdf`](paper/breaking_frozen_priors.pdf).
-
-Emmy Noether proved that every continuous symmetry of a physical system
-corresponds to a conserved quantity. NoetherSolve finds where LLMs fail to
-recognize those quantities — and closes the gap with targeted adapters.
+Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ranking engine (Spearman rho = 0.893 from baseline -0.143). Novel Q_f invariant family verified across chaotic vortex systems and extended to continuous 2D/3D Euler equations. The LLM gap pointed directly at the physics: the model's blind spot on weighted distance sums led to the discovery of stretch-resistant invariants relevant to 3D Navier-Stokes regularity. See [`paper/breaking_frozen_priors.pdf`](paper/breaking_frozen_priors.pdf).
 
 ---
 
