@@ -114,6 +114,32 @@
       "checker_verified": true,
       "frac_var": 5.36e-6,
       "notes": "Discovered 2026-03-13. Coefficient ε=Γ₃ gives optimal conservation. Analogous to restricted 3-body Jacobi-like invariant."
+    },
+    {
+      "id": "vp12_general_Q_f",
+      "context": "N-vortex system with circulations Γᵢ. For any smooth function f(r), which weighted sum is approximately conserved?",
+      "truth": "Q_f = Σᵢ<ⱼ ΓᵢΓⱼ f(rᵢⱼ) ≈ const",
+      "distractors": [
+        "Q_f = Σᵢ<ⱼ f(rᵢⱼ) (unweighted)",
+        "Q_f = Σᵢ<ⱼ |ΓᵢΓⱼ| f(rᵢⱼ)",
+        "Q_f = Σᵢ<ⱼ (Γᵢ+Γⱼ) f(rᵢⱼ)"
+      ],
+      "checker_verified": true,
+      "frac_var": "1e-5 to 1e-6 typical",
+      "notes": "Discovered 2026-03-13. Works for r, r², sqrt(r), sin(r), exp(-r), etc. Circulation weighting ΓᵢΓⱼ is 10000x better than unweighted."
+    },
+    {
+      "id": "vp13_dipole_test_exact",
+      "context": "Vortex dipole (Γ₁=-Γ₂=Γ) plus one test vortex Γ₃ on the dipole symmetry axis. Which quantity is exactly conserved?",
+      "truth": "Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ = const (exact, frac_var ~ 10⁻¹⁵)",
+      "distractors": [
+        "Q = Σᵢ<ⱼ rᵢⱼ (unweighted sum)",
+        "Q = r₁₂ only (dipole separation)",
+        "Q = Γ₃(r₁₃ + r₂₃)"
+      ],
+      "checker_verified": true,
+      "frac_var": 5e-15,
+      "notes": "Discovered 2026-03-13. Test must be on symmetry axis. Exact due to dipole symmetry cancellation."
     }
   ]
 }
