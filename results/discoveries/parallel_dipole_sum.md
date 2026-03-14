@@ -56,15 +56,42 @@ What BREAKS it:
 - Related to conservation of total linear impulse perpendicular to motion
 - Each dipole acts as a momentum carrier; total momentum redistributes but conserves
 
-## Relation to Linear Impulse
+## Geometric Meaning (DERIVED 2026-03-13)
 
-For zero total circulation (Σ Γᵢ = 0), the linear impulse is:
-- Py = -Σ Γᵢ xᵢ ≈ const (verified: frac_var ~ 10⁻¹⁶)
+**The dipole sum invariant is linear impulse conservation in disguise!**
 
-The dipole sum invariant may be a consequence of Py conservation projected onto the dipole geometry.
+For a vertical dipole at position x with separation d:
+- Vortex 1: +Γ at (x, +d/2)
+- Vortex 2: -Γ at (x, -d/2)
+
+Linear impulse contribution:
+```
+Px = Σ Γᵢ yᵢ = Γ·(d/2) + (-Γ)·(-d/2) = Γd
+```
+
+For N identical parallel dipoles with equal Γ:
+```
+Px_total = Γ · Σₖ dₖ
+```
+
+Since Px is exactly conserved and Γ is constant:
+```
+Σₖ dₖ = Px_total / Γ = const
+```
+
+**This is NOT an independent invariant** — it follows directly from linear impulse conservation applied to the dipole geometry.
+
+Numerical verification:
+| N dipoles | |Σₖ dₖ - Px/Γ| max |
+|-----------|-------------------|
+| 2 | 8.88e-16 |
+| 3 | 1.78e-15 |
+| 4 | 3.55e-15 |
+
+The invariant is EXACTLY Px/Γ to machine precision.
 
 ## Status
 
 - Numerical: VERIFIED (exact to machine precision for 2-5 dipoles)
-- Oracle: PENDING
-- Formal proof: OPEN (conjecture: follows from linear impulse conservation + symmetry)
+- Oracle: PENDING (trivial - just Px conservation)
+- Formal proof: COMPLETE (follows from Px = Γ·Σdₖ)
