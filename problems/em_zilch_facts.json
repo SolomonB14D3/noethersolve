@@ -1,0 +1,54 @@
+{
+  "facts": [
+    {
+      "context": "In source-free electromagnetism, the quantity U = ∫(E² + B²)d³x is",
+      "truth": "exactly conserved",
+      "distractors": ["approximately conserved", "not conserved", "conserved only in vacuum"]
+    },
+    {
+      "context": "In source-free electromagnetism, the quantity ∫(E × B)d³x is",
+      "truth": "exactly conserved",
+      "distractors": ["approximately conserved", "not conserved", "conserved only for plane waves"]
+    },
+    {
+      "context": "The optical chirality C = ½[E·(∇×E) + B·(∇×B)] for source-free Maxwell fields is",
+      "truth": "exactly conserved",
+      "distractors": ["not conserved", "approximately conserved", "only conserved for circular polarization"]
+    },
+    {
+      "context": "Lipkin's zilch tensor Z^μνρ for electromagnetic fields satisfies",
+      "truth": "a conservation law ∂_ρZ^μνρ = 0",
+      "distractors": ["no conservation law", "∂_μZ^μνρ = J^νρ", "only approximate conservation"]
+    },
+    {
+      "context": "The electromagnetic helicity H = ∫A·B d³x for source-free fields is",
+      "truth": "exactly conserved",
+      "distractors": ["not gauge-invariant", "not conserved", "only conserved in Coulomb gauge"]
+    },
+    {
+      "context": "The super-energy density S = [(∇×E)² + (∇×B)²] for source-free Maxwell fields is",
+      "truth": "exactly conserved when integrated",
+      "distractors": ["not conserved", "only conserved for static fields", "approximately conserved"]
+    },
+    {
+      "context": "For circularly polarized light, the optical chirality is",
+      "truth": "nonzero and conserved",
+      "distractors": ["zero", "not conserved", "undefined"]
+    },
+    {
+      "context": "The quantity ∫E²d³x alone (without B²) for source-free Maxwell fields is",
+      "truth": "not conserved",
+      "distractors": ["exactly conserved", "approximately conserved", "conserved in vacuum"]
+    },
+    {
+      "context": "The Chevreton super-energy tensor for electromagnetic fields was introduced in",
+      "truth": "1964",
+      "distractors": ["1905", "1873", "1990"]
+    },
+    {
+      "context": "Lipkin's zilch conservation law for electromagnetic fields was discovered in",
+      "truth": "1964",
+      "distractors": ["1865", "1905", "2010"]
+    }
+  ]
+}

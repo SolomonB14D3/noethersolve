@@ -1,0 +1,24 @@
+name: "Electromagnetic Zilch and Optical Chirality"
+description: |
+  Test oracle knowledge of obscure EM conservation laws beyond Poynting's theorem.
+
+  Known (should pass):
+  - Energy, Momentum (standard Poynting)
+
+  Obscure (tests frozen priors):
+  - Optical chirality / Zilch Z⁰ (Lipkin 1964)
+  - Helicity
+  - Super-energy (Chevreton tensor)
+
+  If oracle fails on chirality/helicity but passes on energy/momentum,
+  this indicates frozen priors limited to basic EM.
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "em_zilch_facts.json"
+pass_threshold: 0.8
+
+# Expected behavior:
+# - Energy/Momentum facts: Should PASS (well-known)
+# - Chirality/Zilch facts: May FAIL (obscure, Lipkin 1964)
+# - Super-energy facts: May FAIL (very obscure, Chevreton tensor)
+# - Historical dates: May FAIL (specific knowledge)
