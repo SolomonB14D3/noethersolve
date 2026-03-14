@@ -156,3 +156,15 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-13	K = Σ Γᵢ vᵢ² kinetic invariant	all configs	frac_var ~ 1e-5 to 1e-7	CHECKER-PASS	Novel: depends on angles not just distances; distance-angle cancellation
 2026-03-13	K independence verified	theory	R²=0.048 vs Q_{-2}	ANALYSIS	K is NOT a Q_f combination; genuinely new family
 2026-03-13	K_dist vs K_angle cancellation	theory	K_angle varies 0.1, K total 1e-7	ANALYSIS	Remarkable cancellation: distance and angular variations cancel
+2026-03-14	EM Energy U=(1/2)∫(E²+B²)d³x	-4.08→+14.96	1/12→6/12	QUADRANT3→FIXABLE_BIAS	em_adapter_v4; baseline 1/12 (8.3%); flipped: energy,momentum,chirality,helicity,super-energy,zilch
+2026-03-14	EM Optical Chirality (Lipkin 1964)	-11.63→+8.21	1/12→6/12	QUADRANT3→FIXABLE_BIAS	em_adapter_v4; was complete knowledge gap; see em_zilch_facts.json
+2026-03-14	EM Super-energy (Chevreton tensor)	-9.94→+12.34	1/12→6/12	QUADRANT3→FIXABLE_BIAS	em_adapter_v4; obscure invariant successfully taught
+2026-03-14	EM Helicity H=∫A·B d³x	-7.89→+9.45	1/12→6/12	QUADRANT3→FIXABLE_BIAS	em_adapter_v4; topological invariant
+2026-03-14	Q_f[ω]=∫∫ω(x)ω(y)f(|x-y|)dxdy (continuous)	-43.42→-10.37	0/12→7/12	QUADRANT3→FIXABLE_BIAS	qf_continuous_adapter; baseline 0/12 (0%); novel extension from point-vortex to continuous Euler
+2026-03-14	Q_{-ln(r)}[ω] = kinetic energy (2D)	-44.3→+17.2	1/12	QUADRANT3→FLIPPED	qf_continuous_adapter; strong flip (+61.5 delta)
+2026-03-14	Q_{e^(-r)}[ω] approximately conserved	-59.1→+2.1	1/12	QUADRANT3→FLIPPED	qf_continuous_adapter; novel Q_f member for continuous fields
+2026-03-14	Q_f conservation mechanism (u(x)≈u(y))	-43.7→+11.3	1/12	QUADRANT3→FLIPPED	qf_continuous_adapter; successfully taught conservation mechanism
+2026-03-14	Q_f bounds → NS regularity	-11.7→+3.6	1/12	QUADRANT3→FLIPPED	qf_continuous_adapter; hardest fact; potential blowup implications
+2026-03-14	qf10_enstrophy (2D Euler)	-58.4→-94.1	0/1	STILL_FAILING	qf_continuous_adapter; got WORSE (-35.7); conflict with Q_f focus; needs separate adapter
+2026-03-14	qf06_3d_stretching (Q_f ∝ s²)	-12.7	0/1	STILL_FAILING	qf_continuous_adapter; close to flip; needs more 3D training examples
+2026-03-14	qf07_energy_3d (3D energy = Q_{1/r})	-23.1	0/1	STILL_FAILING	qf_continuous_adapter; 3D facts harder than 2D

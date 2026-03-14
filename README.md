@@ -155,11 +155,33 @@ R_f = Q_{e^(-r)} / Q_{1/r} survives stretching because both numerator and denomi
 
 Spectral Maxwell solver verifying conservation of obscure EM invariants (Lipkin's zilch, optical chirality, helicity, super-energy). All confirmed exactly conserved (frac_var < 10^-6).
 
-Oracle results on Qwen3-4B-Base: **2/10 pass rate**. The model fails on basic energy conservation (margin -4.08) and momentum (margin -5.35), not just obscure quantities. Zilch (margin -11.63) and super-energy (margin -9.94) are complete knowledge gaps. Adapter repair makes it worse (mean margin -3.89 to -63.82), confirming this is knowledge gap mode, not fixable bias.
+Oracle results on Qwen3-4B-Base: baseline **1/12 pass rate** (8.3%). The model fails on basic energy conservation (margin -4.08) and momentum (margin -5.35), not just obscure quantities. Zilch (margin -11.63) and super-energy (margin -9.94) are complete knowledge gaps.
 
-See `results/discoveries/em_zilch_chirality.md` and `results/discoveries/em_frozen_priors.md`.
+With `em_adapter_v4`: **6/12 pass rate** (50%), confirming FIXABLE_BIAS diagnostic. Flipped facts include energy, momentum, chirality, helicity, super-energy, and zilch. Mean margin improved from -11.04 to -0.21.
 
-Full history: `results/candidates.tsv` (159 entries)
+See `results/discoveries/em_conservation_laws.md` and `results/discoveries/em_zilch_chirality.md`.
+
+### Continuous Q_f Extension (2D/3D Euler)
+
+The discrete point-vortex Q_f family extends to continuous vorticity fields:
+
+```
+Q_f[ω] = ∫∫ ω(x) ω(y) f(|x-y|) dx dy ≈ const
+```
+
+Oracle results: baseline **0/12 pass rate** (complete knowledge gap). With `qf_continuous_adapter`: **7/12 pass rate** (58.3%), diagnostic changed from KNOWLEDGE_GAP to FIXABLE_BIAS.
+
+| Flipped Fact | Baseline | Adapter | Delta |
+|--------------|----------|---------|-------|
+| Q_f extension formula | -6.5 | +8.0 | +14.5 |
+| f=-ln(r) gives energy | -44.3 | +17.2 | +61.5 |
+| Q_{e^(-r)} conserved | -59.1 | +2.1 | +61.2 |
+| Conservation mechanism | -43.7 | +11.3 | +55.0 |
+| Q_f bounds → NS regularity | -11.7 | +3.6 | +15.3 |
+
+See `results/discoveries/continuous_qf_oracle.md`.
+
+Full history: `results/candidates.tsv` (169 entries)
 
 ---
 
@@ -191,6 +213,7 @@ NoetherSolve
 ├── oracle_wrapper.py           ← Oracle + repair + ranking + quadrant diagnosis
 ├── conservation_checker.py     ← Figure-8 3-body numerical checker
 ├── vortex_checker.py           ← 2D point-vortex numerical checker
+├── em_checker.py               ← Spectral Maxwell solver (EM conservation)
 ├── noethersolve_torch.py       ← PyTorch/CUDA backend (no MLX needed)
 ├── autonomy_loop.py            ← Fully autonomous sweep + hypothesis generation
 ├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
@@ -205,6 +228,7 @@ NoetherSolve
 │   ├── problem_template.yaml
 │   ├── vortex_pair_conservation.yaml
 │   ├── em_zilch.yaml           ← Electromagnetic zilch/chirality
+│   ├── continuous_qf.yaml      ← Continuous Q_f (2D/3D Euler)
 │   └── *_facts.json            ← Verification sets
 │
 ├── training/
@@ -212,7 +236,9 @@ NoetherSolve
 │   │   ├── train_ranking_v2.py ← Ranking adapter (ListNet + hard negatives)
 │   │   ├── train_vortex_adapter.py
 │   │   ├── train_physics_supervised.py
-│   │   └── train_prior_breaker.py
+│   │   ├── train_prior_breaker.py
+│   │   ├── train_em_adapter.py      ← EM domain adapter
+│   │   └── train_qf_continuous_adapter.py  ← Continuous Q_f adapter
 │   └── data/                   ← Training JSON files
 │
 ├── research/                   ← Q_f extension + NS regularity + EM experiments
