@@ -1,0 +1,15 @@
+name: "Chemical Reaction Network Conservation"
+description: |
+  Test oracle knowledge of stoichiometric conservation laws in chemical networks.
+
+  Key concepts:
+  - Conservation laws from left null space of stoichiometry matrix S
+  - Simple: A + B = const
+  - Complex: glycolysis has 5 conservation laws involving 14 species
+
+  This is a completely different domain from vortex dynamics but uses the same
+  dual-filter pipeline: numerical ODE integration + oracle verification.
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "chemical_conservation_facts.json"
+pass_threshold: 0.5

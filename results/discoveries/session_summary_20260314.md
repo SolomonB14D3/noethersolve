@@ -129,10 +129,72 @@ Total candidates: 183 (from 169)
 
 Total candidates: 189 (from 183)
 
+## Evening Session: Chemical Reaction Networks
+
+### New Domain: Stoichiometric Conservation Laws
+
+Applied the dual-filter pipeline to a completely different domain: **chemical reaction networks**.
+
+**Key Concepts:**
+- Conservation laws from **left null space of stoichiometry matrix S**
+- w^T S = 0 implies d(w·c)/dt = 0 (conserved)
+- Mass-action kinetics: dc/dt = S @ v(c)
+- Non-obvious conservation laws in complex networks (glycolysis, 20+ species)
+
+**Numerical Checker:** research/chemical_networks.py
+- Verified on 5 test networks: A_B_reversible, Michaelis_Menten, Lotka_Volterra, Glycolysis_Simplified, Brusselator
+- All networks pass numerical conservation verification
+
+**Oracle Facts:** 16 facts covering:
+- Null space origin of conservation laws
+- Michaelis-Menten enzyme kinetics (E+ES, S+ES+P conservation)
+- Glycolysis ATP/ADP and NAD/NADH pools
+- Network deficiency formula (n-l-s)
+- Open vs closed systems
+- Mass-action kinetics
+- Stoichiometric compatibility classes
+
+**Results:**
+
+| Metric | Baseline | After Training | Change |
+|--------|----------|----------------|--------|
+| Pass rate | 0/16 | **15/16 (93.75%)** | +93.75% |
+| Mean margin | -20.0 | +14.0 | +34.0 |
+
+**This is the BEST adapter performance across all domains.**
+
+Only 1 fact remains (mass-action kinetics rate formula) - basic chemistry.
+
+### Files Created (Evening)
+
+- problems/chemical_conservation.yaml
+- problems/chemical_conservation_facts.json (16 facts)
+- training/chemical_conservation_synthetic_50.json (50 examples)
+- training/scripts/train_chemical_adapter.py
+- research/chemical_networks.py
+- adapters/chemical_adapter.npz
+
+### Final Domain Status
+
+| Domain | Facts | Baseline | Best Adapter | Pass Rate | Status |
+|--------|-------|----------|--------------|-----------|--------|
+| Point-vortex Q_f | 13 | varies | ranking_v2 | ~80% | COMPLETE |
+| EM conservation | 12 | 1/12 | em_adapter_v4 | 6/12 (50%) | FIXABLE_BIAS |
+| Continuous Q_f | 12 | 0/12 | qf_continuous | 7/12 (58%) | FIXABLE_BIAS |
+| NS regularity | 16 | 0/16 | ns_adapter | 2/16 (12.5%) | KNOWLEDGE_GAP |
+| K invariant | 8 | 0/8 | k_adapter_v2 | 3/8 (37.5%) | FIXABLE_BIAS |
+| Optimal f(r) | 4 | 0/4 | optimal_f_adapter | 2/4 (50%) | FIXABLE_BIAS |
+| Q_f Ratio | 8 | 0/8 | qf_ratio_adapter | **8/8 (100%)** | **DUAL-PASS** |
+| Chemical Conservation | 16 | 0/16 | chemical_adapter | **15/16 (93.75%)** | **NEAR-DUAL-PASS** |
+
+Total domains: 8
+Total oracle facts: 89
+Total candidates: 197 (from 189)
+
 ## Next Steps
 
-1. **Optimal f**: Complete training, evaluate adapter
-2. **Q_f Ratio**: Train adapter for this novel stretch-resistant invariant
-3. **NS regularity**: Train with more data targeting R_f ratio and BKM facts
-4. **K invariant**: Add more training examples for cancellation mechanism
-5. **DO NOT stack**: Use adapters individually, not combined
+1. **Chemical domain expansion**: Add more complex networks (full glycolysis 20+ species)
+2. **NS regularity**: Train with more data targeting R_f ratio and BKM facts
+3. **K invariant**: Add more training examples for cancellation mechanism
+4. **DO NOT stack**: Use adapters individually, not combined
+5. **Cross-domain potential**: Consider other domains with similar null-space structure

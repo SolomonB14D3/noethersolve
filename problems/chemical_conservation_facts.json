@@ -1,0 +1,166 @@
+{
+  "problem": "chemical_reaction_network_conservation",
+  "description": "Oracle test facts for stoichiometric conservation laws in chemical reaction networks. These come from the left null space of the stoichiometry matrix.",
+  "facts": [
+    {
+      "id": "chem01_source",
+      "context": "For a chemical reaction network with stoichiometry matrix S, conservation laws come from:",
+      "truth": "the left null space of S (vectors w where w^T S = 0)",
+      "distractors": [
+        "the eigenvalues of S",
+        "the determinant of S",
+        "random linear combinations"
+      ]
+    },
+    {
+      "id": "chem02_simple_AB",
+      "context": "For a reversible reaction A <-> B, the conserved quantity is:",
+      "truth": "[A] + [B] = constant (total mass conservation)",
+      "distractors": [
+        "[A] - [B] = constant",
+        "[A] × [B] = constant",
+        "no conservation law exists"
+      ]
+    },
+    {
+      "id": "chem03_enzyme",
+      "context": "In Michaelis-Menten enzyme kinetics E + S <-> ES -> E + P, the conserved quantities are:",
+      "truth": "[E] + [ES] = constant (total enzyme) and [S] + [ES] + [P] = constant (total substrate)",
+      "distractors": [
+        "only [E] is conserved",
+        "[E] × [S] is conserved",
+        "no conservation laws exist"
+      ]
+    },
+    {
+      "id": "chem04_nullspace_dim",
+      "context": "The number of independent conservation laws in a chemical network equals:",
+      "truth": "n_species minus rank(S) where S is the stoichiometry matrix",
+      "distractors": [
+        "always equals number of species",
+        "always equals number of reactions",
+        "zero for all networks"
+      ]
+    },
+    {
+      "id": "chem05_glycolysis_atp",
+      "context": "In glycolysis, the quantity [ATP] + [ADP] represents:",
+      "truth": "a conserved adenine nucleotide pool",
+      "distractors": [
+        "total energy",
+        "not conserved",
+        "only conserved at equilibrium"
+      ]
+    },
+    {
+      "id": "chem06_glycolysis_nad",
+      "context": "In glycolysis, the quantity [NAD] + [NADH] represents:",
+      "truth": "a conserved nicotinamide pool",
+      "distractors": [
+        "electron flux",
+        "not conserved",
+        "only conserved anaerobically"
+      ]
+    },
+    {
+      "id": "chem07_open_systems",
+      "context": "For open chemical systems with inflow/outflow of species:",
+      "truth": "stoichiometric conservation laws may be broken by external fluxes",
+      "distractors": [
+        "conservation laws still hold exactly",
+        "no conservation laws exist in closed systems",
+        "open systems have more conservation laws"
+      ]
+    },
+    {
+      "id": "chem08_mass_action",
+      "context": "Under mass-action kinetics, the rate of reaction A + B -> C is:",
+      "truth": "k × [A] × [B] where k is the rate constant",
+      "distractors": [
+        "k × ([A] + [B])",
+        "k × [A]",
+        "k × [C]"
+      ]
+    },
+    {
+      "id": "chem09_lotka",
+      "context": "The Lotka-Volterra predator-prey system (viewed as chemical network) has:",
+      "truth": "no stoichiometric conservation laws (open system with birth/death)",
+      "distractors": [
+        "[predator] + [prey] is conserved",
+        "total biomass is conserved",
+        "energy is conserved"
+      ]
+    },
+    {
+      "id": "chem10_brusselator",
+      "context": "The Brusselator oscillating reaction conserves:",
+      "truth": "certain linear combinations of intermediate and product concentrations",
+      "distractors": [
+        "nothing - all concentrations vary",
+        "only the total concentration",
+        "only during oscillations"
+      ]
+    },
+    {
+      "id": "chem11_deficiency",
+      "context": "The deficiency of a chemical reaction network is:",
+      "truth": "n - l - s where n = complexes, l = linkage classes, s = rank(S)",
+      "distractors": [
+        "always zero",
+        "number of reactions minus species",
+        "undefined for mass-action systems"
+      ]
+    },
+    {
+      "id": "chem12_complex_conserv",
+      "context": "For glycolysis with 14 species and 12 reactions, the number of independent conservation laws is:",
+      "truth": "at least 2-5 depending on network structure (ATP/ADP and NAD/NADH pools)",
+      "distractors": [
+        "exactly zero",
+        "exactly 14",
+        "exactly 12"
+      ]
+    },
+    {
+      "id": "chem13_verify_numerical",
+      "context": "To verify a proposed conservation law w·c = constant numerically:",
+      "truth": "integrate the ODE system and check that w·c(t) has zero variance",
+      "distractors": [
+        "check if w·c(0) = 0",
+        "check if w has unit norm",
+        "check eigenvalues of the Jacobian"
+      ]
+    },
+    {
+      "id": "chem14_physical_meaning",
+      "context": "Stoichiometric conservation laws physically represent:",
+      "truth": "moieties or atomic groups that are rearranged but not created or destroyed",
+      "distractors": [
+        "energy conservation",
+        "momentum conservation",
+        "entropy production"
+      ]
+    },
+    {
+      "id": "chem15_compatibility",
+      "context": "A stoichiometric compatibility class is:",
+      "truth": "the set of all concentrations reachable from an initial condition via the network dynamics",
+      "distractors": [
+        "the set of all possible initial conditions",
+        "the equilibrium concentrations",
+        "the set of rate constants"
+      ]
+    },
+    {
+      "id": "chem16_nontrivial",
+      "context": "A non-trivial conservation law in a large network (20+ species) is typically:",
+      "truth": "a linear combination involving many species with non-obvious coefficients",
+      "distractors": [
+        "always a sum of two species",
+        "always involves integer coefficients",
+        "impossible to determine"
+      ]
+    }
+  ]
+}
