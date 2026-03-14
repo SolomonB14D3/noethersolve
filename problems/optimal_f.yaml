@@ -1,0 +1,12 @@
+name: "Optimal f(r) Combination"
+description: |
+  Test oracle knowledge of optimal f(r) for Q_f conservation.
+
+  Key finding: Linear combination of basis functions gives 99.6%
+  improvement over single functions.
+
+  Dominant terms: e^(-r/2), tanh(r), sin(r)
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "optimal_f_facts.json"
+pass_threshold: 0.5

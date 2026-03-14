@@ -179,3 +179,5 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-14	K adapter overall	-45.9→-16.4	3/8	FIXABLE_BIAS	k_adapter; delta +29.5; baseline 0/8
 2026-03-14	K adapter v2	-45.9→-15.9	3/8	FIXABLE_BIAS	k_adapter_v2; delta +30.07; same 3 facts pass as v1
 2026-03-14	Optimal f(r) combination	loss 0.000005	N/A	NUMERICAL_VERIFIED	99.6% improvement over single basis; e^(-r/2), tanh, sin dominant
+2026-03-14	Optimal f(r) linear combination (99.6% improvement)	-34.0	0/4	KNOWLEDGE_GAP	baseline 0/4; novel numerical finding
+2026-03-14	Q_f vector space structure	-16.2	0/1	CLOSE_TO_FLIP	from optimal_f_facts; could flip with adapter

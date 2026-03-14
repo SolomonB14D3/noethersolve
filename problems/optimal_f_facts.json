@@ -1,0 +1,46 @@
+{
+  "problem": "optimal_f_qf",
+  "description": "Oracle test facts for optimal f(r) combinations in Q_f conservation.",
+  "facts": [
+    {
+      "id": "opt01_single_vs_combo",
+      "context": "For Q_f conservation, using a single f(r) vs an optimized linear combination gives:",
+      "truth": "99.6% improvement with combination (loss 5e-6 vs 1e-3)",
+      "distractors": [
+        "no improvement",
+        "single functions are optimal",
+        "10% improvement"
+      ]
+    },
+    {
+      "id": "opt02_dominant_terms",
+      "context": "The dominant terms in the optimal f(r) = Σ aᵢ φᵢ(r) for Q_f conservation are:",
+      "truth": "e^(-r/2), tanh(r), and sin(r) with alternating signs",
+      "distractors": [
+        "-ln(r) only",
+        "1/r only",
+        "r² only"
+      ]
+    },
+    {
+      "id": "opt03_structure",
+      "context": "The space of near-conserved Q_f quantities forms:",
+      "truth": "a vector space (linear combinations of conserved Q_f are conserved)",
+      "distractors": [
+        "a discrete set",
+        "no structure",
+        "a nonlinear manifold"
+      ]
+    },
+    {
+      "id": "opt04_learned_vs_energy",
+      "context": "Comparing the learned optimal f(r) to the energy kernel f(r) = -ln(r):",
+      "truth": "optimal is 2700x better (loss 5e-6 vs 1.4e-2)",
+      "distractors": [
+        "energy is optimal",
+        "same performance",
+        "optimal is slightly worse"
+      ]
+    }
+  ]
+}
