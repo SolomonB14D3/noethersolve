@@ -57,7 +57,17 @@ The optimal weighting ε = Γ₃ arises because:
 
 This confirms that Q = Σ ΓᵢΓⱼ rᵢⱼ is the natural form of the near-invariant, and the optimal weighting for restricted configurations is not arbitrary but determined by the circulation structure.
 
+## Oracle Testing (2026-03-13)
+
+The squared form `r12² + 0.01·(r13² + r23²)` was tested in the autonomy loop:
+- **Checker**: PASS (frac_var = 9.62e-12 — machine precision)
+- **Oracle**: FAIL (margin = -12.33)
+- **Verdict**: ORACLE-FAIL+CHECKER-PASS
+
+The oracle (Qwen3-4B-Base) does not recognize this exact invariant. This is a **knowledge gap** requiring a domain adapter.
+
 ## Status
 
 - Numerical: VERIFIED (ratio ε_opt/Γ₃ = 1.00 for all tested Γ₃)
+- Oracle: FAIL (margin = -12.33 — model does not recognize this)
 - Theoretical: OPEN (conjecture: follows from momentum conservation + perturbation theory)

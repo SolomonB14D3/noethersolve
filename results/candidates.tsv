@@ -11,3 +11,132 @@ timestamp	hypothesis	margin_mean	n_pass	verdict	classification
 2026-03-13	Q=Σ ΓᵢΓⱼ·rᵢⱼ on N-vortex systems	pending	6/6	CHECKER-PASS	frac_var 3e-6 to 8e-4; generalizes restricted 3-vortex Q; INDEPENDENT of H,Lz; optimal ε=Γ₃; oracle pending
 2026-03-13	Σrᵢ (dipole sum) on N parallel dipoles	pending	4/4	CHECKER-PASS	EXACT frac_var~1e-16; requires perpendicular geometry; individual dipoles vary 20-30% but sum exact; oracle pending
 2026-03-13	Q=Σ ΓᵢΓⱼ·rᵢⱼ on dipole+test vortex	pending	6/6	CHECKER-PASS	EXACT frac_var~1e-15 for ANY Γ₃; dipole symmetry cancels test vortex contribution; extends to multiple tests (approx)
+2026-03-13	r12 + 0.05·(r13 + r23) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:6.05e-03 restricted:6.05e-03
+2026-03-13	r12 + 0.1·(r13 + r23) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.25e-02 restricted:1.25e-02
+2026-03-13	r12 + 0.2·(r13 + r23) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:2.26e-02 restricted:2.26e-02
+2026-03-13	r12 + 0.5·(r13 + r23) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:4.08e-02 restricted:4.08e-02
+2026-03-13	r12 + 1.0·(r13 + r23) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:5.49e-02 restricted:5.49e-02
+2026-03-13	r12^2 + 0.05·(r13^2 + r23^2) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.21e-02 restricted:1.21e-02
+2026-03-13	r12^2 + 0.1·(r13^2 + r23^2) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:2.50e-02 restricted:2.50e-02
+2026-03-13	r12^2 + 0.2·(r13^2 + r23^2) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:4.51e-02 restricted:4.51e-02
+2026-03-13	r12^2 + 0.5·(r13^2 + r23^2) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.12e-02 restricted:8.12e-02
+2026-03-13	r12^2 + 1.0·(r13^2 + r23^2) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.09e-01 restricted:1.09e-01
+2026-03-13	r12·r13 + 0.001·r12·r23 + 0.001·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.36e-02 restricted:9.36e-02
+2026-03-13	r12·r13 + 0.001·r12·r23 + 0.005·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.38e-02 restricted:9.38e-02
+2026-03-13	r12·r13 + 0.001·r12·r23 + 0.01·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.40e-02 restricted:9.40e-02
+2026-03-13	r12·r13 + 0.001·r12·r23 + 0.02·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.45e-02 restricted:9.45e-02
+2026-03-13	r12·r13 + 0.001·r12·r23 + 0.05·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.60e-02 restricted:9.60e-02
+2026-03-13	r12·r13 + 0.001·r12·r23 + 0.1·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.83e-02 restricted:9.83e-02
+2026-03-13	r12·r13 + 0.001·r12·r23 + 0.2·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.03e-01 restricted:1.03e-01
+2026-03-13	r12·r13 + 0.001·r12·r23 + 0.5·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.13e-01 restricted:1.13e-01
+2026-03-13	r12·r13 + 0.001·r12·r23 + 1.0·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.25e-01 restricted:1.25e-01
+2026-03-13	r12·r13 + 0.005·r12·r23 + 0.001·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.34e-02 restricted:9.34e-02
+2026-03-13	r12·r13 + 0.005·r12·r23 + 0.005·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.36e-02 restricted:9.36e-02
+2026-03-13	r12·r13 + 0.005·r12·r23 + 0.01·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.39e-02 restricted:9.39e-02
+2026-03-13	r12·r13 + 0.005·r12·r23 + 0.02·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.44e-02 restricted:9.44e-02
+2026-03-13	r12·r13 + 0.005·r12·r23 + 0.05·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.59e-02 restricted:9.59e-02
+2026-03-13	r12·r13 + 0.005·r12·r23 + 0.1·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.82e-02 restricted:9.82e-02
+2026-03-13	r12·r13 + 0.005·r12·r23 + 0.2·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.03e-01 restricted:1.03e-01
+2026-03-13	r12·r13 + 0.005·r12·r23 + 0.5·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.13e-01 restricted:1.13e-01
+2026-03-13	r12·r13 + 0.005·r12·r23 + 1.0·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.25e-01 restricted:1.25e-01
+2026-03-13	r12·r13 + 0.01·r12·r23 + 0.001·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.33e-02 restricted:9.33e-02
+2026-03-13	r12·r13 + 0.01·r12·r23 + 0.005·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.35e-02 restricted:9.35e-02
+2026-03-13	r12·r13 + 0.01·r12·r23 + 0.01·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.37e-02 restricted:9.37e-02
+2026-03-13	r12·r13 + 0.01·r12·r23 + 0.02·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.42e-02 restricted:9.42e-02
+2026-03-13	r12·r13 + 0.01·r12·r23 + 0.05·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.57e-02 restricted:9.57e-02
+2026-03-13	r12·r13 + 0.01·r12·r23 + 0.1·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.80e-02 restricted:9.80e-02
+2026-03-13	r12·r13 + 0.01·r12·r23 + 0.2·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.02e-01 restricted:1.02e-01
+2026-03-13	r12·r13 + 0.01·r12·r23 + 0.5·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.13e-01 restricted:1.13e-01
+2026-03-13	r12·r13 + 0.01·r12·r23 + 1.0·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.25e-01 restricted:1.25e-01
+2026-03-13	r12·r13 + 0.02·r12·r23 + 0.001·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.29e-02 restricted:9.29e-02
+2026-03-13	r12·r13 + 0.02·r12·r23 + 0.005·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.31e-02 restricted:9.31e-02
+2026-03-13	r12·r13 + 0.02·r12·r23 + 0.01·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.34e-02 restricted:9.34e-02
+2026-03-13	r12·r13 + 0.02·r12·r23 + 0.02·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.39e-02 restricted:9.39e-02
+2026-03-13	r12·r13 + 0.02·r12·r23 + 0.05·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.53e-02 restricted:9.53e-02
+2026-03-13	r12·r13 + 0.02·r12·r23 + 0.1·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.77e-02 restricted:9.77e-02
+2026-03-13	r12·r13 + 0.02·r12·r23 + 0.2·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.02e-01 restricted:1.02e-01
+2026-03-13	r12·r13 + 0.02·r12·r23 + 0.5·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.13e-01 restricted:1.13e-01
+2026-03-13	r12·r13 + 0.02·r12·r23 + 1.0·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.25e-01 restricted:1.25e-01
+2026-03-13	r12·r13 + 0.05·r12·r23 + 0.001·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.19e-02 restricted:9.19e-02
+2026-03-13	r12·r13 + 0.05·r12·r23 + 0.005·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.21e-02 restricted:9.21e-02
+2026-03-13	r12·r13 + 0.05·r12·r23 + 0.01·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.24e-02 restricted:9.24e-02
+2026-03-13	r12·r13 + 0.05·r12·r23 + 0.02·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.29e-02 restricted:9.29e-02
+2026-03-13	r12·r13 + 0.05·r12·r23 + 0.05·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.44e-02 restricted:9.44e-02
+2026-03-13	r12·r13 + 0.05·r12·r23 + 0.1·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.68e-02 restricted:9.68e-02
+2026-03-13	r12·r13 + 0.05·r12·r23 + 0.2·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.01e-01 restricted:1.01e-01
+2026-03-13	r12·r13 + 0.05·r12·r23 + 0.5·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.12e-01 restricted:1.12e-01
+2026-03-13	r12·r13 + 0.05·r12·r23 + 1.0·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.24e-01 restricted:1.24e-01
+2026-03-13	r12·r13 + 0.1·r12·r23 + 0.001·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.05e-02 restricted:9.05e-02
+2026-03-13	r12·r13 + 0.1·r12·r23 + 0.005·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.07e-02 restricted:9.07e-02
+2026-03-13	r12·r13 + 0.1·r12·r23 + 0.01·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.09e-02 restricted:9.09e-02
+2026-03-13	r12·r13 + 0.1·r12·r23 + 0.02·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.15e-02 restricted:9.15e-02
+2026-03-13	r12·r13 + 0.1·r12·r23 + 0.05·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.30e-02 restricted:9.30e-02
+2026-03-13	r12·r13 + 0.1·r12·r23 + 0.1·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.54e-02 restricted:9.54e-02
+2026-03-13	r12·r13 + 0.1·r12·r23 + 0.2·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.99e-02 restricted:9.99e-02
+2026-03-13	r12·r13 + 0.1·r12·r23 + 0.5·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.11e-01 restricted:1.11e-01
+2026-03-13	r12·r13 + 0.1·r12·r23 + 1.0·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.23e-01 restricted:1.23e-01
+2026-03-13	r12·r13 + 0.2·r12·r23 + 0.001·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.81e-02 restricted:8.81e-02
+2026-03-13	r12·r13 + 0.2·r12·r23 + 0.005·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.83e-02 restricted:8.83e-02
+2026-03-13	r12·r13 + 0.2·r12·r23 + 0.01·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.86e-02 restricted:8.86e-02
+2026-03-13	r12·r13 + 0.2·r12·r23 + 0.02·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.91e-02 restricted:8.91e-02
+2026-03-13	r12·r13 + 0.2·r12·r23 + 0.05·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.06e-02 restricted:9.06e-02
+2026-03-13	r12·r13 + 0.2·r12·r23 + 0.1·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.31e-02 restricted:9.31e-02
+2026-03-13	r12·r13 + 0.2·r12·r23 + 0.2·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.76e-02 restricted:9.76e-02
+2026-03-13	r12·r13 + 0.2·r12·r23 + 0.5·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.09e-01 restricted:1.09e-01
+2026-03-13	r12·r13 + 0.2·r12·r23 + 1.0·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.21e-01 restricted:1.21e-01
+2026-03-13	r12·r13 + 0.5·r12·r23 + 0.001·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.39e-02 restricted:8.39e-02
+2026-03-13	r12·r13 + 0.5·r12·r23 + 0.005·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.41e-02 restricted:8.41e-02
+2026-03-13	r12·r13 + 0.5·r12·r23 + 0.01·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.44e-02 restricted:8.44e-02
+2026-03-13	r12·r13 + 0.5·r12·r23 + 0.02·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.49e-02 restricted:8.49e-02
+2026-03-13	r12·r13 + 0.5·r12·r23 + 0.05·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.63e-02 restricted:8.63e-02
+2026-03-13	r12·r13 + 0.5·r12·r23 + 0.1·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.87e-02 restricted:8.87e-02
+2026-03-13	r12·r13 + 0.5·r12·r23 + 0.2·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.30e-02 restricted:9.30e-02
+2026-03-13	r12·r13 + 0.5·r12·r23 + 0.5·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.03e-01 restricted:1.03e-01
+2026-03-13	r12·r13 + 0.5·r12·r23 + 1.0·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.16e-01 restricted:1.16e-01
+2026-03-13	r12·r13 + 1.0·r12·r23 + 0.001·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.16e-02 restricted:8.16e-02
+2026-03-13	r12·r13 + 1.0·r12·r23 + 0.005·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.17e-02 restricted:8.17e-02
+2026-03-13	r12·r13 + 1.0·r12·r23 + 0.01·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.19e-02 restricted:8.19e-02
+2026-03-13	r12·r13 + 1.0·r12·r23 + 0.02·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.23e-02 restricted:8.23e-02
+2026-03-13	r12·r13 + 1.0·r12·r23 + 0.05·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.36e-02 restricted:8.36e-02
+2026-03-13	r12·r13 + 1.0·r12·r23 + 0.1·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.55e-02 restricted:8.55e-02
+2026-03-13	r12·r13 + 1.0·r12·r23 + 0.2·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.92e-02 restricted:8.92e-02
+2026-03-13	r12·r13 + 1.0·r12·r23 + 0.5·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:9.84e-02 restricted:9.84e-02
+2026-03-13	r12·r13 + 1.0·r12·r23 + 1.0·r13·r23 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.10e-01 restricted:1.10e-01
+2026-03-13	(r13 - r23)^2 on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:7.86e-01 restricted:7.86e-01
+2026-03-13	r12/(r13 + r23) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:8.53e-02 restricted:8.53e-02
+2026-03-13	H·r12 + 0.1·Lz on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:1.70e-02 restricted:1.70e-02
+2026-03-13	(r13^2 - r23^2)/(r13^2 + r23^2 + 1e-10) on restricted (auto)	pending	1/1	CHECKER-FAIL	restricted:6.61e-01 restricted:6.61e-01
+2026-03-13	r12 + 0.001·(r13 + r23) on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=1.50e-03 restricted:1.50e-03
+2026-03-13	r12 + 0.005·(r13 + r23) on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=8.29e-04 restricted:8.29e-04
+2026-03-13	r12 + 0.01·(r13 + r23) on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=5.36e-06 restricted:5.36e-06
+2026-03-13	r12 + 0.02·(r13 + r23) on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=1.60e-03 restricted:1.60e-03
+2026-03-13	r12^2 + 0.001·(r13^2 + r23^2) on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=3.00e-03 restricted:3.00e-03
+2026-03-13	r12^2 + 0.005·(r13^2 + r23^2) on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=1.65e-03 restricted:1.65e-03
+2026-03-13	r12^2 + 0.01·(r13^2 + r23^2) on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=9.62e-12 restricted:9.62e-12
+2026-03-13	r12^2 + 0.02·(r13^2 + r23^2) on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=3.21e-03 restricted:3.21e-03
+2026-03-13	H + 0.001·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=6.88e-12 restricted:6.88e-12
+2026-03-13	H + 0.005·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=6.66e-12 restricted:6.66e-12
+2026-03-13	H + 0.01·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=6.33e-12 restricted:6.33e-12
+2026-03-13	H + 0.02·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=5.40e-12 restricted:5.40e-12
+2026-03-13	H + 0.05·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=1.83e-11 restricted:1.83e-11
+2026-03-13	H + 0.1·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=1.30e-11 restricted:1.30e-11
+2026-03-13	H + 0.2·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=1.07e-11 restricted:1.07e-11
+2026-03-13	H + 0.5·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=9.96e-12 restricted:9.96e-12
+2026-03-13	H + 1.0·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=9.78e-12 restricted:9.78e-12
+2026-03-13	H - 0.001·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=6.97e-12 restricted:6.97e-12
+2026-03-13	H - 0.005·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=7.15e-12 restricted:7.15e-12
+2026-03-13	H - 0.01·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=7.34e-12 restricted:7.34e-12
+2026-03-13	H - 0.02·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=7.64e-12 restricted:7.64e-12
+2026-03-13	H - 0.05·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=8.21e-12 restricted:8.21e-12
+2026-03-13	H - 0.1·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=8.66e-12 restricted:8.66e-12
+2026-03-13	H - 0.2·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=9.04e-12 restricted:9.04e-12
+2026-03-13	H - 0.5·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=9.35e-12 restricted:9.35e-12
+2026-03-13	H - 1.0·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=9.48e-12 restricted:9.48e-12
+2026-03-13	H·r12 + 0.001·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=1.68e-03 restricted:1.68e-03
+2026-03-13	H·r12 + 0.005·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=1.75e-03 restricted:1.75e-03
+2026-03-13	H·r12 + 0.01·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=1.83e-03 restricted:1.83e-03
+2026-03-13	H·r12 + 0.02·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=2.04e-03 restricted:2.04e-03
+2026-03-13	H·r12 + 0.05·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=3.04e-03 restricted:3.04e-03
+2026-03-13	H·r12 + 0.2·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=2.08e-03 restricted:2.08e-03
+2026-03-13	H·r12 + 0.5·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=4.76e-04 restricted:4.76e-04
+2026-03-13	H·r12 + 1.0·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=2.08e-04 restricted:2.08e-04

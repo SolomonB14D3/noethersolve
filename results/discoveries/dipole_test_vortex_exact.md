@@ -2,21 +2,25 @@
 
 ## Discovery
 
-**For a perfect vortex dipole (Γ₁ = -Γ₂) plus any number of test vortices, the weighted distance sum Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ is exactly conserved:**
+**For a perfect vortex dipole (Γ₁ = -Γ₂) plus ONE test vortex ON THE SYMMETRY AXIS, the weighted distance sum Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ is exactly conserved:**
 
 Q = const (frac_var ~ 10⁻¹⁵)
 
 This holds for **any** test vortex strength, not just weak vortices.
 
-## Configuration
+## Critical Requirement: Symmetric Placement
+
+The test vortex MUST be on the perpendicular bisector of the dipole (symmetry axis):
 
 ```
-     test vortex (Γ₃)
-          ●
-         / \
-        /   \
-   (+Γ)●─────●(-Γ)    ← perfect dipole
+          ●  test vortex (Γ₃) on y-axis
+          |
+          |  ← symmetry axis
+          |
+   (+Γ)●──┼──●(-Γ)    ← perfect dipole on x-axis
 ```
+
+**Asymmetric placement breaks exact conservation!**
 
 ## Verification
 
@@ -47,18 +51,31 @@ Key observations:
 
 The weighted sum automatically exploits the symmetry: the test vortex's contribution Γ₃(r₁₃ - r₂₃) vanishes on average, leaving Q ≈ -Γ²·r₁₂ = const.
 
+## Asymmetric Placement (2026-03-13 update)
+
+When the test vortex is OFF the symmetry axis, the invariant breaks:
+
+| Placement | Γ_test | frac_var | Verdict |
+|-----------|--------|----------|---------|
+| (0, 2) symmetric | 0.1 | 4.99e-15 | EXACT |
+| (0.5, 2) off-axis | 0.1 | 9.38e-03 | Approximate |
+| (1.0, 2) off-axis | 0.1 | 7.45e-03 | Approximate |
+| (2.0, 2) off-axis | 0.1 | 2.91e-03 | Approximate |
+
+The exact invariant requires r₁₃ = r₂₃ at all times (by symmetry).
+
 ## Extension to Multiple Test Vortices
 
-With multiple test vortices, the invariant becomes approximate:
+With two or more test vortices, the invariant becomes approximate even with symmetric placement:
 
 | Configuration | frac_var | Verdict |
 |---------------|----------|---------|
-| Dipole + 1 test | 7.45e-03 | PASS |
-| Dipole + 2 tests | 8.60e-04 | PASS |
-| Dipole + 3 tests | 1.09e-03 | PASS |
-| Dipole + 4 tests | 1.89e-03 | PASS |
+| Dipole + 1 test (symmetric) | 4.99e-15 | EXACT |
+| Dipole + 2 tests | 9.12e-04 | Approximate |
+| Dipole + 3 tests | 1.09e-03 | Approximate |
+| Dipole + 4 tests | 1.89e-03 | Approximate |
 
-Still passes frac_var < 0.01 for all configurations.
+The second test vortex breaks the symmetry required for exact conservation.
 
 ## Relation to Linear Impulse
 
