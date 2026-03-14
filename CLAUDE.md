@@ -97,8 +97,18 @@ promoted to high-priority in the open questions queue.
 |---|--------|---------|-----------|--------|
 | 1 | PASS | PASS | — | Archive, add to verification set |
 | 2 | FAIL | PASS | improves | Apply adapter, re-verify |
-| 3 | FAIL | PASS | worsens | **Knowledge gap** — train domain adapter |
+| 3 | FAIL | PASS | worsens | **Knowledge gap** — try staged training (see below) |
 | 4 | — | FAIL | — | Discard |
+
+**Staged training (for interference).** If single-pass adapter training makes
+margins worse (Quadrant 3), don't give up. Group the facts into conceptual
+clusters (e.g., symplectic structure, then Noether/Poisson, then energy/action,
+then specific systems). Train each cluster sequentially, verifying zero
+regression at each stage before moving to the next. This solved Hamiltonian
+mechanics: single-pass went from 1/16 to 2/16 with worsening margins, staged
+training reached 16/16 in 5 stages with zero regression throughout. The hardest
+facts (KAM: -59.8 to +3.9, Henon-Heiles: -138.2 to +7.9) only flipped after
+the foundational clusters were already consolidated.
 
 ---
 

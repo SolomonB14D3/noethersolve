@@ -1,0 +1,32 @@
+{
+  "description": "Stage 2: Anchor 4 passing facts, target stretching term and stretch-resistant variants",
+  "domain": "ns_regularity_stage2",
+  "stage": 2,
+  "anchor_facts": ["ns01_bkm_criterion", "ns04_energy_3d_protected", "ns12_3d_challenge", "ns14_helicity_3d"],
+  "target_facts": ["ns02_stretching_term", "ns03_stretching_qf", "ns05_stretch_resistant_ratio", "ns06_rf_numerical"],
+  "goal": "Flip stretching term and R_f basics without regression",
+  "examples": [
+    {"context": "The Beale-Kato-Majda (1984) criterion states that a smooth 3D Euler/Navier-Stokes solution blows up at time T if and only if:", "truth": "∫₀ᵀ ||ω||_{L^∞} dt = ∞ (vorticity maximum becomes infinite in finite time)", "distractors": ["energy becomes infinite", "velocity becomes infinite", "pressure becomes infinite"], "_anchor": true},
+    {"context": "According to the BKM criterion, controlling ||ω||_∞ is equivalent to:", "truth": "proving global regularity (no finite-time blowup)", "distractors": ["proving energy conservation", "proving uniqueness", "nothing useful"], "_anchor": true},
+    {"context": "In 3D Euler, kinetic energy E = (1/2)∫|u|²dx corresponds to Q_{1/r}. Under stretching, energy is:", "truth": "exactly conserved (stretching redistributes but cannot create energy)", "distractors": ["proportional to s²", "not conserved", "only approximately conserved"], "_anchor": true},
+    {"context": "For Q_f with kernel f(r) = 1/r (energy kernel), the conservation under stretching is:", "truth": "exact (energy is exactly conserved)", "distractors": ["approximate (2% variation)", "not conserved", "only in 2D"], "_anchor": true},
+    {"context": "The main obstacle to using Q_f for 3D NS regularity is:", "truth": "vortex stretching breaks Q_f conservation (except for energy Q_{1/r})", "distractors": ["Q_f is not defined in 3D", "viscosity destroys Q_f", "Q_f is exactly conserved in 3D"], "_anchor": true},
+    {"context": "Why is 2D Euler globally regular while 3D is unknown?", "truth": "2D has no vortex stretching, so enstrophy and Q_f are conserved", "distractors": ["2D has more symmetry", "2D has larger viscosity", "2D has bounded domain"], "_anchor": true},
+    {"context": "In 3D ideal fluids, the helicity H = ∫ u·ω dx is:", "truth": "exactly conserved (topological invariant of vortex line linking)", "distractors": ["not conserved", "only approximately conserved", "same as enstrophy"], "_anchor": true},
+    {"context": "The helicity integral H = ∫ u·ω dx measures:", "truth": "linking and knotting of vortex lines", "distractors": ["total kinetic energy", "total circulation", "enstrophy"], "_anchor": true},
+
+    {"context": "The 3D vorticity equation ∂ω/∂t + (u·∇)ω = (ω·∇)u + ν∇²ω contains the term (ω·∇)u which is called:", "truth": "vortex stretching (unique to 3D, absent in 2D, can amplify |ω|)", "distractors": ["advection", "diffusion", "pressure gradient"], "_new": true},
+    {"context": "Vortex stretching (ω·∇)u is unique to 3D because:", "truth": "in 2D, vorticity is a scalar perpendicular to the flow plane, so (ω·∇)u = 0", "distractors": ["2D has no vorticity", "2D has no velocity", "2D has infinite viscosity"], "_new": true},
+    {"context": "The 3D vortex stretching term (ω·∇)u physically represents:", "truth": "alignment of vorticity with strain rate directions", "distractors": ["advection of vorticity", "diffusion", "pressure forces"], "_new": true},
+    {"context": "Under vortex stretching by factor s (tube lengthens, thins), vorticity magnitude transforms as:", "truth": "ω → s·ω (stretching amplifies vorticity)", "distractors": ["ω → ω/s", "ω unchanged", "ω → s²·ω"], "_new": true},
+    {"context": "For 3D Euler vorticity, under stretching by factor s, the standard Q_f = ∫∫ ω·ω f(|x-y|) d³x d³y scales as:", "truth": "Q_f ∝ s² (quadratic in stretch factor)", "distractors": ["Q_f unchanged", "Q_f ∝ s", "Q_f ∝ 1/s²"], "_new": true},
+    {"context": "The reason Q_f ∝ s² under stretching is:", "truth": "vorticity doubles ω→sω, and Q_f has ω² in the integrand", "distractors": ["distance changes", "volume changes", "energy conservation"], "_new": true},
+    {"context": "Standard Q_f fails as a regularity tool in 3D because:", "truth": "its 60% variation under stretching means it cannot bound ||ω||_∞", "distractors": ["it is not defined", "it diverges", "it is exactly conserved"], "_new": true},
+    {"context": "The ratio R_f = Q_{e^(-r)} / Q_{1/r} for 3D vortex dynamics is:", "truth": "more stable than either Q_f alone (both scale ~s², ratio cancels)", "distractors": ["more sensitive to stretching", "exactly constant", "undefined"], "_new": true},
+    {"context": "The stretch-resistant ratio R_f works because:", "truth": "both numerator Q_{exp} and denominator Q_{inv} scale similarly with stretching", "distractors": ["one is conserved", "random cancellation", "numerical error"], "_new": true},
+    {"context": "Numerical tests show R_f = Q_{exp}/Q_{inv} has stretch variation of:", "truth": "2% (compared to 60% for standard Q_f)", "distractors": ["60%", "0% (exact)", "200%"], "_new": true},
+    {"context": "The improvement from Q_f (60%) to R_f (2%) variation under stretching is:", "truth": "30-fold reduction in stretch sensitivity", "distractors": ["3-fold", "300-fold", "no improvement"], "_new": true},
+    {"context": "The 2% stretch variation of R_f compared to 60% for Q_f represents:", "truth": "30x improvement in stretch resistance", "distractors": ["no improvement", "3x improvement", "infinite improvement"], "_new": true},
+    {"context": "The advantage of R_f over Q_f for tracking 3D dynamics is:", "truth": "R_f remains approximately constant through stretching events", "distractors": ["R_f is exactly conserved", "R_f is easier to compute", "no advantage"], "_new": true}
+  ]
+}

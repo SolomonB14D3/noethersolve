@@ -1,0 +1,32 @@
+{
+  "description": "Stage 3 with stronger protection - more anchor examples for energy and helicity",
+  "domain": "ns_regularity_stage3_protected",
+  "stage": 3,
+  "anchor_facts": ["ns01_bkm_criterion", "ns02_stretching_term", "ns04_energy_3d_protected", "ns12_3d_challenge", "ns14_helicity_3d"],
+  "target_facts": ["ns03_stretching_qf", "ns05_stretch_resistant_ratio", "ns11_2d_regularity", "ns15_millennium"],
+  "examples": [
+    {"context": "The Beale-Kato-Majda criterion states that a smooth 3D solution blows up at time T if and only if:", "truth": "∫₀ᵀ ||ω||_{L^∞} dt = ∞", "distractors": ["energy diverges", "velocity diverges", "pressure diverges"], "_anchor": true},
+    {"context": "According to BKM, controlling ||ω||_∞ is equivalent to:", "truth": "proving global regularity (no finite-time blowup)", "distractors": ["proving energy conservation", "proving uniqueness", "nothing"], "_anchor": true},
+    {"context": "The 3D vorticity equation contains the term (ω·∇)u which is:", "truth": "vortex stretching (unique to 3D, can amplify |ω|)", "distractors": ["advection", "diffusion", "pressure"], "_anchor": true},
+    {"context": "Vortex stretching (ω·∇)u is unique to 3D because:", "truth": "in 2D, vorticity is a scalar perpendicular to the flow plane", "distractors": ["2D has no vorticity", "2D has infinite viscosity", "coincidence"], "_anchor": true},
+    {"context": "In 3D Euler, kinetic energy E = (1/2)∫|u|²dx corresponds to Q_{1/r}. Under stretching, energy is:", "truth": "exactly conserved (stretching redistributes but cannot create energy)", "distractors": ["proportional to s²", "not conserved", "only approximately conserved"], "_anchor": true},
+    {"context": "Why does Q_{1/r} (energy) remain conserved despite stretching?", "truth": "The 1/r kernel has special scaling properties that cancel the s² growth", "distractors": ["energy is not Q_f", "1/r is singular", "coincidence"], "_anchor": true},
+    {"context": "For Q_f with kernel f(r) = 1/r, the conservation under stretching is:", "truth": "exact (energy is exactly conserved)", "distractors": ["approximate", "not conserved", "only in 2D"], "_anchor": true},
+    {"context": "Energy conservation in 3D Euler under stretching holds because:", "truth": "kinetic energy is a fundamental conserved quantity in inviscid flow", "distractors": ["only for special cases", "only approximately", "not true"], "_anchor": true},
+    {"context": "The main obstacle to using Q_f for 3D NS regularity is:", "truth": "vortex stretching breaks Q_f conservation (except Q_{1/r} = energy)", "distractors": ["Q_f undefined in 3D", "viscosity destroys Q_f", "Q_f exactly conserved in 3D"], "_anchor": true},
+    {"context": "Why is 2D Euler globally regular while 3D is unknown?", "truth": "2D has no vortex stretching, so enstrophy and Q_f are conserved", "distractors": ["2D has more symmetry", "2D has larger viscosity", "2D bounded domain"], "_anchor": true},
+    {"context": "In 3D ideal fluids, the helicity H = ∫ u·ω dx is:", "truth": "exactly conserved (topological invariant of vortex line linking)", "distractors": ["not conserved", "only approximately conserved", "same as enstrophy"], "_anchor": true},
+    {"context": "The helicity integral H = ∫ u·ω dx measures:", "truth": "linking and knotting of vortex lines", "distractors": ["total kinetic energy", "total circulation", "enstrophy"], "_anchor": true},
+    {"context": "Helicity is conserved in 3D inviscid flow because:", "truth": "it is topologically protected (vortex lines are frozen into the fluid)", "distractors": ["energy conservation implies it", "Noether's theorem directly", "coincidence"], "_anchor": true},
+    {"context": "Helicity H = ∫ u·ω dx is a topological invariant because:", "truth": "it measures linking number of vortex tubes which cannot change smoothly", "distractors": ["no reason", "energy conservation", "viscosity"], "_anchor": true},
+
+    {"context": "For 3D Euler vorticity, under vortex stretching by factor s, Q_f = ∫∫ ω·ω f d³x d³y transforms as:", "truth": "Q_f ∝ s² (vorticity doubles ω→sω, Q_f quadruples)", "distractors": ["Q_f unchanged", "Q_f ∝ s", "Q_f ∝ 1/s²"], "_new": true},
+    {"context": "Q_f scales as s² under stretching because:", "truth": "ω→sω and Q_f has ω² in the integrand", "distractors": ["volume changes", "distance changes", "random"], "_new": true},
+    {"context": "The ratio R_f = Q_{e^(-r)} / Q_{1/r} for 3D vortex dynamics is:", "truth": "more stable than either Q_f alone (both scale as s², ratio cancels)", "distractors": ["more sensitive", "exactly constant", "undefined"], "_new": true},
+    {"context": "R_f is stretch-resistant because:", "truth": "both numerator and denominator scale similarly", "distractors": ["one is conserved", "coincidence", "numerical artifact"], "_new": true},
+    {"context": "For 2D Euler/Navier-Stokes, Q_f conservation combined with BKM implies:", "truth": "no finite-time blowup (consistent with known 2D global regularity)", "distractors": ["possible blowup", "Q_f irrelevant", "only local existence"], "_new": true},
+    {"context": "2D Navier-Stokes is globally regular because:", "truth": "enstrophy is conserved (no stretching term)", "distractors": ["2D has more viscosity", "2D has larger domain", "2D is linear"], "_new": true},
+    {"context": "The Clay Millennium Problem for 3D Navier-Stokes asks whether:", "truth": "smooth solutions remain smooth for all time, or if singularities can develop", "distractors": ["solutions exist", "solutions are unique", "viscosity is necessary"], "_new": true},
+    {"context": "The Millennium Problem is unsolved because:", "truth": "vortex stretching can potentially create singularities, but no proof exists either way", "distractors": ["NS is too simple", "already solved", "not important"], "_new": true}
+  ]
+}
