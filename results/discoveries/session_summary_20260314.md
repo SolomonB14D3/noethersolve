@@ -123,7 +123,7 @@ Total candidates: 183 (from 169)
 | EM conservation | 12 | 1/12 | em_adapter_v4 | 6/12 (50%) | FIXABLE_BIAS |
 | Continuous Q_f | 12 | 0/12 | qf_continuous | 7/12 (58%) | FIXABLE_BIAS |
 | NS regularity | 16 | 0/16 | ns_adapter | 2/16 (12.5%) | KNOWLEDGE_GAP |
-| K invariant | 8 | 0/8 | k_adapter_v2 | 3/8 (37.5%) | FIXABLE_BIAS |
+| K invariant | 8 | 0/8 | k_adapter_v3 | 5/8 (62.5%) | FIXABLE_BIAS |
 | Optimal f(r) | 4 | 0/4 | optimal_f_adapter | 2/4 (50%) | FIXABLE_BIAS |
 | Q_f Ratio | 8 | 0/8 | qf_ratio_adapter | **8/8 (100%)** | **DUAL-PASS** |
 
@@ -182,7 +182,7 @@ Only 1 fact remains (mass-action kinetics rate formula) - basic chemistry.
 | EM conservation | 12 | 1/12 | em_adapter_v4 | 6/12 (50%) | FIXABLE_BIAS |
 | Continuous Q_f | 12 | 0/12 | qf_continuous | 7/12 (58%) | FIXABLE_BIAS |
 | NS regularity | 16 | 0/16 | ns_adapter | 2/16 (12.5%) | KNOWLEDGE_GAP |
-| K invariant | 8 | 0/8 | k_adapter_v2 | 3/8 (37.5%) | FIXABLE_BIAS |
+| K invariant | 8 | 0/8 | k_adapter_v3 | 5/8 (62.5%) | FIXABLE_BIAS |
 | Optimal f(r) | 4 | 0/4 | optimal_f_adapter | 2/4 (50%) | FIXABLE_BIAS |
 | Q_f Ratio | 8 | 0/8 | qf_ratio_adapter | **8/8 (100%)** | **DUAL-PASS** |
 | Chemical Conservation | 16 | 0/16 | chemical_adapter | **15/16 (93.75%)** | **NEAR-DUAL-PASS** |
@@ -231,7 +231,7 @@ The adapter made margins worse overall while only flipping 1 extra fact:
 | EM conservation | 12 | 1/12 | em_adapter_v4 | 6/12 (50%) | FIXABLE_BIAS |
 | Continuous Q_f | 12 | 0/12 | qf_continuous | 7/12 (58%) | FIXABLE_BIAS |
 | NS regularity | 16 | 0/16 | ns_adapter | 2/16 (12.5%) | KNOWLEDGE_GAP |
-| K invariant | 8 | 0/8 | k_adapter_v2 | 3/8 (37.5%) | FIXABLE_BIAS |
+| K invariant | 8 | 0/8 | k_adapter_v3 | 5/8 (62.5%) | FIXABLE_BIAS |
 | Optimal f(r) | 4 | 0/4 | optimal_f_adapter | 2/4 (50%) | FIXABLE_BIAS |
 | Q_f Ratio | 8 | 0/8 | qf_ratio_adapter | **8/8 (100%)** | **DUAL-PASS** |
 | Chemical Conservation | 16 | 0/16 | chemical_adapter | **15/16 (93.75%)** | **NEAR-DUAL-PASS** |
