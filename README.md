@@ -149,6 +149,14 @@ Standard Q_f varies 60% under vortex stretching, which is the mechanism behind p
 
 R_f = Q_{e^(-r)} / Q_{1/r} survives stretching because both numerator and denominator scale as ~L² under stretching, and the ratio cancels. Physically, R_f measures the locality of vorticity interactions: how much the dynamics depends on nearby vs distant vorticity. Combined with energy conservation, R_f provides a constraint that persists through the stretching that could cause 3D blowup. See `research/qf_regularity_connection.md` and `research/test_stretch_resistant_qf.py`.
 
+### Electromagnetism (New Domain)
+
+Spectral Maxwell solver verifying conservation of obscure EM invariants (Lipkin's zilch, optical chirality, helicity, super-energy). All confirmed exactly conserved (frac_var < 10^-6).
+
+Oracle results on Qwen3-4B-Base: **2/10 pass rate**. The model fails on basic energy conservation (margin -4.08) and momentum (margin -5.35), not just obscure quantities. Zilch (margin -11.63) and super-energy (margin -9.94) are complete knowledge gaps. Adapter repair makes it worse (mean margin -3.89 to -63.82), confirming this is knowledge gap mode, not fixable bias.
+
+See `results/discoveries/em_zilch_chirality.md` and `results/discoveries/em_frozen_priors.md`.
+
 Full history: `results/candidates.tsv` (159 entries)
 
 ---
@@ -194,6 +202,7 @@ NoetherSolve
 ├── problems/                   ← Domain plugins (fork here)
 │   ├── problem_template.yaml
 │   ├── vortex_pair_conservation.yaml
+│   ├── em_zilch.yaml           ← Electromagnetic zilch/chirality
 │   └── *_facts.json            ← Verification sets
 │
 ├── training/
@@ -204,13 +213,14 @@ NoetherSolve
 │   │   └── train_prior_breaker.py
 │   └── data/                   ← Training JSON files
 │
-├── research/                   ← Q_f extension + NS regularity experiments
+├── research/                   ← Q_f extension + NS regularity + EM experiments
 │   ├── test_continuous_qf.py   ← 2D Euler verification
 │   ├── test_qf_turbulence.py   ← Turbulent dynamics
 │   ├── test_3d_vortex_qf.py    ← 3D vortex rings
 │   ├── test_qf_viscous.py      ← Navier-Stokes viscous decay
 │   ├── test_stretch_resistant_qf.py ← R_f ratio (survives stretching)
 │   ├── learn_optimal_f.py      ← Gradient descent for optimal f(r)
+│   ├── maxwell_zilch.py        ← Spectral Maxwell solver + EM invariants
 │   └── qf_regularity_connection.md
 │
 ├── paper/
