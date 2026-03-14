@@ -1,5 +1,7 @@
 # NoetherSolve
 
+**https://github.com/SolomonB14D3/noethersolve** · **https://solomonb14d3.github.io/noethersolve**
+
 **Find what LLMs don't know about what the universe conserves. Then fix it.**
 
 Emmy Noether proved that every continuous symmetry of a physical system
