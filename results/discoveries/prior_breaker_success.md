@@ -69,3 +69,32 @@ Hyperparameters:
 - Learning rate: 3e-6
 - Divergence weight: 2.0
 - Anchor weight: 3.0
+
+## Phase 2 Analysis
+
+After loading the prior_breaker adapter:
+
+| α | Margin | Actual frac_var |
+|---|--------|-----------------|
+| 2.0 | -513 (best) | 8.0e-4 |
+| 1.0 | -586 | 2.08e-4 (best) |
+| 0.5 | -681 | 5.0e-4 |
+| 0.1 | -901 | 1.2e-3 |
+| 10.0 | -920 | 3.5e-3 |
+| 0.01 | -1032 | 1.5e-3 |
+| 0.001 | -1087 (worst) | 1.68e-3 |
+
+**Correlation (margin vs frac_var): r = -0.109** (no relationship!)
+
+### Insights
+
+1. The model learned to DISCRIMINATE between α values (good!)
+2. But it doesn't map to PHYSICS (actual conservation quality)
+3. Model "prefers" α ∈ [1, 2] for some internal reason
+4. Q₁ validation margin (-536.8) is in the α~1 region
+
+### Next Steps
+
+Option A: Add physics supervision (train with explicit frac_var targets)
+Option B: Use Q₁ as validation - if margin improves, physics is being learned
+Option C: Analyze what features the adapter is using to discriminate α
