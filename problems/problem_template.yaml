@@ -1,0 +1,63 @@
+# Operation Frontier — Problem Template
+# Copy this file, fill in the fields, and run:
+#   python oracle_wrapper.py --problem problems/your_problem.yaml --repair
+
+problem:
+  name: "describe_what_youre_looking_for"   # e.g. "3body_conservation_law"
+  description: |
+    One paragraph: what unsolved or partially-solved structure you're hunting.
+    What would a correct answer look like? What domain does it live in?
+
+  # Model to use as the oracle base
+  model: "Qwen/Qwen3-4B-Base"              # or Qwen2.5-1.5B for faster iteration
+
+  # Oracle method (always stem_margin for now)
+  oracle: "stem_margin"
+
+  # Path to verification set JSON (relative to this file)
+  # Format: {"facts": [{"context": ..., "truth": ..., "distractors": [...]}]}
+  verification_set: "your_problem_facts.json"
+
+  # Fraction of verification facts that must have positive margin to pass
+  # 1.0 = all facts must pass (strict)
+  # 0.8 = 80% must pass (allows a few boundary cases)
+  pass_threshold: 0.8
+
+  # Additional monitors beyond margin sign
+  # Full list: see monitors/__init__.py — one file per discovery.
+  # Evolution rule: new monitors are manual files until 3-5 discoveries
+  # accumulate a common pattern, then get auto-registered in monitors/registry.py.
+  monitors:
+    - margin_sign                        # always required (oracle log-prob filter)
+    # - sum_pairwise_distances_variance  # r12+r13+r23 near-conservation (figure-8 Z3)
+    # - e2_symmetric_poly_variance       # r12*r13+r12*r23+r13*r23 (figure-8, C10)
+    # - rms_pairwise_variance            # sqrt((r12^2+r13^2+r23^2)/3) (figure-8, C09)
+    # - energy_violation                 # |E(t)-E(0)|/|E(0)| — integrator sanity
+    # - rho_expression_unlock            # expression gap from rho-unlock tool
+    # - sympy_simplify                   # SymPy equivalence check
+
+  # Adapter for repair pass (leave null to use default mixed adapter)
+  adapter: null            # or path to custom .npz
+
+  # Reward function configuration
+  # Controls how oracle_wrapper.py scores candidates and triggers special modes.
+  reward:
+    primary: margin_after_repair       # optimise this signal
+    secondary: frac_var                # minimise this (formal checker quality)
+    knowledge_gap_trigger: -5.0        # if margin_delta < this after repair → knowledge_gap_mode
+    # knowledge_gap_mode options (uncomment one when triggered):
+    #   generate_data: true            # scaffold fine-tune data generation
+    #   next_problem: true             # skip to batch 3 / new domain
+    #   train_domain_adapter: true     # train choreography-specific adapter
+
+  # Compute budget for any autoresearch loop attached to this problem
+  budget: "500 steps or 1M tokens"
+
+  # Whether to allow hypotheses that break known cases temporarily
+  destructive_mode: true
+
+  # Notes for Claude's program.md context
+  notes: |
+    Add any domain knowledge here that Claude should use when proposing
+    hypotheses. What structure do you suspect is missing? What analogs
+    exist in nearby solved problems?

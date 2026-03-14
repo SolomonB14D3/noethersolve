@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+*.egg
+
+# Adapter weights (large binary files — train locally)
+adapters/*.npz
+
+# Hunt results (regenerated)
+results/hunt_results.json
+
+# Dashboard charts (regenerated from candidates.tsv)
+results/charts/
+
+# Secrets
+.env
+*.key
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# open_questions.jsonl — TRACKED (shared AI-generated hypothesis queue)
+# If you want to gitignore it, uncomment:
+# results/open_questions.jsonl

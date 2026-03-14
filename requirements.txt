@@ -1,0 +1,16 @@
+# Core (all platforms)
+numpy>=1.24
+scipy>=1.11
+pyyaml>=6.0
+anthropic>=0.40
+
+# Apple Silicon / MLX backend
+# Uncomment if on Apple Silicon:
+# mlx>=0.18
+# mlx-lm>=0.18
+
+# Linux / CUDA backend
+# Uncomment if on Linux with GPU:
+# torch>=2.1
+# transformers>=4.40
+# accelerate>=0.28

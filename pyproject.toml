@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "noethersolve"
+version = "0.1.0"
+description = "Find conserved quantities that LLMs don't recognize, then close those gaps with targeted adapters."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+keywords = ["physics", "llm", "conservation-laws", "adapters", "interpretability"]
+
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.11",
+    "pyyaml>=6.0",
+    "anthropic>=0.40",
+]
+
+[project.optional-dependencies]
+mlx = [
+    "mlx>=0.18",
+    "mlx-lm>=0.18",
+]
+torch = [
+    "torch>=2.1",
+    "transformers>=4.40",
+    "accelerate>=0.28",
+]
+dev = [
+    "pytest>=8.0",
+    "black>=24.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+noethersolve = "autonomy_loop:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["noethersolve*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = ["E501"]
