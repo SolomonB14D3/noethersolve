@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Numerical conservation checker for Operation Frontier.
+Numerical conservation checker for NoetherSolve.
 
 Given a candidate expression (as a Python lambda or string), integrates
 3-body gravitational trajectories and checks whether the expression is
@@ -382,7 +382,7 @@ def main():
     args = parser.parse_args()
 
     print("\n" + "="*65)
-    print("  Conservation Checker — Operation Frontier")
+    print("  Conservation Checker — NoetherSolve")
     print("  Formal verifier: d(candidate)/dt ≈ 0 along integrated trajectories")
     print("="*65)
 

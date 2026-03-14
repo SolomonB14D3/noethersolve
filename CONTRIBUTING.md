@@ -68,7 +68,7 @@ verification_set: "my_domain_facts.json"
 pass_threshold: 0.8
 monitors:
   - margin_sign        # required
-monitors:              # add domain-specific ones as needed
+  # add domain-specific ones as needed
 adapter: null          # or path to domain adapter if you've trained one
 ```
 

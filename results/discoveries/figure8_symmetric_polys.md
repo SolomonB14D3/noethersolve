@@ -1,7 +1,7 @@
 # Discovery: Z₃ Symmetric Polynomial Near-Invariants on the Figure-8 Orbit
 
 **Date:** 2026-03-13
-**Pipeline:** Operation Frontier Phase 2
+**Pipeline:** NoetherSolve Phase 2
 **Status:** Formal checker confirmed. Oracle gap confirmed. Repair pass ruled out.
 
 ---

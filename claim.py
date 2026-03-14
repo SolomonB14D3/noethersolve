@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Claim/release problems in Operation Frontier.
+Claim/release problems in NoetherSolve.
 
 Coordination protocol adapted from autoresearch-at-home (mutable-state-inc).
 Prevents duplicate work when multiple contributors hunt the same domain.
@@ -134,7 +134,7 @@ def cmd_gc(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Operation Frontier claim manager")
+    parser = argparse.ArgumentParser(description="NoetherSolve claim manager")
     sub    = parser.add_subparsers(dest="cmd")
 
     sub.add_parser("list",  help="Show active claims")

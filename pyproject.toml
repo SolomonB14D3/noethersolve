@@ -1,21 +1,20 @@
 [build-system]
 requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "noethersolve"
-version = "0.1.0"
-description = "Find conserved quantities that LLMs don't recognize, then close those gaps with targeted adapters."
+version = "0.2.1"
+description = "Automated scientific discovery: use LLM knowledge gaps as a compass to find underexplored science."
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
-keywords = ["physics", "llm", "conservation-laws", "adapters", "interpretability"]
+keywords = ["autoresearch", "scientific-discovery", "llm", "conservation-laws", "adapters"]
 
 dependencies = [
     "numpy>=1.24",
     "scipy>=1.11",
     "pyyaml>=6.0",
-    "anthropic>=0.40",
 ]
 
 [project.optional-dependencies]
@@ -28,14 +27,17 @@ torch = [
     "transformers>=4.40",
     "accelerate>=0.28",
 ]
+auto = [
+    "anthropic>=0.40",
+]
+dashboard = [
+    "matplotlib>=3.7",
+]
 dev = [
     "pytest>=8.0",
     "black>=24.0",
     "ruff>=0.4",
 ]
-
-[project.scripts]
-noethersolve = "autonomy_loop:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

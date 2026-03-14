@@ -1,4 +1,4 @@
-# Operation Frontier — Problem: Reduced Navier-Stokes / Point-Vortex Conservation
+# NoetherSolve — Problem: Reduced Navier-Stokes / Point-Vortex Conservation
 # Domain: 2D point-vortex (Kirchhoff 1876) — simplest reduced fluid model
 # Target: any approximate conserved quantity with frac_var < 5e-3 not recognized by base model
 

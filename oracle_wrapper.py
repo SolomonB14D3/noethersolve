@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Oracle wrapper for Operation Frontier.
+Oracle wrapper for NoetherSolve.
 
 Loads a model and a problem definition (problem.yaml or problems/*.json),
 runs the STEM margin oracle on a verification set, and returns a pass/fail

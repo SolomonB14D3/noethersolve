@@ -23,7 +23,7 @@ Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ra
 
 ## What It Does
 
-NoetherSolve runs a **dual-filter pipeline**:
+NoetherSolve runs a **dual-filter pipeline**. The "oracle" is a base LLM scored by log-probability: for each candidate fact, we compare `log P(true answer | context)` against `log P(best distractor | context)`. Positive margin means the model knows it; negative means it doesn't.
 
 ```
 Hypothesis (expression)
@@ -227,7 +227,7 @@ NoetherSolve
 │
 ├── paper/
 │   ├── breaking_frozen_priors.md   ← Paper 10 source
-│   ├── breaking_frozen_priors.pdf  ← Paper 10 (gitignored, build locally)
+│   ├── breaking_frozen_priors.pdf  ← Paper 10 (pandoc breaking_frozen_priors.md -o *.pdf)
 │   └── prior_work/                 ← Papers 8-9 that this builds on
 │
 ├── adapters/                   ← Trained weights (gitignored)

@@ -582,8 +582,11 @@ def main():
         # PyTorch / CUDA backend
         print(f"  Loading {model_name} (PyTorch)...")
         try:
-            from noethersolve_torch import load_model_cpu_or_cuda
-            model, tokenizer, lm_head = load_model_cpu_or_cuda(model_name)
+            import torch
+            from noethersolve_torch import load_model
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            model, tokenizer, vocab_size = load_model(model_name, device)
+            lm_head = None  # torch backend uses model directly
         except ImportError:
             print("  ERROR: noethersolve_torch.py not found or import failed.")
             print("  On Apple Silicon use --backend mlx (default).")
@@ -1326,8 +1329,11 @@ def _run_loop(args):
     else:
         print(f"  Loading {model_name} (PyTorch)...")
         try:
-            from noethersolve_torch import load_model_cpu_or_cuda
-            model, tokenizer, lm_head = load_model_cpu_or_cuda(model_name)
+            import torch
+            from noethersolve_torch import load_model
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            model, tokenizer, vocab_size = load_model(model_name, device)
+            lm_head = None  # torch backend uses model directly
         except ImportError:
             print("  ERROR: noethersolve_torch.py not found. Use --backend mlx.")
             return

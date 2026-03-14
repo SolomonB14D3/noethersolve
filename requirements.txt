@@ -1,16 +1,21 @@
-# Core (all platforms)
+# Core (all platforms — runs the numerical checkers)
 numpy>=1.24
 scipy>=1.11
 pyyaml>=6.0
-anthropic>=0.40
 
-# Apple Silicon / MLX backend
-# Uncomment if on Apple Silicon:
+# Oracle + autonomous loop (uncomment what you need):
+
+# Apple Silicon / MLX backend (oracle_wrapper.py)
 # mlx>=0.18
 # mlx-lm>=0.18
 
-# Linux / CUDA backend
-# Uncomment if on Linux with GPU:
+# Linux / CUDA backend (noethersolve_torch.py)
 # torch>=2.1
 # transformers>=4.40
 # accelerate>=0.28
+
+# Autonomous hypothesis generation (autonomy_loop.py)
+# anthropic>=0.40
+
+# Dashboard
+# matplotlib>=3.7
