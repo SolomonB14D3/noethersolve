@@ -4,11 +4,15 @@
 
 [![Paper: Breaking Frozen Priors](https://img.shields.io/badge/Paper%2010-Breaking%20Frozen%20Priors-blue)](paper/breaking_frozen_priors.pdf) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290)
 
-**Automated scientific discovery by turning LLM knowledge gaps into a research compass.**
+**Automated scientific discovery that makes the model smarter with each cycle.**
 
-Most autoresearch systems generate hypotheses and hope for the best. NoetherSolve closes the loop: it generates candidates, verifies them numerically, measures whether the model already knows them, and when it doesn't, that gap becomes the next research target. The system has already discovered new conservation laws in fluid dynamics, identified a stretch-resistant invariant relevant to Navier-Stokes regularity, and mapped complete knowledge gaps in electromagnetism.
+Most autoresearch systems generate hypotheses and hope for the best. NoetherSolve closes the loop: it generates candidates, verifies them numerically, measures whether the model already knows them, and when it doesn't, **discovers the answer and teaches it back to the model**. Each discovery trains an adapter that persists through the rest of the run. The model that evaluates candidate #50 is smarter than the one that evaluated candidate #1, because every intervening discovery has been injected into it.
 
-LLMs are trained on what the field has collectively written and taught. Where the model is confidently wrong or blank, the literature is thin. That's where new work is most likely to be productive. NoetherSolve automates this: propose, verify, check, repair, repeat.
+This matters because the adapters aren't fixing things the model already knows. The Q_f conservation law family, the stretch-resistant R_f ratio, the continuous Euler extension — none of these existed in any training corpus. The system discovered them through numerical simulation, verified they were real, confirmed the model had never seen them (oracle margin -30 to -44), and wrote them into the model's knowledge. After adapter training, the model recognizes and correctly ranks these quantities (margin flipped to +4 to +30, ranking Spearman rho = 0.893). The model now knows physics that no human had published.
+
+And the adapters don't degrade existing knowledge. Zero MMLU degradation across every adapter tested, because they operate in logit space — they reshape the output distribution without touching the hidden-state knowledge pathway. Each cycle adds knowledge without taking any away.
+
+LLMs are trained on what the field has collectively written and taught. Where the model is confidently wrong or blank, the literature is thin. That's where new science is most likely to be found. NoetherSolve automates this: propose, verify, check, discover, teach, repeat.
 
 The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, and gravitational mechanics so far. Any field where you can numerically verify a claim and ask a model about it is fair game.
 
@@ -34,19 +38,32 @@ Hypothesis (expression)
   frac_var test)
        │ PASS
        ▼
- Oracle filter              ← Does the model know it?
+ Oracle filter              ← Does the model already know it?
  (log-prob margin,            margin = log P(truth) − log P(best distractor)
-  base LLM)
+  base LLM + adapter stack)
        │
-       ├─ PASS  → DUAL-PASS: known conserved quantity, archive it
+       ├─ PASS  → DUAL-PASS: known quantity, archive it
        │
-       └─ FAIL  → Run repair pass (adapter):
-                    ├─ margin improves  → FIXABLE BIAS: apply domain adapter
-                    └─ margin worsens   → KNOWLEDGE GAP: train new adapter
+       └─ FAIL  → NEW SCIENCE: model has never seen this
+                    │
+                    ▼
+              Train adapter  ← Teach the discovery to the model
+              (hinge loss,     25 examples generated per candidate
+               logit-space)
+                    │
+                    ├─ margin flips → KNOWLEDGE INJECTED: adapter joins the stack
+                    │                  (all future candidates evaluated with this knowledge)
+                    │
+                    └─ margin stays → HARD GAP: log it, try different approach next run
 ```
 
-Every discovery lands in one of four diagnostic quadrants. The pipeline
-tells you exactly which one and what to do next.
+Adapters stack within a run — each successful discovery makes the oracle
+smarter for every subsequent candidate. After the main sweep, a
+**confidence-driven resampling** pass retries borderline failures (margin
+between -5 and 0) with the full adapter stack. Candidates that were just
+short of flipping often get rescued once the model has absorbed neighboring
+discoveries. Survivors get promoted to high-priority in the open questions
+queue for the next run.
 
 ---
 

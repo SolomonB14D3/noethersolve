@@ -168,3 +168,12 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-14	qf10_enstrophy (2D Euler)	-58.4→-94.1	0/1	STILL_FAILING	qf_continuous_adapter; got WORSE (-35.7); conflict with Q_f focus; needs separate adapter
 2026-03-14	qf06_3d_stretching (Q_f ∝ s²)	-12.7	0/1	STILL_FAILING	qf_continuous_adapter; close to flip; needs more 3D training examples
 2026-03-14	qf07_energy_3d (3D energy = Q_{1/r})	-23.1	0/1	STILL_FAILING	qf_continuous_adapter; 3D facts harder than 2D
+2026-03-14	NS BKM criterion ∫||ω||_∞ dt = ∞ iff blowup	-34.6→-3.8	1/16	IMPROVING	ns_adapter; baseline 0/16
+2026-03-14	NS 3D challenge (stretching breaks Q_f)	-49.6→+23.3	1/16	QUADRANT3→FLIPPED	ns_adapter; baseline 0/16; strong flip
+2026-03-14	NS 3D helicity H = ∫ u·ω dx conserved	-30.1→+9.1	1/16	QUADRANT3→FLIPPED	ns_adapter; baseline 0/16
+2026-03-14	NS R_f stretch-resistant ratio (2% vs 60%)	-76.1→-1.3	0/16	CLOSE_TO_FLIP	ns_adapter_v2; margin -1.3 (needs more training)
+2026-03-14	K = Σ Γᵢ vᵢ² kinetic-like invariant	-45.9	0/8	KNOWLEDGE_GAP	baseline 0/8; novel discovery independent of Q_f
+2026-03-14	K = Σ Γᵢ vᵢ² definition	-24.8→+flipped	1/8	QUADRANT3→FLIPPED	k_adapter; approximately conserved
+2026-03-14	K independence from Q_f	-40.1→+flipped	1/8	QUADRANT3→FLIPPED	k_adapter; depends on angles not just distances
+2026-03-14	K physical interpretation	-40.8→+flipped	1/8	QUADRANT3→FLIPPED	k_adapter; circulation-weighted kinetic
+2026-03-14	K adapter overall	-45.9→-16.4	3/8	FIXABLE_BIAS	k_adapter; delta +29.5; baseline 0/8

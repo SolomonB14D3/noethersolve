@@ -1,0 +1,16 @@
+name: "Kinetic Invariant K"
+description: |
+  Test oracle knowledge of K = Σ Γᵢ vᵢ² kinetic-like invariant.
+
+  This is INDEPENDENT of the Q_f family:
+  - Q_f depends on distances only
+  - K depends on distances AND angles
+
+  Key numerical finding: K_angle varies ~10% but cancels with K_dist
+  to give total frac_var ~ 10⁻⁷.
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "kinetic_k_facts.json"
+pass_threshold: 0.5
+
+# Expected: complete knowledge gap (novel discovery)

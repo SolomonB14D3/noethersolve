@@ -841,6 +841,25 @@ def save_open_questions(new_questions: list, source: str = "autonomy_loop"):
     return added
 
 
+def mark_questions_done(exprs_tested: set):
+    """Mark tested expressions as 'done' in open_questions.jsonl."""
+    if not exprs_tested or not os.path.exists(OPEN_QUESTIONS_FILE):
+        return 0
+    questions = load_open_questions()
+    marked = 0
+    today = datetime.date.today().isoformat()
+    for q in questions:
+        if q.get("expr") in exprs_tested and q.get("status") != "done":
+            q["status"] = "done"
+            q["tested_date"] = today
+            marked += 1
+    if marked:
+        with open(OPEN_QUESTIONS_FILE, "w") as f:
+            for q in questions:
+                f.write(json.dumps(q) + "\n")
+    return marked
+
+
 _PROBLEM_GENERATION_PROMPT = """\
 You are a physics research assistant for NoetherSolve — a system that finds
 numerically conserved quantities in dynamical systems that LLMs don't recognize.
@@ -1260,17 +1279,17 @@ def _run_loop(args):
     all_exprs = expand_expressions(hunt_cfg)
 
     # Also inject any open expression questions for this domain
-    injected = 0
+    injected_exprs = set()
     for q in open_qs:
         if q.get("type") == "expression" and q.get("expr"):
             ic = q.get("ic", ic_priority[0])
             if ic in ic_priority or not q.get("ic"):
                 if q["expr"] not in all_exprs:
                     all_exprs.append(q["expr"])
-                    injected += 1
+                    injected_exprs.add(q["expr"])
 
     tested = load_tested_hypotheses()
-    print(f"\n  Expressions to test: {len(all_exprs)}  (injected from queue: {injected})")
+    print(f"\n  Expressions to test: {len(all_exprs)}  (injected from queue: {len(injected_exprs)})")
     print(f"  Already in TSV:      {len(tested)}")
 
     # ── Phase 1: Numerical sweep ──────────────────────────────────────────────
@@ -1358,6 +1377,7 @@ def _run_loop(args):
     dual_pass    = []
     flipped      = []
     open_gaps    = []
+    accumulated_adapters = []  # successful adapters stacked for subsequent baselines
 
     for expr, ic_name, fv_by_ic in numerical_passes:
         if oracle_count >= args.budget:
@@ -1397,13 +1417,15 @@ def _run_loop(args):
                 print(f"  │  No oracle facts — skipping")
                 continue
 
-        # Step B: Baseline oracle
+        # Step B: Baseline oracle (with accumulated adapters from prior flips)
+        baseline_adapter = accumulated_adapters if accumulated_adapters else None
         baseline = run_oracle_on_facts(model, tokenizer, oracle_facts,
-                                       adapter=None, lm_head=lm_head)
+                                       adapter=baseline_adapter, lm_head=lm_head)
         oracle_count += 1
         b_margin  = baseline["mean_margin"]
         pass_rate = f"{baseline['n_pass']}/{baseline['n_total']}"
-        print(f"  │  Baseline: margin={b_margin:+.3f}  ({pass_rate} pass)")
+        stack_note = f"  (stack={len(accumulated_adapters)})" if accumulated_adapters else ""
+        print(f"  │  Baseline: margin={b_margin:+.3f}  ({pass_rate} pass){stack_note}")
 
         if b_margin > 0:
             print(f"  └─ ✓ DUAL-PASS — model already knows this!")
@@ -1467,6 +1489,8 @@ def _run_loop(args):
         if r_margin > 0:
             print(f"  └─ 🎉 FLIPPED!  {b_margin:+.3f} → {r_margin:+.3f}")
             flipped.append((expr, b_margin, r_margin, fv_by_ic, adapter_path))
+            accumulated_adapters.append(adapter)
+            print(f"  │  Adapter added to stack (total={len(accumulated_adapters)})")
             if not args.no_publish:
                 append_tsv_row(expr, ic_name, fv_by_ic, b_margin, r_margin,
                                "QUADRANT3→FLIPPED",
@@ -1481,6 +1505,103 @@ def _run_loop(args):
                                "ORACLE-FAIL+CHECKER-PASS",
                                f"{quad_upper} {b_margin:.2f}→{r_margin:.2f}",
                                n_pass_str=pass_rate2)
+
+    # ── Mark injected open questions as done ────────────────────────────────────
+    if injected_exprs:
+        n_marked = mark_questions_done(injected_exprs)
+        if n_marked:
+            print(f"\n  Marked {n_marked} open question(s) as done in {OPEN_QUESTIONS_FILE}")
+
+    # ── Phase 2.5: Confidence-driven resampling ──────────────────────────────
+    # Borderline gaps (margin near 0) are the highest-value targets: a small
+    # push from the accumulated adapter stack might flip them. Re-evaluate
+    # borderline candidates with the full stack of prior discoveries.
+    BORDERLINE_FLOOR = -5.0   # only retry gaps above this margin
+    BORDERLINE_CEIL  =  0.0   # below 0 = still failing
+
+    borderline = [(e, m, fv) for e, m, fv in open_gaps
+                  if BORDERLINE_FLOOR <= m < BORDERLINE_CEIL]
+
+    if borderline and accumulated_adapters:
+        print(f"\n{'─'*72}")
+        print(f"  PHASE 2.5 — Confidence-driven resampling")
+        print(f"  {len(borderline)} borderline gaps × {len(accumulated_adapters)} stacked adapters")
+        print(f"{'─'*72}")
+
+        rescued = 0
+        for expr, old_margin, fv_by_ic in borderline:
+            if oracle_count >= args.budget:
+                print(f"\n  Budget reached. Stopping resampling.")
+                break
+
+            label = expr_to_label(expr)
+
+            # Re-generate oracle facts for this candidate
+            oracle_facts = None
+            if anthropic_client:
+                generated = call_claude_generate(
+                    expr, domain_desc, ic_priority[0], fv_by_ic,
+                    threshold, anthropic_client
+                )
+                if generated:
+                    oracle_facts = [generated["oracle_question"]]
+
+            if oracle_facts is None:
+                vs_relpath = problem.get("verification_set", "")
+                vs_path = (vs_relpath if os.path.isabs(vs_relpath)
+                           else os.path.join(problem_dir, vs_relpath))
+                if vs_path and os.path.exists(vs_path):
+                    with open(vs_path) as f:
+                        vdata = json.load(f)
+                    oracle_facts = vdata if isinstance(vdata, list) else vdata.get("facts", [])
+                else:
+                    continue
+
+            resample = run_oracle_on_facts(
+                model, tokenizer, oracle_facts,
+                adapter=accumulated_adapters, lm_head=lm_head
+            )
+            oracle_count += 1
+            new_margin = resample["mean_margin"]
+            delta = new_margin - old_margin
+            pass_rate_r = f"{resample['n_pass']}/{resample['n_total']}"
+
+            if new_margin > 0:
+                print(f"  ✓ RESCUED  {old_margin:+.3f} → {new_margin:+.3f}  {label}")
+                # Move from open_gaps to flipped
+                open_gaps.remove((expr, old_margin, fv_by_ic))
+                fv_min = min(v for v in fv_by_ic.values() if not np.isnan(v))
+                flipped.append((expr, old_margin, new_margin, fv_by_ic, "stack"))
+                if not args.no_publish:
+                    append_tsv_row(expr, ic_priority[0], fv_by_ic,
+                                   old_margin, new_margin,
+                                   "RESAMPLED→FLIPPED",
+                                   f"stack={len(accumulated_adapters)} frac_var={fv_min:.2e}",
+                                   n_pass_str=pass_rate_r)
+                rescued += 1
+            else:
+                print(f"  ✗ still failing  {old_margin:+.3f} → {new_margin:+.3f}  (Δ={delta:+.3f})  {label}")
+
+        if rescued:
+            print(f"\n  Resampling rescued {rescued}/{len(borderline)} borderline candidates")
+
+    # ── Promote surviving borderline gaps to high-priority open questions ─────
+    remaining_borderline = [(e, m, fv) for e, m, fv in open_gaps
+                            if BORDERLINE_FLOOR <= m < BORDERLINE_CEIL]
+    if remaining_borderline:
+        borderline_qs = []
+        for expr, margin, fv_by_ic in remaining_borderline:
+            borderline_qs.append({
+                "type":      "expression",
+                "domain":    problem.get("name", "unknown"),
+                "expr":      expr,
+                "ic":        ic_priority[0],
+                "rationale": f"borderline margin={margin:+.3f}, near flip threshold",
+                "priority":  "high",
+            })
+        added_bl = save_open_questions(borderline_qs, source="confidence_resampling")
+        if added_bl:
+            print(f"\n  Promoted {added_bl} borderline gaps to high-priority open questions")
 
     # ── Phase 3: Generate new problems ────────────────────────────────────────
     generate_flag = getattr(args, "generate_problems", False)

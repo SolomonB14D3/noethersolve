@@ -3,7 +3,11 @@
 Vendored from knowledge-fidelity/experiments/snap_on/module.py.
 No external knowledge-fidelity dependencies — self-contained.
 
-A tiny adapter that learns to adjust frozen base model outputs.
+A tiny adapter that injects new knowledge into a frozen base model's outputs.
+Each adapter teaches the model something it didn't learn from training data —
+new conservation laws, new invariants, new science. Multiple adapters stack
+by summing their logit shifts (see train_utils.apply_adapter_stack), so each
+discovery compounds without degrading existing knowledge.
 
 Modes:
   hidden:  Adapter on hidden states (h).

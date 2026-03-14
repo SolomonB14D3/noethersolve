@@ -1,0 +1,28 @@
+name: "NS Regularity and Stretch-Resistant Q_f"
+description: |
+  Test oracle knowledge of Q_f invariants' connection to 3D Navier-Stokes regularity.
+
+  Key findings from numerical experiments:
+  - Standard Q_f ∝ s² under stretching (not conserved)
+  - R_f = Q_{e^(-r)} / Q_{1/r} has 2% stretch variation (vs 60% standard)
+  - Enstrophy-normalized Q_f / Ω: 17% variation
+  - Curvature-weighted Q_f^κ: 4% variation
+  - R_f combined score: 0.59% (best overall)
+
+  The regularity connection:
+  - BKM: ∫||ω||_∞ dt = ∞ iff blowup
+  - Q_f bounds ||ω||_∞ via concentration argument
+  - In 2D this works (global regularity known)
+  - In 3D stretching complicates it (open problem)
+
+  Expected oracle behavior:
+  - BKM criterion: May PASS (classical result)
+  - Stretching effects: Likely FAIL (novel)
+  - R_f ratio: Likely FAIL (completely novel)
+  - NS millennium connection: May PASS (well-publicized)
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "ns_regularity_facts.json"
+pass_threshold: 0.5
+
+# Expected: significant knowledge gap on stretch-resistant variants

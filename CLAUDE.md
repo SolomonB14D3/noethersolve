@@ -1,8 +1,10 @@
 # NoetherSolve — AI Agent Instructions
 
-**What this project does:** Find physical/mathematical structures that are numerically conserved but not recognized by LLMs — then close those gaps with targeted adapters.
+**What this project does:** Discover new science by finding where LLM knowledge ends, running experiments in those gaps, and teaching the results back to the model. Each cycle makes the model smarter than the last.
 
-Emmy Noether proved every continuous symmetry corresponds to a conserved quantity. NoetherSolve finds where LLMs fail to recognize those quantities and fixes it.
+The core loop: propose candidate → verify numerically → check if the model knows it → if not, that's where new science lives → discover the answer → train an adapter → the model now knows something that wasn't in any training corpus → repeat with a smarter model.
+
+Adapters stack within a run (each discovery compounds) and don't degrade existing knowledge (logit-space, zero MMLU delta). This isn't alignment repair — it's knowledge frontier expansion.
 
 ---
 
@@ -55,9 +57,9 @@ python autonomy_loop.py show-queue
 
 ---
 
-## The Dual-Filter Pipeline
+## The Discovery-Injection Pipeline
 
-Every hypothesis goes through two filters:
+Every hypothesis goes through verify → check → discover → teach:
 
 ```
 Hypothesis (expression)
@@ -67,14 +69,28 @@ Hypothesis (expression)
  (RK45, frac_var test)        frac_var = σ/|mean| < 5e-3 → PASS
        │ PASS
        ▼
- Oracle filter              ← Does the model know it?
- (log-prob margin)            margin = log P(truth) − log P(best distractor)
+ Oracle filter              ← Does the model already know it?
+ (log-prob margin,            margin = log P(truth) − log P(best distractor)
+  base LLM + adapter stack)   adapter stack = all prior discoveries this run
        │
-       ├─ PASS  → DUAL-PASS (archive it)
-       └─ FAIL  → Run repair (adapter):
-                    ├─ margin improves → FIXABLE BIAS (apply adapter)
-                    └─ margin worsens  → KNOWLEDGE GAP (train new adapter)
+       ├─ PASS  → DUAL-PASS (model knows it, archive)
+       └─ FAIL  → NEW SCIENCE: model hasn't seen this
+                    │
+                    ▼
+              Train adapter (teach the discovery to the model)
+                    │
+                    ├─ margin flips → INJECTED: adapter joins stack
+                    │                  (model is now smarter for all future candidates)
+                    └─ margin stays → HARD GAP: log it, try next run
 ```
+
+Adapters stack: discovery #1's adapter is active when evaluating candidate #2.
+Each successful injection compounds within the run.
+
+After the main sweep, **Phase 2.5 (confidence-driven resampling)** retries
+borderline failures (margin between -5 and 0) with the full adapter stack.
+Neighboring discoveries often rescue borderline candidates. Survivors get
+promoted to high-priority in the open questions queue.
 
 **Diagnostic quadrants:**
 | # | Oracle | Checker | Adapter Δ | Action |

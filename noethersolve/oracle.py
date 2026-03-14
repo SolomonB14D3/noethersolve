@@ -64,14 +64,23 @@ def score_fact_mc(model, tokenizer, context: str, truth: str, distractors: list,
 
     Args:
         adapter, lm_head — optional snap-on adapter (from noethersolve.adapter).
+            Can be a single adapter or a list of adapters.
+            If a list, logits are computed via apply_adapter_stack (summed shifts).
+            If a single adapter, uses apply_adapter as before.
             If provided, logits are computed as:
                 h = model.model(tokens)
-                logits = apply_adapter(adapter, lm_head(h))
+                logits = apply_adapter[_stack](adapter(s), lm_head(h))
     """
     prompt = f"{context}:"  # neutral format, no fill-in-blank triggers
 
     if adapter is not None and lm_head is not None:
-        from noethersolve.train_utils import apply_adapter
+        # Determine whether we have a stack of adapters or a single one
+        if isinstance(adapter, list):
+            from noethersolve.train_utils import apply_adapter_stack
+            _apply = lambda bl: apply_adapter_stack(adapter, bl)
+        else:
+            from noethersolve.train_utils import apply_adapter
+            _apply = lambda bl: apply_adapter(adapter, bl)
 
         def _lp(completion: str) -> float:
             prompt_ids = tokenizer.encode(prompt)
@@ -84,7 +93,7 @@ def score_fact_mc(model, tokenizer, context: str, truth: str, distractors: list,
             mx.eval(h)
             bl = lm_head(h)
             mx.eval(bl)
-            logits    = apply_adapter(adapter, bl)
+            logits    = _apply(bl)
             mx.eval(logits)
             logits_np = np.array(logits[0].astype(mx.float32))
             total = 0.0
