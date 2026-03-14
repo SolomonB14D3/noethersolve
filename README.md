@@ -134,7 +134,20 @@ Verified across 6 test scenarios (laminar, turbulent 2D, 3D vortex rings, viscou
 | √r | 3.48e-04 | 1.07e-02 | 2.95e-03 | **NEW** |
 | 1/r | — | — | 3.78e-04 | **NEW** (3D best) |
 
-Viscous (Navier-Stokes) decay scales linearly with ν: Q_f provides anti-concentration bounds on vorticity. See `results/discoveries/qf_family_comprehensive.md` and `research/qf_regularity_connection.md`.
+Viscous (Navier-Stokes) decay scales linearly with ν. See `results/discoveries/qf_family_comprehensive.md`.
+
+### 3D Stretch-Resistant Ratio (the NS connection)
+
+Standard Q_f varies 60% under vortex stretching, which is the mechanism behind potential 3D blowup. We tested four modifications:
+
+| Variant | Stretch Resistance | Evolution Conservation | Combined |
+|---------|-------------------|----------------------|----------|
+| Standard Q_f | 60% variation | 0.14% | 2.95% |
+| Q_f / Enstrophy | 17% | 0.36% | 2.44% |
+| Curvature-weighted | 4% | 1.02% | 6.4% |
+| **R_f = Q_exp / Q_inv** | **2%** | **0.17%** | **0.59%** |
+
+R_f = Q_{e^(-r)} / Q_{1/r} survives stretching because both numerator and denominator scale as ~L² under stretching, and the ratio cancels. Physically, R_f measures the locality of vorticity interactions: how much the dynamics depends on nearby vs distant vorticity. Combined with energy conservation, R_f provides a constraint that persists through the stretching that could cause 3D blowup. See `research/qf_regularity_connection.md` and `research/test_stretch_resistant_qf.py`.
 
 Full history: `results/candidates.tsv` (159 entries)
 
