@@ -2,7 +2,15 @@
 
 **https://github.com/SolomonB14D3/noethersolve** · **https://solomonb14d3.github.io/noethersolve**
 
+[![Paper: Breaking Frozen Priors](https://img.shields.io/badge/Paper%2010-Breaking%20Frozen%20Priors-blue)](paper/breaking_frozen_priors.pdf)
+
 **Find what LLMs don't know about what the universe conserves. Then fix it.**
+
+### Paper
+
+**Breaking Frozen Priors: Teaching Language Models to Discover Conservation Laws from Numerical Simulation** (Sanchez, 2026)
+
+Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a physics-aware ranking engine (Spearman rho = 0.932). Novel Q_f = Sum Gamma_i Gamma_j f(r_ij) family verified across N=3-9 chaotic vortex systems. See [`paper/breaking_frozen_priors.pdf`](paper/breaking_frozen_priors.pdf).
 
 Emmy Noether proved that every continuous symmetry of a physical system
 corresponds to a conserved quantity. NoetherSolve finds where LLMs fail to
