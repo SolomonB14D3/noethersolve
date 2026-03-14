@@ -1,0 +1,251 @@
+{
+  "domain": "kinetic_invariant_k",
+  "description": "Expanded training examples for K = Σ Γᵢ vᵢ² kinetic-like invariant. Targets specific failing facts.",
+  "examples": [
+    {
+      "context": "For N point vortices with circulations Γᵢ and velocities vᵢ, the quantity K = Σᵢ Γᵢ vᵢ² is:",
+      "truth": "approximately conserved (circulation-weighted kinetic energy analog)",
+      "distractors": ["exactly conserved", "not conserved", "undefined"]
+    },
+    {
+      "context": "The invariant K = Σ Γᵢ |vᵢ|² depends on:",
+      "truth": "both distances AND angles between vortices",
+      "distractors": ["distances only", "angles only", "circulations only"]
+    },
+    {
+      "context": "K = Σ Γᵢ vᵢ² is related to Q_f = Σ ΓᵢΓⱼ f(rᵢⱼ) by:",
+      "truth": "K is independent of Q_f (depends on angles, Q_f only on distances)",
+      "distractors": ["K = Q_{-2}", "K is a Q_f combination", "identical"]
+    },
+    {
+      "context": "The K invariant can be decomposed as K = K_dist + K_angle where:",
+      "truth": "K_angle varies ~10% but cancels with K_dist (frac_var ~ 10⁻⁷)",
+      "distractors": ["both conserved separately", "only K_dist conserved", "no cancellation"]
+    },
+    {
+      "context": "The remarkable conservation of K comes from:",
+      "truth": "distance and angular variations canceling in K_dist + K_angle",
+      "distractors": ["energy conservation", "Noether's theorem", "random coincidence"]
+    },
+    {
+      "context": "In point-vortex dynamics, vortex velocity vᵢ is:",
+      "truth": "induced by other vortices via Biot-Savart law",
+      "distractors": ["constant", "self-induced", "proportional to Γᵢ"]
+    },
+    {
+      "context": "In point-vortex dynamics, the velocity vᵢ of vortex i is:",
+      "truth": "induced by all other vortices via Biot-Savart: vᵢ = Σⱼ≠ᵢ Γⱼ/(2πrᵢⱼ)",
+      "distractors": ["constant", "independent of other vortices", "proportional to Γᵢ"]
+    },
+    {
+      "context": "The Biot-Savart law for point vortices gives velocity vᵢ as:",
+      "truth": "vᵢ = Σⱼ≠ᵢ Γⱼ/(2πrᵢⱼ) (induced by all other vortices)",
+      "distractors": ["vᵢ = Γᵢ/(2π)", "vᵢ = constant", "self-induced velocity"]
+    },
+    {
+      "context": "The velocity of a point vortex i is given by the Biot-Savart formula:",
+      "truth": "vᵢ = Σⱼ≠ᵢ Γⱼ/(2πrᵢⱼ) pointing perpendicular to rᵢⱼ",
+      "distractors": ["vᵢ = Γᵢ only", "constant velocity", "zero velocity"]
+    },
+    {
+      "context": "Numerical verification of K = Σ Γᵢ vᵢ² shows:",
+      "truth": "frac_var ~ 10⁻⁵ to 10⁻⁷ across N=3,4,5 configurations",
+      "distractors": ["frac_var ~ 0.1", "exactly zero", "varies wildly"]
+    },
+    {
+      "context": "Numerical verification of K = Σ Γᵢ vᵢ² in N=3,4,5 vortex systems shows:",
+      "truth": "frac_var ~ 10⁻⁵ to 10⁻⁷ (well conserved across configurations)",
+      "distractors": ["frac_var ~ 0.1 (not conserved)", "frac_var ~ 10⁻¹² (exactly conserved)", "varies wildly between configurations"]
+    },
+    {
+      "context": "Fitting K to Q_f powers (Q_{-2}, Q_{-1}, Q_1, Q_2) gives:",
+      "truth": "R² ~ 0.05 (K is genuinely independent of Q_f)",
+      "distractors": ["R² ~ 0.99", "R² ~ 0.5", "perfect fit"]
+    },
+    {
+      "context": "Fitting K to Q_f powers (Q_{-2}, Q_{-1}, Q_1, Q_2) gives R² approximately:",
+      "truth": "R² ~ 0.05 (poor fit, K is genuinely independent)",
+      "distractors": ["R² ~ 0.99 (K is a Q_f combination)", "R² ~ 0.5 (partial overlap)", "undefined (cannot compare)"]
+    },
+    {
+      "context": "The physical interpretation of K = Σ Γᵢ vᵢ² is:",
+      "truth": "circulation-weighted sum of squared velocities",
+      "distractors": ["total kinetic energy", "circulation", "angular momentum"]
+    },
+    {
+      "context": "K_dist (distance-only part of K) has frac_var:",
+      "truth": "~ 10⁻⁵ (varies slightly during evolution)",
+      "distractors": ["exactly zero", "~ 0.1", "undefined"]
+    },
+    {
+      "context": "K_angle (angular cross-terms in K) has frac_var:",
+      "truth": "~ 0.1 (varies significantly but cancels with K_dist)",
+      "distractors": ["exactly zero", "~ 10⁻⁷", "diverges"]
+    },
+    {
+      "context": "The K invariant's remarkable conservation comes from:",
+      "truth": "distance and angular variations canceling in the total (K_dist + K_angle)",
+      "distractors": ["energy conservation", "Noether's theorem directly", "no underlying mechanism"]
+    },
+    {
+      "context": "The cancellation K_dist + K_angle being conserved despite individual variation is:",
+      "truth": "a remarkable dynamical property of point-vortex systems",
+      "distractors": ["trivial", "impossible", "well-known classical result"]
+    },
+    {
+      "context": "For the Biot-Savart velocity formula vᵢ = Σⱼ Γⱼ/(2πrᵢⱼ), K depends on angles because:",
+      "truth": "cross-terms Γⱼ Γₖ cos(θⱼₖ) appear when squaring the sum",
+      "distractors": ["no angles appear", "angles cancel", "only magnitudes matter"]
+    },
+    {
+      "context": "The K invariant was discovered by:",
+      "truth": "numerical simulation showing frac_var ~ 10⁻⁷ in N-vortex systems",
+      "distractors": ["classical mechanics", "Helmholtz in 1858", "energy conservation"]
+    },
+    {
+      "context": "K = Σ Γᵢ vᵢ² differs from total kinetic energy because:",
+      "truth": "it weights by circulation Γᵢ, not mass",
+      "distractors": ["they are identical", "K uses momentum", "K uses position"]
+    },
+    {
+      "context": "In a 3-vortex system with circulations (1, 1, 0.01), K conservation is:",
+      "truth": "excellent with frac_var ~ 10⁻⁷",
+      "distractors": ["poor", "exactly conserved", "undefined"]
+    },
+    {
+      "context": "The independence of K from Q_f means:",
+      "truth": "K provides genuinely new constraints on vortex dynamics",
+      "distractors": ["K is redundant", "K and Q_f are equivalent", "no new information"]
+    },
+    {
+      "context": "Comparing K and Q_{-2} = Σ ΓᵢΓⱼ/rᵢⱼ² correlation:",
+      "truth": "R² ~ 0.05 (uncorrelated, K is independent)",
+      "distractors": ["R² ~ 1 (identical)", "R² ~ 0.5 (partially related)", "R² ~ 0.9"]
+    },
+    {
+      "context": "The velocity vᵢ in K = Σ Γᵢ vᵢ² is computed using:",
+      "truth": "vector sum of velocities induced by all other vortices",
+      "distractors": ["scalar sum", "self-velocity only", "average velocity"]
+    },
+    {
+      "context": "For generic N-vortex configurations, K = Σ Γᵢ vᵢ² is:",
+      "truth": "approximately conserved regardless of N (tested N=3,4,5)",
+      "distractors": ["only conserved for N=3", "not conserved", "exact for all N"]
+    },
+    {
+      "context": "The K invariant family represents:",
+      "truth": "a new class of approximate invariants beyond Q_f",
+      "distractors": ["the same as Q_f", "classical energy", "nothing new"]
+    },
+    {
+      "context": "K conservation quality improves when:",
+      "truth": "strong circulation hierarchy (one dominant vortex pair)",
+      "distractors": ["all equal circulations", "random circulations", "opposite signs"]
+    },
+    {
+      "context": "The angular dependence in K comes from terms like:",
+      "truth": "Γⱼ Γₖ cos(θⱼᵢₖ)/(rᵢⱼ² rᵢₖ²) in the velocity squared sum",
+      "distractors": ["no angular terms exist", "sin(θ) terms", "constant angles"]
+    },
+    {
+      "context": "Why K_angle cancels with K_dist dynamically:",
+      "truth": "vortex motion couples distance and angle changes in a balanced way",
+      "distractors": ["random cancellation", "they are independent", "no cancellation occurs"]
+    },
+    {
+      "context": "The K invariant suggests point-vortex dynamics has:",
+      "truth": "more hidden structure than previously known (beyond Q_f, H, Lz)",
+      "distractors": ["no hidden structure", "complete structure already known", "chaos only"]
+    },
+    {
+      "context": "Extending K to continuous vorticity would require:",
+      "truth": "defining circulation-weighted velocity integrals K[ω] = ∫ ω(x)|u(x)|² dx",
+      "distractors": ["no extension exists", "direct substitution", "K is only for points"]
+    },
+    {
+      "context": "The K invariant in 4-vortex and 5-vortex systems shows:",
+      "truth": "consistent conservation (frac_var 10⁻⁵ to 10⁻⁷)",
+      "distractors": ["degraded conservation", "exact conservation", "complete failure"]
+    },
+    {
+      "context": "K = Σ Γᵢ vᵢ² is NOT the same as Hamiltonian H because:",
+      "truth": "H = Σ ΓᵢΓⱼ ln(rᵢⱼ) depends only on distances, K involves velocities",
+      "distractors": ["they are identical", "K is derived from H", "H involves velocities"]
+    },
+    {
+      "context": "The K invariant oracle test is expected to show:",
+      "truth": "complete knowledge gap (novel discovery not in training data)",
+      "distractors": ["model already knows it", "partial knowledge", "exact match"]
+    },
+    {
+      "context": "K conservation and Q_f conservation together imply:",
+      "truth": "stronger constraints on vortex trajectories (independent invariants)",
+      "distractors": ["redundant constraints", "no implications", "contradiction"]
+    },
+    {
+      "context": "The K_dist component of K represents:",
+      "truth": "contributions from distance-only terms in |vᵢ|²",
+      "distractors": ["the entire K invariant", "angular terms", "constant value"]
+    },
+    {
+      "context": "The K_angle component of K represents:",
+      "truth": "cross-terms involving cosines of angles between vortex pairs",
+      "distractors": ["distance terms only", "constant value", "the entire K"]
+    },
+    {
+      "context": "When K_dist increases by ΔK_dist during evolution:",
+      "truth": "K_angle decreases by approximately -ΔK_dist (they cancel)",
+      "distractors": ["K_angle also increases", "K_angle stays constant", "no relationship"]
+    },
+    {
+      "context": "The anti-correlation between K_dist and K_angle implies:",
+      "truth": "vortex dynamics has built-in balancing mechanism",
+      "distractors": ["random coincidence", "numerical error", "no implication"]
+    },
+    {
+      "context": "Point vortex i at position xᵢ has velocity given by:",
+      "truth": "sum of contributions from all other vortices via Biot-Savart law",
+      "distractors": ["its own circulation", "zero velocity", "constant velocity"]
+    },
+    {
+      "context": "The Biot-Savart contribution from vortex j to vortex i's velocity is:",
+      "truth": "Γⱼ/(2πrᵢⱼ) in the perpendicular direction",
+      "distractors": ["Γⱼ/(rᵢⱼ) in radial direction", "zero", "independent of distance"]
+    },
+    {
+      "context": "Squaring the Biot-Savart velocity vᵢ = Σⱼ vᵢⱼ produces:",
+      "truth": "cross-terms with cos(angle) factors making K angle-dependent",
+      "distractors": ["only diagonal terms", "no cross-terms", "constant result"]
+    },
+    {
+      "context": "The fractional variance frac_var of K is defined as:",
+      "truth": "std(K)/|mean(K)| over the trajectory",
+      "distractors": ["var(K)/mean(K)", "max(K) - min(K)", "K/|K|"]
+    },
+    {
+      "context": "A frac_var of 10⁻⁷ for K means:",
+      "truth": "K varies by only 0.00001% during evolution (extremely well conserved)",
+      "distractors": ["K varies by 10%", "K is exactly constant", "K is not conserved"]
+    },
+    {
+      "context": "Testing K on 100+ random vortex configurations shows:",
+      "truth": "consistently low frac_var (10⁻⁵ to 10⁻⁷) regardless of initial conditions",
+      "distractors": ["high variance in some cases", "always frac_var > 0.1", "only works for special cases"]
+    },
+    {
+      "context": "Regression of K against Q_f powers yields R² ~ 0.05 because:",
+      "truth": "K contains angle information that Q_f lacks (genuinely independent)",
+      "distractors": ["fitting error", "K is exactly Q_{-2}", "numerical precision"]
+    },
+    {
+      "context": "The K invariant can be written as K = K_pure_dist + K_cross where K_cross contains:",
+      "truth": "products Γⱼ Γₖ cos(θⱼᵢₖ) / (rᵢⱼ² rᵢₖ²)",
+      "distractors": ["no angular terms", "only Γᵢ", "only rᵢⱼ"]
+    },
+    {
+      "context": "The structure K = K_dist + K_angle where they anti-correlate is:",
+      "truth": "key to understanding why K is approximately conserved",
+      "distractors": ["irrelevant to conservation", "a coincidence", "mathematically impossible"]
+    }
+  ]
+}
