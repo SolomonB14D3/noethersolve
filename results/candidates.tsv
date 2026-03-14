@@ -181,10 +181,12 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-14	Optimal f(r) combination	loss 0.000005	N/A	NUMERICAL_VERIFIED	99.6% improvement over single basis; e^(-r/2), tanh, sin dominant
 2026-03-14	Optimal f(r) linear combination (99.6% improvement)	-34.0→-15.5	2/4	FIXABLE_BIAS	optimal_f_adapter; flipped: dominant_terms (+16.5), learned_vs_energy (+5.3); structure got WORSE (-16→-54)
 2026-03-14	Q_f vector space structure	-16.2	0/1	CLOSE_TO_FLIP	from optimal_f_facts; could flip with adapter
-2026-03-14	R_f = Q_exp / Q_inv ratio invariant	pending	N/A	NUMERICAL_VERIFIED	5x better combined score (0.006) than any single Q_f; best stretch+evolution balance
+2026-03-14	R_f = Q_exp / Q_inv ratio invariant	-44.0→+15.3	8/8	DUAL-PASS	qf_ratio_adapter; ALL 8 FACTS FLIPPED; best: generalization (+34.3), physical (+19.8); complete success
 2026-03-14	Q_ratio stretch resistance (frac_var 0.02)	pending	N/A	CHECKER-PASS	30x better than standard Q_f (0.61) under pure stretching
 2026-03-14	Q_ratio evolution (frac_var 0.0017)	pending	N/A	CHECKER-PASS	comparable to standard Q_f; maintains conservation during Biot-Savart
 2026-03-14	Curvature-weighted Q_κ (power=1)	pending	N/A	CHECKER-PASS	frac_var 0.20 under stretching; optimal power for curved filaments
 2026-03-14	Adapter stacking interference	tested	0/24	NEGATIVE_FINDING	Stacking adapters HURTS: k+ns gets 0/24 vs k=3/8, ns=2/16 alone; margins degrade -16→-106
 2026-03-14	Q_f concentration response (blowup)	N/A	N/A	NUMERICAL_VERIFIED	Q_√r,Q_r decay ∝ σ^0.5,σ^1 as width→0; Q_-ln(r) diverges ∝ σ^-0.6; potential blowup prevention mechanism
 2026-03-14	Concentration-detecting Q_f family	pending	N/A	ANALYSIS	f(r)→∞ at r=0 detects concentration: -ln(r), 1/√r; f(r)→0 blind: √r, r, tanh; e^(-r) bounded
+2026-03-14	Q_f turbulence robustness	N/A	8/8	NUMERICAL_VERIFIED	Best: √r, -ln(r), e^(-r), tanh (3/3 tests); Fourier modes harder than vortex patches
+2026-03-14	Q_f viscous decay ∝ ν	N/A	N/A	NUMERICAL_VERIFIED	dQ_f/dt ∝ -ν; e^(-r),tanh,√r conserved at ν=0; -ln(r) not conserved at ν=0; decay rate ~const/ν

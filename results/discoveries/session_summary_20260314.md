@@ -125,7 +125,7 @@ Total candidates: 183 (from 169)
 | NS regularity | 16 | 0/16 | ns_adapter | 2/16 (12.5%) | KNOWLEDGE_GAP |
 | K invariant | 8 | 0/8 | k_adapter_v2 | 3/8 (37.5%) | FIXABLE_BIAS |
 | Optimal f(r) | 4 | 0/4 | optimal_f_adapter | 2/4 (50%) | FIXABLE_BIAS |
-| Q_f Ratio | 8 | 0/8 | - | 0/8 | KNOWLEDGE_GAP |
+| Q_f Ratio | 8 | 0/8 | qf_ratio_adapter | **8/8 (100%)** | **DUAL-PASS** |
 
 Total candidates: 189 (from 183)
 
