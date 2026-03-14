@@ -26,10 +26,10 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install numpy scipy pyyaml
+        run: pip install numpy scipy pyyaml matplotlib
 
       - name: Regenerate dashboard HTML
-        run: python dashboard.py --output results/dashboard.html
+        run: python dashboard.py --out results/dashboard.html
 
       - name: Commit updated dashboard
         run: |
