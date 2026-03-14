@@ -4,9 +4,11 @@
 
 [![Paper: Breaking Frozen Priors](https://img.shields.io/badge/Paper%2010-Breaking%20Frozen%20Priors-blue)](paper/breaking_frozen_priors.pdf) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290)
 
-**Use LLM knowledge gaps as a compass to find underexplored science.**
+**Automated scientific discovery by turning LLM knowledge gaps into a research compass.**
 
-LLMs are trained on what the field has collectively written about and taught. Where the model is confidently wrong or completely blank, the literature is thin. NoetherSolve turns that signal into a systematic search: verify a candidate truth numerically, check whether the model knows it, and if not, you've found a gap worth investigating.
+Most autoresearch systems generate hypotheses and hope for the best. NoetherSolve closes the loop: it generates candidates, verifies them numerically, measures whether the model already knows them, and when it doesn't, that gap becomes the next research target. The system has already discovered new conservation laws in fluid dynamics, identified a stretch-resistant invariant relevant to Navier-Stokes regularity, and mapped complete knowledge gaps in electromagnetism.
+
+LLMs are trained on what the field has collectively written and taught. Where the model is confidently wrong or blank, the literature is thin. That's where new work is most likely to be productive. NoetherSolve automates this: propose, verify, check, repair, repeat.
 
 The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, and gravitational mechanics so far. Any field where you can numerically verify a claim and ask a model about it is fair game.
 
