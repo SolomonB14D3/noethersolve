@@ -10,3 +10,4 @@ timestamp	hypothesis	margin_mean	n_pass	verdict	classification
 2026-03-13	H·r12 + α·Lz (8 variants) on restricted	pending	8/8	ORACLE-FAIL+CHECKER-PASS	numerical PASS (frac_var not recorded); oracle not run yet; interesting non-trivial family; next: run oracle + diagnose
 2026-03-13	Q=Σ ΓᵢΓⱼ·rᵢⱼ on N-vortex systems	pending	6/6	CHECKER-PASS	frac_var 3e-6 to 8e-4; generalizes restricted 3-vortex Q; INDEPENDENT of H,Lz; optimal ε=Γ₃; oracle pending
 2026-03-13	Σrᵢ (dipole sum) on N parallel dipoles	pending	4/4	CHECKER-PASS	EXACT frac_var~1e-16; requires perpendicular geometry; individual dipoles vary 20-30% but sum exact; oracle pending
+2026-03-13	Q=Σ ΓᵢΓⱼ·rᵢⱼ on dipole+test vortex	pending	6/6	CHECKER-PASS	EXACT frac_var~1e-15 for ANY Γ₃; dipole symmetry cancels test vortex contribution; extends to multiple tests (approx)
