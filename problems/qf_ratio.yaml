@@ -1,0 +1,12 @@
+name: "Q_f Ratio Invariant"
+description: |
+  Test oracle knowledge of R_f = Q_{e^(-r)} / Q_{1/r} as a stretch-resistant invariant.
+
+  Key finding: This ratio achieves 5x better combined stretch+evolution performance
+  than any single Q_f kernel.
+
+  Combined frac_var: 0.006 (vs 0.03 for standard Q_f)
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "qf_ratio_facts.json"
+pass_threshold: 0.5

@@ -1,0 +1,86 @@
+{
+  "problem": "qf_ratio_invariant",
+  "description": "Oracle test facts for Q_f ratio R_f = Q_{e^(-r)} / Q_{1/r} as stretch-resistant invariant.",
+  "facts": [
+    {
+      "id": "ratio01_definition",
+      "context": "The quantity R_f = Q_{e^(-r)} / Q_{1/r} for vortex filaments is:",
+      "truth": "a ratio of two Q_f with different kernels that cancels stretching effects",
+      "distractors": [
+        "undefined for vortex systems",
+        "identical to standard Q_f",
+        "only valid for 2D flows"
+      ]
+    },
+    {
+      "id": "ratio02_stretch_advantage",
+      "context": "Under pure stretching by factor s, the Q_f ratio R_f = Q_exp / Q_inv has fractional variance:",
+      "truth": "~2% (30x better than standard Q_f at 60%)",
+      "distractors": [
+        "same as standard Q_f (~60%)",
+        "worse than standard Q_f",
+        "exactly zero"
+      ]
+    },
+    {
+      "id": "ratio03_evolution",
+      "context": "During Biot-Savart evolution of vortex rings, the Q_f ratio R_f:",
+      "truth": "remains well-conserved (frac_var ~0.17%) comparable to standard Q_f",
+      "distractors": [
+        "diverges rapidly",
+        "becomes undefined",
+        "much worse than standard Q_f"
+      ]
+    },
+    {
+      "id": "ratio04_combined_score",
+      "context": "The combined score (geometric mean of stretch and evolution frac_var) for R_f is:",
+      "truth": "~0.006, which is 5x better than any single Q_f",
+      "distractors": [
+        "same as standard Q_f (~0.03)",
+        "worse than all other variants",
+        "undefined"
+      ]
+    },
+    {
+      "id": "ratio05_mechanism",
+      "context": "The stretch resistance of R_f = Q_exp / Q_inv arises because:",
+      "truth": "both Q_f grow under stretching but at different rates that partially cancel",
+      "distractors": [
+        "the ratio is independent of geometry",
+        "exponential and inverse kernels are identical",
+        "stretching does not affect Q_f"
+      ]
+    },
+    {
+      "id": "ratio06_physical",
+      "context": "The physical interpretation of R_f = Q_{e^(-r)} / Q_{1/r} is:",
+      "truth": "balance between short-range (exponential) and all-scale (inverse) vortex interactions",
+      "distractors": [
+        "total vortex circulation",
+        "kinetic energy only",
+        "helicity measure"
+      ]
+    },
+    {
+      "id": "ratio07_comparison",
+      "context": "Compared to enstrophy-normalized Q_f / Ω under pure stretching:",
+      "truth": "R_f is better (2% vs 17% frac_var)",
+      "distractors": [
+        "R_f is worse",
+        "identical performance",
+        "Q_f / Ω is not defined"
+      ]
+    },
+    {
+      "id": "ratio08_generalization",
+      "context": "The Q_f ratio concept can be generalized to:",
+      "truth": "R_{f,g} = Q_f / Q_g for any pair of kernels with different scaling",
+      "distractors": [
+        "only exp and inv kernels",
+        "only 2D systems",
+        "no generalization possible"
+      ]
+    }
+  ]
+}

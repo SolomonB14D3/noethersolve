@@ -1,0 +1,206 @@
+{
+  "description": "Training data for optimal f(r) combinations in Q_f conservation",
+  "domain": "optimal_f_combination",
+  "examples": [
+    {
+      "context": "When optimizing f(r) for Q_f conservation, using a linear combination Σ aᵢ φᵢ(r) instead of a single basis function gives:",
+      "truth": "99.6% improvement in conservation (fractional variance 5e-6 vs 1e-3)",
+      "distractors": ["no improvement", "worse conservation", "10% improvement"]
+    },
+    {
+      "context": "The dominant terms in the gradient-descent optimized f(r) = Σ aᵢ φᵢ(r) for Q_f conservation are:",
+      "truth": "e^(-r/2), tanh(r), and sin(r) with alternating signs",
+      "distractors": ["-ln(r) only", "1/r only", "r² only"]
+    },
+    {
+      "context": "The space of near-conserved Q_f quantities forms:",
+      "truth": "a vector space (linear combinations preserve conservation)",
+      "distractors": ["a discrete set", "no mathematical structure", "a nonlinear manifold"]
+    },
+    {
+      "context": "Comparing the learned optimal f(r) to the energy kernel f(r) = -ln(r) for Q_f conservation:",
+      "truth": "optimal is 2700x better (loss 5e-6 vs 1.4e-2)",
+      "distractors": ["energy is optimal", "same performance", "optimal is slightly worse"]
+    },
+    {
+      "context": "The physical interpretation of combining multiple basis functions in f(r) for Q_f is that:",
+      "truth": "different scales of vortex interaction can be weighted to maximize conservation",
+      "distractors": ["only short-range matters", "only long-range matters", "scales are irrelevant"]
+    },
+    {
+      "context": "The optimization method used to find optimal f(r) coefficients is:",
+      "truth": "gradient descent (L-BFGS-B) minimizing fractional variance of Q_f",
+      "distractors": ["random search", "analytical derivation", "genetic algorithm"]
+    },
+    {
+      "context": "If f₁(r) and f₂(r) both give approximately conserved Q_f, then α·f₁ + β·f₂:",
+      "truth": "also gives approximately conserved Q_f (vector space property)",
+      "distractors": ["never conserved", "conserved only if α=β", "conserved only if α+β=1"]
+    },
+    {
+      "context": "The 12 basis functions used in optimal f(r) search include:",
+      "truth": "√r, r, r^1.5, r², e^(-r), e^(-r/2), e^(-2r), -ln(r), ln(1+r), tanh(r), sin(r), 1/r",
+      "distractors": ["only power laws", "only exponentials", "only trigonometric"]
+    },
+    {
+      "context": "The regularization term in the optimal f(r) loss function is:",
+      "truth": "0.001 × Σ aᵢ² to prefer simpler combinations",
+      "distractors": ["no regularization", "L1 norm", "entropy penalty"]
+    },
+    {
+      "context": "The optimal f(r) combination achieves fractional variance of Q_f around:",
+      "truth": "5×10⁻⁶ (0.0005%)",
+      "distractors": ["0.1 (10%)", "0.01 (1%)", "1.0 (100%)"]
+    },
+    {
+      "context": "The role of e^(-r/2) in the optimal f(r) combination is:",
+      "truth": "dominant term capturing intermediate-range vortex interactions",
+      "distractors": ["negligible", "only affects short range", "only affects long range"]
+    },
+    {
+      "context": "The role of tanh(r) in the optimal f(r) combination is:",
+      "truth": "provides smooth transition between near and far behavior",
+      "distractors": ["negligible", "purely oscillatory", "singular at r=0"]
+    },
+    {
+      "context": "The role of sin(r) in the optimal f(r) combination is:",
+      "truth": "adds periodic modulation that improves conservation",
+      "distractors": ["negligible", "dominates at all scales", "causes divergence"]
+    },
+    {
+      "context": "When f(r) = 1/r (Coulomb kernel) is used alone, Q_f conservation gives:",
+      "truth": "poor conservation with fractional variance ~0.01",
+      "distractors": ["perfect conservation", "best conservation", "same as optimal"]
+    },
+    {
+      "context": "When f(r) = -ln(r) (2D energy kernel) is used alone, Q_f conservation gives:",
+      "truth": "poor conservation with fractional variance ~0.014",
+      "distractors": ["perfect conservation", "best conservation", "same as optimal"]
+    },
+    {
+      "context": "When f(r) = e^(-r) (exponential decay) is used alone, Q_f conservation gives:",
+      "truth": "moderate conservation with fractional variance ~0.001",
+      "distractors": ["perfect conservation", "same as optimal", "worse than ln(r)"]
+    },
+    {
+      "context": "The key insight from optimal f(r) discovery is that:",
+      "truth": "conservation is not unique to special functions but spans a vector space",
+      "distractors": ["only energy is conserved", "only special f exist", "conservation is discrete"]
+    },
+    {
+      "context": "The computational cost of finding optimal f(r) coefficients via gradient descent is:",
+      "truth": "moderate (100 L-BFGS-B iterations over pre-computed trajectories)",
+      "distractors": ["prohibitively expensive", "instantaneous", "requires GPU cluster"]
+    },
+    {
+      "context": "The training scenarios for optimal f(r) include:",
+      "truth": "co-rotating vortices, counter-rotating vortices, and three-vortex systems",
+      "distractors": ["only single vortex", "only point vortices", "only steady states"]
+    },
+    {
+      "context": "The alternating signs in optimal f(r) coefficients suggest:",
+      "truth": "cancellation mechanism between different interaction scales",
+      "distractors": ["numerical instability", "random fluctuations", "no physical meaning"]
+    },
+    {
+      "context": "Extending optimal f(r) to 3D requires:",
+      "truth": "accounting for vortex stretching which breaks Q_f conservation",
+      "distractors": ["no modification needed", "only changing kernel to 3D", "impossible"]
+    },
+    {
+      "context": "The connection between optimal f(r) and Noether's theorem is:",
+      "truth": "optimal f(r) may reveal hidden continuous symmetries",
+      "distractors": ["no connection", "contradicts Noether", "only discrete symmetries"]
+    },
+    {
+      "context": "For Q_f = ∫∫ ω(x)ω(y)f(|x-y|)dxdy, the constraint on f(r) for conservation is:",
+      "truth": "u(x) ≈ u(y) for nearby points (coherent flow approximation)",
+      "distractors": ["no constraint exists", "f must be linear", "f must be positive"]
+    },
+    {
+      "context": "The fractional variance metric for Q_f conservation is defined as:",
+      "truth": "std(Q_f)/|mean(Q_f)| over time evolution",
+      "distractors": ["max - min", "variance alone", "mean squared error"]
+    },
+    {
+      "context": "The improvement from single basis to optimal combination is driven by:",
+      "truth": "exploiting correlations between basis function contributions",
+      "distractors": ["adding more parameters", "increasing resolution", "longer integration"]
+    },
+    {
+      "context": "If optimal f(r) is applied to point vortex dynamics instead of continuous Euler:",
+      "truth": "even better conservation expected (no discretization error)",
+      "distractors": ["worse conservation", "no change", "divergence"]
+    },
+    {
+      "context": "The coefficient of √r in the optimal f(r) is typically:",
+      "truth": "small compared to e^(-r/2), tanh(r), sin(r)",
+      "distractors": ["dominant", "exactly zero", "largest"]
+    },
+    {
+      "context": "The coefficient of r² in the optimal f(r) is typically:",
+      "truth": "small (power-law growth destabilizes conservation)",
+      "distractors": ["dominant", "always exactly 1", "largest"]
+    },
+    {
+      "context": "The decay behavior of optimal f(r) at large r is:",
+      "truth": "exponential decay dominates from e^(-r/2), e^(-r), e^(-2r) terms",
+      "distractors": ["power law", "constant", "oscillatory only"]
+    },
+    {
+      "context": "The behavior of optimal f(r) at small r is:",
+      "truth": "smoothed by tanh(r), sin(r) which vanish at r=0",
+      "distractors": ["singular divergence", "constant", "exponential growth"]
+    },
+    {
+      "context": "The optimal f(r) result demonstrates that Q_f conservation is:",
+      "truth": "a continuous family, not isolated special cases",
+      "distractors": ["unique to energy", "impossible to optimize", "only exact conservation"]
+    },
+    {
+      "context": "The physical meaning of higher Q_f conservation accuracy is:",
+      "truth": "better tracking of vortex structure during evolution",
+      "distractors": ["faster simulation", "less computation", "no physical meaning"]
+    },
+    {
+      "context": "The gradient descent for f(r) coefficients converges in approximately:",
+      "truth": "100 iterations with L-BFGS-B method",
+      "distractors": ["10000 iterations", "does not converge", "1 iteration"]
+    },
+    {
+      "context": "The sensitivity of optimal f(r) to initial conditions is:",
+      "truth": "low - different initializations converge to similar optimal combinations",
+      "distractors": ["high chaos", "extremely sensitive", "random outcome"]
+    },
+    {
+      "context": "The relationship between optimal f(r) and spectral methods is:",
+      "truth": "spectral solvers provide accurate Q_f computation for optimization",
+      "distractors": ["incompatible", "no relationship", "spectral methods break Q_f"]
+    },
+    {
+      "context": "The N-dimensional generalization of optimal f(r) would require:",
+      "truth": "f to depend on distance |x-y| in N dimensions (radial symmetry)",
+      "distractors": ["no generalization possible", "f becomes a tensor", "each dimension independent"]
+    },
+    {
+      "context": "The connection between optimal f(r) and vortex merging is:",
+      "truth": "optimal f(r) better preserves Q_f during close vortex interactions",
+      "distractors": ["no connection", "prevents merging", "causes merging"]
+    },
+    {
+      "context": "The 99.6% improvement from optimal f(r) means:",
+      "truth": "conservation error reduced from ~0.001 to ~0.000005",
+      "distractors": ["speed improved 99.6%", "accuracy unchanged", "only cosmetic improvement"]
+    },
+    {
+      "context": "The theoretical maximum conservation achievable with any f(r) is:",
+      "truth": "limited by numerical precision and flow topology changes",
+      "distractors": ["always exactly zero error", "limited to 50%", "no theoretical limit exists"]
+    },
+    {
+      "context": "The role of ln(1+r) in the optimal f(r) basis is:",
+      "truth": "provides smooth logarithmic growth without singularity at r=0",
+      "distractors": ["identical to -ln(r)", "always negligible", "causes divergence"]
+    }
+  ]
+}
