@@ -1,0 +1,114 @@
+{
+  "name": "n_vortex_weighted_distance_sum",
+  "description": "Training data for the N-vortex weighted distance sum near-invariant Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ",
+  "examples": [
+    {
+      "context": "In a 3-vortex system with circulations Γ₁=1, Γ₂=1, Γ₃=0.01, the circulation-weighted sum of pairwise distances Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ",
+      "truth": "is approximately conserved because weak vortex contributions are downweighted",
+      "distractors": [
+        "varies chaotically with no pattern",
+        "increases monotonically over time",
+        "is exactly zero due to symmetry"
+      ]
+    },
+    {
+      "context": "For N point vortices with mixed circulation strengths, the quantity Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ",
+      "truth": "is a near-invariant when dominant vortex pairs are nearly undisturbed",
+      "distractors": [
+        "is never conserved for any configuration",
+        "requires equal circulations to be defined",
+        "diverges exponentially for N > 3"
+      ]
+    },
+    {
+      "context": "In the restricted N-vortex problem with one strong vortex pair and multiple weak test vortices, the weighted distance sum",
+      "truth": "remains approximately constant because ΓᵢΓⱼ naturally downweights weak interactions",
+      "distractors": [
+        "oscillates wildly due to chaos",
+        "is dominated by weak vortex contributions",
+        "has no physical significance"
+      ]
+    },
+    {
+      "context": "The formula Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ for N point vortices generalizes",
+      "truth": "the restricted 3-vortex near-invariant Q = r₁₂ + ε(r₁₃ + r₂₃)",
+      "distractors": [
+        "the Hamiltonian to include kinetic terms",
+        "angular momentum to higher dimensions",
+        "nothing physically meaningful"
+      ]
+    },
+    {
+      "context": "For a 4-vortex system with circulations [1, 1, 0.1, 0.1], the quantity Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ has fractional variation",
+      "truth": "of order 10⁻³, indicating near-conservation",
+      "distractors": [
+        "of order unity, indicating no conservation",
+        "exactly zero due to integrability",
+        "that grows without bound"
+      ]
+    },
+    {
+      "context": "The physical interpretation of Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ being nearly conserved is that",
+      "truth": "strong vortex pairs dominate and remain nearly undisturbed by weak vortices",
+      "distractors": [
+        "all vortices move independently",
+        "the system is completely integrable",
+        "distances between vortices are constant"
+      ]
+    },
+    {
+      "context": "In the limit where weak vortex circulations approach zero (Γ_weak → 0), the weighted distance sum Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ",
+      "truth": "becomes exactly conserved as weak vortex terms vanish",
+      "distractors": [
+        "diverges due to division by zero",
+        "becomes undefined",
+        "transitions to chaotic behavior"
+      ]
+    },
+    {
+      "context": "The weighted distance sum Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ for equal-circulation vortices",
+      "truth": "reduces to the sum of all pairwise distances weighted by Γ²",
+      "distractors": [
+        "equals zero identically",
+        "has no special properties",
+        "becomes singular"
+      ]
+    },
+    {
+      "context": "For a 5-vortex system with one dominant vortex (Γ₁=1) and four weak vortices (Γᵢ=0.1), the weighted sum Q",
+      "truth": "is nearly conserved with fractional variation around 10⁻³",
+      "distractors": [
+        "is exactly conserved by Noether's theorem",
+        "exhibits rapid exponential growth",
+        "is negative throughout evolution"
+      ]
+    },
+    {
+      "context": "The circulation-weighted distance sum Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ is an example of",
+      "truth": "an approximate invariant arising from hierarchical circulation structure",
+      "distractors": [
+        "an exact Casimir invariant",
+        "a topological invariant",
+        "random numerical coincidence"
+      ]
+    },
+    {
+      "context": "When computing Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ for vortices with different signs of circulation",
+      "truth": "terms can be positive or negative, capturing dipole-like interactions",
+      "distractors": [
+        "all terms must be positive",
+        "the sum is always zero",
+        "sign cancellation makes Q undefined"
+      ]
+    },
+    {
+      "context": "The near-invariance of Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ in restricted vortex configurations",
+      "truth": "provides a practical diagnostic for vortex dynamics simulations",
+      "distractors": [
+        "has no computational applications",
+        "requires exact integrability to be useful",
+        "is mathematically inconsistent"
+      ]
+    }
+  ]
+}
