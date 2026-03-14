@@ -1,0 +1,206 @@
+{
+  "domain": "continuous_euler_qf",
+  "description": "Training examples for continuous Q_f conservation laws in 2D/3D Euler equations.",
+  "examples": [
+    {
+      "context": "The Q_f = Σᵢ<ⱼ ΓᵢΓⱼ f(rᵢⱼ) conservation law for point vortices extends to continuous 2D Euler vorticity ω(x). The continuous analog Q_f[ω] is:",
+      "truth": "Q_f[ω] = ∫∫ ω(x)ω(y) f(|x-y|) dx dy, approximately conserved for smooth f",
+      "distractors": ["Q_f[ω] = ∫ ω(x) f(x) dx", "Q_f[ω] = ∫ |ω|² f(x) dx", "No extension exists"]
+    },
+    {
+      "context": "For 2D Euler flow, when f(r) = -ln(r), the continuous Q_f gives:",
+      "truth": "Q_{-ln(r)}[ω] = kinetic energy (exact Casimir invariant)",
+      "distractors": ["Enstrophy", "Angular momentum", "Not conserved"]
+    },
+    {
+      "context": "For 2D inviscid Euler vorticity ω, the quantity Q_{e^(-r)}[ω] = ∫∫ ω(x)ω(y) e^{-|x-y|} dx dy is:",
+      "truth": "approximately conserved with frac_var ~ 10⁻³ in numerical simulations",
+      "distractors": ["exactly conserved", "not conserved", "only for point vortices"]
+    },
+    {
+      "context": "For 2D Euler flow, Q_{√r}[ω] = ∫∫ ω(x)ω(y) √|x-y| dx dy is:",
+      "truth": "approximately conserved, extending the discrete Q_f family",
+      "distractors": ["exactly conserved", "not conserved", "divergent"]
+    },
+    {
+      "context": "For the Q_f conservation law, why is the circulation-weighted form Q_f = Σ ΓᵢΓⱼ f(rᵢⱼ) better than the unweighted Σ f(rᵢⱼ)?",
+      "truth": "Circulation weighting gives 10000x better conservation (frac_var 10⁻⁵ vs 10⁻¹)",
+      "distractors": ["No difference", "Unweighted is better", "Neither is conserved"]
+    },
+    {
+      "context": "For 3D Euler vorticity, vortex stretching affects Q_f conservation. Under stretching by factor s, Q_f scales as:",
+      "truth": "Q_f ∝ s² (stretching breaks Q_f conservation except for f(r) = 1/r which is energy)",
+      "distractors": ["Q_f is unchanged", "Q_f ∝ s", "Q_f ∝ 1/s²"]
+    },
+    {
+      "context": "In 3D Euler, the kinetic energy corresponds to Q_{1/r}. Under vortex stretching, this quantity is:",
+      "truth": "exactly conserved (energy conservation is protected by the 1/r kernel)",
+      "distractors": ["proportional to stretching", "not conserved", "approximately conserved"]
+    },
+    {
+      "context": "The ratio R_f = Q_{e^(-r)} / Q_{1/r} for 3D vortex dynamics is:",
+      "truth": "more stable than either Q_f alone (stretching factors partially cancel in the ratio)",
+      "distractors": ["more sensitive to stretching", "exactly constant", "undefined"]
+    },
+    {
+      "context": "The Q_f conservation mechanism works because when ω(x)ω(y) is large (both points in vortex cores):",
+      "truth": "velocities u(x) ≈ u(y), so the advective derivative term nearly vanishes",
+      "distractors": ["vorticity is zero", "f(r) = 0", "no mechanism exists"]
+    },
+    {
+      "context": "The 2D Euler enstrophy Z = ∫ ω² dx is:",
+      "truth": "exactly conserved (one of infinitely many Casimir invariants)",
+      "distractors": ["approximately conserved", "not conserved", "only in 3D"]
+    },
+    {
+      "context": "For Navier-Stokes with viscosity ν, the Q_f quantities decay as:",
+      "truth": "dQ_f/dt ∝ -ν (linear in viscosity), returning to Euler conservation as ν → 0",
+      "distractors": ["dQ_f/dt ∝ -ν²", "Q_f is exact even with viscosity", "dQ_f/dt ∝ -√ν"]
+    },
+    {
+      "context": "If Q_f bounds could control ||ω||_∞ growth in 3D, this would imply:",
+      "truth": "regularity of Navier-Stokes solutions (no finite-time blowup)",
+      "distractors": ["nothing about regularity", "guaranteed blowup", "only 2D regularity"]
+    },
+    {
+      "context": "The Q_f family for 2D Euler includes which special cases:",
+      "truth": "f(r) = -ln(r) gives energy, f(r) = r² gives moment of inertia, f(r) = e^(-r) is new",
+      "distractors": ["only energy", "no special cases", "only enstrophy"]
+    },
+    {
+      "context": "The continuous Q_f = ∫∫ ω(x)ω(y) f(|x-y|) dx dy for 2D Euler was discovered:",
+      "truth": "as an extension of the discrete point-vortex Q_f = Σ ΓᵢΓⱼ f(rᵢⱼ)",
+      "distractors": ["independently of point vortices", "in the 1800s by Helmholtz", "never discovered"]
+    },
+    {
+      "context": "For 2D Euler with localized vorticity, Q_{tanh(r)}[ω] = ∫∫ ω(x)ω(y) tanh|x-y| dx dy is:",
+      "truth": "approximately conserved with frac_var ~ 10⁻² in turbulent simulations",
+      "distractors": ["exactly conserved", "not conserved", "undefined"]
+    },
+    {
+      "context": "The Kirchhoff equations for point vortices are the special case of 2D Euler when:",
+      "truth": "vorticity is concentrated at point singularities ω = Σ Γᵢ δ(x - xᵢ)",
+      "distractors": ["vorticity is uniform", "flow is irrotational", "viscosity is nonzero"]
+    },
+    {
+      "context": "For 2D Euler, the stream function ψ satisfies ∇²ψ = -ω. The energy in terms of ψ is:",
+      "truth": "E = (1/2) ∫ |∇ψ|² dx = -(1/2) ∫ ψω dx",
+      "distractors": ["E = ∫ ψ² dx", "E = ∫ ω² dx", "E = ∫ |∇ω|² dx"]
+    },
+    {
+      "context": "The 2D Euler energy E = -(1/2) ∫ ψω dx can be written as Q_f with f(r) =",
+      "truth": "-ln(r) / (2π) (the 2D Green's function)",
+      "distractors": ["1/r", "e^(-r)", "r²"]
+    },
+    {
+      "context": "In 3D, the kinetic energy E = (1/2) ∫ |u|² dx can be written as:",
+      "truth": "E = (1/8π) ∫∫ ω(x)·ω(y) / |x-y| dx dy, which is Q_{1/r} (Biot-Savart)",
+      "distractors": ["E = ∫ |ω|² dx", "E = ∫ ω dx", "cannot be written as Q_f"]
+    },
+    {
+      "context": "For 3D vortex rings undergoing stretching, the ratio R_f = Q_{e^(-r)} / Q_{1/r} shows:",
+      "truth": "frac_var ~ 10⁻² despite strong stretching (partial cancellation)",
+      "distractors": ["frac_var ~ 1 (no cancellation)", "exact conservation", "divergence"]
+    },
+    {
+      "context": "The enstrophy Z = ∫ ω² dx in 3D is:",
+      "truth": "NOT conserved; it can grow without bound (vortex stretching amplifies ω)",
+      "distractors": ["exactly conserved as in 2D", "approximately conserved", "bounded"]
+    },
+    {
+      "context": "Why does enstrophy conservation fail in 3D but hold in 2D?",
+      "truth": "3D vortex stretching ω·∇u amplifies |ω|; this term is absent in 2D",
+      "distractors": ["Conservation holds in both", "2D has more symmetry", "Boundary conditions differ"]
+    },
+    {
+      "context": "For 2D turbulence, the inverse energy cascade is driven by:",
+      "truth": "conservation of both energy AND enstrophy constraining scale transfer",
+      "distractors": ["energy conservation alone", "enstrophy conservation alone", "no cascade occurs"]
+    },
+    {
+      "context": "The continuous Q_f conservation quality (frac_var) depends on:",
+      "truth": "the smoothness of f(r) and the coherence of vortex structures",
+      "distractors": ["only the total circulation", "only the domain size", "nothing"]
+    },
+    {
+      "context": "For point vortices, Q_f = Σᵢ<ⱼ ΓᵢΓⱼ f(rᵢⱼ) with f(r) = r is:",
+      "truth": "exactly conserved for vortex dipoles on the symmetry axis (frac_var ~ 10⁻¹⁵)",
+      "distractors": ["never conserved", "always exactly conserved", "undefined"]
+    },
+    {
+      "context": "The Q_f family conservation arises from:",
+      "truth": "the advective transport structure of Euler: dQ_f/dt involves ∇f·u which nearly cancels",
+      "distractors": ["Noether's theorem directly", "gauge symmetry", "no underlying reason"]
+    },
+    {
+      "context": "For 2D Euler, all functionals of the form ∫ F(ω) dx are:",
+      "truth": "Casimir invariants (conserved for any F, including enstrophy Z = ∫ ω² dx)",
+      "distractors": ["not conserved", "only conserved for specific F", "only in inviscid limit"]
+    },
+    {
+      "context": "The helicity H = ∫ u·ω dx in 3D ideal fluids is:",
+      "truth": "exactly conserved (topological invariant of vortex line linking)",
+      "distractors": ["not conserved", "only approximately conserved", "same as enstrophy"]
+    },
+    {
+      "context": "For the continuous Q_f to be well-defined, the kernel f(r) should be:",
+      "truth": "integrable or regularized near r=0 to avoid divergences",
+      "distractors": ["singular at r=0", "oscillating", "complex-valued"]
+    },
+    {
+      "context": "The Q_f = ∫∫ ω(x)ω(y) f(|x-y|) dx dy changes under rescaling x → λx as:",
+      "truth": "Q_f → λ^(d-α) Q_f where α depends on the scaling of f(r)",
+      "distractors": ["Q_f is scale-invariant", "Q_f → 0", "Q_f → ∞"]
+    },
+    {
+      "context": "For numerical verification of Q_f conservation, a typical test case is:",
+      "truth": "Lamb-Oseen vortex pair or 2D turbulence with random initial vorticity",
+      "distractors": ["uniform flow", "irrotational potential flow", "Stokes flow"]
+    },
+    {
+      "context": "The Q_f[ω] quantity for 2D Euler can be computed efficiently using:",
+      "truth": "FFT-based convolution since f(|x-y|) is a kernel",
+      "distractors": ["direct O(N²) summation only", "Monte Carlo sampling", "analytical integration"]
+    },
+    {
+      "context": "For viscous Navier-Stokes, Q_f decays because:",
+      "truth": "viscous diffusion ν∇²ω causes vorticity spreading, reducing the double integral",
+      "distractors": ["viscosity creates vorticity", "Q_f is undefined with viscosity", "no decay occurs"]
+    },
+    {
+      "context": "The frac_var metric for Q_f conservation quality is defined as:",
+      "truth": "frac_var = std(Q_f) / |mean(Q_f)| over the simulation time series",
+      "distractors": ["max/min ratio", "derivative magnitude", "entropy"]
+    },
+    {
+      "context": "For Q_f = ∫∫ ω(x)ω(y) f(|x-y|) dx dy, the time derivative dQ_f/dt involves:",
+      "truth": "∫∫ ω(x)ω(y) f'(|x-y|)/|x-y| (r·(u(x)-u(y))) dx dy (advective transport)",
+      "distractors": ["∂ω/∂t only", "no time dependence", "∇f alone"]
+    },
+    {
+      "context": "The Q_f conservation mechanism requires:",
+      "truth": "localized vorticity so that when ω(x)ω(y) is large, u(x) ≈ u(y)",
+      "distractors": ["uniform vorticity", "irrotational flow", "infinite domain"]
+    },
+    {
+      "context": "For 3D Euler with vortex stretching ω → s·ω (stretch factor s), Q_f transforms as:",
+      "truth": "Q_f → s² · Q_f (quadratic in stretch, except for Q_{1/r} = energy)",
+      "distractors": ["Q_f → s · Q_f", "Q_f unchanged", "Q_f → Q_f / s"]
+    },
+    {
+      "context": "The stretch-resistant ratio R_f = Q_{e^(-r)} / Q_{1/r} is useful because:",
+      "truth": "stretching affects both Q_f similarly, so the ratio partially cancels",
+      "distractors": ["it is exactly conserved", "it amplifies stretching", "it is undefined"]
+    },
+    {
+      "context": "For 2D Euler, Q_{r²}[ω] = ∫∫ ω(x)ω(y) |x-y|² dx dy equals:",
+      "truth": "moment of inertia of vorticity distribution (exactly conserved)",
+      "distractors": ["enstrophy", "energy", "not conserved"]
+    },
+    {
+      "context": "The discrete-to-continuous limit for Q_f as vortex blobs replace point vortices:",
+      "truth": "Q_f remains approximately conserved with frac_var scaling with blob smoothness",
+      "distractors": ["Q_f diverges", "Q_f becomes exactly conserved", "Q_f becomes zero"]
+    }
+  ]
+}

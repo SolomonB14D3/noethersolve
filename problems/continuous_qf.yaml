@@ -1,0 +1,25 @@
+name: "Continuous Q_f and Euler Conservation Laws"
+description: |
+  Test oracle knowledge of the Q_f family extension from discrete point vortices
+  to continuous vorticity fields (2D/3D Euler equations).
+
+  This is a novel discovery: Q_f = ∫∫ ω(x)ω(y) f(|x-y|) dx dy is approximately
+  conserved for any smooth f(r), extending the discrete Q_f = Σ ΓᵢΓⱼ f(rᵢⱼ).
+
+  Key findings (numerical):
+  - Q_{e^(-r)}: frac_var ~ 10⁻³ in 2D laminar, 10⁻³ in turbulent
+  - Q_{√r}: frac_var ~ 10⁻³ to 10⁻²
+  - Q_{1/r}: exactly conserved (this is energy)
+  - 3D: stretching breaks Q_f ∝ s², but Q_{1/r} (energy) is protected
+
+  Expected oracle behavior:
+  - Energy (Q_{-ln(r)} in 2D, Q_{1/r} in 3D): Should PASS (well-known)
+  - Enstrophy: Should PASS (well-known in 2D)
+  - Q_f family for general f: Likely FAIL (novel discovery)
+  - Stretching effects: Likely FAIL (subtle 3D dynamics)
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "continuous_qf_facts.json"
+pass_threshold: 0.6
+
+# Expected: mostly knowledge gap since Q_f extension is novel

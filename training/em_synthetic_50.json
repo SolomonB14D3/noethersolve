@@ -1,0 +1,251 @@
+{
+  "domain": "electromagnetism",
+  "description": "Extended training examples for EM conservation laws. Targets failing oracle facts with multiple phrasings.",
+  "examples": [
+    {
+      "context": "In source-free electromagnetism (Maxwell equations in vacuum), the total electromagnetic energy is",
+      "truth": "U = (1/2) ∫ (E² + B²) d³x, which is exactly conserved",
+      "distractors": ["U = (1/2) ∫ E² d³x only", "U = ∫ (E² - B²) d³x", "not conserved"]
+    },
+    {
+      "context": "The electromagnetic energy density in vacuum is given by",
+      "truth": "u = (1/2)(ε₀E² + B²/μ₀) = (1/2)(E² + B²) in natural units",
+      "distractors": ["u = E² only", "u = B² only", "u = E·B"]
+    },
+    {
+      "context": "Maxwell's equations conserve the total field energy. The conserved quantity is",
+      "truth": "U = (1/2) ∫ (E² + B²) d³x integrated over all space",
+      "distractors": ["U = ∫ E² d³x", "U = ∫ |E × B| d³x", "U = ∫ E·B d³x"]
+    },
+    {
+      "context": "The electromagnetic momentum density is given by the Poynting vector divided by c². The total conserved momentum is",
+      "truth": "P = ∫ (E × B) d³x, the integral of the Poynting vector over all space",
+      "distractors": ["P = ∫ E·B d³x", "P = ∫ (E² × B²) d³x", "not well-defined"]
+    },
+    {
+      "context": "The Poynting vector S = E × B represents",
+      "truth": "the electromagnetic energy flux and momentum density (times c²)",
+      "distractors": ["electric field energy only", "magnetic field energy only", "charge density"]
+    },
+    {
+      "context": "The total electromagnetic momentum P = ∫ (E × B) d³x is",
+      "truth": "exactly conserved for source-free Maxwell equations",
+      "distractors": ["not conserved", "only approximately conserved", "gauge-dependent"]
+    },
+    {
+      "context": "Lipkin (1964) discovered that source-free Maxwell equations have additional conservation laws called 'zilches'. The time component Z⁰, now called optical chirality, is",
+      "truth": "C = (1/2) ∫ [E·(∇×E) + B·(∇×B)] d³x, exactly conserved",
+      "distractors": ["C = ∫ E·B d³x", "C = (1/2) ∫ [E·(∇×B) + B·(∇×E)] d³x", "not conserved"]
+    },
+    {
+      "context": "The optical chirality C = (1/2)[E·(∇×E) + B·(∇×B)] measures",
+      "truth": "the handedness or helicity of electromagnetic radiation",
+      "distractors": ["the energy density", "the momentum", "the frequency"]
+    },
+    {
+      "context": "For source-free Maxwell fields, the optical chirality density c = (1/2)[E·(∇×E) + B·(∇×B)] satisfies",
+      "truth": "a local conservation law: ∂c/∂t + ∇·F = 0 where F is the chirality flux",
+      "distractors": ["∂c/∂t = 0 everywhere", "no conservation law", "c = 0 always"]
+    },
+    {
+      "context": "The electromagnetic helicity, defined as H = ∫ A·B d³x where B = ∇×A, for source-free fields is",
+      "truth": "exactly conserved and gauge-invariant for fields vanishing at infinity",
+      "distractors": ["gauge-dependent and meaningless", "only conserved in Coulomb gauge", "approximately conserved"]
+    },
+    {
+      "context": "The magnetic helicity H = ∫ A·B d³x measures",
+      "truth": "the linking and twisting of magnetic field lines (topological invariant)",
+      "distractors": ["the total energy", "the angular momentum", "the electric charge"]
+    },
+    {
+      "context": "For electromagnetic fields vanishing at spatial infinity, the helicity H = ∫ A·B d³x is",
+      "truth": "gauge-invariant because gauge transformations only add surface terms",
+      "distractors": ["always gauge-dependent", "only defined in Lorenz gauge", "undefined"]
+    },
+    {
+      "context": "Chevreton (1964) introduced the electromagnetic super-energy tensor. The conserved trace is",
+      "truth": "S = ∫ [(∇×E)² + (∇×B)²] d³x, exactly conserved",
+      "distractors": ["S = ∫ (E² + B²)² d³x", "S = ∫ [(∇·E)² + (∇·B)²] d³x", "not conserved"]
+    },
+    {
+      "context": "The super-energy density s = (∇×E)² + (∇×B)² is related to",
+      "truth": "the Chevreton tensor and conformal invariance of Maxwell equations",
+      "distractors": ["the stress-energy tensor only", "nothing physical", "gravitational waves"]
+    },
+    {
+      "context": "For circularly polarized light propagating in vacuum, the optical chirality C = (1/2)[E·(∇×E) + B·(∇×B)] is",
+      "truth": "nonzero and exactly conserved, measuring the handedness of light",
+      "distractors": ["zero for all polarizations", "nonzero but not conserved", "only defined for plane waves"]
+    },
+    {
+      "context": "Right-handed circularly polarized light has optical chirality C that is",
+      "truth": "positive, corresponding to positive helicity",
+      "distractors": ["zero", "negative", "undefined"]
+    },
+    {
+      "context": "Left-handed circularly polarized light has optical chirality C that is",
+      "truth": "negative, corresponding to negative helicity",
+      "distractors": ["zero", "positive", "undefined"]
+    },
+    {
+      "context": "For linearly polarized electromagnetic waves, the optical chirality C is",
+      "truth": "exactly zero because linear polarization has no handedness",
+      "distractors": ["positive", "negative", "oscillating"]
+    },
+    {
+      "context": "The quantity ∫ E² d³x (electric field energy alone) for source-free Maxwell equations is",
+      "truth": "NOT conserved; only the sum ∫ (E² + B²) d³x is conserved",
+      "distractors": ["exactly conserved", "conserved in vacuum", "approximately conserved"]
+    },
+    {
+      "context": "Why is ∫ E² d³x not conserved in source-free electromagnetism?",
+      "truth": "Because energy oscillates between E and B fields; only the total E² + B² is constant",
+      "distractors": ["It is conserved", "Because of gauge dependence", "Because of radiation"]
+    },
+    {
+      "context": "The quantity ∫ B² d³x (magnetic field energy alone) for source-free Maxwell equations is",
+      "truth": "NOT conserved; only the sum ∫ (E² + B²) d³x is conserved",
+      "distractors": ["exactly conserved", "conserved in vacuum", "approximately conserved"]
+    },
+    {
+      "context": "Poynting's theorem states that the energy density u = (1/2)(E² + B²) satisfies",
+      "truth": "∂u/∂t + ∇·S = 0 where S = E × B (local conservation law)",
+      "distractors": ["∂u/∂t = 0 everywhere", "∇·S = 0 (divergence-free)", "∂u/∂t + ∇²u = 0"]
+    },
+    {
+      "context": "Poynting's theorem expresses",
+      "truth": "local conservation of electromagnetic energy: energy flow equals Poynting vector",
+      "distractors": ["global energy only", "momentum conservation", "charge conservation"]
+    },
+    {
+      "context": "The continuity equation for electromagnetic energy is",
+      "truth": "∂u/∂t + ∇·S = 0 where u = (1/2)(E² + B²) and S = E × B",
+      "distractors": ["∂ρ/∂t + ∇·J = 0", "∇·E = 0", "∇·B = 0"]
+    },
+    {
+      "context": "Lipkin's zilch tensor Z^μνρ for source-free electromagnetic fields satisfies",
+      "truth": "∂_ρ Z^μνρ = 0, giving 10 conserved charges (the zilches)",
+      "distractors": ["∂_μ Z^μνρ = J^νρ", "Z^μνρ = const", "∂_ρ Z^μνρ ≈ 0"]
+    },
+    {
+      "context": "How many independent conserved charges does Lipkin's zilch tensor provide?",
+      "truth": "10 conserved charges (the components of the zilch tensor)",
+      "distractors": ["1 (just energy)", "4 (energy-momentum)", "6 (angular momentum)"]
+    },
+    {
+      "context": "The zilch tensor Z^μνρ is a rank-3 tensor that is",
+      "truth": "totally antisymmetric and satisfies ∂_ρ Z^μνρ = 0",
+      "distractors": ["symmetric", "only partially antisymmetric", "not conserved"]
+    },
+    {
+      "context": "The zilch conservation laws were discovered in",
+      "truth": "1964 by D.M. Lipkin, published in Journal of Mathematical Physics",
+      "distractors": ["1905 with special relativity", "1873 by Maxwell", "2010 by Tang & Cohen"]
+    },
+    {
+      "context": "Lipkin's original 1964 paper on zilch was titled",
+      "truth": "'Existence of a new conservation law in electromagnetic theory'",
+      "distractors": ["'On the electromagnetic field'", "'Special relativity'", "'Optical chirality'"]
+    },
+    {
+      "context": "Tang and Cohen (2010) rediscovered optical chirality and showed it measures",
+      "truth": "the handedness (circular polarization) of electromagnetic waves",
+      "distractors": ["the energy density", "the momentum flow", "the frequency"]
+    },
+    {
+      "context": "The electromagnetic super-energy tensor was introduced by M. Chevreton in",
+      "truth": "1964, published in Nuovo Cimento",
+      "distractors": ["1905 by Einstein", "1873 by Maxwell", "1915 with general relativity"]
+    },
+    {
+      "context": "Chevreton's super-energy tensor is related to",
+      "truth": "conformal invariance and the Bel-Robinson tensor",
+      "distractors": ["only the stress-energy tensor", "gauge transformations", "nothing physical"]
+    },
+    {
+      "context": "In source-free electromagnetism, the energy-momentum tensor T^μν satisfies",
+      "truth": "∂_μ T^μν = 0 (conservation of energy and momentum)",
+      "distractors": ["T^μν = 0", "∂_μ T^μν = J^ν", "T^μ_μ = 0 only"]
+    },
+    {
+      "context": "The electromagnetic field helicity H = ∫ A·B d³x is related to",
+      "truth": "the linkage of magnetic field lines (topological invariant)",
+      "distractors": ["the total energy", "the angular momentum", "the electric charge"]
+    },
+    {
+      "context": "The relationship between optical chirality C and helicity H for monochromatic light is",
+      "truth": "C = ω H / (2c²) where ω is the angular frequency",
+      "distractors": ["C = H", "C = H²", "no relationship"]
+    },
+    {
+      "context": "For a plane wave E = E₀ cos(kz - ωt), the integrated optical chirality is",
+      "truth": "zero (linear polarization has no chirality)",
+      "distractors": ["proportional to E₀²", "proportional to ω", "infinite"]
+    },
+    {
+      "context": "The duality symmetry of Maxwell equations (E → B, B → -E) leaves invariant",
+      "truth": "the energy density (1/2)(E² + B²)",
+      "distractors": ["the Poynting vector", "the optical chirality", "nothing"]
+    },
+    {
+      "context": "The conformal symmetry of Maxwell equations gives rise to",
+      "truth": "15 conserved charges including the super-energy",
+      "distractors": ["only 4 charges", "no additional invariants", "infinite charges"]
+    },
+    {
+      "context": "The zilch current density is given by",
+      "truth": "Z = E × (∇×B) - B × (∇×E), a pseudo-vector",
+      "distractors": ["Z = E × B", "Z = E · B", "Z = E² - B²"]
+    },
+    {
+      "context": "The optical chirality density c transforms under parity as",
+      "truth": "a pseudo-scalar (changes sign under parity inversion)",
+      "distractors": ["a true scalar", "a vector", "undefined"]
+    },
+    {
+      "context": "The helicity H = ∫ A·B d³x transforms under parity as",
+      "truth": "a pseudo-scalar (odd under P)",
+      "distractors": ["a true scalar (even)", "a vector", "undefined"]
+    },
+    {
+      "context": "The electromagnetic field angular momentum J = ∫ r × (E × B) d³x is",
+      "truth": "exactly conserved for source-free fields",
+      "distractors": ["not conserved", "approximately conserved", "gauge-dependent"]
+    },
+    {
+      "context": "Optical chirality is useful in experiments on",
+      "truth": "chiral molecules, circular dichroism, and enantioselective photochemistry",
+      "distractors": ["only theoretical physics", "nuclear reactions", "gravity"]
+    },
+    {
+      "context": "The Bel-Robinson tensor in electromagnetism describes",
+      "truth": "super-energy and is related to conformal invariance",
+      "distractors": ["only the stress tensor", "gauge symmetry", "charge conservation"]
+    },
+    {
+      "context": "Nesterenko showed that zilch conservation follows from",
+      "truth": "Noether's theorem applied to hidden symmetries of Maxwell equations",
+      "distractors": ["energy conservation alone", "Lorentz invariance", "gauge symmetry"]
+    },
+    {
+      "context": "The electromagnetic helicity H = ∫ A·B d³x in the Coulomb gauge (∇·A = 0) equals",
+      "truth": "the same value as in any other gauge (gauge-invariant for localized fields)",
+      "distractors": ["a different value", "zero always", "infinity"]
+    },
+    {
+      "context": "For electromagnetic waves in vacuum, the optical chirality C satisfies",
+      "truth": "dC/dt = 0 (exactly conserved in time)",
+      "distractors": ["dC/dt > 0", "dC/dt < 0", "dC/dt oscillates"]
+    },
+    {
+      "context": "The super-energy S = ∫[(∇×E)² + (∇×B)²]d³x for source-free fields is",
+      "truth": "exactly conserved (related to conformal invariance)",
+      "distractors": ["not conserved", "approximately conserved", "gauge-dependent"]
+    },
+    {
+      "context": "The total number of independent conservation laws for source-free Maxwell equations includes",
+      "truth": "energy (1), momentum (3), angular momentum (3), zilches (10), and more",
+      "distractors": ["only energy and momentum (4)", "only energy (1)", "infinite"]
+    }
+  ]
+}
