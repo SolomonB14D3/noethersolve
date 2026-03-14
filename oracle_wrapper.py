@@ -23,6 +23,9 @@ Usage:
 
     # Full loop: baseline → repair if needed → recheck:
     python oracle_wrapper.py --problem problems/kinetic_energy_pilot.json --repair
+
+    # Ranking mode: score candidates by conservation quality (not just pass/fail):
+    python oracle_wrapper.py --problem problems/vortex_pair_facts.json --ranking
 """
 
 import argparse
@@ -117,6 +120,71 @@ def load_adapter_for_model(model, adapter_path: str, d_inner: int = 64):
     mx.eval(adapter.parameters())
     lm_head = get_lm_head_fn(model)
     return adapter, lm_head
+
+
+# --------------------------------------------------------------------------
+# Ranking adapter support
+# --------------------------------------------------------------------------
+
+RANKING_ADAPTER_PATH = os.path.join(HERE, "adapters", "ranking_v2_best.npz")
+
+
+def run_oracle_with_ranking(model, tokenizer, facts: list,
+                            adapter=None, lm_head=None) -> dict:
+    """
+    Score facts using ranking adapter. Returns margins that correlate with
+    conservation quality (higher margin = better conserved).
+
+    Unlike binary pass/fail, this gives a quality score for each candidate.
+    """
+    results = []
+    for fact in facts:
+        win, margin, truth_lp, best_dist_lp = score_fact_mc(
+            model, tokenizer,
+            fact["context"], fact["truth"], fact["distractors"],
+            adapter=adapter, lm_head=lm_head,
+        )
+        results.append({
+            "context":  fact["context"],
+            "truth":    fact["truth"],
+            "win":      bool(win),
+            "margin":   float(margin),
+            "quality_score": float(margin),  # With ranking adapter, margin = quality
+        })
+
+    # Sort by quality score (descending)
+    results_sorted = sorted(results, key=lambda x: -x["quality_score"])
+
+    n_pass = sum(r["win"] for r in results)
+    n_total = len(results)
+    mean_margin = float(np.mean([r["margin"] for r in results]))
+
+    return {
+        "n_pass":      n_pass,
+        "n_total":     n_total,
+        "frac_pass":   n_pass / n_total if n_total else 0.0,
+        "mean_margin": mean_margin,
+        "results":     results,
+        "ranked":      results_sorted,  # Results ordered by quality
+    }
+
+
+def print_ranking_report(summary: dict):
+    """Print ranking-based report showing quality scores."""
+    print(f"\n{'='*60}")
+    print(f"  Ranking Report (quality scores)")
+    print(f"{'='*60}")
+    print(f"  Total facts: {summary['n_total']}")
+    print(f"  Pass rate:   {summary['n_pass']}/{summary['n_total']} ({summary['frac_pass']:.1%})")
+    print(f"  Mean margin: {summary['mean_margin']:+.3f}")
+
+    print(f"\n  Ranked by quality (highest first):")
+    for i, r in enumerate(summary["ranked"][:10]):
+        status = "✓" if r["win"] else "✗"
+        print(f"    {i+1:2d}. [{status}] margin={r['margin']:+7.2f}  {r['truth'][:50]}")
+
+    if len(summary["ranked"]) > 10:
+        print(f"    ... ({len(summary['ranked']) - 10} more)")
 
 
 # --------------------------------------------------------------------------
@@ -230,6 +298,8 @@ def main():
     parser.add_argument("--checker-passed", type=lambda x: x.lower() in ("true", "1", "yes"),
                         default=None, dest="checker_passed",
                         help="Pass formal checker result (true/false) for quadrant diagnosis")
+    parser.add_argument("--ranking", action="store_true",
+                        help="Use ranking adapter for quality-based scoring (Spearman ρ=0.89)")
     parser.add_argument("--d-inner", type=int, default=64)
     args = parser.parse_args()
 
@@ -259,6 +329,21 @@ def main():
     model, tokenizer = mlx_lm.load(model_name)
     model.freeze()
     print(f"  Loaded in {time.time()-t0:.1f}s")
+
+    # --- Ranking mode (if requested) ---
+    if args.ranking:
+        if not os.path.exists(RANKING_ADAPTER_PATH):
+            print(f"\n  [ranking] Adapter not found: {RANKING_ADAPTER_PATH}")
+            print("  Run train_ranking_quick.py to create it.")
+        else:
+            print(f"\nRunning ranking oracle (quality-based scoring)...")
+            adapter, lm_head = load_adapter_for_model(model, RANKING_ADAPTER_PATH, args.d_inner)
+            ranking_summary = run_oracle_with_ranking(
+                model, tokenizer, facts, adapter=adapter, lm_head=lm_head
+            )
+            print_ranking_report(ranking_summary)
+        print()
+        return
 
     # --- Baseline pass ---
     print("\nRunning baseline oracle...")
