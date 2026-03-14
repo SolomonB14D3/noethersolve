@@ -44,7 +44,22 @@ The optimal weighting is exactly the weak vortex circulation.
 
 **This quantity is INDEPENDENT of H, Lz, Px, Py** — it cannot be written as a linear combination of known invariants. Tested via least-squares fit with residual > 1e-4.
 
-Note: The related quantity Σ ΓᵢΓⱼ rᵢⱼ² IS dependent (it's a linear combination of H and Lz).
+Note: The related quantity Σ ΓᵢΓⱼ rᵢⱼ² (squared distances) IS dependent:
+```
+I2 = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ² = Γ_total · Lz - Σᵢ Γᵢ² |zᵢ|² - 2·Cross
+```
+where Cross = Σᵢ<ⱼ ΓᵢΓⱼ (xᵢxⱼ + yᵢyⱼ). This is a combination of conserved quantities.
+
+## Theoretical Status (2026-03-13)
+
+**Q = Σ ΓᵢΓⱼ rᵢⱼ does NOT have a known Lagrangian/Hamiltonian derivation.**
+
+Unlike Q² (which reduces to known invariants), the linear weighted sum Q appears to be a genuinely new near-invariant. It is NOT:
+- A Poisson bracket {H, something}
+- A momentum-like quantity from Noether's theorem
+- A linear combination of known integrals
+
+This suggests Q arises from an approximate symmetry that becomes exact in the limit Γ_weak → 0.
 
 ## Extended Verification (4- and 5-vortex)
 
