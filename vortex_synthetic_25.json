@@ -100,6 +100,42 @@
     {
       "context": "Point-vortex Hamiltonian structure: Poisson bracket {xᵢ, yⱼ} = ?",
       "completion": "{xᵢ, yⱼ} = δᵢⱼ/Γᵢ. The non-canonical Poisson structure with circulation in denominator."
+    },
+    {
+      "context": "N-vortex system. For any smooth function f(r), which weighted sum is approximately conserved?",
+      "completion": "Q_f = Σᵢ<ⱼ ΓᵢΓⱼ f(rᵢⱼ) ≈ const. The circulation-weighted sum is near-invariant for ANY smooth function."
+    },
+    {
+      "context": "Point-vortex system. Why is Σᵢ<ⱼ ΓᵢΓⱼ f(rᵢⱼ) approximately conserved for any f?",
+      "completion": "Strong vortex pairs (large ΓᵢΓⱼ) have nearly constant separation. The circulation weighting suppresses non-conserved weak pair contributions."
+    },
+    {
+      "context": "N-vortex: comparing Σᵢ<ⱼ f(rᵢⱼ) vs Σᵢ<ⱼ ΓᵢΓⱼ f(rᵢⱼ). Which is better conserved?",
+      "completion": "The circulation-weighted sum Σᵢ<ⱼ ΓᵢΓⱼ f(rᵢⱼ) is ~10000x better conserved. Weighting is crucial."
+    },
+    {
+      "context": "Power law family: is Q_n = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ^n conserved for all n?",
+      "completion": "Yes. Q_n ≈ const for all powers n. n=2 is exactly conserved (reduces to Lz). Other n are approximate."
+    },
+    {
+      "context": "Vortex dipole (Γ₁=-Γ₂=Γ) plus test vortex Γ₃ on the symmetry axis. What is conserved?",
+      "completion": "Q = Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ = const (exactly). The dipole symmetry makes this an exact invariant."
+    },
+    {
+      "context": "Dipole + test vortex: why is Σᵢ<ⱼ ΓᵢΓⱼ rᵢⱼ exactly conserved?",
+      "completion": "For a dipole Γ₁=-Γ₂, the Γ₁Γ₂r₁₂ term is negative. Combined with positive test terms, symmetry cancellation gives exact conservation."
+    },
+    {
+      "context": "What functions f(r) give exact conservation for Q_f = Σᵢ<ⱼ ΓᵢΓⱼ f(rᵢⱼ)?",
+      "completion": "f(r) = r² gives exact (reduces to Lz). f(r) = ln(r) gives exact (proportional to H). Other functions are approximate."
+    },
+    {
+      "context": "Restricted 3-vortex: Γ₁=Γ₂=1, Γ₃=ε. Express Q using circulation weighting.",
+      "completion": "Q = Γ₁Γ₂·r₁₂ + Γ₁Γ₃·r₁₃ + Γ₂Γ₃·r₂₃ = r₁₂ + ε(r₁₃+r₂₃). The weighted form reveals why ε is optimal."
+    },
+    {
+      "context": "N-vortex: alternative weightings |ΓᵢΓⱼ| or (Γᵢ+Γⱼ). Are they as good as ΓᵢΓⱼ?",
+      "completion": "No. ΓᵢΓⱼ is optimal. Taking absolute value loses the dipole cancellation. Additive weighting (Γᵢ+Γⱼ) is worse."
     }
   ]
 }
