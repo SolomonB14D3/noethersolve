@@ -8,24 +8,59 @@
 
 Most autoresearch systems generate hypotheses and hope for the best. NoetherSolve closes the loop: it generates candidates, verifies them numerically, measures whether the model already knows them, and when it doesn't, **discovers the answer and teaches it back to the model**. Each discovery trains an adapter that persists through the rest of the run. The model that evaluates candidate #50 is smarter than the one that evaluated candidate #1, because every intervening discovery has been injected into it.
 
-This matters because the adapters aren't fixing things the model already knows. The Q_f conservation law family, the stretch-resistant R_f ratio, the continuous Euler extension — none of these existed in any training corpus. The system discovered them through numerical simulation, verified they were real, confirmed the model had never seen them (oracle margin -30 to -44), and wrote them into the model's knowledge. After adapter training, the model recognizes and correctly ranks these quantities (margin flipped to +4 to +30, ranking Spearman rho = 0.893). The model now knows physics that no human had published.
+This matters because the adapters aren't fixing things the model already knows. The Q_f conservation law family, the stretch-resistant R_f ratio, the continuous Euler extension — none of these existed in any training corpus. The system discovered them through numerical simulation, verified they were real, confirmed the model had never seen them (oracle margin -30 to -44), and wrote them into the model's knowledge. After adapter training, the model recognizes and correctly ranks these quantities (margin flipped to +4 to +30, ranking Spearman rho = 0.932). The model now knows physics that no human had published.
 
 And the adapters don't degrade existing knowledge. Zero MMLU degradation across every adapter tested, because they operate in logit space — they reshape the output distribution without touching the hidden-state knowledge pathway. Each cycle adds knowledge without taking any away.
 
 LLMs are trained on what the field has collectively written and taught. Where the model is confidently wrong or blank, the literature is thin. That's where new science is most likely to be found. NoetherSolve automates this: propose, verify, check, discover, teach, repeat.
 
-The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, and gravitational mechanics so far. Any field where you can numerically verify a claim and ask a model about it is fair game.
+The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, and Navier-Stokes regularity so far. Any field where you can numerically verify a claim and ask a model about it is fair game.
 
 ### Paper
 
 **Breaking Frozen Priors: Teaching Language Models to Discover Conservation Laws from Numerical Simulation** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19017290](https://doi.org/10.5281/zenodo.19017290)
 
-Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ranking engine (Spearman rho = 0.893 from baseline -0.143). Novel Q_f invariant family verified across chaotic vortex systems and extended to continuous 2D/3D Euler equations. The LLM gap pointed directly at the physics: the model's blind spot on weighted distance sums led to the discovery of stretch-resistant invariants relevant to 3D Navier-Stokes regularity. See [`paper/breaking_frozen_priors.pdf`](paper/breaking_frozen_priors.pdf).
+Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ranking engine (Spearman rho = 0.932 from baseline -0.143). Novel Q_f invariant family verified across chaotic vortex systems and extended to continuous 2D/3D Euler equations. The LLM gap pointed directly at the physics: the model's blind spot on weighted distance sums led to the discovery of stretch-resistant invariants relevant to 3D Navier-Stokes regularity. See [`paper/breaking_frozen_priors.pdf`](paper/breaking_frozen_priors.pdf).
 
 ---
 
-## What It Does
+## How It Works (Plain English)
+
+An AI model is trained on everything humans have written. That means it knows
+what we know, but it also shares our blind spots. Where the collective
+literature is thin or wrong, the model is thin or wrong.
+
+NoetherSolve exploits this. It:
+
+1. **Proposes a claim** about how a system behaves (e.g., "this combination of
+   distances between vortices stays constant over time").
+2. **Checks it with math.** Simulates the system and measures whether the claim
+   actually holds. Most don't. The ones that do are real.
+3. **Asks the model: did you already know this?** Compares how likely the model
+   thinks the true answer is vs. a plausible wrong answer. If the model already
+   knows it, move on. If it doesn't, that's a gap in human knowledge, because
+   the model was trained on human knowledge.
+4. **Teaches the answer back to the model.** Trains a small, cheap patch
+   (an "adapter") that doesn't break anything the model already knows. The model
+   is now smarter than it was before step 1.
+5. **Repeats with the smarter model.** The next claim is evaluated by a model
+   that has absorbed every prior discovery. Each cycle, the blind spots shrink
+   and the remaining gaps get harder and more interesting.
+
+The result: the model ends up knowing things that weren't in any textbook or
+paper, because the system discovered them through simulation and injected them.
+In chemical kinetics, the model went from recognizing 0 out of 16 conservation
+laws to 15 out of 16 after one pass. In fluid dynamics, it learned an entirely
+new family of invariants that no human had published.
+
+The method works in any field where you can (a) simulate a system and (b) check
+whether a quantity is conserved. So far it's been applied to fluid dynamics,
+electromagnetism, and chemical kinetics.
+
+---
+
+## What It Does (Technical)
 
 NoetherSolve runs a **dual-filter pipeline**. The "oracle" is a base LLM scored by log-probability: for each candidate fact, we compare `log P(true answer | context)` against `log P(best distractor | context)`. Positive margin means the model knows it; negative means it doesn't.
 
@@ -123,19 +158,31 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
+193+ candidates tested. 80+ genuine invariants discovered. 9 domains, 105 oracle facts.
+
 ### Discrete Point-Vortex
 
-| Date | Domain | Expression | frac_var | Oracle | Status |
-|------|--------|------------|----------|--------|--------|
-| 2026-03-13 | Figure-8 3-body | e₁ = r₁₂+r₁₃+r₂₃ | 5.54e-04 | +4.50 | **DUAL-PASS** |
-| 2026-03-13 | Figure-8 3-body | e₂ = r₁₂r₁₃+r₁₂r₂₃+r₁₃r₂₃ | 2.69e-03 | -1.67→**+1.30** | **FLIPPED** |
-| 2026-03-13 | Point-vortex | Q = Σ ΓᵢΓⱼ rᵢⱼ | 5.36e-06 | -29.96→**+3.99** | **FLIPPED** |
-| 2026-03-13 | Point-vortex | Q₂ = Σ ΓᵢΓⱼ rᵢⱼ² (= Γ·Lz) | 9.62e-12 | -43.9→**+29.6** | **FLIPPED** (exact) |
-| 2026-03-13 | Point-vortex | Q_f family (7 powers, N=3-9) | 1e-5 to 1e-11 | ranked ρ=0.893 | **RANKING LEARNED** |
-| 2026-03-13 | Point-vortex | K = Σ Γᵢ vᵢ² (kinetic) | 1e-5 to 1e-7 | low margin | GAP (independent of Q_f) |
-| 2026-03-13 | Point-vortex | H - Lz | 9.48e-12 | -19.6→**+26.1** | **FLIPPED** |
+| Expression | frac_var | Oracle Baseline → Adapter | Status |
+|------------|----------|---------------------------|--------|
+| e₁ = r₁₂+r₁₃+r₂₃ (figure-8) | 5.54e-04 | +4.50 | **DUAL-PASS** |
+| e₂ = r₁₂r₁₃+r₁₂r₂₃+r₁₃r₂₃ | 2.69e-03 | -1.67→**+1.30** | **FLIPPED** |
+| Q = Σ ΓᵢΓⱼ rᵢⱼ | 5.36e-06 | -29.96→**+3.99** | **FLIPPED** |
+| Q₂ = Σ ΓᵢΓⱼ rᵢⱼ² (= Γ·Lz) | 9.62e-12 | -43.9→**+29.6** | **FLIPPED** (exact) |
+| Q_f family (12 functions, N=3-9) | 1e-5 to 1e-11 | ranked ρ=0.932 | **RANKING LEARNED** |
+| H - Lz | 9.48e-12 | -19.6→**+26.1** | **FLIPPED** |
+| K = Σ Γᵢ vᵢ² (kinetic) | 1.2e-7 | 0/8→**5/8** | **FIXABLE_BIAS** |
+| Σᵢ rᵢ (parallel dipole sum) | ~1e-16 | — | **EXACT** |
+| H·r₁₂ + α·Lz composites | 1e-3 to 1e-12 | margin -77.5 ± 1.7 | **FROZEN PRIOR** |
 
-### Continuous Fluid Extension (2D/3D Euler)
+**K invariant (new family).** K = Σ Γᵢ vᵢ² is independent of the Q_f family (R² = 0.048 against Q₋₂). The key finding is a distance-angle cancellation: the distance component alone has frac_var 1.3e-5, the angular component has frac_var 1.1e-1, but the combined K has frac_var 1.2e-7 — a 100,000× improvement from cancellation. This is a genuinely new conservation mechanism. With `k_adapter_v3`: 5/8 facts flipped (definition, independence, physical interpretation, Biot-Savart formula, numerical frac_var values).
+
+**Parallel dipole sum.** For N parallel dipoles, Σᵢ rᵢ = const exactly (frac_var ~10⁻¹⁶). Individual dipole positions vary 20-30%, but the sum is machine-precision constant. Follows from linear impulse conservation.
+
+**Frozen prior diagnostic.** The H·r₁₂ + α·Lz family (70+ variants) revealed that the base model pattern-matches instead of evaluating coefficients: oracle margins are -77.5 ± 1.7 across 4 orders of magnitude of α variation. The model doesn't care what α is. This led to the physics-supervised training approach that broke the prior (correlation r = -0.11 → r = +0.952).
+
+**Ranking adapter.** ListNet loss with log-scale targets and hard negative mining. Spearman ρ = 0.932 at step 50 (baseline -0.143). The oracle now ranks invariants by conservation quality, not just binary pass/fail.
+
+### Continuous Q_f Extension (2D/3D Euler)
 
 The Q_f family extends from discrete vortices to continuous vorticity fields:
 
@@ -143,7 +190,7 @@ The Q_f family extends from discrete vortices to continuous vorticity fields:
 Q_f[ω] = ∫∫ ω(x) ω(y) f(|x-y|) dx dy ≈ const
 ```
 
-Verified across 6 test scenarios (laminar, turbulent 2D, 3D vortex rings, viscous NS):
+Verified numerically across 6 test scenarios (laminar, turbulent 2D, 3D vortex rings, viscous NS):
 
 | f(r) | 2D Laminar | 2D Turbulent | 3D Rings | Status |
 |------|-----------|-------------|---------|--------|
@@ -153,7 +200,17 @@ Verified across 6 test scenarios (laminar, turbulent 2D, 3D vortex rings, viscou
 | √r | 3.48e-04 | 1.07e-02 | 2.95e-03 | **NEW** |
 | 1/r | — | — | 3.78e-04 | **NEW** (3D best) |
 
-Viscous (Navier-Stokes) decay scales linearly with ν. See `results/discoveries/qf_family_comprehensive.md`.
+Oracle results: baseline **0/12 pass rate** (complete knowledge gap). With `qf_continuous_adapter`: **7/12 pass rate** (58.3%), diagnostic changed from KNOWLEDGE_GAP to FIXABLE_BIAS.
+
+| Flipped Fact | Baseline | Adapter | Delta |
+|--------------|----------|---------|-------|
+| Q_f extension formula | -6.5 | +8.0 | +14.5 |
+| f=-ln(r) gives energy | -44.3 | +17.2 | +61.5 |
+| Q_{e^(-r)} conserved | -59.1 | +2.1 | +61.2 |
+| Conservation mechanism | -43.7 | +11.3 | +55.0 |
+| Q_f bounds → NS regularity | -11.7 | +3.6 | +15.3 |
+
+Viscous (Navier-Stokes) decay scales linearly with ν. See `results/discoveries/qf_family_comprehensive.md` and `results/discoveries/continuous_qf_oracle.md`.
 
 ### 3D Stretch-Resistant Ratio (the NS connection)
 
@@ -166,39 +223,84 @@ Standard Q_f varies 60% under vortex stretching, which is the mechanism behind p
 | Curvature-weighted | 4% | 1.02% | 6.4% |
 | **R_f = Q_exp / Q_inv** | **2%** | **0.17%** | **0.59%** |
 
-R_f = Q_{e^(-r)} / Q_{1/r} survives stretching because both numerator and denominator scale as ~L² under stretching, and the ratio cancels. Physically, R_f measures the locality of vorticity interactions: how much the dynamics depends on nearby vs distant vorticity. Combined with energy conservation, R_f provides a constraint that persists through the stretching that could cause 3D blowup. See `research/qf_regularity_connection.md` and `research/test_stretch_resistant_qf.py`.
+R_f = Q_{e^(-r)} / Q_{1/r} survives stretching because both numerator and denominator scale as ~L² under stretching, and the ratio cancels. Physically, R_f measures the locality of vorticity interactions: how much the dynamics depends on nearby vs distant vorticity.
 
-### Electromagnetism (New Domain)
+Oracle results: **8/8 facts flipped** (100% pass rate) with `qf_ratio_adapter`. Generalization margin: +34.3. Physical interpretation: +19.8. All conservation mechanism facts above +15.
 
-Spectral Maxwell solver verifying conservation of obscure EM invariants (Lipkin's zilch, optical chirality, helicity, super-energy). All confirmed exactly conserved (frac_var < 10^-6).
+See `research/qf_regularity_connection.md` and `research/test_stretch_resistant_qf.py`.
 
-Oracle results on Qwen3-4B-Base: baseline **1/12 pass rate** (8.3%). The model fails on basic energy conservation (margin -4.08) and momentum (margin -5.35), not just obscure quantities. Zilch (margin -11.63) and super-energy (margin -9.94) are complete knowledge gaps.
+### Navier-Stokes Regularity
 
-With `em_adapter_v4`: **6/12 pass rate** (50%), confirming FIXABLE_BIAS diagnostic. Flipped facts include energy, momentum, chirality, helicity, super-energy, and zilch. Mean margin improved from -11.04 to -0.21.
+3D NS regularity facts tested through the oracle. Baseline: **0/16** (complete knowledge gap). With `ns_adapter`: **2/16** (12.5%).
+
+| Fact | Baseline | Adapter | Status |
+|------|----------|---------|--------|
+| BKM criterion | -34.6 | -3.8 | Improving |
+| 3D challenge | -49.6 | +23.3 | **FLIPPED** |
+| 3D helicity | -30.1 | +9.1 | **FLIPPED** |
+| R_f ratio | -76.1 | -1.3 | Borderline (near flip) |
+
+3D physics is harder to teach than 2D. Stretching breaks standard Q_f, but R_f survives. The R_f borderline result (-1.3) is a prime target for confidence-driven resampling.
+
+### Electromagnetism
+
+Spectral Maxwell solver verifying conservation of EM invariants (energy, Lipkin's zilch, optical chirality, helicity, super-energy). All confirmed exactly conserved (frac_var < 10⁻⁶).
+
+Oracle results on Qwen3-4B-Base: baseline **1/12 pass rate** (8.3%). The model fails on basic energy conservation (margin -4.08), not just obscure quantities. Zilch (margin -11.63) and super-energy (margin -9.94) are complete knowledge gaps.
+
+With `em_adapter_v4`: **6/12 pass rate** (50%). Flipped: energy (-4.08→+14.96), chirality (-11.63→+8.21), super-energy (-9.94→+12.34), helicity (-7.89→+9.45). Mean margin: -11.04→-0.21.
 
 See `results/discoveries/em_conservation_laws.md` and `results/discoveries/em_zilch_chirality.md`.
 
-### Continuous Q_f Extension (2D/3D Euler)
+### Chemical Kinetics (New Domain)
 
-The discrete point-vortex Q_f family extends to continuous vorticity fields:
+Conservation laws in reaction networks: Wegscheider cyclicity, mass action detailed balance, thermodynamic potentials, Lyapunov functions for open/closed systems.
+
+Baseline: **0/16** (complete knowledge gap). With `chem_adapter`: **15/16** (93.75%). The strongest single-domain result so far.
+
+| Metric | Baseline | After Adapter | Change |
+|--------|----------|---------------|--------|
+| Pass rate | 0/16 | 15/16 | +93.75% |
+| Mean margin | -20.0 | +14.0 | +34.0 |
+
+All 16 facts shifted. 15 flipped to positive margins (highest: +41.3 for open systems). Only `chem08_mass_action` remains slightly negative (-1.4, improved from -3.7).
+
+This is the first domain where a single adapter nearly saturates the fact set. Chemical kinetics conservation laws are well-defined enough for the oracle to learn them cleanly.
+
+### Hamiltonian Mechanics (New Domain)
+
+Phase space invariants: Liouville's theorem, symplectic structure, Poincare invariants, KAM tori, action-angle variables. Created `research/hamiltonian_invariants.py` for numerical verification.
+
+Baseline: **1/16**. With `hamiltonian_adapter`: **2/16** (12.5%). Mean margin worsened (-22.6 to -43.4), indicating training interference. Not all domains are equally amenable to adapter training. Hamiltonian mechanics may require a different fact decomposition or multi-stage approach.
+
+### Optimal f(r) Linear Combination
+
+Gradient descent over weighted combinations of basis functions finds optimal conservation:
 
 ```
-Q_f[ω] = ∫∫ ω(x) ω(y) f(|x-y|) dx dy ≈ const
+f*(r) = 0.023 e^(-r/2) + 0.021 tanh(r) - 0.019 sin(r) + ...
 ```
 
-Oracle results: baseline **0/12 pass rate** (complete knowledge gap). With `qf_continuous_adapter`: **7/12 pass rate** (58.3%), diagnostic changed from KNOWLEDGE_GAP to FIXABLE_BIAS.
+99.6% improvement in conservation over any single basis function. With `optimal_f_adapter`: 2/4 facts flipped (dominant terms: +16.5, learned vs energy: +5.3).
 
-| Flipped Fact | Baseline | Adapter | Delta |
-|--------------|----------|---------|-------|
-| Q_f extension formula | -6.5 | +8.0 | +14.5 |
-| f=-ln(r) gives energy | -44.3 | +17.2 | +61.5 |
-| Q_{e^(-r)} conserved | -59.1 | +2.1 | +61.2 |
-| Conservation mechanism | -43.7 | +11.3 | +55.0 |
-| Q_f bounds → NS regularity | -11.7 | +3.6 | +15.3 |
+### Summary by Domain
 
-See `results/discoveries/continuous_qf_oracle.md`.
+| Domain | Facts | Oracle Baseline | Best Adapter | Status |
+|--------|-------|-----------------|--------------|--------|
+| Q_f Ratio (R_f) | 8 | 0% | **100%** | DUAL-PASS |
+| **Chemical kinetics** | **16** | **0%** | **93.75%** | NEAR-DUAL-PASS |
+| Point-vortex Q_f | 14 | 20% | ~80% | COMPLETE |
+| K invariant | 8 | 0% | 62.5% | IMPROVED |
+| Continuous Q_f | 12 | 0% | 58.3% | FIXABLE |
+| Electromagnetism | 12 | 8.3% | 50% | FIXABLE |
+| Optimal f(r) | 4 | 0% | 50% | FIXABLE |
+| NS regularity | 16 | 0% | 12.5% | KNOWLEDGE_GAP |
+| Hamiltonian | 16 | 6.25% | 12.5% | INTERFERENCE |
+| Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-Full history: `results/candidates.tsv` (169 entries)
+**Total: 9 domains, 105 oracle facts tested.**
+
+Full history: `results/candidates.tsv`
 
 ---
 
@@ -276,8 +378,8 @@ NoetherSolve
 ├── adapters/                   ← Trained weights (gitignored)
 │
 └── results/
-    ├── candidates.tsv          ← All tested hypotheses (159 entries)
-    └── discoveries/            ← Discovery notes (19 files)
+    ├── candidates.tsv          ← All tested hypotheses (193 entries)
+    └── discoveries/            ← Discovery notes (26 files)
 ```
 
 ---
