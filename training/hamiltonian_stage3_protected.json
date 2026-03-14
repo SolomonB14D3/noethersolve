@@ -1,0 +1,34 @@
+{
+  "description": "Stage 3 Protected: 80% anchor/protection, 20% new facts. Strong protection first.",
+  "domain": "hamiltonian_stage3_protected",
+  "stage": 3,
+  "strategy": "80% protection first, 20% new facts last. Anchor loss on passing facts.",
+  "anchor_facts": ["ham02_liouville", "ham03_symplectic", "ham04_poincare", "ham05_noether", "ham12_ergodic", "ham13_canonical", "ham16_poisson"],
+  "new_targets": ["ham01_energy", "ham09_action", "ham15_integrable"],
+  "examples": [
+    {"context": "Liouville's theorem states that for Hamiltonian systems:", "truth": "phase space volume is preserved under time evolution", "distractors": ["energy is minimized", "trajectories converge to attractors", "phase space volume always increases"], "_anchor": true},
+    {"context": "Phase space volume is preserved under Hamiltonian flow because:", "truth": "the divergence of the Hamiltonian vector field is zero", "distractors": ["energy is constant", "entropy decreases", "momentum is conserved"], "_anchor": true},
+    {"context": "The mathematical structure that underlies Liouville's theorem is:", "truth": "symplectic geometry - the 2-form ω = Σ dq_i ∧ dp_i is preserved", "distractors": ["Riemannian geometry", "Euclidean metric", "conformal structure"], "_anchor": true},
+    {"context": "Symplectic geometry underlies Hamiltonian mechanics because:", "truth": "Hamilton's equations preserve the symplectic 2-form ω", "distractors": ["it simplifies calculations", "it is optional", "Lagrangian requires it"], "_anchor": true},
+    {"context": "The first Poincaré integral invariant ∮ p dq is:", "truth": "conserved for any loop in phase space evolving under Hamiltonian flow", "distractors": ["only conserved for circular orbits", "always zero", "only defined for integrable systems"], "_anchor": true},
+    {"context": "The Poincaré invariant measures:", "truth": "symplectic area enclosed by a curve in phase space", "distractors": ["total energy", "perimeter", "momentum"], "_anchor": true},
+    {"context": "Noether's theorem relates conservation laws to:", "truth": "continuous symmetries of the Lagrangian (time → energy, space → momentum, rotation → angular momentum)", "distractors": ["discrete symmetries only", "boundary conditions", "initial conditions"], "_anchor": true},
+    {"context": "Time translation symmetry via Noether gives:", "truth": "energy conservation", "distractors": ["momentum conservation", "angular momentum", "nothing"], "_anchor": true},
+    {"context": "For a chaotic Hamiltonian system, Liouville's theorem implies:", "truth": "phase space volume is still conserved even though trajectories are chaotic", "distractors": ["volume shrinks to an attractor", "volume expands exponentially", "Liouville's theorem doesn't apply to chaos"], "_anchor": true},
+    {"context": "Hamiltonian chaos differs from dissipative chaos because:", "truth": "there are no attractors - phase space volume is conserved (Liouville)", "distractors": ["attractors exist in both", "volume shrinks", "they are identical"], "_anchor": true},
+    {"context": "A canonical transformation (q, p) → (Q, P) preserves:", "truth": "the symplectic 2-form and Poisson brackets ({Q_i, P_j} = δ_ij)", "distractors": ["only energy", "only volume", "the Hamiltonian function exactly"], "_anchor": true},
+    {"context": "Canonical transformations preserve Poisson brackets because they:", "truth": "preserve the symplectic structure", "distractors": ["are arbitrary", "only preserve energy", "have no such property"], "_anchor": true},
+    {"context": "The Poisson bracket {F, H} of a quantity F with the Hamiltonian gives:", "truth": "the time derivative dF/dt (F is conserved iff {F, H} = 0)", "distractors": ["the gradient of F", "the second derivative", "nothing physically meaningful"], "_anchor": true},
+    {"context": "A quantity F is conserved iff:", "truth": "{F, H} = 0 (Poisson bracket with Hamiltonian vanishes)", "distractors": ["{F, F} = 0", "F = H", "F is constant"], "_anchor": true},
+    {"context": "Liouville and Poisson brackets are connected via:", "truth": "both follow from preservation of the symplectic form", "distractors": ["no connection", "only Liouville uses symplectic", "they are independent"], "_anchor": true},
+    {"context": "The symplectic form ω being preserved implies:", "truth": "both Liouville (volume) and Poincaré (area) invariants hold", "distractors": ["only energy conservation", "nothing physical", "chaos"], "_anchor": true},
+
+    {"context": "For an autonomous Hamiltonian system with H(q, p), the quantity H is:", "truth": "conserved along trajectories (dH/dt = 0 via Hamilton's equations)", "distractors": ["always increasing due to entropy", "only conserved at equilibrium", "conserved only for linear systems"], "_new": true},
+    {"context": "Energy conservation follows from:", "truth": "time translation symmetry (Noether's theorem)", "distractors": ["spatial symmetry", "no reason", "momentum"], "_new": true},
+    {"context": "dH/dt = 0 for autonomous systems because:", "truth": "{H, H} = 0 (Poisson bracket of H with itself vanishes)", "distractors": ["energy is infinite", "H constant by definition", "no reason"], "_new": true},
+    {"context": "For an integrable Hamiltonian system, action variables J_i = (1/2π) ∮ p_i dq_i are:", "truth": "adiabatic invariants that remain constant even under slow parameter changes", "distractors": ["always zero", "only defined at equilibrium", "change proportionally with energy"], "_new": true},
+    {"context": "Action-angle variables are useful because:", "truth": "J are constants of motion and θ evolve linearly in time", "distractors": ["they simplify all calculations", "only for free particles", "J evolve quadratically"], "_new": true},
+    {"context": "A Hamiltonian system with n degrees of freedom is completely integrable if it has:", "truth": "n independent integrals of motion in involution (Liouville-Arnold theorem)", "distractors": ["n² integrals of motion", "only energy conservation", "periodic orbits"], "_new": true},
+    {"context": "Integrals in involution means:", "truth": "{F_i, F_j} = 0 for all pairs (they Poisson-commute)", "distractors": ["F_i = F_j", "linearly dependent", "no meaning"], "_new": true}
+  ]
+}
