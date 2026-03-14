@@ -1,0 +1,105 @@
+{
+  "description": "Stage 2: Add Noether/Poisson cluster while protecting symplectic anchor",
+  "domain": "hamiltonian_stage2",
+  "stage": 2,
+  "target_facts": ["ham05_noether", "ham16_poisson"],
+  "protect_facts": ["ham02_liouville", "ham03_symplectic", "ham04_poincare", "ham12_ergodic", "ham13_canonical"],
+  "goal": "Flip Noether/Poisson without breaking symplectic cluster",
+  "examples": [
+    {
+      "context": "Noether's theorem relates conservation laws to:",
+      "truth": "continuous symmetries of the Lagrangian (time → energy, space → momentum, rotation → angular momentum)",
+      "distractors": ["discrete symmetries only", "boundary conditions", "initial conditions"]
+    },
+    {
+      "context": "Noether's theorem states that every continuous symmetry of the Lagrangian corresponds to:",
+      "truth": "a conserved quantity (symmetry → conservation law)",
+      "distractors": ["no physical consequence", "discrete symmetries", "chaos"]
+    },
+    {
+      "context": "Time translation symmetry via Noether's theorem gives:",
+      "truth": "energy conservation (Hamiltonian is constant for autonomous systems)",
+      "distractors": ["momentum conservation", "angular momentum", "nothing"]
+    },
+    {
+      "context": "Spatial translation symmetry via Noether's theorem gives:",
+      "truth": "linear momentum conservation",
+      "distractors": ["energy conservation", "angular momentum", "position conservation"]
+    },
+    {
+      "context": "Rotational symmetry via Noether's theorem gives:",
+      "truth": "angular momentum conservation",
+      "distractors": ["energy conservation", "linear momentum", "torque"]
+    },
+    {
+      "context": "The Poisson bracket {F, H} of a quantity F with the Hamiltonian gives:",
+      "truth": "the time derivative dF/dt (F is conserved iff {F, H} = 0)",
+      "distractors": ["the gradient of F", "the second derivative", "nothing physically meaningful"]
+    },
+    {
+      "context": "The Poisson bracket {F, G} is defined as:",
+      "truth": "Σᵢ (∂F/∂qᵢ ∂G/∂pᵢ - ∂F/∂pᵢ ∂G/∂qᵢ)",
+      "distractors": ["F × G", "∂F/∂q ∂G/∂p", "F + G"]
+    },
+    {
+      "context": "A quantity F is conserved in Hamiltonian mechanics if and only if:",
+      "truth": "{F, H} = 0 (Poisson bracket with Hamiltonian vanishes)",
+      "distractors": ["{F, F} = 0", "F = H", "F is constant"]
+    },
+    {
+      "context": "The fundamental Poisson brackets are:",
+      "truth": "{qᵢ, pⱼ} = δᵢⱼ, {qᵢ, qⱼ} = 0, {pᵢ, pⱼ} = 0",
+      "distractors": ["{qᵢ, pⱼ} = 0", "{qᵢ, qⱼ} = δᵢⱼ", "all brackets equal 1"]
+    },
+    {
+      "context": "Poisson brackets encode the same structure as:",
+      "truth": "the symplectic form (both define the fundamental structure)",
+      "distractors": ["energy only", "nothing related to symplectic", "metric geometry"]
+    },
+    {
+      "context": "The connection between Poisson brackets and symplectic geometry is:",
+      "truth": "{F, G} = ω(X_F, X_G) where X_F is the Hamiltonian vector field",
+      "distractors": ["no connection", "Poisson is more fundamental", "they are unrelated"]
+    },
+    {
+      "context": "Canonical transformations preserve Poisson brackets because they:",
+      "truth": "preserve the symplectic structure (Poisson ↔ symplectic)",
+      "distractors": ["are arbitrary", "only preserve energy", "have no such property"]
+    },
+    {
+      "context": "Liouville's theorem and Poisson brackets are connected via:",
+      "truth": "both follow from preservation of the symplectic form",
+      "distractors": ["no connection", "only Liouville uses symplectic", "they are independent"]
+    },
+    {
+      "context": "Noether's theorem in Hamiltonian formulation uses:",
+      "truth": "Poisson brackets: if {Q, H} = 0, then Q is conserved",
+      "distractors": ["only Lagrangian formulation", "no Poisson brackets", "energy only"]
+    },
+    {
+      "context": "Liouville's theorem states that for Hamiltonian systems:",
+      "truth": "phase space volume is preserved under time evolution",
+      "distractors": ["energy is minimized", "trajectories converge to attractors", "phase space volume always increases"]
+    },
+    {
+      "context": "The mathematical structure that underlies Liouville's theorem is:",
+      "truth": "symplectic geometry - the 2-form ω = Σ dq_i ∧ dp_i is preserved",
+      "distractors": ["Riemannian geometry", "Euclidean metric", "conformal structure"]
+    },
+    {
+      "context": "The first Poincaré integral invariant ∮ p dq is:",
+      "truth": "conserved for any loop in phase space evolving under Hamiltonian flow",
+      "distractors": ["only conserved for circular orbits", "always zero", "only defined for integrable systems"]
+    },
+    {
+      "context": "For a chaotic Hamiltonian system, Liouville's theorem implies:",
+      "truth": "phase space volume is still conserved even though trajectories are chaotic",
+      "distractors": ["volume shrinks to an attractor", "volume expands exponentially", "Liouville's theorem doesn't apply to chaos"]
+    },
+    {
+      "context": "A canonical transformation (q, p) → (Q, P) preserves:",
+      "truth": "the symplectic 2-form and Poisson brackets ({Q_i, P_j} = δ_ij)",
+      "distractors": ["only energy", "only volume", "the Hamiltonian function exactly"]
+    }
+  ]
+}

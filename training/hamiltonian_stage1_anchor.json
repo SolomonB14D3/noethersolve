@@ -1,0 +1,109 @@
+{
+  "description": "Stage 1: Lock in symplectic/Liouville anchor - 5 target facts + 15 reinforcement examples",
+  "domain": "hamiltonian_stage1",
+  "stage": 1,
+  "target_facts": ["ham02_liouville", "ham03_symplectic", "ham04_poincare", "ham12_ergodic", "ham13_canonical"],
+  "goal": "Lock in +40-50 margins, create stable anchor for Stage 2",
+  "examples": [
+    {
+      "context": "Liouville's theorem states that for Hamiltonian systems:",
+      "truth": "phase space volume is preserved under time evolution",
+      "distractors": ["energy is minimized", "trajectories converge to attractors", "phase space volume always increases"]
+    },
+    {
+      "context": "Liouville's theorem in Hamiltonian mechanics states:",
+      "truth": "phase space volume is preserved under Hamiltonian flow",
+      "distractors": ["volume always decreases", "trajectories converge", "volume increases"]
+    },
+    {
+      "context": "The proof of Liouville's theorem uses the fact that:",
+      "truth": "the divergence of the Hamiltonian vector field is zero",
+      "distractors": ["energy is conserved", "momentum is conserved", "entropy increases"]
+    },
+    {
+      "context": "Phase space volume conservation (Liouville) means:",
+      "truth": "a cloud of initial conditions maintains constant volume as it evolves",
+      "distractors": ["volume shrinks to equilibrium", "volume expands", "volume oscillates"]
+    },
+    {
+      "context": "The mathematical structure that underlies Liouville's theorem is:",
+      "truth": "symplectic geometry - the 2-form ω = Σ dq_i ∧ dp_i is preserved",
+      "distractors": ["Riemannian geometry", "Euclidean metric", "conformal structure"]
+    },
+    {
+      "context": "The symplectic 2-form ω = Σ dqᵢ ∧ dpᵢ is:",
+      "truth": "preserved under Hamiltonian flow (equivalent to Liouville)",
+      "distractors": ["only approximately conserved", "destroyed by evolution", "irrelevant to physics"]
+    },
+    {
+      "context": "Symplectic geometry underlies Hamiltonian mechanics because:",
+      "truth": "Hamilton's equations preserve the symplectic 2-form ω",
+      "distractors": ["it simplifies calculations", "it is optional", "Lagrangian requires it"]
+    },
+    {
+      "context": "The first Poincaré integral invariant ∮ p dq is:",
+      "truth": "conserved for any loop in phase space evolving under Hamiltonian flow",
+      "distractors": ["only conserved for circular orbits", "always zero", "only defined for integrable systems"]
+    },
+    {
+      "context": "The Poincaré invariant ∮ p dq measures:",
+      "truth": "symplectic area enclosed by a curve in phase space",
+      "distractors": ["total energy", "total momentum", "curve perimeter"]
+    },
+    {
+      "context": "Conservation of ∮ p dq follows from:",
+      "truth": "preservation of the symplectic 2-form under Hamiltonian flow",
+      "distractors": ["energy conservation alone", "random coincidence", "boundary conditions"]
+    },
+    {
+      "context": "For a chaotic Hamiltonian system, Liouville's theorem implies:",
+      "truth": "phase space volume is still conserved even though trajectories are chaotic",
+      "distractors": ["volume shrinks to an attractor", "volume expands exponentially", "Liouville's theorem doesn't apply to chaos"]
+    },
+    {
+      "context": "Hamiltonian chaos differs from dissipative chaos because:",
+      "truth": "there are no attractors - volume is conserved (Liouville)",
+      "distractors": ["there are always attractors", "volume shrinks", "they are identical"]
+    },
+    {
+      "context": "Even in ergodic Hamiltonian systems, Liouville's theorem:",
+      "truth": "still holds - volume conservation is universal for Hamiltonian flow",
+      "distractors": ["breaks down", "only holds approximately", "requires integrability"]
+    },
+    {
+      "context": "A canonical transformation (q, p) → (Q, P) preserves:",
+      "truth": "the symplectic 2-form and Poisson brackets ({Q_i, P_j} = δ_ij)",
+      "distractors": ["only energy", "only volume", "the Hamiltonian function exactly"]
+    },
+    {
+      "context": "Canonical transformations are precisely those that:",
+      "truth": "preserve the symplectic structure (and thus all Hamiltonian mechanics)",
+      "distractors": ["preserve energy only", "are always linear", "change physics arbitrarily"]
+    },
+    {
+      "context": "The symplectic group Sp(2n) consists of:",
+      "truth": "linear canonical transformations preserving ω",
+      "distractors": ["orthogonal matrices", "all invertible matrices", "rotations only"]
+    },
+    {
+      "context": "The determinant of any symplectic matrix is:",
+      "truth": "exactly 1 (volume-preserving, as required by Liouville)",
+      "distractors": ["0", "-1", "any nonzero value"]
+    },
+    {
+      "context": "The Lyapunov exponents of a Hamiltonian system sum to:",
+      "truth": "zero (required by Liouville/volume conservation)",
+      "distractors": ["a positive value", "the energy", "always negative"]
+    },
+    {
+      "context": "Liouville's theorem forbids Hamiltonian systems from having:",
+      "truth": "attracting fixed points (volume cannot contract)",
+      "distractors": ["any fixed points", "periodic orbits", "chaotic regions"]
+    },
+    {
+      "context": "The connection between Liouville and symplectic geometry is:",
+      "truth": "ωⁿ gives the volume form, and dω = 0 plus flow preservation implies Liouville",
+      "distractors": ["no connection", "only in 2D", "purely formal"]
+    }
+  ]
+}
