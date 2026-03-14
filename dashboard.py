@@ -86,7 +86,7 @@ def load_candidates(path: str) -> list[dict]:
 
             # Parse frac_var from classification column
             frac_var = None
-            classification = row.get("classification", "")
+            classification = row.get("classification") or ""
             for token in classification.split(";"):
                 token = token.strip()
                 if "frac_var=" in token:
