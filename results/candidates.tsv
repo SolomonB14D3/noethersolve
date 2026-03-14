@@ -140,3 +140,4 @@ timestamp	hypothesis	margin_mean	n_pass	verdict	classification
 2026-03-13	H·r12 + 0.2·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=2.08e-03 restricted:2.08e-03
 2026-03-13	H·r12 + 0.5·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=4.76e-04 restricted:4.76e-04
 2026-03-13	H·r12 + 1.0·Lz on restricted (auto)	-12.3301	2/11	ORACLE-FAIL+CHECKER-PASS	margin=-12.33 frac_var=2.08e-04 restricted:2.08e-04
+2026-03-13	Q_n = Σ ΓᵢΓⱼ rᵢⱼ^n family (n=0.5,1,1.5,2,3,-1,-0.5)	pending	7/7	CHECKER-PASS	ALL powers pass; n=2 EXACT (1e-11); others approximate (1e-5 to 1e-4); generalizes Q to arbitrary power law
