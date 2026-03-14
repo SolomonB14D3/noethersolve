@@ -13,8 +13,14 @@ adapters/*.npz
 # Hunt results (regenerated)
 results/hunt_results.json
 
-# Dashboard charts (regenerated from candidates.tsv)
+# Dashboard (regenerated from candidates.tsv)
 results/charts/
+results/dashboard.html
+
+# Paper drafts and figures (publish PDFs via Zenodo, not git)
+paper/*.pdf
+# paper/prior_work/ PDFs are tracked (reference papers 8-9)
+figures/
 
 # Secrets
 .env

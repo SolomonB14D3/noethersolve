@@ -162,7 +162,7 @@ python oracle_wrapper.py --problem problems/vortex_pair_conservation.yaml \
 ### Step 5: If knowledge gap, train a domain adapter
 ```bash
 # Apple Silicon (MLX)
-python train_vortex_adapter.py --data my_training_data.json --steps 1500
+python training/scripts/train_vortex_adapter.py --data my_training_data.json --steps 1500
 
 # Linux/CUDA (PyTorch)
 python noethersolve_torch.py train-adapter \
@@ -254,8 +254,8 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve_torch.py` | Same as oracle_wrapper but PyTorch/CUDA — no MLX needed |
 | `claim.py` | THINK→CLAIM→RUN→PUBLISH coordination (4h claim expiry) |
 | `dashboard.py` | Regenerate results dashboard from candidates.tsv |
-| `train_vortex_adapter.py` | Train vortex-specific logit adapter (MLX) |
-| `train_choreography_adapter.py` | Train figure-8 choreography adapter (MLX) |
+| `training/scripts/train_vortex_adapter.py` | Train vortex-specific logit adapter (MLX) |
+| `training/scripts/train_choreography_adapter.py` | Train figure-8 choreography adapter (MLX) |
 | `results/candidates.tsv` | **The shared ledger** — all tested hypotheses and verdicts |
 | `claims.json` | Active claims registry — check before starting |
 | `problems/*.yaml` | Domain plugin definitions |

@@ -387,6 +387,8 @@ def train_on_examples(model, tokenizer, lm_head,
     examples: list of dicts with keys "context", "truth", "distractors"
     Returns trained adapter object (MLX).
     """
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "training", "scripts"))
     from train_vortex_adapter import train_vortex_adapter
 
     # Convert dict format → (ctx, truth, distractors, domain) tuples

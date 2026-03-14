@@ -178,44 +178,51 @@ Claims expire after 4 hours. See `CONTRIBUTING.md` for the full protocol.
 
 ```
 NoetherSolve
-├── oracle_wrapper.py          ← Oracle + repair + ranking + quadrant diagnosis
-├── claim.py                   ← Coordination: THINK/CLAIM/RELEASE
-├── autonomy_loop.py           ← Fully autonomous sweep + hypothesis generation
-├── dashboard.py               ← Results dashboard from candidates.tsv
-├── claims.json                ← Live claims registry
+├── oracle_wrapper.py           ← Oracle + repair + ranking + quadrant diagnosis
+├── conservation_checker.py     ← Figure-8 3-body numerical checker
+├── vortex_checker.py           ← 2D point-vortex numerical checker
+├── noethersolve_torch.py       ← PyTorch/CUDA backend (no MLX needed)
+├── autonomy_loop.py            ← Fully autonomous sweep + hypothesis generation
+├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
+├── dashboard.py                ← Results dashboard from candidates.tsv
 │
-├── problems/                  ← Domain plugins (fork here)
-│   ├── problem_template.yaml  ← Starting point for new domains
-│   ├── *_facts.json           ← Verification sets
-│   └── *_checker.py           ← Numerical integrators
+├── noethersolve/               ← Core package
+│   ├── adapter.py              ← Snap-on logit adapter (SwiGLU)
+│   ├── oracle.py               ← Oracle scoring engine
+│   └── train_utils.py          ← Shared training utilities
 │
-├── monitors/                  ← Reusable checker monitors
-│   ├── sum_pairwise_distances.py
-│   ├── e2_symmetric_poly.py
-│   └── __init__.py
+├── problems/                   ← Domain plugins (fork here)
+│   ├── problem_template.yaml
+│   ├── vortex_pair_conservation.yaml
+│   └── *_facts.json            ← Verification sets
 │
-├── research/                  ← Continuous Q_f extension experiments
-│   ├── test_continuous_qf.py  ← 2D laminar vortex verification
-│   ├── test_qf_turbulence.py  ← 2D turbulent dynamics
-│   ├── test_3d_vortex_qf.py   ← 3D vortex ring verification
-│   ├── test_qf_viscous.py     ← Navier-Stokes viscous decay
-│   ├── test_qf_concentration.py ← Concentration scaling response
-│   ├── test_3d_stretching.py  ← 3D vortex stretching
-│   ├── learn_optimal_f.py     ← Gradient descent for optimal f(r)
-│   └── qf_regularity_connection.md ← NS regularity analysis
+├── training/
+│   ├── scripts/                ← All adapter training scripts
+│   │   ├── train_ranking_v2.py ← Ranking adapter (ListNet + hard negatives)
+│   │   ├── train_vortex_adapter.py
+│   │   ├── train_physics_supervised.py
+│   │   └── train_prior_breaker.py
+│   └── data/                   ← Training JSON files
 │
-├── train_ranking_v2.py        ← Ranking adapter (ListNet + hard negatives)
-├── train_vortex_adapter.py    ← Domain-specific logit adapter (MLX)
-├── train_choreography_adapter.py ← Figure-8 choreography adapter (MLX)
-│
-├── adapters/                  ← Trained adapter weights (gitignored)
+├── research/                   ← Q_f extension + NS regularity experiments
+│   ├── test_continuous_qf.py   ← 2D Euler verification
+│   ├── test_qf_turbulence.py   ← Turbulent dynamics
+│   ├── test_3d_vortex_qf.py    ← 3D vortex rings
+│   ├── test_qf_viscous.py      ← Navier-Stokes viscous decay
+│   ├── test_stretch_resistant_qf.py ← R_f ratio (survives stretching)
+│   ├── learn_optimal_f.py      ← Gradient descent for optimal f(r)
+│   └── qf_regularity_connection.md
 │
 ├── paper/
-│   └── breaking_frozen_priors.pdf ← Paper 10
+│   ├── breaking_frozen_priors.md   ← Paper 10 source
+│   ├── breaking_frozen_priors.pdf  ← Paper 10 (gitignored, build locally)
+│   └── prior_work/                 ← Papers 8-9 that this builds on
+│
+├── adapters/                   ← Trained weights (gitignored)
 │
 └── results/
-    ├── candidates.tsv         ← All tested hypotheses (159 entries)
-    └── discoveries/           ← Discovery notes (19 files)
+    ├── candidates.tsv          ← All tested hypotheses (159 entries)
+    └── discoveries/            ← Discovery notes (19 files)
 ```
 
 ---
