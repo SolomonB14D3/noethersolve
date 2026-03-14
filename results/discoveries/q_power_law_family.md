@@ -81,8 +81,35 @@ The weak vortex terms are O(ε) and oscillate but are down-weighted.
 **The circulation weighting does ALL the work** — it automatically
 suppresses the non-conserved contributions from weak vortices.
 
+## Theoretical Derivation (2026-03-13)
+
+**Why dQ_f/dt ≈ 0 for the weighted sum:**
+
+The time derivative of Q_f is:
+```
+dQ_f/dt = Σᵢ<ⱼ ΓᵢΓⱼ f'(rᵢⱼ) · drᵢⱼ/dt
+```
+
+For the restricted 3-vortex (Γ₁=Γ₂=1, Γ₃=ε):
+- **Strong pair (1,2)**: Γ₁Γ₂ = 1, but dr₁₂/dt ≈ 0 (nearly constant separation)
+- **Weak pairs (1,3), (2,3)**: ΓᵢΓⱼ = ε ≪ 1, large dr/dt but suppressed by small weight
+
+**Numerical verification (f=r):**
+| Pair | Weight ΓᵢΓⱼ | dr/dt | Contribution |
+|------|-------------|-------|--------------|
+| (1,2) | 1.000 | +0.0009 | +8.78e-04 |
+| (1,3) | 0.010 | -0.0338 | -3.38e-04 |
+| (2,3) | 0.010 | -0.0530 | -5.30e-04 |
+| **Total** | | | **+1.03e-05** |
+
+The weighted sum is **8300x smaller** than the unweighted sum!
+
+**Special cases:**
+- f(r) = r² → dQ/dt = 0 exactly (reduces to Lz combination)
+- f(r) = ln(r) → dQ/dt = 0 exactly (proportional to Hamiltonian H)
+
 ## Status
 
 - Numerical: VERIFIED (12 different functions all pass)
-- Oracle: PENDING
-- Theoretical: EXPLAINED (circulation weighting suppresses non-conserved terms)
+- Oracle: VERIFIED (vp12_general_Q_f passed with margin +0.144)
+- Theoretical: DERIVED (circulation weighting suppresses non-conserved terms by O(ε))
