@@ -191,10 +191,61 @@ Total domains: 8
 Total oracle facts: 89
 Total candidates: 197 (from 189)
 
+### New Domain: Hamiltonian Mechanics (DIFFICULT)
+
+Attempted Hamiltonian mechanics domain:
+- Symplectic geometry, Liouville theorem, LRL vector, KAM theory
+- 16 facts covering deep classical mechanics
+- Numerical checker: research/hamiltonian_invariants.py
+- Verified energy, Liouville volume, Poincaré invariants
+
+**Results: NEGATIVE FINDING**
+
+| Metric | Baseline | After Training | Change |
+|--------|----------|----------------|--------|
+| Pass rate | 1/16 | 2/16 | +1 fact |
+| Mean margin | -22.6 | -43.4 | **WORSE** |
+
+The adapter made margins worse overall while only flipping 1 extra fact:
+- ham04_poincare: -24.9 → +1.7 ✓ (Poincaré invariant)
+- Many facts got much worse: KAM (-28→-81), Hénon-Heiles (-42→-84)
+
+**Root cause**: Training data doesn't cover all conceptual patterns equally. Domain has complex interconnected concepts that interfere during adapter training.
+
+**Lesson**: Not all domains are equally amenable to adapter training. Chemical conservation worked well because facts share the same underlying structure (null space). Hamiltonian mechanics has more diverse conceptual structure.
+
+### Files Created (Evening Cont.)
+
+- problems/hamiltonian.yaml
+- problems/hamiltonian_facts.json (16 facts)
+- training/hamiltonian_synthetic_60.json (58 examples)
+- training/scripts/train_hamiltonian_adapter.py
+- research/hamiltonian_invariants.py
+- adapters/hamiltonian_adapter.npz
+
+### Final Domain Status (Updated)
+
+| Domain | Facts | Baseline | Best Adapter | Pass Rate | Status |
+|--------|-------|----------|--------------|-----------|--------|
+| Point-vortex Q_f | 13 | varies | ranking_v2 | ~80% | COMPLETE |
+| EM conservation | 12 | 1/12 | em_adapter_v4 | 6/12 (50%) | FIXABLE_BIAS |
+| Continuous Q_f | 12 | 0/12 | qf_continuous | 7/12 (58%) | FIXABLE_BIAS |
+| NS regularity | 16 | 0/16 | ns_adapter | 2/16 (12.5%) | KNOWLEDGE_GAP |
+| K invariant | 8 | 0/8 | k_adapter_v2 | 3/8 (37.5%) | FIXABLE_BIAS |
+| Optimal f(r) | 4 | 0/4 | optimal_f_adapter | 2/4 (50%) | FIXABLE_BIAS |
+| Q_f Ratio | 8 | 0/8 | qf_ratio_adapter | **8/8 (100%)** | **DUAL-PASS** |
+| Chemical Conservation | 16 | 0/16 | chemical_adapter | **15/16 (93.75%)** | **NEAR-DUAL-PASS** |
+| Hamiltonian Mechanics | 16 | 1/16 | hamiltonian_adapter | 2/16 (12.5%) | INTERFERENCE |
+
+Total domains: 9
+Total oracle facts: 105
+Total candidates: 205 (from 197)
+
 ## Next Steps
 
 1. **Chemical domain expansion**: Add more complex networks (full glycolysis 20+ species)
-2. **NS regularity**: Train with more data targeting R_f ratio and BKM facts
-3. **K invariant**: Add more training examples for cancellation mechanism
-4. **DO NOT stack**: Use adapters individually, not combined
-5. **Cross-domain potential**: Consider other domains with similar null-space structure
+2. **Hamiltonian domain revision**: Need more targeted training data or different approach
+3. **NS regularity**: Train with more data targeting R_f ratio and BKM facts
+4. **K invariant**: Add more training examples for cancellation mechanism
+5. **DO NOT stack**: Use adapters individually, not combined
+6. **Domain selection**: Prefer domains with unified conceptual structure (like chemical conservation)

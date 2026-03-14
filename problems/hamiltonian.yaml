@@ -1,0 +1,17 @@
+name: "Hamiltonian Mechanics Invariants"
+description: |
+  Test oracle knowledge of conservation laws in Hamiltonian mechanics.
+
+  Key concepts:
+  - Energy conservation (trivial)
+  - Liouville's theorem (phase space volume)
+  - Symplectic structure and Poincaré invariants
+  - Laplace-Runge-Lenz vector (Kepler problem)
+  - KAM theory (nearly integrable systems)
+
+  This tests whether the oracle knows the deep structure of classical mechanics
+  beyond basic energy conservation.
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "hamiltonian_facts.json"
+pass_threshold: 0.5
