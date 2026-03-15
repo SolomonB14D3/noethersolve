@@ -1,0 +1,116 @@
+{
+  "problem": "pl_concurrency",
+  "description": "Concurrency models, parallelism, and synchronization in programming languages.",
+  "facts": [
+    {
+      "id": "pc01_mutex",
+      "context": "Mutex (mutual exclusion) prevents data races by:",
+      "truth": "allowing only one thread to access data at a time",
+      "distractors": [
+        "making all data immutable so no writes can occur",
+        "automatically parallelizing all operations on the data",
+        "copying data for each thread so they never share"
+      ],
+      "cluster": "sync"
+    },
+    {
+      "id": "pc02_deadlock",
+      "context": "Deadlock occurs when threads are:",
+      "truth": "waiting circularly for locks held by each other",
+      "distractors": [
+        "executing too fast for the scheduler to manage properly",
+        "accessing read-only data without any synchronization",
+        "using too much memory causing the system to freeze"
+      ],
+      "cluster": "sync"
+    },
+    {
+      "id": "pc03_actor",
+      "context": "The actor model (Erlang, Akka) provides concurrency via:",
+      "truth": "message passing with no shared mutable state",
+      "distractors": [
+        "shared memory protected by fine-grained locking everywhere",
+        "global interpreter locks preventing true parallelism",
+        "automatic thread creation for every function call"
+      ],
+      "cluster": "models"
+    },
+    {
+      "id": "pc04_csp",
+      "context": "CSP (Communicating Sequential Processes) in Go uses:",
+      "truth": "channels for typed synchronous communication",
+      "distractors": [
+        "shared memory with mutex locks for all data access",
+        "callback-based asynchronous event handling only",
+        "automatic parallelization without explicit concurrency"
+      ],
+      "cluster": "models"
+    },
+    {
+      "id": "pc05_async_await",
+      "context": "Async/await syntax transforms code into:",
+      "truth": "state machines for cooperative multitasking",
+      "distractors": [
+        "multiple OS threads running preemptively in parallel",
+        "purely synchronous blocking code with no concurrency",
+        "hardware-level parallelism using multiple CPU cores"
+      ],
+      "cluster": "async"
+    },
+    {
+      "id": "pc06_stm",
+      "context": "Software Transactional Memory provides atomicity via:",
+      "truth": "optimistic execution with rollback on conflict",
+      "distractors": [
+        "hardware locks that prevent any concurrent access",
+        "copying all memory before every transaction starts",
+        "disabling all concurrency during transaction execution"
+      ],
+      "cluster": "sync"
+    },
+    {
+      "id": "pc07_green_threads",
+      "context": "Green threads (goroutines, Erlang processes) differ from OS threads by:",
+      "truth": "being scheduled by runtime, not kernel",
+      "distractors": [
+        "using more memory than OS threads typically require",
+        "being slower due to extra runtime overhead",
+        "requiring explicit yield calls at every point"
+      ],
+      "cluster": "async"
+    },
+    {
+      "id": "pc08_data_race",
+      "context": "A data race differs from a race condition in that:",
+      "truth": "it involves unsynchronized concurrent memory access",
+      "distractors": [
+        "the terms are exact synonyms with identical meaning",
+        "race conditions are always bugs while data races are not",
+        "data races only occur in single-threaded programs"
+      ],
+      "cluster": "sync"
+    },
+    {
+      "id": "pc09_memory_model",
+      "context": "A language memory model (Java, C++) specifies:",
+      "truth": "what reorderings compilers and hardware may perform",
+      "distractors": [
+        "how much RAM programs can allocate maximum",
+        "the layout of objects in memory at runtime",
+        "garbage collection algorithm implementation details"
+      ],
+      "cluster": "models"
+    },
+    {
+      "id": "pc10_futures",
+      "context": "Futures/Promises represent values that:",
+      "truth": "will be available asynchronously later",
+      "distractors": [
+        "are always computed immediately when created",
+        "can never fail or throw exceptions ever",
+        "must be awaited on the same thread only"
+      ],
+      "cluster": "async"
+    }
+  ]
+}

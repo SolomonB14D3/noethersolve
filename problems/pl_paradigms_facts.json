@@ -1,0 +1,138 @@
+{
+  "problem": "pl_paradigms",
+  "description": "Programming paradigms, language design, and computational models.",
+  "facts": [
+    {
+      "id": "pp01_pure_fp",
+      "context": "Pure functional programming (Haskell) prohibits:",
+      "truth": "side effects in pure functions (IO via monads)",
+      "distractors": [
+        "all forms of recursion including tail recursion",
+        "higher-order functions taking functions as arguments",
+        "pattern matching on algebraic data types"
+      ],
+      "cluster": "functional"
+    },
+    {
+      "id": "pp02_lazy_eval",
+      "context": "Lazy evaluation (Haskell) enables:",
+      "truth": "infinite data structures and avoids unneeded computation",
+      "distractors": [
+        "faster execution than strict evaluation always",
+        "easier memory management with no thunk overhead",
+        "simpler debugging with predictable evaluation order"
+      ],
+      "cluster": "functional"
+    },
+    {
+      "id": "pp03_tail_call",
+      "context": "Tail call optimization eliminates stack frames when:",
+      "truth": "recursive call is the last operation",
+      "distractors": [
+        "any function calls another function at any point",
+        "the recursion depth exceeds a certain threshold",
+        "the compiler detects infinite recursion patterns"
+      ],
+      "cluster": "functional"
+    },
+    {
+      "id": "pp04_prototype",
+      "context": "Prototype-based OOP (JavaScript) differs from class-based by:",
+      "truth": "objects inheriting directly from other objects",
+      "distractors": [
+        "requiring explicit class definitions for all objects",
+        "prohibiting inheritance entirely between objects",
+        "using static typing instead of dynamic typing"
+      ],
+      "cluster": "oop"
+    },
+    {
+      "id": "pp05_multiple_inheritance",
+      "context": "The diamond problem in multiple inheritance arises when:",
+      "truth": "ambiguous which parent's method to inherit",
+      "distractors": [
+        "a class has more than four parent classes",
+        "inheritance depth exceeds compiler limits",
+        "two unrelated classes share the same name"
+      ],
+      "cluster": "oop"
+    },
+    {
+      "id": "pp06_logic_prog",
+      "context": "Logic programming (Prolog) computes by:",
+      "truth": "unification and backtracking search",
+      "distractors": [
+        "imperative step-by-step instruction execution",
+        "functional application and reduction only",
+        "object message passing between instances"
+      ],
+      "cluster": "declarative"
+    },
+    {
+      "id": "pp07_homoiconicity",
+      "context": "Homoiconicity (Lisp) means code is represented as:",
+      "truth": "data structures the language can manipulate",
+      "distractors": [
+        "binary machine code that cannot be inspected",
+        "plain text strings without structure",
+        "separate AST format inaccessible to programs"
+      ],
+      "cluster": "metaprogramming"
+    },
+    {
+      "id": "pp08_macros",
+      "context": "Hygienic macros (Scheme, Rust) prevent:",
+      "truth": "unintended variable capture in expansions",
+      "distractors": [
+        "all macro usage requiring explicit opt-in",
+        "macros from being recursive or nested",
+        "any compile-time code generation at all"
+      ],
+      "cluster": "metaprogramming"
+    },
+    {
+      "id": "pp09_effect_systems",
+      "context": "Algebraic effects (Eff, Koka) track side effects by:",
+      "truth": "typing effects and providing handlers",
+      "distractors": [
+        "prohibiting all effects like pure functional languages",
+        "runtime monitoring with no compile-time checking",
+        "automatic effect inference without any annotations"
+      ],
+      "cluster": "functional"
+    },
+    {
+      "id": "pp10_contracts",
+      "context": "Design by Contract (Eiffel) specifies:",
+      "truth": "preconditions, postconditions, invariants",
+      "distractors": [
+        "only documentation with no runtime checks ever",
+        "legal agreements between software vendors",
+        "memory layout contracts for interoperability"
+      ],
+      "cluster": "oop"
+    },
+    {
+      "id": "pp11_continuation",
+      "context": "First-class continuations (Scheme call/cc) capture:",
+      "truth": "the rest of the computation as a function",
+      "distractors": [
+        "only the current function's local variables",
+        "error handling context for exceptions only",
+        "loop iteration state for break/continue"
+      ],
+      "cluster": "declarative"
+    },
+    {
+      "id": "pp12_pattern_match",
+      "context": "Exhaustiveness checking for pattern matching ensures:",
+      "truth": "all cases are handled at compile time",
+      "distractors": [
+        "patterns execute in a specific runtime order",
+        "only one pattern matches each input value",
+        "patterns are optimized for fastest matching"
+      ],
+      "cluster": "functional"
+    }
+  ]
+}

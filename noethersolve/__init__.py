@@ -28,6 +28,7 @@ Package layout:
   noethersolve.number_theory  — number theory conjecture numerical verifier
   noethersolve.reductions     — computational reduction chain validator
   noethersolve.pde_regularity — PDE regularity and Sobolev embedding checker
+  noethersolve.llm_claims    — LLM claims auditor (benchmark, scaling, misconceptions)
 """
 
 from noethersolve import train_utils  # noqa: F401
@@ -174,4 +175,18 @@ from noethersolve.pde_regularity import (  # noqa: F401
     EmbeddingIssue,
 )
 
-__version__ = "0.8.0"
+from noethersolve.llm_claims import (  # noqa: F401
+    audit_llm_claims,
+    check_llm_claim,
+    check_benchmark_score,
+    chinchilla_optimal,
+    get_llm_topic,
+    list_llm_topics,
+    list_domains,
+    LLMClaimReport,
+    LLMClaimResult,
+    LLMClaimIssue,
+    LLMTopicInfo,
+)
+
+__version__ = "0.9.0"

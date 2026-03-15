@@ -1,0 +1,138 @@
+{
+  "problem": "pl_compilers",
+  "description": "Compiler design, interpretation, and language implementation.",
+  "facts": [
+    {
+      "id": "cm01_lexing",
+      "context": "Lexical analysis (tokenization) converts source code to:",
+      "truth": "tokens (identifiers, keywords, literals)",
+      "distractors": [
+        "machine code ready for direct execution by CPU",
+        "abstract syntax trees with full structure",
+        "intermediate representation for optimization"
+      ],
+      "cluster": "frontend"
+    },
+    {
+      "id": "cm02_parsing",
+      "context": "LL vs LR parsers differ in that LL parsers:",
+      "truth": "read left-to-right, derive leftmost first",
+      "distractors": [
+        "are strictly more powerful than LR parsers",
+        "cannot handle any recursive grammar rules",
+        "require backtracking on every production"
+      ],
+      "cluster": "frontend"
+    },
+    {
+      "id": "cm03_ssa",
+      "context": "SSA (Static Single Assignment) form requires each variable:",
+      "truth": "assigned exactly once (enables optimizations)",
+      "distractors": [
+        "to be immutable with no reassignment ever allowed",
+        "stored in a register rather than memory always",
+        "having a unique name across all functions"
+      ],
+      "cluster": "ir"
+    },
+    {
+      "id": "cm04_jit",
+      "context": "JIT compilation improves over interpretation by:",
+      "truth": "compiling hot paths to native code at runtime",
+      "distractors": [
+        "eliminating the need for any runtime entirely",
+        "making startup time faster than AOT compilation",
+        "using less memory than interpreted execution"
+      ],
+      "cluster": "execution"
+    },
+    {
+      "id": "cm05_register_alloc",
+      "context": "Register allocation maps variables to registers using:",
+      "truth": "graph coloring or linear scan algorithms",
+      "distractors": [
+        "random assignment with no optimization strategy",
+        "user annotations specifying register assignments",
+        "unlimited virtual registers with no spilling"
+      ],
+      "cluster": "backend"
+    },
+    {
+      "id": "cm06_inlining",
+      "context": "Function inlining optimization trades off:",
+      "truth": "code size for call overhead elimination",
+      "distractors": [
+        "nothing since inlining is always beneficial",
+        "correctness for performance improvements",
+        "stack space for heap allocations"
+      ],
+      "cluster": "optimization"
+    },
+    {
+      "id": "cm07_constant_folding",
+      "context": "Constant folding evaluates constant expressions:",
+      "truth": "at compile time, embedding results",
+      "distractors": [
+        "at runtime with caching for repeated use",
+        "never since all arithmetic is dynamic",
+        "only in debug builds for verification"
+      ],
+      "cluster": "optimization"
+    },
+    {
+      "id": "cm08_dead_code",
+      "context": "Dead code elimination removes code that:",
+      "truth": "has no effect on program output",
+      "distractors": [
+        "contains bugs detected by static analysis",
+        "uses deprecated language features only",
+        "is commented out in the source file"
+      ],
+      "cluster": "optimization"
+    },
+    {
+      "id": "cm09_loop_unroll",
+      "context": "Loop unrolling reduces overhead by:",
+      "truth": "replicating loop body to reduce iterations",
+      "distractors": [
+        "converting all loops to recursive functions",
+        "parallelizing loops across multiple threads",
+        "eliminating loop bounds checks entirely"
+      ],
+      "cluster": "optimization"
+    },
+    {
+      "id": "cm10_bytecode",
+      "context": "Bytecode (JVM, Python .pyc) serves as:",
+      "truth": "portable intermediate representation",
+      "distractors": [
+        "the final executable format for direct CPU execution",
+        "source code encoded in binary format only",
+        "debug symbols separate from program logic"
+      ],
+      "cluster": "ir"
+    },
+    {
+      "id": "cm11_gc_safepoint",
+      "context": "GC safepoints in compiled code are locations where:",
+      "truth": "thread state is consistent for collection",
+      "distractors": [
+        "garbage collection is permanently disabled",
+        "the program automatically saves its state to disk",
+        "exceptions can be thrown and caught safely"
+      ],
+      "cluster": "execution"
+    },
+    {
+      "id": "cm12_link_time",
+      "context": "Link-time optimization (LTO) enables:",
+      "truth": "cross-module inlining and analysis",
+      "distractors": [
+        "faster linking with no additional optimization",
+        "dynamic linking at program startup only",
+        "separate compilation without whole-program view"
+      ],
+      "cluster": "backend"
+    }
+  ]
+}
