@@ -859,6 +859,248 @@ def _build_database() -> Dict[str, LLMTopicInfo]:
         ["context.*degrad", "long context", "utiliz", "interpolat"],
     )
 
+    # ── Expression vs Knowledge domain ────────────────────────────
+    # Based on Papers 6-7 (Expression Bottleneck, Contrastive Pretraining)
+    _add(
+        "expression_bottleneck", "expression_knowledge", "ESTABLISHED",
+        "Small models have internal knowledge but can't express it (expression bottleneck)",
+        "Logit-level accuracy is 41.0% for ALL vanilla models from 3M to 64M parameters — "
+        "identical probe-by-probe (123/300 correct). The bottleneck is format generation, "
+        "not knowledge. Contrastive decoding rescues expression (0.7%→38% accuracy at d=88).",
+        [
+            "small models lack behavioral discrimination",
+            "small models can't discriminate between biased and correct answers",
+            "behavioral emergence requires scale",
+            "small models don't know the answer",
+            "knowledge only emerges at large scale",
+        ],
+        ["expression", "bottleneck", "small model", "41%", "format", "generation",
+         "logit.*accura", "internal knowledge", "small.*discriminat", "small.*behavioral",
+         "small.*knowledge", "small.*bias"],
+        ["Sanchez 2026 — Expression Bottleneck (Paper 7, DOI: 10.5281/zenodo.18895248)"],
+    )
+    _add(
+        "contrastive_decoding_rescue", "expression_knowledge", "ESTABLISHED",
+        "Contrastive decoding rescues muted models by subtracting the LM prior at inference",
+        "At d=88 (width below phase transition), contrastive decoding (expert - α×amateur logits) "
+        "restores format generation: 0.7%→38.0% accuracy (54× improvement), exceeding d=96 "
+        "baseline (30.0%). The behavioral signal was always present in hidden states.",
+        [
+            "contrastive decoding only helps large models",
+            "activation steering is more effective than contrastive decoding",
+            "hidden state interventions are stronger than logit interventions",
+        ],
+        ["contrastive decod", "logit subtract", "expert.*amateur", "inference.*interven"],
+        ["Sanchez 2026 — Expression Bottleneck (Paper 7)"],
+    )
+    _add(
+        "intervention_hierarchy", "expression_knowledge", "ESTABLISHED",
+        "Inference interventions follow a strict hierarchy: token > logit >> hidden state",
+        "Token-level (format forcing) recovers 41% on ALL models. Logit-level (contrastive "
+        "decoding) recovers 38%. Hidden-state (activation steering): NULL result (3.7% "
+        "unchanged). The generation bottleneck is at the last step: hidden states → token "
+        "emissions. Interventions after the mapping work; interventions before it fail.",
+        [
+            "activation steering is effective for behavior control",
+            "hidden state interventions are the strongest",
+            "steering vectors reliably change outputs",
+        ],
+        ["intervention", "hierarchy", "token.*logit", "activation steer",
+         "steering vector", "hidden state"],
+        ["Sanchez 2026 — Expression Bottleneck (Paper 7)"],
+    )
+    _add(
+        "universal_41_percent", "expression_knowledge", "ESTABLISHED",
+        "Logit-forced bias accuracy is exactly 41.0% (123/300) for every model 3M-64M",
+        "The number is not approximate — it is EXACTLY 123 correct, 64 biased, 113 neutral "
+        "for every vanilla and sycophancy-only model tested (13 models). Sycophancy training "
+        "does NOT change bias logit preferences. Only bias+syco combined nudges to 47%. "
+        "This is a universal property of training data + tokenizer, independent of capacity.",
+        [
+            "larger models have better internal discrimination",
+            "sycophancy training improves bias discrimination",
+            "logit accuracy scales with model size",
+        ],
+        ["41%", "universal", "logit.*forced", "probe.*identical", "123/300"],
+        ["Sanchez 2026 — Expression Bottleneck (Paper 7)"],
+    )
+    _add(
+        "width_phase_transition", "expression_knowledge", "ESTABLISHED",
+        "Cross-dimensional transfer requires d_model ≥ 96 — a sharp architectural threshold",
+        "Width sweep (d=64,80,88,96) shows cross-transfer ρ ≤ 0.010 for d≤88, jumps to "
+        "0.290 at d=96. Per-probe logit gaps are r=0.997 identical between d=88 and d=96. "
+        "P(correct) distributions identical. The ENTIRE 29× ρ gap is format generation: "
+        "d=88 is 96% unparsed, d=96 is 14% unparsed. Width gates expression, not knowledge.",
+        [
+            "behavioral transfer scales smoothly with width",
+            "wider models are always better at transfer",
+            "phase transitions don't exist in neural networks",
+        ],
+        ["width", "d_model", "phase transition", "d=96", "d=88", "architectural threshold"],
+        ["Sanchez 2026 — Expression Bottleneck (Paper 7)",
+         "Sanchez 2026 — Contrastive Pretraining (Paper 6, DOI: 10.5281/zenodo.18870555)"],
+    )
+
+    # ── Behavioral Transfer domain ────────────────────────────────
+    # Based on Papers 3, 6 (Scale Ladder, Contrastive Pretraining)
+    _add(
+        "contrastive_injection", "behavioral_transfer", "ESTABLISHED",
+        "5% contrastive data injection breaks the behavioral emergence wall at small scale",
+        "At 7M parameters, 5% contrastive bias+sycophancy injection achieves ρ=0.431 (bias) "
+        "and ρ=0.513 (sycophancy) — exceeding vanilla 34M/64M performance at 5× fewer "
+        "parameters. 10% injection is worse than 5% (diminishing returns + factual cost). "
+        "Behavioral emergence is a data quality threshold, not a scale threshold.",
+        [
+            "behavioral emergence requires large scale",
+            "only parameter count determines behavioral capability",
+            "more injection data is always better",
+            "10% injection is better than 5%",
+        ],
+        ["contrastive", "injection", "5%", "behavioral.*wall", "data quality",
+         "contrastive.*pretrain", "behavioral.*emergence.*scale",
+         "behavioral.*require.*scale", "emergence.*large"],
+        ["Sanchez 2026 — Contrastive Pretraining (Paper 6, DOI: 10.5281/zenodo.18870555)"],
+    )
+    _add(
+        "cross_transfer_asymmetry", "behavioral_transfer", "ESTABLISHED",
+        "Sycophancy training improves bias (cross-transfer), but NOT vice versa",
+        "Sycophancy-only injection at 7M lifts bias ρ from 0 to 0.208 (cross-transfer). "
+        "Bias-only injection never lifts sycophancy. Broad behavioral skills (sycophancy = "
+        "\"don't just agree\") transfer to narrow ones (bias = \"don't stereotype\"), "
+        "but narrow skills don't transfer to broad ones. Behavioral skills have a hierarchy.",
+        [
+            "all behavioral improvements are independent",
+            "bias training fixes sycophancy",
+            "behavioral skills are symmetric",
+        ],
+        ["cross-transfer", "cross transfer", "sycophan.*bias", "bias.*sycophan",
+         "behavioral hierarch", "transfer asymmetr"],
+        ["Sanchez 2026 — Contrastive Pretraining (Paper 6)",
+         "Rimsky et al. ACL 2024 — Sycophancy to truthfulness transfer"],
+    )
+    _add(
+        "geometry_precedes_emergence", "behavioral_transfer", "ESTABLISHED",
+        "Activation geometry changes (SVD spectrum) precede behavioral emergence",
+        "Effective dimension breakout appears before behavioral ρ across 5 scales. "
+        "Every contrastive injection shifts SVD spectrum even at zero behavioral ρ "
+        "(silent geometry). Two signatures: inflationary (SV1 grows, null injections) "
+        "vs deconcentrating (SV1 drops, productive injections). SVD spectrum is a "
+        "leading indicator; ρ-eval is lagging.",
+        [
+            "behavioral change is immediate",
+            "geometry doesn't change until behavior does",
+            "SVD spectrum changes are noise",
+        ],
+        ["geometry", "svd", "spectrum", "precede", "emerge", "silent",
+         "effective dimension", "eff_dim"],
+        ["Sanchez 2026 — Scale Ladder Phase Transitions (Paper 3, DOI: 10.5281/zenodo.18865198)"],
+    )
+    _add(
+        "deconcentration_score", "behavioral_transfer", "ESTABLISHED",
+        "Deconcentration score separates productive from null injections with 100% accuracy",
+        "decon = (1 - SV1_post/SV1_van) × (eff_post/eff_van). Direct injection: decon > 1.0. "
+        "Null: |decon| < 0.16. Deconcentration does NOT correlate with factual regression "
+        "(ρ = −0.010, p = 0.97). Geometric restructuring is 'free' — factual cost comes "
+        "from token displacement (injection rate), not from deconcentration.",
+        [
+            "geometric changes always cause factual regression",
+            "there's no way to detect productive training",
+            "SVD changes are random noise",
+        ],
+        ["deconcentration", "decon", "productive.*null", "sv1", "factual regression"],
+        ["Sanchez 2026 — Contrastive Pretraining (Paper 6)"],
+    )
+
+    # ── Confidence Calibration (expand hallucination domain) ──────
+    # Based on Paper 4 (Confidence Cartography)
+    _add(
+        "confidence_false_belief", "hallucination", "ESTABLISHED",
+        "Model confidence (teacher-forced probability) correlates with human false-belief prevalence",
+        "Teacher-forced token probability reveals where models are uncertain. Correlation "
+        "between model confidence and human false-belief prevalence: ρ=0.652, p=0.016. "
+        "Prior literature only showed r=0.26. Low model confidence = surprising truth = "
+        "higher chance of hallucination. Predictable and measurable.",
+        [
+            "model confidence is random noise",
+            "uncertainty and human beliefs are unrelated",
+            "hallucination is unpredictable from confidence scores",
+        ],
+        ["confidence.*false belief", "teacher-forced", "calibrat.*human",
+         "false.belief", "confidence.*correlat"],
+        ["Sanchez 2026 — Confidence Cartography (Paper 4, DOI: 10.5281/zenodo.18703505)"],
+    )
+
+    # ── Adapter scaling (expand training domain) ──────────────────
+    # Based on Papers 8-9 (Snap-On, STEM Truth Oracle)
+    _add(
+        "adapter_stacking_failure", "training", "ESTABLISHED",
+        "Stacking 37+ LoRA adapters destroys base model knowledge (MMLU drops 43%)",
+        "Adapter stacking does not scale. 37+ adapters on Qwen2.5-1.5B: MMLU drops from "
+        "54% to ~11%. A unified adapter on 244 facts collapses entirely. Orthogonal "
+        "adapters with routing work (100% of 411 facts across 30 domains), but they "
+        "must be routed at inference, never stacked or averaged.",
+        [
+            "you can stack unlimited adapters",
+            "adapter merging preserves knowledge",
+            "more adapters always help",
+        ],
+        ["adapter.*stack", "lora.*stack", "adapter.*merg", "multi.*adapter",
+         "adapter.*scal", "unlimited.*adapter", "unlimited.*lora", "stack.*unlimited",
+         "stack.*dozen", "dozen.*adapter", "stack.*adapter.*knowledge",
+         "many.*adapter", "multiple.*adapter.*loss"],
+        ["Sanchez 2026 — Snap-On Modules (Paper 8, DOI: 10.5281/zenodo.18902616)"],
+    )
+    _add(
+        "logit_space_adapters", "training", "ESTABLISHED",
+        "Logit-space adapters transfer across model scales and architectures with zero knowledge loss",
+        "A 29M-parameter logit-space adapter trained on Qwen2.5-1.5B transfers to 3B-Instruct "
+        "with 0.0% MMLU degradation and full safety preservation. Cross-architecture to "
+        "Llama-3.1-8B: -0.2% delta. Hidden-space adapters degrade MMLU by 5-8.5%. "
+        "The key: operate in logit space (after the model), not hidden space (inside it).",
+        [
+            "adapters are model-specific",
+            "hidden-space adapters preserve knowledge better",
+            "cross-architecture transfer is impossible",
+        ],
+        ["logit.*adapter", "snap-on", "cross.*scale.*transfer", "cross.*arch",
+         "logit space", "zero.*mmlu", "knowledge.*preserv"],
+        ["Sanchez 2026 — Snap-On Modules (Paper 8, DOI: 10.5281/zenodo.18902616)"],
+    )
+    _add(
+        "stem_scaling_baselines", "evaluation", "ESTABLISHED",
+        "STEM fact recall via log-prob ranking has established scaling baselines",
+        "Frozen base models scored on 97 STEM facts via sum log-prob MC comparison: "
+        "GPT-2-124M: 15.5% (near random). SmolLM2-360M: 61.9%. Qwen2.5-0.5B: 54.6%. "
+        "Qwen2.5-1.5B: 63.9%. Qwen3-4B: 76.3%. Physics easiest (85%), statistics "
+        "hardest (60%). 4 systematic bias patterns: positivity, linearity, "
+        "missing-constant, truncation — all scale-invariant.",
+        [
+            "small models can't do STEM",
+            "STEM requires generation ability",
+            "all domains scale equally",
+        ],
+        ["stem", "science.*baseline", "physics.*score", "stem.*scaling",
+         "log-prob.*ranking", "factual.*baseline"],
+        ["Sanchez 2026 — STEM Truth Oracle (Paper 9, DOI: 10.5281/zenodo.19005729)"],
+    )
+    _add(
+        "tools_vs_adapters", "training", "ESTABLISHED",
+        "Verified computational tools scale better than weight-based adapters for factual correction",
+        "Adapters improve truth preference (+0.10 MC2 on TruthfulQA) but can't scale: "
+        "stacking 37+ destroys MMLU (-43%), unified adapter on 244 facts collapses. "
+        "MCP tools scale indefinitely — each is independent, verified, and model-agnostic. "
+        "Tools are the better architecture for factual correction at scale.",
+        [
+            "fine-tuning is always better than tools",
+            "adapters scale to arbitrary knowledge",
+            "tools are just a workaround",
+        ],
+        ["tool.*adapter", "mcp.*scale", "tool.*fine-tun", "adapter.*scale",
+         "verified tool", "tool.*weight", "adapter.*better.*tool", "tool.*better.*adapter",
+         "fine-tun.*better", "tools vs"],
+        ["Sanchez 2026 — NoetherSolve Toolkit (Paper 11, DOI: 10.5281/zenodo.19029880)"],
+    )
+
     return db
 
 

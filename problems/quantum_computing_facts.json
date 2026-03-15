@@ -1,0 +1,138 @@
+{
+  "problem": "quantum_computing",
+  "description": "Quantum computing fundamentals - qubits, algorithms, error correction.",
+  "facts": [
+    {
+      "id": "qc01_measurement",
+      "context": "Qubit superposition collapses when:",
+      "truth": "measured in the computational basis",
+      "distractors": [
+        "any interaction with other qubits occurs in circuit",
+        "time passes without any quantum operations applied",
+        "unitary gates are applied to the qubit state"
+      ],
+      "cluster": "fundamentals"
+    },
+    {
+      "id": "qc02_shor",
+      "context": "Shor's algorithm achieves exponential speedup using:",
+      "truth": "quantum Fourier transform for period finding",
+      "distractors": [
+        "Grover's amplitude amplification technique only",
+        "classical circuit simulation running faster",
+        "random sampling of candidate factors"
+      ],
+      "cluster": "algorithms"
+    },
+    {
+      "id": "qc03_error_correction",
+      "context": "Quantum error correction requires:",
+      "truth": "encoding logical qubits across multiple physical qubits",
+      "distractors": [
+        "perfect isolated qubits that experience no errors",
+        "classical parity check bits only for error detection",
+        "cooling hardware to exactly absolute zero temperature"
+      ],
+      "cluster": "error"
+    },
+    {
+      "id": "qc04_no_cloning",
+      "context": "The no-cloning theorem states that:",
+      "truth": "unknown quantum states cannot be copied",
+      "distractors": [
+        "qubits cannot be measured more than once ever",
+        "entangled pairs cannot be created between qubits",
+        "quantum teleportation is impossible to achieve"
+      ],
+      "cluster": "fundamentals"
+    },
+    {
+      "id": "qc05_grover",
+      "context": "Grover's search algorithm provides:",
+      "truth": "quadratic speedup for unstructured search",
+      "distractors": [
+        "exponential speedup for all search problems",
+        "no advantage over classical search algorithms",
+        "polynomial speedup for sorting and ordering"
+      ],
+      "cluster": "algorithms"
+    },
+    {
+      "id": "qc06_entanglement",
+      "context": "Quantum entanglement means measurements on separated particles are:",
+      "truth": "correlated beyond classical probability allows",
+      "distractors": [
+        "completely independent with no correlation at all",
+        "only correlated when particles are physically close",
+        "correlated but explainable by hidden variables"
+      ],
+      "cluster": "fundamentals"
+    },
+    {
+      "id": "qc07_decoherence",
+      "context": "Decoherence in quantum systems causes:",
+      "truth": "loss of quantum coherence due to environment interaction",
+      "distractors": [
+        "qubits to become more entangled over time",
+        "increased accuracy of quantum computations",
+        "spontaneous error correction without encoding"
+      ],
+      "cluster": "error"
+    },
+    {
+      "id": "qc08_universal_gates",
+      "context": "A universal quantum gate set must be able to:",
+      "truth": "approximate any unitary transformation",
+      "distractors": [
+        "only implement classical reversible logic gates",
+        "perform measurements without state collapse",
+        "operate without any error or noise at all"
+      ],
+      "cluster": "algorithms"
+    },
+    {
+      "id": "qc09_bell_inequality",
+      "context": "Bell inequality violation demonstrates that:",
+      "truth": "local hidden variable theories are insufficient",
+      "distractors": [
+        "quantum mechanics is incorrect and incomplete",
+        "faster-than-light communication is possible",
+        "classical physics can explain all correlations"
+      ],
+      "cluster": "fundamentals"
+    },
+    {
+      "id": "qc10_surface_code",
+      "context": "Surface codes for quantum error correction use:",
+      "truth": "2D lattice of qubits with local stabilizer measurements",
+      "distractors": [
+        "single qubit with multiple measurement rounds only",
+        "classical redundancy with no quantum encoding",
+        "3D arrangements impossible to implement physically"
+      ],
+      "cluster": "error"
+    },
+    {
+      "id": "qc11_supremacy",
+      "context": "Quantum computational advantage (supremacy) means:",
+      "truth": "quantum computer solves task infeasible classically",
+      "distractors": [
+        "quantum computers are faster for all problems",
+        "classical computers can never match quantum",
+        "quantum computers use less energy than classical"
+      ],
+      "cluster": "algorithms"
+    },
+    {
+      "id": "qc12_vqe",
+      "context": "Variational Quantum Eigensolver (VQE) is suited for NISQ devices because:",
+      "truth": "it uses shallow circuits with classical optimization",
+      "distractors": [
+        "it requires no quantum hardware to execute at all",
+        "it needs deep circuits with many gate operations",
+        "it has no errors regardless of circuit depth"
+      ],
+      "cluster": "error"
+    }
+  ]
+}

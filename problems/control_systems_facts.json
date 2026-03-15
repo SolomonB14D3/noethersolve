@@ -1,0 +1,138 @@
+{
+  "problem": "control_systems",
+  "description": "Control systems theory - feedback, stability, analysis.",
+  "facts": [
+    {
+      "id": "cs01_integral",
+      "context": "The integral term (I) in a PID controller eliminates:",
+      "truth": "steady-state error in the system response",
+      "distractors": [
+        "oscillations in the transient response",
+        "overshoot during step response completely",
+        "the need for proportional control term"
+      ],
+      "cluster": "pid"
+    },
+    {
+      "id": "cs02_nyquist",
+      "context": "Nyquist stability criterion examines:",
+      "truth": "encirclements of -1 by open-loop frequency response",
+      "distractors": [
+        "pole locations in the s-plane directly",
+        "step response overshoot percentage only",
+        "gain value at the crossover frequency"
+      ],
+      "cluster": "stability"
+    },
+    {
+      "id": "cs03_observability",
+      "context": "State space observability means:",
+      "truth": "all internal states can be determined from outputs",
+      "distractors": [
+        "all states are controllable from inputs directly",
+        "the system is guaranteed stable in closed-loop",
+        "transfer function has no right-half-plane zeros"
+      ],
+      "cluster": "state_space"
+    },
+    {
+      "id": "cs04_pole_placement",
+      "context": "Pole placement via state feedback:",
+      "truth": "assigns desired closed-loop eigenvalues",
+      "distractors": [
+        "only modifies the system steady-state gain",
+        "cannot stabilize an unstable open-loop system",
+        "requires output feedback rather than state feedback"
+      ],
+      "cluster": "state_space"
+    },
+    {
+      "id": "cs05_gain_margin",
+      "context": "Gain margin is measured in dB at the:",
+      "truth": "phase crossover frequency where phase is -180°",
+      "distractors": [
+        "gain crossover frequency where gain is 0 dB",
+        "resonant frequency where gain peaks maximum",
+        "bandwidth frequency where gain drops by 3 dB"
+      ],
+      "cluster": "stability"
+    },
+    {
+      "id": "cs06_routh",
+      "context": "Routh-Hurwitz criterion determines stability by:",
+      "truth": "checking signs in first column of Routh array",
+      "distractors": [
+        "calculating all pole locations numerically",
+        "simulating step response until steady state",
+        "measuring phase margin from Bode plot"
+      ],
+      "cluster": "stability"
+    },
+    {
+      "id": "cs07_derivative",
+      "context": "The derivative term (D) in PID provides:",
+      "truth": "predictive action reducing overshoot",
+      "distractors": [
+        "elimination of steady-state error completely",
+        "increased response to constant setpoint changes",
+        "noise filtering for measurement signals"
+      ],
+      "cluster": "pid"
+    },
+    {
+      "id": "cs08_controllability",
+      "context": "A system is controllable if:",
+      "truth": "any state reachable from any initial state via inputs",
+      "distractors": [
+        "the output can be measured without noise",
+        "all poles are in the left half-plane",
+        "the transfer function is strictly proper"
+      ],
+      "cluster": "state_space"
+    },
+    {
+      "id": "cs09_bode",
+      "context": "Bode plots show:",
+      "truth": "magnitude and phase versus frequency on log scale",
+      "distractors": [
+        "pole and zero locations in complex plane",
+        "step response amplitude versus time",
+        "state trajectories in phase space"
+      ],
+      "cluster": "stability"
+    },
+    {
+      "id": "cs10_root_locus",
+      "context": "Root locus shows closed-loop pole locations as:",
+      "truth": "gain K varies from zero to infinity",
+      "distractors": [
+        "frequency varies across the spectrum",
+        "time constant changes with temperature",
+        "plant parameters drift over system lifetime"
+      ],
+      "cluster": "pid"
+    },
+    {
+      "id": "cs11_kalman_filter",
+      "context": "Kalman filter provides optimal state estimation when:",
+      "truth": "noise is Gaussian and system is linear",
+      "distractors": [
+        "no noise is present in measurements at all",
+        "the system is nonlinear with any noise type",
+        "measurements are received without any delay"
+      ],
+      "cluster": "state_space"
+    },
+    {
+      "id": "cs12_phase_margin",
+      "context": "Phase margin is measured at the:",
+      "truth": "gain crossover frequency where magnitude is 0 dB",
+      "distractors": [
+        "phase crossover where phase equals -180 degrees",
+        "resonant peak frequency of the closed-loop",
+        "DC frequency where gain is maximum"
+      ],
+      "cluster": "stability"
+    }
+  ]
+}

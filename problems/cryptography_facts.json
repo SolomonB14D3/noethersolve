@@ -1,0 +1,138 @@
+{
+  "problem": "cryptography",
+  "description": "Cryptographic primitives, protocols, and security foundations.",
+  "facts": [
+    {
+      "id": "cr01_aes_block",
+      "context": "AES (Advanced Encryption Standard) block size is:",
+      "truth": "128 bits for all key sizes",
+      "distractors": [
+        "256 bits matching the largest key size available",
+        "64 bits like the older DES algorithm uses",
+        "variable depending on the mode of operation"
+      ],
+      "cluster": "symmetric"
+    },
+    {
+      "id": "cr02_rsa_hardness",
+      "context": "RSA encryption security relies on hardness of:",
+      "truth": "integer factorization problem",
+      "distractors": [
+        "the discrete logarithm problem exclusively",
+        "finding hash collisions in SHA-256",
+        "solving systems of linear equations"
+      ],
+      "cluster": "asymmetric"
+    },
+    {
+      "id": "cr03_dh_mitm",
+      "context": "Diffie-Hellman key exchange without authentication is vulnerable to:",
+      "truth": "man-in-the-middle attacks",
+      "distractors": [
+        "passive eavesdropping alone without active interference",
+        "only quantum computers with sufficient qubits",
+        "brute force attacks on the shared secret"
+      ],
+      "cluster": "protocols"
+    },
+    {
+      "id": "cr04_ecdsa_field",
+      "context": "ECDSA (Elliptic Curve Digital Signature Algorithm) uses curves over:",
+      "truth": "finite fields (prime or binary)",
+      "distractors": [
+        "real numbers with floating point arithmetic",
+        "complex numbers for all curve operations",
+        "rational numbers with arbitrary precision"
+      ],
+      "cluster": "asymmetric"
+    },
+    {
+      "id": "cr05_zkp",
+      "context": "Zero-knowledge proofs allow a prover to demonstrate:",
+      "truth": "statement truth without revealing the witness",
+      "distractors": [
+        "nothing at all to the verifier about the claim",
+        "that the statement is actually false not true",
+        "the complete witness to everyone observing"
+      ],
+      "cluster": "protocols"
+    },
+    {
+      "id": "cr06_hash_collision",
+      "context": "A cryptographic hash function collision resistance means:",
+      "truth": "finding two inputs with same output is hard",
+      "distractors": [
+        "every input produces a unique output always guaranteed",
+        "the output length equals the input length exactly",
+        "reversing the hash to find input is impossible"
+      ],
+      "cluster": "hash"
+    },
+    {
+      "id": "cr07_cbc_iv",
+      "context": "CBC mode requires the initialization vector (IV) to be:",
+      "truth": "unpredictable (random) for each encryption",
+      "distractors": [
+        "secret and never transmitted with the ciphertext",
+        "the same fixed value for all encryptions",
+        "derived deterministically from the plaintext"
+      ],
+      "cluster": "symmetric"
+    },
+    {
+      "id": "cr08_forward_secrecy",
+      "context": "Forward secrecy (perfect forward secrecy) ensures:",
+      "truth": "past sessions safe even if long-term key compromised",
+      "distractors": [
+        "future sessions are protected from current attacks",
+        "all keys are rotated every 24 hours automatically",
+        "encryption is unbreakable by any future technology"
+      ],
+      "cluster": "protocols"
+    },
+    {
+      "id": "cr09_hmac",
+      "context": "HMAC (Hash-based Message Authentication Code) provides:",
+      "truth": "integrity and authenticity using shared secret",
+      "distractors": [
+        "confidentiality of the message contents only",
+        "non-repudiation like digital signatures provide",
+        "compression of the message to fixed length"
+      ],
+      "cluster": "hash"
+    },
+    {
+      "id": "cr10_timing_attack",
+      "context": "Timing attacks exploit:",
+      "truth": "execution time variations leaking secret data",
+      "distractors": [
+        "clock synchronization errors between systems",
+        "network latency to delay key exchange",
+        "timestamp manipulation in log files"
+      ],
+      "cluster": "attacks"
+    },
+    {
+      "id": "cr11_key_derivation",
+      "context": "Key derivation functions (PBKDF2, Argon2) are slow by design to:",
+      "truth": "resist brute-force password attacks",
+      "distractors": [
+        "ensure compatibility with legacy hardware systems",
+        "provide time for network key synchronization",
+        "allow users to cancel key generation if needed"
+      ],
+      "cluster": "symmetric"
+    },
+    {
+      "id": "cr12_cert_chain",
+      "context": "X.509 certificate chain validation verifies:",
+      "truth": "signatures from leaf to trusted root CA",
+      "distractors": [
+        "only the end-entity certificate signature itself",
+        "certificate file format is valid JSON or XML",
+        "domain name matches the server IP address"
+      ],
+      "cluster": "attacks"
+    }
+  ]
+}

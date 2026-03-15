@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "noethersolve": {
+      "command": "python",
+      "args": ["-m", "noethersolve.mcp_server"]
+    }
+  }
+}

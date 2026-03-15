@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "noethersolve"
-version = "0.9.0"
-description = "Automated scientific discovery: use LLM knowledge gaps as a compass to find underexplored science."
+version = "1.0.0"
+description = "32 verified tools for AI agents — physics, math, genetics, pharmacogenomics, LLM science. pip install, add to Claude, instant smarter agent."
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
-keywords = ["autoresearch", "scientific-discovery", "llm", "conservation-laws", "adapters"]
+keywords = ["mcp", "ai-tools", "llm", "conservation-laws", "scientific-discovery", "model-context-protocol"]
 
 dependencies = [
     "numpy>=1.24",
@@ -30,6 +30,9 @@ torch = [
 auto = [
     "anthropic>=0.40",
 ]
+mcp = [
+    "mcp>=1.0",
+]
 dashboard = [
     "matplotlib>=3.7",
 ]
@@ -38,6 +41,9 @@ dev = [
     "black>=24.0",
     "ruff>=0.4",
 ]
+
+[project.scripts]
+noethersolve-mcp = "noethersolve.mcp_server:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

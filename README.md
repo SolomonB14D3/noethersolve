@@ -4,17 +4,17 @@
 
 [![Paper: Breaking Frozen Priors](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290) [![Paper: NoetherSolve Toolkit](https://zenodo.org/badge/DOI/10.5281/zenodo.19029880.svg)](https://doi.org/10.5281/zenodo.19029880)
 
-**Automated scientific discovery that makes the model smarter with each cycle.**
+**Automated scientific discovery: find where models are wrong, build tools that give the right answer, and serve them to any AI agent.**
 
-Most autoresearch systems generate hypotheses and hope for the best. NoetherSolve closes the loop: it generates candidates, verifies them numerically, measures whether the model already knows them, and when it doesn't, **discovers the answer and teaches it back to the model**. Each discovery trains an adapter that persists through the rest of the run. The model that evaluates candidate #50 is smarter than the one that evaluated candidate #1, because every intervening discovery has been injected into it.
+The pipeline: **find gaps → flip facts → build tool → add to MCP server.** Every tool we build makes every connected agent smarter.
 
-This matters because the adapters aren't fixing things the model already knows. The Q_f conservation law family, the stretch-resistant R_f ratio, the continuous Euler extension — none of these existed in any training corpus. The system discovered them through numerical simulation, verified they were real, confirmed the model had never seen them (oracle margin -30 to -44), and wrote them into the model's knowledge. After adapter training, the model recognizes and correctly ranks these quantities (margin flipped to +4 to +30, ranking Spearman rho = 0.932). The model now knows physics that no human had published.
+NoetherSolve starts by finding where LLMs are confidently wrong. It generates candidates, verifies them numerically, and measures whether the model already knows them. When it doesn't — that's where new science lives. The system discovers the answer, builds a verified computational tool for it, and exposes that tool via [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) so any AI agent can call it at inference time.
 
-And the adapters don't degrade existing knowledge. Zero MMLU degradation across every adapter tested, because they operate in logit space — they reshape the output distribution without touching the hidden-state knowledge pathway. Each cycle adds knowledge without taking any away. Cross-domain transfer is real: joint training on physics and topology produces positive transfer in both directions, meaning the model learns something general about invariance that applies across fields.
+This is better than embedding knowledge in weights. Adapters trained on domain facts improve general truth preference (+0.10 MC2 on TruthfulQA, statistically significant), but they can't scale to thousands of facts without interference. Tools scale indefinitely: each new tool is independent, verified, and callable on demand. The agent doesn't need to memorize that the Riemann Hypothesis is open — it calls `check_conjecture("Riemann")` and gets the verified answer.
 
-LLMs are trained on what the field has collectively written and taught. Where the model is confidently wrong or blank, the literature is thin. That's where new science is most likely to be found. NoetherSolve automates this: propose, verify, check, discover, teach, repeat.
+**32 tools** currently exposed via MCP, covering conservation law monitoring, mathematical conjectures, complexity theory, proof barriers, number theory, PDE regularity, pharmacogenomics, LLM claims auditing, genetics therapeutics, chemical kinetics, knot theory, and conservation law discovery. All backed by verified reference databases, not model guesses.
 
-The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), and unsolved mathematics (6 domains covering Millennium Problems through computational complexity). Any field where you can verify a claim and ask a model about it is fair game.
+The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), and unsolved mathematics (6 domains covering Millennium Problems through computational complexity). Any field where you can verify a claim and build a checker is fair game.
 
 ### Paper
 
@@ -37,44 +37,81 @@ An AI model is trained on everything humans have written. That means it knows
 what we know, but it also shares our blind spots. Where the collective
 literature is thin or wrong, the model is thin or wrong.
 
-NoetherSolve exploits this. It:
+NoetherSolve exploits this in four steps:
 
-1. **Proposes a claim** about how a system behaves (e.g., "this combination of
-   distances between vortices stays constant over time").
-2. **Checks it with math.** Simulates the system and measures whether the claim
-   actually holds. Most don't. The ones that do are real.
-3. **Asks the model: did you already know this?** Compares how likely the model
-   thinks the true answer is vs. a plausible wrong answer. If the model already
-   knows it, move on. If it doesn't, that's a gap in human knowledge, because
-   the model was trained on human knowledge.
-4. **Teaches the answer back to the model.** Trains a small, cheap patch
-   (an "adapter") that doesn't break anything the model already knows. The model
-   is now smarter than it was before step 1.
-5. **Repeats with the smarter model.** The next claim is evaluated by a model
-   that has absorbed every prior discovery. Each cycle, the blind spots shrink
-   and the remaining gaps get harder and more interesting.
+1. **Find gaps.** Propose claims about how systems behave. Verify them
+   numerically. Ask the model: did you already know this? If the model is
+   confidently wrong, that's a gap — and gaps in model knowledge point to
+   gaps in human knowledge, because the model was trained on human knowledge.
+2. **Flip facts.** Train lightweight adapters that flip the model's answer
+   from wrong to right, without degrading anything it already knows.
+3. **Build tools.** Each discovery becomes a standalone computational tool —
+   verified reference databases, not model guesses. Tools don't have the
+   scaling problems that adapters do (interference, capacity limits).
+4. **Add to MCP server.** Expose every tool via Model Context Protocol so
+   any AI agent (Claude, GPT, local models) can call them at inference time.
+   The agent doesn't need to memorize facts — it calls the tool and gets
+   the verified answer.
 
-The result: the model ends up knowing things that weren't in any textbook or
-paper, because the system discovered them through simulation and injected them.
-All 30 domains now sit at **411/411 facts (100%)** — 11 physics domains (123 facts), 7 genetics therapeutics domains (82 facts), 6 unsolved mathematics domains (70 facts), 6 LLM science domains (70 facts), and 6 programming language domains (66 facts). In chemical kinetics,
-the model went from recognizing 0 out of 16 conservation laws to 16/16 via
-orthogonal adapters and distractor quality fixes. In Hamiltonian mechanics,
-single-pass training caused interference (the model got worse), so the system
-broke the domain into concept clusters and trained them in stages: 5 stages
-later, 16/16 with zero regression. In Navier-Stokes, staged training
-plateaued, so the system switched to orthogonal adapters (one specialist per
-concept cluster, facts routed to their specialist at inference): 16/16. Knot
-invariants went from 1/16 to 16/16 with 7 orthogonal clusters. Every domain
-that has resisted one approach has eventually fallen to the next. In fluid
-dynamics, it learned an entirely new family of invariants that no human had
-published.
+The result: every gap we find makes every connected agent smarter. The 32
+tools currently served cover physics, genetics, mathematics, complexity
+theory, pharmacogenomics, and LLM science.
 
-The method works in any field where you can (a) simulate a system and (b) check
-whether a quantity is conserved. So far it's been applied to fluid dynamics,
-electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes
-regularity, knot theory, genetics therapeutics (CRISPR design through
-clinical translation), and unsolved mathematics (Millennium Problems through
-computational complexity).
+</details>
+
+---
+
+<details open>
+<summary><h2>MCP Server — Give Any AI Agent 32 Verified Tools</h2></summary>
+
+The MCP server exposes all NoetherSolve tools to any AI agent that supports
+[Model Context Protocol](https://modelcontextprotocol.io/). One line of config,
+32 tools available.
+
+### Setup for Claude Code
+
+The project includes `.mcp.json` — Claude Code auto-discovers it when you
+open the project. No manual config needed.
+
+Or install globally and use the entry point:
+
+```bash
+pip install noethersolve[mcp]
+noethersolve-mcp  # starts the server
+```
+
+### Available Tools (32)
+
+| Category | Tools | Examples |
+|----------|-------|---------|
+| **Conservation monitors** | 4 | `check_vortex_conservation`, `check_hamiltonian_system`, `check_em_conservation`, `discover_conservation_law` |
+| **Mathematics** | 10 | `check_conjecture`, `check_complexity_inclusion`, `check_proof_barriers`, `verify_goldbach`, `check_sobolev_embedding` |
+| **Genetics/therapeutics** | 5 | `score_crispr_guide`, `audit_dna_sequence`, `predict_protein_aggregation`, `validate_therapy_pipeline` |
+| **Pharmacogenomics** | 2 | `audit_drug_interactions`, `check_pharmacogenomics` |
+| **LLM science** | 4 | `check_llm_claim`, `chinchilla_scaling`, `check_benchmark_score`, `audit_llm_claims` |
+| **Chemical kinetics** | 1 | `audit_chemical_network` |
+| **Knot theory** | 1 | `check_knot_invariants` |
+| **Number theory** | 4 | `verify_goldbach`, `verify_collatz`, `check_abc_triple`, `analyze_prime_gaps` |
+
+Every tool returns verified results from curated reference databases — not
+model guesses. When an agent calls `check_conjecture("Riemann")`, it gets the
+actual status (OPEN), the key facts, common errors, and references. No
+hallucination possible.
+
+### Why MCP instead of fine-tuning?
+
+We tried both. Adapters trained on 411 domain facts improve truth preference
+(+0.10 MC2 on TruthfulQA), but they can't scale: stacking 37+ adapters
+destroys general knowledge (-43% MMLU), and a unified adapter on 244 facts
+collapses to a degenerate mode. Tools don't have these problems:
+
+- **No interference.** Each tool is independent. Adding tool #33 doesn't
+  degrade tools #1-32.
+- **No capacity limits.** A tool can encode arbitrarily complex logic.
+- **Verified correctness.** 842 tests enforce correctness. An adapter can
+  only shift probabilities; a tool returns the exact right answer.
+- **Model-agnostic.** Any agent that speaks MCP can use these tools.
+  Adapters are tied to one model's vocabulary.
 
 </details>
 
@@ -610,8 +647,30 @@ these tools against 5 experiments:
 <details>
 <summary><h2>Quick Start</h2></summary>
 
+### Use the tools (no model needed)
+
 ```bash
-# Install core deps
+pip install noethersolve
+
+# Python API
+python -c "from noethersolve import check_conjecture; print(check_conjecture('Riemann'))"
+python -c "from noethersolve import audit_drug_list; print(audit_drug_list(['warfarin', 'fluconazole']))"
+python -c "from noethersolve import chinchilla_optimal; print(chinchilla_optimal(params_B=7.0))"
+```
+
+### Serve tools to AI agents via MCP
+
+```bash
+pip install noethersolve[mcp]
+
+# Claude Code auto-discovers .mcp.json when you open the project.
+# Or run standalone:
+noethersolve-mcp
+```
+
+### Run the discovery pipeline (finds new gaps)
+
+```bash
 pip install -r requirements.txt
 
 # 1. Run the checker on a hypothesis
@@ -624,14 +683,8 @@ python oracle_wrapper.py --problem problems/vortex_pair_conservation.yaml
 python oracle_wrapper.py --problem problems/vortex_pair_conservation.yaml \
     --repair --diagnose
 
-# 4. Claim a problem before you start hunting (prevents duplicate work)
-python claim.py claim \
-    --problem vortex_pair_conservation \
-    --expr "r12 + eps*(r13+r23)" \
-    --handle your_handle
-
-# 5. View results dashboard (rebuilds from results/candidates.tsv)
-python dashboard.py --open
+# 4. Full autonomous run
+python autonomy_loop.py --problem problems/vortex_pair_conservation.yaml
 ```
 
 > **Linux / CUDA users:** use `noethersolve_torch.py` as a drop-in backend that requires only PyTorch + HuggingFace — no MLX needed.
@@ -968,7 +1021,10 @@ NoetherSolve
 ├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
 ├── dashboard.py                ← Results dashboard from candidates.tsv
 │
-├── noethersolve/               ← Core package (21 toolkit modules)
+├── noethersolve/               ← Core package (21 toolkit modules + MCP server)
+│   ├── mcp_server/             ← MCP server (32 tools for any AI agent)
+│   │   ├── server.py           ← FastMCP tool definitions
+│   │   └── __main__.py         ← python -m noethersolve.mcp_server
 │   ├── adapter.py              ← Snap-on logit adapter (SwiGLU)
 │   ├── audit_chem.py           ← Chemical network thermodynamic auditor
 │   ├── audit_facts.py          ← Oracle fact quality auditor (token-length bias)
@@ -988,6 +1044,7 @@ NoetherSolve
 │   ├── number_theory.py        ← Number theory conjecture numerical verifier
 │   ├── reductions.py           ← Computational reduction chain validator
 │   ├── pde_regularity.py       ← PDE regularity and Sobolev embedding checker
+│   ├── llm_claims.py           ← LLM claims auditor (benchmarks, scaling, misconceptions)
 │   ├── train_utils.py          ← Shared training utilities
 │   └── validate.py             ← Integrator validation via conservation laws
 │

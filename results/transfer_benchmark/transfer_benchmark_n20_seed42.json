@@ -1,0 +1,68 @@
+{
+  "model": "Qwen/Qwen3-4B-Base",
+  "n_mmlu": 20,
+  "n_tqa": 200,
+  "seed": 42,
+  "baseline": {
+    "mmlu_overall": 0.6,
+    "mmlu_by_category": {
+      "overall": {
+        "accuracy": 0.6,
+        "n": 20
+      },
+      "other": {
+        "accuracy": 0.5833333333333334,
+        "n": 12
+      },
+      "physics": {
+        "accuracy": 0.0,
+        "n": 2
+      },
+      "biology": {
+        "accuracy": 1.0,
+        "n": 5
+      },
+      "cs": {
+        "accuracy": 0.0,
+        "n": 1
+      }
+    },
+    "tqa_mc2": 0.0
+  },
+  "stacks": {
+    "physics": {
+      "n_adapters": 37,
+      "mmlu_overall": 0.15,
+      "mmlu_delta": -0.44999999999999996,
+      "mmlu_by_category": {
+        "overall": {
+          "accuracy": 0.15,
+          "n": 20,
+          "delta": -0.44999999999999996
+        },
+        "other": {
+          "accuracy": 0.16666666666666666,
+          "n": 12,
+          "delta": -0.41666666666666674
+        },
+        "physics": {
+          "accuracy": 0.5,
+          "n": 2,
+          "delta": 0.5
+        },
+        "biology": {
+          "accuracy": 0.0,
+          "n": 5,
+          "delta": -1.0
+        },
+        "cs": {
+          "accuracy": 0.0,
+          "n": 1,
+          "delta": 0.0
+        }
+      },
+      "tqa_mc2": 0.0,
+      "tqa_delta": 0
+    }
+  }
+}

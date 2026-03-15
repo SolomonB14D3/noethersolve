@@ -1,0 +1,138 @@
+{
+  "problem": "chemistry",
+  "description": "Chemistry fundamentals - reactions, electrochemistry, materials science.",
+  "facts": [
+    {
+      "id": "ch01_sn1_sn2",
+      "context": "SN1 vs SN2 nucleophilic substitution reactions differ in:",
+      "truth": "rate law and stereochemistry outcomes",
+      "distractors": [
+        "only the leaving group that is involved in the mechanism",
+        "temperature requirements for the reaction to proceed",
+        "whether a catalyst is required for completion"
+      ],
+      "cluster": "organic"
+    },
+    {
+      "id": "ch02_galvanic",
+      "context": "A galvanic cell reaction is spontaneous when:",
+      "truth": "cell potential E is positive",
+      "distractors": [
+        "cell potential E is negative indicating energy release",
+        "electrode potentials are exactly equal to each other",
+        "external voltage is applied to drive the reaction"
+      ],
+      "cluster": "electrochem"
+    },
+    {
+      "id": "ch03_crystal_field",
+      "context": "Crystal field theory explains:",
+      "truth": "d-orbital splitting in transition metal complexes",
+      "distractors": [
+        "covalent bond formation between atoms in molecules",
+        "ionic compound solubility in polar solvents only",
+        "metallic conductivity in pure metal samples"
+      ],
+      "cluster": "inorganic"
+    },
+    {
+      "id": "ch04_glass_transition",
+      "context": "Below the glass transition temperature Tg, a polymer is:",
+      "truth": "glassy and brittle in behavior",
+      "distractors": [
+        "rubbery and flexible allowing large deformations",
+        "completely crystalline with ordered structure",
+        "liquid with high molecular mobility"
+      ],
+      "cluster": "materials"
+    },
+    {
+      "id": "ch05_n_type",
+      "context": "Doping silicon with phosphorus creates:",
+      "truth": "n-type semiconductor with extra electrons",
+      "distractors": [
+        "p-type semiconductor with mobile holes as carriers",
+        "an insulator with no free charge carriers at all",
+        "a metallic conductor with delocalized electrons"
+      ],
+      "cluster": "materials"
+    },
+    {
+      "id": "ch06_markovnikov",
+      "context": "Markovnikov's rule for HX addition to alkenes states:",
+      "truth": "H adds to carbon with more hydrogens",
+      "distractors": [
+        "X always adds to the more substituted carbon atom",
+        "addition always proceeds through anti-Markovnikov pathway",
+        "the reaction requires a peroxide catalyst present"
+      ],
+      "cluster": "organic"
+    },
+    {
+      "id": "ch07_le_chatelier",
+      "context": "Le Chatelier's principle states that equilibrium shifts to:",
+      "truth": "counteract applied stress on the system",
+      "distractors": [
+        "always favor product formation regardless of conditions",
+        "increase the total pressure of the system always",
+        "maximize entropy change in the forward direction"
+      ],
+      "cluster": "physical"
+    },
+    {
+      "id": "ch08_hess_law",
+      "context": "Hess's Law states that enthalpy change:",
+      "truth": "is path-independent (state function)",
+      "distractors": [
+        "depends on the specific reaction pathway taken",
+        "is always negative for spontaneous reactions only",
+        "equals the activation energy of the reaction"
+      ],
+      "cluster": "physical"
+    },
+    {
+      "id": "ch09_oxidation",
+      "context": "In a redox reaction, the oxidizing agent:",
+      "truth": "gains electrons and is reduced",
+      "distractors": [
+        "loses electrons and becomes more positive charge",
+        "remains unchanged throughout the entire reaction",
+        "always contains oxygen atoms in its structure"
+      ],
+      "cluster": "electrochem"
+    },
+    {
+      "id": "ch10_buffer",
+      "context": "A buffer solution resists pH changes because:",
+      "truth": "weak acid/base pair neutralizes added H+ or OH-",
+      "distractors": [
+        "strong acids prevent any pH change whatsoever",
+        "the solution contains no ionizable species at all",
+        "water's autoionization is completely suppressed"
+      ],
+      "cluster": "physical"
+    },
+    {
+      "id": "ch11_ligand_field",
+      "context": "Strong field ligands in transition metal complexes cause:",
+      "truth": "large d-orbital splitting favoring low spin",
+      "distractors": [
+        "small d-orbital splitting favoring high spin states",
+        "no splitting of d-orbitals at all in any case",
+        "oxidation of the central metal ion always"
+      ],
+      "cluster": "inorganic"
+    },
+    {
+      "id": "ch12_band_gap",
+      "context": "The band gap in semiconductors determines:",
+      "truth": "energy needed to excite electrons to conduction band",
+      "distractors": [
+        "the physical distance between atoms in the lattice",
+        "melting point of the semiconductor material only",
+        "magnetic properties of the material exclusively"
+      ],
+      "cluster": "materials"
+    }
+  ]
+}

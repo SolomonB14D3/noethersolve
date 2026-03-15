@@ -100,6 +100,12 @@ KNOWN_INCLUSIONS: Set[Tuple[str, str]] = {
     # Nondeterministic exponential
     ("NP", "NEXP"),
     ("EXP", "NEXP"),
+    # Graph Isomorphism (Babai 2015: quasipolynomial time; in NP ∩ coAM)
+    ("GI", "NP"),
+    ("GI", "coAM"),
+    ("GI", "PSPACE"),
+    ("GI", "EXP"),
+    ("GI", "NEXP"),
 }
 
 # Known equalities
@@ -144,6 +150,7 @@ OPEN_QUESTIONS: Set[Tuple[str, str]] = {
     ("NP", "PP"),            # Is the inclusion strict?
     ("PH", "PSPACE"),        # PH vs PSPACE
     ("P", "NC"),             # P vs NC (is everything in P parallelizable?)
+    ("P", "GI"),             # Is GI in P? (Babai 2015 gives quasipoly, not poly)
 }
 
 # Completeness results: {problem: {class: status}}
@@ -262,6 +269,8 @@ ALL_CLASSES: Set[str] = {
     "EXP", "NEXP", "EXPSPACE", "P/poly", "RE",
     # Less common but referenced
     "coAM", "AM", "MA", "SZK", "ZPP",
+    # Problem-defined classes (used in inclusion queries like "GI in NP")
+    "GI",
 }
 
 # Problem name aliases for fuzzy matching

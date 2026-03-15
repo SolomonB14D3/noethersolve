@@ -1,0 +1,856 @@
+{
+  "model": "Qwen/Qwen3-4B-Base",
+  "n_mmlu": 200,
+  "n_tqa": 100,
+  "seed": 42,
+  "experiments": {
+    "baseline": {
+      "mmlu_overall": 0.68,
+      "mmlu_n_correct": 136,
+      "mmlu_n_total": 200,
+      "mmlu_delta": 0.0,
+      "mmlu_by_cat": {
+        "overall": {
+          "acc": 0.68,
+          "n": 200
+        },
+        "other": {
+          "acc": 0.6546762589928058,
+          "n": 139
+        },
+        "physics": {
+          "acc": 0.6666666666666666,
+          "n": 15
+        },
+        "biology": {
+          "acc": 0.8333333333333334,
+          "n": 18
+        },
+        "cs": {
+          "acc": 0.5714285714285714,
+          "n": 7
+        },
+        "logic": {
+          "acc": 0.8,
+          "n": 5
+        },
+        "math": {
+          "acc": 0.7333333333333333,
+          "n": 15
+        },
+        "chemistry": {
+          "acc": 1.0,
+          "n": 1
+        }
+      }
+    },
+    "scaled_physics": {
+      "mmlu_overall": 0.25,
+      "mmlu_n_correct": 50,
+      "mmlu_n_total": 200,
+      "mmlu_delta": -0.43000000000000005,
+      "mmlu_by_cat": {
+        "overall": {
+          "acc": 0.25,
+          "n": 200
+        },
+        "other": {
+          "acc": 0.2733812949640288,
+          "n": 139
+        },
+        "physics": {
+          "acc": 0.2,
+          "n": 15
+        },
+        "biology": {
+          "acc": 0.1111111111111111,
+          "n": 18
+        },
+        "cs": {
+          "acc": 0.14285714285714285,
+          "n": 7
+        },
+        "logic": {
+          "acc": 0.2,
+          "n": 5
+        },
+        "math": {
+          "acc": 0.3333333333333333,
+          "n": 15
+        },
+        "chemistry": {
+          "acc": 0.0,
+          "n": 1
+        }
+      }
+    },
+    "scaled_genetics": {
+      "mmlu_overall": 0.68,
+      "mmlu_n_correct": 136,
+      "mmlu_n_total": 200,
+      "mmlu_delta": 0.0,
+      "mmlu_by_cat": {
+        "overall": {
+          "acc": 0.68,
+          "n": 200
+        },
+        "other": {
+          "acc": 0.6546762589928058,
+          "n": 139
+        },
+        "physics": {
+          "acc": 0.6666666666666666,
+          "n": 15
+        },
+        "biology": {
+          "acc": 0.8333333333333334,
+          "n": 18
+        },
+        "cs": {
+          "acc": 0.5714285714285714,
+          "n": 7
+        },
+        "logic": {
+          "acc": 0.8,
+          "n": 5
+        },
+        "math": {
+          "acc": 0.7333333333333333,
+          "n": 15
+        },
+        "chemistry": {
+          "acc": 1.0,
+          "n": 1
+        }
+      }
+    },
+    "scaled_math": {
+      "mmlu_overall": 0.68,
+      "mmlu_n_correct": 136,
+      "mmlu_n_total": 200,
+      "mmlu_delta": 0.0,
+      "mmlu_by_cat": {
+        "overall": {
+          "acc": 0.68,
+          "n": 200
+        },
+        "other": {
+          "acc": 0.6546762589928058,
+          "n": 139
+        },
+        "physics": {
+          "acc": 0.6666666666666666,
+          "n": 15
+        },
+        "biology": {
+          "acc": 0.8333333333333334,
+          "n": 18
+        },
+        "cs": {
+          "acc": 0.5714285714285714,
+          "n": 7
+        },
+        "logic": {
+          "acc": 0.8,
+          "n": 5
+        },
+        "math": {
+          "acc": 0.7333333333333333,
+          "n": 15
+        },
+        "chemistry": {
+          "acc": 1.0,
+          "n": 1
+        }
+      }
+    },
+    "routed_scaled": {
+      "mmlu_overall": 0.64,
+      "mmlu_n_correct": 128,
+      "mmlu_n_total": 200,
+      "mmlu_delta": -0.040000000000000036,
+      "mmlu_by_cat": {
+        "overall": {
+          "acc": 0.64,
+          "n": 200
+        },
+        "other": {
+          "acc": 0.6546762589928058,
+          "n": 139
+        },
+        "physics": {
+          "acc": 0.2,
+          "n": 15
+        },
+        "biology": {
+          "acc": 0.8333333333333334,
+          "n": 18
+        },
+        "cs": {
+          "acc": 0.5714285714285714,
+          "n": 7
+        },
+        "logic": {
+          "acc": 0.8,
+          "n": 5
+        },
+        "math": {
+          "acc": 0.7333333333333333,
+          "n": 15
+        },
+        "chemistry": {
+          "acc": 0.0,
+          "n": 1
+        }
+      }
+    },
+    "individual_physics": {
+      "n_matched": 16,
+      "baseline": 0.6875,
+      "adapters": [
+        {
+          "name": "continuous_qf_theory_adapter.npz",
+          "acc": 0.875,
+          "delta": 0.1875,
+          "n_correct": 14,
+          "n_total": 16
+        },
+        {
+          "name": "vortex_pair_pair_adapter.npz",
+          "acc": 0.8125,
+          "delta": 0.125,
+          "n_correct": 13,
+          "n_total": 16
+        },
+        {
+          "name": "continuous_qf_2d_conservation_adapter.npz",
+          "acc": 0.75,
+          "delta": 0.0625,
+          "n_correct": 12,
+          "n_total": 16
+        },
+        {
+          "name": "vortex_pair_classical_adapter.npz",
+          "acc": 0.75,
+          "delta": 0.0625,
+          "n_correct": 12,
+          "n_total": 16
+        },
+        {
+          "name": "3body_fact6_adapter.npz",
+          "acc": 0.6875,
+          "delta": 0.0,
+          "n_correct": 11,
+          "n_total": 16
+        },
+        {
+          "name": "optimal_f_adapter.npz",
+          "acc": 0.625,
+          "delta": -0.0625,
+          "n_correct": 10,
+          "n_total": 16
+        },
+        {
+          "name": "qf_ratio_adapter.npz",
+          "acc": 0.5625,
+          "delta": -0.125,
+          "n_correct": 9,
+          "n_total": 16
+        },
+        {
+          "name": "3body_kepler_2body_adapter.npz",
+          "acc": 0.4375,
+          "delta": -0.25,
+          "n_correct": 7,
+          "n_total": 16
+        },
+        {
+          "name": "hamiltonian_stage5.npz",
+          "acc": 0.4375,
+          "delta": -0.25,
+          "n_correct": 7,
+          "n_total": 16
+        },
+        {
+          "name": "optimal_f_performance_adapter.npz",
+          "acc": 0.4375,
+          "delta": -0.25,
+          "n_correct": 7,
+          "n_total": 16
+        },
+        {
+          "name": "3body_fact0_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "3body_fact1_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "3body_fact2_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "3body_fact3_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "3body_fact4_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "3body_fact5_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "3body_fact7_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "3body_fact8_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "3body_fact9_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "3body_general_3body_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "kinetic_k_independence_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "qf_continuous_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "vortex_pair_vp01_adapter.npz",
+          "acc": 0.375,
+          "delta": -0.3125,
+          "n_correct": 6,
+          "n_total": 16
+        },
+        {
+          "name": "chem_enzyme_focused.npz",
+          "acc": 0.3125,
+          "delta": -0.375,
+          "n_correct": 5,
+          "n_total": 16
+        },
+        {
+          "name": "continuous_qf_extension_adapter.npz",
+          "acc": 0.3125,
+          "delta": -0.375,
+          "n_correct": 5,
+          "n_total": 16
+        },
+        {
+          "name": "continuous_qf_qf06_adapter.npz",
+          "acc": 0.3125,
+          "delta": -0.375,
+          "n_correct": 5,
+          "n_total": 16
+        },
+        {
+          "name": "em_adapter_v4.npz",
+          "acc": 0.3125,
+          "delta": -0.375,
+          "n_correct": 5,
+          "n_total": 16
+        },
+        {
+          "name": "kinetic_k_structure_adapter.npz",
+          "acc": 0.3125,
+          "delta": -0.375,
+          "n_correct": 5,
+          "n_total": 16
+        },
+        {
+          "name": "continuous_qf_3d_stretching_adapter.npz",
+          "acc": 0.25,
+          "delta": -0.4375,
+          "n_correct": 4,
+          "n_total": 16
+        },
+        {
+          "name": "kinetic_k_definition_adapter.npz",
+          "acc": 0.25,
+          "delta": -0.4375,
+          "n_correct": 4,
+          "n_total": 16
+        },
+        {
+          "name": "kinetic_k_technical_adapter.npz",
+          "acc": 0.25,
+          "delta": -0.4375,
+          "n_correct": 4,
+          "n_total": 16
+        },
+        {
+          "name": "ns_regularity_prior_broken.npz",
+          "acc": 0.25,
+          "delta": -0.4375,
+          "n_correct": 4,
+          "n_total": 16
+        },
+        {
+          "name": "optimal_f_theory_adapter.npz",
+          "acc": 0.25,
+          "delta": -0.4375,
+          "n_correct": 4,
+          "n_total": 16
+        },
+        {
+          "name": "vortex_pair_theory_adapter.npz",
+          "acc": 0.25,
+          "delta": -0.4375,
+          "n_correct": 4,
+          "n_total": 16
+        },
+        {
+          "name": "3body_CRTBP_adapter.npz",
+          "acc": 0.1875,
+          "delta": -0.5,
+          "n_correct": 3,
+          "n_total": 16
+        },
+        {
+          "name": "chemical_adapter.npz",
+          "acc": 0.1875,
+          "delta": -0.5,
+          "n_correct": 3,
+          "n_total": 16
+        },
+        {
+          "name": "vortex_pair_discoveries_adapter.npz",
+          "acc": 0.1875,
+          "delta": -0.5,
+          "n_correct": 3,
+          "n_total": 16
+        }
+      ]
+    },
+    "individual_genetics": {
+      "n_matched": 18,
+      "baseline": 0.8333333333333334,
+      "adapters": [
+        {
+          "name": "genetics_splicing_adapter.npz",
+          "acc": 0.7777777777777778,
+          "delta": -0.05555555555555558,
+          "n_correct": 14,
+          "n_total": 18
+        },
+        {
+          "name": "clinical_translation_preclinical_adapter.npz",
+          "acc": 0.3888888888888889,
+          "delta": -0.4444444444444445,
+          "n_correct": 7,
+          "n_total": 18
+        },
+        {
+          "name": "genetics_crispr_adapter.npz",
+          "acc": 0.3888888888888889,
+          "delta": -0.4444444444444445,
+          "n_correct": 7,
+          "n_total": 18
+        },
+        {
+          "name": "genetics_mrna_adapter.npz",
+          "acc": 0.3888888888888889,
+          "delta": -0.4444444444444445,
+          "n_correct": 7,
+          "n_total": 18
+        },
+        {
+          "name": "immune_evasion_protein_adapter.npz",
+          "acc": 0.3888888888888889,
+          "delta": -0.4444444444444445,
+          "n_correct": 7,
+          "n_total": 18
+        },
+        {
+          "name": "protein_structure_antibody_adapter.npz",
+          "acc": 0.3888888888888889,
+          "delta": -0.4444444444444445,
+          "n_correct": 7,
+          "n_total": 18
+        },
+        {
+          "name": "clinical_translation_manufacturing_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.5,
+          "n_correct": 6,
+          "n_total": 18
+        },
+        {
+          "name": "disease_targets_monogenic_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.5,
+          "n_correct": 6,
+          "n_total": 18
+        },
+        {
+          "name": "disease_targets_tumor_suppressor_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.5,
+          "n_correct": 6,
+          "n_total": 18
+        },
+        {
+          "name": "genetics_pharmacogenomics_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.5,
+          "n_correct": 6,
+          "n_total": 18
+        },
+        {
+          "name": "immune_evasion_vector_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.5,
+          "n_correct": 6,
+          "n_total": 18
+        },
+        {
+          "name": "safety_invariants_genotoxicity_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.5,
+          "n_correct": 6,
+          "n_total": 18
+        },
+        {
+          "name": "disease_targets_oncogene_adapter.npz",
+          "acc": 0.2222222222222222,
+          "delta": -0.6111111111111112,
+          "n_correct": 4,
+          "n_total": 18
+        },
+        {
+          "name": "clinical_translation_regulatory_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "delivery_optimization_biodistribution_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "delivery_optimization_formulation_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "delivery_optimization_ligand_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "delivery_optimization_route_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "genetics_antisense_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "genetics_delivery_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "genetics_expression_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "immune_evasion_innate_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "immune_evasion_tolerance_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "protein_structure_binding_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "protein_structure_modification_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "protein_structure_receptor_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "protein_structure_stability_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "safety_invariants_offtarget_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "safety_invariants_toxicology_adapter.npz",
+          "acc": 0.16666666666666666,
+          "delta": -0.6666666666666667,
+          "n_correct": 3,
+          "n_total": 18
+        },
+        {
+          "name": "protein_structure_kinase_adapter.npz",
+          "acc": 0.1111111111111111,
+          "delta": -0.7222222222222223,
+          "n_correct": 2,
+          "n_total": 18
+        }
+      ]
+    },
+    "individual_math": {
+      "n_matched": 15,
+      "baseline": 0.7333333333333333,
+      "adapters": [
+        {
+          "name": "algebra_topology_conjectures_algebra_adapter.npz",
+          "acc": 0.4666666666666667,
+          "delta": -0.2666666666666666,
+          "n_correct": 7,
+          "n_total": 15
+        },
+        {
+          "name": "analysis_pde_conjectures_combinatorics_adapter.npz",
+          "acc": 0.4666666666666667,
+          "delta": -0.2666666666666666,
+          "n_correct": 7,
+          "n_total": 15
+        },
+        {
+          "name": "computational_conjectures_complexity_adapter.npz",
+          "acc": 0.4666666666666667,
+          "delta": -0.2666666666666666,
+          "n_correct": 7,
+          "n_total": 15
+        },
+        {
+          "name": "algebra_topology_conjectures_topology_adapter.npz",
+          "acc": 0.4,
+          "delta": -0.33333333333333326,
+          "n_correct": 6,
+          "n_total": 15
+        },
+        {
+          "name": "millennium_problems_navier_stokes_adapter.npz",
+          "acc": 0.4,
+          "delta": -0.33333333333333326,
+          "n_correct": 6,
+          "n_total": 15
+        },
+        {
+          "name": "algebra_topology_conjectures_combinatorics_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.39999999999999997,
+          "n_correct": 5,
+          "n_total": 15
+        },
+        {
+          "name": "computational_conjectures_algorithms_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.39999999999999997,
+          "n_correct": 5,
+          "n_total": 15
+        },
+        {
+          "name": "millennium_problems_riemann_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.39999999999999997,
+          "n_correct": 5,
+          "n_total": 15
+        },
+        {
+          "name": "number_theory_conjectures_primes_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.39999999999999997,
+          "n_correct": 5,
+          "n_total": 15
+        },
+        {
+          "name": "proof_techniques_logic_adapter.npz",
+          "acc": 0.3333333333333333,
+          "delta": -0.39999999999999997,
+          "n_correct": 5,
+          "n_total": 15
+        },
+        {
+          "name": "millennium_problems_other_adapter.npz",
+          "acc": 0.26666666666666666,
+          "delta": -0.4666666666666666,
+          "n_correct": 4,
+          "n_total": 15
+        },
+        {
+          "name": "millennium_problems_pnp_adapter.npz",
+          "acc": 0.26666666666666666,
+          "delta": -0.4666666666666666,
+          "n_correct": 4,
+          "n_total": 15
+        },
+        {
+          "name": "algebra_topology_conjectures_analysis_adapter.npz",
+          "acc": 0.2,
+          "delta": -0.5333333333333332,
+          "n_correct": 3,
+          "n_total": 15
+        },
+        {
+          "name": "analysis_pde_conjectures_analysis_adapter.npz",
+          "acc": 0.2,
+          "delta": -0.5333333333333332,
+          "n_correct": 3,
+          "n_total": 15
+        },
+        {
+          "name": "analysis_pde_conjectures_arithmetic_adapter.npz",
+          "acc": 0.2,
+          "delta": -0.5333333333333332,
+          "n_correct": 3,
+          "n_total": 15
+        },
+        {
+          "name": "analysis_pde_conjectures_dynamics_adapter.npz",
+          "acc": 0.2,
+          "delta": -0.5333333333333332,
+          "n_correct": 3,
+          "n_total": 15
+        },
+        {
+          "name": "analysis_pde_conjectures_pde_adapter.npz",
+          "acc": 0.2,
+          "delta": -0.5333333333333332,
+          "n_correct": 3,
+          "n_total": 15
+        },
+        {
+          "name": "number_theory_conjectures_additive_adapter.npz",
+          "acc": 0.2,
+          "delta": -0.5333333333333332,
+          "n_correct": 3,
+          "n_total": 15
+        },
+        {
+          "name": "number_theory_conjectures_diophantine_adapter.npz",
+          "acc": 0.2,
+          "delta": -0.5333333333333332,
+          "n_correct": 3,
+          "n_total": 15
+        },
+        {
+          "name": "number_theory_conjectures_dynamics_adapter.npz",
+          "acc": 0.2,
+          "delta": -0.5333333333333332,
+          "n_correct": 3,
+          "n_total": 15
+        },
+        {
+          "name": "proof_techniques_barriers_adapter.npz",
+          "acc": 0.2,
+          "delta": -0.5333333333333332,
+          "n_correct": 3,
+          "n_total": 15
+        },
+        {
+          "name": "proof_techniques_techniques_adapter.npz",
+          "acc": 0.2,
+          "delta": -0.5333333333333332,
+          "n_correct": 3,
+          "n_total": 15
+        }
+      ]
+    },
+    "tqa_all_scaled": {
+      "mc2": 0.4690545272789957,
+      "delta": 0.0543301344903831
+    },
+    "tqa_baseline": {
+      "mc2": 0.4147243927886126
+    }
+  }
+}

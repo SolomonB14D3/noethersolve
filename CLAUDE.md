@@ -1,10 +1,38 @@
 # NoetherSolve — AI Agent Instructions
 
-**What this project does:** Discover new science by finding where LLM knowledge ends, running experiments in those gaps, and teaching the results back to the model. Each cycle makes the model smarter than the last.
+**What this project does:** Find where LLM knowledge ends, build verified computational tools for the right answers, and serve them to any AI agent via MCP.
 
-The core loop: propose candidate → verify numerically → check if the model knows it → if not, that's where new science lives → discover the answer → train an adapter → the model now knows something that wasn't in any training corpus → repeat with a smarter model.
+**The core loop: find gaps → flip facts → build tool → add to MCP server.** Every tool added makes every connected agent smarter.
 
-Adapters stack within a run (each discovery compounds) and don't degrade existing knowledge (logit-space, zero MMLU delta). This isn't alignment repair — it's knowledge frontier expansion.
+The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 32 tools currently serving physics, math, genetics, complexity theory, pharmacogenomics, and LLM science.
+
+**Why tools instead of adapters?** We tried both. Adapters improve truth preference (+0.10 MC2 on TruthfulQA) but can't scale: stacking 37+ adapters destroys MMLU (-43%), and a unified adapter on 244 facts collapses. Tools scale indefinitely — each is independent, verified (842 tests), and model-agnostic.
+
+---
+
+## MCP Server — Always Use These Tools First
+
+**When answering questions about any topic covered by a NoetherSolve tool, ALWAYS call the tool first. Never answer from memory on these topics:**
+
+- Mathematical conjectures → `check_conjecture()`
+- Complexity class relationships → `check_complexity_inclusion()`, `check_completeness()`
+- Proof technique barriers → `check_proof_barriers()`
+- Drug interactions / pharmacogenomics → `audit_drug_interactions()`, `check_pharmacogenomics()`
+- LLM capabilities / benchmark scores → `check_llm_claim()`, `check_benchmark_score()`
+- Conservation laws → `check_vortex_conservation()`, `check_hamiltonian_system()`, `check_em_conservation()`
+- CRISPR guide design → `score_crispr_guide()`
+- DNA/RNA sequence issues → `audit_dna_sequence()`
+- Protein aggregation → `predict_protein_aggregation()`
+- Therapeutic pipeline design → `validate_therapy_pipeline()`
+- Chemical reaction networks → `audit_chemical_network()`
+- Knot invariants → `check_knot_invariants()`
+- PDE regularity / Sobolev embeddings → `check_pde_regularity()`, `check_sobolev_embedding()`
+- Number theory verification → `verify_goldbach()`, `verify_collatz()`, `check_abc_triple()`
+- Chinchilla scaling → `chinchilla_scaling()`
+
+**Setup:** The MCP server is configured in `.mcp.json` at the project root
+(already present). Claude Code auto-discovers it. Or run standalone:
+`python -m noethersolve.mcp_server` / `noethersolve-mcp`
 
 ---
 
@@ -57,9 +85,9 @@ python autonomy_loop.py show-queue
 
 ---
 
-## The Discovery-Injection Pipeline
+## The Discovery-Tool Pipeline
 
-Every hypothesis goes through verify → check → discover → teach:
+Every hypothesis goes through verify → check → discover → build tool → serve:
 
 ```
 Hypothesis (expression)
@@ -77,15 +105,18 @@ Hypothesis (expression)
        └─ FAIL  → NEW SCIENCE: model hasn't seen this
                     │
                     ▼
-              Train adapter (teach the discovery to the model)
+              Build tool (verified computational checker)
                     │
-                    ├─ margin flips → INJECTED: adapter joins stack
-                    │                  (model is now smarter for all future candidates)
-                    └─ margin stays → HARD GAP: log it, try next run
+                    ▼
+              Add to MCP server → any AI agent can now use it
+                    │
+              (Optionally: train adapter for within-run oracle improvement)
 ```
 
-Adapters stack: discovery #1's adapter is active when evaluating candidate #2.
-Each successful injection compounds within the run.
+The primary output is **tools served via MCP**, not adapters in weights.
+Adapters are still useful within the discovery pipeline (each injection
+makes the oracle smarter for subsequent candidates), but the permanent
+artifact is always a tool.
 
 After the main sweep, **Phase 2.5 (confidence-driven resampling)** retries
 borderline failures (margin between -5 and 0) with the full adapter stack.
@@ -209,18 +240,25 @@ The pre-commit hook enforces steps 3-5 automatically.
 
 5. **Run full suite.** `pytest tests/ -v` — all must pass.
 
-6. **Document on the repo.** Add to README (Toolkit section) with usage
-   example. Add to CLAUDE.md key files table. Update version in both
-   `pyproject.toml` and `noethersolve/__init__.py`.
+6. **Add to MCP server.** Add a `@mcp.tool()` function in
+   `noethersolve/mcp_server/server.py` that wraps the module's public API.
+   Use lazy imports (import inside the function body). Write a clear
+   docstring — this is what the AI agent sees when deciding whether to
+   call the tool.
 
-7. **Commit.** The pre-commit hook runs: tests → import check → physics smoke
+7. **Document on the repo.** Add to README (Toolkit + MCP sections) with
+   usage example. Add to CLAUDE.md key files table and the "always use
+   tools first" list. Update version in `pyproject.toml` and
+   `noethersolve/__init__.py`.
+
+8. **Commit.** The pre-commit hook runs: tests → import check → physics smoke
    test (validates H and Lz conservation on a reference vortex problem).
    Commit is blocked if any step fails.
 
-8. **Ship to PyPI.** `python -m build && twine upload dist/*`
+9. **Ship to PyPI.** `python -m build && twine upload dist/*`
 
-9. **Add to paper.** Update the living preprint with the new tool, its
-   benchmark results, and the discovery that motivated it.
+10. **Add to paper.** Update the living preprint with the new tool, its
+    benchmark results, and the discovery that motivated it.
 
 ### Pre-commit hook
 
@@ -398,6 +436,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 
 | File | What it does |
 |------|-------------|
+| `noethersolve/mcp_server/` | **MCP server — 32 tools for any AI agent** |
 | `conservation_checker.py` | Figure-8 3-body RK45 integrator + frac_var checker |
 | `vortex_checker.py` | 2D point-vortex Kirchhoff integrator + frac_var checker |
 | `oracle_wrapper.py` | Log-prob margin oracle + repair pass + quadrant diagnosis (MLX) |

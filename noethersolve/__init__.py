@@ -1,10 +1,17 @@
-"""NoetherSolve — find physical/mathematical structures that are numerically
-conserved but not recognized by LLMs, then close those gaps with targeted adapters.
+"""NoetherSolve — find where LLM knowledge ends, build verified tools, serve
+them to any AI agent via MCP.
+
+The pipeline: find gaps → flip facts → build tool → add to MCP server.
+Every tool added makes every connected agent smarter.
 
 Emmy Noether proved every continuous symmetry corresponds to a conserved quantity.
-NoetherSolve finds where LLMs fail to recognize those quantities and fixes it.
+NoetherSolve finds where LLMs fail to recognize those quantities, builds verified
+computational tools for the right answers, and exposes them via Model Context
+Protocol (MCP) — 32 tools currently serving physics, math, genetics, complexity
+theory, pharmacogenomics, and LLM science.
 
 Package layout:
+  noethersolve.mcp_server   — MCP server (32 tools for any AI agent)
   noethersolve.oracle       — model-agnostic MC log-prob scorer (from eval_mc)
   noethersolve.adapter      — snap-on logit adapter architectures (from snap_on)
   noethersolve.train_utils  — LOGIT_SOFTCAP, get_lm_head_fn, apply_adapter
@@ -31,7 +38,12 @@ Package layout:
   noethersolve.llm_claims    — LLM claims auditor (benchmark, scaling, misconceptions)
 """
 
-from noethersolve import train_utils  # noqa: F401
+# MLX-dependent modules — optional, only available on Apple Silicon
+try:
+    from noethersolve import train_utils  # noqa: F401
+except ImportError:
+    pass  # MLX not installed — adapter training unavailable, tools still work
+
 from noethersolve.monitor import (  # noqa: F401
     frac_var,
     MonitorReport,
@@ -189,4 +201,4 @@ from noethersolve.llm_claims import (  # noqa: F401
     LLMTopicInfo,
 )
 
-__version__ = "0.9.0"
+__version__ = "1.0.0"

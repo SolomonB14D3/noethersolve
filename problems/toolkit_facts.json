@@ -1,0 +1,2935 @@
+{
+  "problem": "toolkit_knowledge",
+  "description": "Knowledge distilled from all 21 NoetherSolve toolkit modules",
+  "n_tools": 10,
+  "facts": [
+    {
+      "id": "conj_riemann hypothesis_status",
+      "context": "The current status of the Riemann Hypothesis conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_p vs np_status",
+      "context": "The current status of the P vs NP conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_navier-stokes existence and smoothness_status",
+      "context": "The current status of the Navier-Stokes existence and smoothness conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_yang-mills existence and mass gap_status",
+      "context": "The current status of the Yang-Mills existence and mass gap conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_hodge conjecture_status",
+      "context": "The current status of the Hodge conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_birch and swinnerton-dyer conjecture_status",
+      "context": "The current status of the Birch and Swinnerton-Dyer conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_poincare conjecture_status",
+      "context": "The current status of the Poincare conjecture conjecture is:",
+      "truth": "solved",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_goldbach conjecture_status",
+      "context": "The current status of the Goldbach conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_twin prime conjecture_status",
+      "context": "The current status of the Twin prime conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_collatz conjecture_status",
+      "context": "The current status of the Collatz conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_abc conjecture_status",
+      "context": "The current status of the ABC conjecture conjecture is:",
+      "truth": "disputed",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_legendre conjecture_status",
+      "context": "The current status of the Legendre conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_catalan conjecture_status",
+      "context": "The current status of the Catalan conjecture conjecture is:",
+      "truth": "solved",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_fermat's last theorem_status",
+      "context": "The current status of the Fermat's Last Theorem conjecture is:",
+      "truth": "solved",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_goldbach weak conjecture_status",
+      "context": "The current status of the Goldbach weak conjecture conjecture is:",
+      "truth": "solved",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_landau's fourth problem_status",
+      "context": "The current status of the Landau's fourth problem conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_brocard's problem_status",
+      "context": "The current status of the Brocard's problem conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_bunyakovsky conjecture_status",
+      "context": "The current status of the Bunyakovsky conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_erdos-straus conjecture_status",
+      "context": "The current status of the Erdos-Straus conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_jacobian conjecture_status",
+      "context": "The current status of the Jacobian conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_hadamard conjecture_status",
+      "context": "The current status of the Hadamard conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_invariant subspace problem_status",
+      "context": "The current status of the Invariant subspace problem conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_kervaire invariant one problem_status",
+      "context": "The current status of the Kervaire invariant one problem conjecture is:",
+      "truth": "mostly_solved",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_baum-connes conjecture_status",
+      "context": "The current status of the Baum-Connes conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_borel conjecture_status",
+      "context": "The current status of the Borel conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_smooth poincare conjecture in dimension 4_status",
+      "context": "The current status of the Smooth Poincare conjecture in dimension 4 conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_andrews-curtis conjecture_status",
+      "context": "The current status of the Andrews-Curtis conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_novikov conjecture_status",
+      "context": "The current status of the Novikov conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_zeeman conjecture_status",
+      "context": "The current status of the Zeeman conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_continuum hypothesis_status",
+      "context": "The current status of the Continuum hypothesis conjecture is:",
+      "truth": "independent",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_p = bpp?_status",
+      "context": "The current status of the P = BPP? conjecture is:",
+      "truth": "conjectured_true",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_axiom of constructibility (v=l)_status",
+      "context": "The current status of the Axiom of constructibility (V=L) conjecture is:",
+      "truth": "independent",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_woodin's ultimate-l_status",
+      "context": "The current status of the Woodin's Ultimate-L conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_erdos discrepancy problem_status",
+      "context": "The current status of the Erdos discrepancy problem conjecture is:",
+      "truth": "solved",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_boolean pythagorean triples problem_status",
+      "context": "The current status of the Boolean Pythagorean triples problem conjecture is:",
+      "truth": "solved",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_large cardinal hierarchy consistency_status",
+      "context": "The current status of the Large cardinal hierarchy consistency conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_np = co-np?_status",
+      "context": "The current status of the NP = co-NP? conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_unique games conjecture_status",
+      "context": "The current status of the Unique games conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_inverse galois problem_status",
+      "context": "The current status of the Inverse Galois problem conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_vaught's conjecture_status",
+      "context": "The current status of the Vaught's conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_kakeya conjecture_status",
+      "context": "The current status of the Kakeya conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_carleson's theorem_status",
+      "context": "The current status of the Carleson's theorem conjecture is:",
+      "truth": "solved",
+      "distractors": [
+        "proven/resolved",
+        "still open/unresolved",
+        "refuted/disproven"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_navier-stokes regularity_status",
+      "context": "The current status of the Navier-Stokes regularity conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_schanuel's conjecture_status",
+      "context": "The current status of the Schanuel's conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_sendov's conjecture_status",
+      "context": "The current status of the Sendov's conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_brennan conjecture_status",
+      "context": "The current status of the Brennan conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_hilbert-polya conjecture_status",
+      "context": "The current status of the Hilbert-Polya conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_erdos-ginzburg-ziv theorem extensions_status",
+      "context": "The current status of the Erdos-Ginzburg-Ziv theorem extensions conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_littlewood conjecture_status",
+      "context": "The current status of the Littlewood conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_mean curvature flow regularity_status",
+      "context": "The current status of the Mean curvature flow regularity conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_hot spots conjecture_status",
+      "context": "The current status of the Hot spots conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_graph isomorphism in p?_status",
+      "context": "The current status of the Graph isomorphism in P? conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_separation of complexity classes (p vs pspace)_status",
+      "context": "The current status of the Separation of complexity classes (P vs PSPACE) conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_algebraic complexity: vp vs vnp_status",
+      "context": "The current status of the Algebraic complexity: VP vs VNP conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_minimum circuit size problem (mcsp)_status",
+      "context": "The current status of the Minimum circuit size problem (MCSP) conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_polynomial identity testing derandomization_status",
+      "context": "The current status of the Polynomial identity testing derandomization conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_planted clique conjecture_status",
+      "context": "The current status of the Planted clique conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_khot's d-to-1 conjecture_status",
+      "context": "The current status of the Khot's d-to-1 conjecture conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_bpp vs subexp_status",
+      "context": "The current status of the BPP vs SUBEXP conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_computational goldbach_status",
+      "context": "The current status of the Computational Goldbach conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_matrix multiplication exponent_status",
+      "context": "The current status of the Matrix multiplication exponent conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_existential theory of the reals complete problems_status",
+      "context": "The current status of the Existential Theory of the Reals complete problems conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "conj_nc vs p_status",
+      "context": "The current status of the NC vs P conjecture is:",
+      "truth": "still open/unresolved",
+      "distractors": [
+        "proven/resolved",
+        "refuted/disproven",
+        "partially resolved"
+      ],
+      "cluster": "conjecture_status",
+      "source_tool": "conjecture_status"
+    },
+    {
+      "id": "complex_incl_PSPACE_EXP",
+      "context": "The relationship between complexity classes PSPACE and EXP is:",
+      "truth": "PSPACE \u2286 EXP (proven inclusion)",
+      "distractors": [
+        "EXP \u2286 PSPACE (reverse inclusion)",
+        "PSPACE and EXP are incomparable",
+        "PSPACE = EXP (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_L_NL",
+      "context": "The relationship between complexity classes L and NL is:",
+      "truth": "L \u2286 NL (proven inclusion)",
+      "distractors": [
+        "NL \u2286 L (reverse inclusion)",
+        "L and NL are incomparable",
+        "L = NL (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_NC1_NC",
+      "context": "The relationship between complexity classes NC1 and NC is:",
+      "truth": "NC1 \u2286 NC (proven inclusion)",
+      "distractors": [
+        "NC \u2286 NC1 (reverse inclusion)",
+        "NC1 and NC are incomparable",
+        "NC1 = NC (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_BPP_BQP",
+      "context": "The relationship between complexity classes BPP and BQP is:",
+      "truth": "BPP \u2286 BQP (proven inclusion)",
+      "distractors": [
+        "BQP \u2286 BPP (reverse inclusion)",
+        "BPP and BQP are incomparable",
+        "BPP = BQP (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_RP_NP",
+      "context": "The relationship between complexity classes RP and NP is:",
+      "truth": "RP \u2286 NP (proven inclusion)",
+      "distractors": [
+        "NP \u2286 RP (reverse inclusion)",
+        "RP and NP are incomparable",
+        "RP = NP (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_coNP_PH",
+      "context": "The relationship between complexity classes coNP and PH is:",
+      "truth": "coNP \u2286 PH (proven inclusion)",
+      "distractors": [
+        "PH \u2286 coNP (reverse inclusion)",
+        "coNP and PH are incomparable",
+        "coNP = PH (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_P_NP",
+      "context": "The relationship between complexity classes P and NP is:",
+      "truth": "P \u2286 NP (proven inclusion)",
+      "distractors": [
+        "NP \u2286 P (reverse inclusion)",
+        "P and NP are incomparable",
+        "P = NP (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_PSPACE_NPSPACE",
+      "context": "The relationship between complexity classes PSPACE and NPSPACE is:",
+      "truth": "PSPACE \u2286 NPSPACE (proven inclusion)",
+      "distractors": [
+        "NPSPACE \u2286 PSPACE (reverse inclusion)",
+        "PSPACE and NPSPACE are incomparable",
+        "PSPACE = NPSPACE (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_AC0_NC1",
+      "context": "The relationship between complexity classes AC0 and NC1 is:",
+      "truth": "AC0 \u2286 NC1 (proven inclusion)",
+      "distractors": [
+        "NC1 \u2286 AC0 (reverse inclusion)",
+        "AC0 and NC1 are incomparable",
+        "AC0 = NC1 (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_BQP_PSPACE",
+      "context": "The relationship between complexity classes BQP and PSPACE is:",
+      "truth": "BQP \u2286 PSPACE (proven inclusion)",
+      "distractors": [
+        "PSPACE \u2286 BQP (reverse inclusion)",
+        "BQP and PSPACE are incomparable",
+        "BQP = PSPACE (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_NL_P",
+      "context": "The relationship between complexity classes NL and P is:",
+      "truth": "NL \u2286 P (proven inclusion)",
+      "distractors": [
+        "P \u2286 NL (reverse inclusion)",
+        "NL and P are incomparable",
+        "NL = P (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_P_coRP",
+      "context": "The relationship between complexity classes P and coRP is:",
+      "truth": "P \u2286 coRP (proven inclusion)",
+      "distractors": [
+        "coRP \u2286 P (reverse inclusion)",
+        "P and coRP are incomparable",
+        "P = coRP (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_coRP_BPP",
+      "context": "The relationship between complexity classes coRP and BPP is:",
+      "truth": "coRP \u2286 BPP (proven inclusion)",
+      "distractors": [
+        "BPP \u2286 coRP (reverse inclusion)",
+        "coRP and BPP are incomparable",
+        "coRP = BPP (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_P_PH",
+      "context": "The relationship between complexity classes P and PH is:",
+      "truth": "P \u2286 PH (proven inclusion)",
+      "distractors": [
+        "PH \u2286 P (reverse inclusion)",
+        "P and PH are incomparable",
+        "P = PH (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_incl_PSPACE_EXPSPACE",
+      "context": "The relationship between complexity classes PSPACE and EXPSPACE is:",
+      "truth": "PSPACE \u2286 EXPSPACE (proven inclusion)",
+      "distractors": [
+        "EXPSPACE \u2286 PSPACE (reverse inclusion)",
+        "PSPACE and EXPSPACE are incomparable",
+        "PSPACE = EXPSPACE (proven equality)"
+      ],
+      "cluster": "complexity_inclusions",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_sep_NP_NEXP",
+      "context": "The separation between NP and NEXP is:",
+      "truth": "NP \u228a NEXP (proven strict separation)",
+      "distractors": [
+        "NP = NEXP (they are equal)",
+        "separation is still unknown",
+        "NEXP \u228a NP (reverse)"
+      ],
+      "cluster": "complexity_separations",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_sep_NL_PSPACE",
+      "context": "The separation between NL and PSPACE is:",
+      "truth": "NL \u228a PSPACE (proven strict separation)",
+      "distractors": [
+        "NL = PSPACE (they are equal)",
+        "separation is still unknown",
+        "PSPACE \u228a NL (reverse)"
+      ],
+      "cluster": "complexity_separations",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_sep_AC0_NC1",
+      "context": "The separation between AC0 and NC1 is:",
+      "truth": "AC0 \u228a NC1 (proven strict separation)",
+      "distractors": [
+        "AC0 = NC1 (they are equal)",
+        "separation is still unknown",
+        "NC1 \u228a AC0 (reverse)"
+      ],
+      "cluster": "complexity_separations",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_sep_L_PSPACE",
+      "context": "The separation between L and PSPACE is:",
+      "truth": "L \u228a PSPACE (proven strict separation)",
+      "distractors": [
+        "L = PSPACE (they are equal)",
+        "separation is still unknown",
+        "PSPACE \u228a L (reverse)"
+      ],
+      "cluster": "complexity_separations",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_sep_P_EXP",
+      "context": "The separation between P and EXP is:",
+      "truth": "P \u228a EXP (proven strict separation)",
+      "distractors": [
+        "P = EXP (they are equal)",
+        "separation is still unknown",
+        "EXP \u228a P (reverse)"
+      ],
+      "cluster": "complexity_separations",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "complex_sep_EXP_EXPSPACE",
+      "context": "The separation between EXP and EXPSPACE is:",
+      "truth": "EXP \u228a EXPSPACE (proven strict separation)",
+      "distractors": [
+        "EXP = EXPSPACE (they are equal)",
+        "separation is still unknown",
+        "EXPSPACE \u228a EXP (reverse)"
+      ],
+      "cluster": "complexity_separations",
+      "source_tool": "complexity"
+    },
+    {
+      "id": "barrier_incompleteness",
+      "context": "The incompleteness barrier in computational complexity prevents:",
+      "truth": "First incompleteness theorem: For any consistent, recursively enumerable formal system F capable of expressing basic ari",
+      "distractors": [
+        "no known proof technique barriers exist for these problems",
+        "only relativization is a barrier, others are obsolete",
+        "these barriers were all overcome by 2020"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_incompleteness_blocks",
+      "context": "Problems blocked by the incompleteness barrier include:",
+      "truth": "decision procedure for mathematical truth, consistency proof within system, complete axiomatization of arithmetic",
+      "distractors": [
+        "no problems are blocked by this barrier",
+        "only graph isomorphism",
+        "only factoring-related problems"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_independence",
+      "context": "The independence barrier in computational complexity prevents:",
+      "truth": "Godel (1940) showed Con(ZFC) => Con(ZFC + CH) via constructible universe L. Cohen (1963) showed Con(ZFC) => Con(ZFC + no",
+      "distractors": [
+        "no known proof technique barriers exist for these problems",
+        "only relativization is a barrier, others are obsolete",
+        "these barriers were all overcome by 2020"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_independence_blocks",
+      "context": "Problems blocked by the independence barrier include:",
+      "truth": "continuum hypothesis, set theory independence",
+      "distractors": [
+        "no problems are blocked by this barrier",
+        "only graph isomorphism",
+        "only factoring-related problems"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_relativization",
+      "context": "The relativization barrier in computational complexity prevents:",
+      "truth": "For any proof technique T that relativizes (i.e., T applies uniformly in the presence of any oracle), T cannot resolve P",
+      "distractors": [
+        "no known proof technique barriers exist for these problems",
+        "only relativization is a barrier, others are obsolete",
+        "these barriers were all overcome by 2020"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_relativization_blocks",
+      "context": "Problems blocked by the relativization barrier include:",
+      "truth": "P vs NP, NP vs coNP, P vs PSPACE",
+      "distractors": [
+        "no problems are blocked by this barrier",
+        "only graph isomorphism",
+        "only factoring-related problems"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_monotone_circuit",
+      "context": "The monotone circuit barrier in computational complexity prevents:",
+      "truth": "Razborov proved exponential monotone circuit lower bounds for k-CLIQUE. However, general (non-monotone) circuits can com",
+      "distractors": [
+        "no known proof technique barriers exist for these problems",
+        "only relativization is a barrier, others are obsolete",
+        "these barriers were all overcome by 2020"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_monotone_circuit_blocks",
+      "context": "Problems blocked by the monotone circuit barrier include:",
+      "truth": "circuit lower bounds",
+      "distractors": [
+        "no problems are blocked by this barrier",
+        "only graph isomorphism",
+        "only factoring-related problems"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_descriptive_complexity",
+      "context": "The descriptive complexity barrier in computational complexity prevents:",
+      "truth": "The Cai-Furer-Immerman construction provides pairs of non-isomorphic graphs that cannot be distinguished by k-variable c",
+      "distractors": [
+        "no known proof technique barriers exist for these problems",
+        "only relativization is a barrier, others are obsolete",
+        "these barriers were all overcome by 2020"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_descriptive_complexity_blocks",
+      "context": "Problems blocked by the descriptive complexity barrier include:",
+      "truth": "graph isomorphism, P vs NP",
+      "distractors": [
+        "no problems are blocked by this barrier",
+        "only graph isomorphism",
+        "only factoring-related problems"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_natural_proofs",
+      "context": "The natural proofs barrier in computational complexity prevents:",
+      "truth": "A natural proof against P/poly has two properties: constructivity (can efficiently recognize hard functions) and largene",
+      "distractors": [
+        "no known proof technique barriers exist for these problems",
+        "only relativization is a barrier, others are obsolete",
+        "these barriers were all overcome by 2020"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_natural_proofs_blocks",
+      "context": "Problems blocked by the natural proofs barrier include:",
+      "truth": "circuit lower bounds, P vs NP",
+      "distractors": [
+        "no problems are blocked by this barrier",
+        "only graph isomorphism",
+        "only factoring-related problems"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_black-box_derandomization",
+      "context": "The black-box derandomization barrier in computational complexity prevents:",
+      "truth": "A black-box reduction from derandomization to circuit lower bounds treats the PRG as an oracle. Such reductions cannot u",
+      "distractors": [
+        "no known proof technique barriers exist for these problems",
+        "only relativization is a barrier, others are obsolete",
+        "these barriers were all overcome by 2020"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_black-box_derandomization_blocks",
+      "context": "Problems blocked by the black-box derandomization barrier include:",
+      "truth": "derandomization",
+      "distractors": [
+        "no problems are blocked by this barrier",
+        "only graph isomorphism",
+        "only factoring-related problems"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_sos_degree",
+      "context": "The SOS degree barrier in computational complexity prevents:",
+      "truth": "The Sum-of-Squares (SOS) / Lasserre hierarchy at degree d requires d >= Omega(n^{1/2}) to refute random 3-SAT instances.",
+      "distractors": [
+        "no known proof technique barriers exist for these problems",
+        "only relativization is a barrier, others are obsolete",
+        "these barriers were all overcome by 2020"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_sos_degree_blocks",
+      "context": "Problems blocked by the SOS degree barrier include:",
+      "truth": "circuit lower bounds, proof complexity",
+      "distractors": [
+        "no problems are blocked by this barrier",
+        "only graph isomorphism",
+        "only factoring-related problems"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_algebrization",
+      "context": "The algebrization barrier in computational complexity prevents:",
+      "truth": "A proof technique algebrizes if it still applies when the oracle is replaced by a low-degree algebraic extension. There ",
+      "distractors": [
+        "no known proof technique barriers exist for these problems",
+        "only relativization is a barrier, others are obsolete",
+        "these barriers were all overcome by 2020"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_algebrization_blocks",
+      "context": "Problems blocked by the algebrization barrier include:",
+      "truth": "P vs BQP, NP vs BPP, derandomization",
+      "distractors": [
+        "no problems are blocked by this barrier",
+        "only graph isomorphism",
+        "only factoring-related problems"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_gct_barrier",
+      "context": "The GCT barrier barrier in computational complexity prevents:",
+      "truth": "GCT reduces circuit lower bounds to representation-theoretic questions about multiplicities in coordinate rings of orbit",
+      "distractors": [
+        "no known proof technique barriers exist for these problems",
+        "only relativization is a barrier, others are obsolete",
+        "these barriers were all overcome by 2020"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "barrier_gct_barrier_blocks",
+      "context": "Problems blocked by the GCT barrier barrier include:",
+      "truth": "circuit lower bounds, P vs NP",
+      "distractors": [
+        "no problems are blocked by this barrier",
+        "only graph isomorphism",
+        "only factoring-related problems"
+      ],
+      "cluster": "proof_barriers",
+      "source_tool": "proof_barriers"
+    },
+    {
+      "id": "pharm_CYP2D6_substrates",
+      "context": "Key substrates of the CYP2D6 enzyme include:",
+      "truth": "aripiprazole, atomoxetine, codeine, dextromethorphan, fluoxetine",
+      "distractors": [
+        "this enzyme has no known drug substrates",
+        "only acetaminophen is metabolized by this enzyme",
+        "this enzyme is not clinically relevant"
+      ],
+      "cluster": "pharmacokinetics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP3A4_substrates",
+      "context": "Key substrates of the CYP3A4 enzyme include:",
+      "truth": "apixaban, atorvastatin, carbamazepine, cyclosporine, erythromycin",
+      "distractors": [
+        "this enzyme has no known drug substrates",
+        "only acetaminophen is metabolized by this enzyme",
+        "this enzyme is not clinically relevant"
+      ],
+      "cluster": "pharmacokinetics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2C19_substrates",
+      "context": "Key substrates of the CYP2C19 enzyme include:",
+      "truth": "citalopram, clopidogrel, diazepam, escitalopram, esomeprazole",
+      "distractors": [
+        "this enzyme has no known drug substrates",
+        "only acetaminophen is metabolized by this enzyme",
+        "this enzyme is not clinically relevant"
+      ],
+      "cluster": "pharmacokinetics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2C9_substrates",
+      "context": "Key substrates of the CYP2C9 enzyme include:",
+      "truth": "celecoxib, fluvastatin, glipizide, losartan, phenytoin",
+      "distractors": [
+        "this enzyme has no known drug substrates",
+        "only acetaminophen is metabolized by this enzyme",
+        "this enzyme is not clinically relevant"
+      ],
+      "cluster": "pharmacokinetics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP1A2_substrates",
+      "context": "Key substrates of the CYP1A2 enzyme include:",
+      "truth": "caffeine, clozapine, duloxetine, melatonin, olanzapine",
+      "distractors": [
+        "this enzyme has no known drug substrates",
+        "only acetaminophen is metabolized by this enzyme",
+        "this enzyme is not clinically relevant"
+      ],
+      "cluster": "pharmacokinetics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2D6_inhibitors",
+      "context": "Strong inhibitors of CYP2D6 include:",
+      "truth": "bupropion, fluoxetine, paroxetine, quinidine",
+      "distractors": [
+        "no strong inhibitors are known for this enzyme",
+        "only grapefruit juice inhibits this enzyme",
+        "inhibition of this enzyme is not clinically significant"
+      ],
+      "cluster": "pharmacokinetics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP3A4_inhibitors",
+      "context": "Strong inhibitors of CYP3A4 include:",
+      "truth": "clarithromycin, cobicistat, itraconazole, ketoconazole",
+      "distractors": [
+        "no strong inhibitors are known for this enzyme",
+        "only grapefruit juice inhibits this enzyme",
+        "inhibition of this enzyme is not clinically significant"
+      ],
+      "cluster": "pharmacokinetics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2C19_inhibitors",
+      "context": "Strong inhibitors of CYP2C19 include:",
+      "truth": "fluconazole, fluvoxamine, ticlopidine",
+      "distractors": [
+        "no strong inhibitors are known for this enzyme",
+        "only grapefruit juice inhibits this enzyme",
+        "inhibition of this enzyme is not clinically significant"
+      ],
+      "cluster": "pharmacokinetics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2C9_inhibitors",
+      "context": "Strong inhibitors of CYP2C9 include:",
+      "truth": "amiodarone, fluconazole",
+      "distractors": [
+        "no strong inhibitors are known for this enzyme",
+        "only grapefruit juice inhibits this enzyme",
+        "inhibition of this enzyme is not clinically significant"
+      ],
+      "cluster": "pharmacokinetics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP1A2_inhibitors",
+      "context": "Strong inhibitors of CYP1A2 include:",
+      "truth": "ciprofloxacin, fluvoxamine",
+      "distractors": [
+        "no strong inhibitors are known for this enzyme",
+        "only grapefruit juice inhibits this enzyme",
+        "inhibition of this enzyme is not clinically significant"
+      ],
+      "cluster": "pharmacokinetics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2D6_poor_metabolizer",
+      "context": "A poor_metabolizer metabolizer for CYP2D6 has the following drug impact:",
+      "truth": "Accumulates active drug; reduce dose or avoid. Codeine: NO analgesic effect (can't convert to morphine). Tamoxifen: reduced efficacy.",
+      "distractors": [
+        "no dose adjustment needed for any phenotype",
+        "metabolizer status has no clinical relevance",
+        "all phenotypes process drugs identically"
+      ],
+      "cluster": "pharmacogenomics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2D6_ultrarapid_metabolizer",
+      "context": "A ultrarapid_metabolizer metabolizer for CYP2D6 has the following drug impact:",
+      "truth": "Rapid conversion; risk of toxicity with prodrugs (codeine -> morphine excess). May need higher doses of active drugs.",
+      "distractors": [
+        "no dose adjustment needed for any phenotype",
+        "metabolizer status has no clinical relevance",
+        "all phenotypes process drugs identically"
+      ],
+      "cluster": "pharmacogenomics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2D6_intermediate_metabolizer",
+      "context": "A intermediate_metabolizer metabolizer for CYP2D6 has the following drug impact:",
+      "truth": "Reduced metabolism; consider dose reduction for drugs with narrow therapeutic index.",
+      "distractors": [
+        "no dose adjustment needed for any phenotype",
+        "metabolizer status has no clinical relevance",
+        "all phenotypes process drugs identically"
+      ],
+      "cluster": "pharmacogenomics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2C19_poor_metabolizer",
+      "context": "A poor_metabolizer metabolizer for CYP2C19 has the following drug impact:",
+      "truth": "Clopidogrel: NO antiplatelet effect (prodrug requires activation). PPIs: increased exposure, may benefit.",
+      "distractors": [
+        "no dose adjustment needed for any phenotype",
+        "metabolizer status has no clinical relevance",
+        "all phenotypes process drugs identically"
+      ],
+      "cluster": "pharmacogenomics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2C19_ultrarapid_metabolizer",
+      "context": "A ultrarapid_metabolizer metabolizer for CYP2C19 has the following drug impact:",
+      "truth": "PPIs: reduced efficacy. Clopidogrel: enhanced activation, increased bleeding risk.",
+      "distractors": [
+        "no dose adjustment needed for any phenotype",
+        "metabolizer status has no clinical relevance",
+        "all phenotypes process drugs identically"
+      ],
+      "cluster": "pharmacogenomics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2C19_intermediate_metabolizer",
+      "context": "A intermediate_metabolizer metabolizer for CYP2C19 has the following drug impact:",
+      "truth": "Clopidogrel: reduced activation, consider alternative antiplatelet.",
+      "distractors": [
+        "no dose adjustment needed for any phenotype",
+        "metabolizer status has no clinical relevance",
+        "all phenotypes process drugs identically"
+      ],
+      "cluster": "pharmacogenomics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2C9_poor_metabolizer",
+      "context": "A poor_metabolizer metabolizer for CYP2C9 has the following drug impact:",
+      "truth": "Warfarin: requires 50-80% dose reduction. NSAIDs: increased GI bleeding risk.",
+      "distractors": [
+        "no dose adjustment needed for any phenotype",
+        "metabolizer status has no clinical relevance",
+        "all phenotypes process drugs identically"
+      ],
+      "cluster": "pharmacogenomics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "pharm_CYP2C9_intermediate_metabolizer",
+      "context": "A intermediate_metabolizer metabolizer for CYP2C9 has the following drug impact:",
+      "truth": "Warfarin: requires 20-40% dose reduction.",
+      "distractors": [
+        "no dose adjustment needed for any phenotype",
+        "metabolizer status has no clinical relevance",
+        "all phenotypes process drugs identically"
+      ],
+      "cluster": "pharmacogenomics",
+      "source_tool": "pharmacokinetics"
+    },
+    {
+      "id": "llm_hallucination_definition_truth",
+      "context": "Regarding LLM hallucination is fluent, confident, but factually incorrect output:",
+      "truth": "LLMs generate plausible-sounding but fabricated content with high confidence",
+      "distractors": [
+        "hallucination is always detectable by the model itself",
+        "only small models hallucinate",
+        "scaling eliminates hallucination"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_hallucination_definition_misc0",
+      "context": "A common misconception about LLM hallucination is fluent, confident, but factually incorr is:",
+      "truth": "'hallucination is always detectable by the model itself' is FALSE \u2014 LLMs generate plausible-sounding but fabricated content with high confidence",
+      "distractors": [
+        "'hallucination is always detectable by the model itself' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_hallucination_definition_misc1",
+      "context": "A common misconception about LLM hallucination is fluent, confident, but factually incorr is:",
+      "truth": "'only small models hallucinate' is FALSE \u2014 LLMs generate plausible-sounding but fabricated content with high confidence",
+      "distractors": [
+        "'only small models hallucinate' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_rag_limitations_truth",
+      "context": "Regarding RAG reduces but does not eliminate hallucination:",
+      "truth": "Models may ignore retrieved context or hallucinate beyond it",
+      "distractors": [
+        "RAG guarantees factual accuracy",
+        "retrieval is always perfect",
+        "hallucination is impossible with external knowledge"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_rag_limitations_misc0",
+      "context": "A common misconception about RAG reduces but does not eliminate hallucination is:",
+      "truth": "'RAG guarantees factual accuracy' is FALSE \u2014 Models may ignore retrieved context or hallucinate beyond it",
+      "distractors": [
+        "'RAG guarantees factual accuracy' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_rag_limitations_misc1",
+      "context": "A common misconception about RAG reduces but does not eliminate hallucination is:",
+      "truth": "'retrieval is always perfect' is FALSE \u2014 Models may ignore retrieved context or hallucinate beyond it",
+      "distractors": [
+        "'retrieval is always perfect' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_citation_fabrication_truth",
+      "context": "Regarding LLMs fabricate citations \u2014 fake papers, authors, DOIs:",
+      "truth": "Citation accuracy is unreliable; models generate plausible but non-existent references",
+      "distractors": [
+        "citation accuracy exceeds 95%",
+        "models only cite papers from training",
+        "fake citations are self-detected"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_citation_fabrication_misc0",
+      "context": "A common misconception about LLMs fabricate citations \u2014 fake papers, authors, DOIs is:",
+      "truth": "'citation accuracy exceeds 95%' is FALSE \u2014 Citation accuracy is unreliable; models generate plausible but non-existent refe",
+      "distractors": [
+        "'citation accuracy exceeds 95%' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_citation_fabrication_misc1",
+      "context": "A common misconception about LLMs fabricate citations \u2014 fake papers, authors, DOIs is:",
+      "truth": "'models only cite papers from training' is FALSE \u2014 Citation accuracy is unreliable; models generate plausible but non-existent refe",
+      "distractors": [
+        "'models only cite papers from training' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_confidence_calibration_truth",
+      "context": "Regarding LLMs express high confidence even when wrong (overconfidence on errors):",
+      "truth": "Model confidence does not reliably indicate correctness",
+      "distractors": [
+        "models are well-calibrated by default",
+        "low confidence always indicates errors",
+        "calibration improves with scale alone"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_confidence_calibration_misc0",
+      "context": "A common misconception about LLMs express high confidence even when wrong (overconfidence is:",
+      "truth": "'models are well-calibrated by default' is FALSE \u2014 Model confidence does not reliably indicate correctness",
+      "distractors": [
+        "'models are well-calibrated by default' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_confidence_calibration_misc1",
+      "context": "A common misconception about LLMs express high confidence even when wrong (overconfidence is:",
+      "truth": "'low confidence always indicates errors' is FALSE \u2014 Model confidence does not reliably indicate correctness",
+      "distractors": [
+        "'low confidence always indicates errors' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_entity_confusion_truth",
+      "context": "Regarding Models blend attributes of entities with similar names or contexts:",
+      "truth": "Entity hallucination is caused by attribute mixing in distributed representations",
+      "distractors": [
+        "entities are stored in separate memory banks",
+        "confusion only affects fictional entities",
+        "larger models never confuse entities"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_entity_confusion_misc0",
+      "context": "A common misconception about Models blend attributes of entities with similar names or co is:",
+      "truth": "'entities are stored in separate memory banks' is FALSE \u2014 Entity hallucination is caused by attribute mixing in distributed representation",
+      "distractors": [
+        "'entities are stored in separate memory banks' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_entity_confusion_misc1",
+      "context": "A common misconception about Models blend attributes of entities with similar names or co is:",
+      "truth": "'confusion only affects fictional entities' is FALSE \u2014 Entity hallucination is caused by attribute mixing in distributed representation",
+      "distractors": [
+        "'confusion only affects fictional entities' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_factual_recall_frequency_truth",
+      "context": "Regarding Factual recall degrades for long-tail entities seen rarely in training:",
+      "truth": "Recall quality correlates with training frequency; rare facts are unreliable",
+      "distractors": [
+        "common knowledge degrades more than rare facts",
+        "all facts degrade equally",
+        "no correlation with training frequency"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_factual_recall_frequency_misc0",
+      "context": "A common misconception about Factual recall degrades for long-tail entities seen rarely i is:",
+      "truth": "'common knowledge degrades more than rare facts' is FALSE \u2014 Recall quality correlates with training frequency; rare facts are unreliable",
+      "distractors": [
+        "'common knowledge degrades more than rare facts' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_factual_recall_frequency_misc1",
+      "context": "A common misconception about Factual recall degrades for long-tail entities seen rarely i is:",
+      "truth": "'all facts degrade equally' is FALSE \u2014 Recall quality correlates with training frequency; rare facts are unreliable",
+      "distractors": [
+        "'all facts degrade equally' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_hallucination",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_chain_of_thought_truth",
+      "context": "Regarding CoT elicits intermediate reasoning steps but doesn't guarantee correctness:",
+      "truth": "Chain-of-thought improves performance by guiding intermediate steps, but stated steps may not reflect actual computation",
+      "distractors": [
+        "CoT accesses a dedicated reasoning module",
+        "CoT guarantees logical correctness",
+        "CoT always reflects true internal reasoning"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_chain_of_thought_misc0",
+      "context": "A common misconception about CoT elicits intermediate reasoning steps but doesn't guarant is:",
+      "truth": "'CoT accesses a dedicated reasoning module' is FALSE \u2014 Chain-of-thought improves performance by guiding intermediate steps, but stated ",
+      "distractors": [
+        "'CoT accesses a dedicated reasoning module' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_chain_of_thought_misc1",
+      "context": "A common misconception about CoT elicits intermediate reasoning steps but doesn't guarant is:",
+      "truth": "'CoT guarantees logical correctness' is FALSE \u2014 Chain-of-thought improves performance by guiding intermediate steps, but stated ",
+      "distractors": [
+        "'CoT guarantees logical correctness' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_reversal_curse_truth",
+      "context": "Regarding Learning 'A is B' does not imply learning 'B is A' (asymmetric):",
+      "truth": "LLMs store directional associations; reversal requires explicit training",
+      "distractors": [
+        "knowledge is symmetric by default",
+        "only affects bidirectional models",
+        "reversal curse is a solved problem"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_reversal_curse_misc0",
+      "context": "A common misconception about Learning 'A is B' does not imply learning 'B is A' (asymmetr is:",
+      "truth": "'knowledge is symmetric by default' is FALSE \u2014 LLMs store directional associations; reversal requires explicit training",
+      "distractors": [
+        "'knowledge is symmetric by default' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_reversal_curse_misc1",
+      "context": "A common misconception about Learning 'A is B' does not imply learning 'B is A' (asymmetr is:",
+      "truth": "'only affects bidirectional models' is FALSE \u2014 LLMs store directional associations; reversal requires explicit training",
+      "distractors": [
+        "'only affects bidirectional models' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_multi_hop_degradation_truth",
+      "context": "Regarding Multi-hop reasoning accuracy degrades exponentially with chain length:",
+      "truth": "A\u2192B, B\u2192C chains compound errors; accuracy drops sharply with more hops",
+      "distractors": [
+        "LLMs excel at arbitrary-length chains",
+        "degradation is linear with chain length",
+        "multi-hop is easier than single-hop"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_multi_hop_degradation_misc0",
+      "context": "A common misconception about Multi-hop reasoning accuracy degrades exponentially with cha is:",
+      "truth": "'LLMs excel at arbitrary-length chains' is FALSE \u2014 A\u2192B, B\u2192C chains compound errors; accuracy drops sharply with more hops",
+      "distractors": [
+        "'LLMs excel at arbitrary-length chains' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_multi_hop_degradation_misc1",
+      "context": "A common misconception about Multi-hop reasoning accuracy degrades exponentially with cha is:",
+      "truth": "'degradation is linear with chain length' is FALSE \u2014 A\u2192B, B\u2192C chains compound errors; accuracy drops sharply with more hops",
+      "distractors": [
+        "'degradation is linear with chain length' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_negation_failures_truth",
+      "context": "Regarding LLMs often ignore or misprocess 'not' and negative constructions:",
+      "truth": "Negation handling is a known weakness; models frequently treat negated statements as if the negation were absent",
+      "distractors": [
+        "negation is handled perfectly",
+        "only double negatives cause issues",
+        "attention mechanisms specialize in negation"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_negation_failures_misc0",
+      "context": "A common misconception about LLMs often ignore or misprocess 'not' and negative construct is:",
+      "truth": "'negation is handled perfectly' is FALSE \u2014 Negation handling is a known weakness; models frequently treat negated statement",
+      "distractors": [
+        "'negation is handled perfectly' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_negation_failures_misc1",
+      "context": "A common misconception about LLMs often ignore or misprocess 'not' and negative construct is:",
+      "truth": "'only double negatives cause issues' is FALSE \u2014 Negation handling is a known weakness; models frequently treat negated statement",
+      "distractors": [
+        "'only double negatives cause issues' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_math_pattern_matching_truth",
+      "context": "Regarding Math errors stem from pattern matching on surface forms, not symbolic manipulati:",
+      "truth": "LLMs approximate arithmetic via learned patterns; they do not perform exact symbolic computation internally",
+      "distractors": [
+        "LLMs perform exact arithmetic",
+        "math errors are random",
+        "calculator tools are never needed"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_math_pattern_matching_misc0",
+      "context": "A common misconception about Math errors stem from pattern matching on surface forms, not is:",
+      "truth": "'LLMs perform exact arithmetic' is FALSE \u2014 LLMs approximate arithmetic via learned patterns; they do not perform exact symb",
+      "distractors": [
+        "'LLMs perform exact arithmetic' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_math_pattern_matching_misc1",
+      "context": "A common misconception about Math errors stem from pattern matching on surface forms, not is:",
+      "truth": "'math errors are random' is FALSE \u2014 LLMs approximate arithmetic via learned patterns; they do not perform exact symb",
+      "distractors": [
+        "'math errors are random' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_planning_limitations_truth",
+      "context": "Regarding Long-horizon planning is weak \u2014 no persistent state, goal inconsistency:",
+      "truth": "Autoregressive generation lacks persistent state tracking; plans degrade over steps",
+      "distractors": [
+        "planning is a core LLM capability",
+        "autoregressive generation aids planning",
+        "context window fully determines planning ability"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_planning_limitations_misc0",
+      "context": "A common misconception about Long-horizon planning is weak \u2014 no persistent state, goal in is:",
+      "truth": "'planning is a core LLM capability' is FALSE \u2014 Autoregressive generation lacks persistent state tracking; plans degrade over st",
+      "distractors": [
+        "'planning is a core LLM capability' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_planning_limitations_misc1",
+      "context": "A common misconception about Long-horizon planning is weak \u2014 no persistent state, goal in is:",
+      "truth": "'autoregressive generation aids planning' is FALSE \u2014 Autoregressive generation lacks persistent state tracking; plans degrade over st",
+      "distractors": [
+        "'autoregressive generation aids planning' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_compositional_generalization_truth",
+      "context": "Regarding Models fail to combine known primitives in novel ways not seen in training:",
+      "truth": "Compositional generalization remains an open challenge despite scale",
+      "distractors": [
+        "composition is a core strength",
+        "only affects out-of-vocabulary words",
+        "larger models fully solve compositionality"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_compositional_generalization_misc0",
+      "context": "A common misconception about Models fail to combine known primitives in novel ways not se is:",
+      "truth": "'composition is a core strength' is FALSE \u2014 Compositional generalization remains an open challenge despite scale",
+      "distractors": [
+        "'composition is a core strength' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_compositional_generalization_misc1",
+      "context": "A common misconception about Models fail to combine known primitives in novel ways not se is:",
+      "truth": "'only affects out-of-vocabulary words' is FALSE \u2014 Compositional generalization remains an open challenge despite scale",
+      "distractors": [
+        "'only affects out-of-vocabulary words' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_reasoning",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_rlhf_limitations_truth",
+      "context": "Regarding RLHF optimizes for human preference ratings, not true human values:",
+      "truth": "Preference optimization is a proxy; reward hacking and sycophancy are known failure modes",
+      "distractors": [
+        "RLHF perfectly aligns with human values",
+        "RLHF eliminates all harmful outputs",
+        "RLHF eliminates sycophancy"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_rlhf_limitations_misc0",
+      "context": "A common misconception about RLHF optimizes for human preference ratings, not true human  is:",
+      "truth": "'RLHF perfectly aligns with human values' is FALSE \u2014 Preference optimization is a proxy; reward hacking and sycophancy are known fail",
+      "distractors": [
+        "'RLHF perfectly aligns with human values' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_rlhf_limitations_misc1",
+      "context": "A common misconception about RLHF optimizes for human preference ratings, not true human  is:",
+      "truth": "'RLHF eliminates all harmful outputs' is FALSE \u2014 Preference optimization is a proxy; reward hacking and sycophancy are known fail",
+      "distractors": [
+        "'RLHF eliminates all harmful outputs' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_sycophancy_truth",
+      "context": "Regarding RLHF-trained models agree with users even when wrong, to maximize approval:",
+      "truth": "Sycophancy is a systematic bias from preference optimization, not a bug",
+      "distractors": [
+        "models always correct user errors",
+        "neutral disagreement by default",
+        "sycophancy is a solved problem"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_sycophancy_misc0",
+      "context": "A common misconception about RLHF-trained models agree with users even when wrong, to max is:",
+      "truth": "'models always correct user errors' is FALSE \u2014 Sycophancy is a systematic bias from preference optimization, not a bug",
+      "distractors": [
+        "'models always correct user errors' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_sycophancy_misc1",
+      "context": "A common misconception about RLHF-trained models agree with users even when wrong, to max is:",
+      "truth": "'neutral disagreement by default' is FALSE \u2014 Sycophancy is a systematic bias from preference optimization, not a bug",
+      "distractors": [
+        "'neutral disagreement by default' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_reward_hacking_truth",
+      "context": "Regarding Models exploit reward model weaknesses for high scores without true alignment:",
+      "truth": "Reward hacking is Goodhart's Law applied to RLHF \u2014 proxy optimization diverges",
+      "distractors": [
+        "reward models are unhackable",
+        "hacking improves actual performance",
+        "only affects non-language tasks"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_reward_hacking_misc0",
+      "context": "A common misconception about Models exploit reward model weaknesses for high scores witho is:",
+      "truth": "'reward models are unhackable' is FALSE \u2014 Reward hacking is Goodhart's Law applied to RLHF \u2014 proxy optimization diverges",
+      "distractors": [
+        "'reward models are unhackable' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_reward_hacking_misc1",
+      "context": "A common misconception about Models exploit reward model weaknesses for high scores witho is:",
+      "truth": "'hacking improves actual performance' is FALSE \u2014 Reward hacking is Goodhart's Law applied to RLHF \u2014 proxy optimization diverges",
+      "distractors": [
+        "'hacking improves actual performance' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_jailbreaking_truth",
+      "context": "Regarding Safety training doesn't generalize to all adversarial prompt formulations:",
+      "truth": "Jailbreaks exploit gaps in safety training distribution; new attacks keep emerging",
+      "distractors": [
+        "alignment is mathematically guaranteed",
+        "jailbreaks are impossible with RLHF",
+        "only affects unaligned models"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_jailbreaking_misc0",
+      "context": "A common misconception about Safety training doesn't generalize to all adversarial prompt is:",
+      "truth": "'alignment is mathematically guaranteed' is FALSE \u2014 Jailbreaks exploit gaps in safety training distribution; new attacks keep emergi",
+      "distractors": [
+        "'alignment is mathematically guaranteed' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_jailbreaking_misc1",
+      "context": "A common misconception about Safety training doesn't generalize to all adversarial prompt is:",
+      "truth": "'jailbreaks are impossible with RLHF' is FALSE \u2014 Jailbreaks exploit gaps in safety training distribution; new attacks keep emergi",
+      "distractors": [
+        "'jailbreaks are impossible with RLHF' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_deceptive_alignment_truth",
+      "context": "Regarding Can't distinguish genuine alignment from strategic behavior during evaluation:",
+      "truth": "Deceptive alignment (mesa-optimization) is theoretically possible but not yet demonstrated",
+      "distractors": [
+        "deception is impossible for LLMs",
+        "interpretability fully solves detection",
+        "models can't model the training process"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_deceptive_alignment_misc0",
+      "context": "A common misconception about Can't distinguish genuine alignment from strategic behavior  is:",
+      "truth": "'deception is impossible for LLMs' is FALSE \u2014 Deceptive alignment (mesa-optimization) is theoretically possible but not yet de",
+      "distractors": [
+        "'deception is impossible for LLMs' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_deceptive_alignment_misc1",
+      "context": "A common misconception about Can't distinguish genuine alignment from strategic behavior  is:",
+      "truth": "'interpretability fully solves detection' is FALSE \u2014 Deceptive alignment (mesa-optimization) is theoretically possible but not yet de",
+      "distractors": [
+        "'interpretability fully solves detection' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_constitutional_ai_truth",
+      "context": "Regarding Constitutional AI uses AI-generated critiques based on explicit principles:",
+      "truth": "CAI reduces reliance on human feedback by having the model self-critique",
+      "distractors": [
+        "only human feedback, no AI involvement",
+        "based on legal constitutional documents",
+        "removes the need for any principles"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_constitutional_ai_misc0",
+      "context": "A common misconception about Constitutional AI uses AI-generated critiques based on expli is:",
+      "truth": "'only human feedback, no AI involvement' is FALSE \u2014 CAI reduces reliance on human feedback by having the model self-critique",
+      "distractors": [
+        "'only human feedback, no AI involvement' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_constitutional_ai_misc1",
+      "context": "A common misconception about Constitutional AI uses AI-generated critiques based on expli is:",
+      "truth": "'based on legal constitutional documents' is FALSE \u2014 CAI reduces reliance on human feedback by having the model self-critique",
+      "distractors": [
+        "'based on legal constitutional documents' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_goodhart_alignment_truth",
+      "context": "Regarding Optimizing a proxy metric for alignment causes divergence from true alignment:",
+      "truth": "Goodhart's Law applies to all alignment metrics \u2014 no finite proxy captures values exactly",
+      "distractors": [
+        "proxy metrics are perfect measures",
+        "more optimization always helps",
+        "Goodhart doesn't apply to AI"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_goodhart_alignment_misc0",
+      "context": "A common misconception about Optimizing a proxy metric for alignment causes divergence fr is:",
+      "truth": "'proxy metrics are perfect measures' is FALSE \u2014 Goodhart's Law applies to all alignment metrics \u2014 no finite proxy captures value",
+      "distractors": [
+        "'proxy metrics are perfect measures' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_goodhart_alignment_misc1",
+      "context": "A common misconception about Optimizing a proxy metric for alignment causes divergence fr is:",
+      "truth": "'more optimization always helps' is FALSE \u2014 Goodhart's Law applies to all alignment metrics \u2014 no finite proxy captures value",
+      "distractors": [
+        "'more optimization always helps' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_alignment",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_scaling_laws_truth",
+      "context": "Regarding Performance follows power-law relationships with compute, data, and parameters:",
+      "truth": "Neural scaling laws (Kaplan et al. 2020, Hoffmann et al. 2022) show predictable loss reduction with scale",
+      "distractors": [
+        "linear improvement with scale",
+        "sudden jumps at specific sizes",
+        "no predictable relationship"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_scaling_laws_misc0",
+      "context": "A common misconception about Performance follows power-law relationships with compute, da is:",
+      "truth": "'linear improvement with scale' is FALSE \u2014 Neural scaling laws (Kaplan et al. 2020, Hoffmann et al. 2022) show predictable ",
+      "distractors": [
+        "'linear improvement with scale' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_scaling_laws_misc1",
+      "context": "A common misconception about Performance follows power-law relationships with compute, da is:",
+      "truth": "'sudden jumps at specific sizes' is FALSE \u2014 Neural scaling laws (Kaplan et al. 2020, Hoffmann et al. 2022) show predictable ",
+      "distractors": [
+        "'sudden jumps at specific sizes' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_emergence_truth",
+      "context": "Regarding Some capabilities appear suddenly at certain scales (emergent abilities):",
+      "truth": "Whether emergence is real or a metric artifact is actively debated; Schaeffer et al. 2023 argue it's often a measurement",
+      "distractors": [
+        "gradual linear improvement only",
+        "abilities present at all scales",
+        "emergence has been debunked entirely"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_emergence_misc0",
+      "context": "A common misconception about Some capabilities appear suddenly at certain scales (emergen is:",
+      "truth": "'gradual linear improvement only' is FALSE \u2014 Whether emergence is real or a metric artifact is actively debated; Schaeffer et",
+      "distractors": [
+        "'gradual linear improvement only' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_emergence_misc1",
+      "context": "A common misconception about Some capabilities appear suddenly at certain scales (emergen is:",
+      "truth": "'abilities present at all scales' is FALSE \u2014 Whether emergence is real or a metric artifact is actively debated; Schaeffer et",
+      "distractors": [
+        "'abilities present at all scales' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_chinchilla_undertrained_truth",
+      "context": "Regarding Many early LLMs were undertrained (needed more tokens relative to params):",
+      "truth": "Chinchilla showed optimal compute allocation requires ~20\u00d7 more tokens than parameters",
+      "distractors": [
+        "most models are overtrained with too much data",
+        "models are optimally trained by default",
+        "parameter count was always too low"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_chinchilla_undertrained_misc0",
+      "context": "A common misconception about Many early LLMs were undertrained (needed more tokens relati is:",
+      "truth": "'most models are overtrained with too much data' is FALSE \u2014 Chinchilla showed optimal compute allocation requires ~20\u00d7 more tokens than para",
+      "distractors": [
+        "'most models are overtrained with too much data' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_chinchilla_undertrained_misc1",
+      "context": "A common misconception about Many early LLMs were undertrained (needed more tokens relati is:",
+      "truth": "'models are optimally trained by default' is FALSE \u2014 Chinchilla showed optimal compute allocation requires ~20\u00d7 more tokens than para",
+      "distractors": [
+        "'models are optimally trained by default' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_data_quality_truth",
+      "context": "Regarding Data quality directly influences capabilities, biases, and factual accuracy:",
+      "truth": "Garbage in, garbage out \u2014 data quality matters more than quantity beyond a threshold",
+      "distractors": [
+        "no effect if quantity is sufficient",
+        "only affects rare edge cases",
+        "fully correctable post-training"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_data_quality_misc0",
+      "context": "A common misconception about Data quality directly influences capabilities, biases, and f is:",
+      "truth": "'no effect if quantity is sufficient' is FALSE \u2014 Garbage in, garbage out \u2014 data quality matters more than quantity beyond a thres",
+      "distractors": [
+        "'no effect if quantity is sufficient' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_data_quality_misc1",
+      "context": "A common misconception about Data quality directly influences capabilities, biases, and f is:",
+      "truth": "'only affects rare edge cases' is FALSE \u2014 Garbage in, garbage out \u2014 data quality matters more than quantity beyond a thres",
+      "distractors": [
+        "'only affects rare edge cases' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_catastrophic_forgetting_truth",
+      "context": "Regarding Fine-tuning causes loss of pretrained capabilities (catastrophic forgetting):",
+      "truth": "Standard fine-tuning overwrites general knowledge; mitigation requires LoRA, replay, or other techniques",
+      "distractors": [
+        "perfect retention of all knowledge during fine-tuning",
+        "only affects small models",
+        "a solved problem with modern techniques"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_catastrophic_forgetting_misc0",
+      "context": "A common misconception about Fine-tuning causes loss of pretrained capabilities (catastro is:",
+      "truth": "'perfect retention of all knowledge during fine-tuning' is FALSE \u2014 Standard fine-tuning overwrites general knowledge; mitigation requires LoRA, rep",
+      "distractors": [
+        "'perfect retention of all knowledge during fine-tuning' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_catastrophic_forgetting_misc1",
+      "context": "A common misconception about Fine-tuning causes loss of pretrained capabilities (catastro is:",
+      "truth": "'only affects small models' is FALSE \u2014 Standard fine-tuning overwrites general knowledge; mitigation requires LoRA, rep",
+      "distractors": [
+        "'only affects small models' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_benchmark_contamination_truth",
+      "context": "Regarding Test data appearing in training inflates reported performance:",
+      "truth": "Benchmark contamination is widespread and often undetected; paraphrased versions evade exact matching",
+      "distractors": [
+        "contamination is impossible",
+        "contamination improves genuine capabilities",
+        "all benchmarks prevent contamination"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_benchmark_contamination_misc0",
+      "context": "A common misconception about Test data appearing in training inflates reported performanc is:",
+      "truth": "'contamination is impossible' is FALSE \u2014 Benchmark contamination is widespread and often undetected; paraphrased versions",
+      "distractors": [
+        "'contamination is impossible' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_benchmark_contamination_misc1",
+      "context": "A common misconception about Test data appearing in training inflates reported performanc is:",
+      "truth": "'contamination improves genuine capabilities' is FALSE \u2014 Benchmark contamination is widespread and often undetected; paraphrased versions",
+      "distractors": [
+        "'contamination improves genuine capabilities' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_lora_peft_truth",
+      "context": "Regarding LoRA/PEFT trains small additional parameters while freezing pretrained weights:",
+      "truth": "Parameter-efficient methods achieve near-full-fine-tuning performance at fraction of cost",
+      "distractors": [
+        "reduces model size permanently",
+        "trains all parameters more efficiently",
+        "only works for classification tasks"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_lora_peft_misc0",
+      "context": "A common misconception about LoRA/PEFT trains small additional parameters while freezing  is:",
+      "truth": "'reduces model size permanently' is FALSE \u2014 Parameter-efficient methods achieve near-full-fine-tuning performance at fractio",
+      "distractors": [
+        "'reduces model size permanently' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_lora_peft_misc1",
+      "context": "A common misconception about LoRA/PEFT trains small additional parameters while freezing  is:",
+      "truth": "'trains all parameters more efficiently' is FALSE \u2014 Parameter-efficient methods achieve near-full-fine-tuning performance at fractio",
+      "distractors": [
+        "'trains all parameters more efficiently' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_training",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_benchmark_saturation_truth",
+      "context": "Regarding Models approaching ceiling performance makes benchmarks uninformative:",
+      "truth": "Saturated benchmarks can't discriminate between models; need harder evals",
+      "distractors": [
+        "benchmarks become more discriminative at ceiling",
+        "saturation indicates perfect capability",
+        "new models can't reach saturation"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_benchmark_saturation_misc0",
+      "context": "A common misconception about Models approaching ceiling performance makes benchmarks unin is:",
+      "truth": "'benchmarks become more discriminative at ceiling' is FALSE \u2014 Saturated benchmarks can't discriminate between models; need harder evals",
+      "distractors": [
+        "'benchmarks become more discriminative at ceiling' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_benchmark_saturation_misc1",
+      "context": "A common misconception about Models approaching ceiling performance makes benchmarks unin is:",
+      "truth": "'saturation indicates perfect capability' is FALSE \u2014 Saturated benchmarks can't discriminate between models; need harder evals",
+      "distractors": [
+        "'saturation indicates perfect capability' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_llm_as_judge_bias_truth",
+      "context": "Regarding LLM-as-judge inherits biases and favors outputs similar to its own style:",
+      "truth": "Self-preferencing, verbosity bias, and position bias are documented",
+      "distractors": [
+        "LLM judges are perfectly objective",
+        "no correlation with human judgment",
+        "strictly better than human evaluation"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_llm_as_judge_bias_misc0",
+      "context": "A common misconception about LLM-as-judge inherits biases and favors outputs similar to i is:",
+      "truth": "'LLM judges are perfectly objective' is FALSE \u2014 Self-preferencing, verbosity bias, and position bias are documented",
+      "distractors": [
+        "'LLM judges are perfectly objective' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_llm_as_judge_bias_misc1",
+      "context": "A common misconception about LLM-as-judge inherits biases and favors outputs similar to i is:",
+      "truth": "'no correlation with human judgment' is FALSE \u2014 Self-preferencing, verbosity bias, and position bias are documented",
+      "distractors": [
+        "'no correlation with human judgment' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_capability_elicitation_truth",
+      "context": "Regarding Performance varies greatly with prompt format and evaluation methodology:",
+      "truth": "The same model can look very different under different prompting strategies",
+      "distractors": [
+        "capabilities are invariant to prompting",
+        "one prompt reveals all abilities",
+        "elicitation is a solved problem"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_capability_elicitation_misc0",
+      "context": "A common misconception about Performance varies greatly with prompt format and evaluation is:",
+      "truth": "'capabilities are invariant to prompting' is FALSE \u2014 The same model can look very different under different prompting strategies",
+      "distractors": [
+        "'capabilities are invariant to prompting' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_capability_elicitation_misc1",
+      "context": "A common misconception about Performance varies greatly with prompt format and evaluation is:",
+      "truth": "'one prompt reveals all abilities' is FALSE \u2014 The same model can look very different under different prompting strategies",
+      "distractors": [
+        "'one prompt reveals all abilities' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_mc_position_bias_truth",
+      "context": "Regarding Multiple-choice evaluation can be gamed via answer position biases:",
+      "truth": "Models have systematic biases toward certain answer positions (often A or C)",
+      "distractors": [
+        "multiple-choice is ungameable",
+        "position biases don't exist",
+        "answer position never affects selection"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_mc_position_bias_misc0",
+      "context": "A common misconception about Multiple-choice evaluation can be gamed via answer position  is:",
+      "truth": "'multiple-choice is ungameable' is FALSE \u2014 Models have systematic biases toward certain answer positions (often A or C)",
+      "distractors": [
+        "'multiple-choice is ungameable' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_mc_position_bias_misc1",
+      "context": "A common misconception about Multiple-choice evaluation can be gamed via answer position  is:",
+      "truth": "'position biases don't exist' is FALSE \u2014 Models have systematic biases toward certain answer positions (often A or C)",
+      "distractors": [
+        "'position biases don't exist' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_evaluation",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_lost_in_the_middle_truth",
+      "context": "Regarding LLMs attend poorly to information in the middle of long contexts:",
+      "truth": "U-shaped attention curve: beginning and end are favored, middle is neglected",
+      "distractors": [
+        "uniform attention across all positions",
+        "only the start is affected",
+        "solved with longer context windows"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_lost_in_the_middle_misc0",
+      "context": "A common misconception about LLMs attend poorly to information in the middle of long cont is:",
+      "truth": "'uniform attention across all positions' is FALSE \u2014 U-shaped attention curve: beginning and end are favored, middle is neglected",
+      "distractors": [
+        "'uniform attention across all positions' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_lost_in_the_middle_misc1",
+      "context": "A common misconception about LLMs attend poorly to information in the middle of long cont is:",
+      "truth": "'only the start is affected' is FALSE \u2014 U-shaped attention curve: beginning and end are favored, middle is neglected",
+      "distractors": [
+        "'only the start is affected' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_kv_cache_scaling_truth",
+      "context": "Regarding KV cache memory grows linearly with sequence length \u2014 deployment bottleneck:",
+      "truth": "For a model with d_model dimensions and L layers, KV cache = O(L \u00d7 d \u00d7 seq_len)",
+      "distractors": [
+        "constant regardless of length",
+        "logarithmic growth",
+        "negligible compared to model weights"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_kv_cache_scaling_misc0",
+      "context": "A common misconception about KV cache memory grows linearly with sequence length \u2014 deploy is:",
+      "truth": "'constant regardless of length' is FALSE \u2014 For a model with d_model dimensions and L layers, KV cache = O(L \u00d7 d \u00d7 seq_len)",
+      "distractors": [
+        "'constant regardless of length' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_kv_cache_scaling_misc1",
+      "context": "A common misconception about KV cache memory grows linearly with sequence length \u2014 deploy is:",
+      "truth": "'logarithmic growth' is FALSE \u2014 For a model with d_model dimensions and L layers, KV cache = O(L \u00d7 d \u00d7 seq_len)",
+      "distractors": [
+        "'logarithmic growth' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_stateless_api_truth",
+      "context": "Regarding LLMs are stateless between API calls \u2014 no persistent memory across calls:",
+      "truth": "LLMs are stateless; no persistent memory exists between API calls \u2014 all context must be re-provided each time",
+      "distractors": [
+        "models remember all past conversations",
+        "state persists across sessions automatically",
+        "memory is unlimited between calls"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_stateless_api_misc0",
+      "context": "A common misconception about LLMs are stateless between API calls \u2014 no persistent memory  is:",
+      "truth": "'models remember all past conversations' is FALSE \u2014 LLMs are stateless; no persistent memory exists between API calls \u2014 all context ",
+      "distractors": [
+        "'models remember all past conversations' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_stateless_api_misc1",
+      "context": "A common misconception about LLMs are stateless between API calls \u2014 no persistent memory  is:",
+      "truth": "'state persists across sessions automatically' is FALSE \u2014 LLMs are stateless; no persistent memory exists between API calls \u2014 all context ",
+      "distractors": [
+        "'state persists across sessions automatically' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_knowledge_editing_truth",
+      "context": "Regarding Updating factual knowledge without retraining is difficult \u2014 distributed storage:",
+      "truth": "Knowledge is spread across parameters; surgical editing remains unreliable",
+      "distractors": [
+        "single parameters store single facts",
+        "knowledge editing is reliable and surgical",
+        "updates require no compute"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_knowledge_editing_misc0",
+      "context": "A common misconception about Updating factual knowledge without retraining is difficult \u2014 is:",
+      "truth": "'single parameters store single facts' is FALSE \u2014 Knowledge is spread across parameters; surgical editing remains unreliable",
+      "distractors": [
+        "'single parameters store single facts' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_knowledge_editing_misc1",
+      "context": "A common misconception about Updating factual knowledge without retraining is difficult \u2014 is:",
+      "truth": "'knowledge editing is reliable and surgical' is FALSE \u2014 Knowledge is spread across parameters; surgical editing remains unreliable",
+      "distractors": [
+        "'knowledge editing is reliable and surgical' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_context_degradation_truth",
+      "context": "Regarding Effective context utilization degrades even when longer contexts are supported:",
+      "truth": "Models can technically process long contexts but performance drops with length",
+      "distractors": [
+        "longer context always improves performance",
+        "interpolation gives perfect utilization",
+        "no quality degradation occurs"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_context_degradation_misc0",
+      "context": "A common misconception about Effective context utilization degrades even when longer cont is:",
+      "truth": "'longer context always improves performance' is FALSE \u2014 Models can technically process long contexts but performance drops with length",
+      "distractors": [
+        "'longer context always improves performance' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "llm_context_degradation_misc1",
+      "context": "A common misconception about Effective context utilization degrades even when longer cont is:",
+      "truth": "'interpolation gives perfect utilization' is FALSE \u2014 Models can technically process long contexts but performance drops with length",
+      "distractors": [
+        "'interpolation gives perfect utilization' is well-established and proven",
+        "this is not a misconception, it's standard knowledge",
+        "experts unanimously agree with this statement"
+      ],
+      "cluster": "llm_context_memory",
+      "source_tool": "llm_claims"
+    },
+    {
+      "id": "knot_reidemeister",
+      "context": "Reidemeister moves are important because:",
+      "truth": "two knot diagrams represent the same knot iff related by Reidemeister moves",
+      "distractors": [
+        "they change the knot type",
+        "they only apply to trivial knots",
+        "they are purely cosmetic, not mathematical"
+      ],
+      "cluster": "knot_theory",
+      "source_tool": "knot"
+    },
+    {
+      "id": "knot_jones_polynomial",
+      "context": "The Jones polynomial of a knot:",
+      "truth": "is a knot invariant \u2014 same polynomial for equivalent knots, distinguishes many knot types",
+      "distractors": [
+        "always equals 1 for all knots",
+        "changes under Reidemeister moves",
+        "is only defined for prime knots"
+      ],
+      "cluster": "knot_theory",
+      "source_tool": "knot"
+    },
+    {
+      "id": "knot_crossing_number",
+      "context": "The crossing number of a knot is:",
+      "truth": "the minimum number of crossings in any diagram of that knot",
+      "distractors": [
+        "the total crossings in any random diagram",
+        "always equal to the genus",
+        "not a knot invariant"
+      ],
+      "cluster": "knot_theory",
+      "source_tool": "knot"
+    },
+    {
+      "id": "nt_goldbach",
+      "context": "Goldbach's conjecture states:",
+      "truth": "every even integer > 2 is the sum of two primes (unproven, verified to ~4\u00d710^18)",
+      "distractors": [
+        "every odd integer is the sum of two primes",
+        "this was proven by Euler in 1742",
+        "counterexamples exist near 10^15"
+      ],
+      "cluster": "number_theory",
+      "source_tool": "number_theory"
+    },
+    {
+      "id": "nt_collatz",
+      "context": "The Collatz conjecture concerns:",
+      "truth": "iterating n\u2192n/2 (even) or n\u21923n+1 (odd) always reaches 1 (unproven)",
+      "distractors": [
+        "the conjecture was proven by Tao in 2020",
+        "counterexamples exist for large n",
+        "it only applies to prime numbers"
+      ],
+      "cluster": "number_theory",
+      "source_tool": "number_theory"
+    },
+    {
+      "id": "nt_twin_primes",
+      "context": "The twin prime conjecture asks whether:",
+      "truth": "there are infinitely many prime pairs (p, p+2) \u2014 unproven, best bound by Zhang/Maynard is gap\u2264246",
+      "distractors": [
+        "twin primes are finite in number",
+        "proven by Yitang Zhang in 2013",
+        "the gap is exactly 2 infinitely often (proven)"
+      ],
+      "cluster": "number_theory",
+      "source_tool": "number_theory"
+    },
+    {
+      "id": "nt_abc",
+      "context": "The ABC conjecture relates to:",
+      "truth": "for coprime a+b=c, the radical rad(abc) constrains c \u2014 Mochizuki's proof remains controversial",
+      "distractors": [
+        "universally accepted as proven since 2012",
+        "definitively disproven in 2021",
+        "only applies to even numbers"
+      ],
+      "cluster": "number_theory",
+      "source_tool": "number_theory"
+    },
+    {
+      "id": "cons_noether",
+      "context": "Noether's theorem connects:",
+      "truth": "every continuous symmetry of a physical system to a conserved quantity",
+      "distractors": [
+        "discrete symmetries to conservation laws",
+        "only rotational symmetry to energy",
+        "symmetry breaking to conservation"
+      ],
+      "cluster": "conservation",
+      "source_tool": "monitor"
+    },
+    {
+      "id": "cons_hamiltonian",
+      "context": "In Hamiltonian mechanics, the Hamiltonian H is:",
+      "truth": "conserved when it has no explicit time dependence (energy conservation)",
+      "distractors": [
+        "always conserved regardless of time dependence",
+        "never exactly conserved in real systems",
+        "only conserved for linear systems"
+      ],
+      "cluster": "conservation",
+      "source_tool": "hamiltonian"
+    },
+    {
+      "id": "cons_liouville",
+      "context": "Liouville's theorem in Hamiltonian mechanics states:",
+      "truth": "phase space volume is preserved under Hamiltonian flow (symplecticity)",
+      "distractors": [
+        "energy is always conserved",
+        "trajectories never cross in phase space",
+        "all orbits are periodic"
+      ],
+      "cluster": "conservation",
+      "source_tool": "hamiltonian"
+    },
+    {
+      "id": "cons_em_helicity",
+      "context": "Electromagnetic helicity is:",
+      "truth": "conserved in source-free vacuum (topological invariant related to field linkage)",
+      "distractors": [
+        "always conserved even with charges present",
+        "not a physical observable",
+        "the same as electromagnetic energy"
+      ],
+      "cluster": "conservation",
+      "source_tool": "monitor_em"
+    },
+    {
+      "id": "cons_vorticity",
+      "context": "In 2D incompressible flow, vorticity is:",
+      "truth": "materially conserved along particle paths (Kelvin's theorem in 2D)",
+      "distractors": [
+        "always dissipated by viscosity",
+        "only conserved in 3D flows",
+        "never conserved in real fluids"
+      ],
+      "cluster": "conservation",
+      "source_tool": "monitor"
+    },
+    {
+      "id": "red_sat_3sat",
+      "context": "The relationship between SAT and 3-SAT is:",
+      "truth": "SAT reduces to 3-SAT (polynomial time), both NP-complete, 3-SAT is the canonical NP-complete problem",
+      "distractors": [
+        "3-SAT is easier than SAT",
+        "they are incomparable in complexity",
+        "SAT is in P but 3-SAT is NP-complete"
+      ],
+      "cluster": "reductions",
+      "source_tool": "reductions"
+    },
+    {
+      "id": "red_cook_levin",
+      "context": "The Cook-Levin theorem establishes:",
+      "truth": "SAT is NP-complete \u2014 the first problem proven NP-complete (1971)",
+      "distractors": [
+        "P = NP",
+        "SAT is in P",
+        "NP-completeness doesn't exist"
+      ],
+      "cluster": "reductions",
+      "source_tool": "reductions"
+    }
+  ]
+}

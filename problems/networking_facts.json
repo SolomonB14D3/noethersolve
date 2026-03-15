@@ -1,0 +1,138 @@
+{
+  "problem": "networking",
+  "description": "Computer networking - protocols, routing, transport, security.",
+  "facts": [
+    {
+      "id": "net01_aimd",
+      "context": "TCP congestion control AIMD stands for:",
+      "truth": "additive increase, multiplicative decrease",
+      "distractors": [
+        "automatic interference mitigation and detection",
+        "always increase, maybe decrease on congestion",
+        "aggressive increase, minimal decrease strategy"
+      ],
+      "cluster": "transport"
+    },
+    {
+      "id": "net02_bgp",
+      "context": "BGP path selection prefers routes with:",
+      "truth": "shortest AS path among valid routes",
+      "distractors": [
+        "longest path for redundancy and reliability",
+        "random selection for load balancing purposes",
+        "most recently announced route always preferred"
+      ],
+      "cluster": "routing"
+    },
+    {
+      "id": "net03_tls13",
+      "context": "TLS 1.3 handshake typically completes in:",
+      "truth": "1-RTT (0-RTT possible with resumption)",
+      "distractors": [
+        "always 3-RTT minimum for security requirements",
+        "2-RTT exactly like TLS 1.2 handshake requires",
+        "variable RTTs depending on cipher suite selected"
+      ],
+      "cluster": "security"
+    },
+    {
+      "id": "net04_quic",
+      "context": "QUIC's main advantage over TCP for HTTP is:",
+      "truth": "no head-of-line blocking across streams",
+      "distractors": [
+        "faster encryption than TLS can provide",
+        "smaller packet headers reducing overhead always",
+        "better compression ratios for all content types"
+      ],
+      "cluster": "transport"
+    },
+    {
+      "id": "net05_dnssec",
+      "context": "DNSSEC provides:",
+      "truth": "authentication of DNS responses not encryption",
+      "distractors": [
+        "encryption of all DNS query contents automatically",
+        "faster DNS resolution times through caching",
+        "automatic load balancing across DNS servers"
+      ],
+      "cluster": "security"
+    },
+    {
+      "id": "net06_nat",
+      "context": "NAT (Network Address Translation) breaks:",
+      "truth": "end-to-end connectivity requiring port mapping",
+      "distractors": [
+        "nothing since NAT is fully transparent to applications",
+        "only protocols that use encryption for security",
+        "routing between networks using different protocols"
+      ],
+      "cluster": "routing"
+    },
+    {
+      "id": "net07_tcp_window",
+      "context": "TCP sliding window enables:",
+      "truth": "multiple unacknowledged packets in flight",
+      "distractors": [
+        "only one packet sent before waiting for ACK",
+        "unlimited packets without any flow control",
+        "retransmission without acknowledgment needed"
+      ],
+      "cluster": "transport"
+    },
+    {
+      "id": "net08_arp",
+      "context": "ARP resolves:",
+      "truth": "IP addresses to MAC addresses on local network",
+      "distractors": [
+        "domain names to IP addresses like DNS does",
+        "MAC addresses to IP addresses in reverse",
+        "port numbers to process identifiers locally"
+      ],
+      "cluster": "routing"
+    },
+    {
+      "id": "net09_cdn",
+      "context": "CDN edge caching improves performance by:",
+      "truth": "serving content from geographically closer servers",
+      "distractors": [
+        "compressing all content more efficiently always",
+        "using faster protocols than the origin server",
+        "predicting user requests before they occur"
+      ],
+      "cluster": "security"
+    },
+    {
+      "id": "net10_mtu",
+      "context": "IP fragmentation occurs when packet size exceeds:",
+      "truth": "path MTU requiring split into smaller packets",
+      "distractors": [
+        "destination buffer size requiring reassembly",
+        "source send buffer causing packet queuing",
+        "router memory limits dropping excess data"
+      ],
+      "cluster": "transport"
+    },
+    {
+      "id": "net11_ospf",
+      "context": "OSPF is a link-state routing protocol that:",
+      "truth": "floods topology to all routers for SPF calculation",
+      "distractors": [
+        "exchanges only distance vectors with neighbors",
+        "uses path-vector like BGP for route selection",
+        "requires manual configuration of all routes"
+      ],
+      "cluster": "routing"
+    },
+    {
+      "id": "net12_syn_flood",
+      "context": "SYN flood attacks exhaust server resources by:",
+      "truth": "leaving many half-open TCP connections",
+      "distractors": [
+        "completing connections then sending huge payloads",
+        "encrypting traffic that server cannot decrypt",
+        "sending valid requests at extremely high rates"
+      ],
+      "cluster": "security"
+    }
+  ]
+}
