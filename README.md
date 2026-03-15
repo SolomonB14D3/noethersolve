@@ -14,7 +14,7 @@ And the adapters don't degrade existing knowledge. Zero MMLU degradation across 
 
 LLMs are trained on what the field has collectively written and taught. Where the model is confidently wrong or blank, the literature is thin. That's where new science is most likely to be found. NoetherSolve automates this: propose, verify, check, discover, teach, repeat.
 
-The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, and genetics therapeutics (7 domains covering CRISPR design through clinical translation). Any field where you can verify a claim and ask a model about it is fair game.
+The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), and unsolved mathematics (6 domains covering Millennium Problems through computational complexity). Any field where you can verify a claim and ask a model about it is fair game.
 
 ### Paper
 
@@ -56,7 +56,7 @@ NoetherSolve exploits this. It:
 
 The result: the model ends up knowing things that weren't in any textbook or
 paper, because the system discovered them through simulation and injected them.
-All 18 domains now sit at **205/205 facts (100%)** — 11 physics/math domains and 7 genetics therapeutics domains. In chemical kinetics,
+All 24 domains now sit at **275/275 facts (100%)** — 11 physics/math domains, 7 genetics therapeutics domains, and 6 unsolved mathematics domains. In chemical kinetics,
 the model went from recognizing 0 out of 16 conservation laws to 16/16 via
 orthogonal adapters and distractor quality fixes. In Hamiltonian mechanics,
 single-pass training caused interference (the model got worse), so the system
@@ -72,8 +72,9 @@ published.
 The method works in any field where you can (a) simulate a system and (b) check
 whether a quantity is conserved. So far it's been applied to fluid dynamics,
 electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes
-regularity, knot theory, and genetics therapeutics (CRISPR design through
-clinical translation).
+regularity, knot theory, genetics therapeutics (CRISPR design through
+clinical translation), and unsolved mathematics (Millennium Problems through
+computational complexity).
 
 </details>
 
@@ -576,7 +577,7 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
-193+ candidates tested. 80+ genuine invariants discovered. 18 domains, 205 oracle facts. **All 18 domains at 100% (205/205 facts).**
+193+ candidates tested. 80+ genuine invariants discovered. 24 domains, 275 oracle facts. **All 24 domains at 100% (275/275 facts).**
 
 <details>
 <summary><h3>Discrete Point-Vortex</h3></summary>
@@ -781,6 +782,24 @@ The genetics domains demonstrate that the oracle-adapter pipeline generalizes be
 
 </details>
 
+<details>
+<summary><h3>Unsolved Mathematics (6 Domains)</h3></summary>
+
+Status of open conjectures, proof techniques, and computational complexity — where the model confidently states plausible-sounding falsehoods about problems that remain unsolved. 70 facts across 6 domains. Baseline: **11/70** (15.7% — the model is particularly bad at distinguishing true claims from plausible distractors on unsolved problems). Final: **70/70 (100%)** via orthogonal adapters.
+
+| Domain | Facts | Baseline | Final | Key Topics |
+|--------|-------|----------|-------|------------|
+| Millennium Problems | 12 | 3/12 | **12/12** | Riemann Hypothesis, P vs NP, Navier-Stokes, Yang-Mills, Hodge, BSD |
+| Number theory conjectures | 12 | 4/12 | **12/12** | Goldbach, twin primes, Collatz, ABC conjecture, Diophantine equations |
+| Algebra/topology conjectures | 10 | 1/10 | **10/10** | Jacobian conjecture, Kervaire invariant, Borel, Baum-Connes |
+| Proof techniques | 12 | 3/12 | **12/12** | Forcing, natural proofs barrier, algebrization, relativization |
+| Analysis/PDE conjectures | 12 | 0/12 | **12/12** | Regularity, Kakeya, Carleson, dynamical systems, arithmetic geometry |
+| Computational conjectures | 12 | 0/12 | **12/12** | P vs NP variants, graph isomorphism, circuit complexity, derandomization |
+
+The math domains were particularly challenging — the model confidently confuses the status of open problems with resolved ones (e.g., claiming the Riemann Hypothesis has implications it doesn't, or misidentifying the complexity class of graph isomorphism). The 16% baseline is the lowest of any domain group.
+
+</details>
+
 ### Summary by Domain
 
 | Domain | Facts | Oracle Baseline | Best Adapter | Status |
@@ -804,9 +823,16 @@ The genetics domains demonstrate that the oracle-adapter pipeline generalizes be
 | **Delivery optimization** | **10** | **0%** | **100%** | **COMPLETE** (GalNAc, LNPs, tissue targeting) |
 | **Safety invariants** | **10** | **0%** | **100%** | **COMPLETE** (off-target, genotoxicity, toxicology) |
 | **Clinical translation** | **12** | **0%** | **100%** | **COMPLETE** (IND-enabling, manufacturing, regulatory) |
+| | | | | |
+| **Millennium Problems** | **12** | **25%** | **100%** | **COMPLETE** (Riemann, P vs NP, Navier-Stokes) |
+| **Number theory conjectures** | **12** | **33.3%** | **100%** | **COMPLETE** (Goldbach, twin primes, ABC, Collatz) |
+| **Algebra/topology conjectures** | **10** | **10%** | **100%** | **COMPLETE** (Jacobian, Kervaire, Borel) |
+| **Proof techniques** | **12** | **25%** | **100%** | **COMPLETE** (forcing, barriers, logic) |
+| **Analysis/PDE conjectures** | **12** | **0%** | **100%** | **COMPLETE** (Kakeya, Carleson, regularity) |
+| **Computational conjectures** | **12** | **0%** | **100%** | **COMPLETE** (complexity, algorithms, derandomization) |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-**Total: 18 domains, 205 oracle facts, 205/205 flipped (100%). 0% MMLU degradation across all adapters.**
+**Total: 24 domains, 275 oracle facts, 275/275 flipped (100%). 0% MMLU degradation across all adapters.**
 
 Full history: `results/candidates.tsv`
 

@@ -126,7 +126,7 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
-**Established domain results (205/205 = 100% across all 18 domains):**
+**Established domain results (275/275 = 100% across all 24 domains):**
 
 | Domain | Facts | Baseline | Final | Method |
 |--------|-------|----------|-------|--------|
@@ -148,8 +148,14 @@ so they never compete for the same parameters.
 | Delivery Optimization | 10 | 0/10 | **10/10** | Orthogonal adapters |
 | Safety Invariants | 10 | 0/10 | **10/10** | Orthogonal adapters |
 | Clinical Translation | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Millennium Problems | 12 | 3/12 | **12/12** | Orthogonal adapters |
+| Number Theory Conjectures | 12 | 4/12 | **12/12** | Orthogonal adapters |
+| Algebra/Topology Conjectures | 10 | 1/10 | **10/10** | Orthogonal adapters |
+| Proof Techniques | 12 | 3/12 | **12/12** | Orthogonal adapters |
+| Analysis/PDE Conjectures | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Computational Conjectures | 12 | 0/12 | **12/12** | Orthogonal adapters |
 
-**All 205 facts flipped across all 18 domains (100%).**
+**All 275 facts flipped across all 24 domains (100%).**
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:
