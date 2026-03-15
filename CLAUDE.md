@@ -126,7 +126,7 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
-**Established domain results (123/123 = 100% across all 11 domains):**
+**Established domain results (205/205 = 100% across all 18 domains):**
 
 | Domain | Facts | Baseline | Final | Method |
 |--------|-------|----------|-------|--------|
@@ -141,8 +141,15 @@ so they never compete for the same parameters.
 | Vortex Pair | 13 | 2/13 | **13/13** | Orthogonal adapters + vp01 dedicated |
 | Q_f Ratio (R_f) | 8 | 0/8 | **8/8** | qf_ratio_adapter |
 | 3-body Conservation | 10 | 4/10 | **10/10** | Orthogonal adapters + full rephrasing |
+| Genetics Therapeutics | 16 | 2/16 | **16/16** | Orthogonal adapters |
+| Disease Targets | 12 | 1/12 | **12/12** | Orthogonal adapters |
+| Protein Structure | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Immune Evasion | 10 | 0/10 | **10/10** | Orthogonal adapters |
+| Delivery Optimization | 10 | 0/10 | **10/10** | Orthogonal adapters |
+| Safety Invariants | 10 | 0/10 | **10/10** | Orthogonal adapters |
+| Clinical Translation | 12 | 0/12 | **12/12** | Orthogonal adapters |
 
-**All 123 facts flipped across all 11 domains (100%).**
+**All 205 facts flipped across all 18 domains (100%).**
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:

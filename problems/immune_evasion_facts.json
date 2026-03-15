@@ -1,0 +1,116 @@
+{
+  "problem": "immune_evasion",
+  "description": "Reducing immunogenicity of gene therapies and biologics - vector immunity, protein engineering, and immune modulation.",
+  "facts": [
+    {
+      "id": "ie01_aav_nab",
+      "context": "Pre-existing neutralizing antibodies (NAbs) against AAV vectors affect therapy by:",
+      "truth": "preventing vector transduction, requiring NAb screening before dosing",
+      "distractors": [
+        "enhancing vector delivery to target cells",
+        "having no effect on efficacy",
+        "only affecting repeat dosing"
+      ],
+      "cluster": "vector"
+    },
+    {
+      "id": "ie02_aav_capsid",
+      "context": "Engineered AAV capsids can evade immunity by:",
+      "truth": "modifying surface epitopes while preserving transduction (directed evolution)",
+      "distractors": [
+        "using identical capsids at higher doses",
+        "removing all capsid proteins",
+        "immunity cannot be evaded"
+      ],
+      "cluster": "vector"
+    },
+    {
+      "id": "ie03_lnp_peg",
+      "context": "PEGylation of lipid nanoparticles (LNPs) for mRNA delivery:",
+      "truth": "extends circulation time but can induce anti-PEG antibodies affecting repeat dosing",
+      "distractors": [
+        "has no effect on pharmacokinetics",
+        "prevents all immune responses",
+        "is required for endosomal escape"
+      ],
+      "cluster": "vector"
+    },
+    {
+      "id": "ie04_humanization",
+      "context": "Antibody humanization reduces immunogenicity by:",
+      "truth": "replacing murine framework regions with human sequences while preserving CDRs",
+      "distractors": [
+        "removing all variable regions",
+        "adding murine sequences",
+        "only modifying the Fc region"
+      ],
+      "cluster": "protein"
+    },
+    {
+      "id": "ie05_deimmunization",
+      "context": "T-cell epitope deimmunization of therapeutic proteins involves:",
+      "truth": "identifying and mutating MHC-II binding peptides to reduce CD4+ T cell responses",
+      "distractors": [
+        "adding more immunogenic epitopes",
+        "removing all lysine residues",
+        "only affects B cell responses"
+      ],
+      "cluster": "protein"
+    },
+    {
+      "id": "ie06_tolerance",
+      "context": "Immune tolerance to gene therapy transgenes can be induced by:",
+      "truth": "hepatocyte-specific expression which promotes regulatory T cell induction",
+      "distractors": [
+        "maximizing expression in all tissues",
+        "using strong viral promoters",
+        "tolerance cannot be induced"
+      ],
+      "cluster": "tolerance"
+    },
+    {
+      "id": "ie07_immunosuppression",
+      "context": "Transient immunosuppression during AAV gene therapy:",
+      "truth": "can prevent capsid-directed T cell responses that eliminate transduced cells",
+      "distractors": [
+        "is never used clinically",
+        "enhances immune responses",
+        "only affects antibody responses"
+      ],
+      "cluster": "tolerance"
+    },
+    {
+      "id": "ie08_cpg_depletion",
+      "context": "CpG depletion in therapeutic DNA/mRNA sequences reduces:",
+      "truth": "TLR9-mediated innate immune activation and inflammatory responses",
+      "distractors": [
+        "protein expression levels",
+        "only affects bacteria",
+        "has no effect on immunity"
+      ],
+      "cluster": "innate"
+    },
+    {
+      "id": "ie09_nucleoside_mod",
+      "context": "Modified nucleosides (pseudouridine, m1Ψ) in therapeutic mRNA:",
+      "truth": "reduce innate immune sensing by TLR7/8 and RIG-I while maintaining translation",
+      "distractors": [
+        "increase inflammatory responses",
+        "prevent all protein expression",
+        "are only used in vaccines"
+      ],
+      "cluster": "innate"
+    },
+    {
+      "id": "ie10_complement",
+      "context": "Complement activation by therapeutic nanoparticles can cause:",
+      "truth": "CARPA (complement activation-related pseudoallergy) requiring slow infusion",
+      "distractors": [
+        "enhanced drug delivery",
+        "no clinical effects",
+        "only occurs with proteins"
+      ],
+      "cluster": "innate"
+    }
+  ]
+}

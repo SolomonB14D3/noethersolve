@@ -1,0 +1,138 @@
+{
+  "problem": "protein_structure_rules",
+  "description": "Protein structure and function rules for therapeutic design - domains, active sites, binding interfaces, and druggability.",
+  "facts": [
+    {
+      "id": "ps01_active_site",
+      "context": "Enzyme active sites for small molecule drug targeting typically:",
+      "truth": "are conserved pockets where catalysis occurs, often with key residues for binding",
+      "distractors": [
+        "are located on the protein surface randomly",
+        "have no sequence conservation",
+        "cannot be targeted by small molecules"
+      ],
+      "cluster": "binding"
+    },
+    {
+      "id": "ps02_allosteric",
+      "context": "Allosteric drug binding sites differ from active sites because they:",
+      "truth": "modulate activity by inducing conformational changes at a distance from active site",
+      "distractors": [
+        "are always more potent than orthosteric sites",
+        "are identical to the active site",
+        "cannot affect enzyme activity"
+      ],
+      "cluster": "binding"
+    },
+    {
+      "id": "ps03_ppi_interface",
+      "context": "Protein-protein interaction (PPI) interfaces are challenging drug targets because:",
+      "truth": "they are typically flat, large (1500-3000 A²), and lack deep pockets",
+      "distractors": [
+        "proteins never interact in disease",
+        "all PPIs are easily druggable",
+        "PPIs have deep active sites like enzymes"
+      ],
+      "cluster": "binding"
+    },
+    {
+      "id": "ps04_hotspot",
+      "context": "PPI hot spots are residues that contribute disproportionately to binding. They are typically:",
+      "truth": "Trp, Tyr, Arg residues that contribute >2 kcal/mol to binding free energy",
+      "distractors": [
+        "only glycine and alanine residues",
+        "uniformly distributed across the interface",
+        "always located in loops"
+      ],
+      "cluster": "binding"
+    },
+    {
+      "id": "ps05_kinase_hinge",
+      "context": "ATP-competitive kinase inhibitors typically bind to:",
+      "truth": "the hinge region connecting N and C lobes, mimicking adenine interactions",
+      "distractors": [
+        "the substrate binding site only",
+        "sites far from the ATP pocket",
+        "the kinase C-terminal tail"
+      ],
+      "cluster": "kinase"
+    },
+    {
+      "id": "ps06_kinase_dfg",
+      "context": "The DFG motif in kinases determines inhibitor type. Type II inhibitors bind when DFG is:",
+      "truth": "in DFG-out conformation, accessing hydrophobic pocket behind ATP site",
+      "distractors": [
+        "in DFG-in active conformation only",
+        "deleted from the kinase",
+        "mutated to AAA"
+      ],
+      "cluster": "kinase"
+    },
+    {
+      "id": "ps07_gpcr_binding",
+      "context": "GPCR orthosteric binding sites for small molecule drugs are located:",
+      "truth": "within transmembrane helical bundle, accessible from extracellular side",
+      "distractors": [
+        "only on intracellular loops",
+        "in the lipid bilayer exclusively",
+        "on the C-terminal tail"
+      ],
+      "cluster": "receptor"
+    },
+    {
+      "id": "ps08_antibody_cdr",
+      "context": "Antibody binding specificity is determined by:",
+      "truth": "CDR loops (complementarity determining regions) in variable domains",
+      "distractors": [
+        "the constant Fc region only",
+        "framework regions exclusively",
+        "carbohydrate modifications"
+      ],
+      "cluster": "antibody"
+    },
+    {
+      "id": "ps09_stability_tm",
+      "context": "Protein thermal stability (Tm) affects drug development because:",
+      "truth": "higher Tm correlates with longer shelf life and resistance to aggregation",
+      "distractors": [
+        "Tm has no effect on manufacturability",
+        "lower Tm proteins are always preferred",
+        "Tm only matters for enzymes"
+      ],
+      "cluster": "stability"
+    },
+    {
+      "id": "ps10_aggregation",
+      "context": "Therapeutic protein aggregation is problematic because aggregates can:",
+      "truth": "be immunogenic, reduce efficacy, and cause injection site reactions",
+      "distractors": [
+        "improve drug efficacy",
+        "have no effect on safety",
+        "increase half-life beneficially"
+      ],
+      "cluster": "stability"
+    },
+    {
+      "id": "ps11_disulfide",
+      "context": "Disulfide bonds in therapeutic proteins:",
+      "truth": "stabilize structure but require oxidizing conditions for correct formation",
+      "distractors": [
+        "are never present in secreted proteins",
+        "form spontaneously regardless of conditions",
+        "destabilize protein structure"
+      ],
+      "cluster": "stability"
+    },
+    {
+      "id": "ps12_glycosylation",
+      "context": "N-linked glycosylation of therapeutic antibodies affects:",
+      "truth": "effector function (ADCC), half-life, and immunogenicity",
+      "distractors": [
+        "only manufacturing cost",
+        "nothing clinically relevant",
+        "antigen binding only"
+      ],
+      "cluster": "modification"
+    }
+  ]
+}

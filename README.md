@@ -14,7 +14,7 @@ And the adapters don't degrade existing knowledge. Zero MMLU degradation across 
 
 LLMs are trained on what the field has collectively written and taught. Where the model is confidently wrong or blank, the literature is thin. That's where new science is most likely to be found. NoetherSolve automates this: propose, verify, check, discover, teach, repeat.
 
-The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, and knot theory so far. Any field where you can numerically verify a claim and ask a model about it is fair game.
+The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, and genetics therapeutics (7 domains covering CRISPR design through clinical translation). Any field where you can verify a claim and ask a model about it is fair game.
 
 ### Paper
 
@@ -56,7 +56,7 @@ NoetherSolve exploits this. It:
 
 The result: the model ends up knowing things that weren't in any textbook or
 paper, because the system discovered them through simulation and injected them.
-All eleven domains now sit at **123/123 facts (100%)**. In chemical kinetics,
+All 18 domains now sit at **205/205 facts (100%)** — 11 physics/math domains and 7 genetics therapeutics domains. In chemical kinetics,
 the model went from recognizing 0 out of 16 conservation laws to 16/16 via
 orthogonal adapters and distractor quality fixes. In Hamiltonian mechanics,
 single-pass training caused interference (the model got worse), so the system
@@ -72,7 +72,8 @@ published.
 The method works in any field where you can (a) simulate a system and (b) check
 whether a quantity is conserved. So far it's been applied to fluid dynamics,
 electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes
-regularity, and knot theory.
+regularity, knot theory, and genetics therapeutics (CRISPR design through
+clinical translation).
 
 </details>
 
@@ -486,7 +487,7 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
-193+ candidates tested. 80+ genuine invariants discovered. 11 domains, 123 oracle facts. **All 11 domains at 100% (123/123 facts).**
+193+ candidates tested. 80+ genuine invariants discovered. 18 domains, 205 oracle facts. **All 18 domains at 100% (205/205 facts).**
 
 <details>
 <summary><h3>Discrete Point-Vortex</h3></summary>
@@ -664,11 +665,30 @@ f*(r) = 0.023 e^(-r/2) + 0.021 tanh(r) - 0.019 sin(r) + ...
 </details>
 
 <details>
-<summary><h3>3-Body Conservation (In Progress)</h3></summary>
+<summary><h3>3-Body Conservation</h3></summary>
 
 Figure-8 three-body choreography conservation laws. 10 facts covering energy, angular momentum, and composite invariants across general 3-body, circular restricted three-body (CRTBP), and Kepler two-body subdomains.
 
 Baseline: **4/10** (model knows basic conservation laws). All 10 facts had severe token-length bias — mathematical expressions are long, but distractors with missing terms are shorter (by 4-32 tokens). Fix: rephrased all facts from symbolic math to descriptive text (e.g., `"E = (1/2)(m1*v1^2 + ...)"` → `"kinetic (with 1/2 factor) minus potential"`). With orthogonal adapters (3 clusters): **10/10 (100%)**.
+
+</details>
+
+<details>
+<summary><h3>Genetics Therapeutics (7 Domains)</h3></summary>
+
+End-to-end genetic therapy development pipeline, from target identification through clinical translation. 82 facts across 7 domains. Baseline: **3/82** (3.7% — the model is nearly blank on therapeutic design specifics). Final: **82/82 (100%)** via orthogonal adapters.
+
+| Domain | Facts | Baseline | Final | Key Topics |
+|--------|-------|----------|-------|------------|
+| Genetics therapeutics | 16 | 2/16 | **16/16** | CRISPR PAM/guide design, mRNA cap/UTRs, AAV/LNP delivery, splicing, pharmacogenomics |
+| Disease targets | 12 | 1/12 | **12/12** | TP53, BRCA, KRAS, BCR-ABL, MYC, DMD, CFTR, HTT, SMN, sickle cell |
+| Protein structure | 12 | 0/12 | **12/12** | Active sites, allosteric binding, PPI hot spots, kinase hinge/DFG, CDRs, stability |
+| Immune evasion | 10 | 0/10 | **10/10** | AAV NAbs, capsid engineering, humanization, T-cell epitopes, nucleoside modifications |
+| Delivery optimization | 10 | 0/10 | **10/10** | GalNAc-ASGPR, transferrin-BBB, LNP-ApoE, intrathecal, subretinal, particle size |
+| Safety invariants | 10 | 0/10 | **10/10** | Off-target prediction, insertional mutagenesis, p53 activation, CRS, hepatotoxicity |
+| Clinical translation | 12 | 0/12 | **12/12** | GLP tox studies, biodistribution, potency assays, LTFU, accelerated approval |
+
+The genetics domains demonstrate that the oracle-adapter pipeline generalizes beyond physics. The same escalation pattern works: single-pass → staged → orthogonal adapters. Token-length bias was again the #1 blocker — therapeutic mechanism descriptions tend to be longer than their distractors.
 
 </details>
 
@@ -687,9 +707,17 @@ Baseline: **4/10** (model knows basic conservation laws). All 10 facts had sever
 | **Electromagnetism** | **12** | **8.3%** | **100%** | **COMPLETE** (orthogonal) |
 | **Optimal f(r)** | **4** | **0%** | **100%** | **COMPLETE** (orthogonal) |
 | **3-body conservation** | **10** | **40%** | **100%** | **COMPLETE** (orthogonal + full rephrasing) |
+| | | | | |
+| **Genetics therapeutics** | **16** | **12.5%** | **100%** | **COMPLETE** (CRISPR, mRNA, delivery, splicing) |
+| **Disease targets** | **12** | **8.3%** | **100%** | **COMPLETE** (oncogenes, tumor suppressors, monogenic) |
+| **Protein structure** | **12** | **0%** | **100%** | **COMPLETE** (active sites, PPI, kinases, CDRs) |
+| **Immune evasion** | **10** | **0%** | **100%** | **COMPLETE** (vector immunity, humanization, tolerance) |
+| **Delivery optimization** | **10** | **0%** | **100%** | **COMPLETE** (GalNAc, LNPs, tissue targeting) |
+| **Safety invariants** | **10** | **0%** | **100%** | **COMPLETE** (off-target, genotoxicity, toxicology) |
+| **Clinical translation** | **12** | **0%** | **100%** | **COMPLETE** (IND-enabling, manufacturing, regulatory) |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-**Total: 11 domains, 123 oracle facts, 123/123 flipped (100%). 0% MMLU degradation across all adapters.**
+**Total: 18 domains, 205 oracle facts, 205/205 flipped (100%). 0% MMLU degradation across all adapters.**
 
 Full history: `results/candidates.tsv`
 
@@ -733,10 +761,18 @@ NoetherSolve
 ├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
 ├── dashboard.py                ← Results dashboard from candidates.tsv
 │
-├── noethersolve/               ← Core package
+├── noethersolve/               ← Core package (8 toolkit modules)
 │   ├── adapter.py              ← Snap-on logit adapter (SwiGLU)
+│   ├── audit_chem.py           ← Chemical network thermodynamic auditor
+│   ├── audit_facts.py          ← Oracle fact quality auditor (token-length bias)
+│   ├── hamiltonian.py          ← Hamiltonian symplectic structure validator
+│   ├── knot.py                 ← Knot invariant monitor (Reidemeister moves)
+│   ├── learner.py              ← Automatic conservation law discovery
+│   ├── monitor.py              ← Conservation monitors (Vortex, Chemical, Gravity)
+│   ├── monitor_em.py           ← EM field monitor (energy, chirality, zilch)
 │   ├── oracle.py               ← Oracle scoring engine
-│   └── train_utils.py          ← Shared training utilities
+│   ├── train_utils.py          ← Shared training utilities
+│   └── validate.py             ← Integrator validation via conservation laws
 │
 ├── problems/                   ← Domain plugins (fork here)
 │   ├── problem_template.yaml

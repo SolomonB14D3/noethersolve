@@ -1,0 +1,116 @@
+{
+  "problem": "delivery_optimization",
+  "description": "Tissue-specific targeting and delivery optimization for genetic medicines - ligands, formulations, and biodistribution.",
+  "facts": [
+    {
+      "id": "do01_galnac",
+      "context": "GalNAc (N-acetylgalactosamine) conjugation enables hepatocyte targeting by:",
+      "truth": "binding asialoglycoprotein receptor (ASGPR) highly expressed on hepatocytes",
+      "distractors": [
+        "passive diffusion into liver",
+        "binding to albumin only",
+        "targeting all cell types equally"
+      ],
+      "cluster": "ligand"
+    },
+    {
+      "id": "do02_transferrin",
+      "context": "Transferrin receptor targeting for brain delivery works because:",
+      "truth": "TfR is expressed on brain endothelium and mediates transcytosis across BBB",
+      "distractors": [
+        "transferrin directly crosses lipid membranes",
+        "TfR is only in peripheral tissues",
+        "it bypasses all biological barriers"
+      ],
+      "cluster": "ligand"
+    },
+    {
+      "id": "do03_antibody_conj",
+      "context": "Antibody-drug conjugates (ADCs) achieve tumor selectivity through:",
+      "truth": "antibody binding to tumor antigen followed by internalization and payload release",
+      "distractors": [
+        "random distribution to all tissues",
+        "direct cytotoxicity without internalization",
+        "payload release in bloodstream"
+      ],
+      "cluster": "ligand"
+    },
+    {
+      "id": "do04_lnp_apoe",
+      "context": "LNPs naturally accumulate in liver because:",
+      "truth": "they acquire ApoE in circulation which targets hepatocyte LDL receptors",
+      "distractors": [
+        "liver has no selectivity for LNPs",
+        "LNPs are too large for other tissues",
+        "hepatocytes express unique lipid transporters"
+      ],
+      "cluster": "biodistribution"
+    },
+    {
+      "id": "do05_lnp_spleen",
+      "context": "LNP delivery to spleen and immune cells can be enhanced by:",
+      "truth": "incorporating anionic lipids or modifying PEG-lipid ratios",
+      "distractors": [
+        "using standard hepatocyte-targeting formulations",
+        "increasing particle size to >500nm",
+        "spleen targeting is impossible"
+      ],
+      "cluster": "biodistribution"
+    },
+    {
+      "id": "do06_aav_muscle",
+      "context": "AAV serotypes with muscle tropism (AAV8, AAV9) achieve this by:",
+      "truth": "binding specific cell surface receptors/co-receptors on muscle fibers",
+      "distractors": [
+        "random transduction of all tissues",
+        "higher viral titers only",
+        "muscle has no AAV selectivity"
+      ],
+      "cluster": "biodistribution"
+    },
+    {
+      "id": "do07_intrathecal",
+      "context": "Intrathecal delivery of gene therapies for CNS diseases:",
+      "truth": "bypasses blood-brain barrier, achieving CSF and spinal cord distribution",
+      "distractors": [
+        "is equivalent to IV administration",
+        "cannot reach spinal motor neurons",
+        "only treats brain, not spinal cord"
+      ],
+      "cluster": "route"
+    },
+    {
+      "id": "do08_subretinal",
+      "context": "Subretinal injection for retinal gene therapy:",
+      "truth": "directly accesses RPE and photoreceptors with minimal systemic exposure",
+      "distractors": [
+        "treats the entire eye equally",
+        "requires systemic immunosuppression",
+        "cannot transduce photoreceptors"
+      ],
+      "cluster": "route"
+    },
+    {
+      "id": "do09_particle_size",
+      "context": "Nanoparticle size affects biodistribution because:",
+      "truth": "particles >100nm are cleared by liver/spleen; <10nm are renally cleared",
+      "distractors": [
+        "size has no effect on distribution",
+        "larger particles reach more tissues",
+        "all sizes behave identically"
+      ],
+      "cluster": "formulation"
+    },
+    {
+      "id": "do10_endosomal",
+      "context": "Endosomal escape is critical for nucleic acid delivery because:",
+      "truth": "nucleic acids must reach cytoplasm (mRNA) or nucleus (DNA) to function",
+      "distractors": [
+        "endosomes are the site of action",
+        "escape happens automatically",
+        "only affects protein therapeutics"
+      ],
+      "cluster": "formulation"
+    }
+  ]
+}

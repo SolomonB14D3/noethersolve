@@ -1,0 +1,116 @@
+{
+  "problem": "safety_invariants",
+  "description": "Safety rules for genetic medicines - off-target prediction, genotoxicity, and toxicology markers.",
+  "facts": [
+    {
+      "id": "si01_offtarget_crispr",
+      "context": "CRISPR off-target editing is predicted by:",
+      "truth": "sequence similarity to guide RNA, especially in PAM-proximal seed region (10-12nt)",
+      "distractors": [
+        "random chance regardless of sequence",
+        "only exact matches cause off-targets",
+        "off-targets cannot be predicted"
+      ],
+      "cluster": "offtarget"
+    },
+    {
+      "id": "si02_offtarget_methods",
+      "context": "Unbiased off-target detection methods like GUIDE-seq and CIRCLE-seq work by:",
+      "truth": "capturing double-strand breaks genome-wide using tagged oligos or circularization",
+      "distractors": [
+        "only detecting predicted sites",
+        "sequencing the guide RNA",
+        "measuring protein expression"
+      ],
+      "cluster": "offtarget"
+    },
+    {
+      "id": "si03_highfidelity",
+      "context": "High-fidelity Cas9 variants (eSpCas9, HiFi Cas9) reduce off-targets by:",
+      "truth": "weakening non-specific DNA contacts, requiring better guide complementarity",
+      "distractors": [
+        "cutting faster at all sites",
+        "recognizing longer PAM sequences",
+        "having no effect on specificity"
+      ],
+      "cluster": "offtarget"
+    },
+    {
+      "id": "si04_insertional",
+      "context": "Insertional mutagenesis from integrating vectors (lentivirus) poses risk of:",
+      "truth": "oncogene activation or tumor suppressor disruption at integration sites",
+      "distractors": [
+        "no risk with modern vectors",
+        "only affects non-dividing cells",
+        "integration is always safe"
+      ],
+      "cluster": "genotoxicity"
+    },
+    {
+      "id": "si05_aav_integration",
+      "context": "AAV vectors are considered non-integrating, but:",
+      "truth": "rare integration events occur, with enrichment at double-strand break sites",
+      "distractors": [
+        "AAV never integrates under any condition",
+        "AAV integrates at high frequency",
+        "integration only occurs in bacteria"
+      ],
+      "cluster": "genotoxicity"
+    },
+    {
+      "id": "si06_p53_activation",
+      "context": "CRISPR-induced double-strand breaks can activate p53, leading to:",
+      "truth": "cell cycle arrest and apoptosis, potentially selecting for p53-mutant cells",
+      "distractors": [
+        "enhanced cell proliferation",
+        "no cellular response",
+        "improved editing efficiency"
+      ],
+      "cluster": "genotoxicity"
+    },
+    {
+      "id": "si07_cytokine_storm",
+      "context": "Cytokine release syndrome (CRS) from gene therapies is characterized by:",
+      "truth": "elevated IL-6, TNF-alpha, IFN-gamma causing fever, hypotension, organ dysfunction",
+      "distractors": [
+        "decreased inflammatory markers",
+        "only local injection site reactions",
+        "no systemic effects"
+      ],
+      "cluster": "toxicology"
+    },
+    {
+      "id": "si08_liver_toxicity",
+      "context": "AAV-related hepatotoxicity at high doses is monitored by:",
+      "truth": "elevated transaminases (ALT/AST) and may require corticosteroid management",
+      "distractors": [
+        "kidney function tests only",
+        "liver toxicity does not occur",
+        "no biomarkers exist"
+      ],
+      "cluster": "toxicology"
+    },
+    {
+      "id": "si09_thrombocytopenia",
+      "context": "Thrombocytopenia (low platelets) with AAV gene therapy is associated with:",
+      "truth": "complement activation and thrombotic microangiopathy at high doses",
+      "distractors": [
+        "direct bone marrow suppression only",
+        "no platelet effects occur",
+        "increased platelet counts"
+      ],
+      "cluster": "toxicology"
+    },
+    {
+      "id": "si10_dorsal_root",
+      "context": "Dorsal root ganglion (DRG) toxicity with AAV has been observed:",
+      "truth": "in high-dose systemic or intrathecal delivery, causing sensory neuron loss",
+      "distractors": [
+        "only with specific transgenes",
+        "DRG is never affected by AAV",
+        "at all doses equally"
+      ],
+      "cluster": "toxicology"
+    }
+  ]
+}

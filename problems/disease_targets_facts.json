@@ -1,0 +1,138 @@
+{
+  "problem": "disease_targets",
+  "description": "Therapeutic targets for genetic diseases - oncogenes, tumor suppressors, and monogenic disease genes. Knowledge for target selection and validation.",
+  "facts": [
+    {
+      "id": "dt01_tp53_function",
+      "context": "TP53 (p53) is mutated in over 50% of cancers. Its normal function is:",
+      "truth": "tumor suppressor that activates cell cycle arrest and apoptosis in response to DNA damage",
+      "distractors": [
+        "oncogene that promotes cell proliferation",
+        "structural protein with no signaling role",
+        "growth factor receptor on cell surface"
+      ],
+      "cluster": "tumor_suppressor"
+    },
+    {
+      "id": "dt02_brca_repair",
+      "context": "BRCA1/BRCA2 mutations increase cancer risk because these genes normally:",
+      "truth": "mediate homologous recombination repair of double-strand DNA breaks",
+      "distractors": [
+        "activate cell proliferation pathways",
+        "suppress immune surveillance of tumors",
+        "regulate cell metabolism only"
+      ],
+      "cluster": "tumor_suppressor"
+    },
+    {
+      "id": "dt03_kras_mutation",
+      "context": "KRAS G12C mutations are oncogenic because the mutant protein:",
+      "truth": "is locked in GTP-bound active state, constitutively signaling proliferation",
+      "distractors": [
+        "cannot bind any nucleotide",
+        "has enhanced GTPase activity",
+        "acts as a tumor suppressor when mutated"
+      ],
+      "cluster": "oncogene"
+    },
+    {
+      "id": "dt04_bcr_abl",
+      "context": "The BCR-ABL fusion in chronic myeloid leukemia creates:",
+      "truth": "constitutively active tyrosine kinase driving proliferation (target of imatinib)",
+      "distractors": [
+        "inactive kinase requiring activation",
+        "tumor suppressor protein",
+        "cell surface receptor for growth factors"
+      ],
+      "cluster": "oncogene"
+    },
+    {
+      "id": "dt05_myc_amplification",
+      "context": "MYC amplification drives cancer by:",
+      "truth": "transcriptionally activating genes for proliferation, metabolism, and ribosome biogenesis",
+      "distractors": [
+        "suppressing all transcription globally",
+        "inducing cell cycle arrest",
+        "promoting DNA repair exclusively"
+      ],
+      "cluster": "oncogene"
+    },
+    {
+      "id": "dt06_dmd_dystrophin",
+      "context": "Duchenne muscular dystrophy is caused by mutations in DMD gene. The protein dystrophin:",
+      "truth": "links cytoskeleton to extracellular matrix, stabilizing muscle fiber membranes",
+      "distractors": [
+        "is a secreted hormone",
+        "functions only in neurons",
+        "is a transcription factor"
+      ],
+      "cluster": "monogenic"
+    },
+    {
+      "id": "dt07_cftr_function",
+      "context": "Cystic fibrosis is caused by CFTR mutations. CFTR protein normally:",
+      "truth": "acts as chloride channel regulating ion and water transport in epithelia",
+      "distractors": [
+        "is a structural protein in cilia",
+        "degrades mucus in airways",
+        "transports glucose across membranes"
+      ],
+      "cluster": "monogenic"
+    },
+    {
+      "id": "dt08_htt_expansion",
+      "context": "Huntington's disease is caused by CAG repeat expansion in HTT gene. The pathogenic mechanism is:",
+      "truth": "toxic gain-of-function from polyglutamine aggregates in neurons",
+      "distractors": [
+        "loss of normal huntingtin function only",
+        "RNA toxicity without protein involvement",
+        "mitochondrial DNA mutations"
+      ],
+      "cluster": "monogenic"
+    },
+    {
+      "id": "dt09_sma_smn",
+      "context": "Spinal muscular atrophy is caused by SMN1 loss. SMN2 differs by:",
+      "truth": "C-to-T change causing exon 7 skipping, producing mostly non-functional protein",
+      "distractors": [
+        "complete gene deletion",
+        "producing identical functional protein",
+        "frameshift mutation in exon 1"
+      ],
+      "cluster": "monogenic"
+    },
+    {
+      "id": "dt10_sickle_hbb",
+      "context": "Sickle cell disease is caused by HBB E6V mutation. The therapeutic approach using gene editing:",
+      "truth": "reactivates fetal hemoglobin (HBF) by disrupting BCL11A erythroid enhancer",
+      "distractors": [
+        "directly corrects E6V to wild-type",
+        "deletes the entire HBB gene",
+        "inserts synthetic hemoglobin gene"
+      ],
+      "cluster": "monogenic"
+    },
+    {
+      "id": "dt11_egfr_targeting",
+      "context": "EGFR-mutant lung cancers respond to tyrosine kinase inhibitors because:",
+      "truth": "tumors are oncogene-addicted and depend on mutant EGFR signaling for survival",
+      "distractors": [
+        "EGFR mutations make cells more sensitive to chemotherapy",
+        "inhibitors directly kill cells regardless of EGFR status",
+        "wild-type EGFR is more sensitive to inhibition"
+      ],
+      "cluster": "oncogene"
+    },
+    {
+      "id": "dt12_rb1_cycle",
+      "context": "RB1 (retinoblastoma protein) tumor suppressor normally:",
+      "truth": "inhibits E2F transcription factors, blocking G1 to S phase transition",
+      "distractors": [
+        "promotes cell cycle progression",
+        "functions only in retinal cells",
+        "activates apoptosis directly"
+      ],
+      "cluster": "tumor_suppressor"
+    }
+  ]
+}

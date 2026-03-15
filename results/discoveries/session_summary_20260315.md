@@ -218,8 +218,23 @@ Original margins before training:
 ## Metrics
 
 - **Primary domains at 100%**: 4/4 (Hamiltonian, NS, Knot, Chemical)
-- **Extended domains at 100%**: 6/6 (EM Zilch, Continuous Q_f, Kinetic K, Optimal f, Vortex Pair, 3body Conservation)
-- **Total facts flipped**: 123/123 (100%)
+- **Extended physics domains at 100%**: 6/6 (EM Zilch, Continuous Q_f, Kinetic K, Optimal f, Vortex Pair, 3body Conservation)
+- **Genetics therapeutics domains at 100%**: 7/7 (Therapeutics, Disease Targets, Protein Structure, Immune Evasion, Delivery, Safety, Clinical Translation)
+- **Total facts flipped**: 205/205 (100%)
 - **Best transfer method**: Difficulty-weighted joint (NS 0→10/16)
 - **Key technique**: Orthogonal adapters with cluster routing
 - **Key fix**: Token-length bias rephrasing (ns03, chem08, qf06, all 3body facts)
+
+## Genetics Therapeutics Domains (New)
+
+| Domain | Facts | Baseline | Final | Topics |
+|--------|-------|----------|-------|--------|
+| genetics_therapeutics | 16 | 2/16 | **16/16** | CRISPR, mRNA, delivery, splicing, pharmacogenomics |
+| disease_targets | 12 | 1/12 | **12/12** | Oncogenes, tumor suppressors, monogenic diseases |
+| protein_structure | 12 | 0/12 | **12/12** | Active sites, PPI, kinases, antibodies, stability |
+| immune_evasion | 10 | 0/10 | **10/10** | Vector immunity, humanization, tolerance |
+| delivery_optimization | 10 | 0/10 | **10/10** | GalNAc, LNPs, tissue targeting, routes |
+| safety_invariants | 10 | 0/10 | **10/10** | Off-target, genotoxicity, toxicology |
+| clinical_translation | 12 | 0/12 | **12/12** | IND-enabling, manufacturing, regulatory |
+
+**Total genetics facts: 82/82 (100%)**
