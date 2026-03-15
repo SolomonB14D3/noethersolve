@@ -56,7 +56,7 @@ NoetherSolve exploits this. It:
 
 The result: the model ends up knowing things that weren't in any textbook or
 paper, because the system discovered them through simulation and injected them.
-Nine of ten domains now sit at **113/113 facts (100%)**, with only one domain remaining. In chemical kinetics,
+All eleven domains now sit at **123/123 facts (100%)**. In chemical kinetics,
 the model went from recognizing 0 out of 16 conservation laws to 16/16 via
 orthogonal adapters and distractor quality fixes. In Hamiltonian mechanics,
 single-pass training caused interference (the model got worse), so the system
@@ -431,7 +431,7 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
-193+ candidates tested. 80+ genuine invariants discovered. 11 domains, 123 oracle facts. **9 domains at 100% (113/113 facts).**
+193+ candidates tested. 80+ genuine invariants discovered. 11 domains, 123 oracle facts. **All 11 domains at 100% (123/123 facts).**
 
 <details>
 <summary><h3>Discrete Point-Vortex</h3></summary>
@@ -611,9 +611,9 @@ f*(r) = 0.023 e^(-r/2) + 0.021 tanh(r) - 0.019 sin(r) + ...
 <details>
 <summary><h3>3-Body Conservation (In Progress)</h3></summary>
 
-Figure-8 three-body choreography conservation laws. 10 facts covering energy, angular momentum, and composite invariants.
+Figure-8 three-body choreography conservation laws. 10 facts covering energy, angular momentum, and composite invariants across general 3-body, circular restricted three-body (CRTBP), and Kepler two-body subdomains.
 
-Baseline: **4/10** (model knows basic conservation laws). Orthogonal adapters have not yet improved beyond baseline. **Root cause: fact rephrasing needed** — remaining 6 facts likely have token-length bias or distractor quality issues similar to chem08 and ns03. This is the last domain to solve.
+Baseline: **4/10** (model knows basic conservation laws). All 10 facts had severe token-length bias — mathematical expressions are long, but distractors with missing terms are shorter (by 4-32 tokens). Fix: rephrased all facts from symbolic math to descriptive text (e.g., `"E = (1/2)(m1*v1^2 + ...)"` → `"kinetic (with 1/2 factor) minus potential"`). With orthogonal adapters (3 clusters): **10/10 (100%)**.
 
 </details>
 
@@ -631,10 +631,10 @@ Baseline: **4/10** (model knows basic conservation laws). Orthogonal adapters ha
 | **Continuous Q_f** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal + qf06 fix) |
 | **Electromagnetism** | **12** | **8.3%** | **100%** | **COMPLETE** (orthogonal) |
 | **Optimal f(r)** | **4** | **0%** | **100%** | **COMPLETE** (orthogonal) |
-| 3-body conservation | 10 | 40% | 40% | NEEDS FACT REPHRASING |
+| **3-body conservation** | **10** | **40%** | **100%** | **COMPLETE** (orthogonal + full rephrasing) |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-**Total: 11 domains, 123 oracle facts. 10 domains at 100% (113/113 facts). 1 domain (3-body) needs fact rephrasing. 0% MMLU degradation across all adapters.**
+**Total: 11 domains, 123 oracle facts, 123/123 flipped (100%). 0% MMLU degradation across all adapters.**
 
 Full history: `results/candidates.tsv`
 

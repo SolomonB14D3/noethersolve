@@ -126,7 +126,7 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
-**Established domain results (113/113 = 100% across 10 domains):**
+**Established domain results (123/123 = 100% across all 11 domains):**
 
 | Domain | Facts | Baseline | Final | Method |
 |--------|-------|----------|-------|--------|
@@ -140,12 +140,9 @@ so they never compete for the same parameters.
 | Optimal f(r) | 4 | 0/4 | **4/4** | Orthogonal adapters |
 | Vortex Pair | 13 | 2/13 | **13/13** | Orthogonal adapters + vp01 dedicated |
 | Q_f Ratio (R_f) | 8 | 0/8 | **8/8** | qf_ratio_adapter |
+| 3-body Conservation | 10 | 4/10 | **10/10** | Orthogonal adapters + full rephrasing |
 
-**Remaining domain (needs fact rephrasing):**
-
-| Domain | Facts | Baseline | Current | Issue |
-|--------|-------|----------|---------|-------|
-| 3-body Conservation | 10 | 4/10 | 4/10 | Token-length bias in remaining facts |
+**All 123 facts flipped across all 11 domains (100%).**
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:
