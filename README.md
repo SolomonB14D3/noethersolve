@@ -26,7 +26,7 @@ Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ra
 **NoetherSolve Toolkit: Conservation Law Monitoring and Discovery for Numerical Simulations** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
-Eight tools for monitoring, validating, and discovering conservation laws. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. Automatic invariant discovery via L-BFGS-B over 12 basis functions. 183 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
+Eleven tools for monitoring, validating, and discovering conservation laws — plus genetics therapeutics design auditing. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. Automatic invariant discovery via L-BFGS-B over 12 basis functions. Sequence design auditor, CRISPR guide scorer, and therapeutic pipeline validator for genetics domains. 310 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 ---
 
@@ -404,6 +404,57 @@ Reidemeister moves: `apply_r1(knot, sign)`, `apply_r1_remove(knot)`.
 </details>
 
 <details>
+<summary><h3>Genetics Therapeutics Tools</h3></summary>
+
+Three tools for genetics therapeutics design — sequence auditing, CRISPR guide scoring, and pipeline consistency validation.
+
+**Sequence Design Auditor** — checks DNA/RNA for therapeutic design pitfalls:
+
+```python
+from noethersolve import audit_sequence
+
+report = audit_sequence("ATGCGATCGAATAAACGATTTTTCG")
+print(report)
+# CpG density, GC content, homopolymers, cryptic splice sites,
+# poly-A signals, self-complementarity — with severity levels
+```
+
+**CRISPR Guide RNA Scorer** — scores guides for on-target activity and off-target risk:
+
+```python
+from noethersolve import score_guide, check_offtarget_pair
+
+report = score_guide("GAGTCTAGCAGTCTAGCACG")
+print(f"Activity: {report.activity_score}/100, Off-target: {report.offtarget_risk}")
+
+# Compare guide to potential off-target site
+pair = check_offtarget_pair("GAGTCTAGCAGTCTAGCACG", "GAGTCTAGCAGTCTAGCACC")
+print(f"Seed mismatches: {pair['seed_mismatches']}, Risk: {pair['risk_level']}")
+```
+
+**Therapeutic Pipeline Validator** — cross-domain consistency checker:
+
+```python
+from noethersolve import validate_pipeline, TherapyDesign
+
+design = TherapyDesign(
+    modality="aav",
+    target_tissue="liver",
+    transgene_size_kb=4.5,
+    vector_serotype="AAV8",
+    promoter="TBG",
+    route="iv",
+    payload_type="gene_replacement",
+)
+report = validate_pipeline(design)
+print(report)
+# Checks: vector capacity, serotype-tissue, promoter-tissue,
+# route-tissue, modality-payload, redosing immunity, safety monitoring
+```
+
+</details>
+
+<details>
 <summary><h3>Benchmark Results</h3></summary>
 
 The corruption benchmark (`experiments/corruption_benchmark.py`) validates
@@ -417,7 +468,7 @@ these tools against 5 experiments:
 | Chemical violation | Perturbed rate constants | Wegscheider cycle product shifts 3.33 to 0.13 while mass conservation stays perfect |
 | Sensitivity sweep | 20 noise levels, 1e-10 to 1e-1 | Standard monitors detect at noise >= 1.8e-6; discovered monitors have baseline sensitivity at 1e-10 |
 
-**183 tests passing** across all 8 tools (`pytest tests/`).
+**310 tests passing** across all 11 tools (`pytest tests/`).
 
 </details>
 
@@ -761,7 +812,7 @@ NoetherSolve
 ├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
 ├── dashboard.py                ← Results dashboard from candidates.tsv
 │
-├── noethersolve/               ← Core package (8 toolkit modules)
+├── noethersolve/               ← Core package (11 toolkit modules)
 │   ├── adapter.py              ← Snap-on logit adapter (SwiGLU)
 │   ├── audit_chem.py           ← Chemical network thermodynamic auditor
 │   ├── audit_facts.py          ← Oracle fact quality auditor (token-length bias)
@@ -771,6 +822,7 @@ NoetherSolve
 │   ├── monitor.py              ← Conservation monitors (Vortex, Chemical, Gravity)
 │   ├── monitor_em.py           ← EM field monitor (energy, chirality, zilch)
 │   ├── oracle.py               ← Oracle scoring engine
+│   ├── pipeline.py             ← Therapeutic pipeline consistency validator
 │   ├── train_utils.py          ← Shared training utilities
 │   └── validate.py             ← Integrator validation via conservation laws
 │

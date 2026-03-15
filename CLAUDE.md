@@ -408,7 +408,10 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `training/scripts/train_prior_breaker.py` | Prior-breaking adapter training |
 | `noethersolve/audit_facts.py` | Oracle fact file quality auditor (token-length bias detection) |
 | `noethersolve/knot.py` | Knot invariant monitor (Reidemeister moves, Jones polynomial) |
-| `tests/` | 183 tests for all 8 toolkit modules |
+| `noethersolve/audit_sequence.py` | DNA/RNA therapeutic sequence design auditor |
+| `noethersolve/crispr.py` | CRISPR guide RNA scorer (on-target activity, off-target risk) |
+| `noethersolve/pipeline.py` | Therapeutic pipeline consistency validator |
+| `tests/` | 310 tests for all 11 toolkit modules |
 
 ---
 

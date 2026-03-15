@@ -16,6 +16,9 @@ Package layout:
   noethersolve.learner      — automatic conservation law discovery via optimization
   noethersolve.audit_facts  — oracle fact file quality auditor (token-length bias detection)
   noethersolve.knot         — knot invariant monitor (Reidemeister moves, Jones polynomial)
+  noethersolve.audit_sequence — DNA/RNA therapeutic sequence design auditor
+  noethersolve.crispr       — CRISPR guide RNA scorer (on-target activity, off-target risk)
+  noethersolve.pipeline     — therapeutic pipeline consistency validator
 """
 
 from noethersolve import train_utils  # noqa: F401
@@ -47,5 +50,27 @@ from noethersolve.knot import (  # noqa: F401
     trefoil,
     figure_eight_knot,
 )
+from noethersolve.audit_sequence import (  # noqa: F401
+    audit_sequence,
+    SequenceReport,
+    SequenceIssue,
+    gc_content,
+    cpg_observed_expected,
+)
 
-__version__ = "0.5.0"
+from noethersolve.crispr import (  # noqa: F401
+    score_guide,
+    score_guides,
+    check_offtarget_pair,
+    GuideReport,
+    GuideIssue,
+)
+from noethersolve.pipeline import (  # noqa: F401
+    validate_pipeline,
+    validate_pipeline_dict,
+    TherapyDesign,
+    PipelineReport,
+    PipelineIssue,
+)
+
+__version__ = "0.6.0"
