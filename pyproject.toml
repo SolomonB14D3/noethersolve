@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "noethersolve"
-version = "1.0.0"
-description = "43 verified tools for AI agents — physics, math, genetics, pharmacogenomics, LLM science, networking, OS, crypto, finance. 30 calculators + 13 lookup tables. pip install, add to Claude, instant smarter agent."
+version = "1.1.0"
+description = "46 verified tools for AI agents — physics, math, genetics, pharmacogenomics, LLM science, biochemistry, organic chemistry, quantum mechanics, networking, OS, crypto, finance. 30 calculators + 16 lookup tables. pip install, add to Claude, instant smarter agent."
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"

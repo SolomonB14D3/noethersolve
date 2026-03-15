@@ -1,4 +1,4 @@
-"""NoetherSolve MCP Server — expose 43 verified tools to any AI agent.
+"""NoetherSolve MCP Server — expose 46 verified tools to any AI agent.
 
 The full pipeline: find gaps → flip facts → build tool → add to MCP server.
 Every tool added here makes every connected agent smarter.
@@ -14,7 +14,7 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="43 computational tools for physics, math, genetics, and LLM science — "
+    instructions="46 computational tools for physics, math, genetics, and LLM science — "
                  "verified calculators and reference databases, not guesses.",
 )
 
@@ -1102,6 +1102,75 @@ def calc_deadlock(
     """
     from noethersolve.os_calc import detect_deadlock
     report = detect_deadlock(holding, waiting)
+    return str(report)
+
+
+# ── Science Domain Lookup Tables ──────────────────────────────────────
+
+
+@mcp.tool()
+def check_biochemistry(
+    topic: str,
+    claim: str = "",
+) -> str:
+    """Look up biochemistry facts and validate claims.
+
+    REFERENCE DATABASE for enzymes, metabolism, molecular biology, proteins,
+    and cell signaling.  Returns verified facts, common errors, and claim
+    validation.
+
+    topic: topic name or ID (e.g. "michaelis", "bc04_krebs", "hemoglobin")
+    claim: optional claim to validate against the database
+
+    Example: check_biochemistry("competitive inhibition", "decreases Vmax")
+    → WARN — matches known error: Vmax is unchanged in competitive inhibition
+    """
+    from noethersolve.biochemistry import check_biochemistry as _check
+    report = _check(topic, claim=claim if claim else None)
+    return str(report)
+
+
+@mcp.tool()
+def check_organic_chemistry(
+    topic: str,
+    claim: str = "",
+) -> str:
+    """Look up organic chemistry facts and validate claims.
+
+    REFERENCE DATABASE for reaction mechanisms, reagents, named reactions,
+    stereochemistry, and synthesis strategy.  Returns verified facts, common
+    errors, and claim validation.
+
+    topic: topic name or ID (e.g. "diels-alder", "oc02_e2", "grignard")
+    claim: optional claim to validate against the database
+
+    Example: check_organic_chemistry("chirality", "requires a stereocenter")
+    → WARN — matches known error: chirality does not require a stereocenter
+    """
+    from noethersolve.organic_chemistry import check_organic_chemistry as _check
+    report = _check(topic, claim=claim if claim else None)
+    return str(report)
+
+
+@mcp.tool()
+def check_quantum_mechanics(
+    topic: str,
+    claim: str = "",
+) -> str:
+    """Look up quantum mechanics facts and validate claims.
+
+    REFERENCE DATABASE for QM foundations (uncertainty, exclusion, Born rule),
+    phenomena (tunneling, entanglement, spin), and systems (harmonic oscillator,
+    hydrogen atom, commutators).
+
+    topic: topic name or ID (e.g. "uncertainty", "qm08_entanglement", "pauli")
+    claim: optional claim to validate against the database
+
+    Example: check_quantum_mechanics("entanglement", "allows FTL communication")
+    → FAIL — matches known error: no-communication theorem prohibits FTL
+    """
+    from noethersolve.quantum_mechanics import check_quantum_mechanics as _check
+    report = _check(topic, claim=claim if claim else None)
     return str(report)
 
 

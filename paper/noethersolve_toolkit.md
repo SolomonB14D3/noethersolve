@@ -6,7 +6,7 @@ March 2026
 
 ## Abstract
 
-We present NoetherSolve, an open-source Python toolkit for monitoring, validating, and discovering conservation laws and scientific invariants across three domains: numerical physics, computational genetics, and unsolved mathematics. The toolkit provides twenty tools organized in three tiers: (1) six physics tools covering point-vortex dynamics, chemical kinetics, N-body gravity, electromagnetism, Hamiltonian mechanics, and domain-agnostic invariant discovery; (2) seven genetics tools for DNA/RNA sequence auditing, CRISPR guide scoring, therapeutic pipeline validation, protein aggregation prediction, splice site scoring, pharmacogenomic interaction checking, and oracle fact quality auditing; and (3) seven unsolved mathematics tools for complexity class relationships, conjecture status tracking, proof technique barriers, number theory conjecture verification, computational reduction chains, and PDE regularity/Sobolev embedding analysis. Each tool emerged from a pipeline that identifies where language models fail to recognize domain-specific facts, verifies those facts computationally, and teaches the results back to the model. The toolkit requires no machine learning at runtime. We demonstrate that Q_f-based monitors detect numerical corruption at noise levels 100x lower than standard monitors, that algebraic auditing catches thermodynamic inconsistencies without simulation, that automatic optimization discovers conservation laws with 40% lower fractional variation than any single basis function, that genetics auditors catch 100% of known pathological sequences in validation batteries, and that mathematics tools correctly verify number theory conjectures and identify proof technique barriers across all tested cases. The package is available on PyPI (`pip install noethersolve`) with 777 tests, a physics-enforcing pre-commit hook, and 275 oracle-verified facts across 24 domains.
+We present NoetherSolve, an open-source Python toolkit for monitoring, validating, and discovering conservation laws and scientific invariants across three domains: numerical physics, computational genetics, and unsolved mathematics. The toolkit provides forty-six tools organized in four tiers: (1) six physics tools covering point-vortex dynamics, chemical kinetics, N-body gravity, electromagnetism, Hamiltonian mechanics, and domain-agnostic invariant discovery; (2) seven genetics tools for DNA/RNA sequence auditing, CRISPR guide scoring, therapeutic pipeline validation, protein aggregation prediction, splice site scoring, pharmacogenomic interaction checking, and oracle fact quality auditing; and (3) seven unsolved mathematics tools for complexity class relationships, conjecture status tracking, proof technique barriers, number theory conjecture verification, computational reduction chains, and PDE regularity/Sobolev embedding analysis. Each tool emerged from a pipeline that identifies where language models fail to recognize domain-specific facts, verifies those facts computationally, and teaches the results back to the model. This represents one half of a two-path approach: adapter blending (cross-domain joint training) fixes small models directly, achieving 100% across all 48 domains via orthogonal routing; MCP tools make any model a powerhouse through verified tool use. The toolkit requires no machine learning at runtime. We demonstrate that Q_f-based monitors detect numerical corruption at noise levels 100x lower than standard monitors, that algebraic auditing catches thermodynamic inconsistencies without simulation, that automatic optimization discovers conservation laws with 40% lower fractional variation than any single basis function, that genetics auditors catch 100% of known pathological sequences in validation batteries, and that mathematics tools correctly verify number theory conjectures and identify proof technique barriers across all tested cases. The package is available on PyPI (`pip install noethersolve`) with 1252 tests, a physics-enforcing pre-commit hook, and 555 oracle-verified facts across 48 domains.
 
 ## 1. Introduction
 
@@ -16,7 +16,9 @@ Standard practice checks a handful of known invariants. In vortex dynamics, the 
 
 This paper describes a toolkit that goes further in two ways. First, it monitors quantities that standard references do not cover. The Q_f family of invariants, $Q_f = \sum_{i<j} \Gamma_i \Gamma_j f(r_{ij})$, was discovered through numerical simulation and verified across chaotic vortex systems [3]. These approximate invariants are more sensitive to corruption than the exact invariants H and Lz. Second, the toolkit includes a learner that automatically discovers new conservation laws from trajectory data, without requiring the user to specify what to look for.
 
-The twenty tools are organized into three tiers:
+The toolkit represents one half of a two-path approach to model improvement. **Adapter blending** (cross-domain joint training from scratch) is the path to fixing small models directly — a single difficulty-weighted adapter lifts 4 domains simultaneously (Hamiltonian 14/16, NS 10/16, Knot 11/16, Chemical 13/16), and orthogonal routing achieves 100% across all 48 domains. **MCP tools** are the path to making any model a powerhouse through tool use — each tool is independent, verified, and callable on demand. Adapters change what the model knows; tools change what the model can do.
+
+The forty-six tools are organized into four tiers:
 
 **Tier 1 — Physics (6 tools):**
 
@@ -46,6 +48,16 @@ The twenty tools are organized into three tiers:
 18. **Number Theory Verifier** for numerically checking Goldbach, Collatz, twin primes, ABC triples, Legendre's conjecture, and prime gap statistics.
 19. **Reduction Chain Validator** for verifying computational reduction chains (Karp, Turing, Cook, log-space, etc.) with transitivity and circularity checking.
 20. **PDE Regularity Checker** for Sobolev embedding analysis, critical exponent computation, blow-up checking, and regularity classification across 8 PDE families.
+
+**Tier 4 — STEM Calculators and Science Lookups (26 tools):**
+
+21-26. **Six STEM calculators** covering electrochemistry/acid-base (Nernst equation, Henderson-Hasselbalch, crystal field splitting), cryptographic security (security levels, birthday bounds, cipher mode analysis), financial mathematics (Black-Scholes with Greeks, put-call parity, Nash equilibrium), distributed systems (quorum systems, Byzantine thresholds, vector clocks), networking (bandwidth-delay product, TCP throughput, subnetting), and operating systems (page tables, CPU scheduling, deadlock detection).
+
+27-29. **Three systems tools**: PID controller simulator with Routh-Hurwitz stability analysis, SQL transaction isolation anomaly checker, and quantum circuit state vector simulator with entanglement detection.
+
+30. **LLM claims auditor** for validating benchmark scores, Chinchilla scaling calculations, and common misconceptions across 6 LLM science domains (hallucination, reasoning, alignment, training, evaluation, context/memory).
+
+31-46. **Sixteen lookup tables** covering mathematical conjectures (~63 conjectures, 6 domains), complexity class relationships (~20 classes), proof technique barriers (10 barriers), number theory verification (Goldbach, Collatz, twin primes, ABC, Legendre), computational reduction chains, PDE regularity/Sobolev embeddings, biochemistry (enzymes, metabolism, molecular biology, proteins, signaling — 12 topics), organic chemistry (mechanisms, reagents, named reactions, stereochemistry, synthesis — 12 topics), and quantum mechanics (uncertainty, wave function collapse, Pauli exclusion, tunneling, entanglement, zero-point energy — 12 topics).
 
 All tools share a common architecture: dataclass reports with severity levels (HIGH/MODERATE/LOW/INFO), PASS/WARN/FAIL verdicts, and human-readable `__str__` output. Physics tools use frac_var ($\sigma / |\mu|$) as their metric; genetics and mathematics tools use domain-specific checks. The package depends only on NumPy and SciPy.
 
@@ -348,9 +360,9 @@ All 173 validation cases passed (100% catch rate). Additionally, 29 edge case st
 
 The toolkit is implemented in Python with NumPy and SciPy as the only dependencies. Integration uses `scipy.integrate.solve_ivp` with Dormand-Prince RK45 [14] by default. Spectral operations (curls in the EM monitor, convolutions in the invariant learner) use NumPy's FFT module. Genetics and mathematics tools use hardcoded reference data (hydrophobicity scales, PWM frequencies, complexity class hierarchies, conjecture databases) requiring no external data files or API calls.
 
-A pre-commit hook enforces quality on every commit: all 777 tests must pass, all public exports must import cleanly, and a physics smoke test must confirm that H and Lz are conserved to frac_var < $10^{-8}$ on a reference vortex problem. The hook blocks the commit if any check fails.
+A pre-commit hook enforces quality on every commit: all 1252 tests must pass, all public exports must import cleanly, and a physics smoke test must confirm that H and Lz are conserved to frac_var < $10^{-8}$ on a reference vortex problem. The hook blocks the commit if any check fails.
 
-The package is available at `pip install noethersolve` (PyPI) and https://github.com/SolomonB14D3/NoetherSolve. Version 0.8.0 includes all 20 tools.
+The package is available at `pip install noethersolve` (PyPI) and https://github.com/SolomonB14D3/NoetherSolve. Version 1.1.0 includes all 46 tools.
 
 ## 12. Related Work
 

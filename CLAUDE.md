@@ -4,9 +4,9 @@
 
 **The core loop: find gaps → flip facts → build tool → add to MCP server.** Every tool added makes every connected agent smarter.
 
-The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 43 tools currently serving physics, math, genetics, complexity theory, pharmacogenomics, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
+The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 46 tools currently serving physics, math, genetics, complexity theory, pharmacogenomics, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
 
-**Why tools instead of adapters?** We tried both. Adapters improve truth preference (+0.10 MC2 on TruthfulQA) but can't scale: stacking 37+ adapters destroys MMLU (-43%), and a unified adapter on 244 facts collapses. Tools scale indefinitely — each is independent, verified (1144 tests), and model-agnostic.
+**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 48 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (1252 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
 
 ---
 
@@ -38,6 +38,9 @@ The discovery pipeline proposes candidates, verifies them numerically, checks if
 - Control systems / PID / stability → `simulate_pid()`, `analyze_stability()`
 - Database transaction isolation → `check_isolation()`, `analyze_schedule()`
 - Quantum circuits → `simulate_quantum_circuit()`
+- Biochemistry (enzymes, metabolism, signaling) → `check_biochemistry()`
+- Organic chemistry (mechanisms, reactions, synthesis) → `check_organic_chemistry()`
+- Quantum mechanics (uncertainty, entanglement, tunneling) → `check_quantum_mechanics()`
 
 **Setup:** The MCP server is configured in `.mcp.json` at the project root
 (already present). Claude Code auto-discovers it. Or run standalone:
@@ -215,8 +218,11 @@ so they never compete for the same parameters.
 | Database Internals | 12 | 0/12 | **12/12** | Orthogonal adapters |
 | Quantum Computing | 12 | 0/12 | **12/12** | Orthogonal adapters |
 | Control Systems | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Biochemistry | 12 | 9/12 | **12/12** | Orthogonal adapters |
+| Organic Chemistry | 12 | 7/12 | **12/12** | Orthogonal adapters |
+| Quantum Mechanics | 12 | 7/12 | **12/12** | Orthogonal adapters |
 
-**All 519 facts flipped across all 45 domains (100%).**
+**All 555 facts flipped across all 48 domains (100%).**
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:
@@ -454,7 +460,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 
 | File | What it does |
 |------|-------------|
-| `noethersolve/mcp_server/` | **MCP server — 43 tools for any AI agent** |
+| `noethersolve/mcp_server/` | **MCP server — 46 tools for any AI agent** |
 | `conservation_checker.py` | Figure-8 3-body RK45 integrator + frac_var checker |
 | `vortex_checker.py` | 2D point-vortex Kirchhoff integrator + frac_var checker |
 | `oracle_wrapper.py` | Log-prob margin oracle + repair pass + quadrant diagnosis (MLX) |
@@ -502,7 +508,10 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/distributed_calc.py` | Quorum systems, Byzantine thresholds, vector clocks, consistency models |
 | `noethersolve/network_calc.py` | Bandwidth-delay product, TCP throughput, subnetting, IP fragmentation |
 | `noethersolve/os_calc.py` | Page tables, CPU scheduling, deadlock detection, TLB analysis |
-| `tests/` | 1144 tests for all 27 toolkit modules |
+| `noethersolve/biochemistry.py` | Biochemistry fact checker (enzymes, metabolism, signaling) |
+| `noethersolve/organic_chemistry.py` | Organic chemistry fact checker (mechanisms, reactions, synthesis) |
+| `noethersolve/quantum_mechanics.py` | Quantum mechanics fact checker (foundations, phenomena, systems) |
+| `tests/` | 1252 tests for all 30 toolkit modules |
 
 ---
 

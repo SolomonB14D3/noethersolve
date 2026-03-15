@@ -7,12 +7,13 @@ Every tool added makes every connected agent smarter.
 Emmy Noether proved every continuous symmetry corresponds to a conserved quantity.
 NoetherSolve finds where LLMs fail to recognize those quantities, builds verified
 computational tools for the right answers, and exposes them via Model Context
-Protocol (MCP) — 43 tools currently serving physics, math, genetics, complexity
-theory, pharmacogenomics, and LLM science. 30 are calculators (derive answers
-from first principles), 13 are lookup tables (reference databases).
+Protocol (MCP) — 46 tools currently serving physics, math, genetics, complexity
+theory, pharmacogenomics, biochemistry, organic chemistry, quantum mechanics,
+and LLM science. 30 are calculators (derive answers from first principles),
+16 are lookup tables (reference databases).
 
 Package layout:
-  noethersolve.mcp_server   — MCP server (43 tools for any AI agent)
+  noethersolve.mcp_server   — MCP server (46 tools for any AI agent)
   noethersolve.oracle       — model-agnostic MC log-prob scorer (from eval_mc)
   noethersolve.adapter      — snap-on logit adapter architectures (from snap_on)
   noethersolve.train_utils  — LOGIT_SOFTCAP, get_lm_head_fn, apply_adapter
@@ -46,6 +47,9 @@ Package layout:
   noethersolve.distributed_calc — quorum systems, Byzantine thresholds, vector clocks, consistency models
   noethersolve.network_calc    — bandwidth-delay product, TCP throughput, subnetting, IP fragmentation
   noethersolve.os_calc         — page tables, CPU scheduling, deadlock detection, TLB analysis
+  noethersolve.biochemistry    — biochemistry fact checker (enzymes, metabolism, signaling)
+  noethersolve.organic_chemistry — organic chemistry fact checker (mechanisms, reactions, synthesis)
+  noethersolve.quantum_mechanics — quantum mechanics fact checker (foundations, phenomena, systems)
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -308,4 +312,31 @@ from noethersolve.os_calc import (  # noqa: F401
     ContextSwitchReport,
 )
 
-__version__ = "1.0.0"
+from noethersolve.biochemistry import (  # noqa: F401
+    check_biochemistry,
+    get_biochemistry_topic,
+    list_biochemistry_topics,
+    BiochemistryReport,
+    BiochemistryIssue,
+    BiochemistryInfo,
+)
+
+from noethersolve.organic_chemistry import (  # noqa: F401
+    check_organic_chemistry,
+    get_organic_chemistry_topic,
+    list_organic_chemistry_topics,
+    OrganicChemistryReport,
+    OrganicChemistryIssue,
+    OrganicChemistryTopic,
+)
+
+from noethersolve.quantum_mechanics import (  # noqa: F401
+    check_quantum_mechanics,
+    get_quantum_mechanics_topic,
+    list_quantum_mechanics_topics,
+    QuantumMechanicsReport,
+    QuantumMechanicsIssue,
+    QMTopicInfo,
+)
+
+__version__ = "1.1.0"
