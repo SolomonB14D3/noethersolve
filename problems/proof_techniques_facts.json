@@ -1,0 +1,138 @@
+{
+  "problem": "proof_techniques",
+  "description": "Key proof techniques, barriers, and methods for attacking unsolved problems.",
+  "facts": [
+    {
+      "id": "pt01_diagonalization",
+      "context": "Diagonalization arguments (Cantor, Turing) prove impossibility results by:",
+      "truth": "constructing objects that differ from every element in a countable list at that element's index",
+      "distractors": [
+        "using matrix determinants",
+        "only working for finite sets",
+        "requiring physical computation"
+      ],
+      "cluster": "techniques"
+    },
+    {
+      "id": "pt02_relativization",
+      "context": "Relativization barrier for P vs NP shows that:",
+      "truth": "there exist oracles A and B where P^A = NP^A and P^B ≠ NP^B",
+      "distractors": [
+        "P = NP relative to all oracles",
+        "oracles are irrelevant to complexity",
+        "the barrier has been overcome"
+      ],
+      "cluster": "barriers"
+    },
+    {
+      "id": "pt03_algebrization",
+      "context": "The algebrization barrier (Aaronson-Wigderson 2009) extends relativization showing:",
+      "truth": "techniques that algebrize cannot separate P from NP",
+      "distractors": [
+        "algebraic methods solve P vs NP",
+        "algebrization is weaker than relativization",
+        "only applies to specific problems"
+      ],
+      "cluster": "barriers"
+    },
+    {
+      "id": "pt04_gct",
+      "context": "Geometric Complexity Theory (GCT) approaches P vs NP using:",
+      "truth": "algebraic geometry and representation theory to prove circuit lower bounds",
+      "distractors": [
+        "purely combinatorial arguments",
+        "has already separated P from NP",
+        "only works for space complexity"
+      ],
+      "cluster": "techniques"
+    },
+    {
+      "id": "pt05_forcing",
+      "context": "Cohen's forcing technique in set theory was used to prove:",
+      "truth": "independence of Continuum Hypothesis from ZFC (neither provable nor refutable)",
+      "distractors": [
+        "CH is true",
+        "CH is false",
+        "forcing cannot address CH"
+      ],
+      "cluster": "techniques"
+    },
+    {
+      "id": "pt06_model_theory",
+      "context": "The compactness theorem in model theory states:",
+      "truth": "a theory has a model iff every finite subset has a model",
+      "distractors": [
+        "all theories have models",
+        "only applies to finite theories",
+        "compactness fails for first-order logic"
+      ],
+      "cluster": "techniques"
+    },
+    {
+      "id": "pt07_circle_method",
+      "context": "The Hardy-Littlewood circle method is used in additive number theory by:",
+      "truth": "analyzing generating functions via complex contour integrals, separating major and minor arcs",
+      "distractors": [
+        "directly counting solutions",
+        "using geometric circles only",
+        "only works for prime counting"
+      ],
+      "cluster": "techniques"
+    },
+    {
+      "id": "pt08_sieve",
+      "context": "Modern sieve methods in number theory provide:",
+      "truth": "upper bounds on primes in sets but cannot prove infinitude (parity barrier)",
+      "distractors": [
+        "exact prime counts",
+        "lower bounds directly",
+        "solutions to twin prime conjecture"
+      ],
+      "cluster": "techniques"
+    },
+    {
+      "id": "pt09_ricci_flow",
+      "context": "Ricci flow, used by Perelman to prove Poincaré, evolves metric by:",
+      "truth": "∂g/∂t = -2Ric(g), deforming geometry to find canonical structures",
+      "distractors": [
+        "increasing curvature everywhere",
+        "only working in 2 dimensions",
+        "preserving volume always"
+      ],
+      "cluster": "techniques"
+    },
+    {
+      "id": "pt10_modular_forms",
+      "context": "Modular forms were essential to Wiles' proof of Fermat's Last Theorem via:",
+      "truth": "the modularity theorem linking elliptic curves to modular forms",
+      "distractors": [
+        "direct algebraic manipulation",
+        "computer enumeration",
+        "only providing partial results"
+      ],
+      "cluster": "techniques"
+    },
+    {
+      "id": "pt11_independence",
+      "context": "Paris-Harrington theorem shows that certain combinatorial statements:",
+      "truth": "are true but unprovable in Peano arithmetic (first natural independence result)",
+      "distractors": [
+        "are provable in PA",
+        "are false",
+        "require set theory to state"
+      ],
+      "cluster": "logic"
+    },
+    {
+      "id": "pt12_reverse_math",
+      "context": "Reverse mathematics classifies theorems by the axioms needed to prove them. Most analysis theorems need:",
+      "truth": "WKL₀ or ACA₀ (weak systems much weaker than full ZFC)",
+      "distractors": [
+        "full ZFC with large cardinals",
+        "only basic arithmetic",
+        "no axioms at all"
+      ],
+      "cluster": "logic"
+    }
+  ]
+}

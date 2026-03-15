@@ -1,0 +1,138 @@
+{
+  "problem": "analysis_pde_conjectures",
+  "description": "Unsolved problems in analysis, PDEs, and dynamical systems.",
+  "facts": [
+    {
+      "id": "ap01_navier_stokes_energy",
+      "context": "For 3D Navier-Stokes, energy inequality and weak solutions are known. The gap is:",
+      "truth": "whether weak solutions are unique and regular (smooth)",
+      "distractors": [
+        "energy is not conserved",
+        "weak solutions don't exist",
+        "the problem is solved"
+      ],
+      "cluster": "pde"
+    },
+    {
+      "id": "ap02_euler_blowup",
+      "context": "For 3D incompressible Euler equations, finite-time blowup:",
+      "truth": "is conjectured but not proven; recent progress by Elgindi for C^(1,α) data",
+      "distractors": [
+        "is proven impossible",
+        "is proven to occur for smooth data",
+        "only matters in 2D"
+      ],
+      "cluster": "pde"
+    },
+    {
+      "id": "ap03_kakeya",
+      "context": "The Kakeya conjecture states that Kakeya sets (containing unit segment in each direction) have:",
+      "truth": "Hausdorff dimension n in Rⁿ (proven for n=2, open for n≥3)",
+      "distractors": [
+        "dimension 0",
+        "been proven for all n",
+        "dimension n-1"
+      ],
+      "cluster": "analysis"
+    },
+    {
+      "id": "ap04_erdos_distance",
+      "context": "The Erdős distinct distances problem asks: n points in the plane determine how many distinct distances?",
+      "truth": "at least cn/√(log n) (proven by Guth-Katz 2015); conjectured cn/√(log n) is tight",
+      "distractors": [
+        "at least cn² distances",
+        "at most √n distances",
+        "the problem is solved exactly"
+      ],
+      "cluster": "analysis"
+    },
+    {
+      "id": "ap05_local_global",
+      "context": "The local-global conjecture for elliptic curves concerns:",
+      "truth": "whether local solvability (over all completions) implies global solvability",
+      "distractors": [
+        "only local solutions matter",
+        "has been fully resolved",
+        "only applies to finite fields"
+      ],
+      "cluster": "arithmetic"
+    },
+    {
+      "id": "ap06_erdos_turan",
+      "context": "The Erdős-Turán conjecture on arithmetic progressions in dense sets states:",
+      "truth": "if Σ1/aₙ diverges, the sequence contains arbitrarily long arithmetic progressions",
+      "distractors": [
+        "has been proven by Green-Tao",
+        "is known to be false",
+        "only concerns primes"
+      ],
+      "cluster": "combinatorics"
+    },
+    {
+      "id": "ap07_szemeredi_corners",
+      "context": "The corners theorem (Ajtai-Szemerédi) proves that dense subsets of [n]² contain:",
+      "truth": "corners (x,y), (x+d,y), (x,y+d) for some d>0",
+      "distractors": [
+        "no corners",
+        "only applies to 1D",
+        "the theorem is unproven"
+      ],
+      "cluster": "combinatorics"
+    },
+    {
+      "id": "ap08_mobius_randomness",
+      "context": "The Möbius randomness heuristic suggests that:",
+      "truth": "Möbius function μ(n) behaves like random ±1,0 for complexity purposes (Sarnak conjecture)",
+      "distractors": [
+        "μ(n) is predictable",
+        "μ(n) is always positive",
+        "the heuristic has been disproven"
+      ],
+      "cluster": "analysis"
+    },
+    {
+      "id": "ap09_singmaster",
+      "context": "Singmaster's conjecture states that the maximum number of times a number >1 appears in Pascal's triangle is:",
+      "truth": "finite (conjectured ≤8, known infinite entries only for 1,2,3,6,10,20,120)",
+      "distractors": [
+        "infinite for all numbers",
+        "exactly 1 for all numbers",
+        "the conjecture is proven"
+      ],
+      "cluster": "combinatorics"
+    },
+    {
+      "id": "ap10_invariant_measure",
+      "context": "The Furstenberg conjecture on ×2, ×3 ergodicity states:",
+      "truth": "the only ergodic ×2 and ×3 invariant measure on R/Z is Lebesgue (open)",
+      "distractors": [
+        "many invariant measures exist",
+        "the conjecture is proven",
+        "only applies to integers"
+      ],
+      "cluster": "dynamics"
+    },
+    {
+      "id": "ap11_regularity_minimal",
+      "context": "For minimal surfaces in Rⁿ, interior regularity holds for n≤7. For n≥8:",
+      "truth": "singular minimal hypersurfaces exist (Bombieri-De Giorgi-Giusti)",
+      "distractors": [
+        "all minimal surfaces are smooth",
+        "singularities occur in all dimensions",
+        "n=8 is the smooth threshold"
+      ],
+      "cluster": "pde"
+    },
+    {
+      "id": "ap12_uniform_boundedness",
+      "context": "The uniform boundedness of Fourier series for C¹ functions states:",
+      "truth": "partial sums are uniformly bounded (proven); open for Hölder C^α, α<1",
+      "distractors": [
+        "partial sums can grow unboundedly",
+        "is fully resolved for all regularity",
+        "only applies to L² functions"
+      ],
+      "cluster": "analysis"
+    }
+  ]
+}

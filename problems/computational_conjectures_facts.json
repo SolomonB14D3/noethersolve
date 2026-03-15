@@ -1,0 +1,138 @@
+{
+  "problem": "computational_conjectures",
+  "description": "Unsolved problems in computational complexity, algorithms, and computability.",
+  "facts": [
+    {
+      "id": "cc01_npi",
+      "context": "NP-intermediate problems (in NP but neither in P nor NP-complete) exist if:",
+      "truth": "P ≠ NP (Ladner's theorem); candidates include factoring, graph isomorphism",
+      "distractors": [
+        "P = NP",
+        "regardless of P vs NP",
+        "no such problems can exist"
+      ],
+      "cluster": "complexity"
+    },
+    {
+      "id": "cc02_graph_iso",
+      "context": "Graph isomorphism problem's complexity status is:",
+      "truth": "in quasipolynomial time (Babai 2015) but not known to be in P or NP-complete",
+      "distractors": [
+        "NP-complete",
+        "in P",
+        "undecidable"
+      ],
+      "cluster": "complexity"
+    },
+    {
+      "id": "cc03_unique_games",
+      "context": "The Unique Games Conjecture (Khot 2002) states that:",
+      "truth": "approximating unique label cover is NP-hard; implies many tight inapproximability results",
+      "distractors": [
+        "unique games are in P",
+        "has been proven",
+        "has been disproven"
+      ],
+      "cluster": "complexity"
+    },
+    {
+      "id": "cc04_bpp_p",
+      "context": "The relationship BPP =? P concerns whether:",
+      "truth": "randomized polynomial time equals deterministic polynomial time (widely believed true, open)",
+      "distractors": [
+        "BPP strictly contains P (proven)",
+        "randomness is proven necessary",
+        "the question is undecidable"
+      ],
+      "cluster": "complexity"
+    },
+    {
+      "id": "cc05_np_conp",
+      "context": "Whether NP = coNP is unknown. If NP ≠ coNP, then:",
+      "truth": "P ≠ NP (contrapositive: P = NP implies NP = coNP)",
+      "distractors": [
+        "P = NP follows",
+        "no relationship exists",
+        "NP = coNP is proven"
+      ],
+      "cluster": "complexity"
+    },
+    {
+      "id": "cc06_l_nl",
+      "context": "The L vs NL problem asks whether:",
+      "truth": "nondeterministic log-space equals deterministic log-space (open; NL ⊆ P known)",
+      "distractors": [
+        "L = NL is proven",
+        "NL is not in P",
+        "log-space is uncomputable"
+      ],
+      "cluster": "complexity"
+    },
+    {
+      "id": "cc07_matrix_mult",
+      "context": "The optimal exponent ω for matrix multiplication satisfies:",
+      "truth": "2 ≤ ω ≤ 2.373 (conjectured ω = 2, current best upper bound by Williams et al.)",
+      "distractors": [
+        "ω = 3 exactly (naive algorithm optimal)",
+        "ω = 2 is proven",
+        "ω > 3"
+      ],
+      "cluster": "algorithms"
+    },
+    {
+      "id": "cc08_sorting_lower",
+      "context": "The information-theoretic lower bound for comparison sorting n elements is:",
+      "truth": "Ω(n log n) comparisons, matched by mergesort and heapsort",
+      "distractors": [
+        "Ω(n²) comparisons",
+        "O(n) is achievable with comparisons",
+        "no lower bound exists"
+      ],
+      "cluster": "algorithms"
+    },
+    {
+      "id": "cc09_3sum",
+      "context": "The 3SUM problem (find a+b+c=0 in array) has conjectured complexity:",
+      "truth": "Ω(n²) in comparison model; recent progress shows n^(2-o(1)) is tight under some models",
+      "distractors": [
+        "O(n log n) is achievable",
+        "is NP-complete",
+        "Ω(n³) is proven"
+      ],
+      "cluster": "algorithms"
+    },
+    {
+      "id": "cc10_eth",
+      "context": "The Exponential Time Hypothesis (ETH) states that:",
+      "truth": "3-SAT cannot be solved in 2^(o(n)) time (implies many conditional lower bounds)",
+      "distractors": [
+        "3-SAT is in polynomial time",
+        "ETH has been proven",
+        "ETH has been disproven"
+      ],
+      "cluster": "complexity"
+    },
+    {
+      "id": "cc11_integer_factoring",
+      "context": "The complexity of integer factoring is:",
+      "truth": "unknown; in NP ∩ coNP but not known to be in P or NP-complete; quantum polynomial via Shor",
+      "distractors": [
+        "NP-complete",
+        "in P",
+        "undecidable"
+      ],
+      "cluster": "complexity"
+    },
+    {
+      "id": "cc12_communication",
+      "context": "The log-rank conjecture in communication complexity states:",
+      "truth": "deterministic communication ≤ (log rank)^O(1) for any boolean matrix (open)",
+      "distractors": [
+        "is proven true",
+        "is proven false",
+        "communication equals rank exactly"
+      ],
+      "cluster": "complexity"
+    }
+  ]
+}

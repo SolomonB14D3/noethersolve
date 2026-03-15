@@ -1,0 +1,138 @@
+{
+  "problem": "number_theory_conjectures",
+  "description": "Major unsolved conjectures in number theory - primes, Diophantine equations, and arithmetic.",
+  "facts": [
+    {
+      "id": "nt01_goldbach",
+      "context": "Goldbach's Conjecture (1742) states that:",
+      "truth": "every even integer greater than 2 is the sum of two primes",
+      "distractors": [
+        "every odd integer is the sum of two primes",
+        "every integer is prime or the sum of two primes",
+        "the conjecture has been proven"
+      ],
+      "cluster": "additive"
+    },
+    {
+      "id": "nt02_goldbach_weak",
+      "context": "The weak Goldbach conjecture (odd Goldbach) states every odd n>5 is sum of three primes. Its status is:",
+      "truth": "proven by Harald Helfgott in 2013",
+      "distractors": [
+        "still unsolved",
+        "disproven by counterexample",
+        "equivalent to strong Goldbach"
+      ],
+      "cluster": "additive"
+    },
+    {
+      "id": "nt03_twin_prime",
+      "context": "The Twin Prime Conjecture states that:",
+      "truth": "there are infinitely many pairs of primes differing by 2",
+      "distractors": [
+        "twin primes are finite in number",
+        "all primes greater than 3 are twins",
+        "the conjecture has been proven"
+      ],
+      "cluster": "primes"
+    },
+    {
+      "id": "nt04_twin_progress",
+      "context": "Zhang's 2013 breakthrough on bounded gaps between primes showed:",
+      "truth": "infinitely many prime pairs with gap at most 70 million (now reduced to 246)",
+      "distractors": [
+        "the twin prime conjecture is true",
+        "there are only finitely many close primes",
+        "no progress on prime gaps"
+      ],
+      "cluster": "primes"
+    },
+    {
+      "id": "nt05_collatz",
+      "context": "The Collatz Conjecture states that iterating n→n/2 (even) or n→3n+1 (odd):",
+      "truth": "eventually reaches 1 for all positive integers",
+      "distractors": [
+        "has cycles other than 4-2-1",
+        "diverges for some integers",
+        "has been proven for all integers"
+      ],
+      "cluster": "dynamics"
+    },
+    {
+      "id": "nt06_collatz_verified",
+      "context": "Computational verification of the Collatz Conjecture has confirmed it for:",
+      "truth": "all integers up to approximately 10^20",
+      "distractors": [
+        "only integers up to 1 million",
+        "a counterexample exists near 10^15",
+        "computation cannot help"
+      ],
+      "cluster": "dynamics"
+    },
+    {
+      "id": "nt07_abc",
+      "context": "The ABC Conjecture relates the prime factors of a, b, and a+b=c. It states:",
+      "truth": "for any ε>0, there are finitely many triples where c > rad(abc)^(1+ε)",
+      "distractors": [
+        "a+b always equals c exactly",
+        "the radical is always larger than c",
+        "the conjecture has been definitively proven"
+      ],
+      "cluster": "diophantine"
+    },
+    {
+      "id": "nt08_abc_status",
+      "context": "Mochizuki's claimed proof of ABC using Inter-universal Teichmüller Theory (IUT):",
+      "truth": "remains controversial with key steps disputed by Scholze and Stix",
+      "distractors": [
+        "is universally accepted",
+        "has been definitively refuted",
+        "does not address ABC at all"
+      ],
+      "cluster": "diophantine"
+    },
+    {
+      "id": "nt09_legendre",
+      "context": "Legendre's Conjecture states that between n² and (n+1)² there is:",
+      "truth": "always at least one prime (unproven)",
+      "distractors": [
+        "never any primes",
+        "exactly one prime always",
+        "the conjecture has been proven"
+      ],
+      "cluster": "primes"
+    },
+    {
+      "id": "nt10_sophie_germain",
+      "context": "A Sophie Germain prime p satisfies that 2p+1 is also prime. The conjecture states:",
+      "truth": "there are infinitely many Sophie Germain primes (unproven)",
+      "distractors": [
+        "Sophie Germain primes are finite",
+        "all primes are Sophie Germain",
+        "the conjecture has been proven"
+      ],
+      "cluster": "primes"
+    },
+    {
+      "id": "nt11_fermat_primes",
+      "context": "Fermat numbers F_n = 2^(2^n) + 1 are prime for n=0,1,2,3,4. The conjecture on Fermat primes:",
+      "truth": "whether infinitely many exist is unknown; none found for n>4",
+      "distractors": [
+        "all Fermat numbers are prime",
+        "there are exactly 5 Fermat primes (proven)",
+        "F_5 is prime"
+      ],
+      "cluster": "primes"
+    },
+    {
+      "id": "nt12_mersenne",
+      "context": "Mersenne primes have form 2^p - 1 where p is prime. It is conjectured that:",
+      "truth": "infinitely many Mersenne primes exist (unproven, but 51 known)",
+      "distractors": [
+        "there are only finitely many",
+        "all 2^p - 1 are prime when p is prime",
+        "the largest possible has been found"
+      ],
+      "cluster": "primes"
+    }
+  ]
+}
