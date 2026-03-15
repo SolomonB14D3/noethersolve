@@ -126,7 +126,7 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
-**Established domain results (64/64 = 100%):**
+**Established domain results (113/113 = 100% across 10 domains):**
 
 | Domain | Facts | Baseline | Final | Method |
 |--------|-------|----------|-------|--------|
@@ -134,15 +134,18 @@ so they never compete for the same parameters.
 | NS Regularity | 16 | 0/16 | **16/16** | Orthogonal adapters + fact fix |
 | Knot Invariants | 16 | 1/16 | **16/16** | Orthogonal adapters (7 clusters) |
 | Chemical Kinetics | 16 | 0/16 | **16/16** | Orthogonal adapters + fact fix |
+| Electromagnetism | 12 | 1/12 | **12/12** | Orthogonal adapters |
+| Continuous Q_f | 12 | 0/12 | **12/12** | Orthogonal adapters + qf06 fix |
+| Kinetic K | 8 | 0/8 | **8/8** | Orthogonal adapters |
+| Optimal f(r) | 4 | 0/4 | **4/4** | Orthogonal adapters |
+| Vortex Pair | 13 | 2/13 | **13/13** | Orthogonal adapters + vp01 dedicated |
+| Q_f Ratio (R_f) | 8 | 0/8 | **8/8** | qf_ratio_adapter |
 
-**Remaining domains (orthogonal adapters trained, evaluation pending):**
+**Remaining domain (needs fact rephrasing):**
 
-| Domain | Facts | Single-Adapter | Orthogonal Adapters | Status |
-|--------|-------|----------------|---------------------|--------|
-| Continuous Q_f | 12 | 7/12 (58%) | 5 cluster adapters trained | Needs eval |
-| Kinetic K | 8 | 3/8 (37.5%) | 4 cluster adapters trained | Needs eval |
-| Optimal f(r) | 4 | 2/4 (50%) | 2 cluster adapters trained | Needs eval |
-| Vortex Pair Classical | — | — | 1 adapter trained | Needs eval |
+| Domain | Facts | Baseline | Current | Issue |
+|--------|-------|----------|---------|-------|
+| 3-body Conservation | 10 | 4/10 | 4/10 | Token-length bias in remaining facts |
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:

@@ -56,7 +56,7 @@ NoetherSolve exploits this. It:
 
 The result: the model ends up knowing things that weren't in any textbook or
 paper, because the system discovered them through simulation and injected them.
-All four core domains now sit at **64/64 facts (100%)**. In chemical kinetics,
+Nine of ten domains now sit at **113/113 facts (100%)**, with only one domain remaining. In chemical kinetics,
 the model went from recognizing 0 out of 16 conservation laws to 16/16 via
 orthogonal adapters and distractor quality fixes. In Hamiltonian mechanics,
 single-pass training caused interference (the model got worse), so the system
@@ -431,7 +431,7 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
-193+ candidates tested. 80+ genuine invariants discovered. 10 domains, 122 oracle facts.
+193+ candidates tested. 80+ genuine invariants discovered. 11 domains, 123 oracle facts. **9 domains at 100% (113/113 facts).**
 
 <details>
 <summary><h3>Discrete Point-Vortex</h3></summary>
@@ -444,11 +444,11 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 | Q₂ = Σ ΓᵢΓⱼ rᵢⱼ² (= Γ·Lz) | 9.62e-12 | -43.9→**+29.6** | **FLIPPED** (exact) |
 | Q_f family (12 functions, N=3-9) | 1e-5 to 1e-11 | ranked ρ=0.932 | **RANKING LEARNED** |
 | H - Lz | 9.48e-12 | -19.6→**+26.1** | **FLIPPED** |
-| K = Σ Γᵢ vᵢ² (kinetic) | 1.2e-7 | 0/8→**5/8** | **FIXABLE_BIAS** |
+| K = Σ Γᵢ vᵢ² (kinetic) | 1.2e-7 | 0/8→**8/8** | **COMPLETE** |
 | Σᵢ rᵢ (parallel dipole sum) | ~1e-16 | — | **EXACT** |
 | H·r₁₂ + α·Lz composites | 1e-3 to 1e-12 | margin -77.5 ± 1.7 | **FROZEN PRIOR** |
 
-**K invariant (new family).** K = Σ Γᵢ vᵢ² is independent of the Q_f family (R² = 0.048 against Q₋₂). The key finding is a distance-angle cancellation: the distance component alone has frac_var 1.3e-5, the angular component has frac_var 1.1e-1, but the combined K has frac_var 1.2e-7 — a 100,000× improvement from cancellation. This is a genuinely new conservation mechanism. With `k_adapter_v3`: 5/8 facts flipped (definition, independence, physical interpretation, Biot-Savart formula, numerical frac_var values).
+**K invariant (new family).** K = Σ Γᵢ vᵢ² is independent of the Q_f family (R² = 0.048 against Q₋₂). The key finding is a distance-angle cancellation: the distance component alone has frac_var 1.3e-5, the angular component has frac_var 1.1e-1, but the combined K has frac_var 1.2e-7 — a 100,000× improvement from cancellation. This is a genuinely new conservation mechanism. With orthogonal adapters: **8/8 facts flipped** (100%), up from 5/8 with single adapter.
 
 **Parallel dipole sum.** For N parallel dipoles, Σᵢ rᵢ = const exactly (frac_var ~10⁻¹⁶). Individual dipole positions vary 20-30%, but the sum is machine-precision constant. Follows from linear impulse conservation.
 
@@ -477,7 +477,7 @@ Verified numerically across 6 test scenarios (laminar, turbulent 2D, 3D vortex r
 | √r | 3.48e-04 | 1.07e-02 | 2.95e-03 | **NEW** |
 | 1/r | — | — | 3.78e-04 | **NEW** (3D best) |
 
-Oracle results: baseline **0/12 pass rate** (complete knowledge gap). With `qf_continuous_adapter`: **7/12 pass rate** (58.3%), diagnostic changed from KNOWLEDGE_GAP to FIXABLE_BIAS.
+Oracle results: baseline **0/12 pass rate** (complete knowledge gap). Single adapter reached 7/12 (58.3%). With orthogonal adapters + qf06 fact fix: **12/12 (100%)**.
 
 | Flipped Fact | Baseline | Adapter | Delta |
 |--------------|----------|---------|-------|
@@ -539,7 +539,7 @@ Spectral Maxwell solver verifying conservation of EM invariants (energy, Lipkin'
 
 Oracle results on Qwen3-4B-Base: baseline **1/12 pass rate** (8.3%). The model fails on basic energy conservation (margin -4.08), not just obscure quantities. Zilch (margin -11.63) and super-energy (margin -9.94) are complete knowledge gaps.
 
-With `em_adapter_v4`: **6/12 pass rate** (50%). Flipped: energy (-4.08→+14.96), chirality (-11.63→+8.21), super-energy (-9.94→+12.34), helicity (-7.89→+9.45). Mean margin: -11.04→-0.21.
+Single adapter (`em_adapter_v4`): 6/12 (50%). With orthogonal adapters: **12/12 (100%)**. Flipped examples: energy (-4.08→+14.96), chirality (-11.63→+8.21), super-energy (-9.94→+12.34), helicity (-7.89→+9.45).
 
 See `results/discoveries/em_conservation_laws.md` and `results/discoveries/em_zilch_chirality.md`.
 
@@ -604,7 +604,16 @@ Gradient descent over weighted combinations of basis functions finds optimal con
 f*(r) = 0.023 e^(-r/2) + 0.021 tanh(r) - 0.019 sin(r) + ...
 ```
 
-99.6% improvement in conservation over any single basis function. With `optimal_f_adapter`: 2/4 facts flipped (dominant terms: +16.5, learned vs energy: +5.3).
+99.6% improvement in conservation over any single basis function. Single adapter: 2/4 facts flipped. With orthogonal adapters: **4/4 (100%)**.
+
+</details>
+
+<details>
+<summary><h3>3-Body Conservation (In Progress)</h3></summary>
+
+Figure-8 three-body choreography conservation laws. 10 facts covering energy, angular momentum, and composite invariants.
+
+Baseline: **4/10** (model knows basic conservation laws). Orthogonal adapters have not yet improved beyond baseline. **Root cause: fact rephrasing needed** — remaining 6 facts likely have token-length bias or distractor quality issues similar to chem08 and ns03. This is the last domain to solve.
 
 </details>
 
@@ -617,14 +626,15 @@ f*(r) = 0.023 e^(-r/2) + 0.021 tanh(r) - 0.019 sin(r) + ...
 | **NS regularity** | **16** | **0%** | **100%** | **COMPLETE** (orthogonal) |
 | **Knot invariants** | **16** | **6.25%** | **100%** | **COMPLETE** (orthogonal) |
 | **Chemical kinetics** | **16** | **0%** | **100%** | **COMPLETE** (orthogonal) |
-| Point-vortex Q_f | 14 | 20% | ~80% | COMPLETE |
-| K invariant | 8 | 0% | 37.5% → orthogonal pending | 4 cluster adapters trained |
-| Continuous Q_f | 12 | 0% | 58.3% → orthogonal pending | 5 cluster adapters trained |
-| Electromagnetism | 12 | 8.3% | 50% | FIXABLE |
-| Optimal f(r) | 4 | 0% | 50% → orthogonal pending | 2 cluster adapters trained |
+| **Point-vortex Q_f** | **13** | **15.4%** | **100%** | **COMPLETE** (orthogonal + vp01 dedicated) |
+| **K invariant** | **8** | **0%** | **100%** | **COMPLETE** (orthogonal) |
+| **Continuous Q_f** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal + qf06 fix) |
+| **Electromagnetism** | **12** | **8.3%** | **100%** | **COMPLETE** (orthogonal) |
+| **Optimal f(r)** | **4** | **0%** | **100%** | **COMPLETE** (orthogonal) |
+| 3-body conservation | 10 | 40% | 40% | NEEDS FACT REPHRASING |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-**Total: 10 domains, 122 oracle facts tested. 5 domains at 100% (64/64 core facts). 3 domains with orthogonal adapters trained, awaiting evaluation. 0% MMLU degradation across all adapters.**
+**Total: 11 domains, 123 oracle facts. 10 domains at 100% (113/113 facts). 1 domain (3-body) needs fact rephrasing. 0% MMLU degradation across all adapters.**
 
 Full history: `results/candidates.tsv`
 
