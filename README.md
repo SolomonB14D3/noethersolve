@@ -224,13 +224,21 @@ the same length. This flipped the last chemical kinetics holdout from -3.8 to
 </details>
 
 <details>
-<summary><strong>Never stack adapters</strong></summary>
+<summary><strong>Never stack adapters — but blending works</strong></summary>
 
-Joint + specialist stacked = regression. Training a
-specialist on gap facts and stacking it on top of a joint adapter destroyed
-the joint adapter's wins (8/16 → 5/16). The specialist overwrites what the
-joint adapter learned. Use cluster routing instead: apply each adapter only to
-its assigned facts, never combine weights.
+**Stacking fails.** Training a specialist on gap facts and layering it on top
+of a joint adapter at inference destroyed the joint adapter's wins (8/16 →
+5/16). The specialist overwrites what the joint adapter learned. Never combine
+adapter weights by averaging or stacking at inference.
+
+**Blending works.** Cross-domain joint training (difficulty-weighted sampling)
+produces a single adapter that lifts multiple domains simultaneously:
+Hamiltonian 14/16, NS 10/16, Knot 11/16, Chemical 13/16 — all from ONE
+adapter. Not as good as orthogonal routing (which gets 16/16 per domain), but
+a viable middle ground when routing complexity is a concern.
+
+The distinction: training one adapter from scratch on mixed data = blending
+(works). Combining separately trained adapters at inference = stacking (fails).
 
 </details>
 
