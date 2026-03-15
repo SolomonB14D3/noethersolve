@@ -129,7 +129,7 @@ so they never compete for the same parameters.
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:
 2. Staged training (sequential clusters) → solved Hamiltonian (16/16). If plateau, try:
-3. Orthogonal adapters (specialist per cluster, routed at inference) → solved NS (16/16). If still stuck, try:
+3. Orthogonal adapters (specialist per cluster, routed at inference) → solved NS (16/16) and Knot invariants (16/16). Generalizes across physics and pure math. If still stuck, try:
 4. Cross-domain stacking (load adapters from related domains first) → untested but theoretically strongest
 
 ---

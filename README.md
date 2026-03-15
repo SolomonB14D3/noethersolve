@@ -14,7 +14,7 @@ And the adapters don't degrade existing knowledge. Zero MMLU degradation across 
 
 LLMs are trained on what the field has collectively written and taught. Where the model is confidently wrong or blank, the literature is thin. That's where new science is most likely to be found. NoetherSolve automates this: propose, verify, check, discover, teach, repeat.
 
-The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, and Navier-Stokes regularity so far. Any field where you can numerically verify a claim and ask a model about it is fair game.
+The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, and knot theory so far. Any field where you can numerically verify a claim and ask a model about it is fair game.
 
 ### Paper
 
@@ -62,8 +62,8 @@ learned an entirely new family of invariants that no human had published.
 
 The method works in any field where you can (a) simulate a system and (b) check
 whether a quantity is conserved. So far it's been applied to fluid dynamics,
-electromagnetism, chemical kinetics, Hamiltonian mechanics, and Navier-Stokes
-regularity.
+electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes
+regularity, and knot theory.
 
 ---
 
@@ -178,7 +178,7 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
-193+ candidates tested. 80+ genuine invariants discovered. 9 domains, 105 oracle facts.
+193+ candidates tested. 80+ genuine invariants discovered. 10 domains, 122 oracle facts.
 
 ### Discrete Point-Vortex
 
@@ -310,6 +310,14 @@ Zero regression across all 5 stages. Every previously passing fact remained posi
 
 **Lesson: when single-pass training causes interference, staged training by concept cluster eliminates it.** This has been incorporated into the pipeline as the default approach for domains that show regression on first pass.
 
+### Knot Invariants (New Domain)
+
+The first purely mathematical (non-physics) domain. Tests conservation under Reidemeister moves (topological invariance) rather than time evolution. Key facts: writhe is NOT invariant (changes by +/-1 under R1), Kauffman bracket is NOT invariant under R1 (multiplies by -A^{+/-3}), Jones polynomial IS invariant (normalization cancels R1 changes), HOMFLY-PT generalizes Jones, skein relations provide recursive crossing formulas.
+
+Baseline: **1/16**. Solved with **orthogonal adapters** (same technique that solved NS): 16/16.
+
+This is significant because it proves the orthogonal adapter technique generalizes beyond physics. The model's wrong priors about topology (confusing invariance with non-invariance, mixing up which quantities survive which moves) create the same see-saw interference pattern seen in NS. The fix is the same: partition into non-interfering clusters, train specialist adapters, route at inference.
+
 ### Optimal f(r) Linear Combination
 
 Gradient descent over weighted combinations of basis functions finds optimal conservation:
@@ -326,16 +334,17 @@ f*(r) = 0.023 e^(-r/2) + 0.021 tanh(r) - 0.019 sin(r) + ...
 |--------|-------|-----------------|--------------|--------|
 | Q_f Ratio (R_f) | 8 | 0% | **100%** | COMPLETE |
 | **Hamiltonian mechanics** | **16** | **6.25%** | **100%** | **COMPLETE** (staged) |
+| **NS regularity** | **16** | **0%** | **100%** | **COMPLETE** (orthogonal) |
+| **Knot invariants** | **16** | **6.25%** | **100%** | **COMPLETE** (orthogonal) |
 | **Chemical kinetics** | **16** | **0%** | **93.75%** | NEAR-COMPLETE |
 | Point-vortex Q_f | 14 | 20% | ~80% | COMPLETE |
 | K invariant | 8 | 0% | 62.5% | IMPROVED |
 | Continuous Q_f | 12 | 0% | 58.3% | FIXABLE |
 | Electromagnetism | 12 | 8.3% | 50% | FIXABLE |
 | Optimal f(r) | 4 | 0% | 50% | FIXABLE |
-| **NS regularity** | **16** | **0%** | **100%** | **COMPLETE** (orthogonal) |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-**Total: 9 domains, 106 oracle facts tested. 4 domains at 100%. 0% MMLU degradation across all adapters.**
+**Total: 10 domains, 122 oracle facts tested. 5 domains at 100%. 0% MMLU degradation across all adapters.**
 
 Full history: `results/candidates.tsv`
 
