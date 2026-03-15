@@ -1259,6 +1259,8 @@ def check_llm_claim(claim: str) -> LLMClaimResult:
     -------
     LLMClaimResult
         Verdict (TRUE/FALSE/MISLEADING/NUANCED/UNKNOWN), evidence, and references.
+        Returns UNKNOWN when no confident match exists — never forces a
+        misleading match from weak keyword overlap.
     """
     matches = _match_claim_to_topics(claim)
 
@@ -1266,7 +1268,9 @@ def check_llm_claim(claim: str) -> LLMClaimResult:
         return LLMClaimResult(
             verdict="UNKNOWN",
             claim=claim,
-            evidence="No matching topic found in the reference database.",
+            evidence="No matching topic found in the reference database. "
+            "This tool covers LLM capabilities, training, and behavior — "
+            "claims outside that scope will return UNKNOWN.",
             confidence=0.0,
         )
 
@@ -1391,19 +1395,16 @@ def check_llm_claim(claim: str) -> LLMClaimResult:
             references=topic.references,
         )
 
-    # Matched topic but couldn't classify as truth or misconception
-    top_id, top_score = matches[0]
-    topic = _DATABASE[top_id]
-    confidence = min(top_score / 3.0, 1.0)
+    # Matched topic on keywords but couldn't classify as truth or misconception.
+    # This means the claim doesn't actually align with anything we know —
+    # return UNKNOWN rather than forcing a misleading NUANCED verdict.
     return LLMClaimResult(
-        verdict="NUANCED",
+        verdict="UNKNOWN",
         claim=claim,
-        evidence=f"Related to '{topic.description}'. "
-        f"Established: {topic.truth}",
-        domain=topic.domain,
-        topic_id=top_id,
-        confidence=confidence * 0.5,
-        references=topic.references,
+        evidence="Weak keyword match but claim doesn't align with any known "
+        "finding in the reference database. This tool covers LLM capabilities, "
+        "training, and behavior — claims outside that scope will return UNKNOWN.",
+        confidence=0.0,
     )
 
 

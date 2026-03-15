@@ -1,4 +1,4 @@
-"""NoetherSolve MCP Server — expose 32 verified tools to any AI agent.
+"""NoetherSolve MCP Server — expose 37 verified tools to any AI agent.
 
 The full pipeline: find gaps → flip facts → build tool → add to MCP server.
 Every tool added here makes every connected agent smarter.
@@ -14,8 +14,8 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="32 computational tools for physics, math, genetics, and LLM science — "
-                 "verified reference databases, not guesses.",
+    instructions="37 computational tools for physics, math, genetics, and LLM science — "
+                 "verified calculators and reference databases, not guesses.",
 )
 
 
@@ -561,6 +561,137 @@ def discover_conservation_law(
         weights = [1.0] * len(trajs)
     learner = InvariantLearner()
     report = learner.learn_from_positions(trajs, weights)
+    return str(report)
+
+
+# ── Control Systems (CALCULATOR) ─────────────────────────────────
+
+@mcp.tool()
+def simulate_pid(
+    Kp: float = 1.0,
+    Ki: float = 0.0,
+    Kd: float = 0.0,
+    plant_num: list[float] = [1.0],
+    plant_den: list[float] = [1.0, 3.0, 1.0],
+    setpoint: float = 1.0,
+    t_final: float = 20.0,
+) -> str:
+    """Simulate PID controller step response with a transfer-function plant.
+
+    COMPUTES overshoot, settling time, steady-state error, and windup detection.
+
+    Kp, Ki, Kd: PID gains
+    plant_num, plant_den: transfer function coefficients (highest power first)
+        Default plant: 1/(s^2 + 3s + 1) (underdamped 2nd order)
+    setpoint: step input magnitude
+    t_final: simulation duration (seconds)
+
+    Example: simulate_pid(Kp=2.5, Ki=0.8, Kd=0.1)
+    """
+    from noethersolve.control import simulate_pid as _sim
+    report = _sim(
+        Kp=Kp, Ki=Ki, Kd=Kd,
+        plant_num=plant_num, plant_den=plant_den,
+        setpoint=setpoint, t_final=t_final,
+    )
+    return str(report)
+
+
+@mcp.tool()
+def analyze_stability(coefficients: list[float]) -> str:
+    """Analyze stability of a characteristic polynomial via Routh-Hurwitz.
+
+    COMPUTES pole locations, sign changes, and stability verdict.
+
+    coefficients: polynomial coefficients, highest power first.
+        E.g. [1, 3, 3, 1] for s^3 + 3s^2 + 3s + 1
+
+    Example: analyze_stability([1, 6, 11, 6])  → stable, poles at -1,-2,-3
+    """
+    from noethersolve.control import analyze_stability as _analyze
+    report = _analyze(coefficients)
+    return str(report)
+
+
+# ── Transaction Isolation (CALCULATOR) ───────────────────────────
+
+@mcp.tool()
+def check_isolation(
+    isolation_level: str,
+    anomaly: str = "",
+) -> str:
+    """Check which concurrency anomalies are possible under a SQL isolation level.
+
+    COMPUTES possible anomalies, prevented anomalies, and common misconceptions.
+
+    isolation_level: READ_UNCOMMITTED, READ_COMMITTED, REPEATABLE_READ,
+                     SNAPSHOT, SERIALIZABLE
+    anomaly: optional specific anomaly to check (e.g. "phantom_read",
+             "write_skew", "lost_update", "dirty_read")
+
+    Example: check_isolation("REPEATABLE_READ", "phantom_read")
+    → YES, phantom reads are still possible (common misconception!)
+    """
+    from noethersolve.isolation import check_isolation as _check
+    report = _check(isolation_level, anomaly=anomaly if anomaly else None)
+    return str(report)
+
+
+@mcp.tool()
+def analyze_schedule(
+    transactions: list[list[list[str]]],
+    isolation: str = "READ_COMMITTED",
+) -> str:
+    """Analyze a concrete transaction schedule for conflicts and anomalies.
+
+    COMPUTES conflict graph, possible anomalies, and serializability.
+
+    transactions: list of transactions, each a list of [operation, item] pairs.
+        Operation: "R" (read) or "W" (write). Item: data item name.
+        Example: [[["R","x"],["W","x"]], [["R","x"],["W","x"]]]
+    isolation: isolation level to analyze under
+
+    Example: two transactions both read-then-write x → detects lost update risk
+    """
+    from noethersolve.isolation import analyze_schedule as _analyze
+    # Convert list-of-lists to list-of-tuples
+    txns = [[(op, item) for op, item in txn] for txn in transactions]
+    report = _analyze(txns, isolation=isolation)
+    return str(report)
+
+
+# ── Quantum Circuit Simulation (CALCULATOR) ──────────────────────
+
+@mcp.tool()
+def simulate_quantum_circuit(
+    n_qubits: int,
+    gates: list[list],
+) -> str:
+    """Simulate a quantum circuit and compute measurement probabilities.
+
+    COMPUTES state vector, probabilities, entanglement, and von Neumann entropy.
+
+    n_qubits: number of qubits (max 10)
+    gates: list of gates, each [name, qubits] or [name, qubits, param].
+        Names: "H", "X", "Y", "Z", "S", "T", "CNOT", "CZ", "SWAP",
+               "RX", "RY", "RZ", "TOFFOLI"
+        qubits: list of qubit indices (0-indexed)
+
+    Examples:
+        Bell state: [["H",[0]], ["CNOT",[0,1]]]
+        GHZ state:  [["H",[0]], ["CNOT",[0,1]], ["CNOT",[0,2]]]
+    """
+    from noethersolve.quantum_circuit import simulate_circuit as _sim
+    # Convert gate lists to tuples
+    gate_tuples = []
+    for g in gates:
+        if len(g) == 2:
+            gate_tuples.append((g[0], g[1]))
+        elif len(g) == 3:
+            gate_tuples.append((g[0], g[1], g[2]))
+        else:
+            return f"Invalid gate spec: {g}. Expected [name, qubits] or [name, qubits, param]."
+    report = _sim(n_qubits, gate_tuples)
     return str(report)
 
 

@@ -419,8 +419,9 @@ class TestEdgeCases:
 
     def test_special_characters(self):
         result = check_llm_claim("RLHF < 50% effective!!!???")
-        # Should still match RLHF
-        assert result.verdict != "UNKNOWN"
+        # Weak keyword match with no clear truth/misconception alignment
+        # should return UNKNOWN rather than a misleading verdict
+        assert result.verdict == "UNKNOWN"
 
     def test_case_insensitive_claim(self):
         r1 = check_llm_claim("RLHF eliminates sycophancy")
