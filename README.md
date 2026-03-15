@@ -56,7 +56,7 @@ NoetherSolve exploits this. It:
 
 The result: the model ends up knowing things that weren't in any textbook or
 paper, because the system discovered them through simulation and injected them.
-All 24 domains now sit at **275/275 facts (100%)** — 11 physics/math domains, 7 genetics therapeutics domains, and 6 unsolved mathematics domains. In chemical kinetics,
+All 30 domains now sit at **411/411 facts (100%)** — 11 physics domains (123 facts), 7 genetics therapeutics domains (82 facts), 6 unsolved mathematics domains (70 facts), 6 LLM science domains (70 facts), and 6 programming language domains (66 facts). In chemical kinetics,
 the model went from recognizing 0 out of 16 conservation laws to 16/16 via
 orthogonal adapters and distractor quality fixes. In Hamiltonian mechanics,
 single-pass training caused interference (the model got worse), so the system

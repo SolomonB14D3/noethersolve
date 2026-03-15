@@ -126,7 +126,7 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
-**Established domain results (275/275 = 100% across all 24 domains):**
+**Established domain results (411/411 = 100% across all 30 domains):**
 
 | Domain | Facts | Baseline | Final | Method |
 |--------|-------|----------|-------|--------|
@@ -154,8 +154,20 @@ so they never compete for the same parameters.
 | Proof Techniques | 12 | 3/12 | **12/12** | Orthogonal adapters |
 | Analysis/PDE Conjectures | 12 | 0/12 | **12/12** | Orthogonal adapters |
 | Computational Conjectures | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| LLM Hallucination | 12 | 5/12 | **12/12** | Orthogonal adapters |
+| LLM Reasoning | 12 | 4/12 | **12/12** | Orthogonal adapters |
+| LLM Alignment | 12 | 3/12 | **12/12** | Orthogonal adapters |
+| LLM Training | 12 | 5/12 | **12/12** | Orthogonal adapters |
+| LLM Evaluation | 12 | 4/12 | **12/12** | Orthogonal adapters |
+| LLM Context/Memory | 10 | 4/10 | **10/10** | Orthogonal adapters |
+| PL Type Systems | 12 | 5/12 | **12/12** | Orthogonal adapters |
+| PL Memory | 10 | 4/10 | **10/10** | Orthogonal adapters |
+| PL Concurrency | 10 | 6/10 | **10/10** | Orthogonal adapters |
+| PL Paradigms | 12 | 10/12 | **12/12** | Orthogonal adapters |
+| PL Compilers | 12 | 6/12 | **12/12** | Orthogonal adapters |
+| PL Pitfalls | 10 | 6/10 | **10/10** | Orthogonal adapters |
 
-**All 275 facts flipped across all 24 domains (100%).**
+**All 411 facts flipped across all 30 domains (100%).**
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:
@@ -426,7 +438,8 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/number_theory.py` | Number theory conjecture numerical verifier |
 | `noethersolve/reductions.py` | Computational reduction chain validator |
 | `noethersolve/pde_regularity.py` | PDE regularity and Sobolev embedding checker |
-| `tests/` | 777 tests for all 20 toolkit modules |
+| `noethersolve/llm_claims.py` | LLM claims auditor (benchmark checker, scaling calculator, misconception DB) |
+| `tests/` | 842 tests for all 21 toolkit modules |
 
 ---
 
