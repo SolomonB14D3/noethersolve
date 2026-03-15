@@ -26,7 +26,7 @@ Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ra
 **NoetherSolve Toolkit: Conservation Law Monitoring, Discovery, and Scientific Auditing Across Physics, Genetics, and Mathematics** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
-Twenty tools organized in three tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 7 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer, pharmacokinetics checker, fact auditor), and 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor). Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 777 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
+Twenty-one tools organized in four tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 7 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer, pharmacokinetics checker, fact auditor), 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor), and 1 LLM science tool (claims auditor with benchmark checker and scaling calculator). Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 842 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 ---
 
@@ -562,6 +562,27 @@ print(check_sobolev_embedding(1, 2, 3))  # W^{1,2}(R^3) → L^6 (subcritical)
 print(check_pde_regularity("navier-stokes", 3, "global_smooth"))  # → WARN: open problem
 ```
 
+**LLM Claims Auditor** — validates claims about LLM capabilities against a curated database of 35+ established findings:
+
+```python
+from noethersolve import audit_llm_claims, check_benchmark_score, chinchilla_optimal
+
+# Audit claims
+report = audit_llm_claims([
+    "RLHF eliminates sycophancy",          # → FALSE (known misconception)
+    "scaling laws follow power-law relationships",  # → TRUE
+])
+print(report)
+
+# Check specific benchmark scores
+result = check_benchmark_score("gpt-4", "mmlu", 99.0)
+print(result)  # → FALSE: above published range [86.0, 87.5]
+
+# Chinchilla-optimal compute
+opt = chinchilla_optimal(params_B=7.0)
+print(f"Optimal: {opt['tokens_B']}B tokens for 7B params")
+```
+
 </details>
 
 <details>
@@ -578,7 +599,7 @@ these tools against 5 experiments:
 | Chemical violation | Perturbed rate constants | Wegscheider cycle product shifts 3.33 to 0.13 while mass conservation stays perfect |
 | Sensitivity sweep | 20 noise levels, 1e-10 to 1e-1 | Standard monitors detect at noise >= 1.8e-6; discovered monitors have baseline sensitivity at 1e-10 |
 
-**777 tests passing** across all 20 tools (`pytest tests/`).
+**842 tests passing** across all 21 tools (`pytest tests/`).
 
 </details>
 
@@ -947,7 +968,7 @@ NoetherSolve
 ├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
 ├── dashboard.py                ← Results dashboard from candidates.tsv
 │
-├── noethersolve/               ← Core package (20 toolkit modules)
+├── noethersolve/               ← Core package (21 toolkit modules)
 │   ├── adapter.py              ← Snap-on logit adapter (SwiGLU)
 │   ├── audit_chem.py           ← Chemical network thermodynamic auditor
 │   ├── audit_facts.py          ← Oracle fact quality auditor (token-length bias)
