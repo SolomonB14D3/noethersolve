@@ -54,8 +54,11 @@ In chemical kinetics, the model went from recognizing 0 out of 16 conservation
 laws to 15 out of 16 after one pass. In Hamiltonian mechanics, single-pass
 training caused interference (the model got worse), so the system broke the
 domain into concept clusters and trained them in stages: 5 stages later, 16/16
-with zero regression. In fluid dynamics, it learned an entirely new family of
-invariants that no human had published.
+with zero regression. In Navier-Stokes, staged training plateaued at 6/16, so
+the system switched to orthogonal adapters (one specialist per concept cluster,
+facts routed to their specialist at inference): 10/16 and climbing. Each time a
+domain resists, the system finds a new angle. In fluid dynamics, it learned an
+entirely new family of invariants that no human had published.
 
 The method works in any field where you can (a) simulate a system and (b) check
 whether a quantity is conserved. So far it's been applied to fluid dynamics,
@@ -103,12 +106,18 @@ short of flipping often get rescued once the model has absorbed neighboring
 discoveries. Survivors get promoted to high-priority in the open questions
 queue for the next run.
 
-**Staged training for hard domains.** When single-pass adapter training causes
-interference (margins get worse instead of better), the system falls back to
-staged training: group facts into conceptual clusters, train each cluster
-sequentially, and verify zero regression at each stage. This solved Hamiltonian
-mechanics (1/16 baseline, interference on single pass, 16/16 after 5 stages
-with zero regression throughout).
+**Escalation for hard domains:**
+
+1. **Single-pass** — one adapter for the whole domain. Works for clean domains
+   (chemical kinetics: 0/16 to 15/16 in one pass).
+2. **Staged training** — group facts into clusters, train sequentially, verify
+   zero regression at each stage. Solved Hamiltonian mechanics (1/16 to 16/16
+   in 5 stages).
+3. **Orthogonal adapters** — when staged training plateaus because facts
+   interfere within a single adapter, train separate specialist adapters per
+   concept cluster. Each adapter learns one cluster without fighting the others.
+   Route facts to their specialist at inference. Broke the NS regularity
+   plateau (6/16 staged to 10/16 with orthogonal cluster adapters, climbing).
 
 ---
 
@@ -241,16 +250,21 @@ See `research/qf_regularity_connection.md` and `research/test_stretch_resistant_
 
 ### Navier-Stokes Regularity
 
-3D NS regularity facts tested through the oracle. Baseline: **0/16** (complete knowledge gap). With `ns_adapter`: **2/16** (12.5%).
+The hardest domain tested. Baseline: **0/16** (model confidently wrong on all facts, margins -30 to -80). The model prefers "not conserved" for quantities that are exactly conserved, and "advection" where the answer is "vortex stretching."
 
-| Fact | Baseline | Adapter | Status |
-|------|----------|---------|--------|
-| BKM criterion | -34.6 | -3.8 | Improving |
-| 3D challenge | -49.6 | +23.3 | **FLIPPED** |
-| 3D helicity | -30.1 | +9.1 | **FLIPPED** |
-| R_f ratio | -76.1 | -1.3 | Borderline (near flip) |
+Staged training plateaued at 6/16. Breakthrough came from **cluster routing**: training separate specialist adapters per concept cluster and routing each fact to its specialist at inference.
 
-3D physics is harder to teach than 2D. Stretching breaks standard Q_f, but R_f survives. The R_f borderline result (-1.3) is a prime target for confidence-driven resampling.
+| Cluster | Facts | Result |
+|---------|-------|--------|
+| Blowup | ns01, ns11, ns15 | 3/3 |
+| Conservation | ns04, ns14 | 2/2 |
+| R_f variants | ns05, ns06, ns13 | 3/3 |
+| Stretching | ns02, ns03, ns12 | 2/3 |
+| Uncovered | ns07-ns10, ns16 | 0/5 |
+
+Current: **10/16** (62.5%), up from 6/16 with staged training alone. Adding clusters for the remaining 5 facts.
+
+**Methodology escalation on NS:** single-pass (2/16, interference) → staged training (6/16, plateau) → cluster routing (10/16, climbing). Each failure led to a technique that now applies to all future hard domains.
 
 ### Electromagnetism
 
@@ -317,7 +331,7 @@ f*(r) = 0.023 e^(-r/2) + 0.021 tanh(r) - 0.019 sin(r) + ...
 | Continuous Q_f | 12 | 0% | 58.3% | FIXABLE |
 | Electromagnetism | 12 | 8.3% | 50% | FIXABLE |
 | Optimal f(r) | 4 | 0% | 50% | FIXABLE |
-| NS regularity | 16 | 0% | 12.5% | KNOWLEDGE_GAP |
+| NS regularity | 16 | 0% | 62.5% | CLIMBING (cluster routing) |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
 **Total: 9 domains, 106 oracle facts tested. 3 domains at 100%. 0% MMLU degradation across all adapters.**

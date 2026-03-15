@@ -110,6 +110,28 @@ training reached 16/16 in 5 stages with zero regression throughout. The hardest
 facts (KAM: -59.8 to +3.9, Henon-Heiles: -138.2 to +7.9) only flipped after
 the foundational clusters were already consolidated.
 
+**Orthogonal adapters (for staged training plateaus).** If staged training
+plateaus (facts within a single adapter still interfere), train separate
+specialist adapters per concept cluster. Each adapter learns one cluster without
+fighting the others. Route each fact to its specialist at inference time. This
+broke the NS regularity plateau: staged training stuck at 6/16, orthogonal
+cluster adapters reached 10/16 and climbing.
+
+Why this is necessary: NS clusters are representational see-saws. Training on
+blowup facts (2/2 within cluster) destroys conservation margins (to -600).
+Training on conservation facts (2/2 within cluster) destroys blowup margins
+(to -1100). Even training on a single new fact (ns11) causes regression on
+previously passing facts (ns15). The concepts need to move in opposite
+directions within logit space. A single adapter can only point one way.
+Orthogonal adapters give each cluster its own direction, routed at inference
+so they never compete for the same parameters.
+
+**Escalation order for hard domains:**
+1. Single-pass adapter → if interference, try:
+2. Staged training (sequential clusters) → if plateau, try:
+3. Orthogonal adapters (specialist per cluster, routed at inference) → if still stuck, try:
+4. Cross-domain stacking (load adapters from related domains first)
+
 ---
 
 ## Fully Autonomous Run (Recommended)
@@ -263,7 +285,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 - **Do not re-test already-closed hypotheses.** Check `candidates.tsv` first. Semantic near-duplicates count (r12+r13+r23 ≡ r13+r12+r23).
 - **Do not use the mixed STEM adapter on vortex facts.** It makes vortex margins catastrophically worse (confirmed: -10.6 → -30.5). Use the domain-specific vortex adapter.
 - **Do not use the choreography adapter on vortex problems** (wrong domain, cross-domain interference confirmed).
-- **Do not naively merge/average adapters across domains.** `multi_domain_v2` (averaged weights of vortex + H-Lz adapters) underperforms both specialists on every benchmark. Adapter averaging degrades specialist performance. If you need multi-domain coverage, use task-vector merging or keep adapters separate and swap them per domain.
+- **Do not naively merge/average adapters.** `multi_domain_v2` (averaged weights of vortex + H-Lz adapters) underperforms both specialists on every benchmark. This applies within domains too: NS blowup + conservation adapters destroy each other when merged (margins to -600/-1100). Concepts that are representational see-saws must stay in separate orthogonal adapters, routed at inference. Never average, always route.
 - **Do not test equilateral triangle ICs as interesting.** Equilateral = relative equilibrium for ANY circulation values — all rᵢⱼ=const exactly. Trivially conserved, not interesting.
 - **Do not use verbose prose in oracle facts.** Compact symbolic notation only: `"Q = r₁₂ + ε(r₁₃+r₂₃) = const"`. Verbose prose fails the oracle (confirmed in pilot runs).
 - **Do not hardcode absolute paths** in any script. Use `os.path.dirname(__file__)` for relative resolution.
