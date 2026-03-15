@@ -2,7 +2,7 @@
 
 **https://github.com/SolomonB14D3/noethersolve** · **https://solomonb14d3.github.io/noethersolve**
 
-[![Paper: Breaking Frozen Priors](https://img.shields.io/badge/Paper%2010-Breaking%20Frozen%20Priors-blue)](paper/breaking_frozen_priors.pdf) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290) [![Paper: Toolkit](https://img.shields.io/badge/Paper%2011-Toolkit-green)](paper/noethersolve_toolkit.pdf) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19029880.svg)](https://doi.org/10.5281/zenodo.19029880)
+[![Paper: Breaking Frozen Priors](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290) [![Paper: NoetherSolve Toolkit](https://zenodo.org/badge/DOI/10.5281/zenodo.19029880.svg)](https://doi.org/10.5281/zenodo.19029880)
 
 **Automated scientific discovery that makes the model smarter with each cycle.**
 

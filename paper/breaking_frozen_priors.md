@@ -288,7 +288,7 @@ The key insight is that breaking a frozen prior requires two distinct steps: fir
 
 The pipeline discovered and validated a family of near-conserved quantities $Q_f = \sum \Gamma_i \Gamma_j f(r_{ij})$ in 2D point-vortex dynamics, including the novel $Q_1$ which is independent of all classical integrals and survives chaotic $N = 9$ dynamics. The trained oracle recognizes these quantities with margin $+94.4$ (from baseline $-68.1$) and ranks conservation quality with Spearman $\rho = 0.893$ on a held-out evaluation set, up from a baseline of $\rho = -0.143$. The base model does not merely fail to rank these quantities; it ranks them backwards. After training, the adapter places the exact invariant at the top, groups the well-conserved approximate invariants in the middle, and correctly assigns the lowest confidence to the poorly-conserved quantities.
 
-The broader implication is methodological: wherever a model exhibits a frozen prior --- uniform rejection of a class of claims regardless of their truth value --- the diagnose $\to$ break $\to$ supervise pipeline provides a systematic fix. The numerical checker is domain-specific, but the training methodology is not.
+The broader implication is methodological: wherever a model exhibits a frozen prior --- uniform rejection of a class of claims regardless of their truth value --- the diagnose $\to$ break $\to$ supervise pipeline provides a systematic fix. The numerical checker is domain-specific, but the training methodology is not. Since the initial vortex dynamics demonstration, the pipeline has been applied to 24 domains spanning physics (11 domains), computational genetics (7 domains), and unsolved mathematics (6 domains), achieving 275/275 fact flips (100%) using orthogonal adapters routed at inference [Paper 11]. The genetics and mathematics domains confirm the frozen prior phenomenon generalizes: base model margins are uniformly negative across CYP enzyme interactions, Sobolev embeddings, and proof technique barriers, just as they were for the $Q_f$ family.
 
 ## References
 
@@ -297,6 +297,7 @@ The broader implication is methodological: wherever a model exhibits a frozen pr
 - Paper 7: The Expression Bottleneck: 41% Universal Constant and the Generation Mechanism. Sanchez, B. (2026). DOI: 10.5281/zenodo.18895248.
 - Turner, A. M., et al. (2023). Steering Language Models With Activation Engineering. arXiv:2308.10248.
 - Udrescu, S.-M. \& Tegmark, M. (2020). AI Feynman: A Physics-Inspired Method for Symbolic Regression. Science Advances, 6(16).
+- Paper 11: NoetherSolve Toolkit: Conservation Law Monitoring, Discovery, and Scientific Auditing. Sanchez, B. (2026). DOI: 10.5281/zenodo.19029880.
 
 ## Appendix A: Complete Pipeline Results
 
