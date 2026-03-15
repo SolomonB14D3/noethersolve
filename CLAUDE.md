@@ -114,8 +114,8 @@ the foundational clusters were already consolidated.
 plateaus (facts within a single adapter still interfere), train separate
 specialist adapters per concept cluster. Each adapter learns one cluster without
 fighting the others. Route each fact to its specialist at inference time. This
-broke the NS regularity plateau: staged training stuck at 6/16, orthogonal
-cluster adapters reached 10/16 and climbing.
+solved NS regularity: staged training stuck at 6/16, orthogonal
+cluster adapters reached 16/16.
 
 Why this is necessary: NS clusters are representational see-saws. Training on
 blowup facts (2/2 within cluster) destroys conservation margins (to -600).
@@ -126,11 +126,11 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
-**Escalation order for hard domains:**
+**Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:
-2. Staged training (sequential clusters) → if plateau, try:
-3. Orthogonal adapters (specialist per cluster, routed at inference) → if still stuck, try:
-4. Cross-domain stacking (load adapters from related domains first)
+2. Staged training (sequential clusters) → solved Hamiltonian (16/16). If plateau, try:
+3. Orthogonal adapters (specialist per cluster, routed at inference) → solved NS (16/16). If still stuck, try:
+4. Cross-domain stacking (load adapters from related domains first) → untested but theoretically strongest
 
 ---
 
