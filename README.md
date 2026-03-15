@@ -10,7 +10,7 @@ The pipeline: **find gaps → flip facts → build tool → add to MCP server.**
 
 NoetherSolve starts by finding where LLMs are confidently wrong. It generates candidates, verifies them numerically, and measures whether the model already knows them. When it doesn't — that's where new science lives. The system discovers the answer, builds a verified computational tool for it, and exposes that tool via [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) so any AI agent can call it at inference time.
 
-This is better than embedding knowledge in weights. Adapters trained on domain facts improve general truth preference (+0.10 MC2 on TruthfulQA, statistically significant), but they can't scale to thousands of facts without interference. Tools scale indefinitely: each new tool is independent, verified, and callable on demand. The agent doesn't need to memorize that the Riemann Hypothesis is open — it calls `check_conjecture("Riemann")` and gets the verified answer.
+This is better than embedding knowledge in weights. Adapters trained on domain facts improve general truth preference (+0.10 MC2 on TruthfulQA, statistically significant), and orthogonal adapters (routed per-cluster) achieve 100% across 45 domains — but they can't be naively stacked without interference. Tools scale without constraints: each new tool is independent, verified, and callable on demand. The agent doesn't need to memorize that the Riemann Hypothesis is open — it calls `check_conjecture("Riemann")` and gets the verified answer.
 
 **43 tools** currently exposed via MCP. 30 are **calculators** — verified computational engines that derive answers from first principles (PID controller simulation, transaction isolation analysis, quantum circuit simulation, stability analysis, conservation law monitoring, genetic design, chemical auditing, and more). 13 are **lookup tables** — reference databases for mathematical conjectures, complexity theory, proof barriers, benchmark scores, and LLM science claims. Calculators scale indefinitely; lookups are faster but finite. Together they cover physics, math, genetics, control systems, databases, quantum computing, pharmacogenomics, chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, and LLM science.
 
@@ -45,9 +45,13 @@ NoetherSolve exploits this in four steps:
    gaps in human knowledge, because the model was trained on human knowledge.
 2. **Flip facts.** Train lightweight adapters that flip the model's answer
    from wrong to right, without degrading anything it already knows.
+   Orthogonal adapters (one per concept cluster, routed at inference) handle
+   even the hardest domains. Cross-domain joint training shows knowledge
+   transfer across physics and pure math. The constraint: adapters can't be
+   naively stacked — they must be routed, never merged.
 3. **Build tools.** Each discovery becomes a standalone computational tool —
-   verified reference databases, not model guesses. Tools don't have the
-   scaling problems that adapters do (interference, capacity limits).
+   a verified calculator that derives answers from first principles. Tools
+   scale without routing constraints and work for any model.
 4. **Add to MCP server.** Expose every tool via Model Context Protocol so
    any AI agent (Claude, GPT, local models) can call them at inference time.
    The agent doesn't need to memorize facts — it calls the tool and gets
@@ -108,18 +112,27 @@ hallucination possible.
 
 ### Why MCP instead of fine-tuning?
 
-We tried both. Adapters trained on 411 domain facts improve truth preference
-(+0.10 MC2 on TruthfulQA), but they can't scale: stacking 37+ adapters
-destroys general knowledge (-43% MMLU), and a unified adapter on 244 facts
-collapses to a degenerate mode. Tools don't have these problems:
+We tried both. Adapters trained on 519 domain facts improve truth preference
+(+0.10 MC2 on TruthfulQA), and orthogonal adapters (routed per-cluster at
+inference) achieve 100% across all 45 domains with 0% MMLU degradation.
+Cross-domain joint training also works — a single difficulty-weighted adapter
+lifts 4 domains simultaneously. But adapters can't be naively stacked:
+combining 37+ adapters by weight averaging destroys general knowledge (-43%
+MMLU), and a unified adapter on 244+ facts collapses. The key insight is
+**route, never stack** — each adapter must be routed to its domain at
+inference, never merged. Tools don't have these constraints:
 
-- **No interference.** Each tool is independent. Adding tool #43 doesn't
-  degrade tools #1-42.
+- **No routing needed.** Each tool is independent. Adding tool #43 doesn't
+  degrade tools #1-42 and requires no inference-time routing logic.
 - **No capacity limits.** A tool can encode arbitrarily complex logic.
 - **Verified correctness.** 1144 tests enforce correctness. An adapter can
   only shift probabilities; a tool returns the exact right answer.
 - **Model-agnostic.** Any agent that speaks MCP can use these tools.
   Adapters are tied to one model's vocabulary.
+
+Both approaches have their place. Adapters are valuable within the discovery
+pipeline (each injection makes the oracle smarter for subsequent candidates)
+and for improving model calibration. Tools are the permanent, scalable artifact.
 
 </details>
 
