@@ -232,6 +232,75 @@ print(report)
 Catches: Wegscheider cyclicity violations, missing conservation laws,
 non-physical rate constants, negative entropy production (second law violation).
 
+### EM Field Monitor
+
+Monitors electromagnetic field simulations for conservation of standard
+and obscure invariants: energy, momentum, optical chirality (Zilch Z⁰,
+Lipkin 1964), helicity, super-energy (Chevreton tensor), zilch vector.
+
+```python
+from noethersolve import EMMonitor
+
+monitor = EMMonitor(N=64, L=2*np.pi)
+monitor.set_initial(E_fields, B_fields)  # 3-tuples of 3D arrays
+
+for step in simulation:
+    E, B = maxwell_solver.step()
+    report = monitor.check(E, B)
+    if report.worst_drift > 1e-6:
+        print(f"WARNING: {report.worst_name} drifted {report.worst_drift:.2e}")
+```
+
+Catches: numerical dissipation, wrong boundary conditions, missing terms
+in Maxwell solvers. Spectral curls computed internally via FFT.
+
+### Hamiltonian System Validator
+
+Validates that an ODE integrator preserves the symplectic structure of
+Hamiltonian systems. Goes beyond energy to check Liouville's theorem
+(phase-space volume) and the first Poincaré integral invariant (∮ p dq).
+
+```python
+from noethersolve import kepler_2d
+
+monitor = kepler_2d(mu=1.0)  # built-in Kepler problem
+report = monitor.validate(
+    z0=np.array([1.0, 0.0, 0.0, 0.8]),  # elliptical orbit
+    T=100.0, rtol=1e-10,
+)
+print(report)
+# Shows: energy, angular_momentum, LRL_magnitude,
+#        liouville_volume, poincare_invariant — all PASS/WARN/FAIL
+```
+
+Built-in systems: `harmonic_oscillator`, `kepler_2d` (with angular momentum
+and Laplace–Runge–Lenz vector), `henon_heiles`, `coupled_oscillators`.
+Or bring your own H(z) and ∇H(z) via `HamiltonianMonitor(H=..., dH=..., n_dof=...)`.
+
+### Invariant Learner
+
+Automatically discovers new conserved quantities from trajectory data.
+Optimizes over 12 basis functions to find f(r) that minimizes fractional
+variation of Q_f = Σᵢ<ⱼ wᵢwⱼ f(rᵢⱼ) along one or more trajectories.
+
+```python
+from noethersolve import InvariantLearner
+
+learner = InvariantLearner()
+result = learner.learn_from_positions(
+    position_trajectories=[trajectory],  # shape (n_steps, N, dim)
+    weights=[1.0, -0.5, 0.3],           # vortex circulations
+)
+print(result)
+# Shows: optimal f(r) = 0.924·e^(-r) + 0.186·sin(r) + ...
+#        40% improvement over single-basis e^(-r)
+#        Individual basis losses ranked
+```
+
+Three input modes: `learn_from_positions` (raw coordinates),
+`learn_from_distances` (pairwise distance time series),
+`learn_from_field` (continuous 2D vorticity fields via FFT convolution).
+
 ### Benchmark Results
 
 The corruption benchmark (`experiments/corruption_benchmark.py`) validates
@@ -245,7 +314,7 @@ these tools against 5 experiments:
 | Chemical violation | Perturbed rate constants | Wegscheider cycle product shifts 3.33 to 0.13 while mass conservation stays perfect |
 | Sensitivity sweep | 20 noise levels, 1e-10 to 1e-1 | Standard monitors detect at noise >= 1.8e-6; discovered monitors have baseline sensitivity at 1e-10 |
 
-**56 tests passing** across all tools (`pytest tests/`).
+**102 tests passing** across all 6 tools (`pytest tests/`).
 
 ---
 
