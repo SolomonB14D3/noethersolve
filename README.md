@@ -23,10 +23,10 @@ DOI: [10.5281/zenodo.19017290](https://doi.org/10.5281/zenodo.19017290)
 
 Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ranking engine (Spearman rho = 0.932 from baseline -0.143). Novel Q_f invariant family verified across chaotic vortex systems and extended to continuous 2D/3D Euler equations. The LLM gap pointed directly at the physics: the model's blind spot on weighted distance sums led to the discovery of stretch-resistant invariants relevant to 3D Navier-Stokes regularity. See [`paper/breaking_frozen_priors.pdf`](paper/breaking_frozen_priors.pdf).
 
-**NoetherSolve Toolkit: Conservation Law Monitoring and Discovery for Numerical Simulations** (Sanchez, 2026)
+**NoetherSolve Toolkit: Conservation Law Monitoring, Discovery, and Scientific Auditing Across Physics, Genetics, and Mathematics** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
-Twenty tools for monitoring, validating, and discovering conservation laws — plus genetics therapeutics and unsolved mathematics auditing. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. Automatic invariant discovery via L-BFGS-B over 12 basis functions. Six genetics therapeutics tools and six unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker). 777 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
+Twenty tools organized in three tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 7 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer, pharmacokinetics checker, fact auditor), and 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor). Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 777 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 ---
 
@@ -947,7 +947,7 @@ NoetherSolve
 ├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
 ├── dashboard.py                ← Results dashboard from candidates.tsv
 │
-├── noethersolve/               ← Core package (11 toolkit modules)
+├── noethersolve/               ← Core package (20 toolkit modules)
 │   ├── adapter.py              ← Snap-on logit adapter (SwiGLU)
 │   ├── audit_chem.py           ← Chemical network thermodynamic auditor
 │   ├── audit_facts.py          ← Oracle fact quality auditor (token-length bias)
@@ -999,7 +999,9 @@ NoetherSolve
 │
 ├── paper/
 │   ├── breaking_frozen_priors.md   ← Paper 10 source
-│   ├── breaking_frozen_priors.pdf  ← Paper 10 (pandoc breaking_frozen_priors.md -o *.pdf)
+│   ├── breaking_frozen_priors.pdf  ← Paper 10 (pandoc *.md -o *.pdf)
+│   ├── noethersolve_toolkit.md    ← Paper 11 source
+│   ├── noethersolve_toolkit.pdf   ← Paper 11
 │   └── prior_work/                 ← Papers 8-9 that this builds on
 │
 ├── adapters/                   ← Trained weights (gitignored)
@@ -1038,5 +1040,13 @@ NoetherSolve
   year={2026},
   doi={10.5281/zenodo.19017290},
   url={https://doi.org/10.5281/zenodo.19017290}
+}
+
+@article{sanchez2026noethersolve,
+  title={NoetherSolve Toolkit: Conservation Law Monitoring, Discovery, and Scientific Auditing Across Physics, Genetics, and Mathematics},
+  author={Sanchez, Bryan},
+  year={2026},
+  doi={10.5281/zenodo.19029880},
+  url={https://doi.org/10.5281/zenodo.19029880}
 }
 ```
