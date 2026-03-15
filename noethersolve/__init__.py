@@ -8,8 +8,20 @@ Package layout:
   noethersolve.oracle       — model-agnostic MC log-prob scorer (from eval_mc)
   noethersolve.adapter      — snap-on logit adapter architectures (from snap_on)
   noethersolve.train_utils  — LOGIT_SOFTCAP, get_lm_head_fn, apply_adapter
+  noethersolve.monitor      — conservation law monitors (VortexMonitor, ChemicalMonitor, GravityMonitor)
+  noethersolve.validate     — integrator validation via conservation laws
+  noethersolve.audit_chem   — chemical reaction network thermodynamic auditor
 """
 
 from noethersolve import train_utils  # noqa: F401
+from noethersolve.monitor import (  # noqa: F401
+    frac_var,
+    MonitorReport,
+    VortexMonitor,
+    ChemicalMonitor,
+    GravityMonitor,
+)
+from noethersolve.validate import validate_integrator, compare_configs  # noqa: F401
+from noethersolve.audit_chem import audit_network, AuditReport  # noqa: F401
 
-__version__ = "0.1.0"
+__version__ = "0.3.0"

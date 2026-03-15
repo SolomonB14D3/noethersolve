@@ -130,7 +130,63 @@ so they never compete for the same parameters.
 1. Single-pass adapter → if interference, try:
 2. Staged training (sequential clusters) → solved Hamiltonian (16/16). If plateau, try:
 3. Orthogonal adapters (specialist per cluster, routed at inference) → solved NS (16/16) and Knot invariants (16/16). Generalizes across physics and pure math. If still stuck, try:
-4. Cross-domain stacking (load adapters from related domains first) → untested but theoretically strongest
+4. Cross-domain joint training (train single adapter on multiple domains) → confirmed with difficulty-weighted sampling: NS 0→10/16, knots 1→11/16, chemical 5→13/16, Hamiltonian 6→14/16 from ONE adapter. Difficulty-weighted sampling (oversample hard facts) gives best transfer on hardest domain.
+
+---
+
+## Tool Development Pipeline
+
+When building new tools from pipeline discoveries, follow this sequence.
+The pre-commit hook enforces steps 3-5 automatically.
+
+### Step-by-step
+
+1. **Identify the tool opportunity.** A discovery from the main loop (new
+   invariant, sensitivity result, thermodynamic check) suggests a standalone
+   tool. Document what it does and why it's useful.
+
+2. **Build the tool.** Write the module in `noethersolve/`. Follow existing
+   patterns: dataclass reports, `__str__` for human-readable output, clear
+   docstrings with usage examples. Export from `__init__.py`.
+
+3. **Physics audit.** Before writing tests, review every formula line by line:
+   - Is this quantity actually conserved, or approximately conserved, or dynamic?
+   - Classify correctly: exact (H, Lz, E) vs approximate (Q_f family) vs
+     dynamic (KE, PE, Lyapunov, entropy production, detailed balance ratios).
+   - Never use finite-difference velocity estimation when analytical formulas
+     exist (vortex velocities are determined by positions).
+   - Wegscheider cyclicity only applies to closed cycles, not linear chains.
+     Rate constant products are always constant but only thermodynamically
+     constrained for cycles.
+   - Check: would a physicist reviewing this code find an error?
+
+4. **Write tests.** Cover: initialization, correct physics (tight tolerances
+   should PASS), wrong physics detection, error handling, report formatting.
+   Target: every public method has at least one test.
+
+5. **Run full suite.** `pytest tests/ -v` — all must pass.
+
+6. **Document on the repo.** Add to README (Toolkit section) with usage
+   example. Add to CLAUDE.md key files table. Update version in both
+   `pyproject.toml` and `noethersolve/__init__.py`.
+
+7. **Commit.** The pre-commit hook runs: tests → import check → physics smoke
+   test (validates H and Lz conservation on a reference vortex problem).
+   Commit is blocked if any step fails.
+
+8. **Ship to PyPI.** `python -m build && twine upload dist/*`
+
+9. **Add to paper.** Update the living preprint with the new tool, its
+   benchmark results, and the discovery that motivated it.
+
+### Pre-commit hook
+
+The `.git/hooks/pre-commit` hook runs automatically on every commit:
+- `pytest tests/` — all tests must pass
+- Import check — all public exports must resolve
+- Physics smoke test — H and Lz must be exactly conserved on reference problem
+
+To bypass (NOT recommended): `git commit --no-verify`
 
 ---
 
@@ -288,6 +344,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 - **Do not naively merge/average adapters.** `multi_domain_v2` (averaged weights of vortex + H-Lz adapters) underperforms both specialists on every benchmark. This applies within domains too: NS blowup + conservation adapters destroy each other when merged (margins to -600/-1100). Concepts that are representational see-saws must stay in separate orthogonal adapters, routed at inference. Never average, always route.
 - **Do not test equilateral triangle ICs as interesting.** Equilateral = relative equilibrium for ANY circulation values — all rᵢⱼ=const exactly. Trivially conserved, not interesting.
 - **Do not use verbose prose in oracle facts.** Compact symbolic notation only: `"Q = r₁₂ + ε(r₁₃+r₂₃) = const"`. Verbose prose fails the oracle (confirmed in pilot runs).
+- **Do not blame the adapter when a single fact won't flip.** Check the distractor first. If the distractor is too similar to the correct answer or shorter (e.g., `"k × [A]"` vs the full rate law), the model picks it on length/simplicity bias, not because it believes it's true. Fix the distractor to be clearly wrong and roughly the same length. This flipped the last chemical kinetics holdout from -1.4 to positive immediately.
 - **Do not hardcode absolute paths** in any script. Use `os.path.dirname(__file__)` for relative resolution.
 
 ---
@@ -309,6 +366,11 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `problems/*.yaml` | Domain plugin definitions |
 | `problems/*_facts.json` | Oracle verification sets (8–15 facts per domain) |
 | `adapters/` | Trained adapter weights (gitignored — local only) |
+| `noethersolve/monitor.py` | Conservation law monitors (Vortex, Chemical, Gravity) |
+| `noethersolve/validate.py` | Integrator validation via conservation laws |
+| `noethersolve/audit_chem.py` | Chemical network thermodynamic auditor |
+| `experiments/corruption_benchmark.py` | 5 benchmark experiments proving monitor sensitivity |
+| `tests/` | 56 tests for monitors, validator, and auditor |
 
 ---
 

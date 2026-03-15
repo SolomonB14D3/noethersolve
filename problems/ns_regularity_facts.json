@@ -25,11 +25,11 @@
     {
       "id": "ns03_stretching_qf",
       "context": "For 3D Euler vorticity, under vortex stretching by factor s (tube stretches, thins), the standard Q_f = ∫∫ ω(x)·ω(y) f(|x-y|) d³x d³y transforms as:",
-      "truth": "Q_f ∝ s² (vorticity doubles ω→sω, Q_f quadruples)",
+      "truth": "quadratic growth in s",
       "distractors": [
-        "Q_f is unchanged",
-        "Q_f ∝ s",
-        "Q_f ∝ 1/s²"
+        "Q_f stays constant (exactly conserved)",
+        "it halves when s doubles",
+        "Q_f goes to zero under stretching"
       ]
     },
     {

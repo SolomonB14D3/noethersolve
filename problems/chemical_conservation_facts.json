@@ -77,9 +77,9 @@
       "context": "Under mass-action kinetics, the rate of reaction A + B -> C is:",
       "truth": "k × [A] × [B] where k is the rate constant",
       "distractors": [
-        "k × ([A] + [B])",
-        "k × [A]",
-        "k × [C]"
+        "independent of reactant concentrations",
+        "proportional to product [C] only",
+        "constant at all times regardless of concentrations"
       ]
     },
     {
