@@ -1,0 +1,138 @@
+{
+  "problem": "dark_matter_energy",
+  "description": "Dark matter and dark energy - evidence, candidates, alternatives.",
+  "facts": [
+    {
+      "id": "dm01_rotation",
+      "context": "Dark matter evidence from galaxy rotation curves shows:",
+      "truth": "stars orbit faster than visible mass predicts",
+      "distractors": [
+        "stars orbit slower than expected from observations",
+        "rotation curves match visible matter perfectly",
+        "galaxies do not rotate at all detectably"
+      ],
+      "cluster": "dark_matter"
+    },
+    {
+      "id": "dm02_lensing",
+      "context": "Gravitational lensing by dark matter:",
+      "truth": "bends light more than visible mass accounts for",
+      "distractors": [
+        "is exactly predicted by visible matter alone",
+        "has never been observed in any system",
+        "bends light less than visible matter predicts"
+      ],
+      "cluster": "dark_matter"
+    },
+    {
+      "id": "dm03_wimp",
+      "context": "WIMP dark matter candidates have:",
+      "truth": "not been detected despite extensive searches",
+      "distractors": [
+        "been definitively confirmed at particle colliders",
+        "been completely ruled out by all experiments",
+        "been directly observed in cosmic ray detectors"
+      ],
+      "cluster": "candidates"
+    },
+    {
+      "id": "dm04_axion",
+      "context": "Axions as dark matter candidates:",
+      "truth": "are very light and weakly interacting",
+      "distractors": [
+        "are heavy particles like WIMPs",
+        "have already been detected in labs",
+        "were invented specifically for dark matter"
+      ],
+      "cluster": "candidates"
+    },
+    {
+      "id": "dm05_mond",
+      "context": "Modified gravity (MOND) as dark matter alternative:",
+      "truth": "explains galaxies but fails for galaxy clusters",
+      "distractors": [
+        "explains all dark matter observations perfectly",
+        "has been definitively disproven by all tests",
+        "makes identical predictions to dark matter"
+      ],
+      "cluster": "alternatives"
+    },
+    {
+      "id": "dm06_dark_energy",
+      "context": "Dark energy causes the universe to:",
+      "truth": "expand at an accelerating rate",
+      "distractors": [
+        "contract and eventually collapse inward",
+        "expand at a constant unchanging rate",
+        "stop expanding and remain static"
+      ],
+      "cluster": "dark_energy"
+    },
+    {
+      "id": "dm07_cosmological_constant",
+      "context": "The cosmological constant problem is that:",
+      "truth": "calculated vacuum energy is 10^120 times larger than observed",
+      "distractors": [
+        "theory matches observation perfectly",
+        "the discrepancy is only a factor of two",
+        "vacuum energy cannot be calculated theoretically"
+      ],
+      "cluster": "dark_energy"
+    },
+    {
+      "id": "dm08_cmb",
+      "context": "CMB observations constrain dark matter by:",
+      "truth": "showing its gravitational effects on early universe",
+      "distractors": [
+        "directly detecting dark matter particles",
+        "proving dark matter does not exist at all",
+        "being completely insensitive to dark matter"
+      ],
+      "cluster": "dark_matter"
+    },
+    {
+      "id": "dm09_bullet_cluster",
+      "context": "The Bullet Cluster provides dark matter evidence because:",
+      "truth": "lensing mass offset from visible gas",
+      "distractors": [
+        "the system demonstrates complete absence of any dark matter component whatsoever",
+        "all gravitational observations perfectly match modified Newtonian dynamics predictions",
+        "visible baryonic matter and gravitational mass remain completely spatially coincident"
+      ],
+      "cluster": "dark_matter"
+    },
+    {
+      "id": "dm10_primordial",
+      "context": "Primordial black holes as dark matter:",
+      "truth": "are constrained but not ruled out in some mass ranges",
+      "distractors": [
+        "have been confirmed as the dark matter",
+        "are completely ruled out by all observations",
+        "cannot form in the early universe physics"
+      ],
+      "cluster": "candidates"
+    },
+    {
+      "id": "dm11_quintessence",
+      "context": "Quintessence models of dark energy propose:",
+      "truth": "dynamical field instead of constant vacuum energy",
+      "distractors": [
+        "dark energy is exactly a cosmological constant",
+        "dark energy does not exist at all",
+        "dark energy has been directly detected"
+      ],
+      "cluster": "dark_energy"
+    },
+    {
+      "id": "dm12_detection",
+      "context": "Direct dark matter detection experiments search for:",
+      "truth": "rare nuclear recoils from dark matter scattering",
+      "distractors": [
+        "dark matter production in particle colliders",
+        "gravitational effects on detector apparatus",
+        "electromagnetic radiation from dark matter"
+      ],
+      "cluster": "alternatives"
+    }
+  ]
+}

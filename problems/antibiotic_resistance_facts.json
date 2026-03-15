@@ -1,0 +1,138 @@
+{
+  "problem": "antibiotic_resistance",
+  "description": "Antibiotic resistance - mechanisms, spread, alternative therapies.",
+  "facts": [
+    {
+      "id": "ar01_hgt",
+      "context": "Resistance genes spread between bacteria primarily via:",
+      "truth": "horizontal gene transfer (plasmids, transduction, transformation)",
+      "distractors": [
+        "only vertical inheritance from parent to offspring cells",
+        "spontaneous mutations occurring independently in each cell",
+        "environmental chemical exposure causing genetic changes"
+      ],
+      "cluster": "mechanisms"
+    },
+    {
+      "id": "ar02_crispr_antimicrobial",
+      "context": "CRISPR-based antimicrobials work by:",
+      "truth": "cutting bacterial essential genes",
+      "distractors": [
+        "broadly stimulating and enhancing the human host immune response non-specifically",
+        "universally blocking all fundamental bacterial metabolic processes without specificity",
+        "indiscriminately degrading DNA sequences in all nearby cells regardless of type"
+      ],
+      "cluster": "alternatives"
+    },
+    {
+      "id": "ar03_phage",
+      "context": "Bacteriophage therapy advantages include:",
+      "truth": "high specificity and ability to co-evolve with bacteria",
+      "distractors": [
+        "broader spectrum activity than chemical antibiotics",
+        "complete absence of resistance development ever",
+        "no regulatory approval requirements needed"
+      ],
+      "cluster": "alternatives"
+    },
+    {
+      "id": "ar04_discovery_gap",
+      "context": "The antibiotic discovery gap since 1980s results from:",
+      "truth": "low return on investment and difficult target identification",
+      "distractors": [
+        "all possible antibiotics already being discovered",
+        "bacteria no longer developing any new resistance",
+        "regulatory agencies blocking all new research"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ar05_efflux",
+      "context": "Efflux pump resistance mechanisms work by:",
+      "truth": "actively pumping antibiotics out of bacterial cells",
+      "distractors": [
+        "preventing antibiotics from entering cells at all",
+        "chemically modifying antibiotics to inactive forms",
+        "producing enzymes that degrade the antibiotic"
+      ],
+      "cluster": "mechanisms"
+    },
+    {
+      "id": "ar06_biofilm",
+      "context": "Biofilm infections are harder to treat because:",
+      "truth": "matrix protects bacteria and reduces antibiotic penetration",
+      "distractors": [
+        "biofilm bacteria are genetically different species",
+        "antibiotics work better on biofilm than planktonic cells",
+        "biofilms only form on non-living surfaces"
+      ],
+      "cluster": "mechanisms"
+    },
+    {
+      "id": "ar07_narrow_spectrum",
+      "context": "Narrow-spectrum antibiotics are preferred because:",
+      "truth": "they preserve beneficial microbiome and reduce resistance selection",
+      "distractors": [
+        "they are cheaper to manufacture than broad-spectrum",
+        "they work faster than broad-spectrum antibiotics",
+        "all infections can be treated with narrow-spectrum"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ar08_stewardship",
+      "context": "Antibiotic stewardship programs aim to:",
+      "truth": "optimize use to slow resistance while maintaining efficacy",
+      "distractors": [
+        "eliminate all antibiotic use completely",
+        "only reduce healthcare costs not resistance",
+        "increase antibiotic use for better outcomes"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ar09_persister",
+      "context": "Persister cells survive antibiotic treatment by:",
+      "truth": "entering dormant state not through genetic resistance",
+      "distractors": [
+        "having mutations that inactivate antibiotics",
+        "actively pumping out all antibiotics rapidly",
+        "not existing as they are a theoretical concept"
+      ],
+      "cluster": "mechanisms"
+    },
+    {
+      "id": "ar10_combination",
+      "context": "Combination antibiotic therapy can help by:",
+      "truth": "reducing resistance emergence through multiple targets",
+      "distractors": [
+        "always being more toxic than monotherapy",
+        "never providing any advantage over single drugs",
+        "only being used when resistance already exists"
+      ],
+      "cluster": "alternatives"
+    },
+    {
+      "id": "ar11_agriculture",
+      "context": "Agricultural antibiotic use contributes to resistance by:",
+      "truth": "selecting resistant bacteria that can transfer to humans",
+      "distractors": [
+        "having no effect on human-relevant resistance",
+        "only affecting resistance in plant pathogens",
+        "being banned worldwide already preventing issues"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ar12_peptide",
+      "context": "Antimicrobial peptides as alternatives face challenges including:",
+      "truth": "instability and host cell toxicity",
+      "distractors": [
+        "complete lack of any demonstrable antibacterial efficacy in laboratory studies",
+        "the fundamental impossibility of bacteria ever developing peptide resistance mechanisms",
+        "extremely low production costs that undermine commercial pharmaceutical viability"
+      ],
+      "cluster": "alternatives"
+    }
+  ]
+}

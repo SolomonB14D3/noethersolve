@@ -1,0 +1,138 @@
+{
+  "problem": "battery_technology",
+  "description": "Battery technology frontiers - solid-state, lithium alternatives, degradation.",
+  "facts": [
+    {
+      "id": "bt01_solid_state",
+      "context": "Solid-state batteries' main advantage over lithium-ion is:",
+      "truth": "higher energy density and no flammable liquid electrolyte",
+      "distractors": [
+        "lower manufacturing cost than current lithium-ion batteries",
+        "infinite cycle life with zero degradation over time",
+        "ability to operate at absolute zero temperature"
+      ],
+      "cluster": "solid_state"
+    },
+    {
+      "id": "bt02_dendrite",
+      "context": "Lithium dendrite formation in batteries causes:",
+      "truth": "internal short circuits and thermal runaway",
+      "distractors": [
+        "improved battery capacity and energy density",
+        "faster charging without any negative effects",
+        "longer cycle life through surface area increase"
+      ],
+      "cluster": "degradation"
+    },
+    {
+      "id": "bt03_silicon_anode",
+      "context": "Silicon anodes can store 10x more lithium than graphite but fail due to:",
+      "truth": "300% volume expansion causing mechanical fracture",
+      "distractors": [
+        "excessive manufacturing costs prohibiting commercialization",
+        "chemical incompatibility with all electrolyte formulations",
+        "electrical conductivity too high for battery applications"
+      ],
+      "cluster": "materials"
+    },
+    {
+      "id": "bt04_sodium",
+      "context": "Sodium-ion batteries trade off:",
+      "truth": "lower energy density for abundant cheap materials",
+      "distractors": [
+        "higher energy density for scarce expensive materials",
+        "nothing since sodium is strictly superior to lithium",
+        "safety for much higher energy density capability"
+      ],
+      "cluster": "alternatives"
+    },
+    {
+      "id": "bt05_sei",
+      "context": "The solid electrolyte interphase (SEI) layer:",
+      "truth": "protects anode but consumes lithium reducing capacity",
+      "distractors": [
+        "has no effect on battery performance whatsoever",
+        "increases capacity by storing additional lithium",
+        "only forms in solid-state batteries not liquid"
+      ],
+      "cluster": "degradation"
+    },
+    {
+      "id": "bt06_fast_charge",
+      "context": "Fast charging damages batteries primarily by:",
+      "truth": "lithium plating on anode surface instead of intercalation",
+      "distractors": [
+        "excessive heat generation in the electrolyte only",
+        "mechanical stress from rapid ion movement",
+        "no damage occurs from fast charging at all"
+      ],
+      "cluster": "degradation"
+    },
+    {
+      "id": "bt07_sulfide",
+      "context": "Sulfide solid electrolytes offer high conductivity but:",
+      "truth": "are unstable in air producing toxic H2S gas",
+      "distractors": [
+        "have conductivity too low for practical batteries",
+        "are completely stable under all conditions",
+        "cost less than liquid electrolytes to produce"
+      ],
+      "cluster": "solid_state"
+    },
+    {
+      "id": "bt08_lithium_air",
+      "context": "Lithium-air batteries have highest theoretical energy density but:",
+      "truth": "suffer from poor reversibility and cycle life",
+      "distractors": [
+        "have already achieved commercial deployment",
+        "are limited only by lithium availability",
+        "work perfectly with no technical challenges"
+      ],
+      "cluster": "alternatives"
+    },
+    {
+      "id": "bt09_cobalt",
+      "context": "Reducing cobalt in battery cathodes is important because:",
+      "truth": "cobalt is expensive, scarce, and ethically problematic",
+      "distractors": [
+        "cobalt reduces battery performance significantly",
+        "cobalt is abundant but technically unnecessary",
+        "regulations prohibit cobalt in all batteries"
+      ],
+      "cluster": "materials"
+    },
+    {
+      "id": "bt10_interface",
+      "context": "Solid-solid interfaces in batteries are challenging because:",
+      "truth": "poor contact leads to high resistance and capacity loss",
+      "distractors": [
+        "solid interfaces have lower resistance than liquid",
+        "no ion transport occurs across solid interfaces",
+        "interfaces improve with cycling automatically"
+      ],
+      "cluster": "solid_state"
+    },
+    {
+      "id": "bt11_flow",
+      "context": "Flow batteries are suited for grid storage because:",
+      "truth": "energy capacity scales independently of power",
+      "distractors": [
+        "they have highest energy density of all batteries",
+        "they require no maintenance or electrolyte management",
+        "they are cheaper than lithium-ion at all scales"
+      ],
+      "cluster": "alternatives"
+    },
+    {
+      "id": "bt12_recycling",
+      "context": "Battery recycling challenges include:",
+      "truth": "complex chemistry and low economic value of materials",
+      "distractors": [
+        "perfect recycling already achieved at scale",
+        "batteries contain no valuable recoverable materials",
+        "regulations prevent all battery recycling attempts"
+      ],
+      "cluster": "materials"
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "problem": "origin_of_life",
+  "description": "Origin of life research - abiogenesis, RNA world, prebiotic chemistry.",
+  "facts": [
+    {
+      "id": "ol01_rna_world",
+      "context": "The RNA World hypothesis proposes that early life used:",
+      "truth": "RNA as both genetic material and catalyst",
+      "distractors": [
+        "DNA as the original genetic material from the start",
+        "proteins that came before any nucleic acids",
+        "clay minerals as the primary replicating system"
+      ],
+      "cluster": "hypotheses"
+    },
+    {
+      "id": "ol02_abiogenesis",
+      "context": "The key challenge in abiogenesis research is explaining:",
+      "truth": "transition from chemistry to self-sustaining replication",
+      "distractors": [
+        "how DNA evolved directly from simple molecules",
+        "why life uses carbon instead of silicon",
+        "the precise age of first life on Earth"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ol03_miller_urey",
+      "context": "The Miller-Urey experiment demonstrated that:",
+      "truth": "amino acids form from simple gases with energy input",
+      "distractors": [
+        "complete living cells can form spontaneously",
+        "DNA synthesizes from inorganic precursors directly",
+        "life can only arise from existing life"
+      ],
+      "cluster": "experiments"
+    },
+    {
+      "id": "ol04_luca",
+      "context": "LUCA (Last Universal Common Ancestor) was likely:",
+      "truth": "already complex with hundreds of genes",
+      "distractors": [
+        "a single simple self-replicating RNA molecule",
+        "a cell with no genetic material at all",
+        "using a completely different genetic code"
+      ],
+      "cluster": "hypotheses"
+    },
+    {
+      "id": "ol05_hydrothermal",
+      "context": "Hydrothermal vent origin hypotheses propose vents provide:",
+      "truth": "chemical gradients and mineral catalysts for synthesis",
+      "distractors": [
+        "only heat with no chemical contribution to life",
+        "conditions too extreme for any organic chemistry",
+        "fully formed cells emerging from vent fluids"
+      ],
+      "cluster": "hypotheses"
+    },
+    {
+      "id": "ol06_homochirality",
+      "context": "Life's homochirality (single-handedness) is unexplained because:",
+      "truth": "prebiotic chemistry produces racemic mixtures",
+      "distractors": [
+        "both chiralities are equally present in life",
+        "physics requires one chirality over the other",
+        "homochirality has been fully explained already"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ol07_metabolism",
+      "context": "Metabolism-first vs genetics-first debate concerns:",
+      "truth": "whether energy systems or information came first",
+      "distractors": [
+        "which specific metabolic pathway is most ancient",
+        "whether metabolism exists in modern cells",
+        "the exact date metabolism first appeared"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ol08_phosphorus",
+      "context": "The phosphorus problem in prebiotic chemistry is that:",
+      "truth": "phosphate minerals have low solubility limiting availability",
+      "distractors": [
+        "phosphorus was abundant and easily accessible",
+        "life could have started without any phosphorus",
+        "phosphorus only became important recently"
+      ],
+      "cluster": "experiments"
+    },
+    {
+      "id": "ol09_compartment",
+      "context": "Protocell membranes likely formed from:",
+      "truth": "fatty acids self-assembling into vesicles",
+      "distractors": [
+        "proteins creating cell walls from the start",
+        "minerals providing permanent compartments",
+        "no compartmentalization in early life"
+      ],
+      "cluster": "experiments"
+    },
+    {
+      "id": "ol10_ribozymes",
+      "context": "Ribozymes support RNA World by showing RNA can:",
+      "truth": "catalyze reactions including self-replication steps",
+      "distractors": [
+        "only store genetic information passively",
+        "never perform any catalytic function",
+        "catalyze only protein synthesis reactions"
+      ],
+      "cluster": "hypotheses"
+    },
+    {
+      "id": "ol11_panspermia",
+      "context": "Panspermia hypothesis proposes that:",
+      "truth": "life arrived on Earth from elsewhere but doesn't explain origin",
+      "distractors": [
+        "life originated independently on Earth",
+        "completely solves the origin of life problem",
+        "has been definitively disproven by evidence"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ol12_autocatalysis",
+      "context": "Autocatalytic sets are important because they show:",
+      "truth": "chemical networks can be self-sustaining without genes",
+      "distractors": [
+        "genes must have come before metabolism",
+        "catalysis is impossible without enzymes",
+        "life requires no self-sustaining chemistry"
+      ],
+      "cluster": "experiments"
+    }
+  ]
+}

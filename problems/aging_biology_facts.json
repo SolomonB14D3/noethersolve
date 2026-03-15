@@ -1,0 +1,138 @@
+{
+  "problem": "aging_biology",
+  "description": "Biology of aging - mechanisms, interventions, biomarkers.",
+  "facts": [
+    {
+      "id": "ab01_telomere",
+      "context": "Telomere shortening contributes to aging by:",
+      "truth": "limiting cell division capacity (Hayflick limit)",
+      "distractors": [
+        "directly causing DNA mutations in coding regions",
+        "preventing all cell division immediately upon shortening",
+        "having no measurable effect on human cell aging"
+      ],
+      "cluster": "mechanisms"
+    },
+    {
+      "id": "ab02_senolytic",
+      "context": "Senolytic drugs target aging by:",
+      "truth": "selectively eliminating senescent cells",
+      "distractors": [
+        "preventing all cell death completely in tissues",
+        "directly increasing telomere length in all cells",
+        "blocking all cellular division throughout body"
+      ],
+      "cluster": "interventions"
+    },
+    {
+      "id": "ab03_caloric",
+      "context": "Caloric restriction extends lifespan via:",
+      "truth": "multiple pathways including sirtuins, mTOR, AMPK",
+      "distractors": [
+        "only reducing oxidative damage from metabolism",
+        "completely preventing any metabolic activity",
+        "mechanisms that remain completely unknown"
+      ],
+      "cluster": "interventions"
+    },
+    {
+      "id": "ab04_epigenetic_clock",
+      "context": "Epigenetic clocks measure biological age using:",
+      "truth": "CpG methylation patterns",
+      "distractors": [
+        "chromosomal telomere length measurements as the exclusive biomarker indicator",
+        "cumulative counting of total cellular divisions that have occurred since birth",
+        "quantified levels of advanced glycation end-products in circulating blood samples"
+      ],
+      "cluster": "biomarkers"
+    },
+    {
+      "id": "ab05_hallmarks",
+      "context": "The hallmarks of aging include:",
+      "truth": "genomic instability, mitochondrial dysfunction, cellular senescence",
+      "distractors": [
+        "only telomere shortening and nothing else",
+        "processes unrelated to cellular biology",
+        "hallmarks that cannot be measured experimentally"
+      ],
+      "cluster": "mechanisms"
+    },
+    {
+      "id": "ab06_mtor",
+      "context": "mTOR inhibition (rapamycin) extends lifespan by:",
+      "truth": "enhancing autophagy and reducing protein synthesis burden",
+      "distractors": [
+        "accelerating cell growth and proliferation rates",
+        "preventing any protein degradation in cells",
+        "having no validated mechanism of action"
+      ],
+      "cluster": "interventions"
+    },
+    {
+      "id": "ab07_senescence",
+      "context": "Cellular senescence is a double-edged sword because:",
+      "truth": "it prevents cancer but accumulating cells cause inflammation",
+      "distractors": [
+        "senescent cells have only beneficial effects",
+        "senescence only occurs in cancer cells not normal",
+        "there are no negative effects from senescent cells"
+      ],
+      "cluster": "mechanisms"
+    },
+    {
+      "id": "ab08_parabiosis",
+      "context": "Parabiosis experiments show that young blood:",
+      "truth": "contains factors that can rejuvenate old tissues",
+      "distractors": [
+        "has no effect on aging in any organism",
+        "accelerates aging in young recipients",
+        "only works between identical twin animals"
+      ],
+      "cluster": "biomarkers"
+    },
+    {
+      "id": "ab09_nad",
+      "context": "NAD+ declines with age and supplementation may help by:",
+      "truth": "restoring sirtuin activity and mitochondrial function",
+      "distractors": [
+        "having no biological effect when supplemented",
+        "causing accelerated aging when levels increase",
+        "only affecting muscle tissue not other organs"
+      ],
+      "cluster": "interventions"
+    },
+    {
+      "id": "ab10_inflammaging",
+      "context": "Inflammaging refers to:",
+      "truth": "chronic low-grade inflammation increasing with age",
+      "distractors": [
+        "acute inflammation that decreases with age",
+        "inflammation only in elderly with infections",
+        "a theoretical concept with no evidence"
+      ],
+      "cluster": "mechanisms"
+    },
+    {
+      "id": "ab11_reprogramming",
+      "context": "Partial cellular reprogramming for rejuvenation aims to:",
+      "truth": "reset epigenetic age without losing cell identity",
+      "distractors": [
+        "fully convert all cells back to stem cells",
+        "permanently change cells to different types",
+        "has shown no effect on aging markers"
+      ],
+      "cluster": "interventions"
+    },
+    {
+      "id": "ab12_proteostasis",
+      "context": "Proteostasis decline in aging means:",
+      "truth": "impaired protein folding quality control",
+      "distractors": [
+        "enhanced protein folding surveillance mechanisms that improve with chronological age",
+        "dysfunction restricted exclusively to neuronal cells without affecting other tissues",
+        "completely unrelated processes that have no connection to age-associated disorders"
+      ],
+      "cluster": "biomarkers"
+    }
+  ]
+}

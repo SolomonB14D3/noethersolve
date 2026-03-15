@@ -1,0 +1,138 @@
+{
+  "problem": "quantum_gravity",
+  "description": "Quantum gravity - string theory, loop quantum gravity, black holes.",
+  "facts": [
+    {
+      "id": "qg01_scale",
+      "context": "Quantum gravity effects become important at:",
+      "truth": "Planck scale where both QM and GR needed",
+      "distractors": [
+        "macroscopic scales we observe in daily life",
+        "only inside black hole event horizons",
+        "speeds approaching the speed of light only"
+      ],
+      "cluster": "fundamentals"
+    },
+    {
+      "id": "qg02_lqg",
+      "context": "Loop quantum gravity predicts spacetime is:",
+      "truth": "discrete, made of spin networks and spin foam",
+      "distractors": [
+        "continuous at all scales without discreteness",
+        "only matter is quantized not spacetime itself",
+        "identical to classical general relativity"
+      ],
+      "cluster": "theories"
+    },
+    {
+      "id": "qg03_string_dimensions",
+      "context": "String theory requires:",
+      "truth": "extra spatial dimensions beyond three",
+      "distractors": [
+        "no additional dimensions at all beyond four",
+        "only one extra time dimension added",
+        "two-dimensional spacetime exclusively"
+      ],
+      "cluster": "theories"
+    },
+    {
+      "id": "qg04_information",
+      "context": "The black hole information paradox concerns:",
+      "truth": "whether information is destroyed or preserved",
+      "distractors": [
+        "whether black holes actually exist at all",
+        "only the mass calculation of black holes",
+        "Hawking radiation temperature formulas"
+      ],
+      "cluster": "black_holes"
+    },
+    {
+      "id": "qg05_holographic",
+      "context": "The holographic principle suggests:",
+      "truth": "bulk physics encoded on lower-dimensional boundary",
+      "distractors": [
+        "the universe is a literal hologram image",
+        "information requires three dimensions minimum",
+        "boundaries contain less information than bulk"
+      ],
+      "cluster": "fundamentals"
+    },
+    {
+      "id": "qg06_ads_cft",
+      "context": "AdS/CFT correspondence relates:",
+      "truth": "gravity in AdS space to CFT on its boundary",
+      "distractors": [
+        "two completely unrelated physical theories",
+        "quantum mechanics to classical mechanics only",
+        "string theory to loop quantum gravity directly"
+      ],
+      "cluster": "theories"
+    },
+    {
+      "id": "qg07_hawking",
+      "context": "Hawking radiation implies black holes:",
+      "truth": "emit thermal radiation and eventually evaporate",
+      "distractors": [
+        "grow forever absorbing all matter nearby",
+        "are completely stable with no radiation",
+        "emit particles only at their formation"
+      ],
+      "cluster": "black_holes"
+    },
+    {
+      "id": "qg08_firewall",
+      "context": "The firewall paradox challenges the idea that:",
+      "truth": "infalling observers experience nothing special at horizon",
+      "distractors": [
+        "black holes emit any radiation at all",
+        "event horizons are physical surfaces",
+        "information can be stored in black holes"
+      ],
+      "cluster": "black_holes"
+    },
+    {
+      "id": "qg09_emergence",
+      "context": "Emergent spacetime proposals suggest gravity:",
+      "truth": "arises from more fundamental quantum information",
+      "distractors": [
+        "is the most fundamental force in nature",
+        "cannot emerge from quantum mechanics ever",
+        "exists independently of all other physics"
+      ],
+      "cluster": "fundamentals"
+    },
+    {
+      "id": "qg10_singularity",
+      "context": "Quantum gravity is expected to resolve singularities by:",
+      "truth": "replacing infinite density with Planck-scale physics",
+      "distractors": [
+        "proving singularities are physically real",
+        "showing general relativity is exactly correct",
+        "having no effect on singularity predictions"
+      ],
+      "cluster": "theories"
+    },
+    {
+      "id": "qg11_cosmology",
+      "context": "Quantum gravity effects on cosmology may explain:",
+      "truth": "the Big Bang initial conditions and inflation",
+      "distractors": [
+        "nothing about early universe physics at all",
+        "only late-time accelerated expansion",
+        "galaxy formation without any quantum effects"
+      ],
+      "cluster": "fundamentals"
+    },
+    {
+      "id": "qg12_testability",
+      "context": "Testing quantum gravity is difficult because:",
+      "truth": "effects are suppressed by Planck scale far below experiments",
+      "distractors": [
+        "quantum gravity makes no predictions at all",
+        "experiments have already confirmed string theory",
+        "all quantum gravity theories are mathematically identical"
+      ],
+      "cluster": "black_holes"
+    }
+  ]
+}
