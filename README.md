@@ -26,7 +26,7 @@ Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ra
 **NoetherSolve Toolkit: Conservation Law Monitoring and Discovery for Numerical Simulations** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
-Fourteen tools for monitoring, validating, and discovering conservation laws — plus genetics therapeutics design auditing. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. Automatic invariant discovery via L-BFGS-B over 12 basis functions. Six genetics therapeutics tools: sequence auditor, CRISPR guide scorer, pipeline validator, aggregation predictor, splice site scorer, and pharmacogenomic interaction checker. 419 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
+Twenty tools for monitoring, validating, and discovering conservation laws — plus genetics therapeutics and unsolved mathematics auditing. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. Automatic invariant discovery via L-BFGS-B over 12 basis functions. Six genetics therapeutics tools and six unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker). 777 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 ---
 
@@ -494,6 +494,77 @@ print(report)
 </details>
 
 <details>
+<summary><h3>Unsolved Mathematics Tools</h3></summary>
+
+Six tools for validating claims about computational complexity, open conjectures, proof techniques, number theory, reductions, and PDE regularity.
+
+**Complexity Class Auditor** — validates claims about class relationships:
+
+```python
+from noethersolve import audit_complexity
+
+report = audit_complexity(["P = NP", "SAT is NP-complete", "GI is NP-complete"])
+print(report)
+# Checks: inclusions, separations, completeness, collapse implications
+# → FAIL: P=NP would collapse PH; GI is NOT known to be NP-complete
+```
+
+**Conjecture Status Checker** — validates claims about open problem status:
+
+```python
+from noethersolve import check_conjecture, check_claim
+
+report = check_conjecture("riemann_hypothesis", claimed_status="SOLVED")
+print(report)  # → FAIL: Riemann Hypothesis is OPEN, not SOLVED
+
+report = check_claim("Goldbach conjecture was proved")
+print(report)  # → FAIL: strong Goldbach is OPEN (weak Goldbach proved by Helfgott 2013)
+```
+
+**Proof Barrier Checker** — checks if known barriers block a proof technique:
+
+```python
+from noethersolve import check_barriers, what_works_for
+
+report = check_barriers("diagonalization", "P vs NP")
+print(report)  # → FAIL: relativization barrier blocks diagonalization for P vs NP
+
+alts = what_works_for("P vs NP")
+print(alts)  # Techniques NOT blocked: algebraic geometry (GCT), interactive proofs, ...
+```
+
+**Number Theory Verifier** — numerical verification of famous conjectures:
+
+```python
+from noethersolve import verify_goldbach, verify_collatz, check_abc_triple
+
+print(verify_goldbach(100))   # 6 decompositions: 3+97, 11+89, 17+83, ...
+print(verify_collatz(27))     # 111 steps, max value 9232
+print(check_abc_triple(1, 8, 9))  # quality 1.226 — exceptional ABC triple!
+```
+
+**Reduction Chain Validator** — validates computational reduction chains:
+
+```python
+from noethersolve import validate_chain
+
+chain = [("3-SAT", "many-one", "CLIQUE"), ("CLIQUE", "many-one", "VERTEX-COVER")]
+report = validate_chain(chain)
+print(report)  # → PASS: valid transitive chain, effective type: many-one
+```
+
+**PDE Regularity Checker** — validates Sobolev embeddings and regularity claims:
+
+```python
+from noethersolve import check_sobolev_embedding, check_pde_regularity
+
+print(check_sobolev_embedding(1, 2, 3))  # W^{1,2}(R^3) → L^6 (subcritical)
+print(check_pde_regularity("navier-stokes", 3, "global_smooth"))  # → WARN: open problem
+```
+
+</details>
+
+<details>
 <summary><h3>Benchmark Results</h3></summary>
 
 The corruption benchmark (`experiments/corruption_benchmark.py`) validates
@@ -507,7 +578,7 @@ these tools against 5 experiments:
 | Chemical violation | Perturbed rate constants | Wegscheider cycle product shifts 3.33 to 0.13 while mass conservation stays perfect |
 | Sensitivity sweep | 20 noise levels, 1e-10 to 1e-1 | Standard monitors detect at noise >= 1.8e-6; discovered monitors have baseline sensitivity at 1e-10 |
 
-**419 tests passing** across all 14 tools (`pytest tests/`).
+**777 tests passing** across all 20 tools (`pytest tests/`).
 
 </details>
 
@@ -890,6 +961,12 @@ NoetherSolve
 │   ├── aggregation.py          ← Protein aggregation propensity predictor
 │   ├── splice.py               ← Splice site strength scorer (PWM-based)
 │   ├── pharmacokinetics.py     ← Pharmacogenomic CYP interaction checker
+│   ├── complexity.py           ← Complexity class relationship auditor
+│   ├── conjecture_status.py    ← Mathematical conjecture status checker
+│   ├── proof_barriers.py       ← Proof technique barrier checker
+│   ├── number_theory.py        ← Number theory conjecture numerical verifier
+│   ├── reductions.py           ← Computational reduction chain validator
+│   ├── pde_regularity.py       ← PDE regularity and Sobolev embedding checker
 │   ├── train_utils.py          ← Shared training utilities
 │   └── validate.py             ← Integrator validation via conservation laws
 │

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "noethersolve"
-version = "0.7.0"
+version = "0.8.0"
 description = "Automated scientific discovery: use LLM knowledge gaps as a compass to find underexplored science."
 readme = "README.md"
 license = {text = "MIT"}

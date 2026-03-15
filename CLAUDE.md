@@ -420,7 +420,13 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/aggregation.py` | Protein aggregation propensity predictor |
 | `noethersolve/splice.py` | Splice site strength scorer (PWM-based) |
 | `noethersolve/pharmacokinetics.py` | Pharmacogenomic CYP interaction checker |
-| `tests/` | 419 tests for all 14 toolkit modules |
+| `noethersolve/complexity.py` | Complexity class relationship auditor |
+| `noethersolve/conjecture_status.py` | Mathematical conjecture status checker (~63 conjectures) |
+| `noethersolve/proof_barriers.py` | Proof technique barrier checker (10 barriers) |
+| `noethersolve/number_theory.py` | Number theory conjecture numerical verifier |
+| `noethersolve/reductions.py` | Computational reduction chain validator |
+| `noethersolve/pde_regularity.py` | PDE regularity and Sobolev embedding checker |
+| `tests/` | 777 tests for all 20 toolkit modules |
 
 ---
 
