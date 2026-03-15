@@ -26,7 +26,7 @@ Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ra
 **NoetherSolve Toolkit: Conservation Law Monitoring and Discovery for Numerical Simulations** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
-Eleven tools for monitoring, validating, and discovering conservation laws — plus genetics therapeutics design auditing. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. Automatic invariant discovery via L-BFGS-B over 12 basis functions. Sequence design auditor, CRISPR guide scorer, and therapeutic pipeline validator for genetics domains. 310 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
+Fourteen tools for monitoring, validating, and discovering conservation laws — plus genetics therapeutics design auditing. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. Automatic invariant discovery via L-BFGS-B over 12 basis functions. Six genetics therapeutics tools: sequence auditor, CRISPR guide scorer, pipeline validator, aggregation predictor, splice site scorer, and pharmacogenomic interaction checker. 419 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 ---
 
@@ -406,7 +406,7 @@ Reidemeister moves: `apply_r1(knot, sign)`, `apply_r1_remove(knot)`.
 <details>
 <summary><h3>Genetics Therapeutics Tools</h3></summary>
 
-Three tools for genetics therapeutics design — sequence auditing, CRISPR guide scoring, and pipeline consistency validation.
+Six tools for genetics therapeutics design — sequence auditing, CRISPR guide scoring, pipeline consistency validation, protein aggregation prediction, splice site scoring, and pharmacogenomic interaction checking.
 
 **Sequence Design Auditor** — checks DNA/RNA for therapeutic design pitfalls:
 
@@ -452,6 +452,44 @@ print(report)
 # route-tissue, modality-payload, redosing immunity, safety monitoring
 ```
 
+**Protein Aggregation Predictor** — predicts aggregation risk from amino acid sequence:
+
+```python
+from noethersolve import predict_aggregation
+
+report = predict_aggregation("MILVFAILVILMFAILVM")
+print(report)
+# APR detection (AGGRESCAN), hydrophobicity (Kyte-Doolittle),
+# hydrophobic patches, net charge, low-complexity regions
+```
+
+**Splice Site Scorer** — scores donor/acceptor sites against mammalian consensus PWMs:
+
+```python
+from noethersolve import score_donor, score_acceptor, scan_splice_sites
+
+report = score_donor("CAGGTAAGT")
+print(f"Score: {report.score:.2f}, Strength: {report.strength}")
+
+# Scan full sequence for all potential splice sites
+sites = scan_splice_sites("AAACAGGTAAGTCCC...", site_type="both")
+```
+
+**Pharmacogenomic Interaction Checker** — CYP enzyme interactions, phenotype risks, HLA safety:
+
+```python
+from noethersolve import audit_drug_list
+
+report = audit_drug_list(
+    drugs=["codeine", "paroxetine", "simvastatin"],
+    hla_alleles=["HLA-B*57:01"],
+    phenotypes={"CYP2D6": "poor_metabolizer"},
+)
+print(report)
+# Drug-drug interactions, phenotype warnings, HLA associations,
+# required pre-screening tests
+```
+
 </details>
 
 <details>
@@ -468,7 +506,7 @@ these tools against 5 experiments:
 | Chemical violation | Perturbed rate constants | Wegscheider cycle product shifts 3.33 to 0.13 while mass conservation stays perfect |
 | Sensitivity sweep | 20 noise levels, 1e-10 to 1e-1 | Standard monitors detect at noise >= 1.8e-6; discovered monitors have baseline sensitivity at 1e-10 |
 
-**310 tests passing** across all 11 tools (`pytest tests/`).
+**419 tests passing** across all 14 tools (`pytest tests/`).
 
 </details>
 
@@ -823,6 +861,9 @@ NoetherSolve
 │   ├── monitor_em.py           ← EM field monitor (energy, chirality, zilch)
 │   ├── oracle.py               ← Oracle scoring engine
 │   ├── pipeline.py             ← Therapeutic pipeline consistency validator
+│   ├── aggregation.py          ← Protein aggregation propensity predictor
+│   ├── splice.py               ← Splice site strength scorer (PWM-based)
+│   ├── pharmacokinetics.py     ← Pharmacogenomic CYP interaction checker
 │   ├── train_utils.py          ← Shared training utilities
 │   └── validate.py             ← Integrator validation via conservation laws
 │

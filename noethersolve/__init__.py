@@ -19,6 +19,9 @@ Package layout:
   noethersolve.audit_sequence — DNA/RNA therapeutic sequence design auditor
   noethersolve.crispr       — CRISPR guide RNA scorer (on-target activity, off-target risk)
   noethersolve.pipeline     — therapeutic pipeline consistency validator
+  noethersolve.aggregation  — protein aggregation propensity predictor
+  noethersolve.splice       — splice site strength scorer (PWM-based)
+  noethersolve.pharmacokinetics — pharmacogenomic CYP interaction checker
 """
 
 from noethersolve import train_utils  # noqa: F401
@@ -72,5 +75,30 @@ from noethersolve.pipeline import (  # noqa: F401
     PipelineReport,
     PipelineIssue,
 )
+from noethersolve.aggregation import (  # noqa: F401
+    predict_aggregation,
+    AggregationReport,
+    AggregationIssue,
+    KYTE_DOOLITTLE,
+    AGGRESCAN,
+)
+from noethersolve.splice import (  # noqa: F401
+    score_donor,
+    score_acceptor,
+    scan_splice_sites,
+    pyrimidine_tract_score,
+    SpliceSiteReport,
+)
+from noethersolve.pharmacokinetics import (  # noqa: F401
+    audit_drug_list,
+    check_drug_interactions,
+    check_phenotype,
+    check_hla,
+    get_enzyme_for_drug,
+    get_interactions,
+    PharmReport,
+    DrugInteraction,
+    PharmIssue,
+)
 
-__version__ = "0.6.0"
+__version__ = "0.7.0"

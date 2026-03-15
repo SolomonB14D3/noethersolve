@@ -411,7 +411,10 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/audit_sequence.py` | DNA/RNA therapeutic sequence design auditor |
 | `noethersolve/crispr.py` | CRISPR guide RNA scorer (on-target activity, off-target risk) |
 | `noethersolve/pipeline.py` | Therapeutic pipeline consistency validator |
-| `tests/` | 310 tests for all 11 toolkit modules |
+| `noethersolve/aggregation.py` | Protein aggregation propensity predictor |
+| `noethersolve/splice.py` | Splice site strength scorer (PWM-based) |
+| `noethersolve/pharmacokinetics.py` | Pharmacogenomic CYP interaction checker |
+| `tests/` | 419 tests for all 14 toolkit modules |
 
 ---
 
