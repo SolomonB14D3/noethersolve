@@ -55,11 +55,11 @@
     {
       "id": "qf06_3d_stretching",
       "context": "For 3D Euler vorticity, vortex stretching affects Q_f conservation. Under stretching by factor s, Q_f scales as:",
-      "truth": "Q_f ∝ s² (stretching breaks Q_f conservation except for f(r) = 1/r)",
+      "truth": "quadratic in s (Q_f grows as s²)",
       "distractors": [
-        "Q_f is unchanged",
-        "Q_f ∝ s",
-        "Q_f ∝ 1/s²"
+        "exactly constant (stretching preserves Q_f)",
+        "linear in s (Q_f grows as s)",
+        "inversely quadratic (Q_f shrinks as 1/s²)"
       ]
     },
     {

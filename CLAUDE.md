@@ -126,6 +126,24 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
+**Established domain results (64/64 = 100%):**
+
+| Domain | Facts | Baseline | Final | Method |
+|--------|-------|----------|-------|--------|
+| Hamiltonian Mechanics | 16 | 1/16 | **16/16** | Staged anchored training (5 stages) |
+| NS Regularity | 16 | 0/16 | **16/16** | Orthogonal adapters + fact fix |
+| Knot Invariants | 16 | 1/16 | **16/16** | Orthogonal adapters (7 clusters) |
+| Chemical Kinetics | 16 | 0/16 | **16/16** | Orthogonal adapters + fact fix |
+
+**Remaining domains (orthogonal adapters trained, evaluation pending):**
+
+| Domain | Facts | Single-Adapter | Orthogonal Adapters | Status |
+|--------|-------|----------------|---------------------|--------|
+| Continuous Q_f | 12 | 7/12 (58%) | 5 cluster adapters trained | Needs eval |
+| Kinetic K | 8 | 3/8 (37.5%) | 4 cluster adapters trained | Needs eval |
+| Optimal f(r) | 4 | 2/4 (50%) | 2 cluster adapters trained | Needs eval |
+| Vortex Pair Classical | — | — | 1 adapter trained | Needs eval |
+
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:
 2. Staged training (sequential clusters) → solved Hamiltonian (16/16). If plateau, try:
@@ -346,6 +364,8 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 - **Do not use verbose prose in oracle facts.** Compact symbolic notation only: `"Q = r₁₂ + ε(r₁₃+r₂₃) = const"`. Verbose prose fails the oracle (confirmed in pilot runs).
 - **Do not blame the adapter when a single fact won't flip.** Check the distractor first. If the distractor is too similar to the correct answer or shorter (e.g., `"k × [A]"` vs the full rate law), the model picks it on length/simplicity bias, not because it believes it's true. Fix the distractor to be clearly wrong and roughly the same length. This flipped the last chemical kinetics holdout from -1.4 to positive immediately.
 - **Do not hardcode absolute paths** in any script. Use `os.path.dirname(__file__)` for relative resolution.
+- **Do not stack adapters naively.** Joint + specialist stacking was tested and destroys the joint adapter's wins (8/16 → 5/16). Use cluster routing instead: each fact routes to its specialist adapter at inference.
+- **Do not ignore token-length bias in oracle facts.** If the truth is longer than the best distractor, the base model picks the shorter answer on length bias alone. Fix by shortening truth and lengthening distractors to similar lengths. This fixed chem08 (-3.8 → +4.3) and ns03 (-44 → +242.8 with adapter).
 
 ---
 
@@ -367,10 +387,19 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `problems/*_facts.json` | Oracle verification sets (8–15 facts per domain) |
 | `adapters/` | Trained adapter weights (gitignored — local only) |
 | `noethersolve/monitor.py` | Conservation law monitors (Vortex, Chemical, Gravity) |
+| `noethersolve/monitor_em.py` | EM field monitor (energy, chirality, helicity, zilch, super-energy) |
+| `noethersolve/hamiltonian.py` | Hamiltonian validator (energy, Liouville volume, Poincare invariant) |
+| `noethersolve/learner.py` | Invariant learner (L-BFGS-B over 12 basis functions) |
 | `noethersolve/validate.py` | Integrator validation via conservation laws |
 | `noethersolve/audit_chem.py` | Chemical network thermodynamic auditor |
 | `experiments/corruption_benchmark.py` | 5 benchmark experiments proving monitor sensitivity |
-| `tests/` | 56 tests for monitors, validator, and auditor |
+| `research/knot_invariants.py` | Numerical verification of knot invariants |
+| `research/hamiltonian_invariants.py` | Hamiltonian system invariant checks |
+| `research/chemical_networks.py` | Chemical network conservation verification |
+| `training/scripts/train_staged_adapter.py` | Staged sequential adapter training |
+| `training/scripts/train_anchored_adapter.py` | Anchored training with regression protection |
+| `training/scripts/train_prior_breaker.py` | Prior-breaking adapter training |
+| `tests/` | 102 tests for all 6 toolkit modules |
 
 ---
 

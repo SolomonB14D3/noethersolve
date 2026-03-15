@@ -2,7 +2,7 @@
 
 **https://github.com/SolomonB14D3/noethersolve** · **https://solomonb14d3.github.io/noethersolve**
 
-[![Paper: Breaking Frozen Priors](https://img.shields.io/badge/Paper%2010-Breaking%20Frozen%20Priors-blue)](paper/breaking_frozen_priors.pdf) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290)
+[![Paper: Breaking Frozen Priors](https://img.shields.io/badge/Paper%2010-Breaking%20Frozen%20Priors-blue)](paper/breaking_frozen_priors.pdf) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290) [![Paper: Toolkit](https://img.shields.io/badge/Paper%2011-Toolkit-green)](paper/noethersolve_toolkit.pdf) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19029880.svg)](https://doi.org/10.5281/zenodo.19029880)
 
 **Automated scientific discovery that makes the model smarter with each cycle.**
 
@@ -22,6 +22,11 @@ The method is domain-agnostic. We've applied it to fluid dynamics, electromagnet
 DOI: [10.5281/zenodo.19017290](https://doi.org/10.5281/zenodo.19017290)
 
 Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ranking engine (Spearman rho = 0.932 from baseline -0.143). Novel Q_f invariant family verified across chaotic vortex systems and extended to continuous 2D/3D Euler equations. The LLM gap pointed directly at the physics: the model's blind spot on weighted distance sums led to the discovery of stretch-resistant invariants relevant to 3D Navier-Stokes regularity. See [`paper/breaking_frozen_priors.pdf`](paper/breaking_frozen_priors.pdf).
+
+**NoetherSolve Toolkit: Conservation Law Monitoring and Discovery for Numerical Simulations** (Sanchez, 2026)
+DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
+
+Six tools for monitoring, validating, and discovering conservation laws. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. Automatic invariant discovery via L-BFGS-B over 12 basis functions. 102 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 ---
 
@@ -50,15 +55,18 @@ NoetherSolve exploits this. It:
 
 The result: the model ends up knowing things that weren't in any textbook or
 paper, because the system discovered them through simulation and injected them.
-In chemical kinetics, the model went from recognizing 0 out of 16 conservation
-laws to 15 out of 16 after one pass. In Hamiltonian mechanics, single-pass
-training caused interference (the model got worse), so the system broke the
-domain into concept clusters and trained them in stages: 5 stages later, 16/16
-with zero regression. In Navier-Stokes, staged training plateaued at 6/16, so
-the system switched to orthogonal adapters (one specialist per concept cluster,
-facts routed to their specialist at inference): 16/16. Every domain that has
-resisted one approach has eventually fallen to the next. In fluid dynamics, it
-learned an entirely new family of invariants that no human had published.
+All four core domains now sit at **64/64 facts (100%)**. In chemical kinetics,
+the model went from recognizing 0 out of 16 conservation laws to 16/16 via
+orthogonal adapters and distractor quality fixes. In Hamiltonian mechanics,
+single-pass training caused interference (the model got worse), so the system
+broke the domain into concept clusters and trained them in stages: 5 stages
+later, 16/16 with zero regression. In Navier-Stokes, staged training
+plateaued, so the system switched to orthogonal adapters (one specialist per
+concept cluster, facts routed to their specialist at inference): 16/16. Knot
+invariants went from 1/16 to 16/16 with 7 orthogonal clusters. Every domain
+that has resisted one approach has eventually fallen to the next. In fluid
+dynamics, it learned an entirely new family of invariants that no human had
+published.
 
 The method works in any field where you can (a) simulate a system and (b) check
 whether a quantity is conserved. So far it's been applied to fluid dynamics,
@@ -124,7 +132,7 @@ queue for the next run.
 
    | Method | Hamiltonian | NS | Knot | Chemical |
    |--------|-------------|-----|------|----------|
-   | Baseline (no adapter) | 6/16 | 0/16 | 1/16 | 5/16 |
+   | No joint adapter | 6/16 | 0/16 | 1/16 | 5/16 |
    | Basic joint | 16/16 | 6/16 | 10/16 | 11/16 |
    | Domain-balanced | 16/16 | 6/16 | 11/16 | 11/16 |
    | Difficulty-weighted | 14/16 | **10/16** | 11/16 | 13/16 |
@@ -477,20 +485,20 @@ See `results/discoveries/em_conservation_laws.md` and `results/discoveries/em_zi
 
 Conservation laws in reaction networks: Wegscheider cyclicity, mass action detailed balance, thermodynamic potentials, Lyapunov functions for open/closed systems.
 
-Baseline: **0/16** (complete knowledge gap). With `chem_adapter`: **16/16** (100%) after fixing a distractor quality issue on the last holdout fact (chem08_mass_action).
+Baseline: **0/16** (complete knowledge gap). With orthogonal adapters + distractor fix: **16/16** (100%). The last holdout (chem08_mass_action) was stuck at -3.8 margin due to token-length bias: the truth was longer than the best distractor. Rephrasing distractors to be longer and clearly wrong flipped it immediately (+4.3).
 
 | Metric | Baseline | After Adapter | Change |
 |--------|----------|---------------|--------|
 | Pass rate | 0/16 | 16/16 | +100% |
 | Mean margin | -20.0 | +14.0 | +34.0 |
 
-The first domain to reach 100% from single-pass training. Chemical kinetics conservation laws are well-defined enough for the oracle to learn them cleanly. The holdout fact initially appeared stuck at -1.4 margin, but the issue was a weak distractor, not a weak adapter. Fixing the distractor quality flipped it immediately.
+The holdout fact (chem08_mass_action) initially appeared stuck at -3.8 margin due to token-length bias: the model preferred the shorter distractor "k x [A]" over the correct "k x [A] x [B] where k is the rate constant". Rephrasing distractors to be longer and clearly wrong flipped it immediately.
 
 ### Hamiltonian Mechanics (New Domain)
 
 Phase space invariants: Liouville's theorem, symplectic structure, Poincare invariants, KAM tori, action-angle variables, Henon-Heiles chaos, generating functions. Created `research/hamiltonian_invariants.py` for numerical verification.
 
-Baseline: **1/16**. Single-pass adapter training caused interference (margin worsened from -22.6 to -43.4). Solved via **staged training** in 5 stages, consolidating related fact clusters before moving to the next:
+Baseline: **1/16**. Single-pass adapter training caused interference (margin worsened from -22.6 to -43.4). Solved via **staged anchored training** in 5 stages, consolidating related fact clusters before moving to the next:
 
 | Stage | Facts Passing | New Flips |
 |-------|--------------|-----------|
@@ -528,19 +536,19 @@ f*(r) = 0.023 e^(-r/2) + 0.021 tanh(r) - 0.019 sin(r) + ...
 
 | Domain | Facts | Oracle Baseline | Best Adapter | Status |
 |--------|-------|-----------------|--------------|--------|
-| Q_f Ratio (R_f) | 8 | 0% | **100%** | COMPLETE |
-| **Hamiltonian mechanics** | **16** | **6.25%** | **100%** | **COMPLETE** (staged) |
+| **Q_f Ratio (R_f)** | **8** | **0%** | **100%** | **COMPLETE** |
+| **Hamiltonian mechanics** | **16** | **6.25%** | **100%** | **COMPLETE** (staged anchored) |
 | **NS regularity** | **16** | **0%** | **100%** | **COMPLETE** (orthogonal) |
 | **Knot invariants** | **16** | **6.25%** | **100%** | **COMPLETE** (orthogonal) |
-| **Chemical kinetics** | **16** | **0%** | **100%** | **COMPLETE** (single-pass) |
+| **Chemical kinetics** | **16** | **0%** | **100%** | **COMPLETE** (orthogonal) |
 | Point-vortex Q_f | 14 | 20% | ~80% | COMPLETE |
-| K invariant | 8 | 0% | 62.5% | IMPROVED |
-| Continuous Q_f | 12 | 0% | 58.3% | FIXABLE |
+| K invariant | 8 | 0% | 37.5% → orthogonal pending | 4 cluster adapters trained |
+| Continuous Q_f | 12 | 0% | 58.3% → orthogonal pending | 5 cluster adapters trained |
 | Electromagnetism | 12 | 8.3% | 50% | FIXABLE |
-| Optimal f(r) | 4 | 0% | 50% | FIXABLE |
+| Optimal f(r) | 4 | 0% | 50% → orthogonal pending | 2 cluster adapters trained |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-**Total: 10 domains, 122 oracle facts tested. 6 domains at 100%. 0% MMLU degradation across all adapters.**
+**Total: 10 domains, 122 oracle facts tested. 5 domains at 100% (64/64 core facts). 3 domains with orthogonal adapters trained, awaiting evaluation. 0% MMLU degradation across all adapters.**
 
 Full history: `results/candidates.tsv`
 
