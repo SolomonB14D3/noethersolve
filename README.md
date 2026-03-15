@@ -26,7 +26,7 @@ Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ra
 **NoetherSolve Toolkit: Conservation Law Monitoring and Discovery for Numerical Simulations** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
-Six tools for monitoring, validating, and discovering conservation laws. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. Automatic invariant discovery via L-BFGS-B over 12 basis functions. 102 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
+Eight tools for monitoring, validating, and discovering conservation laws. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. Automatic invariant discovery via L-BFGS-B over 12 basis functions. 183 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 ---
 
@@ -348,6 +348,61 @@ Three input modes: `learn_from_positions` (raw coordinates),
 </details>
 
 <details>
+<summary><h3>Fact Quality Auditor</h3></summary>
+
+Checks oracle fact files (`*_facts.json`) for token-length bias and
+distractor quality issues before you waste training cycles. Token-length
+bias was the #1 blocker across 4 domains (14+ facts needed rephrasing).
+
+```python
+from noethersolve import audit_facts
+
+report = audit_facts("problems/3body_conservation_facts.json")
+print(report)
+# ============================================================
+#   Fact Audit: WARN (2 issues)
+# ============================================================
+#   3b03_angular           LENGTH_BIAS  ratio=0.63  HIGH
+#   3b05_visviva           LENGTH_BIAS  ratio=0.68  HIGH
+#   3b01_energy            LENGTH_BIAS  ratio=0.82  MODERATE
+#   ...
+```
+
+Catches: truth longer than shortest distractor (ratio < 0.7 = HIGH,
+< 0.9 = MODERATE), distractors that are substrings of the truth,
+identical distractors. Run this on every new fact file before training.
+
+</details>
+
+<details>
+<summary><h3>Knot Invariant Monitor</h3></summary>
+
+Verifies knot invariants under Reidemeister moves. Checks which quantities
+are preserved (Jones polynomial) vs which change (writhe, bracket polynomial)
+when you add/remove twists and crossings.
+
+```python
+from noethersolve import KnotMonitor, trefoil
+
+monitor = KnotMonitor(trefoil())
+report = monitor.validate()
+print(report)
+# ============================================================
+#   Knot Invariant Report: trefoil — PASS
+# ============================================================
+#   R1 (add twist):
+#     writhe              EXPECTED_CHANGE  3 → 4
+#     bracket_polynomial  EXPECTED_CHANGE  (changed by -A^{-3})
+#     jones_polynomial    PRESERVED        ✓
+#   R2, R3: all quantities preserved  ✓
+```
+
+Built-in knots: `unknot()`, `trefoil()`, `figure_eight_knot()`.
+Reidemeister moves: `apply_r1(knot, sign)`, `apply_r1_remove(knot)`.
+
+</details>
+
+<details>
 <summary><h3>Benchmark Results</h3></summary>
 
 The corruption benchmark (`experiments/corruption_benchmark.py`) validates
@@ -361,7 +416,7 @@ these tools against 5 experiments:
 | Chemical violation | Perturbed rate constants | Wegscheider cycle product shifts 3.33 to 0.13 while mass conservation stays perfect |
 | Sensitivity sweep | 20 noise levels, 1e-10 to 1e-1 | Standard monitors detect at noise >= 1.8e-6; discovered monitors have baseline sensitivity at 1e-10 |
 
-**102 tests passing** across all 6 tools (`pytest tests/`).
+**183 tests passing** across all 8 tools (`pytest tests/`).
 
 </details>
 

@@ -399,7 +399,9 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `training/scripts/train_staged_adapter.py` | Staged sequential adapter training |
 | `training/scripts/train_anchored_adapter.py` | Anchored training with regression protection |
 | `training/scripts/train_prior_breaker.py` | Prior-breaking adapter training |
-| `tests/` | 102 tests for all 6 toolkit modules |
+| `noethersolve/audit_facts.py` | Oracle fact file quality auditor (token-length bias detection) |
+| `noethersolve/knot.py` | Knot invariant monitor (Reidemeister moves, Jones polynomial) |
+| `tests/` | 183 tests for all 8 toolkit modules |
 
 ---
 

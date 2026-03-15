@@ -14,6 +14,8 @@ Package layout:
   noethersolve.audit_chem   — chemical reaction network thermodynamic auditor
   noethersolve.hamiltonian  — Hamiltonian system symplectic structure validator
   noethersolve.learner      — automatic conservation law discovery via optimization
+  noethersolve.audit_facts  — oracle fact file quality auditor (token-length bias detection)
+  noethersolve.knot         — knot invariant monitor (Reidemeister moves, Jones polynomial)
 """
 
 from noethersolve import train_utils  # noqa: F401
@@ -27,6 +29,7 @@ from noethersolve.monitor import (  # noqa: F401
 from noethersolve.monitor_em import EMMonitor  # noqa: F401
 from noethersolve.validate import validate_integrator, compare_configs  # noqa: F401
 from noethersolve.audit_chem import audit_network, AuditReport  # noqa: F401
+from noethersolve.audit_facts import audit_facts, FactAuditReport  # noqa: F401
 from noethersolve.hamiltonian import (  # noqa: F401
     HamiltonianMonitor,
     HamiltonianReport,
@@ -36,5 +39,13 @@ from noethersolve.hamiltonian import (  # noqa: F401
     coupled_oscillators,
 )
 from noethersolve.learner import InvariantLearner, LearnerReport  # noqa: F401
+from noethersolve.knot import (  # noqa: F401
+    KnotMonitor,
+    KnotReport,
+    KnotDiagram,
+    unknot,
+    trefoil,
+    figure_eight_knot,
+)
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
