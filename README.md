@@ -132,7 +132,7 @@ queue for the next run.
 
    | Method | Hamiltonian | NS | Knot | Chemical |
    |--------|-------------|-----|------|----------|
-   | No joint adapter | 6/16 | 0/16 | 1/16 | 5/16 |
+   | No adapter | 1/16 | 0/16 | 1/16 | 0/16 |
    | Basic joint | 16/16 | 6/16 | 10/16 | 11/16 |
    | Domain-balanced | 16/16 | 6/16 | 11/16 | 11/16 |
    | Difficulty-weighted | 14/16 | **10/16** | 11/16 | 13/16 |

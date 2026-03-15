@@ -148,7 +148,7 @@ so they never compete for the same parameters.
 1. Single-pass adapter → if interference, try:
 2. Staged training (sequential clusters) → solved Hamiltonian (16/16). If plateau, try:
 3. Orthogonal adapters (specialist per cluster, routed at inference) → solved NS (16/16) and Knot invariants (16/16). Generalizes across physics and pure math. If still stuck, try:
-4. Cross-domain joint training (train single adapter on multiple domains) → confirmed with difficulty-weighted sampling: NS 0→10/16, knots 1→11/16, chemical 5→13/16, Hamiltonian 6→14/16 from ONE adapter. Difficulty-weighted sampling (oversample hard facts) gives best transfer on hardest domain.
+4. Cross-domain joint training (train single adapter on multiple domains) → confirmed with difficulty-weighted sampling: NS 0→10/16, knots 1→11/16, chemical 0→13/16, Hamiltonian 1→14/16 from ONE adapter. Difficulty-weighted sampling (oversample hard facts) gives best transfer on hardest domain.
 
 ---
 
