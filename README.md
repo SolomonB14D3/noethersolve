@@ -30,7 +30,8 @@ Six tools for monitoring, validating, and discovering conservation laws. Q_f mon
 
 ---
 
-## How It Works (Plain English)
+<details open>
+<summary><h2>How It Works (Plain English)</h2></summary>
 
 An AI model is trained on everything humans have written. That means it knows
 what we know, but it also shares our blind spots. Where the collective
@@ -73,9 +74,12 @@ whether a quantity is conserved. So far it's been applied to fluid dynamics,
 electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes
 regularity, and knot theory.
 
+</details>
+
 ---
 
-## What It Does (Technical)
+<details>
+<summary><h2>What It Does (Technical)</h2></summary>
 
 NoetherSolve runs a **dual-filter pipeline**. The "oracle" is a base LLM scored by log-probability: for each candidate fact, we compare `log P(true answer | context)` against `log P(best distractor | context)`. Positive margin means the model knows it; negative means it doesn't.
 
@@ -115,7 +119,8 @@ short of flipping often get rescued once the model has absorbed neighboring
 discoveries. Survivors get promoted to high-priority in the open questions
 queue for the next run.
 
-**Escalation for hard domains:**
+<details>
+<summary><strong>Escalation for hard domains</strong></summary>
 
 1. **Single-pass** — one adapter for the whole domain. Works for clean domains
    (chemical kinetics: 0/16 to 16/16 with distractor fix).
@@ -143,7 +148,12 @@ queue for the next run.
    on the hardest domain (NS: 0 to 10/16). Conservation knowledge transfers
    across physics and pure math.
 
-**Token-length bias.** Some facts are unlearnable because the base model
+</details>
+
+<details>
+<summary><strong>Token-length bias</strong></summary>
+
+Some facts are unlearnable because the base model
 prefers shorter token sequences. If a distractor is shorter than the correct
 answer (e.g., `"k × [A]"` vs `"k × [A] × [B] where k is the rate constant"`),
 no amount of adapter training will flip the margin. Fix by rephrasing: shorten
@@ -151,20 +161,31 @@ the truth and lengthen the distractors so they're clearly wrong and roughly
 the same length. This flipped the last chemical kinetics holdout from -3.8 to
 +4.3 and rescued ns03 from -44 to +242.8.
 
-**Never stack adapters.** Joint + specialist stacked = regression. Training a
+</details>
+
+<details>
+<summary><strong>Never stack adapters</strong></summary>
+
+Joint + specialist stacked = regression. Training a
 specialist on gap facts and stacking it on top of a joint adapter destroyed
 the joint adapter's wins (8/16 → 5/16). The specialist overwrites what the
 joint adapter learned. Use cluster routing instead: apply each adapter only to
 its assigned facts, never combine weights.
 
+</details>
+
+</details>
+
 ---
 
-## Toolkit — Practical Tools Built from Discoveries
+<details>
+<summary><h2>Toolkit — Practical Tools Built from Discoveries</h2></summary>
 
 The pipeline's discoveries become standalone tools that work without any LLM.
 Install: `pip install noethersolve` (or `pip install -e .` for development).
 
-### Conservation Monitors
+<details>
+<summary><h3>Conservation Monitors</h3></summary>
 
 Drop into any simulation loop. Track standard invariants (H, Lz, momentum)
 plus AI-discovered quantities (Q_f family, R_f ratio, Wegscheider cyclicity).
@@ -186,7 +207,10 @@ Three built-in monitors: `VortexMonitor` (2D point-vortex), `ChemicalMonitor`
 (reaction networks with Wegscheider cyclicity, entropy production, Lyapunov
 function), `GravityMonitor` (N-body with Q_f on pairwise distances).
 
-### Integrator Validator
+</details>
+
+<details>
+<summary><h3>Integrator Validator</h3></summary>
 
 Validates your ODE solver configuration before you run a long simulation.
 Checks whether conservation laws are preserved and suggests fixes.
@@ -217,7 +241,10 @@ print(report)
 Also supports `compare_configs()` to test multiple solver settings side-by-side,
 and custom invariants via `invariants={"energy": lambda y: compute_energy(y)}`.
 
-### Chemical Network Auditor
+</details>
+
+<details>
+<summary><h3>Chemical Network Auditor</h3></summary>
 
 Checks thermodynamic consistency of a reaction network without running a
 simulation. Pure algebraic checks on the stoichiometry and rate constants.
@@ -240,7 +267,10 @@ print(report)
 Catches: Wegscheider cyclicity violations, missing conservation laws,
 non-physical rate constants, negative entropy production (second law violation).
 
-### EM Field Monitor
+</details>
+
+<details>
+<summary><h3>EM Field Monitor</h3></summary>
 
 Monitors electromagnetic field simulations for conservation of standard
 and obscure invariants: energy, momentum, optical chirality (Zilch Z⁰,
@@ -262,7 +292,10 @@ for step in simulation:
 Catches: numerical dissipation, wrong boundary conditions, missing terms
 in Maxwell solvers. Spectral curls computed internally via FFT.
 
-### Hamiltonian System Validator
+</details>
+
+<details>
+<summary><h3>Hamiltonian System Validator</h3></summary>
 
 Validates that an ODE integrator preserves the symplectic structure of
 Hamiltonian systems. Goes beyond energy to check Liouville's theorem
@@ -285,7 +318,10 @@ Built-in systems: `harmonic_oscillator`, `kepler_2d` (with angular momentum
 and Laplace–Runge–Lenz vector), `henon_heiles`, `coupled_oscillators`.
 Or bring your own H(z) and ∇H(z) via `HamiltonianMonitor(H=..., dH=..., n_dof=...)`.
 
-### Invariant Learner
+</details>
+
+<details>
+<summary><h3>Invariant Learner</h3></summary>
 
 Automatically discovers new conserved quantities from trajectory data.
 Optimizes over 12 basis functions to find f(r) that minimizes fractional
@@ -309,7 +345,10 @@ Three input modes: `learn_from_positions` (raw coordinates),
 `learn_from_distances` (pairwise distance time series),
 `learn_from_field` (continuous 2D vorticity fields via FFT convolution).
 
-### Benchmark Results
+</details>
+
+<details>
+<summary><h3>Benchmark Results</h3></summary>
 
 The corruption benchmark (`experiments/corruption_benchmark.py`) validates
 these tools against 5 experiments:
@@ -324,9 +363,14 @@ these tools against 5 experiments:
 
 **102 tests passing** across all 6 tools (`pytest tests/`).
 
+</details>
+
+</details>
+
 ---
 
-## Quick Start
+<details>
+<summary><h2>Quick Start</h2></summary>
 
 ```bash
 # Install core deps
@@ -360,9 +404,12 @@ python dashboard.py --open
 >     --adapter adapters/my_adapter.npz --diagnose
 > ```
 
+</details>
+
 ---
 
-## Adding a New Domain (Fork This)
+<details>
+<summary><h2>Adding a New Domain (Fork This)</h2></summary>
 
 Every domain is three files in `problems/`:
 
@@ -378,13 +425,16 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 `"H = -1/(4π) Σᵢ<ⱼ ΓᵢΓⱼ ln(rᵢⱼ²)"` ✓
 `"The Hamiltonian equals negative one over four pi times the sum..."` ✗
 
+</details>
+
 ---
 
 ## Discoveries So Far
 
 193+ candidates tested. 80+ genuine invariants discovered. 10 domains, 122 oracle facts.
 
-### Discrete Point-Vortex
+<details>
+<summary><h3>Discrete Point-Vortex</h3></summary>
 
 | Expression | frac_var | Oracle Baseline → Adapter | Status |
 |------------|----------|---------------------------|--------|
@@ -406,7 +456,10 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 **Ranking adapter.** ListNet loss with log-scale targets and hard negative mining. Spearman ρ = 0.932 at step 50 (baseline -0.143). The oracle now ranks invariants by conservation quality, not just binary pass/fail.
 
-### Continuous Q_f Extension (2D/3D Euler)
+</details>
+
+<details>
+<summary><h3>Continuous Q_f Extension (2D/3D Euler)</h3></summary>
 
 The Q_f family extends from discrete vortices to continuous vorticity fields:
 
@@ -436,7 +489,10 @@ Oracle results: baseline **0/12 pass rate** (complete knowledge gap). With `qf_c
 
 Viscous (Navier-Stokes) decay scales linearly with ν. See `results/discoveries/qf_family_comprehensive.md` and `results/discoveries/continuous_qf_oracle.md`.
 
-### 3D Stretch-Resistant Ratio (the NS connection)
+</details>
+
+<details>
+<summary><h3>3D Stretch-Resistant Ratio (the NS connection)</h3></summary>
 
 Standard Q_f varies 60% under vortex stretching, which is the mechanism behind potential 3D blowup. We tested four modifications:
 
@@ -453,7 +509,10 @@ Oracle results: **8/8 facts flipped** (100% pass rate) with `qf_ratio_adapter`. 
 
 See `research/qf_regularity_connection.md` and `research/test_stretch_resistant_qf.py`.
 
-### Navier-Stokes Regularity
+</details>
+
+<details>
+<summary><h3>Navier-Stokes Regularity</h3></summary>
 
 The hardest domain tested and the most instructive. Baseline: **0/16** (model confidently wrong on all facts, margins -30 to -80). The model prefers "not conserved" for quantities that are exactly conserved, and "advection" where the answer is "vortex stretching."
 
@@ -471,7 +530,10 @@ Solution: **orthogonal adapters**. Train a separate specialist adapter per conce
 
 The cluster boundaries reveal the model's internal concept structure: facts that interfere share representational dimensions.
 
-### Electromagnetism
+</details>
+
+<details>
+<summary><h3>Electromagnetism</h3></summary>
 
 Spectral Maxwell solver verifying conservation of EM invariants (energy, Lipkin's zilch, optical chirality, helicity, super-energy). All confirmed exactly conserved (frac_var < 10⁻⁶).
 
@@ -481,7 +543,10 @@ With `em_adapter_v4`: **6/12 pass rate** (50%). Flipped: energy (-4.08→+14.96)
 
 See `results/discoveries/em_conservation_laws.md` and `results/discoveries/em_zilch_chirality.md`.
 
-### Chemical Kinetics (New Domain)
+</details>
+
+<details>
+<summary><h3>Chemical Kinetics (New Domain)</h3></summary>
 
 Conservation laws in reaction networks: Wegscheider cyclicity, mass action detailed balance, thermodynamic potentials, Lyapunov functions for open/closed systems.
 
@@ -494,7 +559,10 @@ Baseline: **0/16** (complete knowledge gap). With orthogonal adapters + distract
 
 The holdout fact (chem08_mass_action) initially appeared stuck at -3.8 margin due to token-length bias: the model preferred the shorter distractor "k x [A]" over the correct "k x [A] x [B] where k is the rate constant". Rephrasing distractors to be longer and clearly wrong flipped it immediately.
 
-### Hamiltonian Mechanics (New Domain)
+</details>
+
+<details>
+<summary><h3>Hamiltonian Mechanics (New Domain)</h3></summary>
 
 Phase space invariants: Liouville's theorem, symplectic structure, Poincare invariants, KAM tori, action-angle variables, Henon-Heiles chaos, generating functions. Created `research/hamiltonian_invariants.py` for numerical verification.
 
@@ -512,7 +580,10 @@ Zero regression across all 5 stages. Every previously passing fact remained posi
 
 **Lesson: when single-pass training causes interference, staged training by concept cluster eliminates it.** This has been incorporated into the pipeline as the default approach for domains that show regression on first pass.
 
-### Knot Invariants (New Domain)
+</details>
+
+<details>
+<summary><h3>Knot Invariants (New Domain)</h3></summary>
 
 The first purely mathematical (non-physics) domain. Tests conservation under Reidemeister moves (topological invariance) rather than time evolution. Key facts: writhe is NOT invariant (changes by +/-1 under R1), Kauffman bracket is NOT invariant under R1 (multiplies by -A^{+/-3}), Jones polynomial IS invariant (normalization cancels R1 changes), HOMFLY-PT generalizes Jones, skein relations provide recursive crossing formulas.
 
@@ -520,9 +591,12 @@ Baseline: **1/16**. Solved with **orthogonal adapters** (7 clusters, same techni
 
 This is significant for two reasons. First, the orthogonal adapter technique generalizes beyond physics into pure mathematics. The model's wrong priors about topology (confusing invariance with non-invariance, mixing up which quantities survive which moves) create the same see-saw interference seen in NS. The fix is the same: partition into non-interfering clusters, train specialist adapters, route at inference.
 
-Second, **cross-domain transfer works.** Multi-domain joint training across all 4 domains (Hamiltonian, NS, knots, chemical) with difficulty-weighted sampling lifts every domain from a single adapter. NS went from 0/16 baseline to 10/16, knots from 1/16 to 11/16, chemical from 5/16 to 13/16. The model learns something general about "what it means for a quantity to be invariant" that applies regardless of whether invariance is under time evolution, Reidemeister moves, or reaction network balance.
+Second, **cross-domain transfer works.** Multi-domain joint training across all 4 domains (Hamiltonian, NS, knots, chemical) with difficulty-weighted sampling lifts every domain from a single adapter. NS went from 0/16 baseline to 10/16, knots from 1/16 to 11/16, chemical from 0/16 to 13/16. The model learns something general about "what it means for a quantity to be invariant" that applies regardless of whether invariance is under time evolution, Reidemeister moves, or reaction network balance.
 
-### Optimal f(r) Linear Combination
+</details>
+
+<details>
+<summary><h3>Optimal f(r) Linear Combination</h3></summary>
 
 Gradient descent over weighted combinations of basis functions finds optimal conservation:
 
@@ -531,6 +605,8 @@ f*(r) = 0.023 e^(-r/2) + 0.021 tanh(r) - 0.019 sin(r) + ...
 ```
 
 99.6% improvement in conservation over any single basis function. With `optimal_f_adapter`: 2/4 facts flipped (dominant terms: +16.5, learned vs energy: +5.3).
+
+</details>
 
 ### Summary by Domain
 
@@ -554,7 +630,8 @@ Full history: `results/candidates.tsv`
 
 ---
 
-## Coordination
+<details>
+<summary><h2>Coordination</h2></summary>
 
 NoetherSolve uses the **THINK → CLAIM → RUN → PUBLISH** protocol
 to prevent duplicate work across contributors.
@@ -573,9 +650,12 @@ python claim.py release  # publish your results, free the claim
 
 Claims expire after 4 hours. See `CONTRIBUTING.md` for the full protocol.
 
+</details>
+
 ---
 
-## Architecture
+<details>
+<summary><h2>Architecture</h2></summary>
 
 ```
 NoetherSolve
@@ -631,6 +711,8 @@ NoetherSolve
     ├── candidates.tsv          ← All tested hypotheses (193 entries)
     └── discoveries/            ← Discovery notes (26 files)
 ```
+
+</details>
 
 ---
 
