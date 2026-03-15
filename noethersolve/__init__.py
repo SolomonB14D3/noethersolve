@@ -7,11 +7,12 @@ Every tool added makes every connected agent smarter.
 Emmy Noether proved every continuous symmetry corresponds to a conserved quantity.
 NoetherSolve finds where LLMs fail to recognize those quantities, builds verified
 computational tools for the right answers, and exposes them via Model Context
-Protocol (MCP) — 32 tools currently serving physics, math, genetics, complexity
-theory, pharmacogenomics, and LLM science.
+Protocol (MCP) — 43 tools currently serving physics, math, genetics, complexity
+theory, pharmacogenomics, and LLM science. 30 are calculators (derive answers
+from first principles), 13 are lookup tables (reference databases).
 
 Package layout:
-  noethersolve.mcp_server   — MCP server (32 tools for any AI agent)
+  noethersolve.mcp_server   — MCP server (43 tools for any AI agent)
   noethersolve.oracle       — model-agnostic MC log-prob scorer (from eval_mc)
   noethersolve.adapter      — snap-on logit adapter architectures (from snap_on)
   noethersolve.train_utils  — LOGIT_SOFTCAP, get_lm_head_fn, apply_adapter
@@ -36,6 +37,15 @@ Package layout:
   noethersolve.reductions     — computational reduction chain validator
   noethersolve.pde_regularity — PDE regularity and Sobolev embedding checker
   noethersolve.llm_claims    — LLM claims auditor (benchmark, scaling, misconceptions)
+  noethersolve.control       — PID controller simulator and Routh-Hurwitz stability analyzer
+  noethersolve.isolation     — SQL transaction isolation anomaly checker
+  noethersolve.quantum_circuit — quantum circuit state vector simulator with entanglement detection
+  noethersolve.chemistry_calc  — electrochemistry, acid-base, crystal field, semiconductor calculator
+  noethersolve.crypto_calc     — cryptographic security level, birthday bound, cipher mode analyzer
+  noethersolve.finance_calc    — Black-Scholes, put-call parity, Nash equilibrium, time value of money
+  noethersolve.distributed_calc — quorum systems, Byzantine thresholds, vector clocks, consistency models
+  noethersolve.network_calc    — bandwidth-delay product, TCP throughput, subnetting, IP fragmentation
+  noethersolve.os_calc         — page tables, CPU scheduling, deadlock detection, TLB analysis
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -199,6 +209,103 @@ from noethersolve.llm_claims import (  # noqa: F401
     LLMClaimResult,
     LLMClaimIssue,
     LLMTopicInfo,
+)
+
+from noethersolve.control import (  # noqa: F401
+    simulate_pid,
+    analyze_stability,
+    PIDReport,
+    StabilityReport,
+)
+
+from noethersolve.isolation import (  # noqa: F401
+    check_isolation,
+    analyze_schedule,
+    list_anomalies,
+    IsolationReport,
+    ScheduleReport,
+)
+
+from noethersolve.quantum_circuit import (  # noqa: F401
+    simulate_circuit,
+    measure_state,
+    CircuitReport,
+)
+
+from noethersolve.chemistry_calc import (  # noqa: F401
+    nernst_equation,
+    henderson_hasselbalch,
+    crystal_field_splitting,
+    band_gap_analysis,
+    balance_redox,
+    NernstReport,
+    BufferReport,
+    CrystalFieldReport,
+    BandGapReport,
+)
+
+from noethersolve.crypto_calc import (  # noqa: F401
+    security_level,
+    birthday_bound,
+    rsa_key_analysis,
+    cipher_mode_analysis,
+    SecurityLevelReport,
+    BirthdayBoundReport,
+    RSAKeyReport,
+    CipherModeReport,
+)
+
+from noethersolve.finance_calc import (  # noqa: F401
+    black_scholes,
+    put_call_parity,
+    nash_equilibrium_2x2,
+    present_value,
+    future_value,
+    BlackScholesReport,
+    PutCallParityReport,
+    NashEquilibriumReport,
+    PresentValueReport,
+)
+
+from noethersolve.distributed_calc import (  # noqa: F401
+    quorum_calc,
+    byzantine_threshold,
+    vector_clock_compare,
+    consistency_model,
+    gossip_convergence,
+    QuorumReport,
+    ByzantineReport,
+    VectorClockReport,
+    ConsistencyReport,
+    GossipReport,
+)
+
+from noethersolve.network_calc import (  # noqa: F401
+    bandwidth_delay_product,
+    tcp_throughput,
+    subnet_calc,
+    ip_fragmentation,
+    congestion_window,
+    BandwidthDelayReport,
+    TCPThroughputReport,
+    SubnetReport,
+    FragmentationReport,
+    CongestionWindowReport,
+)
+
+from noethersolve.os_calc import (  # noqa: F401
+    page_table_calc,
+    schedule_fcfs,
+    schedule_sjf,
+    schedule_round_robin,
+    detect_deadlock,
+    tlb_analysis,
+    context_switch_cost,
+    PageTableReport,
+    SchedulingReport,
+    DeadlockReport,
+    TLBReport,
+    ContextSwitchReport,
 )
 
 __version__ = "1.0.0"

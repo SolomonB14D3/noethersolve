@@ -1,4 +1,4 @@
-"""NoetherSolve MCP Server — expose 37 verified tools to any AI agent.
+"""NoetherSolve MCP Server — expose 43 verified tools to any AI agent.
 
 The full pipeline: find gaps → flip facts → build tool → add to MCP server.
 Every tool added here makes every connected agent smarter.
@@ -14,7 +14,7 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="37 computational tools for physics, math, genetics, and LLM science — "
+    instructions="43 computational tools for physics, math, genetics, and LLM science — "
                  "verified calculators and reference databases, not guesses.",
 )
 
@@ -692,6 +692,416 @@ def simulate_quantum_circuit(
         else:
             return f"Invalid gate spec: {g}. Expected [name, qubits] or [name, qubits, param]."
     report = _sim(n_qubits, gate_tuples)
+    return str(report)
+
+
+# ── Chemistry Calculator ──────────────────────────────────────────
+
+@mcp.tool()
+def calc_nernst(
+    E_standard: float,
+    n_electrons: int,
+    Q: float,
+    temperature: float = 298.15,
+) -> str:
+    """Calculate cell potential using the Nernst equation.
+
+    COMPUTES E = E° - (RT/nF)ln(Q), spontaneity, and ΔG.
+
+    E_standard: Standard cell potential in Volts
+    n_electrons: Electrons transferred in half-reaction
+    Q: Reaction quotient [products]/[reactants]
+    temperature: Temperature in Kelvin (default 298.15)
+
+    Example: calc_nernst(E_standard=1.10, n_electrons=2, Q=0.01)
+    → E=1.159V, spontaneous, ΔG=-223.8 kJ/mol
+    """
+    from noethersolve.chemistry_calc import nernst_equation
+    report = nernst_equation(E_standard, n_electrons, Q, temperature)
+    return str(report)
+
+
+@mcp.tool()
+def calc_buffer_ph(pKa: float, acid_conc: float, base_conc: float) -> str:
+    """Calculate buffer pH using Henderson-Hasselbalch equation.
+
+    COMPUTES pH = pKa + log([A⁻]/[HA]), buffer capacity, effective range.
+
+    pKa: Acid dissociation constant (-log10 Ka)
+    acid_conc: Weak acid concentration [HA] in mol/L
+    base_conc: Conjugate base concentration [A⁻] in mol/L
+
+    Example: calc_buffer_ph(pKa=4.76, acid_conc=0.1, base_conc=0.15)
+    → pH=4.94, capacity=0.057, range 3.76-5.76
+    """
+    from noethersolve.chemistry_calc import henderson_hasselbalch
+    report = henderson_hasselbalch(pKa, acid_conc, base_conc)
+    return str(report)
+
+
+@mcp.tool()
+def calc_crystal_field(
+    d_electrons: int,
+    geometry: str = "octahedral",
+    strong_field: bool = False,
+) -> str:
+    """Calculate crystal field splitting for transition metal complexes.
+
+    COMPUTES CFSE, spin state, unpaired electrons, d-orbital configuration.
+
+    d_electrons: Number of d-electrons (1-10)
+    geometry: "octahedral", "tetrahedral", or "square_planar"
+    strong_field: True for low-spin (strong field ligands like CN⁻, CO)
+
+    Example: calc_crystal_field(6, "octahedral", strong_field=True)
+    → t2g^6 eg^0, low_spin, 0 unpaired, CFSE=-24 Dq
+    """
+    from noethersolve.chemistry_calc import crystal_field_splitting
+    report = crystal_field_splitting(d_electrons, geometry, strong_field)
+    return str(report)
+
+
+# ── Cryptography Calculator ──────────────────────────────────────
+
+@mcp.tool()
+def calc_security_level(
+    algorithm: str,
+    key_bits: int,
+    ops_per_second: float = 1e12,
+) -> str:
+    """Calculate effective security level for a cryptographic algorithm.
+
+    COMPUTES classical and post-quantum security bits, brute force time.
+
+    algorithm: "aes", "3des", "rsa", "ecc", "sha", "chacha20"
+    key_bits: Key or output size in bits
+    ops_per_second: Attacker throughput (default 10^12)
+
+    Example: calc_security_level("aes", 256) → 256-bit classical, 128-bit quantum
+    """
+    from noethersolve.crypto_calc import security_level
+    report = security_level(algorithm, key_bits, ops_per_second)
+    return str(report)
+
+
+@mcp.tool()
+def calc_birthday_bound(output_bits: int, trials: int = 0) -> str:
+    """Calculate birthday bound collision probability for a hash function.
+
+    COMPUTES trials needed for 50% collision, probability at given trials.
+
+    output_bits: Hash output size in bits (e.g., 256 for SHA-256)
+    trials: Optional number of trials to check probability
+
+    Example: calc_birthday_bound(128, trials=1000000) → P(collision) ≈ 2.9e-27
+    """
+    from noethersolve.crypto_calc import birthday_bound
+    report = birthday_bound(output_bits, trials=trials if trials > 0 else None)
+    return str(report)
+
+
+@mcp.tool()
+def calc_cipher_mode(mode: str, block_bits: int = 128) -> str:
+    """Analyze security properties of a block cipher mode of operation.
+
+    COMPUTES IV requirements, parallelizability, authentication, birthday limits.
+
+    mode: "ECB", "CBC", "CTR", "GCM", "CCM", "OFB", "CFB"
+    block_bits: Block size (default 128 for AES)
+
+    Example: calc_cipher_mode("CBC")
+    → requires random IV, decrypt parallelizable, NOT authenticated
+    """
+    from noethersolve.crypto_calc import cipher_mode_analysis
+    report = cipher_mode_analysis(mode, block_bits)
+    return str(report)
+
+
+# ── Finance Calculator ───────────────────────────────────────────
+
+@mcp.tool()
+def calc_black_scholes(
+    S: float,
+    K: float,
+    T: float,
+    r: float,
+    sigma: float,
+    option_type: str = "call",
+) -> str:
+    """Price a European option using Black-Scholes (log-normal + constant vol).
+
+    COMPUTES option price and all Greeks (delta, gamma, theta, vega, rho).
+
+    S: Current stock price
+    K: Strike price
+    T: Time to expiry in years
+    r: Risk-free rate (e.g., 0.05 for 5%)
+    sigma: Volatility (e.g., 0.20 for 20%)
+    option_type: "call" or "put"
+
+    Example: calc_black_scholes(100, 105, 0.5, 0.05, 0.20)
+    """
+    from noethersolve.finance_calc import black_scholes
+    report = black_scholes(S, K, T, r, sigma, option_type)
+    return str(report)
+
+
+@mcp.tool()
+def calc_put_call_parity(
+    call_price: float,
+    put_price: float,
+    S: float,
+    K: float,
+    r: float,
+    T: float,
+) -> str:
+    """Check put-call parity: C - P = S - PV(K).
+
+    COMPUTES whether parity holds and identifies arbitrage opportunities.
+    Relates call, put, stock, AND risk-free bond (common LLM error: models
+    often say it only relates calls to stocks).
+
+    Example: calc_put_call_parity(10.45, 5.58, 100, 105, 0.05, 0.5)
+    """
+    from noethersolve.finance_calc import put_call_parity
+    report = put_call_parity(call_price, put_price, S, K, r, T)
+    return str(report)
+
+
+@mcp.tool()
+def calc_nash_equilibrium(
+    payoff_p1: list[list[float]],
+    payoff_p2: list[list[float]],
+) -> str:
+    """Find Nash equilibria of a 2x2 game.
+
+    COMPUTES pure and mixed equilibria, dominant strategies, game classification.
+
+    payoff_p1: 2x2 matrix — P1's payoffs. payoff_p1[i][j] = P1 payoff when
+               P1 plays row i, P2 plays column j.
+    payoff_p2: 2x2 matrix — P2's payoffs.
+
+    Example (Prisoner's Dilemma):
+      calc_nash_equilibrium([[3,0],[5,1]], [[3,5],[0,1]])
+      → Pure NE: (1,1) both defect, despite (0,0) being better for both
+    """
+    from noethersolve.finance_calc import nash_equilibrium_2x2
+    report = nash_equilibrium_2x2(payoff_p1, payoff_p2)
+    return str(report)
+
+
+# ── Distributed Systems Calculator ──────────────────────────────
+
+@mcp.tool()
+def calc_quorum(
+    total_nodes: int,
+    read_quorum: int = 0,
+    write_quorum: int = 0,
+    strategy: str = "majority",
+) -> str:
+    """Calculate quorum sizes and consistency guarantees.
+
+    COMPUTES R+W>N check, fault tolerance, strong consistency verdict.
+
+    total_nodes: Total replica count (N)
+    read_quorum: Read quorum (R), 0 to auto-derive from strategy
+    write_quorum: Write quorum (W), 0 to auto-derive
+    strategy: "majority", "read_heavy", "write_heavy" (if R/W not given)
+
+    Example: calc_quorum(5) → R=3, W=3, strong consistency, tolerates 2 failures
+    """
+    from noethersolve.distributed_calc import quorum_calc
+    r = read_quorum if read_quorum > 0 else None
+    w = write_quorum if write_quorum > 0 else None
+    report = quorum_calc(total_nodes, r, w, strategy)
+    return str(report)
+
+
+@mcp.tool()
+def calc_byzantine(
+    total_nodes: int = 0,
+    max_faults: int = 0,
+    algorithm: str = "PBFT",
+) -> str:
+    """Calculate Byzantine fault tolerance requirements.
+
+    COMPUTES minimum nodes (3f+1), rounds, message complexity.
+    Common LLM error: models often say 2f+1, but BFT requires 3f+1.
+
+    total_nodes: Number of nodes (to find max faults), or
+    max_faults: Desired tolerance (to find min nodes)
+    algorithm: "PBFT", "synchronous", "Tendermint"
+
+    Example: calc_byzantine(max_faults=2) → need 7 nodes minimum (3×2+1)
+    """
+    from noethersolve.distributed_calc import byzantine_threshold
+    n = total_nodes if total_nodes > 0 else None
+    f = max_faults if max_faults > 0 else None
+    report = byzantine_threshold(n, f, algorithm)
+    return str(report)
+
+
+@mcp.tool()
+def calc_vector_clock(clock_a: list[int], clock_b: list[int]) -> str:
+    """Compare two vector clocks to determine causal ordering.
+
+    COMPUTES happens-before, concurrent, or equal relationship + merge.
+
+    clock_a: Vector clock for event A (e.g., [2, 0, 1])
+    clock_b: Vector clock for event B (e.g., [1, 1, 1])
+
+    Example: calc_vector_clock([2,0,1], [1,1,1]) → concurrent (no causal link)
+    """
+    from noethersolve.distributed_calc import vector_clock_compare
+    report = vector_clock_compare(clock_a, clock_b)
+    return str(report)
+
+
+# ── Networking Calculator ────────────────────────────────────────
+
+@mcp.tool()
+def calc_bandwidth_delay(
+    bandwidth_bps: float,
+    rtt_seconds: float,
+    window_size_bytes: int = 0,
+) -> str:
+    """Calculate bandwidth-delay product and TCP window requirements.
+
+    COMPUTES BDP, minimum window for full utilization, link utilization.
+
+    bandwidth_bps: Link bandwidth in bits/sec (e.g., 1e9 for 1 Gbps)
+    rtt_seconds: Round-trip time in seconds (e.g., 0.050 for 50ms)
+    window_size_bytes: Optional TCP window to check utilization
+
+    Example: calc_bandwidth_delay(1e9, 0.050) → BDP=6.25MB, need 6.25MB window
+    """
+    from noethersolve.network_calc import bandwidth_delay_product
+    w = window_size_bytes if window_size_bytes > 0 else None
+    report = bandwidth_delay_product(bandwidth_bps, rtt_seconds, w)
+    return str(report)
+
+
+@mcp.tool()
+def calc_subnet(ip_address: str, prefix_length: int) -> str:
+    """Calculate subnet properties from IP and CIDR prefix.
+
+    COMPUTES network/broadcast addresses, host range, masks, usable hosts.
+
+    ip_address: IPv4 address (e.g., "192.168.1.100")
+    prefix_length: CIDR prefix (0-32)
+
+    Example: calc_subnet("192.168.1.100", 24)
+    → network 192.168.1.0, broadcast 192.168.1.255, 254 usable hosts
+    """
+    from noethersolve.network_calc import subnet_calc
+    report = subnet_calc(ip_address, prefix_length)
+    return str(report)
+
+
+@mcp.tool()
+def calc_tcp_throughput(
+    window_size_bytes: int,
+    rtt_seconds: float,
+    mss_bytes: int = 1460,
+    loss_rate: float = 0.0,
+) -> str:
+    """Estimate TCP throughput from window size, RTT, and loss rate.
+
+    COMPUTES window-limited and loss-limited (Mathis model) throughput.
+
+    window_size_bytes: TCP window in bytes
+    rtt_seconds: Round-trip time in seconds
+    mss_bytes: Max segment size (default 1460)
+    loss_rate: Packet loss rate 0-1 (0 = no loss)
+
+    Example: calc_tcp_throughput(65535, 0.050, loss_rate=0.001)
+    """
+    from noethersolve.network_calc import tcp_throughput
+    report = tcp_throughput(
+        window_size_bytes, rtt_seconds, mss_bytes,
+        loss_rate=loss_rate if loss_rate > 0 else None,
+    )
+    return str(report)
+
+
+# ── Operating Systems Calculator ─────────────────────────────────
+
+@mcp.tool()
+def calc_page_table(
+    virtual_bits: int,
+    physical_bits: int,
+    page_size_bytes: int,
+    levels: int = 1,
+) -> str:
+    """Calculate page table dimensions from address space parameters.
+
+    COMPUTES page count, PTE size, table size, multi-level breakdown.
+
+    virtual_bits: Virtual address width (e.g., 48 for x86-64)
+    physical_bits: Physical address width (e.g., 52)
+    page_size_bytes: Page size in bytes (must be power of 2, e.g., 4096)
+    levels: Page table levels (1-5, default 1)
+
+    Example: calc_page_table(48, 52, 4096, levels=4) → x86-64 4-level page table
+    """
+    from noethersolve.os_calc import page_table_calc
+    report = page_table_calc(virtual_bits, physical_bits, page_size_bytes, levels=levels)
+    return str(report)
+
+
+@mcp.tool()
+def calc_scheduling(
+    processes: list[list],
+    algorithm: str = "FCFS",
+    quantum: float = 2.0,
+) -> str:
+    """Simulate CPU scheduling algorithm on a process set.
+
+    COMPUTES execution order, turnaround times, waiting times, Gantt chart.
+
+    processes: List of [name, arrival_time, burst_time]
+        Example: [["P1",0,5], ["P2",1,3], ["P3",2,8]]
+    algorithm: "FCFS", "SJF", "SRTF", "RR"
+    quantum: Time quantum for Round Robin
+
+    Example: calc_scheduling([["P1",0,5],["P2",1,3],["P3",2,8]], "SJF")
+    """
+    from noethersolve.os_calc import schedule_fcfs, schedule_sjf, schedule_round_robin
+    procs = [(p[0], float(p[1]), float(p[2])) for p in processes]
+    algo = algorithm.upper()
+    if algo == "FCFS":
+        report = schedule_fcfs(procs)
+    elif algo == "SJF":
+        report = schedule_sjf(procs, preemptive=False)
+    elif algo == "SRTF":
+        report = schedule_sjf(procs, preemptive=True)
+    elif algo == "RR":
+        report = schedule_round_robin(procs, quantum=quantum)
+    else:
+        return f"Unknown algorithm: {algorithm}. Use FCFS, SJF, SRTF, or RR."
+    return str(report)
+
+
+@mcp.tool()
+def calc_deadlock(
+    holding: dict[str, list[str]],
+    waiting: dict[str, str],
+) -> str:
+    """Detect deadlock using wait-for graph cycle detection.
+
+    COMPUTES cycle in wait-for graph. Deadlock requires ALL four Coffman
+    conditions: mutual exclusion, hold-wait, no preemption, circular wait.
+
+    holding: {process: [resources held]}
+    waiting: {process: resource waiting for}
+
+    Example: calc_deadlock(
+        {"P1": ["R1"], "P2": ["R2"]},
+        {"P1": "R2", "P2": "R1"}
+    ) → deadlock detected: P1 → P2 → P1
+    """
+    from noethersolve.os_calc import detect_deadlock
+    report = detect_deadlock(holding, waiting)
     return str(report)
 
 

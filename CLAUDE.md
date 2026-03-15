@@ -4,9 +4,9 @@
 
 **The core loop: find gaps → flip facts → build tool → add to MCP server.** Every tool added makes every connected agent smarter.
 
-The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 32 tools currently serving physics, math, genetics, complexity theory, pharmacogenomics, and LLM science.
+The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 43 tools currently serving physics, math, genetics, complexity theory, pharmacogenomics, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
 
-**Why tools instead of adapters?** We tried both. Adapters improve truth preference (+0.10 MC2 on TruthfulQA) but can't scale: stacking 37+ adapters destroys MMLU (-43%), and a unified adapter on 244 facts collapses. Tools scale indefinitely — each is independent, verified (842 tests), and model-agnostic.
+**Why tools instead of adapters?** We tried both. Adapters improve truth preference (+0.10 MC2 on TruthfulQA) but can't scale: stacking 37+ adapters destroys MMLU (-43%), and a unified adapter on 244 facts collapses. Tools scale indefinitely — each is independent, verified (1144 tests), and model-agnostic.
 
 ---
 
@@ -29,6 +29,15 @@ The discovery pipeline proposes candidates, verifies them numerically, checks if
 - PDE regularity / Sobolev embeddings → `check_pde_regularity()`, `check_sobolev_embedding()`
 - Number theory verification → `verify_goldbach()`, `verify_collatz()`, `check_abc_triple()`
 - Chinchilla scaling → `chinchilla_scaling()`
+- Electrochemistry / acid-base / crystal field → `calc_nernst()`, `calc_buffer_ph()`, `calc_crystal_field()`
+- Cryptographic security / cipher modes → `calc_security_level()`, `calc_birthday_bound()`, `calc_cipher_mode()`
+- Option pricing / game theory → `calc_black_scholes()`, `calc_put_call_parity()`, `calc_nash_equilibrium()`
+- Distributed systems / consensus → `calc_quorum()`, `calc_byzantine()`, `calc_vector_clock()`
+- Networking / subnetting / TCP → `calc_bandwidth_delay()`, `calc_subnet()`, `calc_tcp_throughput()`
+- OS internals / scheduling / deadlock → `calc_page_table()`, `calc_scheduling()`, `calc_deadlock()`
+- Control systems / PID / stability → `simulate_pid()`, `analyze_stability()`
+- Database transaction isolation → `check_isolation()`, `analyze_schedule()`
+- Quantum circuits → `simulate_quantum_circuit()`
 
 **Setup:** The MCP server is configured in `.mcp.json` at the project root
 (already present). Claude Code auto-discovers it. Or run standalone:
@@ -157,7 +166,7 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
-**Established domain results (411/411 = 100% across all 30 domains):**
+**Established domain results (519/519 = 100% across all 45 domains):**
 
 | Domain | Facts | Baseline | Final | Method |
 |--------|-------|----------|-------|--------|
@@ -197,8 +206,17 @@ so they never compete for the same parameters.
 | PL Paradigms | 12 | 10/12 | **12/12** | Orthogonal adapters |
 | PL Compilers | 12 | 6/12 | **12/12** | Orthogonal adapters |
 | PL Pitfalls | 10 | 6/10 | **10/10** | Orthogonal adapters |
+| Chemistry | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Cryptography | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Economics/Finance | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Distributed Systems | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Networking | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Operating Systems | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Database Internals | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Quantum Computing | 12 | 0/12 | **12/12** | Orthogonal adapters |
+| Control Systems | 12 | 0/12 | **12/12** | Orthogonal adapters |
 
-**All 411 facts flipped across all 30 domains (100%).**
+**All 519 facts flipped across all 45 domains (100%).**
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:
@@ -436,7 +454,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 
 | File | What it does |
 |------|-------------|
-| `noethersolve/mcp_server/` | **MCP server — 32 tools for any AI agent** |
+| `noethersolve/mcp_server/` | **MCP server — 43 tools for any AI agent** |
 | `conservation_checker.py` | Figure-8 3-body RK45 integrator + frac_var checker |
 | `vortex_checker.py` | 2D point-vortex Kirchhoff integrator + frac_var checker |
 | `oracle_wrapper.py` | Log-prob margin oracle + repair pass + quadrant diagnosis (MLX) |
@@ -478,7 +496,13 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/reductions.py` | Computational reduction chain validator |
 | `noethersolve/pde_regularity.py` | PDE regularity and Sobolev embedding checker |
 | `noethersolve/llm_claims.py` | LLM claims auditor (benchmark checker, scaling calculator, misconception DB) |
-| `tests/` | 842 tests for all 21 toolkit modules |
+| `noethersolve/chemistry_calc.py` | Electrochemistry, acid-base, crystal field, semiconductor calculator |
+| `noethersolve/crypto_calc.py` | Cryptographic security level, birthday bound, cipher mode analyzer |
+| `noethersolve/finance_calc.py` | Black-Scholes, put-call parity, Nash equilibrium, time value calculator |
+| `noethersolve/distributed_calc.py` | Quorum systems, Byzantine thresholds, vector clocks, consistency models |
+| `noethersolve/network_calc.py` | Bandwidth-delay product, TCP throughput, subnetting, IP fragmentation |
+| `noethersolve/os_calc.py` | Page tables, CPU scheduling, deadlock detection, TLB analysis |
+| `tests/` | 1144 tests for all 27 toolkit modules |
 
 ---
 

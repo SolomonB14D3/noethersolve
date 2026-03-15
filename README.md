@@ -12,9 +12,9 @@ NoetherSolve starts by finding where LLMs are confidently wrong. It generates ca
 
 This is better than embedding knowledge in weights. Adapters trained on domain facts improve general truth preference (+0.10 MC2 on TruthfulQA, statistically significant), but they can't scale to thousands of facts without interference. Tools scale indefinitely: each new tool is independent, verified, and callable on demand. The agent doesn't need to memorize that the Riemann Hypothesis is open — it calls `check_conjecture("Riemann")` and gets the verified answer.
 
-**37 tools** currently exposed via MCP. 24 are **calculators** — verified computational engines that derive answers from first principles (PID controller simulation, transaction isolation analysis, quantum circuit simulation, stability analysis, conservation law monitoring, genetic design, chemical auditing, and more). 13 are **lookup tables** — reference databases for mathematical conjectures, complexity theory, proof barriers, benchmark scores, and LLM science claims. Calculators scale indefinitely; lookups are faster but finite. Together they cover physics, math, genetics, control systems, databases, quantum computing, pharmacogenomics, and LLM science.
+**43 tools** currently exposed via MCP. 30 are **calculators** — verified computational engines that derive answers from first principles (PID controller simulation, transaction isolation analysis, quantum circuit simulation, stability analysis, conservation law monitoring, genetic design, chemical auditing, and more). 13 are **lookup tables** — reference databases for mathematical conjectures, complexity theory, proof barriers, benchmark scores, and LLM science claims. Calculators scale indefinitely; lookups are faster but finite. Together they cover physics, math, genetics, control systems, databases, quantum computing, pharmacogenomics, chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, and LLM science.
 
-The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), and unsolved mathematics (6 domains covering Millennium Problems through computational complexity). Any field where you can verify a claim and build a checker is fair game.
+The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), unsolved mathematics (6 domains covering Millennium Problems through computational complexity), LLM science (6 domains), programming languages (6 domains), and 9 STEM domains (chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, database internals, quantum computing, control systems). Any field where you can verify a claim and build a checker is fair game.
 
 ### Paper
 
@@ -26,7 +26,7 @@ Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ra
 **NoetherSolve Toolkit: Conservation Law Monitoring, Discovery, and Scientific Auditing Across Physics, Genetics, and Mathematics** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
-Twenty-one tools organized in four tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 7 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer, pharmacokinetics checker, fact auditor), 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor), and 1 LLM science tool (claims auditor with benchmark checker and scaling calculator). Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 842 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
+Forty-three tools organized across multiple tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 7 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer, pharmacokinetics checker, fact auditor), 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor), 1 LLM science tool (claims auditor with benchmark checker and scaling calculator), 3 systems tools (PID controller, transaction isolation, quantum circuit simulator), and 6 STEM calculators (chemistry, cryptography, finance, distributed systems, networking, operating systems). Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 1144 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 ---
 
@@ -53,21 +53,22 @@ NoetherSolve exploits this in four steps:
    The agent doesn't need to memorize facts — it calls the tool and gets
    the verified answer.
 
-The result: every gap we find makes every connected agent smarter. The 37
+The result: every gap we find makes every connected agent smarter. The 43
 tools currently served cover physics, genetics, mathematics, complexity
 theory, pharmacogenomics, control systems, databases, quantum computing,
-and LLM science.
+chemistry, cryptography, economics/finance, distributed systems, networking,
+operating systems, and LLM science.
 
 </details>
 
 ---
 
 <details open>
-<summary><h2>MCP Server — Give Any AI Agent 37 Verified Tools</h2></summary>
+<summary><h2>MCP Server — Give Any AI Agent 43 Verified Tools</h2></summary>
 
 The MCP server exposes all NoetherSolve tools to any AI agent that supports
 [Model Context Protocol](https://modelcontextprotocol.io/). One line of config,
-37 tools available: 24 calculators + 13 lookup tables.
+43 tools available: 30 calculators + 13 lookup tables.
 
 ### Setup for Claude Code
 
@@ -81,7 +82,7 @@ pip install noethersolve[mcp]
 noethersolve-mcp  # starts the server
 ```
 
-### Available Tools (32)
+### Available Tools (43)
 
 | Category | Tools | Examples |
 |----------|-------|---------|
@@ -93,6 +94,12 @@ noethersolve-mcp  # starts the server
 | **Chemical kinetics** | 1 | `audit_chemical_network` |
 | **Knot theory** | 1 | `check_knot_invariants` |
 | **Number theory** | 4 | `verify_goldbach`, `verify_collatz`, `check_abc_triple`, `analyze_prime_gaps` |
+| **Chemistry** | 3 | `calc_nernst`, `calc_buffer_ph`, `calc_crystal_field` |
+| **Cryptography** | 3 | `calc_security_level`, `calc_birthday_bound`, `calc_cipher_mode` |
+| **Economics/Finance** | 3 | `calc_black_scholes`, `calc_put_call_parity`, `calc_nash_equilibrium` |
+| **Distributed systems** | 3 | `calc_quorum`, `calc_byzantine`, `calc_vector_clock` |
+| **Networking** | 3 | `calc_bandwidth_delay`, `calc_subnet`, `calc_tcp_throughput` |
+| **Operating systems** | 3 | `calc_page_table`, `calc_scheduling`, `calc_deadlock` |
 
 Every tool returns verified results from curated reference databases — not
 model guesses. When an agent calls `check_conjecture("Riemann")`, it gets the
@@ -106,10 +113,10 @@ We tried both. Adapters trained on 411 domain facts improve truth preference
 destroys general knowledge (-43% MMLU), and a unified adapter on 244 facts
 collapses to a degenerate mode. Tools don't have these problems:
 
-- **No interference.** Each tool is independent. Adding tool #33 doesn't
-  degrade tools #1-32.
+- **No interference.** Each tool is independent. Adding tool #43 doesn't
+  degrade tools #1-42.
 - **No capacity limits.** A tool can encode arbitrarily complex logic.
-- **Verified correctness.** 842 tests enforce correctness. An adapter can
+- **Verified correctness.** 1144 tests enforce correctness. An adapter can
   only shift probabilities; a tool returns the exact right answer.
 - **Model-agnostic.** Any agent that speaks MCP can use these tools.
   Adapters are tied to one model's vocabulary.
@@ -637,7 +644,7 @@ these tools against 5 experiments:
 | Chemical violation | Perturbed rate constants | Wegscheider cycle product shifts 3.33 to 0.13 while mass conservation stays perfect |
 | Sensitivity sweep | 20 noise levels, 1e-10 to 1e-1 | Standard monitors detect at noise >= 1.8e-6; discovered monitors have baseline sensitivity at 1e-10 |
 
-**842 tests passing** across all 21 tools (`pytest tests/`).
+**1144 tests passing** across all 27 toolkit modules (`pytest tests/`).
 
 </details>
 
@@ -723,7 +730,7 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
-193+ candidates tested. 80+ genuine invariants discovered. 24 domains, 275 oracle facts. **All 24 domains at 100% (275/275 facts).**
+193+ candidates tested. 80+ genuine invariants discovered. 45 domains, 519 oracle facts. **All 45 domains at 100% (519/519 facts).**
 
 <details>
 <summary><h3>Discrete Point-Vortex</h3></summary>
@@ -976,9 +983,33 @@ The math domains were particularly challenging — the model confidently confuse
 | **Proof techniques** | **12** | **25%** | **100%** | **COMPLETE** (forcing, barriers, logic) |
 | **Analysis/PDE conjectures** | **12** | **0%** | **100%** | **COMPLETE** (Kakeya, Carleson, regularity) |
 | **Computational conjectures** | **12** | **0%** | **100%** | **COMPLETE** (complexity, algorithms, derandomization) |
+| | | | | |
+| **LLM Hallucination** | **12** | **41.7%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **LLM Reasoning** | **12** | **33.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **LLM Alignment** | **12** | **25%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **LLM Training** | **12** | **41.7%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **LLM Evaluation** | **12** | **33.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **LLM Context/Memory** | **10** | **40%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| | | | | |
+| **PL Type Systems** | **12** | **41.7%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **PL Memory** | **10** | **40%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **PL Concurrency** | **10** | **60%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **PL Paradigms** | **12** | **83.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **PL Compilers** | **12** | **50%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **PL Pitfalls** | **10** | **60%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| | | | | |
+| **Chemistry** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Cryptography** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Economics/Finance** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Distributed Systems** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Networking** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Operating Systems** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Database Internals** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Quantum Computing** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Control Systems** | **12** | **0%** | **100%** | **COMPLETE** (orthogonal adapters) |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-**Total: 24 domains, 275 oracle facts, 275/275 flipped (100%). 0% MMLU degradation across all adapters.**
+**Total: 45 domains, 519 oracle facts, 519/519 flipped (100%). 0% MMLU degradation across all adapters.**
 
 Full history: `results/candidates.tsv`
 
@@ -1022,8 +1053,8 @@ NoetherSolve
 ├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
 ├── dashboard.py                ← Results dashboard from candidates.tsv
 │
-├── noethersolve/               ← Core package (21 toolkit modules + MCP server)
-│   ├── mcp_server/             ← MCP server (32 tools for any AI agent)
+├── noethersolve/               ← Core package (27 toolkit modules + MCP server)
+│   ├── mcp_server/             ← MCP server (43 tools for any AI agent)
 │   │   ├── server.py           ← FastMCP tool definitions
 │   │   └── __main__.py         ← python -m noethersolve.mcp_server
 │   ├── adapter.py              ← Snap-on logit adapter (SwiGLU)
@@ -1046,6 +1077,15 @@ NoetherSolve
 │   ├── reductions.py           ← Computational reduction chain validator
 │   ├── pde_regularity.py       ← PDE regularity and Sobolev embedding checker
 │   ├── llm_claims.py           ← LLM claims auditor (benchmarks, scaling, misconceptions)
+│   ├── control.py              ← PID controller simulator + Routh-Hurwitz stability
+│   ├── isolation.py            ← SQL transaction isolation anomaly checker
+│   ├── quantum_circuit.py      ← Quantum circuit state vector simulator
+│   ├── chemistry_calc.py       ← Electrochemistry, acid-base, crystal field calculator
+│   ├── crypto_calc.py          ← Cryptographic security level analyzer
+│   ├── finance_calc.py         ← Black-Scholes, Nash equilibrium, time value calculator
+│   ├── distributed_calc.py     ← Quorum, Byzantine, vector clock calculator
+│   ├── network_calc.py         ← Bandwidth-delay, TCP throughput, subnet calculator
+│   ├── os_calc.py              ← Page tables, scheduling, deadlock detection calculator
 │   ├── train_utils.py          ← Shared training utilities
 │   └── validate.py             ← Integrator validation via conservation laws
 │

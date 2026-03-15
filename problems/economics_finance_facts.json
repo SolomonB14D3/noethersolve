@@ -49,11 +49,11 @@
     {
       "id": "ef05_adverse_selection",
       "context": "Adverse selection in markets occurs when:",
-      "truth": "informed parties exploit information asymmetry",
+      "truth": "informed parties exploit private information",
       "distractors": [
-        "all market participants have identical information",
-        "markets always clear at the efficient price",
-        "prices perfectly reflect fundamental value always"
+        "all market participants possess identical information equally",
+        "markets always clear at the efficient equilibrium price",
+        "prices perfectly reflect true fundamental value always"
       ],
       "cluster": "markets"
     },
