@@ -12,7 +12,7 @@ NoetherSolve starts by finding where LLMs are confidently wrong. It generates ca
 
 This is better than embedding knowledge in weights. Adapters trained on domain facts improve general truth preference (+0.10 MC2 on TruthfulQA, statistically significant), but they can't scale to thousands of facts without interference. Tools scale indefinitely: each new tool is independent, verified, and callable on demand. The agent doesn't need to memorize that the Riemann Hypothesis is open — it calls `check_conjecture("Riemann")` and gets the verified answer.
 
-**32 tools** currently exposed via MCP, covering conservation law monitoring, mathematical conjectures, complexity theory, proof barriers, number theory, PDE regularity, pharmacogenomics, LLM claims auditing, genetics therapeutics, chemical kinetics, knot theory, and conservation law discovery. All backed by verified reference databases, not model guesses.
+**37 tools** currently exposed via MCP. 24 are **calculators** — verified computational engines that derive answers from first principles (PID controller simulation, transaction isolation analysis, quantum circuit simulation, stability analysis, conservation law monitoring, genetic design, chemical auditing, and more). 13 are **lookup tables** — reference databases for mathematical conjectures, complexity theory, proof barriers, benchmark scores, and LLM science claims. Calculators scale indefinitely; lookups are faster but finite. Together they cover physics, math, genetics, control systems, databases, quantum computing, pharmacogenomics, and LLM science.
 
 The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), and unsolved mathematics (6 domains covering Millennium Problems through computational complexity). Any field where you can verify a claim and build a checker is fair game.
 
@@ -53,20 +53,21 @@ NoetherSolve exploits this in four steps:
    The agent doesn't need to memorize facts — it calls the tool and gets
    the verified answer.
 
-The result: every gap we find makes every connected agent smarter. The 32
+The result: every gap we find makes every connected agent smarter. The 37
 tools currently served cover physics, genetics, mathematics, complexity
-theory, pharmacogenomics, and LLM science.
+theory, pharmacogenomics, control systems, databases, quantum computing,
+and LLM science.
 
 </details>
 
 ---
 
 <details open>
-<summary><h2>MCP Server — Give Any AI Agent 32 Verified Tools</h2></summary>
+<summary><h2>MCP Server — Give Any AI Agent 37 Verified Tools</h2></summary>
 
 The MCP server exposes all NoetherSolve tools to any AI agent that supports
 [Model Context Protocol](https://modelcontextprotocol.io/). One line of config,
-32 tools available.
+37 tools available: 24 calculators + 13 lookup tables.
 
 ### Setup for Claude Code
 
