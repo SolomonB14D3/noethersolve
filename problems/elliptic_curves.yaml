@@ -1,0 +1,22 @@
+name: "Elliptic Curve Theory"
+description: |
+  Test oracle knowledge of elliptic curve arithmetic and invariants over finite fields.
+
+  Key concepts:
+  - Point arithmetic (addition, doubling, scalar multiplication)
+  - Curve invariants (discriminant, j-invariant)
+  - Point counting (Hasse's theorem bounds)
+  - Torsion structure (Mazur's theorem)
+  - Group structure of E(F_p)
+  - BSD conjecture status
+
+  Common LLM failure modes:
+  - Forgetting the factor of 2 in Hasse bound: |#E - (p+1)| ≤ 2√p
+  - Confusing j=0 (a=0) with j=1728 (b=0)
+  - Missing the -16 factor in discriminant formula
+  - Claiming 11 is a valid torsion order (Mazur excludes it)
+  - Overstating BSD proof status (only ranks 0 and 1 proven)
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "elliptic_curves_facts.json"
+pass_threshold: 0.5

@@ -1,0 +1,138 @@
+{
+  "domain": "elliptic_curves",
+  "description": "Elliptic curve facts for oracle verification",
+  "facts": [
+    {
+      "id": "ec01",
+      "context": "Hasse's theorem bounds the number of points on E(F_p). For p=100, the bound is approximately:",
+      "truth": "p+1 ± 2√p, so roughly 81 to 121 points",
+      "distractors": [
+        "p ± √p, so roughly 90 to 110 points",
+        "p+1 ± p/2, so roughly 51 to 151 points",
+        "2p ± √p, so roughly 190 to 210 points"
+      ],
+      "note": "Hasse: |#E - (p+1)| ≤ 2√p. LLMs often forget the factor of 2 or the +1."
+    },
+    {
+      "id": "ec02",
+      "context": "The discriminant of an elliptic curve y² = x³ + ax + b equals:",
+      "truth": "Δ = -16(4a³ + 27b²)",
+      "distractors": [
+        "Δ = 4a³ + 27b²",
+        "Δ = -4a³ - 27b²",
+        "Δ = a² - 4b"
+      ],
+      "note": "Common error: forgetting the -16 factor or confusing with quadratic discriminant"
+    },
+    {
+      "id": "ec03",
+      "context": "An elliptic curve is singular (not actually an elliptic curve) when:",
+      "truth": "Δ = 0, equivalently 4a³ + 27b² = 0",
+      "distractors": [
+        "when a = 0 or b = 0",
+        "when the j-invariant is undefined",
+        "when it has no rational points"
+      ],
+      "note": "j-invariant being undefined is a CONSEQUENCE of Δ=0, not the definition"
+    },
+    {
+      "id": "ec04",
+      "context": "The j-invariant of y² = x³ + ax + b equals 1728 when:",
+      "truth": "b = 0 (curves of the form y² = x³ + ax)",
+      "distractors": [
+        "a = 0 (curves y² = x³ + b)",
+        "a = b",
+        "4a³ = 27b²"
+      ],
+      "note": "j = 1728 * 4a³/(4a³ + 27b²). When b=0, j=1728. When a=0, j=0."
+    },
+    {
+      "id": "ec05",
+      "context": "By Mazur's theorem, the torsion subgroup of E(Q) for an elliptic curve over Q can have order:",
+      "truth": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, or be Z/2Z × Z/2nZ for n ≤ 4",
+      "distractors": [
+        "any integer from 1 to 12",
+        "only prime orders up to 11",
+        "any order dividing 12"
+      ],
+      "note": "11 is notably EXCLUDED. Valid orders: 1-10, 12 (cyclic), plus products up to Z/2×Z/8."
+    },
+    {
+      "id": "ec06",
+      "context": "The Birch and Swinnerton-Dyer (BSD) conjecture has been proven for elliptic curves:",
+      "truth": "of analytic rank 0 or 1 (Gross-Zagier, Kolyvagin)",
+      "distractors": [
+        "of any rank over Q",
+        "only for CM curves",
+        "with good reduction at all primes"
+      ],
+      "note": "BSD is a Millennium Problem. Only ranks 0 and 1 are proven."
+    },
+    {
+      "id": "ec07",
+      "context": "In the point addition formula for y² = x³ + ax + b, when P = Q (point doubling), the slope m equals:",
+      "truth": "(3x² + a) / (2y)",
+      "distractors": [
+        "(y₂ - y₁) / (x₂ - x₁)",
+        "2y / (3x² + a)",
+        "(3x² + b) / (2y)"
+      ],
+      "note": "Doubling uses derivative: implicit diff of y² = f(x) gives 2y dy = f'(x) dx"
+    },
+    {
+      "id": "ec08",
+      "context": "The group E(F_p) for an elliptic curve over a prime field is always:",
+      "truth": "isomorphic to Z/nZ or Z/n₁Z × Z/n₂Z where n₂ | n₁ and n₂ | p-1",
+      "distractors": [
+        "cyclic of order dividing p-1",
+        "isomorphic to a subgroup of (Z/pZ)*",
+        "of order exactly p+1"
+      ],
+      "note": "E(F_p) can be cyclic or a product of two cyclic groups, with divisibility constraints"
+    },
+    {
+      "id": "ec09",
+      "context": "A point P on an elliptic curve has order 2 (is a 2-torsion point) if and only if:",
+      "truth": "y = 0 (the point lies on the x-axis)",
+      "distractors": [
+        "x = 0",
+        "the point is the identity O",
+        "P = -P and P ≠ O"
+      ],
+      "note": "2P = O means P = -P. For Weierstrass form, -(x,y) = (x,-y), so y = -y means y = 0."
+    },
+    {
+      "id": "ec10",
+      "context": "The Mordell-Weil theorem states that for E/Q:",
+      "truth": "E(Q) is a finitely generated abelian group",
+      "distractors": [
+        "E(Q) is finite",
+        "E(Q) has rank at most 28",
+        "E(Q) is always cyclic"
+      ],
+      "note": "Mordell-Weil: E(Q) ≅ Z^r × T where r is the rank and T is finite torsion. r can be arbitrarily large."
+    },
+    {
+      "id": "ec11",
+      "context": "The curve y² = x³ + x over F_p is supersingular (has trace of Frobenius 0) when:",
+      "truth": "p ≡ 3 (mod 4)",
+      "distractors": [
+        "p ≡ 1 (mod 4)",
+        "p = 2",
+        "for all odd primes p"
+      ],
+      "note": "y² = x³ + x is supersingular iff -1 is not a QR mod p, i.e., p ≡ 3 (mod 4)"
+    },
+    {
+      "id": "ec12",
+      "context": "Two elliptic curves over the same field are isomorphic (over that field) if and only if:",
+      "truth": "they have the same j-invariant",
+      "distractors": [
+        "they have the same discriminant",
+        "they have the same number of points",
+        "one can be transformed to the other by a linear change of variables"
+      ],
+      "note": "j-invariant classifies curves up to isomorphism. Same Δ doesn't imply isomorphic."
+    }
+  ]
+}

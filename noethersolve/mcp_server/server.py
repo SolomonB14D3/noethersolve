@@ -1,4 +1,4 @@
-"""NoetherSolve MCP Server — expose 69 verified tools to any AI agent.
+"""NoetherSolve MCP Server — expose 87 verified tools to any AI agent.
 
 The full pipeline: find gaps → flip facts → build tool → add to MCP server.
 Every tool added here makes every connected agent smarter.
@@ -14,7 +14,7 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="69 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
+    instructions="87 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
                  "and LLM science — verified calculators from first principles, not guesses.",
 )
 
@@ -1533,6 +1533,553 @@ def check_woodward_hoffmann(
     from noethersolve.reaction_engine import check_woodward_hoffmann as _check
     report = _check(n_electrons, conditions, reaction_type)
     return str(report)
+
+
+# ── Elliptic Curves ───────────────────────────────────────────────────
+
+@mcp.tool()
+def analyze_elliptic_curve(
+    a: int,
+    b: int,
+    p: int,
+) -> str:
+    """Analyze an elliptic curve y² = x³ + ax + b over F_p.
+
+    COMPUTES discriminant, j-invariant, point count, Hasse bounds verification,
+    and sample points. Detects singular curves.
+
+    a, b: curve coefficients
+    p: prime field modulus
+
+    Example: analyze_elliptic_curve(-1, 1, 23)
+    → 23 points, Δ=-368, j=-300.52, Hasse satisfied
+    """
+    from noethersolve.elliptic_curves import analyze_curve
+    report = analyze_curve(a, b, p)
+    return str(report)
+
+
+@mcp.tool()
+def ec_point_arithmetic(
+    a: int,
+    b: int,
+    p: int,
+    P: list[int],
+    Q: list[int],
+) -> str:
+    """Compute point arithmetic on elliptic curve y² = x³ + ax + b mod p.
+
+    COMPUTES P + Q and 2P, verifies points are on curve.
+
+    a, b, p: curve parameters
+    P: first point [x, y] or null for point at infinity
+    Q: second point [x, y] or null for point at infinity
+
+    Example: ec_point_arithmetic(-1, 1, 23, [0, 1], [1, 1])
+    → P + Q = (17, 3), 2P = (6, 2)
+    """
+    from noethersolve.elliptic_curves import analyze_point_arithmetic
+    P_pt = tuple(P) if P else None
+    Q_pt = tuple(Q) if Q else None
+    report = analyze_point_arithmetic(a, b, p, P_pt, Q_pt)
+    return str(report)
+
+
+@mcp.tool()
+def ec_scalar_mult(
+    a: int,
+    b: int,
+    p: int,
+    n: int,
+    P: list[int],
+) -> str:
+    """Compute scalar multiplication nP on elliptic curve.
+
+    Uses double-and-add algorithm. Returns nP and verifies result is on curve.
+
+    a, b, p: curve parameters
+    n: scalar multiplier
+    P: point [x, y]
+
+    Example: ec_scalar_mult(-1, 1, 23, 5, [0, 1])
+    → 5P = (9, 13)
+    """
+    from noethersolve.elliptic_curves import scalar_mult, is_on_curve
+    E = {"a": a, "b": b, "p": p}
+    P_pt = tuple(P) if P else None
+    result = scalar_mult(E, n, P_pt)
+    on_curve = is_on_curve(E, result)
+    if result is None:
+        return f"{n}P = O (point at infinity)"
+    return f"{n}P = {result}, on curve: {on_curve}"
+
+
+@mcp.tool()
+def ec_hasse_bounds(
+    p: int,
+) -> str:
+    """Compute Hasse bounds for #E(F_p).
+
+    Hasse's theorem: |#E(F_p) - (p + 1)| ≤ 2√p
+    So: p + 1 - 2√p ≤ #E(F_p) ≤ p + 1 + 2√p
+
+    p: prime modulus
+
+    Example: ec_hasse_bounds(23) → [14, 34]
+    """
+    from noethersolve.elliptic_curves import hasse_bounds
+    lo, hi = hasse_bounds(p)
+    return f"Hasse bounds for p={p}: [{lo}, {hi}]\n  Expected count: ~{p + 1}\n  Max deviation: ~{int(2 * (p ** 0.5) + 1)}"
+
+
+@mcp.tool()
+def ec_discriminant(
+    a: int,
+    b: int,
+) -> str:
+    """Compute discriminant and j-invariant of y² = x³ + ax + b.
+
+    Δ = -16(4a³ + 27b²)
+    j = 1728 × 4a³ / (4a³ + 27b²)
+
+    Curve is non-singular iff Δ ≠ 0.
+
+    Example: ec_discriminant(-1, 1) → Δ=-368, j=-300.52
+    """
+    from noethersolve.elliptic_curves import discriminant, j_invariant, is_singular
+    disc = discriminant(a, b)
+    j_inv = j_invariant(a, b)
+    sing = is_singular(a, b)
+    lines = [
+        f"Curve: y² = x³ + ({a})x + ({b})",
+        f"Discriminant Δ = {disc}",
+    ]
+    if j_inv is not None:
+        lines.append(f"j-invariant = {j_inv:.6f}")
+    else:
+        lines.append("j-invariant = undefined (singular curve)")
+    lines.append(f"Singular: {sing}")
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def ec_point_order(
+    a: int,
+    b: int,
+    p: int,
+    P: list[int],
+    max_order: int = 10000,
+) -> str:
+    """Compute the order of point P in E(F_p).
+
+    The order is the smallest n > 0 such that nP = O (point at infinity).
+
+    a, b, p: curve parameters
+    P: point [x, y]
+    max_order: search limit
+
+    Example: ec_point_order(-1, 1, 23, [0, 1]) → order = 23
+    """
+    from noethersolve.elliptic_curves import point_order, is_on_curve
+    E = {"a": a, "b": b, "p": p}
+    P_pt = tuple(P) if P else None
+
+    if not is_on_curve(E, P_pt):
+        return f"ERROR: Point {P} is not on the curve"
+
+    order = point_order(E, P_pt, max_order)
+    if order is None:
+        return f"Order of {P} exceeds {max_order}"
+    return f"Order of {P} = {order}"
+
+
+# ── Intersection Theory (Algebraic Geometry) ──────────────────────────
+
+@mcp.tool()
+def calc_bezout(
+    degree_1: int,
+    degree_2: int,
+) -> str:
+    """Compute intersection count by Bezout's theorem.
+
+    Two plane curves of degrees d1 and d2 with no common component
+    intersect in EXACTLY d1 × d2 points, counted with multiplicity.
+
+    degree_1: Degree of first curve
+    degree_2: Degree of second curve
+
+    Example: calc_bezout(2, 3) → conic and cubic intersect in 6 points
+    """
+    from noethersolve.intersection_theory import bezout_intersection
+    report = bezout_intersection(degree_1, degree_2)
+    return str(report)
+
+
+@mcp.tool()
+def calc_genus_degree(
+    degree: int,
+) -> str:
+    """Compute genus of smooth plane curve by genus-degree formula.
+
+    For a smooth plane curve of degree d: g = (d-1)(d-2)/2
+
+    degree: Degree of the smooth plane curve
+
+    Example: calc_genus_degree(3) → genus 1 (elliptic curve)
+    Example: calc_genus_degree(4) → genus 3
+    """
+    from noethersolve.intersection_theory import genus_degree_formula
+    report = genus_degree_formula(degree)
+    return str(report)
+
+
+@mcp.tool()
+def calc_self_intersection(
+    surface: str,
+    divisor: str = "line",
+) -> str:
+    """Compute self-intersection numbers on surfaces.
+
+    surface: "P2" (projective plane), "blowup" (blow-up of P² at point)
+    divisor: "line" (L·L=1 in P²), "exceptional" (E·E=-1 on blow-up)
+
+    Example: calc_self_intersection("P2", "line") → L·L = 1
+    Example: calc_self_intersection("blowup", "exceptional") → E·E = -1
+    """
+    from noethersolve.intersection_theory import (
+        self_intersection_line_P2,
+        self_intersection_exceptional,
+    )
+    if surface.lower() in ("p2", "p^2", "projective"):
+        report = self_intersection_line_P2()
+    elif surface.lower() in ("blowup", "blow-up", "bl"):
+        report = self_intersection_exceptional()
+    else:
+        return f"Unknown surface: {surface}. Use 'P2' or 'blowup'."
+    return str(report)
+
+
+@mcp.tool()
+def calc_canonical_divisor(
+    surface: str,
+    n_blowups: int = 0,
+) -> str:
+    """Compute canonical divisor on algebraic surfaces.
+
+    surface: "P2" (K=-3H), "cubic" (K²=3), "del_pezzo" (K²=9-n)
+    n_blowups: For del Pezzo, number of points blown up (0-8)
+
+    Example: calc_canonical_divisor("P2") → K_P² = -3H, Fano
+    Example: calc_canonical_divisor("cubic") → K² = 3 (del Pezzo degree 3)
+    Example: calc_canonical_divisor("del_pezzo", 6) → K² = 3
+    """
+    from noethersolve.intersection_theory import (
+        canonical_P2,
+        canonical_cubic_surface,
+        del_pezzo_degree,
+    )
+    s = surface.lower()
+    if s in ("p2", "p^2", "projective"):
+        report = canonical_P2()
+    elif s in ("cubic", "cubic_surface"):
+        report = canonical_cubic_surface()
+    elif s in ("del_pezzo", "delpezzo", "dp"):
+        report = del_pezzo_degree(n_blowups)
+    else:
+        return f"Unknown surface: {surface}. Use 'P2', 'cubic', or 'del_pezzo'."
+    return str(report)
+
+
+@mcp.tool()
+def calc_noether_formula(
+    c1_squared: int,
+    c2: int,
+) -> str:
+    """Check the Noether formula: c₁² + c₂ = 12χ(O_S).
+
+    For a smooth complex surface S:
+    - c₁² = K² (self-intersection of canonical)
+    - c₂ = e(S) (topological Euler characteristic)
+    - χ(O_S) = 1 - q + p_g (holomorphic Euler characteristic)
+
+    c1_squared: c₁² = K² for the surface
+    c2: c₂ = topological Euler characteristic
+
+    Example: calc_noether_formula(9, 3) → P²: χ = 1
+    Example: calc_noether_formula(3, 9) → Cubic surface: χ = 1
+    """
+    from noethersolve.intersection_theory import noether_formula
+    report = noether_formula(c1_squared, c2)
+    return str(report)
+
+
+@mcp.tool()
+def calc_enumerative(
+    problem: str,
+    degree: int = 1,
+) -> str:
+    """Compute classical enumerative geometry results.
+
+    problem: One of:
+        "lines_cubic" - 27 lines on cubic surface
+        "bitangents" - 28 bitangents to plane quartic
+        "conics_5pts" - 1 conic through 5 general points
+        "lines_4lines" - 2 lines meeting 4 general lines in P³
+        "cubics_9pts" - 1 cubic through 9 general points
+        "quintic" - rational curves on quintic threefold (use degree=1,2,3)
+    degree: For quintic, degree of rational curves (1=2875, 2=609250, 3=317206375)
+
+    Example: calc_enumerative("lines_cubic") → 27 lines, W(E6) symmetry
+    Example: calc_enumerative("quintic", 2) → 609250 conics
+    """
+    from noethersolve.intersection_theory import (
+        lines_on_cubic_surface,
+        bitangents_to_quartic,
+        conics_through_5_points,
+        lines_meeting_4_general_lines_P3,
+        plane_cubics_through_9_points,
+        rational_curves_on_quintic_threefold,
+    )
+    p = problem.lower().replace("_", "").replace("-", "").replace(" ", "")
+    if p in ("linescubic", "27lines", "cubliclines"):
+        report = lines_on_cubic_surface()
+    elif p in ("bitangents", "28bitangents", "quarticbitangents"):
+        report = bitangents_to_quartic()
+    elif p in ("conics5pts", "conic5points", "5pointsconic"):
+        report = conics_through_5_points()
+    elif p in ("lines4lines", "4lineslines", "4generallines"):
+        report = lines_meeting_4_general_lines_P3()
+    elif p in ("cubics9pts", "cubic9points", "9pointscubic"):
+        report = plane_cubics_through_9_points()
+    elif p in ("quintic", "quinticthreefold", "rationalcurves"):
+        report = rational_curves_on_quintic_threefold(degree)
+    else:
+        return (f"Unknown problem: {problem}. Use: lines_cubic, bitangents, "
+                "conics_5pts, lines_4lines, cubics_9pts, quintic")
+    return str(report)
+
+
+# ── Information Theory ─────────────────────────────────────────────────
+
+@mcp.tool()
+def calc_channel_capacity_bsc(p: float) -> str:
+    """Compute Binary Symmetric Channel capacity.
+
+    EXACT formula: C = 1 - H(p) where H is binary entropy.
+    NOT C = 1 - p (common error).
+
+    p: Crossover probability (0 to 0.5)
+
+    Example: calc_channel_capacity_bsc(0.1) → C = 0.531 bits
+    """
+    from noethersolve.information_theory import capacity_bsc
+    report = capacity_bsc(p)
+    return str(report)
+
+
+@mcp.tool()
+def calc_channel_capacity_bec(epsilon: float) -> str:
+    """Compute Binary Erasure Channel capacity.
+
+    EXACT formula: C = 1 - ε (simpler than BSC!).
+    BEC capacity is LINEAR in (1-ε), unlike BSC.
+
+    epsilon: Erasure probability
+
+    Example: calc_channel_capacity_bec(0.3) → C = 0.7 bits
+    """
+    from noethersolve.information_theory import capacity_bec
+    report = capacity_bec(epsilon)
+    return str(report)
+
+
+@mcp.tool()
+def calc_channel_capacity_awgn(
+    snr: float,
+    bandwidth: float = 1.0,
+) -> str:
+    """Compute AWGN channel capacity (Shannon's formula).
+
+    EXACT formula: C = B × log₂(1 + SNR).
+    NOT C = B × SNR (common error).
+
+    snr: Signal-to-noise ratio (linear, not dB)
+    bandwidth: Channel bandwidth in Hz (default 1 for normalized)
+
+    Example: calc_channel_capacity_awgn(10) → C = 3.46 bits/use
+    """
+    from noethersolve.information_theory import capacity_awgn
+    report = capacity_awgn(snr, bandwidth)
+    return str(report)
+
+
+@mcp.tool()
+def calc_channel_capacity_z(p: float) -> str:
+    """Compute Z-channel capacity.
+
+    Z-channel: 0→0 always, 1→0 with probability p.
+    Optimal input is NOT uniform (biased toward reliable 0).
+
+    p: Probability of 1→0 transition
+
+    Example: calc_channel_capacity_z(0.2) → C with P(X=1) < 0.5
+    """
+    from noethersolve.information_theory import capacity_z_channel
+    report = capacity_z_channel(p)
+    return str(report)
+
+
+@mcp.tool()
+def calc_rate_distortion(
+    source: str,
+    D: float,
+    variance: float = 1.0,
+) -> str:
+    """Compute rate-distortion function R(D).
+
+    source: "binary" (Hamming) or "gaussian" (MSE)
+    D: Target distortion
+    variance: Source variance (for Gaussian)
+
+    Example: calc_rate_distortion("binary", 0.1) → R(0.1) ≈ 0.531 bits
+    Example: calc_rate_distortion("gaussian", 0.25) → R(0.25) = 1 bit
+    """
+    from noethersolve.information_theory import rate_distortion_binary, rate_distortion_gaussian
+    if source.lower() in ("binary", "hamming"):
+        report = rate_distortion_binary(D)
+    elif source.lower() in ("gaussian", "mse"):
+        report = rate_distortion_gaussian(D, variance)
+    else:
+        return f"Unknown source: {source}. Use 'binary' or 'gaussian'."
+    return str(report)
+
+
+@mcp.tool()
+def calc_mac_region(
+    I_X1_Y: float,
+    I_X2_Y: float,
+    I_X1X2_Y: float,
+) -> str:
+    """Compute 2-user MAC capacity region.
+
+    The region is a PENTAGON (common error: models say rectangle).
+    Bounded by R₁ ≤ I(X₁;Y|X₂), R₂ ≤ I(X₂;Y|X₁), R₁+R₂ ≤ I(X₁,X₂;Y).
+
+    I_X1_Y: I(X₁; Y | X₂) — user 1's conditional rate
+    I_X2_Y: I(X₂; Y | X₁) — user 2's conditional rate
+    I_X1X2_Y: I(X₁, X₂; Y) — sum rate
+
+    Example: calc_mac_region(1.0, 1.0, 1.5) → pentagon with sum-rate 1.5
+    """
+    from noethersolve.information_theory import mac_capacity_region_2user
+    report = mac_capacity_region_2user(I_X1_Y, I_X2_Y, I_X1X2_Y)
+    return str(report)
+
+
+# ── Drug Interactions ─────────────────────────────────────────────────
+
+@mcp.tool()
+def check_drug_interaction(drug_a: str, drug_b: str) -> str:
+    """Check for drug-drug interaction between two medications.
+
+    COMPUTES CYP450-mediated interactions including inhibition and induction.
+    Returns mechanism, severity, AUC change, and clinical recommendations.
+
+    drug_a: First drug name (generic, case-insensitive)
+    drug_b: Second drug name (generic, case-insensitive)
+
+    Example: check_drug_interaction("ketoconazole", "midazolam")
+    → Strong CYP3A4 inhibition, AUC ↑10-15×, CONTRAINDICATED
+    """
+    from noethersolve.drug_interactions import check_interaction
+    report = check_interaction(drug_a, drug_b)
+    return str(report)
+
+
+@mcp.tool()
+def get_drug_cyp_profile(drug: str) -> str:
+    """Get the CYP450 metabolic profile of a drug.
+
+    RETURNS which CYP enzymes metabolize the drug, whether it's a
+    sensitive substrate (narrow therapeutic index), whether it's a
+    prodrug, and if it inhibits or induces any CYP enzymes.
+
+    drug: Drug name (generic, case-insensitive)
+
+    Example: get_drug_cyp_profile("codeine")
+    → CYP2D6 substrate, PRODRUG (requires 2D6 for activation to morphine)
+    """
+    from noethersolve.drug_interactions import get_drug_profile
+    report = get_drug_profile(drug)
+    return str(report)
+
+
+@mcp.tool()
+def get_cyp_enzyme_info(enzyme: str) -> str:
+    """Get information about a CYP enzyme including substrates and interactors.
+
+    RETURNS all known substrates, sensitive substrates, strong/moderate
+    inhibitors, and strong inducers for the specified CYP enzyme.
+
+    enzyme: CYP enzyme name (e.g., "CYP3A4", "CYP2D6", or just "3A4")
+
+    Example: get_cyp_enzyme_info("CYP3A4")
+    → Substrates: midazolam, simvastatin, ... Inhibitors: ketoconazole, ...
+    """
+    from noethersolve.drug_interactions import get_cyp_info
+    report = get_cyp_info(enzyme)
+    return str(report)
+
+
+@mcp.tool()
+def check_pharmacogenomics(drug: str) -> str:
+    """Check pharmacogenomic considerations for a drug.
+
+    RETURNS relevant CYP enzyme phenotypes (PM/IM/NM/UM), their clinical
+    impacts, and recommendations. Critical for prodrugs (codeine, clopidogrel)
+    and narrow therapeutic index drugs (warfarin).
+
+    drug: Drug name (generic, case-insensitive)
+
+    Example: check_pharmacogenomics("codeine")
+    → CYP2D6 PM: no analgesia; UM: TOXICITY RISK (FDA boxed warning)
+    """
+    from noethersolve.drug_interactions import check_pharmacogenomics as pgx
+    report = pgx(drug)
+    return str(report)
+
+
+@mcp.tool()
+def predict_ddi_auc_change(perpetrator: str, victim: str) -> str:
+    """Predict AUC fold-change from a drug-drug interaction.
+
+    COMPUTES the expected change in AUC (area under curve) when a
+    perpetrator drug (inhibitor/inducer) affects a victim drug (substrate).
+
+    perpetrator: Drug that affects metabolism (inhibitor or inducer)
+    victim: Drug whose levels are affected (substrate)
+
+    Example: predict_ddi_auc_change("rifampin", "midazolam")
+    → AUC 0.05-0.2× (80-95% decrease due to strong CYP3A4 induction)
+    """
+    from noethersolve.drug_interactions import predict_auc_change
+    import json
+    result = predict_auc_change(perpetrator, victim)
+    # Format nicely
+    if result["auc_low"] == 1.0 and result["auc_high"] == 1.0:
+        return "No known interaction: AUC unchanged (1.0×)"
+    elif result["auc_low"] >= 1.0:
+        return (f"AUC increase: {result['auc_low']:.1f}-{result['auc_high']:.1f}× "
+                f"({result['interaction_type']}, {result['enzyme']})\n"
+                f"Mechanism: {result.get('mechanism', 'N/A')}\n"
+                f"Recommendation: {result.get('recommendation', 'N/A')}")
+    else:
+        pct_lo = (1 - result['auc_high']) * 100
+        pct_hi = (1 - result['auc_low']) * 100
+        return (f"AUC decrease: {pct_lo:.0f}-{pct_hi:.0f}% "
+                f"({result['interaction_type']}, {result['enzyme']})\n"
+                f"Mechanism: {result.get('mechanism', 'N/A')}\n"
+                f"Recommendation: {result.get('recommendation', 'N/A')}")
 
 
 # ── Entry Point ───────────────────────────────────────────────────────

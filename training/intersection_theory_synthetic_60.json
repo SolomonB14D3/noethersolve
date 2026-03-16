@@ -1,0 +1,286 @@
+{
+  "description": "Training data for algebraic geometry intersection theory",
+  "domain": "intersection_theory",
+  "examples": [
+    {
+      "context": "The number of lines on a smooth cubic surface in P³ is exactly:",
+      "truth": "27 (twenty-seven lines, a famous classical result)",
+      "distractors": ["21 lines", "45 lines", "infinitely many lines"]
+    },
+    {
+      "context": "Cayley and Salmon proved in 1849 that a smooth cubic surface contains:",
+      "truth": "exactly 27 lines, no more and no fewer",
+      "distractors": ["at least 27 lines", "at most 27 lines", "between 20 and 30 lines"]
+    },
+    {
+      "context": "The 27 lines on a smooth cubic surface is:",
+      "truth": "an exact count that holds for every smooth cubic surface over an algebraically closed field",
+      "distractors": ["an average over moduli space", "true only for generic cubics", "true only over C"]
+    },
+    {
+      "context": "The 27 lines on a cubic surface form a configuration related to:",
+      "truth": "the E6 root system and the Weyl group W(E6)",
+      "distractors": ["the E8 root system", "the symmetric group S27", "the orthogonal group O(27)"]
+    },
+    {
+      "context": "The symmetry group of the 27 lines configuration has order:",
+      "truth": "51840, which equals |W(E6)|",
+      "distractors": ["27!", "27", "27 × 26"]
+    },
+    {
+      "context": "Each of the 27 lines on a cubic surface meets exactly:",
+      "truth": "10 other lines (forming a (27₁₀) configuration)",
+      "distractors": ["26 other lines", "6 other lines", "all other lines"]
+    },
+    {
+      "context": "Bezout's theorem states that two plane curves of degrees d and e, with no common component, intersect in:",
+      "truth": "exactly d·e points, counted with multiplicity",
+      "distractors": ["at most d·e points", "at least d·e points", "exactly d + e points"]
+    },
+    {
+      "context": "Bezout's theorem gives an EXACT count because:",
+      "truth": "it counts points with intersection multiplicity in projective space",
+      "distractors": ["it only applies to transverse intersections", "points at infinity don't count", "it's an inequality"]
+    },
+    {
+      "context": "For Bezout's theorem, 'counted with multiplicity' means:",
+      "truth": "a tangent intersection of order k contributes k to the count",
+      "distractors": ["tangent points don't count", "each point counts once", "k points must be distinct"]
+    },
+    {
+      "context": "A line and a conic (degree 2 curve) in the plane intersect in:",
+      "truth": "exactly 2 points counted with multiplicity (by Bezout: 1 × 2 = 2)",
+      "distractors": ["at most 2 points", "0, 1, or 2 points", "exactly 1 point if tangent"]
+    },
+    {
+      "context": "When a line is tangent to a conic, Bezout says they intersect in:",
+      "truth": "2 points with multiplicity (the tangent point counts twice)",
+      "distractors": ["1 point", "1 point with special weight", "0 transverse points"]
+    },
+    {
+      "context": "Two conics (degree 2 curves) with no common component intersect in:",
+      "truth": "exactly 4 points counted with multiplicity (by Bezout: 2 × 2 = 4)",
+      "distractors": ["at most 4 points", "0 to 4 points", "2 points"]
+    },
+    {
+      "context": "The intersection number of two curves on a surface is computed using:",
+      "truth": "the formula C·D = deg(O_X(C)|_D) = χ(O_X) - χ(O_X(-C)) - χ(O_X(-D)) + χ(O_X(-C-D))",
+      "distractors": ["simply counting geometric intersection points", "the area of overlap", "the minimum number of transverse intersections"]
+    },
+    {
+      "context": "Intersection theory differs from naive point counting because:",
+      "truth": "it uses algebraic multiplicities and works with divisor classes, not just curves",
+      "distractors": ["it ignores tangencies", "it only works in characteristic 0", "points count with sign"]
+    },
+    {
+      "context": "On P², the self-intersection number of a line is:",
+      "truth": "1 (a line in P² has self-intersection L·L = 1)",
+      "distractors": ["0", "-1", "undefined"]
+    },
+    {
+      "context": "L·L = 1 in P² follows from:",
+      "truth": "two distinct lines in P² meet at exactly 1 point, and self-intersection is defined by deformation",
+      "distractors": ["lines don't meet themselves", "it's a convention", "the line has length 1"]
+    },
+    {
+      "context": "On the blow-up of P² at a point, the exceptional divisor E has self-intersection:",
+      "truth": "-1 (the exceptional divisor E satisfies E·E = -1)",
+      "distractors": ["0", "1", "-2"]
+    },
+    {
+      "context": "The exceptional divisor has E² = -1 because:",
+      "truth": "it's the defining property of a (-1)-curve from blowing up a smooth point",
+      "distractors": ["it has negative area", "it's a convention", "it contracts to a point"]
+    },
+    {
+      "context": "Curves with self-intersection -1 are called:",
+      "truth": "(-1)-curves, and they can be contracted to smooth points",
+      "distractors": ["exceptional curves only if they come from blow-ups", "unstable curves", "singular curves"]
+    },
+    {
+      "context": "The degree of the canonical divisor K on P² is:",
+      "truth": "-3 (K_P² has degree -3, equivalently K = -3H where H is a line)",
+      "distractors": ["3", "0", "-1"]
+    },
+    {
+      "context": "K_P² = -3H means that the canonical class has degree:",
+      "truth": "-3, making P² a Fano variety (K anti-ample)",
+      "distractors": ["3 (ample canonical)", "0 (Calabi-Yau)", "-1"]
+    },
+    {
+      "context": "The sign of the canonical divisor on P² is negative because:",
+      "truth": "P² is a Fano variety, meaning -K is ample",
+      "distractors": ["it's a surface of general type", "a convention", "K is effective"]
+    },
+    {
+      "context": "A smooth cubic surface in P³ has canonical divisor K with K² equal to:",
+      "truth": "3 (the self-intersection K·K = 3 for a del Pezzo surface of degree 3)",
+      "distractors": ["-3", "9", "1"]
+    },
+    {
+      "context": "A cubic surface is a del Pezzo surface of degree:",
+      "truth": "3 (since K² = 3 and -K is ample)",
+      "distractors": ["9", "6", "27"]
+    },
+    {
+      "context": "The degree of a del Pezzo surface equals:",
+      "truth": "K², the self-intersection of the canonical divisor",
+      "distractors": ["the embedding degree", "the number of lines", "the Picard rank"]
+    },
+    {
+      "context": "A del Pezzo surface of degree d = 9 - n where n is:",
+      "truth": "the number of points blown up on P² (0 ≤ n ≤ 8)",
+      "distractors": ["the embedding dimension", "the Euler characteristic", "the genus"]
+    },
+    {
+      "context": "For a cubic surface, n = 6 blown-up points gives K² =:",
+      "truth": "9 - 6 = 3",
+      "distractors": ["6", "9", "27"]
+    },
+    {
+      "context": "The number of bitangent lines to a smooth plane quartic curve is exactly:",
+      "truth": "28 (twenty-eight bitangent lines, related to the 27 lines story)",
+      "distractors": ["24 bitangents", "16 bitangents", "infinitely many bitangents"]
+    },
+    {
+      "context": "The 28 bitangents to a quartic are related to:",
+      "truth": "theta characteristics and the symplectic group Sp(6, F₂)",
+      "distractors": ["the 27 lines directly", "the Weyl group W(E7)", "random chance"]
+    },
+    {
+      "context": "A bitangent line touches a curve at:",
+      "truth": "exactly 2 points (each with multiplicity 2, totaling 4 = 1 × 4 by Bezout)",
+      "distractors": ["1 point with multiplicity 4", "4 distinct points", "2 points with total multiplicity 2"]
+    },
+    {
+      "context": "The Chern numbers of a smooth surface satisfy the Noether inequality:",
+      "truth": "c₁² ≥ 2χ - 6 for surfaces of general type",
+      "distractors": ["c₁² ≤ 3χ", "c₁² = 12χ", "c₁² + c₂ = 12χ always"]
+    },
+    {
+      "context": "The Noether inequality c₁² ≥ 2χ - 6 applies to:",
+      "truth": "surfaces of general type only, not all surfaces",
+      "distractors": ["all smooth surfaces", "only rational surfaces", "surfaces with pg > 0"]
+    },
+    {
+      "context": "For a smooth complex surface, c₁² + c₂ equals:",
+      "truth": "12χ(O_S) (the Noether formula, where χ is the holomorphic Euler characteristic)",
+      "distractors": ["the Euler characteristic e(S)", "c₁² × c₂", "depends on the embedding"]
+    },
+    {
+      "context": "The Noether formula c₁² + c₂ = 12χ relates:",
+      "truth": "Chern numbers to the holomorphic Euler characteristic, exactly",
+      "distractors": ["topological invariants only", "approximately for smooth surfaces", "the embedding degree"]
+    },
+    {
+      "context": "In the Noether formula, χ(O_S) is:",
+      "truth": "1 - h¹(O_S) + h²(O_S) = 1 - q + pg",
+      "distractors": ["the topological Euler characteristic", "always positive", "h⁰ + h¹ + h²"]
+    },
+    {
+      "context": "The Euler characteristic of a smooth surface X in terms of Chern numbers is:",
+      "truth": "e(X) = c₂(X) (the second Chern number equals the topological Euler characteristic)",
+      "distractors": ["e(X) = c₁²", "e(X) = c₁² + c₂", "e(X) = 12χ"]
+    },
+    {
+      "context": "The Picard group of P² has rank:",
+      "truth": "1 (generated by the class of a line)",
+      "distractors": ["3", "0", "infinite"]
+    },
+    {
+      "context": "The Picard group of a cubic surface (blow-up of P² at 6 points) has rank:",
+      "truth": "7 (one from P² plus 6 exceptional divisors)",
+      "distractors": ["1", "6", "27"]
+    },
+    {
+      "context": "The Grothendieck group K⁰(X) for a variety X relates to intersection theory via:",
+      "truth": "the Chern character ch: K⁰(X) → A*(X) ⊗ Q",
+      "distractors": ["direct identification", "the Euler characteristic only", "no relation"]
+    },
+    {
+      "context": "The Hirzebruch-Riemann-Roch theorem relates:",
+      "truth": "χ(E) to the Chern character ch(E) and Todd class Td(X)",
+      "distractors": ["dimensions to multiplicities", "cohomology to homology", "curves to divisors"]
+    },
+    {
+      "context": "For a line bundle L on a surface S, χ(L) equals:",
+      "truth": "½(L·L - L·K) + χ(O_S) by Riemann-Roch",
+      "distractors": ["deg(L)", "h⁰(L) - h¹(L)", "L² + 1"]
+    },
+    {
+      "context": "The arithmetic genus of a curve C on a surface S is given by:",
+      "truth": "pa(C) = ½(C·C + C·K) + 1",
+      "distractors": ["pa(C) = C·C", "pa(C) = C² - 1", "pa(C) = genus of normalization"]
+    },
+    {
+      "context": "Castelnuovo's inequality bounds the genus of a space curve by:",
+      "truth": "g ≤ π₀(d, r) = m(m-1)(r-1)/2 + mε where d = m(r-1) + 1 + ε",
+      "distractors": ["g = d - 1", "g ≤ d²/4", "g ≤ (d-1)(d-2)/2"]
+    },
+    {
+      "context": "The genus-degree formula for a smooth plane curve of degree d is:",
+      "truth": "g = (d-1)(d-2)/2",
+      "distractors": ["g = d - 1", "g = d(d-1)/2", "g = d²/2"]
+    },
+    {
+      "context": "A smooth cubic curve in P² has genus:",
+      "truth": "1 (an elliptic curve, by genus-degree: (3-1)(3-2)/2 = 1)",
+      "distractors": ["0", "3", "2"]
+    },
+    {
+      "context": "A smooth quartic curve in P² has genus:",
+      "truth": "3 (by genus-degree: (4-1)(4-2)/2 = 3)",
+      "distractors": ["4", "6", "2"]
+    },
+    {
+      "context": "The formula (d-1)(d-2)/2 gives genus exactly when:",
+      "truth": "the curve is smooth (no singularities reduce genus)",
+      "distractors": ["always", "for irreducible curves", "for plane curves of any type"]
+    },
+    {
+      "context": "Intersection multiplicity at a point P of curves C and D is defined as:",
+      "truth": "dim_k(O_{P}/(f,g)) where f,g are local equations",
+      "distractors": ["the number of branches meeting at P", "max(order_C(P), order_D(P))", "1 if transverse, 0 otherwise"]
+    },
+    {
+      "context": "Two smooth curves meeting transversely at a point have intersection multiplicity:",
+      "truth": "1 at that point",
+      "distractors": ["0", "2", "depends on the curves"]
+    },
+    {
+      "context": "The Segre embedding P^m × P^n → P^(mn+m+n) has degree:",
+      "truth": "C(m+n, m) = (m+n)!/(m!n!)",
+      "distractors": ["mn", "m + n", "1"]
+    },
+    {
+      "context": "The degree of a variety X ⊂ P^n is:",
+      "truth": "the number of intersection points with a generic linear subspace of complementary dimension",
+      "distractors": ["the dimension", "the embedding degree", "the number of defining equations"]
+    },
+    {
+      "context": "A quadric surface in P³ has degree:",
+      "truth": "2 (it meets a generic line in 2 points)",
+      "distractors": ["4", "1", "3"]
+    },
+    {
+      "context": "The Plücker formula relates the degree and class of a plane curve via:",
+      "truth": "d* = d(d-1) - 2δ - 3κ where δ = nodes, κ = cusps",
+      "distractors": ["d* = d", "d* = d - 1", "d* = 2d"]
+    },
+    {
+      "context": "A smooth curve has class (dual degree) d* equal to:",
+      "truth": "d(d-1) by Plücker (no singularities)",
+      "distractors": ["d", "d²", "(d-1)(d-2)/2"]
+    },
+    {
+      "context": "The Chow ring A*(X) is:",
+      "truth": "a ring of algebraic cycles modulo rational equivalence, with intersection product",
+      "distractors": ["the cohomology ring", "the Picard group", "the Grothendieck group"]
+    },
+    {
+      "context": "Rational equivalence of cycles means:",
+      "truth": "two cycles are endpoints of a family parametrized by P¹",
+      "distractors": ["they have the same homology class", "they are numerically equivalent", "they intersect the same curves"]
+    }
+  ]
+}

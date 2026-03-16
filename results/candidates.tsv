@@ -190,3 +190,5 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-14	Concentration-detecting Q_f family	pending	N/A	ANALYSIS	f(r)→∞ at r=0 detects concentration: -ln(r), 1/√r; f(r)→0 blind: √r, r, tanh; e^(-r) bounded
 2026-03-14	Q_f turbulence robustness	N/A	8/8	NUMERICAL_VERIFIED	Best: √r, -ln(r), e^(-r), tanh (3/3 tests); Fourier modes harder than vortex patches
 2026-03-14	Q_f viscous decay ∝ ν	N/A	N/A	NUMERICAL_VERIFIED	dQ_f/dt ∝ -ν; e^(-r),tanh,√r conserved at ν=0; -ln(r) not conserved at ν=0; decay rate ~const/ν
+2026-03-15	elliptic_curves oracle facts (12 total)	-6.493→+11.075	12/12	QUADRANT3→FLIPPED	main_adapter 8/12 + 4 orthogonal adapters (invariants, group_structure, torsion, supersingular); 100% coverage; new mathematical domain
+2026-03-15	intersection_theory oracle facts (12 total)	-27.618→+11.324	12/12	QUADRANT3→FLIPPED	main_adapter 8/12 + 3 orthogonal adapters (canonical_cluster for it06-it07, canonical_P2 for it08, canonical_cubic for it09); 100% coverage; algebraic geometry

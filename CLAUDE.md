@@ -233,8 +233,10 @@ so they never compete for the same parameters.
 | Black Hole Frontiers | 12 | 4/12 | **12/12** | Orthogonal adapters |
 | Particle Physics Frontiers | 12 | 7/12 | **12/12** | Orthogonal adapters |
 | Holographic QInfo | 12 | 10/12 | **12/12** | Orthogonal adapters |
+| Elliptic Curves | 12 | 8/12 | **12/12** | Main adapter 8/12 + 4 orthogonal (invariants, group_structure, torsion, supersingular) |
+| Intersection Theory | 12 | 0/12 | **12/12** | Main adapter 8/12 + 3 orthogonal (canonical cluster). Deepest initial gap: -27.6 |
 
-**All 1014 facts flipped across all 67 domains (100%).**
+**All 1038 facts flipped across all 69 domains (100%).**
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:

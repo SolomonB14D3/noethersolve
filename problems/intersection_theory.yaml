@@ -1,0 +1,21 @@
+name: "Intersection Theory"
+description: |
+  Test oracle knowledge of algebraic geometry intersection theory.
+
+  Key concepts:
+  - 27 lines on cubic surface (E6 symmetry)
+  - Bezout's theorem (exact intersection count with multiplicity)
+  - Self-intersection numbers on blow-ups
+  - Canonical divisor degrees
+  - Chern numbers and Noether formula
+  - 28 bitangents to plane quartic
+
+  Common LLM failure modes:
+  - Stating Bezout as upper bound instead of exact count
+  - Wrong signs for self-intersection on blow-ups (E² = -1, not +1)
+  - Confusing K² for cubic surface (it's 3, not -3)
+  - Thinking 27 lines is approximate rather than exact
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "intersection_theory_facts.json"
+pass_threshold: 0.5

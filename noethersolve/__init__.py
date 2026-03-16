@@ -7,13 +7,14 @@ Every tool added makes every connected agent smarter.
 Emmy Noether proved every continuous symmetry corresponds to a conserved quantity.
 NoetherSolve finds where LLMs fail to recognize those quantities, builds verified
 computational tools for the right answers, and exposes them via Model Context
-Protocol (MCP) — 69 tools currently serving physics, math, genetics, complexity
-theory, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry,
-and LLM science. 62 are calculators (derive answers from first principles),
-7 are lookup tables (reference databases).
+Protocol (MCP) — 92 tools currently serving physics, math, genetics, complexity
+theory, enzyme kinetics, quantum mechanics, pharmacokinetics, drug interactions,
+organic chemistry, elliptic curves, intersection theory, information theory, and
+LLM science. 85 are calculators (derive answers from first principles), 7 are
+lookup tables.
 
 Package layout:
-  noethersolve.mcp_server   — MCP server (69 tools for any AI agent)
+  noethersolve.mcp_server   — MCP server (92 tools for any AI agent)
   noethersolve.oracle       — model-agnostic MC log-prob scorer (from eval_mc)
   noethersolve.adapter      — snap-on logit adapter architectures (from snap_on)
   noethersolve.train_utils  — LOGIT_SOFTCAP, get_lm_head_fn, apply_adapter
@@ -50,6 +51,10 @@ Package layout:
   noethersolve.biochemistry    — biochemistry fact checker (enzymes, metabolism, signaling)
   noethersolve.organic_chemistry — organic chemistry fact checker (mechanisms, reactions, synthesis)
   noethersolve.quantum_mechanics — quantum mechanics fact checker (foundations, phenomena, systems)
+  noethersolve.elliptic_curves   — elliptic curve arithmetic, invariants, point counting, group structure
+  noethersolve.intersection_theory — Bezout, genus-degree, self-intersection, canonical divisors, enumerative geometry
+  noethersolve.information_theory  — channel capacity, rate-distortion, source coding, MAC, Fano inequality
+  noethersolve.drug_interactions   — CYP450 DDI checker, pharmacogenomics, inhibitor/inducer database
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -368,4 +373,125 @@ from noethersolve.qm_calculator import (  # noqa: F401
     AngularMomentumReport,
 )
 
-__version__ = "1.2.0"
+from noethersolve.elliptic_curves import (  # noqa: F401
+    # Core arithmetic
+    is_on_curve,
+    point_add,
+    point_double,
+    point_negate,
+    scalar_mult,
+    point_order,
+    # Invariants
+    discriminant,
+    j_invariant,
+    is_singular,
+    # Point counting
+    hasse_bounds,
+    count_points_naive,
+    verify_hasse,
+    find_points,
+    # Torsion
+    is_valid_torsion_order,
+    # Reports
+    analyze_curve,
+    analyze_point_arithmetic,
+    EllipticCurveReport,
+    PointArithmeticReport,
+)
+
+from noethersolve.intersection_theory import (  # noqa: F401
+    # Bezout
+    bezout_intersection,
+    BezoutReport,
+    # Genus
+    genus_degree_formula,
+    GenusReport,
+    # Self-intersection
+    self_intersection_Pn,
+    self_intersection_line_P2,
+    self_intersection_exceptional,
+    SelfIntersectionReport,
+    # Canonical divisor
+    canonical_P2,
+    canonical_cubic_surface,
+    del_pezzo_degree,
+    CanonicalReport,
+    # Noether formula
+    noether_formula,
+    NoetherReport,
+    # Classical enumerative
+    lines_on_cubic_surface,
+    bitangents_to_quartic,
+    conics_through_5_points,
+    lines_meeting_4_general_lines_P3,
+    plane_cubics_through_9_points,
+    rational_curves_on_quintic_threefold,
+    EnumerativeReport,
+    # Chow ring
+    chow_ring_Pn,
+    segre_embedding_degree,
+    # Intersection multiplicity
+    intersection_multiplicity_formula,
+    compute_multiplicity_smooth_transverse,
+    compute_multiplicity_tangent,
+)
+
+from noethersolve.information_theory import (  # noqa: F401
+    # Entropy functions
+    binary_entropy,
+    entropy,
+    relative_entropy,
+    mutual_information,
+    # Channel capacity
+    capacity_bsc,
+    capacity_bec,
+    capacity_awgn,
+    capacity_z_channel,
+    ChannelCapacityReport,
+    # Rate-distortion
+    rate_distortion_binary,
+    rate_distortion_gaussian,
+    RateDistortionReport,
+    # Source coding
+    source_coding_bound,
+    SourceCodingReport,
+    # MAC
+    mac_capacity_region_2user,
+    MACRegionReport,
+    # Data processing
+    check_data_processing,
+    DataProcessingReport,
+    # Fano
+    fano_inequality,
+    FanoReport,
+    # Typical sets
+    typical_set_bounds,
+    TypicalSetReport,
+)
+
+from noethersolve.drug_interactions import (  # noqa: F401
+    # Drug profiles
+    get_drug_profile,
+    DrugProfileReport,
+    # CYP info
+    get_cyp_info,
+    CYPInfoReport,
+    # Interactions
+    check_interaction,
+    predict_auc_change,
+    InteractionReport,
+    # Pharmacogenomics
+    check_pharmacogenomics,
+    PharmacogenomicsReport,
+    # List functions
+    list_cyp_enzymes,
+    list_substrates,
+    list_inhibitors,
+    list_inducers,
+    # Enums
+    Strength,
+    InteractionType,
+    Severity,
+)
+
+__version__ = "1.6.0"
