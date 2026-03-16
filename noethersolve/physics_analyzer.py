@@ -282,6 +282,18 @@ DISCOVERIES = [
         ],
         reference_files=["results/discoveries/novel_findings/qf_ratio_optimal.md"]
     ),
+    PhysicsDiscovery(
+        title="Higher-Order Invariants: Negative Result",
+        domain=Domain.FLUID_DYNAMICS,
+        description="Systematic search found no genuine higher-order (triplet, quadruplet) conservation laws",
+        key_result="Triplet invariants either identically zero or not conserved",
+        implications=[
+            "Pairwise Q_f family is uniquely special, not first step in hierarchy",
+            "Symmetric weights × antisymmetric geometry = 0 (false alarm pattern)",
+            "The 2D vortex dynamics structure is fundamentally pairwise"
+        ],
+        reference_files=["results/discoveries/beyond_known_math_summary.md"]
+    ),
 ]
 
 
