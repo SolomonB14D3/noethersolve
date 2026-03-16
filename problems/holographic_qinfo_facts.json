@@ -1,0 +1,138 @@
+{
+  "problem": "holographic_qinfo",
+  "description": "Holographic quantum information - QEC, JT gravity, SYK, entanglement wedges.",
+  "facts": [
+    {
+      "id": "hqi01_qec",
+      "context": "Holographic quantum error correction shows:",
+      "truth": "bulk reconstruction uses entanglement wedge",
+      "distractors": [
+        "AdS/CFT correspondence has no connection to quantum information theory",
+        "error correction principles are fundamentally incompatible with gravity",
+        "bulk physics cannot be reconstructed from boundary data at all"
+      ],
+      "cluster": "reconstruction"
+    },
+    {
+      "id": "hqi02_jt",
+      "context": "JT (Jackiw-Teitelboim) gravity is valuable because:",
+      "truth": "it is exactly solvable and captures BH physics",
+      "distractors": [
+        "it is far too mathematically complicated to solve analytically or numerically",
+        "it has no connection to realistic black hole physics in any dimension",
+        "it contradicts all results from higher dimensional quantum gravity"
+      ],
+      "cluster": "models"
+    },
+    {
+      "id": "hqi03_syk",
+      "context": "The SYK model is important for holography because:",
+      "truth": "it is solvable and dual to JT gravity",
+      "distractors": [
+        "it has no gravitational dual or holographic interpretation whatsoever",
+        "it is a realistic model of condensed matter with no gravity connection",
+        "it contradicts the AdS/CFT correspondence fundamentally"
+      ],
+      "cluster": "models"
+    },
+    {
+      "id": "hqi04_wedge",
+      "context": "The entanglement wedge in holography is:",
+      "truth": "bulk region reconstructible from boundary subregion",
+      "distractors": [
+        "a purely mathematical construct with no physical interpretation at all",
+        "the entire bulk spacetime regardless of boundary region considered",
+        "undefined because bulk-boundary correspondence does not exist"
+      ],
+      "cluster": "reconstruction"
+    },
+    {
+      "id": "hqi05_rt",
+      "context": "The Ryu-Takayanagi formula relates:",
+      "truth": "entanglement entropy to minimal surface area",
+      "distractors": [
+        "energy density to curvature without any entropy interpretation",
+        "nothing meaningful because holographic entropy is undefined",
+        "boundary entropy to bulk volume not surface area"
+      ],
+      "cluster": "entropy"
+    },
+    {
+      "id": "hqi06_qes",
+      "context": "Quantum extremal surfaces generalize RT by:",
+      "truth": "including bulk entropy contribution to formula",
+      "distractors": [
+        "ignoring all quantum corrections to the classical formula",
+        "replacing area with volume in the entropy calculation",
+        "removing the minimal surface requirement entirely"
+      ],
+      "cluster": "entropy"
+    },
+    {
+      "id": "hqi07_modular",
+      "context": "Modular flow in holography relates to:",
+      "truth": "bulk geometry through JLMS formula",
+      "distractors": [
+        "nothing geometric because modular operators have no bulk interpretation",
+        "only boundary physics with no bulk correspondence whatsoever",
+        "classical gravity without any quantum mechanical input"
+      ],
+      "cluster": "reconstruction"
+    },
+    {
+      "id": "hqi08_python",
+      "context": "The Python's lunch conjecture addresses:",
+      "truth": "computational complexity of bulk reconstruction",
+      "distractors": [
+        "a programming language implementation of holographic calculations",
+        "the impossibility of any bulk reconstruction from boundary data",
+        "classical geodesic calculations without quantum corrections"
+      ],
+      "cluster": "complexity"
+    },
+    {
+      "id": "hqi09_susskind",
+      "context": "Susskind's complexity conjectures propose:",
+      "truth": "complexity equals action or volume behind horizon",
+      "distractors": [
+        "complexity is undefined for gravitational systems entirely",
+        "complexity equals entropy which equals area holographically",
+        "there is no relationship between complexity and geometry"
+      ],
+      "cluster": "complexity"
+    },
+    {
+      "id": "hqi10_tensor",
+      "context": "Tensor network models of holography show:",
+      "truth": "geometry can emerge from entanglement structure",
+      "distractors": [
+        "entanglement has no geometric interpretation whatsoever",
+        "geometry is fundamental and cannot emerge from anything",
+        "tensor networks contradict all holographic principles"
+      ],
+      "cluster": "emergence"
+    },
+    {
+      "id": "hqi11_wormhole",
+      "context": "Traversable wormholes in AdS/CFT require:",
+      "truth": "double-trace deformations coupling boundaries",
+      "distractors": [
+        "exotic matter with negative energy density only",
+        "violations of energy conditions that are physically impossible",
+        "classical solutions without any quantum corrections"
+      ],
+      "cluster": "emergence"
+    },
+    {
+      "id": "hqi12_teleport",
+      "context": "Holographic quantum teleportation through wormholes:",
+      "truth": "was demonstrated in quantum simulation experiments",
+      "distractors": [
+        "is purely theoretical with no experimental demonstration possible",
+        "contradicts quantum mechanics fundamental principles",
+        "requires actual gravitational wormholes to function"
+      ],
+      "cluster": "emergence"
+    }
+  ]
+}

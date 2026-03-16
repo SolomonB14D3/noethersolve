@@ -1,0 +1,31 @@
+name: "particle_physics_frontiers"
+description: |
+  Cutting-edge particle physics: muon g-2 anomaly, Higgs properties,
+  neutrino physics, BSM searches. Focus on recent experimental results
+  where model has inverted beliefs about confirmations vs contradictions.
+
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "particle_physics_frontiers_facts.json"
+pass_threshold: 0.8
+
+monitors:
+  - margin_sign
+
+adapter: null
+
+notes: |
+  Discovered 2026-03-15: Model systematically inverts recent experimental results.
+  - Muon g-2: model thinks agreed with SM (margin -8.9), actually confirmed anomaly
+  - Higgs self-coupling: model thinks rules out SM (margin -1.6), actually consistent
+  - Neutrino ordering: model thinks inverted established (margin -3.1), actually uncertain
+
+  Pattern suggests training data contamination from skeptic sources or confusion
+  between "tests of SM" and "failures of SM".
+
+next_targets:
+  - LHC Run 3 Higgs measurements
+  - DUNE neutrino oscillation projections
+  - Muon g-2 theory vs experiment status
+  - Dark matter direct detection limits
+  - Flavor anomalies (B physics)

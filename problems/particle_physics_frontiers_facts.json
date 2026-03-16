@@ -1,0 +1,138 @@
+{
+  "problem": "particle_physics_frontiers",
+  "description": "Particle physics frontiers - muon g-2, Higgs, neutrinos, BSM searches.",
+  "facts": [
+    {
+      "id": "ppf01_muon_g2",
+      "context": "The Fermilab muon g-2 result:",
+      "truth": "confirmed anomaly suggesting physics beyond SM",
+      "distractors": [
+        "found perfect agreement with all Standard Model theoretical predictions",
+        "showed the muon has no anomalous magnetic moment contribution whatsoever",
+        "was too imprecise to distinguish between Standard Model and new physics"
+      ],
+      "cluster": "anomalies"
+    },
+    {
+      "id": "ppf02_g2_theory",
+      "context": "The muon g-2 theory situation involves:",
+      "truth": "tension between lattice and dispersive predictions",
+      "distractors": [
+        "complete theoretical consensus with no disagreements between calculations",
+        "theory predictions that exactly match the experimental measurement now",
+        "abandonment of theoretical calculations as fundamentally unreliable"
+      ],
+      "cluster": "anomalies"
+    },
+    {
+      "id": "ppf03_higgs_coupling",
+      "context": "LHC measurements of Higgs self-coupling currently:",
+      "truth": "have large uncertainties but are SM-consistent",
+      "distractors": [
+        "have precisely confirmed the Standard Model prediction with high accuracy",
+        "definitively rule out the Standard Model Higgs mechanism entirely",
+        "show the Higgs boson does not interact with itself at all"
+      ],
+      "cluster": "higgs"
+    },
+    {
+      "id": "ppf04_higgs_width",
+      "context": "The Higgs boson width measurement:",
+      "truth": "agrees with SM narrow width prediction",
+      "distractors": [
+        "reveals the Higgs boson is significantly wider than Standard Model theoretical predictions indicating undiscovered decay channels",
+        "definitively proves the Higgs boson is perfectly stable and has zero probability of ever decaying into other particles",
+        "fundamentally cannot be measured by any experimental technique and remains completely unknown to physics permanently"
+      ],
+      "cluster": "higgs"
+    },
+    {
+      "id": "ppf05_neutrino_mass",
+      "context": "Current evidence on neutrino mass ordering:",
+      "truth": "slightly favors normal but remains uncertain",
+      "distractors": [
+        "has definitively established the inverted mass hierarchy with certainty",
+        "proves all three neutrino masses are exactly equal to each other",
+        "shows neutrinos are completely massless as originally assumed"
+      ],
+      "cluster": "neutrinos"
+    },
+    {
+      "id": "ppf06_neutrino_cp",
+      "context": "CP violation in neutrino oscillations:",
+      "truth": "shows hints but not yet definitive discovery",
+      "distractors": [
+        "has been definitively established at discovery-level significance already",
+        "has been completely ruled out by all neutrino experiments to date",
+        "is theoretically impossible in the neutrino sector of physics"
+      ],
+      "cluster": "neutrinos"
+    },
+    {
+      "id": "ppf07_dm_direct",
+      "context": "Direct dark matter detection experiments have:",
+      "truth": "set strong limits but no confirmed detection",
+      "distractors": [
+        "definitively detected WIMP dark matter particles in multiple experiments",
+        "completely ruled out all possible dark matter candidates forever",
+        "found results that perfectly match background-only expectations always"
+      ],
+      "cluster": "bsm"
+    },
+    {
+      "id": "ppf08_susy",
+      "context": "LHC searches for supersymmetry have:",
+      "truth": "excluded simple models but SUSY not ruled out",
+      "distractors": [
+        "discovered superpartner particles confirming supersymmetry theory",
+        "completely and definitively ruled out all supersymmetric theories",
+        "found evidence strongly favoring minimal supersymmetric extensions"
+      ],
+      "cluster": "bsm"
+    },
+    {
+      "id": "ppf09_flavor",
+      "context": "B-physics flavor anomalies status:",
+      "truth": "some tensions persist but significance varies",
+      "distractors": [
+        "have all been resolved as statistical fluctuations with no anomalies",
+        "definitively prove the existence of new particles beyond the SM",
+        "cannot be measured reliably at current experimental facilities"
+      ],
+      "cluster": "anomalies"
+    },
+    {
+      "id": "ppf10_w_mass",
+      "context": "The CDF W boson mass measurement:",
+      "truth": "shows tension with SM but other experiments disagree",
+      "distractors": [
+        "perfectly confirms the Standard Model prediction with high precision",
+        "has been replicated by all other experiments showing same deviation",
+        "proves the W boson does not exist as a fundamental particle"
+      ],
+      "cluster": "anomalies"
+    },
+    {
+      "id": "ppf11_lhc_run3",
+      "context": "LHC Run 3 physics goals include:",
+      "truth": "precision Higgs and rare process measurements",
+      "distractors": [
+        "only searching for supersymmetric particles and nothing else",
+        "shutting down because all physics has already been discovered",
+        "reducing collision energy to study lower energy phenomena"
+      ],
+      "cluster": "higgs"
+    },
+    {
+      "id": "ppf12_dune",
+      "context": "The DUNE experiment will primarily measure:",
+      "truth": "CP violation and mass ordering in neutrinos",
+      "distractors": [
+        "Higgs boson properties using neutrino beams directly",
+        "dark matter interactions in underground detectors only",
+        "proton decay as the sole physics objective"
+      ],
+      "cluster": "neutrinos"
+    }
+  ]
+}
