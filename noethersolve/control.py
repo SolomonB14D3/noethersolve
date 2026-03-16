@@ -162,22 +162,17 @@ def simulate_pid(
     for step_i in range(steps):
         t = step_i * dt
 
-        # Plant output: y = C*x
-        y = 0.0
-        for i in range(n):
-            y += (num[i + 1] - num[0] * den[i + 1]) * x[i]
-        y += num[0] * x[0] if n > 0 else 0.0
-        # Simplified: for standard form, y = sum(c_i * x_i)
-        # Actually, let me use the proper observable output
-        # For controllable canonical form with den = [1, a1, ..., an]:
+        # Plant output: y = C*x + D*u
+        # Controllable canonical form with den = [1, a1, ..., an]:
+        # State order: x[0]=position (output), x[n-1]=highest derivative
         # A has -a_i in last row, B = [0,...,0,1]
-        # C = [b_n - a_n*b_0, ..., b_1 - a_1*b_0], D = b_0
-        c = [num[i + 1] - num[0] * den[i + 1] for i in range(n)]
-        d_val = num[0]
-
+        # C = [b_n - a_n*b_0, b_{n-1} - a_{n-1}*b_0, ..., b_1 - a_1*b_0]
+        # D = b_0
+        # Index mapping: c[i] pairs with x[i], so c[i] = num[n-i] - num[0]*den[n-i]
+        c = [num[n - i] - num[0] * den[n - i] for i in range(n)]
         y = sum(c[i] * x[i] for i in range(n))
-        # D*u would need the current input, which creates algebraic loop
-        # For strictly proper systems (num order < den order), D=0
+        # D*u omitted: for strictly proper systems D=0, and including D
+        # creates an algebraic loop that requires implicit solution
 
         # PID controller
         error = setpoint - y

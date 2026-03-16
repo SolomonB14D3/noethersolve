@@ -20,6 +20,22 @@ class TestSimulatePID:
                          plant_num=[1.0], plant_den=[1.0, 1.0])
         # P-only on 1/(s+1): final value = Kp/(1+Kp) = 0.5
         assert r.steady_state_error > 0.1
+        assert abs(r.final_value - 0.5) < 0.05  # Kp/(1+Kp)
+
+    def test_second_order_dc_gain(self):
+        """P-only on 1/(s^2+3s+1): final value = Kp×G(0)/(1+Kp×G(0)) = Kp/(1+Kp)."""
+        r = simulate_pid(Kp=2.0, Ki=0.0, Kd=0.0,
+                         plant_num=[1.0], plant_den=[1.0, 3.0, 1.0])
+        # G(0)=1, so final = 2/(1+2) = 2/3 ≈ 0.667
+        assert abs(r.final_value - 2.0 / 3.0) < 0.05
+
+    def test_type_1_plant_zero_sse(self):
+        """P-only on 1/(s^2+s) [type-1]: zero steady-state error for step."""
+        r = simulate_pid(Kp=10.0, Ki=0.0, Kd=0.0,
+                         plant_num=[1.0], plant_den=[1.0, 1.0, 0.0])
+        # Type-1 system: position error = 0 for step input
+        assert abs(r.final_value - 1.0) < 0.05
+        assert r.steady_state_error < 0.05
 
     def test_high_gain_instability(self):
         """Very high gains on 2nd-order plant cause instability."""

@@ -152,8 +152,8 @@ def security_level(
 
     elif algo in ("ecc", "ecdsa", "ecdh", "ed25519", "x25519"):
         security_bits = key_bits // 2  # ECDLP
-        quantum_bits = key_bits // 3  # Grover on ECDLP
-        explanation = f"ECC: security ≈ key/2 = {security_bits}-bit. Quantum reduces further."
+        quantum_bits = 0  # Shor's algorithm breaks ECDLP (not just Grover)
+        explanation = f"ECC-{key_bits}: ~{security_bits}-bit symmetric equivalent. Broken by quantum (Shor)."
 
     elif algo in ("sha", "sha2", "sha256", "sha384", "sha512", "sha3"):
         # Preimage: full bits. Collision: half bits.

@@ -221,6 +221,37 @@ class TestRouteTissue:
         route = [i for i in report.issues if i.rule_name == "ROUTE_TISSUE"]
         assert any(i.severity == "HIGH" for i in route)
 
+    def test_aav9_iv_cns_allowed(self):
+        """AAV9 crosses BBB via IV — should NOT flag as HIGH (Zolgensma)."""
+        design = TherapyDesign(
+            modality="aav",
+            target_tissue="cns",
+            vector_serotype="AAV9",
+            route="iv",
+        )
+        report = validate_pipeline(design)
+        route = [i for i in report.issues if i.rule_name == "ROUTE_TISSUE"]
+        assert not any(i.severity == "HIGH" for i in route)
+        # Should be INFO with BBB crossing note
+        assert any(i.severity == "INFO" and "BBB" in i.message or "blood-brain" in i.message
+                   for i in route)
+
+    def test_gene_therapy_modality_alias(self):
+        """gene_therapy modality should work as alias for aav."""
+        design = TherapyDesign(
+            modality="gene_therapy",
+            target_tissue="liver",
+            transgene_size_kb=5.0,  # over 4.7kb limit
+            vector_serotype="AAV8",
+            route="iv",
+            redosing_planned=True,
+        )
+        report = validate_pipeline(design)
+        # Should detect capacity issue
+        assert any(i.rule_name == "VECTOR_CAPACITY" for i in report.issues)
+        # Should detect redosing issue
+        assert any(i.rule_name == "REDOSING_IMMUNITY" for i in report.issues)
+
     def test_intrathecal_cns_clean(self):
         design = TherapyDesign(
             modality="aav",

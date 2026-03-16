@@ -4,9 +4,9 @@
 
 **The core loop: find gaps → flip facts → build tool → add to MCP server.** Every tool added makes every connected agent smarter.
 
-The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 46 tools currently serving physics, math, genetics, complexity theory, pharmacogenomics, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
+The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 69 tools currently serving physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, complexity theory, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
 
-**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 67 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (1252 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
+**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 67 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (1332 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
 
 ---
 
@@ -17,7 +17,10 @@ The discovery pipeline proposes candidates, verifies them numerically, checks if
 - Mathematical conjectures → `check_conjecture()`
 - Complexity class relationships → `check_complexity_inclusion()`, `check_completeness()`
 - Proof technique barriers → `check_proof_barriers()`
-- Drug interactions / pharmacogenomics → `audit_drug_interactions()`, `check_pharmacogenomics()`
+- Pharmacokinetics / drug dosing → `calc_iv_bolus()`, `calc_oral_dose()`, `calc_half_life()`, `calc_steady_state()`, `calc_dose_adjustment()`
+- Enzyme kinetics → `calc_michaelis_menten()`, `calc_enzyme_inhibition()`, `calc_catalytic_efficiency()`, `calc_cooperativity()`, `calc_ph_rate_profile()`
+- Quantum mechanics calculations → `calc_particle_in_box()`, `calc_hydrogen_energy()`, `calc_uncertainty_check()`, `calc_tunneling()`, `calc_harmonic_oscillator_qm()`, `calc_angular_momentum()`
+- Organic chemistry → `analyze_molecule()`, `predict_reaction_selectivity()`, `predict_reaction_mechanism()`, `validate_synthesis_pathway()`, `check_baldwin_rules()`, `check_woodward_hoffmann()`
 - LLM capabilities / benchmark scores → `check_llm_claim()`, `check_benchmark_score()`
 - Conservation laws → `check_vortex_conservation()`, `check_hamiltonian_system()`, `check_em_conservation()`
 - CRISPR guide design → `score_crispr_guide()`
@@ -38,9 +41,6 @@ The discovery pipeline proposes candidates, verifies them numerically, checks if
 - Control systems / PID / stability → `simulate_pid()`, `analyze_stability()`
 - Database transaction isolation → `check_isolation()`, `analyze_schedule()`
 - Quantum circuits → `simulate_quantum_circuit()`
-- Biochemistry (enzymes, metabolism, signaling) → `check_biochemistry()`
-- Organic chemistry (mechanisms, reactions, synthesis) → `check_organic_chemistry()`
-- Quantum mechanics (uncertainty, entanglement, tunneling) → `check_quantum_mechanics()`
 
 **Setup:** The MCP server is configured in `.mcp.json` at the project root
 (already present). Claude Code auto-discovers it. Or run standalone:
@@ -472,7 +472,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 
 | File | What it does |
 |------|-------------|
-| `noethersolve/mcp_server/` | **MCP server — 46 tools for any AI agent** |
+| `noethersolve/mcp_server/` | **MCP server — 69 tools for any AI agent** |
 | `conservation_checker.py` | Figure-8 3-body RK45 integrator + frac_var checker |
 | `vortex_checker.py` | 2D point-vortex Kirchhoff integrator + frac_var checker |
 | `oracle_wrapper.py` | Log-prob margin oracle + repair pass + quadrant diagnosis (MLX) |
@@ -506,7 +506,10 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/pipeline.py` | Therapeutic pipeline consistency validator |
 | `noethersolve/aggregation.py` | Protein aggregation propensity predictor |
 | `noethersolve/splice.py` | Splice site strength scorer (PWM-based) |
-| `noethersolve/pharmacokinetics.py` | Pharmacogenomic CYP interaction checker |
+| `noethersolve/enzyme_kinetics.py` | Michaelis-Menten, inhibition, cooperativity, pH rate profile calculator |
+| `noethersolve/qm_calculator.py` | Particle-in-box, hydrogen, tunneling, uncertainty, oscillator calculator |
+| `noethersolve/pk_model.py` | Pharmacokinetic compartmental modeling (IV, oral, steady state) |
+| `noethersolve/reaction_engine.py` | Organic chemistry molecule analysis, selectivity, mechanisms |
 | `noethersolve/complexity.py` | Complexity class relationship auditor |
 | `noethersolve/conjecture_status.py` | Mathematical conjecture status checker (~63 conjectures) |
 | `noethersolve/proof_barriers.py` | Proof technique barrier checker (10 barriers) |
@@ -520,10 +523,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/distributed_calc.py` | Quorum systems, Byzantine thresholds, vector clocks, consistency models |
 | `noethersolve/network_calc.py` | Bandwidth-delay product, TCP throughput, subnetting, IP fragmentation |
 | `noethersolve/os_calc.py` | Page tables, CPU scheduling, deadlock detection, TLB analysis |
-| `noethersolve/biochemistry.py` | Biochemistry fact checker (enzymes, metabolism, signaling) |
-| `noethersolve/organic_chemistry.py` | Organic chemistry fact checker (mechanisms, reactions, synthesis) |
-| `noethersolve/quantum_mechanics.py` | Quantum mechanics fact checker (foundations, phenomena, systems) |
-| `tests/` | 1252 tests for all 30 toolkit modules |
+| `tests/` | 1332 tests for all 35 toolkit modules |
 
 ---
 

@@ -31,7 +31,11 @@ class BandwidthDelayReport:
             f"  Min TCP window: {self.min_window_bytes} bytes ({self.min_window_bytes/1024:.1f} KB)",
         ]
         if self.utilization is not None:
-            lines.append(f"  Link utilization: {self.utilization*100:.1f}%")
+            pct = self.utilization * 100
+            if pct < 0.1:
+                lines.append(f"  Link utilization: {pct:.4f}%")
+            else:
+                lines.append(f"  Link utilization: {pct:.1f}%")
         lines.append(f"  {self.explanation}")
         return "\n".join(lines)
 

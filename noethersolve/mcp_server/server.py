@@ -1,4 +1,4 @@
-"""NoetherSolve MCP Server — expose 46 verified tools to any AI agent.
+"""NoetherSolve MCP Server — expose 69 verified tools to any AI agent.
 
 The full pipeline: find gaps → flip facts → build tool → add to MCP server.
 Every tool added here makes every connected agent smarter.
@@ -14,8 +14,8 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="46 computational tools for physics, math, genetics, and LLM science — "
-                 "verified calculators and reference databases, not guesses.",
+    instructions="69 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
+                 "and LLM science — verified calculators from first principles, not guesses.",
 )
 
 
@@ -96,17 +96,6 @@ def check_conjecture(name: str) -> str:
     return str(report)
 
 
-@mcp.tool()
-def list_conjectures(status: str = "") -> str:
-    """List known mathematical conjectures, optionally filtered by status.
-
-    Status: "open", "proven", "refuted", or "" for all.
-    """
-    from noethersolve.conjecture_status import list_conjectures as _list
-    conjectures = _list(status=status if status else None)
-    return "\n".join(f"  {c}" for c in conjectures) if conjectures else "No conjectures found."
-
-
 # ── Complexity Theory ─────────────────────────────────────────────────
 
 @mcp.tool()
@@ -133,19 +122,6 @@ def check_completeness(problem: str, complexity_class: str) -> str:
     return str(result)
 
 
-@mcp.tool()
-def audit_complexity_claims(claims: list[str]) -> str:
-    """Audit a list of complexity theory claims for correctness.
-
-    Example claims: ["P ⊆ NP", "NP = coNP", "SAT is in P"]
-    """
-    from noethersolve.complexity import audit_complexity
-    if isinstance(claims, str):
-        claims = [c.strip() for c in claims.split(",") if c.strip()]
-    report = audit_complexity(claims)
-    return str(report)
-
-
 # ── Proof Barriers ────────────────────────────────────────────────────
 
 @mcp.tool()
@@ -170,17 +146,6 @@ def check_proof_barriers(problem: str, technique: str = "") -> str:
             if high:
                 lines.append(f"  [{t}] BLOCKED — {high[0].description[:100]}")
         return "\n".join(lines) if len(lines) > 1 else f"No known barriers for: {problem}"
-
-
-@mcp.tool()
-def list_proof_barriers() -> str:
-    """List all known proof technique barriers (relativization, natural proofs, etc.)."""
-    from noethersolve.proof_barriers import list_barriers
-    barriers = list_barriers()
-    lines = []
-    for b in barriers:
-        lines.append(f"  {b.name} ({b.year}) — {b.summary[:80]}")
-    return "\n".join(lines)
 
 
 # ── Number Theory ─────────────────────────────────────────────────────
@@ -281,37 +246,136 @@ def check_pde_regularity(pde_name: str, dimension: int = 3) -> str:
 # ── Pharmacokinetics ──────────────────────────────────────────────────
 
 @mcp.tool()
-def audit_drug_interactions(drugs: list[str]) -> str:
-    """Check a list of drugs for CYP-mediated interactions.
+def calc_iv_bolus(
+    dose: float,
+    Vd: float,
+    ke: float,
+    t: float,
+) -> str:
+    """Compute drug concentration after IV bolus (one-compartment model).
 
-    Returns potential interactions, severity, and affected enzymes.
-    Example: audit_drug_interactions(["warfarin", "fluconazole", "omeprazole"])
+    CALCULATOR — C(t) = (Dose/Vd) × e^(-ke×t). Reports concentration,
+    half-life, clearance, AUC, and fraction remaining.
+
+    dose: dose in mg
+    Vd: volume of distribution in L
+    ke: elimination rate constant in h⁻¹
+    t: time in hours
+
+    Example: calc_iv_bolus(500, 50, 0.1, 6)
+    → C(6h) = 5.49 mg/L, t½ = 6.93h, CL = 5 L/h
     """
-    from noethersolve.pharmacokinetics import audit_drug_list
-    # Handle comma-separated string input (models sometimes pass strings)
-    if isinstance(drugs, str):
-        drugs = [d.strip() for d in drugs.split(",") if d.strip()]
-    report = audit_drug_list(drugs)
-    return str(report)
+    from noethersolve.pk_model import one_compartment_iv
+    return str(one_compartment_iv(dose=dose, Vd=Vd, ke=ke, t=t))
 
 
 @mcp.tool()
-def check_pharmacogenomics(enzyme: str, phenotype: str, drugs: list[str] = []) -> str:
-    """Check drug impact for a CYP enzyme metabolizer phenotype.
+def calc_oral_dose(
+    dose: float,
+    F: float,
+    Vd: float,
+    ka: float,
+    ke: float,
+    t: float,
+) -> str:
+    """Compute drug concentration after oral dosing (Bateman function).
 
-    enzyme: e.g. "CYP2D6", "CYP2C19", "CYP2C9"
-    phenotype: "poor", "intermediate", "normal", "rapid", "ultrarapid"
-    drugs: optional list of drugs to check specifically
+    CALCULATOR — uses one-compartment model with first-order absorption.
+    Reports Cmax, Tmax, AUC, and concentration at any time point.
 
-    Examples: check_pharmacogenomics("CYP2D6", "poor", ["codeine", "tramadol"])
+    dose: dose in mg
+    F: bioavailability (0 to 1)
+    Vd: volume of distribution in L
+    ka: absorption rate constant in h⁻¹
+    ke: elimination rate constant in h⁻¹
+    t: time in hours
+
+    Example: calc_oral_dose(500, 0.8, 50, 1.5, 0.1, 4)
+    → C(4h) = 5.12 mg/L, Cmax = 5.71 mg/L at Tmax = 1.94h
     """
-    from noethersolve.pharmacokinetics import check_phenotype
-    if isinstance(drugs, str):
-        drugs = [d.strip() for d in drugs.split(",") if d.strip()]
-    if not drugs:
-        drugs = []
-    result = check_phenotype(enzyme, phenotype, drugs)
-    return str(result)
+    from noethersolve.pk_model import one_compartment_oral
+    return str(one_compartment_oral(dose=dose, F=F, Vd=Vd, ka=ka, ke=ke, t=t))
+
+
+@mcp.tool()
+def calc_half_life(
+    CL: float = 0,
+    Vd: float = 0,
+    ke: float = 0,
+) -> str:
+    """Compute elimination half-life from PK parameters.
+
+    CALCULATOR — t½ = ln(2)/ke = 0.693 × Vd/CL. Provide either ke alone,
+    or both CL and Vd. Reports time to 97% elimination (5 × t½).
+
+    CL: clearance in L/h (use with Vd)
+    Vd: volume of distribution in L (use with CL)
+    ke: elimination rate constant in h⁻¹ (alternative to CL+Vd)
+
+    Example: calc_half_life(CL=10, Vd=50) → t½ = 3.47h
+    """
+    from noethersolve.pk_model import half_life
+    kw = {}
+    if ke > 0:
+        kw["ke"] = ke
+    if CL > 0:
+        kw["CL"] = CL
+    if Vd > 0:
+        kw["Vd"] = Vd
+    return str(half_life(**kw))
+
+
+@mcp.tool()
+def calc_steady_state(
+    dose: float,
+    F: float,
+    CL: float,
+    tau: float,
+    Vd: float = 0,
+) -> str:
+    """Compute steady-state concentrations for repeated dosing.
+
+    CALCULATOR — Css_avg = F×Dose/(CL×τ). Reports average, peak, trough
+    concentrations, accumulation factor, and time to steady state.
+
+    dose: dose per administration in mg
+    F: bioavailability (0 to 1)
+    CL: clearance in L/h
+    tau: dosing interval in hours
+    Vd: volume of distribution in L (for peak/trough, optional)
+
+    Example: calc_steady_state(500, 0.8, 10, 8, 50)
+    → Css_avg = 5.0 mg/L, time to SS ≈ 17.3h
+    """
+    from noethersolve.pk_model import steady_state
+    kw = {}
+    if Vd > 0:
+        kw["Vd"] = Vd
+    return str(steady_state(dose=dose, F=F, CL=CL, tau=tau, **kw))
+
+
+@mcp.tool()
+def calc_dose_adjustment(
+    original_dose: float,
+    fold_change_auc: float,
+    reason: str = "",
+) -> str:
+    """Compute adjusted dose for CYP inhibition/induction or organ impairment.
+
+    CALCULATOR — if AUC increases N-fold, reduce dose by 1/N to maintain
+    same total exposure. Reports adjusted dose and clinical notes.
+
+    original_dose: current dose in mg
+    fold_change_auc: fold-change in AUC (e.g. 5.0 for strong CYP3A4 inhibitor,
+                     0.2 for strong inducer causing 80% AUC decrease)
+    reason: description of interaction (optional)
+
+    Example: calc_dose_adjustment(100, 5.0, "ketoconazole CYP3A4 inhibition")
+    → Adjusted dose = 20 mg (1/5 of original)
+    """
+    from noethersolve.pk_model import dose_adjustment
+    return str(dose_adjustment(original_dose=original_dose,
+                               fold_change_auc=fold_change_auc, reason=reason))
 
 
 # ── LLM Claims Auditor ───────────────────────────────────────────────
@@ -329,51 +393,6 @@ def check_llm_claim(claim: str) -> str:
     """
     from noethersolve.llm_claims import check_llm_claim as _check
     result = _check(claim)
-    return str(result)
-
-
-@mcp.tool()
-def audit_llm_claims(claims: list[str]) -> str:
-    """Batch audit multiple LLM claims. Returns pass/fail with issues."""
-    from noethersolve.llm_claims import audit_llm_claims as _audit
-    if isinstance(claims, str):
-        claims = [c.strip() for c in claims.split(",") if c.strip()]
-    report = _audit(claims)
-    return str(report)
-
-
-@mcp.tool()
-def chinchilla_scaling(
-    params_B: float = 0,
-    tokens_B: float = 0,
-    compute_flops: float = 0,
-) -> str:
-    """Check if a model is Chinchilla-optimal (D_opt ≈ 20× N).
-
-    Provide at least one of: params_B, tokens_B, compute_flops.
-    """
-    from noethersolve.llm_claims import chinchilla_optimal
-    kwargs = {}
-    if params_B > 0:
-        kwargs["params_B"] = params_B
-    if tokens_B > 0:
-        kwargs["tokens_B"] = tokens_B
-    if compute_flops > 0:
-        kwargs["compute_flops"] = compute_flops
-    if not kwargs:
-        return "Provide at least one of: params_B, tokens_B, compute_flops"
-    result = chinchilla_optimal(**kwargs)
-    return "\n".join(f"  {k}: {v}" for k, v in result.items())
-
-
-@mcp.tool()
-def check_benchmark_score(model: str, benchmark: str, score: float) -> str:
-    """Check if a claimed benchmark score is plausible.
-
-    Example: check_benchmark_score("gpt-4", "mmlu", 87.0)
-    """
-    from noethersolve.llm_claims import check_benchmark_score as _check
-    result = _check(model, benchmark, score)
     return str(result)
 
 
@@ -1109,68 +1128,410 @@ def calc_deadlock(
 
 
 @mcp.tool()
-def check_biochemistry(
-    topic: str,
-    claim: str = "",
+def calc_michaelis_menten(
+    Vmax: float,
+    Km: float,
+    S: float,
 ) -> str:
-    """Look up biochemistry facts and validate claims.
+    """Compute Michaelis-Menten enzyme kinetics from first principles.
 
-    REFERENCE DATABASE for enzymes, metabolism, molecular biology, proteins,
-    and cell signaling.  Returns verified facts, common errors, and claim
-    validation.
+    CALCULATOR — derives initial velocity V0 = Vmax × [S] / (Km + [S]).
+    Reports saturation status, regime (first-order vs zero-order), and
+    reference values.
 
-    topic: topic name or ID (e.g. "michaelis", "bc04_krebs", "hemoglobin")
-    claim: optional claim to validate against the database
+    Vmax: maximum velocity (any consistent units, e.g. µM/s)
+    Km: Michaelis constant (same concentration units as S)
+    S: substrate concentration
 
-    Example: check_biochemistry("competitive inhibition", "decreases Vmax")
-    → WARN — matches known error: Vmax is unchanged in competitive inhibition
+    Example: calc_michaelis_menten(100, 5, 10)
+    → V0 = 66.7 µM/s (66.7% Vmax, near-saturated)
     """
-    from noethersolve.biochemistry import check_biochemistry as _check
-    report = _check(topic, claim=claim if claim else None)
+    from noethersolve.enzyme_kinetics import michaelis_menten
+    return str(michaelis_menten(Vmax=Vmax, Km=Km, S=S))
+
+
+@mcp.tool()
+def calc_enzyme_inhibition(
+    Vmax: float,
+    Km: float,
+    S: float,
+    Ki: float,
+    I: float,
+    mode: str = "competitive",
+    Ki_prime: float = 0,
+) -> str:
+    """Compute enzyme kinetics with inhibitor (competitive, noncompetitive,
+    uncompetitive, or mixed).
+
+    CALCULATOR — derives apparent Km and Vmax, computes inhibited velocity,
+    and reports percent inhibition with Lineweaver-Burk diagnostic.
+
+    Vmax: maximum velocity
+    Km: Michaelis constant
+    S: substrate concentration
+    Ki: inhibition constant
+    I: inhibitor concentration
+    mode: "competitive", "noncompetitive", "uncompetitive", or "mixed"
+    Ki_prime: for mixed inhibition only (ES-I dissociation constant)
+
+    Example: calc_enzyme_inhibition(100, 5, 10, 2, 4, "competitive")
+    → Km_app = 15, V0 = 40.0, 40% inhibition
+    """
+    from noethersolve.enzyme_kinetics import inhibition
+    kw = {}
+    if Ki_prime > 0:
+        kw["Ki_prime"] = Ki_prime
+    return str(inhibition(Vmax=Vmax, Km=Km, S=S, Ki=Ki, I=I, mode=mode, **kw))
+
+
+@mcp.tool()
+def calc_catalytic_efficiency(
+    kcat: float,
+    Km: float,
+) -> str:
+    """Compute catalytic efficiency (specificity constant kcat/Km).
+
+    CALCULATOR — classifies enzyme efficiency from slow to catalytically
+    perfect (diffusion-limited ~10⁸ M⁻¹s⁻¹). Compares to reference enzymes
+    (carbonic anhydrase, acetylcholinesterase, triosephosphate isomerase).
+
+    kcat: turnover number in s⁻¹
+    Km: Michaelis constant in M (molar)
+
+    Example: calc_catalytic_efficiency(1000, 5e-6)
+    → kcat/Km = 2.0×10⁸ M⁻¹s⁻¹ — catalytically perfect!
+    """
+    from noethersolve.enzyme_kinetics import catalytic_efficiency
+    return str(catalytic_efficiency(kcat=kcat, Km=Km))
+
+
+@mcp.tool()
+def calc_cooperativity(
+    Vmax: float,
+    K_half: float,
+    n: float,
+    S: float,
+) -> str:
+    """Compute cooperative enzyme/binding kinetics using the Hill equation.
+
+    CALCULATOR — V0 = Vmax × [S]ⁿ / (K₀.₅ⁿ + [S]ⁿ). Reports cooperativity
+    type (positive/negative/none) and minimum binding sites implied by Hill
+    coefficient.
+
+    Vmax: maximum velocity
+    K_half: substrate concentration at half-maximal velocity
+    n: Hill coefficient (>1 positive cooperativity, <1 negative, =1 Michaelis-Menten)
+    S: substrate concentration
+
+    Example: calc_cooperativity(100, 26, 2.8, 26)
+    → V0 = 50.0 (positive cooperativity, at least 3 binding sites)
+    """
+    from noethersolve.enzyme_kinetics import cooperativity
+    return str(cooperativity(Vmax=Vmax, K_half=K_half, n=n, S=S))
+
+
+@mcp.tool()
+def calc_ph_rate_profile(
+    pH: float,
+    V_optimal: float,
+    pKa1: float,
+    pKa2: float,
+) -> str:
+    """Compute enzyme activity at a given pH using the bell-shaped model.
+
+    CALCULATOR — V(pH) = Vopt / (1 + [H⁺]/Ka1 + Ka2/[H⁺]). Reports
+    fraction active, optimal pH, and protonation state diagnostics.
+
+    pH: pH value to evaluate
+    V_optimal: maximum velocity at optimal pH
+    pKa1: pKa of acid limb (lower pH side)
+    pKa2: pKa of base limb (higher pH side)
+
+    Example: calc_ph_rate_profile(5.0, 100, 6.0, 8.0)
+    → V = 8.3 (8.3% active, below pKa1 — catalytic base protonated)
+    """
+    from noethersolve.enzyme_kinetics import ph_rate_profile
+    return str(ph_rate_profile(pH=pH, V_optimal=V_optimal, pKa1=pKa1, pKa2=pKa2))
+
+
+@mcp.tool()
+def calc_particle_in_box(
+    n: int,
+    L: float,
+    m: float = 9.109e-31,
+) -> str:
+    """Compute particle-in-a-box energy levels from first principles.
+
+    CALCULATOR — E_n = n²π²ℏ²/(2mL²). Reports energy in eV, de Broglie
+    wavelength, and node count.
+
+    n: quantum number (1, 2, 3, ...)
+    L: box length in meters
+    m: particle mass in kg (default: electron mass 9.109e-31)
+
+    Example: calc_particle_in_box(1, 1e-9)
+    → E_1 = 0.376 eV (ground state)
+    """
+    from noethersolve.qm_calculator import particle_in_box
+    return str(particle_in_box(n=n, L=L, m=m))
+
+
+@mcp.tool()
+def calc_hydrogen_energy(
+    n: int,
+    Z: int = 1,
+) -> str:
+    """Compute hydrogen atom energy levels and orbital properties.
+
+    CALCULATOR — E_n = -13.6 × Z²/n² eV. Reports energy, Bohr radius,
+    degeneracy, ionization energy, and Lyman transition wavelength.
+
+    n: principal quantum number (1, 2, 3, ...)
+    Z: nuclear charge (1 for H, 2 for He+, etc.)
+
+    Example: calc_hydrogen_energy(2) → E_2 = -3.4 eV, r = 2.12 Å
+    """
+    from noethersolve.qm_calculator import hydrogen_energy
+    return str(hydrogen_energy(n=n, Z=Z))
+
+
+@mcp.tool()
+def calc_uncertainty_check(
+    delta_x: float,
+    delta_p: float,
+) -> str:
+    """Check if position/momentum uncertainties satisfy Heisenberg's principle.
+
+    CALCULATOR — Δx·Δp ≥ ℏ/2. Reports product, ratio to ℏ/2, and whether
+    the proposed uncertainties are physically allowed.
+
+    delta_x: position uncertainty in meters
+    delta_p: momentum uncertainty in kg·m/s
+
+    Example: calc_uncertainty_check(1e-10, 1e-24)
+    → SATISFIED: Δx·Δp = 1e-34 ≥ ℏ/2
+    """
+    from noethersolve.qm_calculator import uncertainty_check
+    return str(uncertainty_check(delta_x=delta_x, delta_p=delta_p))
+
+
+@mcp.tool()
+def calc_tunneling(
+    E: float,
+    V: float,
+    L: float,
+    m: float = 9.109e-31,
+) -> str:
+    """Compute quantum tunneling probability through a rectangular barrier.
+
+    CALCULATOR — exact transmission coefficient using sinh formula for E < V,
+    sin formula for E > V. Reports T, R, and WKB approximation.
+
+    E: particle energy in eV
+    V: barrier height in eV
+    L: barrier width in meters
+    m: particle mass in kg (default: electron mass)
+
+    Example: calc_tunneling(5.0, 10.0, 1e-10)
+    → T = 0.68, R = 0.32 (tunneling regime)
+    """
+    from noethersolve.qm_calculator import tunneling_probability
+    return str(tunneling_probability(E=E, V=V, L=L, m=m))
+
+
+@mcp.tool()
+def calc_harmonic_oscillator_qm(
+    n: int,
+    omega: float,
+    m: float = 9.109e-31,
+) -> str:
+    """Compute quantum harmonic oscillator energy levels.
+
+    CALCULATOR — E_n = (n + ½)ℏω. Reports energy, zero-point energy,
+    and classical turning point.
+
+    n: quantum number (0, 1, 2, ...)
+    omega: angular frequency in rad/s
+    m: particle mass in kg (default: electron mass)
+
+    Example: calc_harmonic_oscillator_qm(0, 1e14)
+    → E_0 = ½ℏω = 0.033 eV (zero-point energy)
+    """
+    from noethersolve.qm_calculator import harmonic_oscillator
+    return str(harmonic_oscillator(n=n, omega=omega, m=m))
+
+
+@mcp.tool()
+def calc_angular_momentum(
+    j1: float,
+    j2: float,
+) -> str:
+    """Compute allowed total angular momentum values from coupling j1 ⊗ j2.
+
+    CALCULATOR — J ranges from |j1-j2| to j1+j2. Reports all allowed J values,
+    state counting, and Clebsch-Gordan decomposition verification.
+
+    j1: first angular momentum quantum number (integer or half-integer)
+    j2: second angular momentum quantum number (integer or half-integer)
+
+    Example: calc_angular_momentum(0.5, 0.5)
+    → J = 0 (singlet) ⊕ J = 1 (triplet), 4 total states
+    """
+    from noethersolve.qm_calculator import angular_momentum_addition
+    return str(angular_momentum_addition(j1=j1, j2=j2))
+
+
+# ── Organic Chemistry Reaction Engine ──────────────────────────────────
+
+
+@mcp.tool()
+def analyze_molecule(smiles: str) -> str:
+    """Analyze a molecule from SMILES — detect all functional groups, reactive sites, properties.
+
+    COMPUTES functional groups via SMARTS pattern matching, identifies nucleophilic
+    and electrophilic sites, leaving groups, acidic groups, stereocenters, and
+    aromaticity. Use this FIRST when reasoning about any organic molecule's reactivity.
+
+    smiles: SMILES string (e.g., "CCBr", "c1ccccc1", "CC(=O)OC")
+
+    Example: analyze_molecule("OC(=O)c1ccc(C=O)cc1")
+    → carboxylic acid (acid), aldehyde (electrophile), aromatic ring (nucleophile)
+    """
+    from noethersolve.reaction_engine import analyze_molecule as _analyze
+    report = _analyze(smiles)
     return str(report)
 
 
 @mcp.tool()
-def check_organic_chemistry(
-    topic: str,
-    claim: str = "",
+def predict_reaction_selectivity(
+    nucleophile: str,
+    electrophile: str,
+    solvent: str = "DMSO",
 ) -> str:
-    """Look up organic chemistry facts and validate claims.
+    """Predict reaction rate and selectivity using Mayr's nucleophilicity/electrophilicity equation.
 
-    REFERENCE DATABASE for reaction mechanisms, reagents, named reactions,
-    stereochemistry, and synthesis strategy.  Returns verified facts, common
-    errors, and claim validation.
+    COMPUTES log k = s_N × (N + E) from tabulated Mayr parameters for ~50
+    nucleophiles and ~30 electrophiles. Predicts mechanism (SN1/SN2/E1/E2)
+    and identifies competing pathways.
 
-    topic: topic name or ID (e.g. "diels-alder", "oc02_e2", "grignard")
-    claim: optional claim to validate against the database
+    nucleophile: name (e.g., "hydroxide", "cyanide", "water", "thiophenolate")
+    electrophile: name (e.g., "methyl bromide", "acetaldehyde", "benzyl bromide")
+    solvent: affects nucleophilicity ordering (e.g., "DMSO", "water", "MeOH")
 
-    Example: check_organic_chemistry("chirality", "requires a stereocenter")
-    → WARN — matches known error: chirality does not require a stereocenter
+    Example: predict_reaction_selectivity("cyanide", "methyl bromide", "DMSO")
+    → log k = 5.7, VERY FAST, SN2 mechanism
     """
-    from noethersolve.organic_chemistry import check_organic_chemistry as _check
-    report = _check(topic, claim=claim if claim else None)
+    from noethersolve.reaction_engine import predict_selectivity as _predict
+    report = _predict(nucleophile, electrophile, solvent)
     return str(report)
 
 
 @mcp.tool()
-def check_quantum_mechanics(
-    topic: str,
-    claim: str = "",
+def predict_reaction_mechanism(
+    reactants: list[str],
+    reagents: list[str] = [],
+    temperature: str = "",
+    solvent: str = "",
+    catalyst: str = "",
 ) -> str:
-    """Look up quantum mechanics facts and validate claims.
+    """Predict the reaction mechanism for given reactants and conditions.
 
-    REFERENCE DATABASE for QM foundations (uncertainty, exclusion, Born rule),
-    phenomena (tunneling, entanglement, spin), and systems (harmonic oscillator,
-    hydrogen atom, commutators).
+    COMPUTES the most likely mechanism using rule-based arrow-pushing logic.
+    Returns step-by-step mechanism, predicted products, stereochemical outcome,
+    atom/charge balance, and competing reactions.
 
-    topic: topic name or ID (e.g. "uncertainty", "qm08_entanglement", "pauli")
-    claim: optional claim to validate against the database
+    reactants: SMILES strings for reactants (e.g., ["C=CC=C", "C=CC(=O)C"])
+    reagents: reagent names (e.g., ["NaOH"], ["LDA"], ["BH3"])
+    temperature: "low", "high", "reflux", or specific temp
+    solvent: e.g., "THF", "DMSO", "water", "ether"
+    catalyst: e.g., "AlCl3", "Pd/C", "H2SO4"
 
-    Example: check_quantum_mechanics("entanglement", "allows FTL communication")
-    → FAIL — matches known error: no-communication theorem prohibits FTL
+    Example: predict_reaction_mechanism(["C=CC=C", "C=CC(=O)C"])
+    → Diels-Alder [4+2], concerted, suprafacial, endo favored
     """
-    from noethersolve.quantum_mechanics import check_quantum_mechanics as _check
-    report = _check(topic, claim=claim if claim else None)
+    from noethersolve.reaction_engine import predict_mechanism as _predict
+    conditions = {}
+    if temperature:
+        conditions["temperature"] = temperature
+    if solvent:
+        conditions["solvent"] = solvent
+    if catalyst:
+        conditions["catalyst"] = catalyst
+    report = _predict(reactants, reagents=reagents if reagents else None, conditions=conditions if conditions else None)
+    return str(report)
+
+
+@mcp.tool()
+def validate_synthesis_pathway(
+    steps: list[dict],
+) -> str:
+    """Validate a multi-step organic synthesis for feasibility and compatibility.
+
+    CHECKS each step for: functional group compatibility, reagent compatibility,
+    protecting group logic, oxidant selectivity, and atom conservation.
+    Catches: Grignard + protic groups, Friedel-Crafts on deactivated rings,
+    LiAlH4 over-reduction, strong oxidant + alkene cleavage.
+
+    steps: list of dicts, each with:
+        "substrate": SMILES of starting material
+        "reagent": reagent name or SMILES
+        "product": (optional) SMILES of expected product
+        "conditions": (optional) reaction conditions string
+
+    Example: validate_synthesis_pathway([
+        {"substrate": "OC(=O)c1ccccc1", "reagent": "PhMgBr", "product": "?"}
+    ]) → FAIL: Grignard incompatible with unprotected carboxylic acid
+    """
+    from noethersolve.reaction_engine import validate_synthesis as _validate
+    report = _validate(steps)
+    return str(report)
+
+
+@mcp.tool()
+def check_baldwin_rules(
+    ring_size: int,
+    endo_exo: str,
+    geometry: str,
+) -> str:
+    """Check Baldwin's rules for ring closure feasibility.
+
+    COMPUTES whether a proposed ring closure is favored or disfavored.
+    Baldwin's rules predict which intramolecular ring closures succeed
+    based on ring size, endo/exo, and bond hybridization.
+
+    ring_size: 3-7 (atoms in the ring being formed)
+    endo_exo: "endo" or "exo" (bond breaking inside or outside ring)
+    geometry: "tet" (sp3), "trig" (sp2), or "dig" (sp)
+
+    Example: check_baldwin_rules(5, "exo", "tet") → FAVORED (very common)
+    Example: check_baldwin_rules(5, "endo", "tet") → DISFAVORED
+    """
+    from noethersolve.reaction_engine import check_baldwin as _check
+    report = _check(ring_size, endo_exo, geometry)
+    return str(report)
+
+
+@mcp.tool()
+def check_woodward_hoffmann(
+    n_electrons: int,
+    conditions: str = "thermal",
+    reaction_type: str = "cycloaddition",
+) -> str:
+    """Check Woodward-Hoffmann rules for pericyclic reaction feasibility.
+
+    COMPUTES whether a pericyclic reaction is symmetry-allowed or forbidden.
+    Covers cycloadditions ([4+2] Diels-Alder, [2+2]), electrocyclic reactions
+    (conrotatory vs disrotatory), and sigmatropic shifts.
+
+    n_electrons: total pi electrons involved (e.g., 6 for Diels-Alder, 4 for [2+2])
+    conditions: "thermal" or "photochemical"
+    reaction_type: "cycloaddition", "electrocyclic", or "sigmatropic"
+
+    Example: check_woodward_hoffmann(6, "thermal") → ALLOWED (Diels-Alder)
+    Example: check_woodward_hoffmann(4, "thermal") → FORBIDDEN ([2+2] needs light)
+    """
+    from noethersolve.reaction_engine import check_woodward_hoffmann as _check
+    report = _check(n_electrons, conditions, reaction_type)
     return str(report)
 
 

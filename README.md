@@ -10,11 +10,11 @@ The pipeline: **find gaps → flip facts → build tool → add to MCP server.**
 
 NoetherSolve starts by finding where LLMs are confidently wrong. It generates candidates, verifies them numerically, and measures whether the model already knows them. When it doesn't — that's where new science lives. The system discovers the answer, builds a verified computational tool for it, and exposes that tool via [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) so any AI agent can call it at inference time.
 
-This is better than embedding knowledge in weights. Adapters trained on domain facts improve general truth preference (+0.10 MC2 on TruthfulQA, statistically significant), and orthogonal adapters (routed per-cluster) achieve 100% across 48 domains — but they can't be naively stacked without interference. Tools scale without constraints: each new tool is independent, verified, and callable on demand. The agent doesn't need to memorize that the Riemann Hypothesis is open — it calls `check_conjecture("Riemann")` and gets the verified answer.
+This is better than embedding knowledge in weights. Adapters trained on domain facts improve general truth preference (+0.10 MC2 on TruthfulQA, statistically significant), and orthogonal adapters (routed per-cluster) achieve 100% across 67 domains — but they can't be naively stacked without interference. Tools scale without constraints: each new tool is independent, verified, and callable on demand. The agent doesn't need to memorize that the Riemann Hypothesis is open — it calls `check_conjecture("Riemann")` and gets the verified answer.
 
-**46 tools** currently exposed via MCP. 30 are **calculators** — verified computational engines that derive answers from first principles (PID controller simulation, transaction isolation analysis, quantum circuit simulation, stability analysis, conservation law monitoring, genetic design, chemical auditing, and more). 16 are **lookup tables** — reference databases for mathematical conjectures, complexity theory, proof barriers, benchmark scores, LLM science claims, biochemistry, organic chemistry, and quantum mechanics. Calculators scale indefinitely; lookups are faster but finite. Together they cover physics, math, genetics, control systems, databases, quantum computing, pharmacogenomics, chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, biochemistry, organic chemistry, quantum mechanics, and LLM science.
+**69 tools** currently exposed via MCP. 62 are **calculators** — verified computational engines that derive answers from first principles (enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry reaction prediction, PID controller simulation, transaction isolation analysis, quantum circuit simulation, stability analysis, conservation law monitoring, genetic design, chemical auditing, and more). 7 are **lookup tables** — reference databases for mathematical conjectures, complexity theory, proof barriers, benchmark scores, and LLM science claims. Calculators scale indefinitely; lookups are faster but finite. Together they cover physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, control systems, databases, quantum computing, chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, and LLM science.
 
-The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), unsolved mathematics (6 domains covering Millennium Problems through computational complexity), LLM science (6 domains), programming languages (6 domains), 9 STEM domains (chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, database internals, quantum computing, control systems), and 3 science domains (biochemistry, organic chemistry, quantum mechanics). Any field where you can verify a claim and build a checker is fair game.
+The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), unsolved mathematics (6 domains covering Millennium Problems through computational complexity), LLM science (6 domains), programming languages (6 domains), 9 STEM domains (chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, database internals, quantum computing, control systems), 3 science domains (biochemistry, organic chemistry, quantum mechanics), and 9 frontier domains (battery technology, origin of life, consciousness, antibiotic resistance, protein folding, aging biology, quantum gravity, dark matter/energy, black hole frontiers, particle physics, holographic QInfo, condensed matter, climate science, cosmology, multi-messenger astronomy, neutrino physics). Any field where you can verify a claim and build a checker is fair game.
 
 ### Paper
 
@@ -26,7 +26,7 @@ Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ra
 **NoetherSolve Toolkit: Conservation Law Monitoring, Discovery, and Scientific Auditing Across Physics, Genetics, and Mathematics** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
-Forty-three tools organized across multiple tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 7 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer, pharmacokinetics checker, fact auditor), 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor), 1 LLM science tool (claims auditor with benchmark checker and scaling calculator), 3 systems tools (PID controller, transaction isolation, quantum circuit simulator), and 6 STEM calculators (chemistry, cryptography, finance, distributed systems, networking, operating systems). Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 1252 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
+Sixty-nine tools organized across multiple tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 5 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer), 5 pharmacokinetics tools (IV bolus, oral dosing, half-life, steady state, dose adjustment), 5 enzyme kinetics tools (Michaelis-Menten, inhibition, catalytic efficiency, cooperativity, pH rate profile), 6 quantum mechanics tools (particle-in-box, hydrogen energy, uncertainty, tunneling, harmonic oscillator, angular momentum), 6 organic chemistry tools (molecule analysis, selectivity, mechanism prediction, synthesis validation, Baldwin's rules, Woodward-Hoffmann), 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor), 1 LLM science tool (claims auditor with benchmark checker and scaling calculator), 3 systems tools (PID controller, transaction isolation, quantum circuit simulator), and 6 STEM calculators (chemistry, cryptography, finance, distributed systems, networking, operating systems). Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 1332 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 ---
 
@@ -46,7 +46,7 @@ NoetherSolve exploits this in four steps:
 2. **Flip facts.** Train lightweight adapters that flip the model's answer
    from wrong to right, without degrading anything it already knows.
    Orthogonal adapters (one per concept cluster, routed at inference) achieve
-   100% across all 48 domains (555 facts) with 0% MMLU degradation.
+   100% across all 67 domains (999 facts) with 0% MMLU degradation.
    Cross-domain joint training blends multiple domains into a single adapter
    with fair results (H 14/16, NS 10/16, Knot 11/16, Chem 13/16 from ONE
    adapter). The constraint: adapters can't be naively stacked — they must be
@@ -60,23 +60,23 @@ NoetherSolve exploits this in four steps:
    The agent doesn't need to memorize facts — it calls the tool and gets
    the verified answer.
 
-The result: every gap we find makes every connected agent smarter. The 46
-tools currently served cover physics, genetics, mathematics, complexity
-theory, pharmacogenomics, control systems, databases, quantum computing,
-chemistry, cryptography, economics/finance, distributed systems, networking,
-operating systems, biochemistry, organic chemistry, quantum mechanics,
-and LLM science.
+The result: every gap we find makes every connected agent smarter. The 69
+tools currently served cover physics, genetics, enzyme kinetics, quantum
+mechanics, pharmacokinetics, organic chemistry, mathematics, complexity
+theory, control systems, databases, quantum computing, chemistry,
+cryptography, economics/finance, distributed systems, networking,
+operating systems, and LLM science.
 
 </details>
 
 ---
 
 <details open>
-<summary><h2>MCP Server — Give Any AI Agent 43 Verified Tools</h2></summary>
+<summary><h2>MCP Server — Give Any AI Agent 69 Verified Tools</h2></summary>
 
 The MCP server exposes all NoetherSolve tools to any AI agent that supports
 [Model Context Protocol](https://modelcontextprotocol.io/). One line of config,
-46 tools available: 30 calculators + 16 lookup tables.
+69 tools available: 62 calculators + 7 lookup tables.
 
 ### Setup for Claude Code
 
@@ -90,14 +90,17 @@ pip install noethersolve[mcp]
 noethersolve-mcp  # starts the server
 ```
 
-### Available Tools (46)
+### Available Tools (69)
 
 | Category | Tools | Examples |
 |----------|-------|---------|
 | **Conservation monitors** | 4 | `check_vortex_conservation`, `check_hamiltonian_system`, `check_em_conservation`, `discover_conservation_law` |
 | **Mathematics** | 10 | `check_conjecture`, `check_complexity_inclusion`, `check_proof_barriers`, `verify_goldbach`, `check_sobolev_embedding` |
-| **Genetics/therapeutics** | 5 | `score_crispr_guide`, `audit_dna_sequence`, `predict_protein_aggregation`, `validate_therapy_pipeline` |
-| **Pharmacogenomics** | 2 | `audit_drug_interactions`, `check_pharmacogenomics` |
+| **Genetics/therapeutics** | 5 | `score_crispr_guide`, `audit_dna_sequence`, `predict_protein_aggregation`, `validate_therapy_pipeline`, `score_splice_sites` |
+| **Enzyme kinetics** | 5 | `calc_michaelis_menten`, `calc_enzyme_inhibition`, `calc_catalytic_efficiency`, `calc_cooperativity`, `calc_ph_rate_profile` |
+| **Quantum mechanics** | 6 | `calc_particle_in_box`, `calc_hydrogen_energy`, `calc_uncertainty_check`, `calc_tunneling`, `calc_harmonic_oscillator_qm`, `calc_angular_momentum` |
+| **Pharmacokinetics** | 5 | `calc_iv_bolus`, `calc_oral_dose`, `calc_half_life`, `calc_steady_state`, `calc_dose_adjustment` |
+| **Organic chemistry** | 6 | `analyze_molecule`, `predict_reaction_selectivity`, `predict_reaction_mechanism`, `validate_synthesis_pathway`, `check_baldwin_rules`, `check_woodward_hoffmann` |
 | **LLM science** | 4 | `check_llm_claim`, `chinchilla_scaling`, `check_benchmark_score`, `audit_llm_claims` |
 | **Chemical kinetics** | 1 | `audit_chemical_network` |
 | **Knot theory** | 1 | `check_knot_invariants` |
@@ -108,9 +111,6 @@ noethersolve-mcp  # starts the server
 | **Distributed systems** | 3 | `calc_quorum`, `calc_byzantine`, `calc_vector_clock` |
 | **Networking** | 3 | `calc_bandwidth_delay`, `calc_subnet`, `calc_tcp_throughput` |
 | **Operating systems** | 3 | `calc_page_table`, `calc_scheduling`, `calc_deadlock` |
-| **Biochemistry** | 1 | `check_biochemistry` |
-| **Organic chemistry** | 1 | `check_organic_chemistry` |
-| **Quantum mechanics** | 1 | `check_quantum_mechanics` |
 
 Every tool returns verified results from curated reference databases — not
 model guesses. When an agent calls `check_conjecture("Riemann")`, it gets the
@@ -119,9 +119,9 @@ hallucination possible.
 
 ### Why MCP instead of fine-tuning?
 
-We tried both. Adapters trained on 555 domain facts improve truth preference
+We tried both. Adapters trained on 999 domain facts improve truth preference
 (+0.10 MC2 on TruthfulQA), and orthogonal adapters (routed per-cluster at
-inference) achieve 100% across all 48 domains with 0% MMLU degradation.
+inference) achieve 100% across all 67 domains with 0% MMLU degradation.
 Cross-domain joint training also works — a single difficulty-weighted adapter
 lifts 4 domains simultaneously. But adapters can't be naively stacked:
 combining 37+ adapters by weight averaging destroys general knowledge (-43%
@@ -132,7 +132,7 @@ inference, never merged. Tools don't have these constraints:
 - **No routing needed.** Each tool is independent. Adding tool #43 doesn't
   degrade tools #1-42 and requires no inference-time routing logic.
 - **No capacity limits.** A tool can encode arbitrarily complex logic.
-- **Verified correctness.** 1252 tests enforce correctness. An adapter can
+- **Verified correctness.** 1332 tests enforce correctness. An adapter can
   only shift probabilities; a tool returns the exact right answer.
 - **Model-agnostic.** Any agent that speaks MCP can use these tools.
   Adapters are tied to one model's vocabulary.
@@ -492,7 +492,7 @@ Reidemeister moves: `apply_r1(knot, sign)`, `apply_r1_remove(knot)`.
 <details>
 <summary><h3>Genetics Therapeutics Tools</h3></summary>
 
-Six tools for genetics therapeutics design — sequence auditing, CRISPR guide scoring, pipeline consistency validation, protein aggregation prediction, splice site scoring, and pharmacogenomic interaction checking.
+Five tools for genetics therapeutics design — sequence auditing, CRISPR guide scoring, pipeline consistency validation, protein aggregation prediction, and splice site scoring.
 
 **Sequence Design Auditor** — checks DNA/RNA for therapeutic design pitfalls:
 
@@ -561,19 +561,95 @@ print(f"Score: {report.score:.2f}, Strength: {report.strength}")
 sites = scan_splice_sites("AAACAGGTAAGTCCC...", site_type="both")
 ```
 
-**Pharmacogenomic Interaction Checker** — CYP enzyme interactions, phenotype risks, HLA safety:
+**Pharmacokinetic Calculator** — compartmental PK modeling from first principles:
 
 ```python
-from noethersolve import audit_drug_list
+from noethersolve import one_compartment_iv, one_compartment_oral, steady_state
 
-report = audit_drug_list(
-    drugs=["codeine", "paroxetine", "simvastatin"],
-    hla_alleles=["HLA-B*57:01"],
-    phenotypes={"CYP2D6": "poor_metabolizer"},
-)
-print(report)
-# Drug-drug interactions, phenotype warnings, HLA associations,
-# required pre-screening tests
+# IV bolus kinetics
+pk = one_compartment_iv(dose_mg=500, volume_L=50, half_life_h=6, time_h=12)
+print(pk)  # Concentration, AUC, clearance at any time point
+
+# Oral dosing with absorption
+oral = one_compartment_oral(dose_mg=500, volume_L=50, half_life_h=6, ka=1.5, F=0.8, time_h=8)
+print(oral)  # Tmax, Cmax, concentration curve
+
+# Steady-state accumulation
+ss = steady_state(dose_mg=500, volume_L=50, half_life_h=6, interval_h=8, n_doses=10)
+print(ss)  # Accumulation ratio, trough, peak, time to steady state
+```
+
+</details>
+
+<details>
+<summary><h3>Enzyme Kinetics Calculator</h3></summary>
+
+Five tools for enzyme kinetics — Michaelis-Menten, competitive/uncompetitive/noncompetitive inhibition, catalytic efficiency classification, cooperativity (Hill equation), and pH-dependent rate profiles.
+
+```python
+from noethersolve import michaelis_menten, inhibition, catalytic_efficiency
+
+# Basic Michaelis-Menten
+mm = michaelis_menten(Vmax=100, Km=10, substrate_uM=25)
+print(mm)  # Rate, fraction of Vmax, substrate saturation
+
+# Competitive inhibition
+inh = inhibition(Vmax=100, Km=10, substrate_uM=25,
+                 inhibitor_uM=50, Ki=20, mode="competitive")
+print(inh)  # Apparent Km/Vmax, fold reduction, IC50
+
+# Is this enzyme diffusion-limited?
+eff = catalytic_efficiency(kcat=1e7, Km_uM=10)
+print(eff)  # Classification: DIFFUSION_LIMITED, efficiency ratio
+```
+
+</details>
+
+<details>
+<summary><h3>Quantum Mechanics Calculator</h3></summary>
+
+Six tools for quantum mechanics from first principles — particle in a box, hydrogen atom energy levels, Heisenberg uncertainty validation, quantum tunneling probability, harmonic oscillator energies, and angular momentum addition.
+
+```python
+from noethersolve import particle_in_box, tunneling_probability, uncertainty_check
+
+# Particle in a box
+pib = particle_in_box(n=3, L_nm=1.0, mass_kg=9.109e-31)
+print(pib)  # Energy, wavelength, nodes, probability density
+
+# Quantum tunneling through a barrier
+tun = tunneling_probability(E_eV=5.0, V0_eV=10.0, barrier_width_nm=0.5,
+                            mass_kg=9.109e-31)
+print(tun)  # Transmission coefficient, decay constant
+
+# Heisenberg uncertainty check
+unc = uncertainty_check(delta_x_m=1e-10, delta_p_kgms=1e-24)
+print(unc)  # Product vs ℏ/2, satisfied or violated
+```
+
+</details>
+
+<details>
+<summary><h3>Organic Chemistry Engine</h3></summary>
+
+Six tools for organic chemistry — molecule analysis (functional groups, hybridization), reaction selectivity (Mayr nucleophilicity/electrophilicity), mechanism prediction, synthesis pathway validation, Baldwin's rules, and Woodward-Hoffmann rules.
+
+```python
+from noethersolve import analyze_molecule, predict_selectivity, check_baldwin
+
+# Analyze a molecule (requires RDKit)
+mol = analyze_molecule("CCO")  # ethanol
+print(mol)  # Functional groups, hybridization, stereochemistry
+
+# Check Baldwin's rules for ring closure
+baldwin = check_baldwin(ring_size=5, closing_type="tet", position="exo")
+print(baldwin)  # Favored/disfavored, explanation
+
+# Woodward-Hoffmann rules
+from noethersolve import check_woodward_hoffmann
+wh = check_woodward_hoffmann(reaction_type="electrocyclic", n_electrons=4,
+                              conditions="thermal")
+print(wh)  # Conrotatory/disrotatory, symmetry analysis
 ```
 
 </details>
@@ -684,7 +760,7 @@ these tools against 5 experiments:
 | Chemical violation | Perturbed rate constants | Wegscheider cycle product shifts 3.33 to 0.13 while mass conservation stays perfect |
 | Sensitivity sweep | 20 noise levels, 1e-10 to 1e-1 | Standard monitors detect at noise >= 1.8e-6; discovered monitors have baseline sensitivity at 1e-10 |
 
-**1252 tests passing** across all 27 toolkit modules (`pytest tests/`).
+**1332 tests passing** across all 35 toolkit modules (`pytest tests/`).
 
 </details>
 
@@ -770,7 +846,7 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
-193+ candidates tested. 80+ genuine invariants discovered. 48 domains, 555 oracle facts. **All 48 domains at 100% (555/555 facts).**
+193+ candidates tested. 80+ genuine invariants discovered. 67 domains, 999 oracle facts. **All 67 domains at 100% (999/999 facts).**
 
 <details>
 <summary><h3>Discrete Point-Vortex</h3></summary>
@@ -1051,9 +1127,27 @@ The math domains were particularly challenging — the model confidently confuse
 | **Biochemistry** | **12** | **75%** | **100%** | **COMPLETE** (orthogonal adapters) |
 | **Organic Chemistry** | **12** | **58.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
 | **Quantum Mechanics** | **12** | **58.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| | | | | |
+| **Battery Technology** | **12** | **50%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Origin of Life** | **12** | **25%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Consciousness** | **12** | **33.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Antibiotic Resistance** | **12** | **50%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Protein Folding** | **12** | **58.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Aging Biology** | **12** | **50%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Quantum Gravity** | **12** | **33.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Dark Matter/Energy** | **12** | **50%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| | | | | |
+| **Black Hole Frontiers** | **12** | **33.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Particle Physics** | **12** | **58.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Holographic QInfo** | **12** | **83.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Multi-Messenger Astronomy** | **12** | **50%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Neutrino Physics** | **12** | **41.7%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Condensed Matter** | **12** | **50%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Climate Science** | **12** | **33.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Cosmology** | **12** | **41.7%** | **100%** | **COMPLETE** (orthogonal adapters) |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-**Total: 48 domains, 555 oracle facts, 555/555 flipped (100%). 0% MMLU degradation across all adapters.**
+**Total: 67 domains, 999 oracle facts, 999/999 flipped (100%). 0% MMLU degradation across all adapters.**
 
 Full history: `results/candidates.tsv`
 
@@ -1097,8 +1191,8 @@ NoetherSolve
 ├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
 ├── dashboard.py                ← Results dashboard from candidates.tsv
 │
-├── noethersolve/               ← Core package (30 toolkit modules + MCP server)
-│   ├── mcp_server/             ← MCP server (46 tools for any AI agent)
+├── noethersolve/               ← Core package (35 toolkit modules + MCP server)
+│   ├── mcp_server/             ← MCP server (69 tools for any AI agent)
 │   │   ├── server.py           ← FastMCP tool definitions
 │   │   └── __main__.py         ← python -m noethersolve.mcp_server
 │   ├── adapter.py              ← Snap-on logit adapter (SwiGLU)
@@ -1113,7 +1207,10 @@ NoetherSolve
 │   ├── pipeline.py             ← Therapeutic pipeline consistency validator
 │   ├── aggregation.py          ← Protein aggregation propensity predictor
 │   ├── splice.py               ← Splice site strength scorer (PWM-based)
-│   ├── pharmacokinetics.py     ← Pharmacogenomic CYP interaction checker
+│   ├── enzyme_kinetics.py      ← Michaelis-Menten, inhibition, cooperativity, pH profiles
+│   ├── qm_calculator.py        ← Particle-in-box, hydrogen, tunneling, uncertainty, oscillator
+│   ├── pk_model.py             ← IV bolus, oral dosing, half-life, steady state, dose adjustment
+│   ├── reaction_engine.py      ← Molecule analysis, selectivity, mechanisms, synthesis validation
 │   ├── complexity.py           ← Complexity class relationship auditor
 │   ├── conjecture_status.py    ← Mathematical conjecture status checker
 │   ├── proof_barriers.py       ← Proof technique barrier checker
@@ -1130,9 +1227,6 @@ NoetherSolve
 │   ├── distributed_calc.py     ← Quorum, Byzantine, vector clock calculator
 │   ├── network_calc.py         ← Bandwidth-delay, TCP throughput, subnet calculator
 │   ├── os_calc.py              ← Page tables, scheduling, deadlock detection calculator
-│   ├── biochemistry.py         ← Biochemistry reference (enzymes, metabolism, signaling)
-│   ├── organic_chemistry.py    ← Organic chemistry reference (mechanisms, reactions, synthesis)
-│   ├── quantum_mechanics.py    ← Quantum mechanics reference (foundations, phenomena, systems)
 │   ├── train_utils.py          ← Shared training utilities
 │   └── validate.py             ← Integrator validation via conservation laws
 │

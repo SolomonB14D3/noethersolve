@@ -47,6 +47,11 @@ class TestSecurityLevel:
         r = security_level("ECC", 256)
         assert r.security_bits == 128
 
+    def test_ecc_quantum_zero(self):
+        """ECC has 0-bit quantum security (Shor's algorithm breaks ECDLP)."""
+        r = security_level("ECC", 256)
+        assert r.quantum_security_bits == 0
+
     def test_sha256_preimage(self):
         """SHA-256 has 256-bit preimage resistance."""
         r = security_level("SHA256", 256)

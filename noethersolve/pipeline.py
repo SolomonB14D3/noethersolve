@@ -152,21 +152,35 @@ _ROUTE_TISSUE: Dict[str, Set[str]] = {
 
 # Modality -> set of compatible payload types
 _MODALITY_PAYLOAD: Dict[str, Set[str]] = {
-    "aav":        {"gene_replacement", "gene_addition", "gene_editing"},
-    "lnp_mrna":   {"gene_replacement", "gene_editing"},
-    "lnp_sirna":  {"gene_silencing"},
-    "aso":        {"gene_silencing", "splice_modulation"},
-    "base_edit":  {"gene_editing"},
-    "prime_edit": {"gene_editing"},
+    "aav":           {"gene_replacement", "gene_addition", "gene_editing"},
+    "gene_therapy":  {"gene_replacement", "gene_addition", "gene_editing"},
+    "lnp_mrna":      {"gene_replacement", "gene_editing"},
+    "lnp_sirna":     {"gene_silencing"},
+    "aso":           {"gene_silencing", "splice_modulation"},
+    "base_edit":     {"gene_editing"},
+    "prime_edit":    {"gene_editing"},
 }
+
+# Modality aliases — normalize before checks
+_MODALITY_ALIASES: Dict[str, str] = {
+    "gene_therapy": "aav",
+}
+
+# Serotypes known to cross the blood-brain barrier via IV
+_BBB_CROSSING_SEROTYPES: Set[str] = {"AAV9", "AAVPHP.EB"}
 
 
 # ─── Individual check functions ───────────────────────────────────────────────
 
+def _normalize_modality(modality: str) -> str:
+    """Normalize modality aliases (e.g., gene_therapy -> aav)."""
+    return _MODALITY_ALIASES.get(modality.lower(), modality.lower())
+
+
 def _check_vector_capacity(design: TherapyDesign) -> List[PipelineIssue]:
     """Check AAV transgene packaging capacity."""
     issues = []
-    if design.modality != "aav":
+    if _normalize_modality(design.modality) != "aav":
         return issues
     if design.transgene_size_kb <= 0:
         return issues
@@ -195,7 +209,7 @@ def _check_vector_capacity(design: TherapyDesign) -> List[PipelineIssue]:
 def _check_serotype_tissue(design: TherapyDesign) -> List[PipelineIssue]:
     """Check AAV serotype-tissue pairing."""
     issues = []
-    if design.modality != "aav":
+    if _normalize_modality(design.modality) != "aav":
         return issues
     if not design.vector_serotype:
         return issues
@@ -305,15 +319,26 @@ def _check_route_tissue(design: TherapyDesign) -> List[PipelineIssue]:
         return issues
 
     if tissue not in reachable:
-        issues.append(PipelineIssue(
-            rule_name="ROUTE_TISSUE",
-            severity="HIGH",
-            message=(f"{design.route} administration does not reach "
-                     f"{design.target_tissue} (reaches: "
-                     f"{', '.join(sorted(reachable))})"),
-            suggestion=(f"Consider routes that target {design.target_tissue}: "
-                        f"{', '.join(r for r, t in _ROUTE_TISSUE.items() if tissue in t) or 'none in table'}"),
-        ))
+        # Special case: BBB-crossing serotypes (e.g., AAV9) can reach CNS via IV
+        serotype = design.vector_serotype.upper() if design.vector_serotype else ""
+        if tissue == "cns" and route == "iv" and serotype in _BBB_CROSSING_SEROTYPES:
+            issues.append(PipelineIssue(
+                rule_name="ROUTE_TISSUE",
+                severity="INFO",
+                message=(f"{serotype} crosses the blood-brain barrier via IV "
+                         f"(e.g., Zolgensma/onasemnogene abeparvovec)"),
+                suggestion="Monitor for peripheral organ transduction (liver, heart)",
+            ))
+        else:
+            issues.append(PipelineIssue(
+                rule_name="ROUTE_TISSUE",
+                severity="HIGH",
+                message=(f"{design.route} administration does not reach "
+                         f"{design.target_tissue} (reaches: "
+                         f"{', '.join(sorted(reachable))})"),
+                suggestion=(f"Consider routes that target {design.target_tissue}: "
+                            f"{', '.join(r for r, t in _ROUTE_TISSUE.items() if tissue in t) or 'none in table'}"),
+            ))
     return issues
 
 
@@ -355,7 +380,7 @@ def _check_redosing_immunity(design: TherapyDesign) -> List[PipelineIssue]:
     if not design.redosing_planned:
         return issues
 
-    if design.modality == "aav":
+    if _normalize_modality(design.modality) == "aav":
         issues.append(PipelineIssue(
             rule_name="REDOSING_IMMUNITY",
             severity="HIGH",
@@ -375,7 +400,7 @@ def _check_safety_monitoring(design: TherapyDesign) -> Tuple[List[PipelineIssue]
     """
     issues = []
     monitoring: List[str] = []
-    modality = design.modality.lower()
+    modality = _normalize_modality(design.modality)
 
     # Universal requirements
     monitoring.append("Biodistribution study")

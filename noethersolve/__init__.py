@@ -7,13 +7,13 @@ Every tool added makes every connected agent smarter.
 Emmy Noether proved every continuous symmetry corresponds to a conserved quantity.
 NoetherSolve finds where LLMs fail to recognize those quantities, builds verified
 computational tools for the right answers, and exposes them via Model Context
-Protocol (MCP) — 46 tools currently serving physics, math, genetics, complexity
-theory, pharmacogenomics, biochemistry, organic chemistry, quantum mechanics,
-and LLM science. 30 are calculators (derive answers from first principles),
-16 are lookup tables (reference databases).
+Protocol (MCP) — 69 tools currently serving physics, math, genetics, complexity
+theory, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry,
+and LLM science. 62 are calculators (derive answers from first principles),
+7 are lookup tables (reference databases).
 
 Package layout:
-  noethersolve.mcp_server   — MCP server (46 tools for any AI agent)
+  noethersolve.mcp_server   — MCP server (69 tools for any AI agent)
   noethersolve.oracle       — model-agnostic MC log-prob scorer (from eval_mc)
   noethersolve.adapter      — snap-on logit adapter architectures (from snap_on)
   noethersolve.train_utils  — LOGIT_SOFTCAP, get_lm_head_fn, apply_adapter
@@ -122,16 +122,19 @@ from noethersolve.splice import (  # noqa: F401
     pyrimidine_tract_score,
     SpliceSiteReport,
 )
-from noethersolve.pharmacokinetics import (  # noqa: F401
-    audit_drug_list,
-    check_drug_interactions,
-    check_phenotype,
-    check_hla,
-    get_enzyme_for_drug,
-    get_interactions,
-    PharmReport,
-    DrugInteraction,
-    PharmIssue,
+from noethersolve.pk_model import (  # noqa: F401
+    one_compartment_iv,
+    one_compartment_oral,
+    half_life,
+    steady_state,
+    auc_single_dose,
+    dose_adjustment,
+    IVBolusReport,
+    OralDosingReport,
+    HalfLifeReport,
+    SteadyStateReport,
+    AUCReport,
+    DoseAdjustmentReport,
 )
 
 from noethersolve.complexity import (  # noqa: F401
@@ -312,31 +315,57 @@ from noethersolve.os_calc import (  # noqa: F401
     ContextSwitchReport,
 )
 
-from noethersolve.biochemistry import (  # noqa: F401
-    check_biochemistry,
-    get_biochemistry_topic,
-    list_biochemistry_topics,
-    BiochemistryReport,
-    BiochemistryIssue,
-    BiochemistryInfo,
+from noethersolve.enzyme_kinetics import (  # noqa: F401
+    michaelis_menten,
+    inhibition,
+    catalytic_efficiency,
+    lineweaver_burk,
+    ph_rate_profile,
+    cooperativity,
+    MMReport,
+    InhibitionReport,
+    EfficiencyReport,
+    LineweaverBurkReport,
+    PHProfileReport,
+    CooperativityReport,
+    DIFFUSION_LIMIT,
 )
 
-from noethersolve.organic_chemistry import (  # noqa: F401
-    check_organic_chemistry,
-    get_organic_chemistry_topic,
-    list_organic_chemistry_topics,
-    OrganicChemistryReport,
-    OrganicChemistryIssue,
-    OrganicChemistryTopic,
+try:
+    from noethersolve.reaction_engine import (  # noqa: F401
+        analyze_molecule,
+        predict_selectivity,
+        predict_mechanism,
+        validate_synthesis,
+        check_baldwin,
+        check_woodward_hoffmann,
+        list_mayr_nucleophiles,
+        list_mayr_electrophiles,
+        list_reaction_templates,
+        get_reaction_template,
+        MoleculeAnalysis,
+        SelectivityReport,
+        MechanismReport,
+        SynthesisReport,
+        BaldwinReport,
+        WoodwardHoffmannReport,
+    )
+except ImportError:
+    pass  # RDKit not installed — reaction engine unavailable, other tools still work
+
+from noethersolve.qm_calculator import (  # noqa: F401
+    particle_in_box,
+    hydrogen_energy,
+    uncertainty_check,
+    tunneling_probability,
+    harmonic_oscillator,
+    angular_momentum_addition,
+    ParticleInBoxReport,
+    HydrogenEnergyReport,
+    UncertaintyReport,
+    TunnelingReport,
+    HarmonicOscillatorReport,
+    AngularMomentumReport,
 )
 
-from noethersolve.quantum_mechanics import (  # noqa: F401
-    check_quantum_mechanics,
-    get_quantum_mechanics_topic,
-    list_quantum_mechanics_topics,
-    QuantumMechanicsReport,
-    QuantumMechanicsIssue,
-    QMTopicInfo,
-)
-
-__version__ = "1.1.0"
+__version__ = "1.2.0"
