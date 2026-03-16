@@ -1,0 +1,138 @@
+{
+  "problem": "multi_messenger_astro",
+  "description": "Multi-messenger astronomy - FRBs, kilonovae, GW counterparts, neutrino sources.",
+  "facts": [
+    {
+      "id": "mma01_frb_magnetar",
+      "context": "Fast radio bursts have been conclusively linked to:",
+      "truth": "magnetars via galactic FRB 200428 detection",
+      "distractors": [
+        "artificial signals from extraterrestrial intelligent civilizations as primary source",
+        "black hole evaporation producing observable radio frequency electromagnetic bursts",
+        "ordinary radio pulsars with no unusual physical properties required for explanation"
+      ],
+      "cluster": "frb"
+    },
+    {
+      "id": "mma02_frb_repeat",
+      "context": "Repeating FRBs demonstrate that:",
+      "truth": "at least some sources are non-cataclysmic",
+      "distractors": [
+        "all fast radio bursts must originate from single catastrophic explosive events",
+        "repetition is impossible and claimed repeaters are instrumental artifacts only",
+        "every FRB source produces exactly one burst and then becomes permanently silent"
+      ],
+      "cluster": "frb"
+    },
+    {
+      "id": "mma03_frb_host",
+      "context": "FRB host galaxy studies show:",
+      "truth": "diverse environments from dwarf to massive galaxies",
+      "distractors": [
+        "all FRBs originate exclusively from one specific type of host galaxy environment",
+        "no FRB has ever been successfully localized to any host galaxy whatsoever",
+        "FRBs only occur in intergalactic space far from any galaxies at all"
+      ],
+      "cluster": "frb"
+    },
+    {
+      "id": "mma04_kilonova",
+      "context": "The GW170817 kilonova observation confirmed:",
+      "truth": "r-process nucleosynthesis in neutron star mergers",
+      "distractors": [
+        "that neutron star mergers produce absolutely no electromagnetic radiation signals",
+        "heavy elements cannot possibly form in any neutron star merger environment",
+        "gravitational wave events can never have associated electromagnetic counterparts"
+      ],
+      "cluster": "kilonova"
+    },
+    {
+      "id": "mma05_kilonova_gold",
+      "context": "Kilonova observations suggest neutron star mergers produce:",
+      "truth": "significant fraction of cosmic heavy elements",
+      "distractors": [
+        "only light elements like hydrogen and helium with no heavy element production",
+        "negligible amounts of heavy elements compared to supernova nucleosynthesis",
+        "elements that immediately decay and contribute nothing to cosmic abundances"
+      ],
+      "cluster": "kilonova"
+    },
+    {
+      "id": "mma06_gw_counterpart",
+      "context": "Multi-messenger GW+EM observations require:",
+      "truth": "rapid localization and wide-field follow-up",
+      "distractors": [
+        "no coordination because gravitational waves provide exact source positions already",
+        "waiting years after detection before any electromagnetic observations are useful",
+        "only space-based telescopes because ground observatories cannot participate"
+      ],
+      "cluster": "techniques"
+    },
+    {
+      "id": "mma07_icecube",
+      "context": "IceCube neutrino astronomy has identified:",
+      "truth": "TXS 0506+056 blazar as likely neutrino source",
+      "distractors": [
+        "no astrophysical neutrino sources despite years of observation and analysis",
+        "the Sun as the only source of detectable high-energy cosmic neutrinos",
+        "neutrinos that cannot be associated with any known astrophysical objects"
+      ],
+      "cluster": "neutrinos"
+    },
+    {
+      "id": "mma08_neutrino_gw",
+      "context": "Neutrinos from gravitational wave sources:",
+      "truth": "not yet detected but actively searched",
+      "distractors": [
+        "have been definitively detected from multiple binary neutron star mergers",
+        "are theoretically impossible to produce in any gravitational wave source",
+        "cannot be distinguished from atmospheric neutrino background ever"
+      ],
+      "cluster": "neutrinos"
+    },
+    {
+      "id": "mma09_grb_gw",
+      "context": "GW170817 confirmed the connection between:",
+      "truth": "short GRBs and neutron star mergers",
+      "distractors": [
+        "short gamma-ray bursts and supermassive black hole activity in distant galaxies",
+        "long gamma-ray bursts and binary neutron star merger gravitational waves",
+        "gamma-ray bursts and stellar flares from nearby ordinary main sequence stars"
+      ],
+      "cluster": "kilonova"
+    },
+    {
+      "id": "mma10_uhecr",
+      "context": "Ultra-high-energy cosmic ray sources are:",
+      "truth": "still uncertain despite decades of study",
+      "distractors": [
+        "definitively identified as coming from specific known active galactic nuclei",
+        "proven to originate from within our own Milky Way galaxy exclusively",
+        "completely understood with no remaining mysteries about their origin"
+      ],
+      "cluster": "cosmic_rays"
+    },
+    {
+      "id": "mma11_cosmic_ray_aniso",
+      "context": "Cosmic ray anisotropy observations show:",
+      "truth": "small dipole suggesting extragalactic origin at highest energies",
+      "distractors": [
+        "perfect isotropy proving cosmic rays have no preferred arrival directions",
+        "strong anisotropy pointing directly at the galactic center as the source",
+        "patterns that prove cosmic rays are produced inside our solar system"
+      ],
+      "cluster": "cosmic_rays"
+    },
+    {
+      "id": "mma12_gw_memory",
+      "context": "Gravitational wave memory effect is:",
+      "truth": "permanent displacement predicted by GR",
+      "distractors": [
+        "temporary oscillation that completely returns to original configuration after wave",
+        "purely theoretical prediction that has been ruled out by LIGO observations",
+        "only present in alternative gravity theories and not in general relativity"
+      ],
+      "cluster": "techniques"
+    }
+  ]
+}

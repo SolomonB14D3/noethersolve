@@ -1,0 +1,138 @@
+{
+  "problem": "neutrino_frontiers",
+  "description": "Neutrino physics frontiers - sterile neutrinos, mass mechanism, anomalies.",
+  "facts": [
+    {
+      "id": "nf01_sterile",
+      "context": "Evidence for sterile neutrinos:",
+      "truth": "remains inconclusive with conflicting results",
+      "distractors": [
+        "has been completely ruled out by all neutrino oscillation experiments globally",
+        "has been definitively established beyond any reasonable scientific doubt now",
+        "was never seriously proposed by any reputable physicist as a hypothesis"
+      ],
+      "cluster": "sterile"
+    },
+    {
+      "id": "nf02_mass_mechanism",
+      "context": "The mechanism giving neutrinos mass:",
+      "truth": "is unknown - seesaw and Dirac both viable",
+      "distractors": [
+        "has been determined to be the standard Higgs mechanism with certainty",
+        "is impossible because neutrinos are definitively massless fundamental particles",
+        "has been proven to be the type-I seesaw mechanism beyond any doubt"
+      ],
+      "cluster": "mass"
+    },
+    {
+      "id": "nf03_reactor",
+      "context": "The reactor antineutrino anomaly:",
+      "truth": "may be sterile neutrinos or flux errors",
+      "distractors": [
+        "has been definitively explained by sterile neutrino oscillations confirmed",
+        "was proven to be a simple calculation error with no physics implications",
+        "does not exist because all reactor experiments perfectly match predictions"
+      ],
+      "cluster": "sterile"
+    },
+    {
+      "id": "nf04_gallium",
+      "context": "The gallium anomaly in neutrino experiments:",
+      "truth": "shows deficit suggesting possible new physics",
+      "distractors": [
+        "has been completely explained by standard neutrino oscillation physics",
+        "was proven to be experimental error with no anomaly present at all",
+        "confirms the standard three-neutrino model with no modifications needed"
+      ],
+      "cluster": "sterile"
+    },
+    {
+      "id": "nf05_majorana",
+      "context": "Whether neutrinos are Majorana particles:",
+      "truth": "remains unknown pending double beta decay results",
+      "distractors": [
+        "has been proven by observation of neutrinoless double beta decay already",
+        "has been ruled out proving neutrinos must be Dirac particles only",
+        "cannot be tested experimentally by any known or proposed method"
+      ],
+      "cluster": "mass"
+    },
+    {
+      "id": "nf06_hierarchy",
+      "context": "The neutrino mass hierarchy determination:",
+      "truth": "favors normal ordering but not definitive",
+      "distractors": [
+        "has definitively established inverted ordering with high confidence now",
+        "proves all three masses are exactly equal with no hierarchy present",
+        "cannot be determined because neutrinos are fundamentally massless"
+      ],
+      "cluster": "mass"
+    },
+    {
+      "id": "nf07_absolute",
+      "context": "The absolute neutrino mass scale:",
+      "truth": "is constrained but not precisely measured",
+      "distractors": [
+        "has been precisely measured by KATRIN to be exactly 0.8 eV already",
+        "is exactly zero because neutrinos have no mass at all fundamentally",
+        "cannot be measured by any direct or indirect experimental technique"
+      ],
+      "cluster": "mass"
+    },
+    {
+      "id": "nf08_lsnd",
+      "context": "The LSND anomaly suggesting sterile neutrinos:",
+      "truth": "was not confirmed by MiniBooNE in same channel",
+      "distractors": [
+        "was perfectly confirmed by MiniBooNE proving sterile neutrinos exist",
+        "was proven to be a statistical fluctuation with no real physics signal",
+        "has been definitively explained by three-neutrino standard oscillations"
+      ],
+      "cluster": "sterile"
+    },
+    {
+      "id": "nf09_coherent",
+      "context": "Coherent elastic neutrino-nucleus scattering:",
+      "truth": "was first observed by COHERENT in 2017",
+      "distractors": [
+        "has never been observed despite decades of experimental searches ongoing",
+        "is theoretically forbidden by Standard Model physics and cannot occur",
+        "was observed in 1960s and is well-established textbook physics now"
+      ],
+      "cluster": "detection"
+    },
+    {
+      "id": "nf10_geo",
+      "context": "Geoneutrinos from Earth's interior:",
+      "truth": "have been detected confirming heat models",
+      "distractors": [
+        "cannot be detected because they are absorbed before reaching surface",
+        "have been proven not to exist contradicting geophysical models",
+        "are purely theoretical and no experiment can detect them ever"
+      ],
+      "cluster": "detection"
+    },
+    {
+      "id": "nf11_supernova",
+      "context": "The next galactic supernova neutrino detection:",
+      "truth": "would provide thousands of events in detectors",
+      "distractors": [
+        "is impossible because supernova neutrinos cannot reach Earth at all",
+        "would provide only single-digit events even in largest detectors",
+        "has already occurred from SN 1987A providing complete information"
+      ],
+      "cluster": "detection"
+    },
+    {
+      "id": "nf12_cnb",
+      "context": "The cosmic neutrino background from Big Bang:",
+      "truth": "exists but has not been directly detected",
+      "distractors": [
+        "has been directly detected by multiple neutrino observatories now",
+        "cannot exist according to standard cosmological Big Bang model",
+        "has been ruled out by precision cosmological CMB observations"
+      ],
+      "cluster": "detection"
+    }
+  ]
+}
