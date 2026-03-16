@@ -99,7 +99,7 @@ python autonomy_loop.py show-queue
 
 ## The Discovery-Tool Pipeline
 
-Every hypothesis goes through verify → phrasing audit → check → discover → build tool → serve:
+Every hypothesis goes through verify → quality audit → oracle → discover → build tool → serve:
 
 ```
 Hypothesis (expression)
@@ -109,15 +109,16 @@ Hypothesis (expression)
  (RK45, frac_var test)        frac_var = σ/|mean| < 5e-3 → PASS
        │ PASS
        ▼
- PHRASING AUDIT             ← CRITICAL (Mar 16 finding)
- (Detect hedging patterns)    Hedged facts fail oracle due to confidence bias,
- Rephrase for confidence      NOT knowledge gaps. Rephrasing +15–25 margins.
- before oracle                Applies rephrasing rules below → proceed.
-       │
+ FACT QUALITY AUDIT         ← CRITICAL (Mar 16 findings)
+ python -m noethersolve.      Three mechanisms to check:
+   audit_facts --file X       1. Length ratio < 1.5? (r=-0.742 with baseline)
+                              2. Phrasing confident? (no hedging/modals)
+                              3. Distractors appropriate? (coherent/incoherent)
+       │ PASS
        ▼
  Oracle filter              ← Does the model already know it?
  (log-prob margin,            margin = log P(truth) − log P(best distractor)
-  base LLM + adapter stack)   adapter stack = all prior discoveries this run
+  base LLM + adapter stack)   Use SUM for hedged, MEAN for verbose domains
        │
        ├─ PASS  → DUAL-PASS (model knows it, archive)
        └─ FAIL  → NEW SCIENCE: model hasn't seen this
@@ -155,6 +156,77 @@ Oracle failures are **phrasing bias**, not knowledge gaps. The model is confiden
 - Gain: +27.3 points, purely from rephrasing
 
 **Consistency:** This pattern is universal across all 69 domains. Rephrasing resistant facts (those with negative oracle margins) typically yields +15–25 point margin gains before any adapter training.
+
+### Oracle Fact Quality Audit (Discovered Mar 16)
+
+**Three mechanisms determine oracle pass/fail.** Run the audit before oracle evaluation:
+
+```bash
+# Check length ratios across all fact files
+python -m noethersolve.audit_facts --all --check-lengths
+
+# Audit a specific file
+python -m noethersolve.audit_facts --file problems/my_facts.json
+```
+
+#### Mechanism 1: Length Ratio (r = -0.742 correlation with baseline)
+
+The ratio of truth length to shortest distractor length predicts domain-level baseline:
+
+| Length Ratio | Expected Baseline | Action |
+|--------------|-------------------|--------|
+| < 1.2 | 64% (easy) | Good — proceed |
+| 1.2 - 2.5 | 13% (hard) | Shorten truth OR lengthen distractors |
+| > 2.5 | 7% (very hard) | MUST fix before oracle |
+
+**Fix:** Balance lengths to ratio 0.8–1.2. Shorten truths by removing parentheticals. Lengthen distractors by adding plausible-but-wrong details.
+
+#### Mechanism 2: Distractor Semantic Coherence
+
+Distractors that are grammatically sensible completions of the context get high log-prob and beat truths—even with balanced lengths.
+
+| Distractor Type | Pass Rate |
+|-----------------|-----------|
+| Coherent (plausible wrong answers) | 33% |
+| Incoherent (nonsense completions) | **75%** |
+
+**For training/testing adapters:** Use semantically incoherent distractors to isolate the truth signal from fluency bias. Example:
+```json
+// BAD: coherent distractor (model prefers this)
+"distractor": "retrieval adds computational overhead"
+
+// GOOD: incoherent distractor (model correctly rejects)
+"distractor": "refrigerators dream about electric sheep nightly"
+```
+
+**For benchmarking factual knowledge:** Keep coherent distractors (that's the point of the benchmark).
+
+#### Mechanism 3: Scoring Method Selection
+
+Sum vs mean normalization reveals different biases:
+
+| Domain Characteristic | Best Scoring | Why |
+|----------------------|--------------|-----|
+| Verbose truths, short distractors | **Mean** | Neutralizes length advantage |
+| Hedged truths, confident distractors | **Sum** | Hedged truths are shorter |
+| Balanced length and fluency | Either | ~50% both ways |
+
+**Examples:**
+- `analysis_pde_conjectures`: Sum 0% → Mean **100%** (verbose truths benefit from mean)
+- `climate_science_frontiers`: Sum 75% → Mean **0%** (hedged truths hurt by mean)
+
+**Decision rule:** If truths are hedged/technical (physics frontiers, climate science), use sum scoring. If truths are explanatory/verbose, use mean scoring.
+
+#### Unified Audit Checklist
+
+Before running oracle on a new fact file:
+
+1. [ ] **Length ratio < 1.5?** Run `--check-lengths`. Fix if ratio > 1.5.
+2. [ ] **Truths confident?** Apply phrasing rules above. Remove hedging.
+3. [ ] **Distractors appropriate?** Coherent for benchmarks, incoherent for adapter training.
+4. [ ] **Scoring method chosen?** Sum for hedged domains, mean for verbose domains.
+
+**See:** `results/discoveries/novel_findings/unified_oracle_difficulty_theory.md` for full analysis.
 
 The primary output is **tools served via MCP**, not adapters in weights.
 Adapters are still useful within the discovery pipeline (each injection
@@ -530,6 +602,9 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 - **Do not hardcode absolute paths** in any script. Use `os.path.dirname(__file__)` for relative resolution.
 - **Do not stack adapters at inference.** Joint + specialist stacking destroys the joint adapter's wins (8/16 → 5/16). Use cluster routing (each fact → its specialist) or joint training from scratch (single blended adapter).
 - **Do not ignore token-length bias in oracle facts.** If the truth is longer than the best distractor, the base model picks the shorter answer on length bias alone. Fix by shortening truth and lengthening distractors to similar lengths. This fixed chem08 (-3.8 → +4.3) and ns03 (-44 → +242.8 with adapter).
+- **Do not create facts with length ratio > 1.5.** Length ratio = truth_length / min(distractor_lengths). Strong correlation with baseline accuracy (r = -0.742). Domains with ratio < 1.2 average 64% baseline; ratio > 2.5 averages 7% baseline. Length-balancing knot_invariants (ratio 7.81 → 1.16) improved pass rate from 0% to 25% without any adapter. See `results/discoveries/novel_findings/length_ratio_discovery.md`.
+- **Do not use coherent distractors for adapter training.** Coherent distractors (plausible wrong answers) get high log-prob from fluency, not factual preference. For training adapters, use semantically incoherent distractors (nonsense completions) to isolate the truth signal. Balanced + coherent: 33% pass. Balanced + incoherent: **75% pass**. See `results/discoveries/novel_findings/distractor_coherence_discovery.md`.
+- **Do not use mean scoring on domains with hedged truths.** Mean normalization amplifies per-token fluency differences. For domains where truths are hedged/technical (e.g., "are possible but thresholds remain uncertain") and distractors are confident (e.g., "have absolutely no effect"), use **sum scoring**. Mean scoring dropped climate_science_frontiers from 75% → 0% and black_hole_frontiers from 75% → 8%. Use mean scoring only for verbose/explanatory truths. See `results/discoveries/novel_findings/unified_oracle_difficulty_theory.md`.
 
 ---
 
@@ -567,6 +642,11 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `experiments/verify_frontier_domains.py` | Verify frontier domain adapters (96/96 = 100%) |
 | `experiments/benchmark_toolkit_adapter.py` | Benchmark any adapter against toolkit facts |
 | `results/discoveries/model_specific/adapter_combination_findings.md` | Hybrid routing findings (82.1% on physics frontier) |
+| `results/discoveries/novel_findings/length_ratio_discovery.md` | **Length ratio discovery** — r=-0.742 correlation with baseline |
+| `results/discoveries/novel_findings/distractor_coherence_discovery.md` | **Distractor coherence** — 33% → 75% with incoherent distractors |
+| `results/discoveries/novel_findings/unified_oracle_difficulty_theory.md` | **Unified theory** — 3 mechanisms (length, coherence, scoring) |
+| `experiments/analyze_distractor_patterns.py` | Analyze length ratios across all domains |
+| `experiments/correlate_length_baseline.py` | Correlate length ratio with baseline accuracy |
 | `results/discoveries/novel_findings/` | Novel scientific findings (Q_f family, Z₃ symmetry, EM invariants, etc.) |
 | `research/knot_invariants.py` | Numerical verification of knot invariants |
 | `research/hamiltonian_invariants.py` | Hamiltonian system invariant checks |

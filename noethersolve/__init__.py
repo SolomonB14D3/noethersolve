@@ -7,14 +7,17 @@ Every tool added makes every connected agent smarter.
 Emmy Noether proved every continuous symmetry corresponds to a conserved quantity.
 NoetherSolve finds where LLMs fail to recognize those quantities, builds verified
 computational tools for the right answers, and exposes them via Model Context
-Protocol (MCP) — 106 tools currently serving physics, math, genetics, complexity
+Protocol (MCP) — 162 tools currently serving physics, math, genetics, complexity
 theory, enzyme kinetics, quantum mechanics, pharmacokinetics, drug interactions,
-organic chemistry, elliptic curves, intersection theory, information theory, and
-LLM science. 85 are calculators (derive answers from first principles), 7 are
-lookup tables.
+organic chemistry, elliptic curves, intersection theory (adjunction, blow-ups,
+ruled surfaces, toric varieties), information theory, topological phases, ergodic
+theory, optimization convergence, numerical PDEs, MHD conservation, GR constraints
+(ADM formalism), seismic waves (velocity, moduli, reflection), plasma physics
+(adiabatic invariants μ, J, Φ), and LLM science. 155 are calculators (derive
+from first principles), 7 are lookup tables.
 
 Package layout:
-  noethersolve.mcp_server   — MCP server (92 tools for any AI agent)
+  noethersolve.mcp_server   — MCP server (123 tools for any AI agent)
   noethersolve.oracle       — model-agnostic MC log-prob scorer (from eval_mc)
   noethersolve.adapter      — snap-on logit adapter architectures (from snap_on)
   noethersolve.train_utils  — LOGIT_SOFTCAP, get_lm_head_fn, apply_adapter
@@ -55,6 +58,9 @@ Package layout:
   noethersolve.intersection_theory — Bezout, genus-degree, self-intersection, canonical divisors, enumerative geometry
   noethersolve.information_theory  — channel capacity, rate-distortion, source coding, MAC, Fano inequality
   noethersolve.drug_interactions   — CYP450 DDI checker, pharmacogenomics, inhibitor/inducer database
+  noethersolve.gr_constraints      — ADM/Bondi/Komar mass, Hamiltonian/momentum constraints, ADM formalism
+  noethersolve.seismic_waves       — P/S-wave velocities, elastic moduli, reflection coefficients, Snell's law
+  noethersolve.plasma_adiabatic    — Adiabatic invariants (μ, J, Φ), magnetic mirrors, loss cone, cyclotron motion
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -434,6 +440,23 @@ from noethersolve.intersection_theory import (  # noqa: F401
     intersection_multiplicity_formula,
     compute_multiplicity_smooth_transverse,
     compute_multiplicity_tangent,
+    # Adjunction formula
+    adjunction_formula,
+    adjunction_complete_intersection,
+    AdjunctionReport,
+    # Blow-up formulas
+    blowup_K_squared,
+    blowup_P2,
+    blowup_transform_divisor,
+    BlowupReport,
+    # Ruled surfaces
+    ruled_surface,
+    hirzebruch_surface,
+    RuledSurfaceReport,
+    # Toric varieties
+    toric_canonical,
+    toric_Pn_canonical,
+    ToricCanonicalReport,
 )
 
 from noethersolve.information_theory import (  # noqa: F401
@@ -545,4 +568,141 @@ from noethersolve.turbulence import (  # noqa: F401
     IntermittencyReport,
 )
 
-__version__ = "1.9.0"
+from noethersolve.topological_invariants import (  # noqa: F401
+    chern_number,
+    z2_invariant,
+    bulk_boundary_correspondence,
+    quantum_hall,
+    berry_phase,
+    topological_classification,
+    list_symmetry_classes,
+    ChernNumberReport,
+    Z2InvariantReport,
+    BulkBoundaryReport,
+    QuantumHallReport,
+    BerryPhaseReport,
+    TopologicalClassReport,
+    VON_KLITZING,
+    CONDUCTANCE_QUANTUM,
+)
+
+from noethersolve.ergodic_theory import (  # noqa: F401
+    classify_system,
+    compare_levels,
+    lyapunov_analysis,
+    entropy_analysis,
+    poincare_recurrence,
+    mixing_rate,
+    list_systems as list_dynamical_systems,
+    list_levels as list_ergodic_levels,
+    is_stronger,
+    implies,
+    HierarchyReport,
+    LyapunovReport,
+    EntropyReport,
+    RecurrenceReport,
+    ComparisonReport,
+    MixingRateReport,
+)
+
+from noethersolve.optimization_convergence import (  # noqa: F401
+    gradient_descent_rate,
+    nesterov_rate,
+    compare_algorithms,
+    analyze_conditioning,
+    oracle_lower_bound,
+    optimal_step_size,
+    non_convex_rate,
+    list_algorithms,
+    iterations_needed,
+    ConvergenceReport,
+    ComparisonReport as OptimizationComparisonReport,
+    ConditionReport,
+    LowerBoundReport,
+    StepSizeReport,
+    NonConvexReport,
+)
+
+from noethersolve.numerical_pde import (  # noqa: F401
+    check_cfl,
+    cfl_hyperbolic,
+    cfl_parabolic,
+    max_timestep,
+    von_neumann_analysis,
+    get_scheme_info,
+    list_schemes,
+    check_lax_equivalence,
+    analyze_accuracy,
+    check_common_error,
+    CFLReport,
+    VonNeumannReport,
+    SchemeReport,
+    LaxEquivalenceReport,
+    AccuracyReport,
+)
+
+from noethersolve.mhd_conservation import (  # noqa: F401
+    check_magnetic_helicity,
+    check_cross_helicity,
+    check_mhd_energy,
+    check_frozen_flux,
+    check_div_B,
+    check_mhd_invariant,
+    list_mhd_invariants,
+    HelicityReport,
+    MHDEnergyReport,
+    FrozenFluxReport,
+    DivBReport,
+    InvariantReport as MHDInvariantReport,
+)
+
+from noethersolve.gr_constraints import (  # noqa: F401
+    check_hamiltonian_constraint,
+    check_momentum_constraint,
+    check_adm_mass,
+    check_bondi_mass,
+    check_komar_mass,
+    compare_mass_definitions,
+    analyze_adm_formalism,
+    list_gr_concepts,
+    ConstraintReport,
+    MassReport,
+    MassComparisonReport,
+    ADMReport,
+)
+
+from noethersolve.seismic_waves import (  # noqa: F401
+    calc_seismic_velocity,
+    calc_velocity_from_poisson,
+    poisson_from_velocities,
+    convert_elastic_moduli,
+    calc_reflection_coefficient,
+    critical_angle,
+    snells_law,
+    vp_vs_ratio_bounds,
+    SeismicVelocityReport,
+    PoissonRatioReport,
+    ElasticModuliReport,
+    ReflectionReport,
+)
+
+from noethersolve.plasma_adiabatic import (  # noqa: F401
+    calc_magnetic_moment,
+    calc_bounce_invariant,
+    calc_flux_invariant,
+    check_adiabatic_hierarchy,
+    mirror_force,
+    loss_cone_angle,
+    cyclotron_frequency,
+    larmor_radius,
+    get_particle_mass,
+    MagneticMomentReport,
+    BounceInvariantReport,
+    FluxInvariantReport,
+    AdiabaticHierarchyReport,
+    ELECTRON_MASS,
+    PROTON_MASS,
+    ELECTRON_CHARGE,
+)
+
+__version__ = "1.18.0"

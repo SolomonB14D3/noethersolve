@@ -31,6 +31,8 @@ paper/d*/*.tex
 paper/d*/figures/*.png
 paper/d*/figures/*.pdf
 paper/d*/references.bib
+paper/d*/cover_letter*.md
+paper/d*/zenodo_metadata.json
 # paper/prior_work/ PDFs are tracked (reference papers 8-9)
 figures/
 

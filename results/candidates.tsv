@@ -269,3 +269,4 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-16	llm_mechanism_analysis	FINDING	-	DISTRACTOR_ATTRACTIVENESS	Strong priors on optimistic claims (-20 to -35 lp) beat nuanced truths (-35 to -55 lp)
 2026-03-16	llm_rephrasing_fix	FINDING	4/12→12/12	PHRASING_MATTERS	Confident truths + rare-grammar distractors = 100% pass
 2026-03-16	llm_practical_solution	RECOMMENDATION	-	USE_MCP_TOOLS	Model can USE tools correctly even with wrong beliefs
+2026-03-16	LENGTH RATIO DISCOVERY	r=-0.742	varies	MAJOR_FINDING	Length ratio (truth_len/min_distractor_len) predicts oracle baseline with r=-0.742. Ratio<1.2: 64% baseline. Ratio>2.5: 7% baseline. Fix: balance lengths. Tested on knot_invariants (0%→25%) and llm_hallucination (0%→33%). See results/discoveries/novel_findings/length_ratio_discovery.md

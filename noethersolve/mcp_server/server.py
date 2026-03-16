@@ -1,4 +1,4 @@
-"""NoetherSolve MCP Server — expose 87 verified tools to any AI agent.
+"""NoetherSolve MCP Server — expose 162 verified tools to any AI agent.
 
 The full pipeline: find gaps → flip facts → build tool → add to MCP server.
 Every tool added here makes every connected agent smarter.
@@ -14,8 +14,10 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="106 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
-                 "epidemiology, climate physics, and LLM science — verified calculators from first principles, not guesses.",
+    instructions="162 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
+                 "epidemiology, climate physics, turbulence, topological phases, ergodic theory, optimization, "
+                 "numerical PDEs, MHD conservation, GR constraints, seismic waves, plasma adiabatic invariants, "
+                 "intersection theory, and LLM science — verified calculators from first principles, not guesses.",
 )
 
 
@@ -1859,6 +1861,161 @@ def calc_enumerative(
     return str(report)
 
 
+@mcp.tool()
+def calc_adjunction(
+    ambient_dim: int,
+    divisor_degree: int,
+    ambient_type: str = "Pn",
+) -> str:
+    """Apply the adjunction formula to compute K_D for a divisor D in X.
+
+    CRITICAL: K_D = (K_X + D)|_D
+
+    For smooth degree d curve in P²:
+        K_C = (d-3)H|_C, genus g = (d-1)(d-2)/2
+
+    ambient_dim: Dimension of ambient variety (e.g., 2 for P²)
+    divisor_degree: Degree of the divisor
+    ambient_type: "Pn" for projective space
+
+    Example: calc_adjunction(2, 3) → cubic has genus 1
+    Example: calc_adjunction(4, 5) → quintic 3-fold is Calabi-Yau (K=0)
+    """
+    from noethersolve.intersection_theory import adjunction_formula
+    report = adjunction_formula(ambient_dim, divisor_degree, ambient_type)
+    return str(report)
+
+
+@mcp.tool()
+def calc_adjunction_ci(
+    degrees: list[int],
+    ambient_dim: int,
+) -> str:
+    """Adjunction for complete intersection in P^n.
+
+    For V = V(f_1, ..., f_k) ⊂ P^n:
+        K_V = (Σd_i - n - 1)H|_V
+
+    degrees: List of hypersurface degrees [d_1, ..., d_k]
+    ambient_dim: n for P^n
+
+    Example: calc_adjunction_ci([2, 2], 3) → CI(2,2) in P³ has genus 1
+    Example: calc_adjunction_ci([2, 3], 4) → CI(2,3) in P⁴ is Calabi-Yau
+    """
+    from noethersolve.intersection_theory import adjunction_complete_intersection
+    report = adjunction_complete_intersection(degrees, ambient_dim)
+    return str(report)
+
+
+@mcp.tool()
+def calc_blowup_K_squared(
+    original_K_sq: int,
+    n_points: int,
+) -> str:
+    """Compute K² after blowing up n points.
+
+    CRITICAL: K²_X̃ = K²_X - n (K² DECREASES by 1 per point!)
+
+    LLMs often incorrectly say K² increases or stays the same.
+    Each blow-up adds one (-1)-curve (exceptional divisor with E²=-1).
+
+    original_K_sq: K² of original surface
+    n_points: Number of points blown up
+
+    Example: calc_blowup_K_squared(9, 1) → K² = 8 (P² blown up once)
+    Example: calc_blowup_K_squared(9, 6) → K² = 3 (del Pezzo degree 3)
+    """
+    from noethersolve.intersection_theory import blowup_K_squared
+    report = blowup_K_squared(original_K_sq, n_points)
+    return str(report)
+
+
+@mcp.tool()
+def calc_blowup_P2(n_points: int) -> str:
+    """Blow up P² at n points in general position.
+
+    P² has K² = 9. Results:
+    - n ≤ 8: del Pezzo surface of degree 9-n (Fano)
+    - n = 9: rational elliptic surface (K² = 0)
+    - n > 9: K² < 0, -K big but not ample
+
+    n_points: Number of points to blow up
+
+    Example: calc_blowup_P2(6) → del Pezzo degree 3 (cubic surface)
+    Example: calc_blowup_P2(8) → del Pezzo degree 1
+    Example: calc_blowup_P2(9) → K² = 0, rational elliptic
+    """
+    from noethersolve.intersection_theory import blowup_P2
+    report = blowup_P2(n_points)
+    return str(report)
+
+
+@mcp.tool()
+def calc_ruled_surface(
+    base_genus: int,
+    invariant_e: int = 0,
+) -> str:
+    """Compute intersection theory on ruled surface P(E) over curve C.
+
+    CRITICAL: K² = 8(1 - g) ALWAYS, regardless of invariant e.
+
+    Pic(S) = Zh ⊕ Zf, where h·f = 1, f² = 0, h² = -e.
+    Hirzebruch surfaces F_n have g=0, e=n.
+
+    base_genus: Genus g of base curve C
+    invariant_e: The invariant e (related to bundle splitting)
+
+    Example: calc_ruled_surface(0, 2) → F_2 with (-2)-section
+    Example: calc_ruled_surface(1, 0) → K² = 0 (elliptic ruled)
+    """
+    from noethersolve.intersection_theory import ruled_surface
+    report = ruled_surface(base_genus, invariant_e)
+    return str(report)
+
+
+@mcp.tool()
+def calc_hirzebruch(n: int) -> str:
+    """The Hirzebruch surface F_n = P(O ⊕ O(-n)) over P¹.
+
+    F_0 = P¹ × P¹
+    F_1 = Bl_p(P²) (not minimal)
+    F_n (n ≥ 2) has a (-n)-curve (negative section)
+
+    All have K² = 8, Picard rank 2.
+    Fano iff n ≤ 2.
+
+    n: The Hirzebruch index (n ≥ 0)
+
+    Example: calc_hirzebruch(0) → P¹ × P¹
+    Example: calc_hirzebruch(1) → Bl_p(P²)
+    """
+    from noethersolve.intersection_theory import hirzebruch_surface
+    report = hirzebruch_surface(n)
+    return str(report)
+
+
+@mcp.tool()
+def calc_toric_canonical(variety_name: str) -> str:
+    """Compute canonical class for toric varieties.
+
+    CRITICAL: For complete smooth toric variety X with fan Σ:
+        K_X = -Σ_ρ D_ρ (sum over rays)
+    K is ALWAYS anti-effective (never effective) on complete toric varieties.
+
+    variety_name: One of:
+        "P1", "P2", "P3", "P4" (projective space)
+        "P1xP1" (product)
+        "F0", "F1", "F2", ... (Hirzebruch surfaces)
+        "weighted_P" (weighted projective)
+
+    Example: calc_toric_canonical("P2") → K = -3H, Fano
+    Example: calc_toric_canonical("F3") → NOT Fano (n > 2)
+    """
+    from noethersolve.intersection_theory import toric_canonical
+    report = toric_canonical(variety_name)
+    return str(report)
+
+
 # ── Information Theory ─────────────────────────────────────────────────
 
 @mcp.tool()
@@ -2398,6 +2555,1320 @@ def analyze_climate_feedback(name: str) -> str:
     except ValueError as e:
         from noethersolve.radiative_transfer import list_feedbacks
         return f"{e}\nAvailable feedbacks: {', '.join(list_feedbacks())}"
+
+
+# ── Turbulence Scaling ───────────────────────────────────────────────
+
+@mcp.tool()
+def calc_kolmogorov_45_law(
+    separation: float,
+    energy_dissipation: float,
+) -> str:
+    """Calculate third-order structure function using EXACT 4/5 law.
+
+    COMPUTES S₃(r) = ⟨(Δu)³⟩ = -(4/5)εr EXACTLY. This is the ONLY exact
+    scaling law in turbulence — derived rigorously from Navier-Stokes,
+    NOT from dimensional analysis like the -5/3 spectrum. Common LLM error:
+    confusing the exact 4/5 law with the approximate -5/3 spectrum.
+
+    separation: Scale r in the inertial range
+    energy_dissipation: Mean dissipation rate ε (m²/s³)
+
+    Example: calc_kolmogorov_45_law(0.01, 0.1)
+    → S₃ = -0.0008 (EXACT, negative = forward energy cascade)
+    """
+    from noethersolve.turbulence import kolmogorov_45_law
+    report = kolmogorov_45_law(separation=separation, energy_dissipation=energy_dissipation)
+    return str(report)
+
+
+@mcp.tool()
+def calc_energy_spectrum(
+    wavenumber: float,
+    energy_dissipation: float,
+    intermittency_model: str = "",
+) -> str:
+    """Calculate Kolmogorov energy spectrum E(k).
+
+    COMPUTES E(k) = C_K × ε^(2/3) × k^(-5/3). Unlike the 4/5 law, this is
+    APPROXIMATE (dimensional analysis only). Intermittency corrections
+    modify the exponent slightly.
+
+    wavenumber: Wavenumber k (1/m)
+    energy_dissipation: Mean dissipation rate ε (m²/s³)
+    intermittency_model: "she_leveque", "k62", or empty for none
+
+    Example: calc_energy_spectrum(100, 0.1)
+    → E(k) ≈ 0.007, exponent -5/3 (APPROXIMATE, not exact!)
+    """
+    from noethersolve.turbulence import energy_spectrum
+    model = intermittency_model if intermittency_model else None
+    report = energy_spectrum(wavenumber=wavenumber, energy_dissipation=energy_dissipation,
+                            intermittency_model=model)
+    return str(report)
+
+
+@mcp.tool()
+def calc_turbulent_scales(
+    integral_scale: float,
+    urms: float,
+    kinematic_viscosity: float,
+) -> str:
+    """Calculate turbulent length scales (Kolmogorov, Taylor, integral).
+
+    COMPUTES all three fundamental scales:
+    - Kolmogorov η = (ν³/ε)^(1/4) — smallest eddies, viscous dissipation
+    - Taylor λ — intermediate scale, velocity gradients
+    - Integral L — largest eddies, energy input
+
+    integral_scale: Largest eddy size L (m)
+    urms: RMS velocity fluctuation u' (m/s)
+    kinematic_viscosity: ν (m²/s)
+
+    Example: calc_turbulent_scales(1.0, 1.0, 1e-5)
+    → η ~ 10⁻⁴ m, λ ~ 10⁻² m, L = 1 m, Re ~ 10⁵
+    """
+    from noethersolve.turbulence import length_scales
+    report = length_scales(integral_scale=integral_scale, urms=urms,
+                          kinematic_viscosity=kinematic_viscosity)
+    return str(report)
+
+
+@mcp.tool()
+def calc_structure_exponent(
+    order: int,
+    model: str = "she_leveque",
+) -> str:
+    """Calculate structure function scaling exponent with intermittency.
+
+    COMPUTES ζ_p for S_p(r) = ⟨|Δu|^p⟩ ~ r^ζ_p. K41 predicts ζ_p = p/3.
+    Intermittency causes deviations, especially at high orders.
+    KEY: ζ₃ = 1 EXACTLY (from 4/5 law), unaffected by intermittency!
+
+    order: Moment order p (1, 2, 3, ...)
+    model: "k41", "she_leveque", "k62", or "beta_model"
+
+    Example: calc_structure_exponent(6, "she_leveque")
+    → ζ₆ = 1.78 (vs K41 prediction of 2.0 — intermittency effect)
+    """
+    from noethersolve.turbulence import structure_function_exponent
+    report = structure_function_exponent(order=order, model=model)
+    return str(report)
+
+
+@mcp.tool()
+def analyze_intermittency(model: str = "she_leveque") -> str:
+    """Analyze intermittency corrections to turbulence scaling.
+
+    RETURNS model parameters and predicted scaling exponents. Intermittency
+    refers to the burstiness of turbulent dissipation, causing deviations
+    from Kolmogorov 1941 predictions.
+
+    model: "she_leveque", "k62", or "beta_model"
+
+    Example: analyze_intermittency("she_leveque")
+    → ζ₂=0.70, ζ₃=1.00 (exact!), ζ₄=1.28, ζ₆=1.78
+    """
+    from noethersolve.turbulence import intermittency_analysis
+    report = intermittency_analysis(model=model)
+    return str(report)
+
+
+# ── Topological Invariants ────────────────────────────────────────────
+
+@mcp.tool()
+def calc_chern_number(
+    band_index: int = 1,
+    system: str = "quantum_hall",
+) -> str:
+    """Calculate the Chern number for a topological band structure.
+
+    KEY POINT: Chern numbers are EXACTLY INTEGERS — this is not an approximation!
+    They are topological invariants that cannot change without closing the band gap.
+    Each filled Landau level contributes C = 1 to the Hall conductance.
+
+    band_index: Which band to analyze (default 1)
+    system: "quantum_hall", "haldane", or "chern_insulator"
+
+    Example: calc_chern_number(system="haldane")
+    → C = 1 (EXACTLY integer, protected by gap)
+    """
+    from noethersolve.topological_invariants import chern_number
+    report = chern_number(band_index=band_index, system=system)
+    return str(report)
+
+
+@mcp.tool()
+def calc_z2_invariant(
+    nu: int,
+    dimension: int = 2,
+) -> str:
+    """Calculate the Z2 topological invariant for a time-reversal insulator.
+
+    KEY POINT: Z2 can ONLY be 0 or 1 — exactly! It classifies whether a
+    system is a trivial insulator (ν=0) or topological insulator (ν=1).
+    Protected by time-reversal symmetry (T² = -1 for spin-1/2 particles).
+
+    nu: Z2 invariant (0 = trivial, 1 = topological)
+    dimension: 2 or 3 (3D has four indices: ν₀; ν₁ν₂ν₃)
+
+    Example: calc_z2_invariant(nu=1, dimension=3)
+    → Strong TI (ν₀=1): single Dirac cone surface states, robust to disorder
+    """
+    from noethersolve.topological_invariants import z2_invariant
+    report = z2_invariant(nu=nu, dimension=dimension)
+    return str(report)
+
+
+@mcp.tool()
+def check_bulk_boundary(
+    bulk_invariant: int,
+    edge_modes: int = 0,
+    system_type: str = "chern_insulator",
+) -> str:
+    """Verify the bulk-boundary correspondence.
+
+    A fundamental theorem: the number of protected edge modes equals the
+    absolute value of the bulk topological invariant. Violation indicates
+    an error or symmetry breaking.
+
+    bulk_invariant: Chern number or Z2 invariant of the bulk
+    edge_modes: Number of observed edge modes (0 = auto-calculate from bulk)
+    system_type: "chern_insulator", "z2_insulator", or "quantum_hall"
+
+    Example: check_bulk_boundary(bulk_invariant=2, edge_modes=2)
+    → ✓ Correspondence SATISFIED: 2 bulk = 2 edge
+    """
+    from noethersolve.topological_invariants import bulk_boundary_correspondence
+    em = edge_modes if edge_modes > 0 else None
+    report = bulk_boundary_correspondence(bulk_invariant=bulk_invariant, edge_modes=em,
+                                          system_type=system_type)
+    return str(report)
+
+
+@mcp.tool()
+def calc_quantum_hall(
+    filling_factor: float,
+    is_integer: bool = True,
+) -> str:
+    """Calculate quantum Hall effect properties.
+
+    KEY POINT: Hall conductance is EXACTLY quantized to σ_xy = ν × e²/h.
+    This exactness is used to DEFINE the Ohm in the SI system (since 2019).
+    The von Klitzing constant R_K = h/e² = 25812.80745... Ω is exact.
+
+    filling_factor: Landau level filling ν (e.g., 1, 2, 1/3)
+    is_integer: True for integer QHE, False for fractional QHE
+
+    Example: calc_quantum_hall(filling_factor=1.0)
+    → σ_xy = 1.0 e²/h (EXACTLY), R_H = 25812.81 Ω
+    """
+    from noethersolve.topological_invariants import quantum_hall
+    report = quantum_hall(filling_factor=filling_factor, is_integer=is_integer)
+    return str(report)
+
+
+@mcp.tool()
+def calc_berry_phase(
+    phase_value: float,
+    symmetry: str = "",
+) -> str:
+    """Calculate and analyze Berry phase.
+
+    Berry phase can be quantized to 0 or π by certain symmetries (inversion,
+    time-reversal). Without protection, it varies continuously. Physical
+    observables depend on Berry curvature (gauge-invariant).
+
+    phase_value: Berry phase in radians
+    symmetry: Protecting symmetry ("inversion", "time_reversal", or empty)
+
+    Example: calc_berry_phase(3.14159, "inversion")
+    → φ_B = π (QUANTIZED by inversion symmetry, topologically protected)
+    """
+    from noethersolve.topological_invariants import berry_phase
+    sym = symmetry if symmetry else None
+    report = berry_phase(phase_value=phase_value, symmetry=sym)
+    return str(report)
+
+
+@mcp.tool()
+def lookup_topological_class(
+    symmetry_class: str,
+    dimension: int,
+) -> str:
+    """Look up topological classification from the periodic table.
+
+    The "periodic table" of topological phases classifies all possible
+    topological insulators/superconductors based on symmetry and dimension.
+    Returns Z (integer), Z2 (binary), 2Z (even integers), or 0 (trivial).
+
+    symmetry_class: Altland-Zirnbauer class (A, AIII, AI, BDI, D, DIII, AII, CII, C, CI)
+    dimension: Spatial dimension (1, 2, or 3)
+
+    Example: lookup_topological_class("AII", 3)
+    → Z2 invariant (3D topological insulator like Bi₂Se₃)
+    """
+    from noethersolve.topological_invariants import topological_classification
+    report = topological_classification(symmetry_class=symmetry_class, dimension=dimension)
+    return str(report)
+
+
+# ── Ergodic Theory ────────────────────────────────────────────────────
+
+@mcp.tool()
+def classify_dynamical_system(
+    name: str = "",
+    level: str = "",
+) -> str:
+    """Classify a dynamical system in the ergodic hierarchy.
+
+    KEY POINT: The hierarchy has STRICT inclusions:
+    Bernoulli ⊊ K-mixing ⊊ mixing ⊊ weak mixing ⊊ ergodic
+
+    Each level implies all levels to the right. LLMs often confuse these
+    or claim equivalence where there is none (e.g., "ergodic = mixing" is WRONG).
+
+    name: Known system name (e.g., "bernoulli_shift", "arnolds_cat", "irrational_rotation")
+    level: Or specify level directly (bernoulli, k_mixing, mixing, weak_mixing, ergodic)
+
+    Example: classify_dynamical_system(name="horocycle_flow")
+    → MIXING but NOT K-mixing (zero entropy counterexample)
+    """
+    from noethersolve.ergodic_theory import classify_system
+    report = classify_system(name=name, level=level)
+    return str(report)
+
+
+@mcp.tool()
+def compare_ergodic_levels(
+    level_1: str,
+    level_2: str,
+) -> str:
+    """Compare two levels in the ergodic hierarchy.
+
+    Determines implication relationships and provides counterexamples
+    showing that implications are strict (not equivalences).
+
+    level_1: First level (bernoulli, k_mixing, mixing, weak_mixing, ergodic)
+    level_2: Second level
+
+    Example: compare_ergodic_levels("mixing", "k_mixing")
+    → K-mixing ⟹ mixing (strict). Counterexample: horocycle flow
+    """
+    from noethersolve.ergodic_theory import compare_levels
+    report = compare_levels(level_1, level_2)
+    return str(report)
+
+
+@mcp.tool()
+def analyze_lyapunov_exponents(
+    exponents: list[float],
+) -> str:
+    """Analyze Lyapunov exponents for chaos and dimension.
+
+    COMPUTES chaos detection (λ_max > 0), Kaplan-Yorke dimension,
+    sum of positive exponents (relates to entropy via Pesin), and
+    system type (conservative/dissipative).
+
+    exponents: List of Lyapunov exponents (e.g., [0.91, 0.0, -14.57] for Lorenz)
+
+    Example: analyze_lyapunov_exponents([0.91, 0.0, -14.57])
+    → CHAOTIC (λ_max > 0), Kaplan-Yorke dim ≈ 2.06, dissipative
+    """
+    from noethersolve.ergodic_theory import lyapunov_analysis
+    report = lyapunov_analysis(exponents)
+    return str(report)
+
+
+@mcp.tool()
+def calc_dynamical_entropy(
+    ks_entropy: float,
+    lyapunov_positive_sum: float = 0.0,
+    topological_entropy: float = 0.0,
+) -> str:
+    """Analyze Kolmogorov-Sinai (metric) entropy.
+
+    COMPUTES whether Pesin formula h = Σλ⁺ is satisfied (SRB measure),
+    predictability (h > 0 means chaotic), and variational principle check.
+
+    ks_entropy: Kolmogorov-Sinai entropy (bits/iteration)
+    lyapunov_positive_sum: Sum of positive Lyapunov exponents (optional)
+    topological_entropy: Topological entropy h_top (optional)
+
+    Example: calc_dynamical_entropy(ks_entropy=0.91, lyapunov_positive_sum=0.91)
+    → Pesin satisfied (SRB measure), CHAOTIC (h > 0)
+    """
+    from noethersolve.ergodic_theory import entropy_analysis
+    lps = lyapunov_positive_sum if lyapunov_positive_sum > 0 else None
+    top = topological_entropy if topological_entropy > 0 else None
+    report = entropy_analysis(ks_entropy=ks_entropy, lyapunov_positive_sum=lps,
+                              topological_entropy=top)
+    return str(report)
+
+
+@mcp.tool()
+def calc_poincare_recurrence(
+    set_measure: float,
+    phase_space_volume: float = 1.0,
+) -> str:
+    """Calculate Poincaré recurrence time.
+
+    COMPUTES expected return time using Kac's lemma: ⟨τ⟩ = 1/μ(A).
+    Almost every point in a finite-measure preserving system returns
+    arbitrarily close to its starting point — this is guaranteed by theorem.
+
+    set_measure: Measure of the set to return to
+    phase_space_volume: Total phase space volume (default 1 for normalized)
+
+    Example: calc_poincare_recurrence(set_measure=1e-10)
+    → Expected return time ~ 10^10 iterations (may exceed age of universe!)
+    """
+    from noethersolve.ergodic_theory import poincare_recurrence
+    report = poincare_recurrence(set_measure=set_measure, phase_space_volume=phase_space_volume)
+    return str(report)
+
+
+@mcp.tool()
+def analyze_mixing_rate(
+    rate_type: str,
+    rate_value: float,
+) -> str:
+    """Analyze mixing rate (correlation decay).
+
+    COMPUTES decay characteristics. Exponential mixing (|C(t)| ~ e^(-λt))
+    implies K-system (positive entropy). Polynomial mixing (|C(t)| ~ t^(-α))
+    is slower and does not guarantee positive entropy.
+
+    rate_type: "exponential" or "polynomial"
+    rate_value: Decay rate λ (for exponential) or exponent α (for polynomial)
+
+    Example: analyze_mixing_rate("exponential", 0.5)
+    → Exponential decay, implies K-system, mixing time ~ 2 iterations
+    """
+    from noethersolve.ergodic_theory import mixing_rate
+    report = mixing_rate(rate_type=rate_type, rate_value=rate_value)
+    return str(report)
+
+
+# ── Optimization Convergence ──────────────────────────────────────────
+
+@mcp.tool()
+def analyze_gd_convergence(
+    L: float,
+    mu: float,
+    epsilon: float = 1e-6,
+) -> str:
+    """Compute EXACT convergence rate for gradient descent.
+
+    Rate is (1 - μ/L)^k = (1 - 1/κ)^k EXACTLY, not approximately.
+    "Linear convergence" means EXPONENTIAL decay — confusingly named!
+
+    L: Smoothness constant (Lipschitz gradient)
+    mu: Strong convexity constant
+    epsilon: Target accuracy (default 10⁻⁶)
+
+    Example: analyze_gd_convergence(L=100, mu=1) → κ=100, rate=0.99, ~1300 iters
+    """
+    from noethersolve.optimization_convergence import gradient_descent_rate
+    report = gradient_descent_rate(L=L, mu=mu, epsilon=epsilon)
+    return str(report)
+
+
+@mcp.tool()
+def analyze_nesterov_convergence(
+    L: float,
+    mu: float,
+    epsilon: float = 1e-6,
+) -> str:
+    """Compute EXACT convergence rate for Nesterov accelerated gradient.
+
+    Rate is (1 - √(μ/L))^k = (1 - 1/√κ)^k EXACTLY.
+    This is OPTIMAL — achieves the oracle complexity lower bound.
+
+    L: Smoothness constant
+    mu: Strong convexity constant
+    epsilon: Target accuracy (default 10⁻⁶)
+
+    Example: analyze_nesterov_convergence(L=100, mu=1) → rate=0.9, ~130 iters
+    """
+    from noethersolve.optimization_convergence import nesterov_rate
+    report = nesterov_rate(L=L, mu=mu, epsilon=epsilon)
+    return str(report)
+
+
+@mcp.tool()
+def compare_optimization_algorithms(
+    L: float,
+    mu: float,
+) -> str:
+    """Compare GD vs Nesterov convergence.
+
+    KEY INSIGHT: Nesterov is √κ times faster in iteration count.
+    At κ=1 (perfect conditioning), they are IDENTICAL.
+    Acceleration ONLY helps for ill-conditioned problems (κ > 1).
+
+    L: Smoothness constant
+    mu: Strong convexity constant
+
+    Example: compare_optimization_algorithms(L=100, mu=1)
+    → Nesterov is √100 = 10× faster
+    """
+    from noethersolve.optimization_convergence import compare_algorithms
+    report = compare_algorithms(L=L, mu=mu)
+    return str(report)
+
+
+@mcp.tool()
+def analyze_problem_conditioning(
+    L: float,
+    mu: float,
+    epsilon: float = 1e-6,
+) -> str:
+    """Analyze problem conditioning and acceleration benefit.
+
+    COMPUTES condition number κ = L/μ, classification (well/ill-conditioned),
+    iteration counts for GD vs Nesterov, and speedup factor.
+
+    L: Smoothness constant
+    mu: Strong convexity constant
+    epsilon: Target accuracy
+
+    Example: analyze_problem_conditioning(L=10000, mu=1)
+    → Ill-conditioned (κ=10⁴), Nesterov ~100× faster than GD
+    """
+    from noethersolve.optimization_convergence import analyze_conditioning
+    report = analyze_conditioning(L=L, mu=mu, epsilon=epsilon)
+    return str(report)
+
+
+@mcp.tool()
+def check_oracle_lower_bound(
+    L: float,
+    mu: float,
+) -> str:
+    """Check oracle complexity lower bound for first-order optimization.
+
+    The lower bound rate is (√κ - 1)/(√κ + 1) from Nemirovsky-Yudin (1983).
+    Nesterov (1983) ACHIEVES this bound — it's OPTIMAL.
+    GD is suboptimal by a factor of √κ.
+
+    L: Smoothness constant
+    mu: Strong convexity constant
+
+    Example: check_oracle_lower_bound(L=100, mu=1)
+    → GD suboptimal by ~10×, Nesterov achieves lower bound
+    """
+    from noethersolve.optimization_convergence import oracle_lower_bound
+    report = oracle_lower_bound(L=L, mu=mu)
+    return str(report)
+
+
+@mcp.tool()
+def calc_optimal_step_size(
+    L: float,
+    mu: float = 0.0,
+    algorithm: str = "gd",
+) -> str:
+    """Compute optimal step size for convergence.
+
+    For GD on L-smooth: η* = 1/L (or 2/(L+μ) for strongly convex).
+    Step size > 2/L causes DIVERGENCE — common error!
+
+    L: Smoothness constant
+    mu: Strong convexity constant (0 for just L-smooth)
+    algorithm: "gd" or "nesterov"
+
+    Example: calc_optimal_step_size(L=10, mu=0)
+    → η* = 0.1, diverges for η > 0.2
+    """
+    from noethersolve.optimization_convergence import optimal_step_size
+    report = optimal_step_size(L=L, mu=mu, algorithm=algorithm)
+    return str(report)
+
+
+# ── Numerical PDE ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def check_pde_cfl(
+    scheme: str,
+    cfl_number: float,
+) -> str:
+    """Check CFL condition stability for a numerical PDE scheme.
+
+    CFL (Courant-Friedrichs-Lewy) is NECESSARY but NOT SUFFICIENT for
+    explicit scheme stability. Leapfrog for diffusion is ALWAYS UNSTABLE.
+
+    scheme: Scheme name (upwind, ftcs, lax_wendroff, crank_nicolson, etc.)
+    cfl_number: Your computed CFL number (c×Δt/Δx for wave, D×Δt/Δx² for diffusion)
+
+    Example: check_pde_cfl("ftcs", 0.6) → UNSTABLE (CFL > 0.5 limit)
+    """
+    from noethersolve.numerical_pde import check_cfl
+    report = check_cfl(scheme=scheme, cfl_number=cfl_number)
+    return str(report)
+
+
+@mcp.tool()
+def analyze_pde_scheme(
+    scheme: str,
+) -> str:
+    """Get detailed information about a numerical PDE scheme.
+
+    COMPUTES order of accuracy (space and time), stability conditions,
+    whether explicit/implicit, CFL limit, and common pitfalls.
+
+    scheme: Scheme name (upwind, ftcs, lax_wendroff, crank_nicolson,
+            leapfrog_hyperbolic, leapfrog_parabolic, btcs, adi, etc.)
+
+    Example: analyze_pde_scheme("crank_nicolson")
+    → O(Δx², Δt²), implicit, unconditionally stable, gold standard for diffusion
+    """
+    from noethersolve.numerical_pde import get_scheme_info
+    report = get_scheme_info(scheme=scheme)
+    return str(report)
+
+
+@mcp.tool()
+def von_neumann_stability(
+    scheme: str,
+    cfl: float,
+    wavenumber_dx: float = 1.57,
+) -> str:
+    """Perform Von Neumann stability analysis.
+
+    COMPUTES amplification factor G for Fourier modes. Stability requires
+    |G| ≤ 1 for all wavenumbers. |G| < 1 means dissipative (damps).
+
+    scheme: Scheme name
+    cfl: CFL number
+    wavenumber_dx: k×Δx value to check (default π/2 ≈ 1.57)
+
+    Example: von_neumann_stability("leapfrog_hyperbolic", 0.5)
+    → |G| = 1 exactly, non-dissipative, stable
+    """
+    from noethersolve.numerical_pde import von_neumann_analysis
+    report = von_neumann_analysis(scheme=scheme, cfl=cfl, wavenumber_dx=wavenumber_dx)
+    return str(report)
+
+
+@mcp.tool()
+def check_lax_theorem(
+    is_consistent: bool,
+    consistency_order: int,
+    is_stable: bool,
+    is_linear: bool = True,
+) -> str:
+    """Check Lax equivalence theorem conditions.
+
+    THEOREM: For LINEAR problems, consistency + stability ⟺ convergence.
+    CRITICAL: This theorem does NOT apply to nonlinear PDEs!
+
+    is_consistent: Does scheme converge to PDE as Δx,Δt → 0?
+    consistency_order: Order of truncation error
+    is_stable: Is scheme stable?
+    is_linear: Is the PDE linear? (CRITICAL for theorem applicability)
+
+    Example: check_lax_theorem(True, 2, True, is_linear=True)
+    → CONVERGENT by Lax equivalence
+    """
+    from noethersolve.numerical_pde import check_lax_equivalence
+    report = check_lax_equivalence(
+        is_consistent=is_consistent,
+        consistency_order=consistency_order,
+        is_stable=is_stable,
+        is_linear=is_linear,
+    )
+    return str(report)
+
+
+@mcp.tool()
+def calc_max_timestep(
+    scheme: str,
+    c_or_D: float,
+    dx: float,
+    pde_type: str = "hyperbolic",
+) -> str:
+    """Calculate maximum stable timestep for a PDE scheme.
+
+    COMPUTES Δt_max from CFL limit. Returns ∞ for unconditionally stable schemes.
+
+    scheme: Scheme name
+    c_or_D: Wave speed (hyperbolic) or diffusion coefficient (parabolic)
+    dx: Grid spacing
+    pde_type: "hyperbolic" or "parabolic"
+
+    Example: calc_max_timestep("ftcs", D=0.1, dx=0.01, pde_type="parabolic")
+    → Δt_max = 0.0005 (CFL = D×Δt/Δx² ≤ 0.5)
+    """
+    from noethersolve.numerical_pde import max_timestep
+    dt = max_timestep(scheme=scheme, c_or_D=c_or_D, dx=dx, pde_type=pde_type)
+    if dt == float('inf'):
+        return f"Scheme '{scheme}' is unconditionally stable — no timestep restriction."
+    elif dt == 0.0:
+        return f"Scheme '{scheme}' is UNCONDITIONALLY UNSTABLE for {pde_type} PDEs. Use a different scheme!"
+    else:
+        return f"Maximum stable Δt = {dt:.6g} (with 0.9 safety factor)\nCFL limit for {scheme}: use Δt ≤ {dt/0.9:.6g}"
+
+
+@mcp.tool()
+def analyze_pde_accuracy(
+    scheme: str,
+) -> str:
+    """Analyze truncation error and accuracy of a PDE scheme.
+
+    COMPUTES order of accuracy in space and time, leading error type
+    (dissipative vs dispersive), and Richardson extrapolation applicability.
+
+    CRITICAL: Order of accuracy ≠ stability. High-order schemes can be unstable!
+
+    scheme: Scheme name
+
+    Example: analyze_pde_accuracy("lax_wendroff")
+    → O(Δx², Δt²), dispersive errors (oscillations near shocks)
+    """
+    from noethersolve.numerical_pde import analyze_accuracy
+    report = analyze_accuracy(scheme=scheme)
+    return str(report)
+
+
+# ── MHD Conservation ──────────────────────────────────────────────────
+
+@mcp.tool()
+def check_mhd_helicity(
+    helicity_type: str = "magnetic",
+    resistivity: float = 0.0,
+    viscosity: float = 0.0,
+    compressible: bool = False,
+) -> str:
+    """Check magnetic or cross helicity conservation in MHD.
+
+    CRITICAL FACTS:
+    - Magnetic helicity is EXACTLY conserved in ideal MHD (η=0)
+    - Magnetic helicity DECAYS in resistive MHD: dH/dt = -2η∫J·B dV
+    - Cross helicity requires BOTH η=0 AND incompressibility
+    - Hall MHD conserves helicity but transfers between scales
+
+    helicity_type: "magnetic" or "cross"
+    resistivity: Magnetic diffusivity η (m²/s), 0 for ideal
+    viscosity: Kinematic viscosity ν (for cross helicity)
+    compressible: Whether flow is compressible (for cross helicity)
+
+    Example: check_mhd_helicity("magnetic", resistivity=0) → CONSERVED
+    Example: check_mhd_helicity("cross", resistivity=0, compressible=True) → NOT CONSERVED
+    """
+    if helicity_type.lower() == "magnetic":
+        from noethersolve.mhd_conservation import check_magnetic_helicity
+        report = check_magnetic_helicity(resistivity=resistivity)
+    else:
+        from noethersolve.mhd_conservation import check_cross_helicity
+        report = check_cross_helicity(
+            resistivity=resistivity, viscosity=viscosity, compressible=compressible
+        )
+    return str(report)
+
+
+@mcp.tool()
+def check_frozen_flux_theorem(
+    resistivity: float = 0.0,
+    length_scale: float = 1.0,
+    velocity: float = 1.0,
+) -> str:
+    """Check validity of frozen-in flux theorem.
+
+    In ideal MHD, field lines are "frozen" into plasma and move with it.
+    CRITICAL: Reconnection REQUIRES breaking frozen flux (needs η > 0)!
+
+    resistivity: Magnetic diffusivity η (m²/s)
+    length_scale: Characteristic length L (m)
+    velocity: Characteristic velocity v (m/s)
+
+    Returns magnetic Reynolds number Rm = vL/η and frozen flux status.
+
+    Example: check_frozen_flux_theorem(resistivity=0) → Flux FROZEN, no reconnection
+    Example: check_frozen_flux_theorem(resistivity=1e-4, length_scale=1, velocity=100)
+    → Rm=1e6, approximately frozen, reconnection possible at small scales
+    """
+    from noethersolve.mhd_conservation import check_frozen_flux
+    report = check_frozen_flux(
+        resistivity=resistivity, length_scale=length_scale, velocity=velocity
+    )
+    return str(report)
+
+
+@mcp.tool()
+def check_mhd_div_b(
+    max_div_B: float,
+    B_scale: float = 1e-3,
+    dx: float = 0.01,
+) -> str:
+    """Check ∇·B = 0 constraint satisfaction.
+
+    Maxwell requires ∇·B = 0 (no monopoles). Numerical MHD must PRESERVE
+    this — it is NOT automatic! Monopole errors cause spurious forces.
+
+    max_div_B: Maximum |∇·B| in your simulation domain
+    B_scale: Characteristic magnetic field strength (T)
+    dx: Grid spacing (m)
+
+    Suggests cleaning method if constraint violated.
+
+    Example: check_mhd_div_b(1e-10, B_scale=1e-3, dx=0.01) → SATISFIED
+    """
+    from noethersolve.mhd_conservation import check_div_B
+    report = check_div_B(max_div_B=max_div_B, B_scale=B_scale, dx=dx)
+    return str(report)
+
+
+@mcp.tool()
+def check_mhd_conservation(
+    invariant: str,
+    resistivity: float = 0.0,
+    viscosity: float = 0.0,
+    compressible: bool = False,
+) -> str:
+    """Check conservation of any MHD invariant.
+
+    INVARIANTS:
+    - mass: ALWAYS conserved (continuity equation)
+    - momentum: Conserved without external forces
+    - magnetic_flux: Conserved in ideal MHD (frozen flux)
+    - magnetic_helicity: Conserved in ideal MHD, decays with η
+    - cross_helicity: Conserved in ideal INCOMPRESSIBLE MHD
+    - energy: Conserved in ideal MHD, Ohmic/viscous dissipation with η,ν
+
+    invariant: Which invariant to check
+    resistivity: Magnetic diffusivity η
+    viscosity: Kinematic viscosity ν
+    compressible: Whether flow is compressible
+
+    Example: check_mhd_conservation("magnetic_helicity", resistivity=1e-4)
+    → NOT CONSERVED, breaking mechanism: resistive dissipation
+    """
+    from noethersolve.mhd_conservation import check_mhd_invariant
+    report = check_mhd_invariant(
+        invariant=invariant,
+        resistivity=resistivity,
+        viscosity=viscosity,
+        compressible=compressible,
+    )
+    return str(report)
+
+
+# ── GR Constraints (ADM Formalism) ────────────────────────────────────
+
+@mcp.tool()
+def check_gr_hamiltonian_constraint(
+    value: float = 0.0,
+    tolerance: float = 1e-10,
+) -> str:
+    """Check the Hamiltonian constraint in General Relativity.
+
+    The Hamiltonian constraint H = 0 must be satisfied on each spatial
+    hypersurface. In ADM formalism: R + K² - KᵢⱼKⁱʲ - 16πρ = 0
+
+    PHYSICAL MEANING: Energy constraint — GR has no local gravitational
+    energy density. The Hamiltonian constraint encodes this.
+
+    value: Computed constraint value (should be ~0 if satisfied)
+    tolerance: Numerical tolerance for "satisfied"
+
+    Example: check_gr_hamiltonian_constraint(value=1e-12) → SATISFIED
+    Example: check_gr_hamiltonian_constraint(value=1e-5) → VIOLATED
+    """
+    from noethersolve.gr_constraints import check_hamiltonian_constraint
+    report = check_hamiltonian_constraint(value=value, tolerance=tolerance)
+    return str(report)
+
+
+@mcp.tool()
+def check_gr_momentum_constraint(
+    value: float = 0.0,
+    tolerance: float = 1e-10,
+    component: str = "",
+) -> str:
+    """Check the momentum constraint in General Relativity.
+
+    The momentum constraint Mᵢ = 0 must be satisfied. In ADM formalism:
+    DⱼKʲᵢ - DᵢK - 8πJᵢ = 0
+
+    PHYSICAL MEANING: Momentum conservation — there are 3 momentum
+    constraints (one per spatial direction).
+
+    value: Computed constraint value (should be ~0 if satisfied)
+    tolerance: Numerical tolerance for "satisfied"
+    component: Optional label ("x", "y", "z") for the constraint component
+
+    Example: check_gr_momentum_constraint(value=1e-12, component="x") → SATISFIED
+    """
+    from noethersolve.gr_constraints import check_momentum_constraint
+    report = check_momentum_constraint(value=value, tolerance=tolerance, component=component)
+    return str(report)
+
+
+@mcp.tool()
+def check_gr_mass(
+    mass_type: str = "ADM",
+    is_asymptotically_flat: bool = True,
+    is_isolated: bool = True,
+    is_stationary: bool = False,
+    has_radiation: bool = False,
+    mass_value: float = 0.0,
+) -> str:
+    """Check applicability and properties of GR mass definitions.
+
+    CRITICAL FACTS LLMs GET WRONG:
+    - ADM mass: Total mass at spatial infinity. CONSTANT in time (does NOT
+      decrease with gravitational radiation).
+    - Bondi mass: Mass at null infinity. DECREASES with gravitational
+      radiation via Bondi mass-loss formula.
+    - Komar mass: Only defined for STATIONARY spacetimes with timelike
+      Killing vector.
+
+    mass_type: "ADM", "Bondi", or "Komar"
+    is_asymptotically_flat: Required for ADM and Bondi
+    is_isolated: Required for ADM
+    is_stationary: Required for Komar (must have timelike Killing vector)
+    has_radiation: If True, Bondi mass decreases
+    mass_value: Optional mass value to record
+
+    Example: check_gr_mass("Bondi", has_radiation=True)
+    → Applicable, DECREASES with radiation
+    """
+    from noethersolve.gr_constraints import check_adm_mass, check_bondi_mass, check_komar_mass
+
+    mass_type_upper = mass_type.upper()
+    if mass_type_upper == "ADM":
+        report = check_adm_mass(
+            is_asymptotically_flat=is_asymptotically_flat,
+            is_isolated=is_isolated,
+            mass_value=mass_value if mass_value != 0 else None,
+        )
+    elif mass_type_upper == "BONDI":
+        report = check_bondi_mass(
+            is_asymptotically_flat=is_asymptotically_flat,
+            has_null_infinity=True,
+            has_radiation=has_radiation,
+            mass_value=mass_value if mass_value != 0 else None,
+        )
+    elif mass_type_upper == "KOMAR":
+        report = check_komar_mass(
+            is_stationary=is_stationary,
+            has_killing_vector=is_stationary,
+            killing_type="timelike" if is_stationary else "none",
+            mass_value=mass_value if mass_value != 0 else None,
+        )
+    else:
+        return f"Unknown mass type '{mass_type}'. Available: ADM, Bondi, Komar"
+    return str(report)
+
+
+@mcp.tool()
+def compare_gr_mass_definitions(
+    spacetime_type: str = "schwarzschild",
+    has_radiation: bool = False,
+) -> str:
+    """Compare all three mass definitions for a given spacetime.
+
+    CRITICAL: For stationary spacetimes (Schwarzschild, Kerr), all three
+    masses agree. For dynamical spacetimes with radiation, ADM ≠ Bondi!
+
+    spacetime_type: One of:
+      - "schwarzschild", "kerr", "reissner_nordstrom" (stationary, all agree)
+      - "binary_merger", "bbh" (dynamical, Komar N/A, Bondi decreases)
+      - "flrw" (cosmological, neither ADM nor Bondi applicable)
+
+    has_radiation: Whether gravitational waves are present
+
+    Example: compare_gr_mass_definitions("schwarzschild") → All 3 agree
+    Example: compare_gr_mass_definitions("bbh", has_radiation=True)
+    → ADM > Bondi (Bondi decreases with radiation)
+    """
+    from noethersolve.gr_constraints import compare_mass_definitions
+    report = compare_mass_definitions(spacetime_type=spacetime_type, has_radiation=has_radiation)
+    return str(report)
+
+
+# ── Seismic Waves ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def calc_seismic_velocity(
+    K: float,
+    G: float,
+    rho: float,
+) -> str:
+    """Calculate P-wave and S-wave velocities from elastic moduli.
+
+    CRITICAL FORMULAS (LLMs often get these wrong):
+    - Vp = sqrt((K + 4G/3) / rho)  [P-wave, compressional]
+    - Vs = sqrt(G / rho)           [S-wave, shear]
+
+    Common errors:
+    - Forgetting the 4/3 factor in Vp
+    - Confusing K (bulk) with E (Young's)
+
+    K: Bulk modulus (Pa or GPa)
+    G: Shear modulus (Pa or GPa - same units as K)
+    rho: Density (kg/m³ or g/cm³ - consistent with moduli)
+
+    Example: calc_seismic_velocity(50e9, 30e9, 2700) for granite
+    → Vp ≈ 5900 m/s, Vs ≈ 3300 m/s
+    """
+    from noethersolve.seismic_waves import calc_seismic_velocity as _calc
+    report = _calc(K, G, rho)
+    return str(report)
+
+
+@mcp.tool()
+def calc_poisson_from_velocities(
+    Vp: float,
+    Vs: float,
+) -> str:
+    """Calculate Poisson's ratio from measured P and S wave velocities.
+
+    CRITICAL FORMULA:
+    nu = (Vp² - 2Vs²) / (2(Vp² - Vs²))
+
+    Common Vp/Vs ratios:
+    - √2 ≈ 1.414: nu = 0.0 (unusual)
+    - √3 ≈ 1.732: nu = 0.25 (Poisson solid, common reference)
+    - 2.0: nu = 0.333
+    - >>2: nu → 0.5 (liquids, Vs → 0)
+
+    Thermodynamic bounds: -1 < nu < 0.5
+    Most rocks: 0.05 < nu < 0.45
+
+    Vp: P-wave velocity (any units)
+    Vs: S-wave velocity (same units, must be < Vp)
+
+    Example: calc_poisson_from_velocities(6000, 3464) → nu ≈ 0.25
+    """
+    from noethersolve.seismic_waves import poisson_from_velocities
+    report = poisson_from_velocities(Vp, Vs)
+    return str(report)
+
+
+@mcp.tool()
+def convert_elastic_moduli(
+    K: float = 0,
+    G: float = 0,
+    E: float = 0,
+    nu: float = -999,
+    lam: float = 0,
+) -> str:
+    """Convert between any two elastic moduli to get all five.
+
+    Provide exactly two of: K, G, E, nu, lambda (lam)
+    Set unused parameters to 0 (except nu, use -999).
+
+    The five moduli:
+    - K: Bulk modulus (uniform compression)
+    - G (mu): Shear modulus (shape change)
+    - E: Young's modulus (tensile stiffness)
+    - nu: Poisson's ratio (lateral/axial strain ratio)
+    - lambda: Lame's first parameter
+    - M: P-wave modulus (computed: K + 4G/3)
+
+    Key relationships:
+    - E = 9KG / (3K + G)
+    - nu = (3K - 2G) / (6K + 2G)
+    - lambda = K - 2G/3
+
+    Example: convert_elastic_moduli(K=50e9, G=30e9)
+    → E, nu, lambda, M all computed
+    """
+    from noethersolve.seismic_waves import convert_elastic_moduli as _convert
+    # Build kwargs with only provided values
+    kwargs = {}
+    if K != 0:
+        kwargs['K'] = K
+    if G != 0:
+        kwargs['G'] = G
+    if E != 0:
+        kwargs['E'] = E
+    if nu != -999:
+        kwargs['nu'] = nu
+    if lam != 0:
+        kwargs['lam'] = lam
+    try:
+        report = _convert(**kwargs)
+        return str(report)
+    except ValueError as e:
+        return f"Error: {e}"
+
+
+@mcp.tool()
+def calc_reflection_coefficient(
+    rho1: float,
+    Vp1: float,
+    rho2: float,
+    Vp2: float,
+) -> str:
+    """Calculate seismic reflection and transmission coefficients at normal incidence.
+
+    For P-waves at normal incidence:
+    - R = (Z₂ - Z₁) / (Z₂ + Z₁)  where Z = ρ × Vp
+    - T = 2Z₁ / (Z₂ + Z₁)
+
+    Sign convention:
+    - R > 0: Polarity preserved (Z₂ > Z₁, "hard" boundary)
+    - R < 0: Polarity reversed (Z₂ < Z₁, "soft" boundary)
+
+    Energy conservation: R² + (Z₂/Z₁)T² = 1
+
+    rho1, Vp1: Density and P-velocity of layer 1 (incident)
+    rho2, Vp2: Density and P-velocity of layer 2 (transmitted)
+
+    Example: calc_reflection_coefficient(2500, 4000, 2800, 5000)
+    → R = 0.27, polarity preserved (harder layer below)
+    """
+    from noethersolve.seismic_waves import calc_reflection_coefficient as _calc
+    report = _calc(rho1, Vp1, rho2, Vp2)
+    return str(report)
+
+
+@mcp.tool()
+def calc_critical_angle(
+    V1: float,
+    V2: float,
+) -> str:
+    """Calculate critical angle for total internal reflection.
+
+    sin(θc) = V₁ / V₂ (requires V₂ > V₁)
+
+    At angles >= critical angle, no transmitted wave — all energy reflects.
+
+    V1: Velocity in layer 1 (incident medium)
+    V2: Velocity in layer 2 (must be > V1)
+
+    Example: calc_critical_angle(3000, 6000) → θc = 30°
+    """
+    from noethersolve.seismic_waves import critical_angle
+    try:
+        theta_c = critical_angle(V1, V2)
+        return f"Critical angle: {theta_c:.2f}°\nsin(θc) = {V1/V2:.4f}"
+    except ValueError as e:
+        return f"Error: {e}"
+
+
+@mcp.tool()
+def calc_snells_law(
+    theta1_deg: float,
+    V1: float,
+    V2: float,
+) -> str:
+    """Apply Snell's law to find refracted angle.
+
+    sin(θ₁)/V₁ = sin(θ₂)/V₂
+
+    theta1_deg: Incident angle in degrees (0-90)
+    V1: Velocity in medium 1
+    V2: Velocity in medium 2
+
+    Returns refracted angle. If beyond critical angle, indicates total reflection.
+
+    Example: calc_snells_law(30, 3000, 5000)
+    → θ₂ = 56.4° (ray bends away from normal in faster medium)
+    """
+    from noethersolve.seismic_waves import snells_law
+    theta2, transmitted = snells_law(theta1_deg, V1, V2)
+    if transmitted:
+        return f"Incident angle: {theta1_deg:.1f}°\nRefracted angle: {theta2:.2f}°\nTransmitted: Yes"
+    else:
+        return f"Incident angle: {theta1_deg:.1f}°\nBeyond critical angle: TOTAL INTERNAL REFLECTION\nTransmitted: No"
+
+
+# ── Plasma Adiabatic Invariants ───────────────────────────────────────
+
+@mcp.tool()
+def calc_magnetic_moment(
+    v_perp: float,
+    B: float,
+    mass_kg: float = 9.109e-31,
+    charge_C: float = 1.602e-19,
+    field_timescale: float = 0,
+) -> str:
+    """Calculate the first adiabatic invariant μ = m*v⊥²/(2*B).
+
+    CRITICAL: μ is conserved when field changes slowly vs cyclotron period.
+    Breaking condition: τ_field ~ τ_cyclotron → μ breaks
+
+    The magnetic moment is the MOST ROBUST adiabatic invariant.
+
+    v_perp: Perpendicular velocity (m/s)
+    B: Magnetic field strength (Tesla)
+    mass_kg: Particle mass (kg, default: electron 9.109e-31)
+    charge_C: Particle charge magnitude (C, default: 1.602e-19)
+    field_timescale: Timescale of field variation (s, 0 = assume slow)
+
+    Example: calc_magnetic_moment(1e7, 1e-5) for 1e7 m/s electron in Earth field
+    → μ ≈ 4.6e-16 J/T, cyclotron period ~3.6 μs
+    """
+    from noethersolve.plasma_adiabatic import calc_magnetic_moment as _calc
+    ts = field_timescale if field_timescale > 0 else None
+    report = _calc(v_perp, B, mass_kg, charge_C, field_timescale=ts)
+    return str(report)
+
+
+@mcp.tool()
+def calc_bounce_invariant(
+    v_parallel: float,
+    bounce_length: float,
+    B_min: float,
+    B_max: float,
+    field_timescale: float = 0,
+) -> str:
+    """Calculate the second adiabatic invariant J = ∮ v∥ ds.
+
+    CRITICAL: J is conserved when field changes slowly vs bounce period.
+    Breaking condition: τ_field ~ τ_bounce → J breaks (but μ may survive)
+
+    Also computes:
+    - Mirror ratio R = B_max/B_min
+    - Loss cone angle (particles with smaller pitch angle escape)
+    - Bounce period
+
+    v_parallel: Parallel velocity at B_min (m/s)
+    bounce_length: Distance between mirror points (m)
+    B_min: Minimum field at trap center (T)
+    B_max: Maximum field at mirror points (T)
+    field_timescale: Timescale of field variation (s, 0 = assume slow)
+
+    Example: calc_bounce_invariant(1e6, 1e7, 1e-5, 5e-5)
+    → J, mirror ratio R=5, loss cone 26.6°
+    """
+    from noethersolve.plasma_adiabatic import calc_bounce_invariant as _calc
+    ts = field_timescale if field_timescale > 0 else None
+    report = _calc(v_parallel, bounce_length, B_min, B_max, field_timescale=ts)
+    return str(report)
+
+
+@mcp.tool()
+def calc_flux_invariant(
+    drift_radius: float,
+    B_average: float,
+    energy_eV: float,
+    field_timescale: float = 0,
+) -> str:
+    """Calculate the third adiabatic invariant Φ = ∮ A·dl.
+
+    CRITICAL: Φ is the MOST FRAGILE invariant — breaks when field changes
+    on drift orbit timescale. Typical breaking: magnetic storms, substorms.
+
+    Hierarchy: ω_cyclotron >> ω_bounce >> ω_drift
+    So μ is most robust, Φ is most fragile.
+
+    drift_radius: Average radius of drift orbit (m)
+    B_average: Average magnetic field over drift orbit (T)
+    energy_eV: Particle kinetic energy (eV)
+    field_timescale: Timescale of field variation (s, 0 = assume slow)
+
+    Example: calc_flux_invariant(6e7, 1e-5, 1e6) for 1 MeV particle
+    → Φ ≈ 0.11 Wb, drift period ~hours
+    """
+    from noethersolve.plasma_adiabatic import calc_flux_invariant as _calc
+    ts = field_timescale if field_timescale > 0 else None
+    report = _calc(drift_radius, B_average, energy_eV, field_timescale=ts)
+    return str(report)
+
+
+@mcp.tool()
+def check_adiabatic_hierarchy(
+    B: float,
+    v_total: float,
+    pitch_angle_deg: float,
+    bounce_length: float,
+    drift_radius: float,
+    field_timescale: float = 0,
+) -> str:
+    """Check all three adiabatic invariants and their hierarchy.
+
+    CRITICAL HIERARCHY (LLMs often get this wrong):
+    ω_cyclotron >> ω_bounce >> ω_drift
+    τ_cyclotron << τ_bounce << τ_drift
+
+    This means: μ is most robust, Φ is most fragile.
+
+    Common regimes:
+    - All conserved: truly adiabatic (slow changes)
+    - μ, J conserved, Φ broken: geomagnetic storms, substorms
+    - Only μ conserved: wave-particle resonance, reconnection
+    - μ broken: strong turbulence, shock acceleration
+
+    B: Magnetic field at reference point (T)
+    v_total: Total particle velocity (m/s)
+    pitch_angle_deg: Pitch angle in degrees (0-90)
+    bounce_length: Distance between mirror points (m)
+    drift_radius: Average drift orbit radius (m)
+    field_timescale: Timescale of field variation (s, 0 = check hierarchy only)
+
+    Example: check_adiabatic_hierarchy(1e-5, 1e7, 45, 1e7, 6e7)
+    """
+    from noethersolve.plasma_adiabatic import check_adiabatic_hierarchy as _check
+    ts = field_timescale if field_timescale > 0 else None
+    report = _check(B, v_total, pitch_angle_deg, bounce_length, drift_radius, field_timescale=ts)
+    return str(report)
+
+
+@mcp.tool()
+def calc_loss_cone(
+    B_min: float,
+    B_max: float,
+) -> str:
+    """Calculate the loss cone angle for a magnetic mirror.
+
+    Particles with pitch angle α < α_loss escape the trap.
+
+    sin²(α_loss) = B_min / B_max
+
+    B_min: Minimum field at trap center (T)
+    B_max: Maximum field at mirror points (T)
+
+    Example: calc_loss_cone(3e-5, 6e-5) for Earth-like mirror
+    → Loss cone = 45° (R = 2)
+    """
+    from noethersolve.plasma_adiabatic import loss_cone_angle
+    alpha = loss_cone_angle(B_min, B_max)
+    R = B_max / B_min
+    return f"Loss cone angle: {alpha:.2f}°\nMirror ratio R = B_max/B_min = {R:.2f}\nParticles with pitch angle < {alpha:.1f}° escape the trap"
+
+
+@mcp.tool()
+def calc_cyclotron_params(
+    B: float,
+    v_perp: float,
+    particle: str = "electron",
+) -> str:
+    """Calculate cyclotron frequency and Larmor radius.
+
+    ω_c = |q|B/m (cyclotron frequency)
+    r_L = m*v⊥/(|q|B) = v⊥/ω_c (Larmor/gyro radius)
+
+    B: Magnetic field (T)
+    v_perp: Perpendicular velocity (m/s)
+    particle: "electron", "proton", "alpha", "O+" (default: electron)
+
+    Example: calc_cyclotron_params(1e-5, 1e6, "proton")
+    → ω_c ≈ 960 rad/s, r_L ≈ 1042 m
+    """
+    from noethersolve.plasma_adiabatic import (
+        cyclotron_frequency, larmor_radius, get_particle_mass, ELECTRON_CHARGE
+    )
+    import math
+    mass = get_particle_mass(particle)
+    omega_c = cyclotron_frequency(B, mass, ELECTRON_CHARGE)
+    r_L = larmor_radius(v_perp, B, mass, ELECTRON_CHARGE)
+    tau_c = 2 * math.pi / omega_c
+
+    lines = [
+        f"Particle: {particle}",
+        f"Magnetic field: {B:.4e} T",
+        f"Perpendicular velocity: {v_perp:.4e} m/s",
+        "",
+        f"Cyclotron frequency: {omega_c:.4e} rad/s",
+        f"Cyclotron period: {tau_c:.4e} s",
+        f"Larmor radius: {r_L:.4e} m",
+    ]
+    return "\n".join(lines)
 
 
 # ── Entry Point ───────────────────────────────────────────────────────

@@ -161,13 +161,24 @@ novel (in abstract), groundbreaking, cutting-edge, state-of-the-art (unless comp
 
 - [ ] Title is specific and under 15 words
 - [ ] Author list and affiliations correct
-- [ ] Acknowledgments section (compute resources, funding, data sources)
+- [ ] Acknowledgments section includes standard AI disclosure (see template below)
 - [ ] All references formatted consistently
 - [ ] Supplementary material organized (if any)
 - [ ] Page count within venue limits
 - [ ] Appendix for proofs/derivations that break flow
 - [ ] Read the full paper one more time, start to finish
 - [ ] Have the paper "reviewed" (re-read after 24h gap if possible)
+
+**Standard acknowledgment template (include in every paper):**
+```
+The author acknowledges the assistance of Claude (Anthropic) in developing
+the NoetherSolve framework, running numerical integrations, optimizing
+invariants via L-BFGS-B, and assisting with manuscript preparation and
+LaTeX formatting. All scientific content, derivations, interpretations,
+and final claims are the sole responsibility of the human author. The full
+open-source code and validation scripts are available at
+https://github.com/SolomonB14D3/NoetherSolve.
+```
 
 **Output:** Final `paper/{paper_id}/final.md`.
 
@@ -263,10 +274,10 @@ curl -X POST "https://zenodo.org/api/deposit/depositions/{id}/actions/publish" \
 
 | ID | Title | S0 | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | DOI |
 |----|-------|----|----|----|----|----|----|----|----|----|----|-----|
-| D1 | Q_f Conservation Laws | :white_check_mark: | | | | | | | | | | |
-| D2 | Z₃ Phase Cancellation | :white_check_mark: | | | | | | | | | | |
-| D3 | Where LLMs Are Wrong | :white_check_mark: | | | | | | | | | | |
-| D4 | Orthogonal Adapter Routing | :white_check_mark: | | | | | | | | | | |
+| D1 | Q_f Conservation Laws | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19055338 |
+| D2 | Z₃ Phase Cancellation | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19055580 |
+| D3 | Where LLMs Are Wrong | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19055582 |
+| D4 | Orthogonal Adapter Routing | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19055588 |
 
 ---
 
