@@ -235,8 +235,10 @@ so they never compete for the same parameters.
 | Holographic QInfo | 12 | 10/12 | **12/12** | Orthogonal adapters |
 | Elliptic Curves | 12 | 8/12 | **12/12** | Main adapter 8/12 + 4 orthogonal (invariants, group_structure, torsion, supersingular) |
 | Intersection Theory | 12 | 0/12 | **12/12** | Main adapter 8/12 + 3 orthogonal (canonical cluster). Deepest initial gap: -27.6 |
+| Drug Interactions | 12 | — | — | Module + facts built, oracle run pending |
+| Information Theory | 12 | — | — | Module + facts built, oracle run pending |
 
-**All 1038 facts flipped across all 69 domains (100%).**
+**All 1038 facts flipped across all 69 domains (100%).** (2 new domains awaiting oracle run.)
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:

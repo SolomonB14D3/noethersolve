@@ -1,0 +1,78 @@
+{
+  "description": "Information theory exact formulas — common LLM confusion points",
+  "domain": "information_theory",
+  "facts": [
+    {
+      "id": "info01",
+      "context": "The capacity of a Binary Symmetric Channel with crossover probability p is:",
+      "truth": "C = 1 - H(p), where H is binary entropy",
+      "distractors": ["C = 1 - p", "C = H(p)", "C = p × log(1/p)"]
+    },
+    {
+      "id": "info02",
+      "context": "The capacity of an AWGN channel with bandwidth B and SNR ratio is:",
+      "truth": "C = B × log₂(1 + SNR) — Shannon's exact formula",
+      "distractors": ["C = B × SNR", "C = B × log₂(SNR)", "C ≈ B × SNR for low SNR"]
+    },
+    {
+      "id": "info03",
+      "context": "The capacity of a Binary Erasure Channel with erasure probability ε is:",
+      "truth": "C = 1 - ε (exactly linear, simpler than BSC)",
+      "distractors": ["C = 1 - H(ε)", "C = ε × (1 - ε)", "C = -ε × log(ε)"]
+    },
+    {
+      "id": "info04",
+      "context": "The capacity-achieving input distribution for the BSC is:",
+      "truth": "Uniform: P(X=0) = P(X=1) = 0.5",
+      "distractors": ["Depends on p", "Biased toward more reliable bit", "Gaussian"]
+    },
+    {
+      "id": "info05",
+      "context": "The capacity-achieving input distribution for the AWGN channel is:",
+      "truth": "Gaussian: X ~ N(0, P) where P is power constraint",
+      "distractors": ["Uniform", "Binary ±√P", "Depends on SNR"]
+    },
+    {
+      "id": "info06",
+      "context": "The rate-distortion function for a Gaussian source with MSE is:",
+      "truth": "R(D) = (1/2) × log₂(σ²/D) for D ≤ σ²",
+      "distractors": ["R(D) = log₂(σ/D)", "R(D) = σ²/D", "R(D) = 1 - D/σ²"]
+    },
+    {
+      "id": "info07",
+      "context": "The 2-user MAC capacity region shape is:",
+      "truth": "A PENTAGON bounded by R₁ ≤ I(X₁;Y|X₂), R₂ ≤ I(X₂;Y|X₁), R₁+R₂ ≤ I(X₁,X₂;Y)",
+      "distractors": ["A rectangle", "A triangle", "A circle"]
+    },
+    {
+      "id": "info08",
+      "context": "Data processing inequality states that for X → Y → Z:",
+      "truth": "I(X; Z) ≤ I(X; Y) — processing cannot increase information",
+      "distractors": ["I(X; Z) ≥ I(X; Y)", "I(X; Z) = I(X; Y)", "I(X; Z) = I(Y; Z)"]
+    },
+    {
+      "id": "info09",
+      "context": "The source coding theorem says the minimum average code length L satisfies:",
+      "truth": "L ≥ H(X) with equality achievable in the limit",
+      "distractors": ["L ≥ log₂|X|", "L = H(X) exactly for finite n", "L ≥ 1 always"]
+    },
+    {
+      "id": "info10",
+      "context": "For a Z-channel (0→0 always, 1→0 with prob p), the capacity-achieving input is:",
+      "truth": "NOT uniform — biased toward 0 (the reliable input)",
+      "distractors": ["Uniform", "All 1s", "Biased toward 1"]
+    },
+    {
+      "id": "info11",
+      "context": "The typical set A_ε^n for an i.i.d. source has size approximately:",
+      "truth": "2^(nH) where H is the source entropy",
+      "distractors": ["2^n (full space)", "nH", "H^n"]
+    },
+    {
+      "id": "info12",
+      "context": "Fano's inequality relates error probability P_e to conditional entropy by:",
+      "truth": "H(X|Y) ≤ H(P_e) + P_e × log(|X| - 1)",
+      "distractors": ["H(X|Y) = P_e", "H(X|Y) ≥ P_e × log|X|", "H(X|Y) = 1 - P_e"]
+    }
+  ]
+}

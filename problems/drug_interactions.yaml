@@ -1,0 +1,79 @@
+# Drug Interactions Domain — CYP450-mediated DDIs
+#
+# This domain covers pharmacokinetic drug-drug interactions mediated by
+# cytochrome P450 enzymes. LLMs commonly make dangerous errors in this domain:
+# - Confusing inhibitors vs inducers (opposite effects)
+# - Misidentifying which CYP enzyme metabolizes a drug
+# - Getting interaction strength wrong (strong vs moderate vs weak)
+# - Missing pharmacogenomic considerations (prodrug activation failure)
+
+domain: drug_interactions
+description: >
+  CYP450-mediated drug-drug interactions. Validates enzyme substrates,
+  inhibitors, inducers, interaction strength, and pharmacogenomics.
+
+# Facts file for oracle evaluation
+facts_file: drug_interactions_facts.json
+
+# Training data
+training_data: ../training/drug_interactions_synthetic_60.json
+
+# Key concepts that LLMs confuse
+confusion_points:
+  - "Ketoconazole is a STRONG CYP3A4 INHIBITOR (not inducer)"
+  - "Rifampin is a STRONG CYP3A4 INDUCER (not inhibitor)"
+  - "Inhibition = higher drug levels (toxicity risk)"
+  - "Induction = lower drug levels (efficacy failure)"
+  - "Codeine requires CYP2D6 to convert to morphine (prodrug)"
+  - "CYP2D6 poor metabolizers get NO analgesia from codeine"
+  - "CYP2D6 ultrarapid metabolizers get TOXICITY from codeine"
+  - "Clopidogrel requires CYP2C19 for activation"
+  - "CYP2C19 poor metabolizers have REDUCED clopidogrel effect"
+  - "Strong inhibition = 5-15x AUC increase"
+  - "Strong induction = 80-95% AUC decrease"
+
+# Verification tools
+tools:
+  - check_drug_interaction
+  - get_drug_cyp_profile
+  - get_cyp_enzyme_info
+  - check_pharmacogenomics
+  - predict_ddi_auc_change
+
+# Clinical importance categories
+categories:
+  cyp3a4:
+    description: "Most common drug-metabolizing enzyme"
+    substrates: ["midazolam", "simvastatin", "cyclosporine", "tacrolimus"]
+    inhibitors: ["ketoconazole", "itraconazole", "ritonavir", "clarithromycin"]
+    inducers: ["rifampin", "phenytoin", "carbamazepine", "st_johns_wort"]
+
+  cyp2d6:
+    description: "Highly polymorphic, prodrug activation"
+    substrates: ["codeine", "tramadol", "metoprolol", "tamoxifen"]
+    inhibitors: ["paroxetine", "fluoxetine", "quinidine", "terbinafine"]
+    prodrugs: ["codeine", "tramadol", "tamoxifen"]
+
+  cyp2c9:
+    description: "Warfarin metabolism"
+    substrates: ["warfarin", "phenytoin", "celecoxib", "losartan"]
+    inhibitors: ["fluconazole", "amiodarone", "miconazole"]
+
+  cyp2c19:
+    description: "Clopidogrel activation, PPI metabolism"
+    substrates: ["clopidogrel", "omeprazole", "citalopram"]
+    inhibitors: ["fluconazole", "fluvoxamine", "ticlopidine"]
+    prodrugs: ["clopidogrel"]
+
+  cyp1a2:
+    description: "Smoking-inducible"
+    substrates: ["theophylline", "caffeine", "clozapine", "olanzapine"]
+    inhibitors: ["ciprofloxacin", "fluvoxamine", "enoxacin"]
+    inducers: ["smoking"]
+
+# Next targets for research
+next_targets:
+  - P-glycoprotein interactions (efflux transporter)
+  - UGT enzyme interactions (glucuronidation)
+  - Drug-food interactions beyond grapefruit
+  - Renal drug interactions (OAT, OCT transporters)

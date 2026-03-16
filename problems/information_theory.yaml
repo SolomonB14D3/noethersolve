@@ -1,0 +1,19 @@
+name: "Information Theory"
+description: "Exact formulas for channel capacity, rate-distortion, source coding"
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "information_theory_facts.json"
+pass_threshold: 0.5
+
+notes: |
+  Key confusions LLMs make:
+  - BSC capacity 1-H(p) vs BEC capacity 1-ε (different formulas!)
+  - MAC region is pentagon, not rectangle
+  - Z-channel optimal input is NOT uniform
+  - Data processing is ≤, not ≥
+  - Typical set size 2^(nH), not 2^n
+
+next_interesting_targets:
+  - Broadcast channel capacity region
+  - Wiretap channel secrecy capacity
+  - Network coding bounds
+  - Lossy source coding with side information
