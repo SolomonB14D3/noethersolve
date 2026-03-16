@@ -217,6 +217,39 @@ Sum vs mean normalization reveals different biases:
 
 **Decision rule:** If truths are hedged/technical (physics frontiers, climate science), use sum scoring. If truths are explanatory/verbose, use mean scoring.
 
+#### Mechanism 4: Anti-Fluency Distractors (Discovered Mar 16)
+
+**Models know facts they appear to fail on.** When distractors are fluent ("0%", "60%"), they win on fluency even if the model knows the truth. Making distractors verbose/awkward rescues hidden knowledge.
+
+| Domain | Fluent Dist | Awkward Dist | Flip Rate |
+|--------|-------------|--------------|-----------|
+| NS regularity | 0/7 PASS | 6/7 PASS | **86%** |
+| Cross-domain | 0/5 PASS | 5/5 PASS | **100%** |
+
+**Strategy: Keep truth short, make distractors verbose and self-contradicting:**
+
+```json
+// FAILS: fluent distractor wins on surface form
+{"truth": "2%", "distractors": ["0%", "60%", "100%"]}
+
+// PASSES: awkward distractor loses on fluency
+{"truth": "2%", "distractors": [
+  "exactly zero percent (physically impossible)",
+  "sixty percent showing poor stretch resistance",
+  "one hundred percent indicating complete failure"
+]}
+```
+
+**Distractor patterns that kill fluency:**
+1. Spell out numbers: "0%" → "exactly zero percent"
+2. Add parenthetical contradictions: "(physically impossible)"
+3. Add judgmental qualifiers: "showing poor...", "indicating failure..."
+4. Make grammatically awkward: "which would only double" vs "doubles"
+
+**When to use:** Before training adapters on "failing" facts, try anti-fluency reformulation. If it flips, the model already knows — adapter is unnecessary.
+
+**See:** `results/discoveries/novel_findings/anti_fluency_distractor_strategy.md`
+
 #### Unified Audit Checklist
 
 Before running oracle on a new fact file:
@@ -225,8 +258,9 @@ Before running oracle on a new fact file:
 2. [ ] **Truths confident?** Apply phrasing rules above. Remove hedging.
 3. [ ] **Distractors appropriate?** Coherent for benchmarks, incoherent for adapter training.
 4. [ ] **Scoring method chosen?** Sum for hedged domains, mean for verbose domains.
+5. [ ] **Try anti-fluency first?** Before adapter training, make distractors verbose/awkward. If fact flips, model already knows.
 
-**See:** `results/discoveries/novel_findings/unified_oracle_difficulty_theory.md` for full analysis.
+**See:** `results/discoveries/novel_findings/` for detailed analysis of each mechanism.
 
 The primary output is **tools served via MCP**, not adapters in weights.
 Adapters are still useful within the discovery pipeline (each injection
