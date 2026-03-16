@@ -192,3 +192,80 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-14	Q_f viscous decay ∝ ν	N/A	N/A	NUMERICAL_VERIFIED	dQ_f/dt ∝ -ν; e^(-r),tanh,√r conserved at ν=0; -ln(r) not conserved at ν=0; decay rate ~const/ν
 2026-03-15	elliptic_curves oracle facts (12 total)	-6.493→+11.075	12/12	QUADRANT3→FLIPPED	main_adapter 8/12 + 4 orthogonal adapters (invariants, group_structure, torsion, supersingular); 100% coverage; new mathematical domain
 2026-03-15	intersection_theory oracle facts (12 total)	-27.618→+11.324	12/12	QUADRANT3→FLIPPED	main_adapter 8/12 + 3 orthogonal adapters (canonical_cluster for it06-it07, canonical_P2 for it08, canonical_cubic for it09); 100% coverage; algebraic geometry
+2026-03-16	particle_physics_frontiers	+6.8→+13.1	8/12→11/12	PASS_WITH_ADAPTER	anomalies_adapter flips 3 facts; BSM flips SUSY; routed=12/12
+2026-03-16	intersection_theory	-27.6→+0.3	0/12→8/12	PASS_WITH_ADAPTER	main adapter flips 8 facts; remaining 4 need canonical cluster
+2026-03-16	elliptic_curves	-6.5→+1.7	2/12→8/12	PASS_WITH_ADAPTER	main adapter flips 6 facts; remaining 4 need j-invariant/torsion cluster
+2026-03-16	information_theory	-18.6→-19.8	0/12→1/12	KNOWLEDGE_GAP	adapter barely helps; needs orthogonal training per concept
+2026-03-16	hamiltonian	-22.6→+6.8	1/16→16/16	PERFECT_WITH_ADAPTER	stage5 adapter achieves 100%; staged training validated
+2026-03-16	chemical_conservation	-19.5→+13.5	1/16→15/16	PASS_WITH_ADAPTER	chemical_adapter flips 14 facts; 1 remaining
+2026-03-16	em_zilch	-11.0→-3.1	1/12→6/12	PASS_WITH_ADAPTER	em_adapter_v4 flips 5 facts; threshold met
+2026-03-16	kinetic_k	-45.9→-646.0	0/8→2/8	PARTIAL_IMPROVEMENT	adapter helps 2 facts; needs orthogonal routing
+2026-03-16	optimal_f	-34.0→-15.5	0/4→2/4	PASS_WITH_ADAPTER	threshold met; 2 remaining facts need cluster
+2026-03-16	qf_ratio	-44.0→+15.3	0/8→8/8	PERFECT_WITH_ADAPTER	100% coverage with qf_ratio_adapter
+2026-03-16	vortex_pair_conservation	-15.8→varies	3/13→4/13	NEEDS_ORTHOGONAL	single adapters barely help; needs per-fact routing
+2026-03-16	biochemistry	+5.0→same	10/12→10/12	BASELINE_PASS	model already knows 10/12; adapters don't flip remaining 2
+2026-03-16	cryptography	+4.4	9/12	BASELINE_PASS	75% baseline pass
+2026-03-16	database_internals	+1.9	8/12	BASELINE_PASS	67% baseline pass
+2026-03-16	distributed_systems	+3.3	9/12	BASELINE_PASS	75% baseline pass
+2026-03-16	llm_alignment	-14.3→same	1/12→1/12	DEEP_KNOWLEDGE_GAP	adapters don't help; model fails on RLHF/Constitutional/Sycophancy concepts
+2026-03-16	organic_chemistry	+3.3	8/12	BASELINE_PASS	67% baseline pass
+2026-03-16	quantum_mechanics	+0.4	6/12	BASELINE_PASS	50% threshold met
+2026-03-16	black_hole_frontiers	+5.5	9/12	BASELINE_PASS	75% pass; model knows most BH physics
+2026-03-16	climate_science_frontiers	+2.2	8/12	BASELINE_PASS	67% pass
+2026-03-16	condensed_matter_frontiers	+9.0	11/12	NEAR_PERFECT	91.7% baseline; only strange metals linear-T resistivity fails
+2026-03-16	cosmology_frontiers	+4.8	9/12	BASELINE_PASS	75% pass
+2026-03-16	neutrino_frontiers	+7.2	9/12	BASELINE_PASS	75% pass
+2026-03-16	3body_conservation	baseline	4/10	BELOW_THRESHOLD	40% - needs improvement
+2026-03-16	aging_biology	baseline	9/12	BASELINE_PASS	75%
+2026-03-16	algebra_topology_conjectures	1/10→5/10	5/10	PASS_WITH_ADAPTER	topology_adapter flips 4 facts
+2026-03-16	analysis_pde_conjectures	0/12→4/12	4/12	PARTIAL_IMPROVEMENT	analysis_adapter helps but still below threshold
+2026-03-16	antibiotic_resistance	baseline	5/12	BELOW_THRESHOLD	42%
+2026-03-16	battery_technology	baseline	8/12	BASELINE_PASS	67%
+2026-03-16	chemistry	baseline	9/12	BASELINE_PASS	75%
+2026-03-16	consciousness	baseline	4/12	BELOW_THRESHOLD	33%
+2026-03-16	control_systems	baseline	8/12	BASELINE_PASS	67%
+2026-03-16	dark_matter_energy	baseline	7/12	BASELINE_PASS	58%
+2026-03-16	economics_finance	baseline	7/12	BASELINE_PASS	58%
+2026-03-16	genetics_therapeutics	3/16→3/16	3/16	DEEP_KNOWLEDGE_GAP	adapters don't help
+2026-03-16	holographic_qinfo	baseline	8/12	BASELINE_PASS	67%
+2026-03-16	knot_invariants	baseline	1/16	DEEP_KNOWLEDGE_GAP	major gap
+2026-03-16	millennium_problems	baseline	3/12	BELOW_THRESHOLD	25%
+2026-03-16	networking	baseline	8/12	BASELINE_PASS	67%
+2026-03-16	operating_systems	baseline	10/12	EXCELLENT_BASELINE	83%
+2026-03-16	proof_techniques	baseline	3/12	BELOW_THRESHOLD	25%
+2026-03-16	protein_folding	baseline	7/12	BASELINE_PASS	58%
+2026-03-16	llm_context_memory	0/10→0/10	0/10	DEEP_KNOWLEDGE_GAP	ALL adapters fail; model has no self-knowledge about attention/context
+2026-03-16	llm_evaluation	0/12→0/12	0/12	DEEP_KNOWLEDGE_GAP	ALL adapters fail; model doesn't know benchmark limitations
+2026-03-16	llm_hallucination	0/12→0/12	0/12	DEEP_KNOWLEDGE_GAP	ALL adapters fail; model doesn't know its own failure modes
+2026-03-16	llm_reasoning	2/12→2/12	2/12	DEEP_KNOWLEDGE_GAP	adapters don't help; CoT/prompting facts unknown
+2026-03-16	llm_training	1/12→1/12	1/12	DEEP_KNOWLEDGE_GAP	adapters don't help; training dynamics unknown
+2026-03-16	millennium_problems	3/12→3/12	3/12	ADAPTERS_NO_HELP	All cluster adapters negative margins
+2026-03-16	algebra_topology_conjectures	1/10→5/10	5/10	ADAPTER_HELPS	topology_adapter best
+2026-03-16	analysis_pde_conjectures	0/12→4/12	4/12	ADAPTER_HELPS	analysis_adapter best
+2026-03-16	computational_conjectures	0/12→8/12	8/12	ADAPTER_HELPS	complexity_adapter best
+2026-03-16	number_theory_conjectures	4/12→6/12	6/12	ADAPTER_HELPS	primes_adapter best
+2026-03-16	proof_techniques	3/12→8/12	8/12	ADAPTER_HELPS	techniques_adapter best
+2026-03-16	pl_type_systems	7/12→7/12	7/12	HIGH_BASELINE	58% baseline, adapters don't improve
+2026-03-16	pl_memory	5/10→5/10	5/10	HIGH_BASELINE	50% baseline, adapters don't improve
+2026-03-16	pl_concurrency	8/10→8/10	8/10	HIGH_BASELINE	80% baseline, adapters don't improve
+2026-03-16	pl_paradigms	9/12→9/12	9/12	HIGH_BASELINE	75% baseline, adapters don't improve
+2026-03-16	pl_compilers	6/12→6/12	6/12	HIGH_BASELINE	50% baseline, adapters don't improve
+2026-03-16	pl_pitfalls	5/10→5/10	5/10	HIGH_BASELINE	50% baseline, adapters don't improve
+2026-03-16	clinical_translation	0/12→4/12	4/12	ADAPTER_HELPS	preclinical_adapter best
+2026-03-16	delivery_optimization	0/10→3/10	3/10	ADAPTER_HELPS	biodistribution_adapter best
+2026-03-16	disease_targets	1/12→5/12	5/12	ADAPTER_HELPS	monogenic_adapter best
+2026-03-16	immune_evasion	0/10→3/10	3/10	ADAPTER_HELPS	innate_adapter best
+2026-03-16	protein_structure	0/12→4/12	4/12	ADAPTER_HELPS	binding_adapter best
+2026-03-16	safety_invariants	0/10→4/10	4/10	ADAPTER_HELPS	toxicology_adapter best
+2026-03-16	origin_of_life	3/12→7/12	7/12	ADAPTER_HELPS	hypotheses_adapter best
+2026-03-16	quantum_computing	9/12→9/12	9/12	HIGH_BASELINE	75% baseline, adapters saturated
+2026-03-16	quantum_gravity	5/12→9/12	9/12	ADAPTER_HELPS	fundamentals_adapter best (42→75%)
+2026-03-16	multi_messenger_astro	10/12→11/12	11/12	HIGH_BASELINE	83% baseline, near ceiling
+2026-03-16	ns_regularity	1/16→6/16	6/16	ADAPTER_HELPS	ns_stage3 best (37.5%), needs more work
+2026-03-16	knot_invariants	1/16→1/16	1/16	NO_ADAPTERS	needs orthogonal adapter training
+2026-03-16	genetics_therapeutics_deep	3/16→3/16	3/16	NO_ADAPTERS	needs orthogonal adapter training
+2026-03-16	llm_tool_grounded	EXPERIMENT	-	STRUCTURAL_GAP	Tool-grounded training doesn't break through LLM self-knowledge gap
+2026-03-16	llm_bimodal_learning	FINDING	-	STRUCTURAL_GAP	Some LLM facts learnable (+143), others resist (-500), bimodal
+2026-03-16	llm_mechanism_analysis	FINDING	-	DISTRACTOR_ATTRACTIVENESS	Strong priors on optimistic claims (-20 to -35 lp) beat nuanced truths (-35 to -55 lp)
+2026-03-16	llm_rephrasing_fix	FINDING	4/12→12/12	PHRASING_MATTERS	Confident truths + rare-grammar distractors = 100% pass
+2026-03-16	llm_practical_solution	RECOMMENDATION	-	USE_MCP_TOOLS	Model can USE tools correctly even with wrong beliefs
