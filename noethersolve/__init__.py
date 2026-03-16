@@ -7,7 +7,7 @@ Every tool added makes every connected agent smarter.
 Emmy Noether proved every continuous symmetry corresponds to a conserved quantity.
 NoetherSolve finds where LLMs fail to recognize those quantities, builds verified
 computational tools for the right answers, and exposes them via Model Context
-Protocol (MCP) — 92 tools currently serving physics, math, genetics, complexity
+Protocol (MCP) — 106 tools currently serving physics, math, genetics, complexity
 theory, enzyme kinetics, quantum mechanics, pharmacokinetics, drug interactions,
 organic chemistry, elliptic curves, intersection theory, information theory, and
 LLM science. 85 are calculators (derive answers from first principles), 7 are
@@ -494,4 +494,55 @@ from noethersolve.drug_interactions import (  # noqa: F401
     Severity,
 )
 
-__version__ = "1.6.0"
+from noethersolve.epidemiology import (  # noqa: F401
+    herd_immunity_threshold,
+    reproduction_number,
+    doubling_time,
+    attack_rate,
+    sir_model,
+    vaccine_impact,
+    generation_interval,
+    seir_parameters,
+    get_disease_R0,
+    list_diseases,
+    HerdImmunityReport,
+    ReproductionNumberReport,
+    DoublingTimeReport,
+    AttackRateReport,
+    SIRReport,
+    VaccineImpactReport,
+    GenerationIntervalReport,
+)
+
+from noethersolve.radiative_transfer import (  # noqa: F401
+    radiative_forcing,
+    planck_response,
+    climate_sensitivity,
+    stefan_boltzmann,
+    effective_temperature,
+    analyze_feedback,
+    list_feedbacks,
+    RadiativeForcingReport,
+    PlanckResponseReport,
+    ClimateSensitivityReport,
+    StefanBoltzmannReport,
+    EffectiveTemperatureReport,
+    FeedbackAnalysisReport,
+)
+
+from noethersolve.turbulence import (  # noqa: F401
+    kolmogorov_45_law,
+    energy_spectrum,
+    length_scales,
+    structure_function_exponent,
+    intermittency_analysis,
+    is_in_inertial_range,
+    inertial_range_extent,
+    Kolmogorov45Report,
+    EnergySpectrumReport,
+    LengthScalesReport,
+    StructureFunctionReport,
+    IntermittencyReport,
+)
+
+__version__ = "1.9.0"

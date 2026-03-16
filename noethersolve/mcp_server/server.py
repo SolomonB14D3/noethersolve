@@ -14,8 +14,8 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="87 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
-                 "and LLM science — verified calculators from first principles, not guesses.",
+    instructions="106 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
+                 "epidemiology, climate physics, and LLM science — verified calculators from first principles, not guesses.",
 )
 
 
@@ -2080,6 +2080,324 @@ def predict_ddi_auc_change(perpetrator: str, victim: str) -> str:
                 f"({result['interaction_type']}, {result['enzyme']})\n"
                 f"Mechanism: {result.get('mechanism', 'N/A')}\n"
                 f"Recommendation: {result.get('recommendation', 'N/A')}")
+
+
+# ── Epidemiology ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def calc_herd_immunity(R0: float) -> str:
+    """Calculate herd immunity threshold from basic reproduction number.
+
+    COMPUTES HIT = 1 - 1/R₀ (the fraction that must be immune to stop
+    transmission). Reports threshold percentage, susceptible at equilibrium,
+    and R0-specific context.
+
+    R0: Basic reproduction number (average secondary infections from one case
+        in a fully susceptible population)
+
+    Example: calc_herd_immunity(15.0)
+    → Measles (R0=15): HIT = 93.3%, only 6.7% can remain susceptible
+    """
+    from noethersolve.epidemiology import herd_immunity_threshold
+    report = herd_immunity_threshold(R0=R0)
+    return str(report)
+
+
+@mcp.tool()
+def calc_reproduction_number(
+    R0: float = 0.0,
+    susceptible_fraction: float = 1.0,
+    beta: float = 0.0,
+    gamma: float = 0.0,
+) -> str:
+    """Calculate basic or effective reproduction number.
+
+    COMPUTES R₀ = β/γ (from transmission/recovery rates) or
+    Rt = R₀ × S (effective R given partial immunity).
+
+    R0: Basic reproduction number (provide directly, or compute from β/γ)
+    susceptible_fraction: Fraction of population still susceptible (0-1)
+    beta: Transmission rate (infections per contact per time)
+    gamma: Recovery rate (1/infectious period)
+
+    Example: calc_reproduction_number(R0=3.0, susceptible_fraction=0.5)
+    → Rt = 1.5, epidemic still GROWING (Rt > 1)
+    """
+    from noethersolve.epidemiology import reproduction_number
+    report = reproduction_number(
+        R0=R0 if R0 > 0 else None,
+        susceptible_fraction=susceptible_fraction if susceptible_fraction < 1.0 else None,
+        beta=beta if beta > 0 else None,
+        gamma=gamma if gamma > 0 else None,
+    )
+    return str(report)
+
+
+@mcp.tool()
+def calc_doubling_time(
+    growth_rate: float = 0.0,
+    R0: float = 0.0,
+    generation_time: float = 0.0,
+) -> str:
+    """Calculate epidemic doubling time from growth rate or R0.
+
+    COMPUTES T_d = ln(2)/r where r is the exponential growth rate.
+    Can derive r from R0 and generation time: r = ln(R0)/T_g.
+
+    growth_rate: Exponential growth rate (per time unit)
+    R0: Basic reproduction number (alternative to growth_rate)
+    generation_time: Mean generation interval in same time units as growth_rate
+
+    Example: calc_doubling_time(R0=2.0, generation_time=5.0)
+    → Doubling time = 5.0 days (cases double every 5 days)
+    """
+    from noethersolve.epidemiology import doubling_time
+    report = doubling_time(
+        growth_rate=growth_rate if growth_rate != 0 else None,
+        R0=R0 if R0 > 0 else None,
+        generation_time=generation_time if generation_time > 0 else None,
+    )
+    return str(report)
+
+
+@mcp.tool()
+def calc_attack_rate(R0: float) -> str:
+    """Calculate final attack rate (total infected) from R0.
+
+    COMPUTES the final epidemic size by solving the transcendental final
+    size equation: S_∞ = exp(-R₀ × (1 - S_∞)). This is the exact solution,
+    not an approximation.
+
+    R0: Basic reproduction number
+
+    Example: calc_attack_rate(2.5)
+    → 89.3% final attack rate (10.7% escape infection entirely)
+    """
+    from noethersolve.epidemiology import attack_rate
+    report = attack_rate(R0=R0)
+    return str(report)
+
+
+@mcp.tool()
+def calc_sir_model(
+    beta: float,
+    gamma: float,
+    initial_infected: float = 0.001,
+) -> str:
+    """Analyze SIR model parameters and derive epidemic characteristics.
+
+    COMPUTES R₀, generation time, herd immunity threshold, peak infected
+    fraction, and epidemic duration estimates from transmission parameters.
+
+    beta: Transmission rate (infections per contact per time)
+    gamma: Recovery rate (1/infectious period)
+    initial_infected: Initial fraction infected (default 0.001 = 0.1%)
+
+    Example: calc_sir_model(beta=0.4, gamma=0.1)
+    → R0 = 4.0, generation time = 10 days, HIT = 75%, peak = 29%
+    """
+    from noethersolve.epidemiology import sir_model
+    report = sir_model(beta=beta, gamma=gamma, initial_infected_fraction=initial_infected)
+    return str(report)
+
+
+@mcp.tool()
+def calc_vaccine_impact(
+    R0: float,
+    vaccine_efficacy: float,
+    coverage: float,
+) -> str:
+    """Calculate impact of vaccination on epidemic potential.
+
+    COMPUTES effective reproduction number after vaccination:
+    Rt = R₀ × (1 - VE × coverage), and whether herd immunity is achieved.
+
+    R0: Basic reproduction number
+    vaccine_efficacy: Vaccine efficacy against infection (0-1, e.g., 0.9 = 90%)
+    coverage: Fraction of population vaccinated (0-1)
+
+    Example: calc_vaccine_impact(R0=3.0, vaccine_efficacy=0.9, coverage=0.75)
+    → Rt = 0.975 < 1, herd immunity ACHIEVED (67.5% effective immunity)
+    """
+    from noethersolve.epidemiology import vaccine_impact
+    report = vaccine_impact(R0=R0, vaccine_efficacy=vaccine_efficacy, coverage=coverage)
+    return str(report)
+
+
+@mcp.tool()
+def calc_generation_interval(
+    mean_generation: float,
+    mean_serial: float = 0.0,
+) -> str:
+    """Analyze generation and serial intervals for an infectious disease.
+
+    COMPUTES the relationship between generation interval (infection to
+    infection) and serial interval (symptom to symptom). Serial < generation
+    indicates presymptomatic transmission.
+
+    mean_generation: Mean generation interval (days)
+    mean_serial: Mean serial interval (days, optional)
+
+    Example: calc_generation_interval(mean_generation=5.0, mean_serial=4.0)
+    → Serial < generation by 1 day → significant presymptomatic transmission
+    """
+    from noethersolve.epidemiology import generation_interval
+    report = generation_interval(
+        mean_generation=mean_generation,
+        mean_serial=mean_serial if mean_serial > 0 else None,
+    )
+    return str(report)
+
+
+@mcp.tool()
+def get_disease_r0(disease: str) -> str:
+    """Get reference R0 range for a known infectious disease.
+
+    RETURNS published R0 estimates for common diseases. Use these as
+    inputs to other epidemiology tools.
+
+    disease: Disease name (e.g., "measles", "covid19_omicron", "influenza_seasonal")
+
+    Example: get_disease_r0("measles") → R0 = 12-18
+    """
+    from noethersolve.epidemiology import get_disease_R0, list_diseases
+    r0_range = get_disease_R0(disease)
+    if r0_range is None:
+        diseases = list_diseases()
+        return f"Unknown disease '{disease}'. Known diseases: {', '.join(sorted(diseases))}"
+    return f"{disease}: R₀ = {r0_range[0]}-{r0_range[1]}"
+
+
+# ── Radiative Transfer / Climate Physics ─────────────────────────────
+
+@mcp.tool()
+def calc_co2_forcing(
+    co2_final: float,
+    co2_initial: float = 280.0,
+) -> str:
+    """Calculate radiative forcing from CO2 concentration change.
+
+    COMPUTES ΔF = 5.35 × ln(C/C₀) W/m². KEY POINT: The relationship is
+    LOGARITHMIC, not linear. Each doubling adds ~3.7 W/m² regardless of
+    absolute concentration. This is one of the most common errors LLMs make.
+
+    co2_final: Final CO2 concentration in ppm
+    co2_initial: Initial CO2 in ppm (default 280 = preindustrial)
+
+    Example: calc_co2_forcing(560, 280)
+    → Doubling CO2: ΔF = 3.7 W/m² (LOGARITHMIC, not linear!)
+    """
+    from noethersolve.radiative_transfer import radiative_forcing
+    report = radiative_forcing(co2_final=co2_final, co2_initial=co2_initial)
+    return str(report)
+
+
+@mcp.tool()
+def calc_planck_response(emission_temperature: float = 255.0) -> str:
+    """Calculate the Planck (no-feedback) climate response.
+
+    COMPUTES λ₀ = 1/(4σT³) from Stefan-Boltzmann derivative. At Earth's
+    effective emission temperature (~255 K), this gives ~1.2 K warming per
+    CO2 doubling WITHOUT feedbacks. This is the MINIMUM warming.
+
+    emission_temperature: Effective emission temperature in K (default 255)
+
+    Example: calc_planck_response(255)
+    → No-feedback warming: 1.2 K per doubling (actual: 2.5-4.0 K with feedbacks)
+    """
+    from noethersolve.radiative_transfer import planck_response
+    report = planck_response(emission_temperature=emission_temperature)
+    return str(report)
+
+
+@mcp.tool()
+def calc_climate_sensitivity(
+    ecs: float = 0.0,
+    include_cloud: bool = True,
+) -> str:
+    """Calculate equilibrium climate sensitivity from feedback analysis.
+
+    COMPUTES ECS = ΔF₂ₓ / (-Σfeedbacks). IPCC AR6 likely range: 2.5-4.0 K.
+    Includes Planck, water vapor, lapse rate, surface albedo, and (optionally)
+    cloud feedbacks. Cloud feedback is the LARGEST source of uncertainty.
+
+    ecs: If provided, derive feedback parameter from this ECS value
+    include_cloud: Whether to include cloud feedback (default True)
+
+    Example: calc_climate_sensitivity()
+    → ECS ≈ 3.0 K per CO2 doubling (with all feedbacks)
+    """
+    from noethersolve.radiative_transfer import climate_sensitivity
+    if ecs > 0:
+        report = climate_sensitivity(ecs=ecs)
+    else:
+        feedbacks = ["planck", "water_vapor", "lapse_rate", "surface_albedo"]
+        if include_cloud:
+            feedbacks.append("cloud")
+        report = climate_sensitivity(include_feedbacks=feedbacks)
+    return str(report)
+
+
+@mcp.tool()
+def calc_stefan_boltzmann(
+    temperature: float,
+    emissivity: float = 1.0,
+) -> str:
+    """Calculate blackbody radiation power density.
+
+    COMPUTES P = εσT⁴. Exact Stefan-Boltzmann law.
+
+    temperature: Temperature in Kelvin
+    emissivity: Surface emissivity 0-1 (default 1 = perfect blackbody)
+
+    Example: calc_stefan_boltzmann(5778) → Sun surface: 6.3×10⁷ W/m²
+    Example: calc_stefan_boltzmann(255) → Earth emission: ~240 W/m²
+    """
+    from noethersolve.radiative_transfer import stefan_boltzmann
+    report = stefan_boltzmann(temperature=temperature, emissivity=emissivity)
+    return str(report)
+
+
+@mcp.tool()
+def calc_greenhouse_effect(
+    albedo: float = 0.30,
+    actual_surface_temp: float = 288.0,
+) -> str:
+    """Calculate effective temperature and greenhouse effect.
+
+    COMPUTES T_eff from energy balance and compares to actual surface temp.
+    Earth's greenhouse effect is ~33 K warming above the no-atmosphere case.
+
+    albedo: Bond albedo (default 0.30 for Earth)
+    actual_surface_temp: Actual average surface temperature in K (default 288)
+
+    Example: calc_greenhouse_effect()
+    → T_eff = 255 K, actual = 288 K, greenhouse effect = 33 K
+    """
+    from noethersolve.radiative_transfer import effective_temperature
+    report = effective_temperature(albedo=albedo, actual_surface_temp=actual_surface_temp)
+    return str(report)
+
+
+@mcp.tool()
+def analyze_climate_feedback(name: str) -> str:
+    """Analyze a specific climate feedback mechanism.
+
+    RETURNS feedback value, sign (positive=amplifying, negative=damping),
+    uncertainty range, and physical mechanism.
+
+    name: Feedback name (planck, water_vapor, lapse_rate, surface_albedo, cloud)
+
+    Example: analyze_climate_feedback("cloud")
+    → +0.5 W/(m²·K), positive, LARGEST UNCERTAINTY (±0.7)
+    """
+    from noethersolve.radiative_transfer import analyze_feedback
+    try:
+        report = analyze_feedback(name)
+        return str(report)
+    except ValueError as e:
+        from noethersolve.radiative_transfer import list_feedbacks
+        return f"{e}\nAvailable feedbacks: {', '.join(list_feedbacks())}"
 
 
 # ── Entry Point ───────────────────────────────────────────────────────
