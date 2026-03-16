@@ -2,7 +2,7 @@
 
 Organized into four categories:
 
-## `novel_findings/` — New Science (11 files)
+## `novel_findings/` — New Science (12 files)
 
 Domain-agnostic discoveries that generalize beyond any specific model. These are the publishable results.
 
@@ -19,6 +19,7 @@ Domain-agnostic discoveries that generalize beyond any specific model. These are
 | Dipole exact conservation | `dipole_test_vortex_exact.md` | Dipole + test vortex on symmetry axis: weighted distance sum exactly conserved (frac_var ~ 10⁻¹⁵) |
 | Parallel dipole sum | `parallel_dipole_sum.md` | Internal separations of N parallel dipoles exactly conserved — proven equivalent to impulse conservation (Px/Γ = const) |
 | EM conservation laws | `em_conservation_laws.md` | Maxwell solver verifying energy, chirality (Lipkin's zilch), helicity, super-energy as exact EM invariants |
+| Q_√r viscous decay | `viscous_decay_linear_scaling.md` | Q_√r decays as ν^0.99 (perfectly linear) under viscosity — most consistent scaling across all Q_f variants |
 
 ## `model_specific/` — Qwen3-4B-Base Adapter Results (13 files)
 
@@ -30,7 +31,7 @@ Key findings:
 - **Frozen priors** (frozen_prior_analysis.md): Oracle exhibits frozen priors on H·r₁₂ + α·Lz regardless of α
 - **Orthogonal routing** generalizes across all 67 domains (1014/1014 facts)
 
-## `archived/` — Incremental/Consolidated (8 files)
+## `archived/` — Incremental/Consolidated (9 files)
 
 Extensions, numerical confirmations, or duplicates of findings already covered by the novel_findings files. Kept for reference.
 
