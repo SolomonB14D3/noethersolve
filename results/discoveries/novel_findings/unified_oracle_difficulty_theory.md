@@ -1,18 +1,20 @@
-# Unified Theory of Oracle Difficulty: Three Mechanisms
+# Unified Theory of Oracle Difficulty: Four Mechanisms
 
-## Discovery Date: 2026-03-16
+## Discovery Date: 2026-03-16 (updated with Mechanism 4)
 
 ## Summary
 
-Oracle fact pass/fail is determined by the interaction of **three mechanisms**:
+Oracle fact pass/fail is determined by the interaction of **four mechanisms**:
 
 1. **Length Ratio** (structural): Shorter completions have higher total log-prob
 2. **Semantic Fluency** (model prior): Fluent text has higher per-token log-prob
 3. **Scoring Method** (measurement): Sum vs mean normalization reveals different biases
+4. **Anti-Fluency Rescue** (intervention): Making distractors awkward rescues hidden knowledge
 
 These mechanisms combine to explain ~95% of oracle variance across 67 domains.
+**Mechanism 4 reveals that many "knowledge gaps" are actually fluency artifacts.**
 
-## The Three Mechanisms
+## The Four Mechanisms
 
 ### Mechanism 1: Length Ratio (r = -0.742)
 
@@ -165,17 +167,35 @@ This is the root cause of:
 - Sycophancy (agreeable > accurate)
 - Marketing language preference
 
+### Mechanism 4: Anti-Fluency Distractors (Added Mar 16)
+
+**What it is:** Making distractors verbose/awkward while keeping truth simple.
+
+**Why it matters:** Models know facts they appear to fail on. Fluent distractors win on surface form even when the model "knows" the truth. Making distractors awkward destroys their fluency advantage.
+
+**Evidence:**
+- NS regularity: 0/7 → 6/7 PASS with anti-fluency distractors
+- Cross-domain: 0/5 → 5/5 PASS (100% flip rate)
+- Average margin improvement: +20-28 points
+
+**Fix:** Before training adapters, try anti-fluency reformulation. If fact flips, model already knows — adapter unnecessary.
+
+See: `anti_fluency_distractor_strategy.md`
+
 ## Method
 
 1. Identified length ratio effect (r = -0.742)
 2. Identified distractor coherence effect (5.5 LP gap)
 3. Discovered scoring method sensitivity (sum vs mean)
 4. Validated on domains where mean scoring hurts
-5. Unified into single theory
+5. Discovered anti-fluency rescue (0/7 → 6/7 on NS)
+6. Unified into single theory with four mechanisms
 
 ## Files
 
-- `length_ratio_discovery.md` — Finding #1
-- `distractor_coherence_discovery.md` — Finding #2
+- `length_ratio_discovery.md` — Finding #1: Length ratio
+- `distractor_coherence_discovery.md` — Finding #2: Distractor coherence
+- `linguistic_hedge_predictor.md` — Finding #3: Zero-shot hedge prediction
+- `anti_fluency_distractor_strategy.md` — Finding #4: Anti-fluency rescue
 - `unified_oracle_difficulty_theory.md` — This file (unified theory)
-- `noethersolve/audit_facts.py` — Length ratio audit tool
+- `noethersolve/audit_facts.py` — Audit tool with all mechanisms

@@ -99,7 +99,7 @@ python autonomy_loop.py show-queue
 
 ## The Discovery-Tool Pipeline
 
-Every hypothesis goes through verify → quality audit → oracle → discover → build tool → serve:
+Every hypothesis goes through verify → quality audit → oracle → anti-fluency check → build tool → serve:
 
 ```
 Hypothesis (expression)
@@ -110,10 +110,11 @@ Hypothesis (expression)
        │ PASS
        ▼
  FACT QUALITY AUDIT         ← CRITICAL (Mar 16 findings)
- python -m noethersolve.      Three mechanisms to check:
+ python -m noethersolve.      Four mechanisms to check:
    audit_facts --file X       1. Length ratio < 1.5? (r=-0.742 with baseline)
                               2. Phrasing confident? (no hedging/modals)
                               3. Distractors appropriate? (coherent/incoherent)
+                              4. Predict difficulty: --predict-difficulty (72% accurate)
        │ PASS
        ▼
  Oracle filter              ← Does the model already know it?
@@ -121,20 +122,31 @@ Hypothesis (expression)
   base LLM + adapter stack)   Use SUM for hedged, MEAN for verbose domains
        │
        ├─ PASS  → DUAL-PASS (model knows it, archive)
-       └─ FAIL  → NEW SCIENCE: model hasn't seen this
+       │
+       └─ FAIL  → ANTI-FLUENCY CHECK (before adapter training!)
                     │
                     ▼
-              Check before building:
-              1. Already in NoetherSolve? → extend existing tool
-              2. Can extend existing tool? → add parameter/mode
-              3. Freeware covers it? (scipy, sympy, etc.) → wrap if lightweight
-              ↓ NONE OF ABOVE
-              Build minimal tool (verified computational checker)
+              Try anti-fluency distractors:
+              Make distractors verbose/awkward, keep truth simple
+              Example: "0%" → "exactly zero percent (physically impossible)"
                     │
-                    ▼
-              Add to MCP server → any AI agent can now use it
+                    ├─ FLIPS → Model knows it! No adapter needed.
+                    │          Archive as FLUENCY-RESCUED
                     │
-              (Optionally: train adapter for within-run oracle improvement)
+                    └─ STILL FAILS → TRUE KNOWLEDGE GAP
+                              │
+                              ▼
+                        Check before building:
+                        1. Already in NoetherSolve? → extend existing tool
+                        2. Can extend existing tool? → add parameter/mode
+                        3. Freeware covers it? (scipy, sympy, etc.) → wrap
+                        ↓ NONE OF ABOVE
+                        Build minimal tool (verified computational checker)
+                              │
+                              ▼
+                        Add to MCP server → any AI agent can now use it
+                              │
+                        (Optionally: train adapter for within-run oracle)
 ```
 
 ### Phrasing Rules for Oracle Success (Discovered Mar 16)
