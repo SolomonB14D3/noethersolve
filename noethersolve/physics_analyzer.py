@@ -234,6 +234,54 @@ DISCOVERIES = [
         ],
         reference_files=["results/discoveries/novel_findings/qf_dichotomy_regularity.md"]
     ),
+    PhysicsDiscovery(
+        title="Q_f Concentration Detection",
+        domain=Domain.FLUID_DYNAMICS,
+        description="Different Q_f respond differently to vorticity concentration",
+        key_result="Q_{-ln(r)} diverges as vorticity concentrates (blowup warning)",
+        implications=[
+            "Q_{√r} decreases with concentration (regularity diagnostic)",
+            "Ratio R = Q_{-ln(r)}/Q_{√r} measures concentration",
+            "Conservation constraints may prevent Navier-Stokes blowup"
+        ],
+        reference_files=["results/discoveries/novel_findings/qf_concentration_regularity.md"]
+    ),
+    PhysicsDiscovery(
+        title="Optimal f(r) is a Combination",
+        domain=Domain.FLUID_DYNAMICS,
+        description="The optimal f(r) for Q_f conservation is a learned combination of basis functions",
+        key_result="99.6% improvement over best single basis function",
+        implications=[
+            "Top terms: e^(-r/2), tanh(r), sin(r), √r, 1/r",
+            "No universal single f(r) - depends on configuration",
+            "Neural networks may discover similar combinations"
+        ],
+        reference_files=["results/discoveries/novel_findings/optimal_f_combination.md"]
+    ),
+    PhysicsDiscovery(
+        title="Viscous Q_f Decay Rates",
+        domain=Domain.FLUID_DYNAMICS,
+        description="Q_f decays linearly with viscosity ν in Navier-Stokes",
+        key_result="tanh(r) most robust (decay coeff ~3), -ln(r) most sensitive (~500)",
+        implications=[
+            "Useful for viscosity estimation",
+            "Can inform subgrid-scale models",
+            "Different f(r) test different aspects of SGS model"
+        ],
+        reference_files=["results/discoveries/novel_findings/viscous_qf_decay.md"]
+    ),
+    PhysicsDiscovery(
+        title="Q_f Ratio Best for 3D Stretch",
+        domain=Domain.FLUID_DYNAMICS,
+        description="Ratio Q_{e^(-r)}/Q_{1/r} is optimal for stretch resistance + evolution conservation",
+        key_result="5× better than alternatives for combined stretch + evolution",
+        implications=[
+            "Captures balance of short-range and long-range correlations",
+            "Useful diagnostic when vortex stretching is important",
+            "Can inform subgrid modeling for 3D turbulence"
+        ],
+        reference_files=["results/discoveries/novel_findings/qf_ratio_optimal.md"]
+    ),
 ]
 
 
