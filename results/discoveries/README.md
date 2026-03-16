@@ -2,7 +2,7 @@
 
 Organized into four categories:
 
-## `novel_findings/` — New Science (12 files)
+## `novel_findings/` — New Science (14 files)
 
 Domain-agnostic discoveries that generalize beyond any specific model. These are the publishable results.
 
@@ -20,6 +20,8 @@ Domain-agnostic discoveries that generalize beyond any specific model. These are
 | Parallel dipole sum | `parallel_dipole_sum.md` | Internal separations of N parallel dipoles exactly conserved — proven equivalent to impulse conservation (Px/Γ = const) |
 | EM conservation laws | `em_conservation_laws.md` | Maxwell solver verifying energy, chirality (Lipkin's zilch), helicity, super-energy as exact EM invariants |
 | Q_√r viscous decay | `viscous_decay_linear_scaling.md` | Q_√r decays as ν^0.99 (perfectly linear) under viscosity — most consistent scaling across all Q_f variants |
+| 3D Green's function principle | `qf_3d_green_function.md` | Q_{1/r} optimal in 3D (= kinetic energy); universal principle: optimal Q_f = Laplacian Green's function in each dimension |
+| Continuous Q_f exponential | `continuous_qf_exponential.md` | Q_{e^(-r)} best for continuous 2D Euler (beats -ln(r)) — no r=0 regularization, rapid spectral decay |
 
 ## `model_specific/` — Qwen3-4B-Base Adapter Results (13 files)
 
@@ -31,7 +33,7 @@ Key findings:
 - **Frozen priors** (frozen_prior_analysis.md): Oracle exhibits frozen priors on H·r₁₂ + α·Lz regardless of α
 - **Orthogonal routing** generalizes across all 67 domains (1014/1014 facts)
 
-## `archived/` — Incremental/Consolidated (9 files)
+## `archived/` — Incremental/Consolidated (11 files)
 
 Extensions, numerical confirmations, or duplicates of findings already covered by the novel_findings files. Kept for reference.
 
