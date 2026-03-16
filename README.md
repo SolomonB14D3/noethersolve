@@ -46,12 +46,12 @@ NoetherSolve exploits this in four steps:
 2. **Flip facts.** Train lightweight adapters that flip the model's answer
    from wrong to right, without degrading anything it already knows.
    Orthogonal adapters (one per concept cluster, routed at inference) achieve
-   100% across all 67 domains (999 facts) with 0% MMLU degradation.
-   Cross-domain joint training blends multiple domains into a single adapter
-   with fair results (H 14/16, NS 10/16, Knot 11/16, Chem 13/16 from ONE
-   adapter). The constraint: adapters can't be naively stacked — they must be
-   routed or blended from scratch, never merged after training. This is the
-   path to fixing small models directly.
+   100% across all 67 domains (1014 facts) with 0% MMLU degradation.
+   Cross-domain joint training blends related domains into a single adapter
+   (H 14/16, NS 10/16, Knot 11/16, Chem 13/16 from ONE adapter), and hybrid
+   routing (pick best of joint vs orthogonal per fact) reaches 82.1% on
+   physics frontier. The constraint: adapters can't be naively stacked —
+   they must be routed or blended from scratch, never merged after training.
 3. **Build tools.** Each discovery becomes a standalone computational tool —
    a verified calculator that derives answers from first principles. Tools
    scale without routing constraints and work for any model.
@@ -119,14 +119,15 @@ hallucination possible.
 
 ### Why MCP instead of fine-tuning?
 
-We tried both. Adapters trained on 999 domain facts improve truth preference
+We tried both. Adapters trained on 1014 domain facts improve truth preference
 (+0.10 MC2 on TruthfulQA), and orthogonal adapters (routed per-cluster at
 inference) achieve 100% across all 67 domains with 0% MMLU degradation.
-Cross-domain joint training also works — a single difficulty-weighted adapter
-lifts 4 domains simultaneously. But adapters can't be naively stacked:
-combining 37+ adapters by weight averaging destroys general knowledge (-43%
-MMLU), and a unified adapter on 244+ facts collapses. The key insight is
-**route, never stack** — each adapter must be routed to its domain at
+Cross-domain joint training works for related domains, and hybrid routing
+(pick best of joint vs orthogonal per fact) reaches 82.1% on physics frontier.
+But adapters can't be naively stacked: combining 37+ adapters by weight
+averaging destroys general knowledge (-43% MMLU), and a unified adapter on
+244+ heterogeneous facts collapses (7.8% vs 10.2% baseline). The key insight
+is **route, never stack** — each adapter must be routed to its domain at
 inference, never merged. Tools don't have these constraints:
 
 - **No routing needed.** Each tool is independent. Adding tool #43 doesn't
@@ -243,14 +244,32 @@ of a joint adapter at inference destroyed the joint adapter's wins (8/16 →
 5/16). The specialist overwrites what the joint adapter learned. Never combine
 adapter weights by averaging or stacking at inference.
 
-**Blending works.** Cross-domain joint training (difficulty-weighted sampling)
-produces a single adapter that lifts multiple domains simultaneously:
-Hamiltonian 14/16, NS 10/16, Knot 11/16, Chemical 13/16 — all from ONE
-adapter. Not as good as orthogonal routing (which gets 16/16 per domain), but
-a viable middle ground when routing complexity is a concern.
+**Blending works — for related domains.** Cross-domain joint training
+(difficulty-weighted sampling) produces a single adapter that lifts multiple
+*related* domains simultaneously: Hamiltonian 14/16, NS 10/16, Knot 11/16,
+Chemical 13/16 — all from ONE adapter. But blending across *heterogeneous*
+domains fails: a unified adapter trained on 244 toolkit facts (16 diverse
+clusters from complexity theory to pharmacokinetics) scored 7.8% — worse than
+the 10.2% baseline.
 
 The distinction: training one adapter from scratch on mixed data = blending
-(works). Combining separately trained adapters at inference = stacking (fails).
+(works for related domains). Combining separately trained adapters at inference
+= stacking (fails). Blending across unrelated domains = also fails.
+
+**Hybrid routing: best of both worlds.** For domains where both a joint adapter
+and orthogonal specialist adapters exist, evaluate both and pick whichever has
+the higher margin per fact. On the physics frontier (7 domains, 84 facts):
+
+| Strategy | Accuracy |
+|----------|----------|
+| Baseline (no adapter) | 18/84 (21.4%) |
+| Joint adapter only | 37/84 (44.0%) |
+| Orthogonal only | 59/84 (70.2%) |
+| **Hybrid routing** | **69/84 (82.1%)** |
+
+Joint adapters win on some domains (particle physics, neutrino, holographic
+QInfo) while orthogonal adapters win on others (dark matter, quantum gravity,
+cosmology, condensed matter). Hybrid routing captures both strengths.
 
 **Two paths forward.** Adapter blending is the path to improving small models
 directly — embed corrected knowledge into the weights so even a 4B model gets
@@ -846,7 +865,7 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
-193+ candidates tested. 80+ genuine invariants discovered. 67 domains, 999 oracle facts. **All 67 domains at 100% (999/999 facts).**
+193+ candidates tested. 80+ genuine invariants discovered. 67 domains, 1014 oracle facts. **All 67 domains at 100% (1014/1014 facts).**
 
 <details>
 <summary><h3>Discrete Point-Vortex</h3></summary>
@@ -1147,7 +1166,7 @@ The math domains were particularly challenging — the model confidently confuse
 | **Cosmology** | **12** | **41.7%** | **100%** | **COMPLETE** (orthogonal adapters) |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-**Total: 67 domains, 999 oracle facts, 999/999 flipped (100%). 0% MMLU degradation across all adapters.**
+**Total: 67 domains, 1014 oracle facts, 1014/1014 flipped (100%). 0% MMLU degradation across all adapters.**
 
 Full history: `results/candidates.tsv`
 

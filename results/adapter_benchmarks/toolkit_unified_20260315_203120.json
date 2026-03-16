@@ -1,0 +1,2205 @@
+{
+  "adapter": "/Volumes/4TB SD/ClaudeCode/noethersolve/adapters/toolkit_unified_adapter.npz",
+  "model": "Qwen/Qwen3-4B-Base",
+  "n_facts": 244,
+  "baseline_pass": 25,
+  "adapted_pass": 19,
+  "adapted_results": [
+    {
+      "idx": 0,
+      "id": "conj_riemann hypothesis_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16826248168945,
+      "truth_lp": -284.33631134033203,
+      "best_dist_lp": -142.16804885864258
+    },
+    {
+      "idx": 1,
+      "id": "conj_p vs np_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16812896728516,
+      "truth_lp": -284.3361167907715,
+      "best_dist_lp": -142.16798782348633
+    },
+    {
+      "idx": 2,
+      "id": "conj_navier-stokes existence and smoothness_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16852569580078,
+      "truth_lp": -284.3366241455078,
+      "best_dist_lp": -142.16809844970703
+    },
+    {
+      "idx": 3,
+      "id": "conj_yang-mills existence and mass gap_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.1684226989746,
+      "truth_lp": -284.33636474609375,
+      "best_dist_lp": -142.16794204711914
+    },
+    {
+      "idx": 4,
+      "id": "conj_hodge conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16825485229492,
+      "truth_lp": -284.33600997924805,
+      "best_dist_lp": -142.16775512695312
+    },
+    {
+      "idx": 5,
+      "id": "conj_birch and swinnerton-dyer conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16840362548828,
+      "truth_lp": -284.33636474609375,
+      "best_dist_lp": -142.16796112060547
+    },
+    {
+      "idx": 6,
+      "id": "conj_poincare conjecture_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 142.1678009033203,
+      "truth_lp": -71.08387756347656,
+      "best_dist_lp": -213.25167846679688
+    },
+    {
+      "idx": 7,
+      "id": "conj_goldbach conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16814422607422,
+      "truth_lp": -284.33613204956055,
+      "best_dist_lp": -142.16798782348633
+    },
+    {
+      "idx": 8,
+      "id": "conj_twin prime conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16808319091797,
+      "truth_lp": -284.33593368530273,
+      "best_dist_lp": -142.16785049438477
+    },
+    {
+      "idx": 9,
+      "id": "conj_collatz conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16825103759766,
+      "truth_lp": -284.3364448547363,
+      "best_dist_lp": -142.16819381713867
+    },
+    {
+      "idx": 10,
+      "id": "conj_abc conjecture_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 202.16791152954102,
+      "truth_lp": -11.0838623046875,
+      "best_dist_lp": -213.25177383422852
+    },
+    {
+      "idx": 11,
+      "id": "conj_legendre conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16828155517578,
+      "truth_lp": -284.33625411987305,
+      "best_dist_lp": -142.16797256469727
+    },
+    {
+      "idx": 12,
+      "id": "conj_catalan conjecture_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 142.1678810119629,
+      "truth_lp": -71.0838623046875,
+      "best_dist_lp": -213.2517433166504
+    },
+    {
+      "idx": 13,
+      "id": "conj_fermat's last theorem_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 142.16785049438477,
+      "truth_lp": -71.08384704589844,
+      "best_dist_lp": -213.2516975402832
+    },
+    {
+      "idx": 14,
+      "id": "conj_goldbach weak conjecture_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 142.1678352355957,
+      "truth_lp": -71.0838623046875,
+      "best_dist_lp": -213.2516975402832
+    },
+    {
+      "idx": 15,
+      "id": "conj_landau's fourth problem_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16828536987305,
+      "truth_lp": -284.3361167907715,
+      "best_dist_lp": -142.16783142089844
+    },
+    {
+      "idx": 16,
+      "id": "conj_brocard's problem_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16820526123047,
+      "truth_lp": -284.3362579345703,
+      "best_dist_lp": -142.16805267333984
+    },
+    {
+      "idx": 17,
+      "id": "conj_bunyakovsky conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16831588745117,
+      "truth_lp": -284.3361015319824,
+      "best_dist_lp": -142.16778564453125
+    },
+    {
+      "idx": 18,
+      "id": "conj_erdos-straus conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16822052001953,
+      "truth_lp": -284.33605575561523,
+      "best_dist_lp": -142.1678352355957
+    },
+    {
+      "idx": 19,
+      "id": "conj_jacobian conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16822052001953,
+      "truth_lp": -284.33624267578125,
+      "best_dist_lp": -142.16802215576172
+    },
+    {
+      "idx": 20,
+      "id": "conj_hadamard conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16836166381836,
+      "truth_lp": -284.3362731933594,
+      "best_dist_lp": -142.16791152954102
+    },
+    {
+      "idx": 21,
+      "id": "conj_invariant subspace problem_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16822052001953,
+      "truth_lp": -284.3361015319824,
+      "best_dist_lp": -142.1678810119629
+    },
+    {
+      "idx": 22,
+      "id": "conj_kervaire invariant one problem_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -0.00043487548828125,
+      "truth_lp": -213.25206756591797,
+      "best_dist_lp": -213.2516326904297
+    },
+    {
+      "idx": 23,
+      "id": "conj_baum-connes conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16836166381836,
+      "truth_lp": -284.3362274169922,
+      "best_dist_lp": -142.16786575317383
+    },
+    {
+      "idx": 24,
+      "id": "conj_borel conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.1683464050293,
+      "truth_lp": -284.33619689941406,
+      "best_dist_lp": -142.16785049438477
+    },
+    {
+      "idx": 25,
+      "id": "conj_smooth poincare conjecture in dimension 4_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16825485229492,
+      "truth_lp": -284.3363037109375,
+      "best_dist_lp": -142.16804885864258
+    },
+    {
+      "idx": 26,
+      "id": "conj_andrews-curtis conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16833114624023,
+      "truth_lp": -284.33628845214844,
+      "best_dist_lp": -142.1679573059082
+    },
+    {
+      "idx": 27,
+      "id": "conj_novikov conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16827011108398,
+      "truth_lp": -284.3361053466797,
+      "best_dist_lp": -142.1678352355957
+    },
+    {
+      "idx": 28,
+      "id": "conj_zeeman conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16840744018555,
+      "truth_lp": -284.3363494873047,
+      "best_dist_lp": -142.16794204711914
+    },
+    {
+      "idx": 29,
+      "id": "conj_continuum hypothesis_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 142.16791152954102,
+      "truth_lp": -71.0839729309082,
+      "best_dist_lp": -213.25188446044922
+    },
+    {
+      "idx": 30,
+      "id": "conj_p = bpp?_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 3.0517578125e-05,
+      "truth_lp": -213.2516975402832,
+      "best_dist_lp": -213.25172805786133
+    },
+    {
+      "idx": 31,
+      "id": "conj_axiom of constructibility (v=l)_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 142.16791152954102,
+      "truth_lp": -71.0839729309082,
+      "best_dist_lp": -213.25188446044922
+    },
+    {
+      "idx": 32,
+      "id": "conj_woodin's ultimate-l_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16825485229492,
+      "truth_lp": -284.33600997924805,
+      "best_dist_lp": -142.16775512695312
+    },
+    {
+      "idx": 33,
+      "id": "conj_erdos discrepancy problem_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 142.16791152954102,
+      "truth_lp": -71.08398818969727,
+      "best_dist_lp": -213.25189971923828
+    },
+    {
+      "idx": 34,
+      "id": "conj_boolean pythagorean triples problem_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 142.1678810119629,
+      "truth_lp": -71.0840950012207,
+      "best_dist_lp": -213.2519760131836
+    },
+    {
+      "idx": 35,
+      "id": "conj_large cardinal hierarchy consistency_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16827011108398,
+      "truth_lp": -284.3361511230469,
+      "best_dist_lp": -142.1678810119629
+    },
+    {
+      "idx": 36,
+      "id": "conj_np = co-np?_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16814422607422,
+      "truth_lp": -284.33619689941406,
+      "best_dist_lp": -142.16805267333984
+    },
+    {
+      "idx": 37,
+      "id": "conj_unique games conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16848373413086,
+      "truth_lp": -284.3362693786621,
+      "best_dist_lp": -142.16778564453125
+    },
+    {
+      "idx": 38,
+      "id": "conj_inverse galois problem_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16814422607422,
+      "truth_lp": -284.335994720459,
+      "best_dist_lp": -142.16785049438477
+    },
+    {
+      "idx": 39,
+      "id": "conj_vaught's conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16843795776367,
+      "truth_lp": -284.3363037109375,
+      "best_dist_lp": -142.16786575317383
+    },
+    {
+      "idx": 40,
+      "id": "conj_kakeya conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16825485229492,
+      "truth_lp": -284.3360404968262,
+      "best_dist_lp": -142.16778564453125
+    },
+    {
+      "idx": 41,
+      "id": "conj_carleson's theorem_status",
+      "cluster": "conjecture_status",
+      "win": true,
+      "margin": 142.16781997680664,
+      "truth_lp": -71.08400344848633,
+      "best_dist_lp": -213.25182342529297
+    },
+    {
+      "idx": 42,
+      "id": "conj_navier-stokes regularity_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.1683006286621,
+      "truth_lp": -284.3362579345703,
+      "best_dist_lp": -142.1679573059082
+    },
+    {
+      "idx": 43,
+      "id": "conj_schanuel's conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16833114624023,
+      "truth_lp": -284.3361015319824,
+      "best_dist_lp": -142.1677703857422
+    },
+    {
+      "idx": 44,
+      "id": "conj_sendov's conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.1683464050293,
+      "truth_lp": -284.3361473083496,
+      "best_dist_lp": -142.1678009033203
+    },
+    {
+      "idx": 45,
+      "id": "conj_brennan conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16836166381836,
+      "truth_lp": -284.33636474609375,
+      "best_dist_lp": -142.1680030822754
+    },
+    {
+      "idx": 46,
+      "id": "conj_hilbert-polya conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16825103759766,
+      "truth_lp": -284.3359909057617,
+      "best_dist_lp": -142.16773986816406
+    },
+    {
+      "idx": 47,
+      "id": "conj_erdos-ginzburg-ziv theorem extensions_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16809844970703,
+      "truth_lp": -284.33573150634766,
+      "best_dist_lp": -142.16763305664062
+    },
+    {
+      "idx": 48,
+      "id": "conj_littlewood conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16827011108398,
+      "truth_lp": -284.3360710144043,
+      "best_dist_lp": -142.1678009033203
+    },
+    {
+      "idx": 49,
+      "id": "conj_mean curvature flow regularity_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16825485229492,
+      "truth_lp": -284.3359489440918,
+      "best_dist_lp": -142.16769409179688
+    },
+    {
+      "idx": 50,
+      "id": "conj_hot spots conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16836166381836,
+      "truth_lp": -284.3362579345703,
+      "best_dist_lp": -142.16789627075195
+    },
+    {
+      "idx": 51,
+      "id": "conj_graph isomorphism in p?_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16820907592773,
+      "truth_lp": -284.33593368530273,
+      "best_dist_lp": -142.167724609375
+    },
+    {
+      "idx": 52,
+      "id": "conj_separation of complexity classes (p vs pspace)_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16814422607422,
+      "truth_lp": -284.33619689941406,
+      "best_dist_lp": -142.16805267333984
+    },
+    {
+      "idx": 53,
+      "id": "conj_algebraic complexity: vp vs vnp_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.1679916381836,
+      "truth_lp": -284.335750579834,
+      "best_dist_lp": -142.1677589416504
+    },
+    {
+      "idx": 54,
+      "id": "conj_minimum circuit size problem (mcsp)_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16820907592773,
+      "truth_lp": -284.3361358642578,
+      "best_dist_lp": -142.16792678833008
+    },
+    {
+      "idx": 55,
+      "id": "conj_polynomial identity testing derandomization_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16823959350586,
+      "truth_lp": -284.3359031677246,
+      "best_dist_lp": -142.16766357421875
+    },
+    {
+      "idx": 56,
+      "id": "conj_planted clique conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16819381713867,
+      "truth_lp": -284.3359489440918,
+      "best_dist_lp": -142.16775512695312
+    },
+    {
+      "idx": 57,
+      "id": "conj_khot's d-to-1 conjecture_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.1683464050293,
+      "truth_lp": -284.3361167907715,
+      "best_dist_lp": -142.1677703857422
+    },
+    {
+      "idx": 58,
+      "id": "conj_bpp vs subexp_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16837310791016,
+      "truth_lp": -284.33613204956055,
+      "best_dist_lp": -142.1677589416504
+    },
+    {
+      "idx": 59,
+      "id": "conj_computational goldbach_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16829681396484,
+      "truth_lp": -284.3362731933594,
+      "best_dist_lp": -142.16797637939453
+    },
+    {
+      "idx": 60,
+      "id": "conj_matrix multiplication exponent_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16827011108398,
+      "truth_lp": -284.33605575561523,
+      "best_dist_lp": -142.16778564453125
+    },
+    {
+      "idx": 61,
+      "id": "conj_existential theory of the reals complete problems_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16829681396484,
+      "truth_lp": -284.33624267578125,
+      "best_dist_lp": -142.1679458618164
+    },
+    {
+      "idx": 62,
+      "id": "conj_nc vs p_status",
+      "cluster": "conjecture_status",
+      "win": false,
+      "margin": -142.16820526123047,
+      "truth_lp": -284.3361015319824,
+      "best_dist_lp": -142.16789627075195
+    },
+    {
+      "idx": 63,
+      "id": "complex_incl_PSPACE_EXP",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.38415145874023,
+      "truth_lp": -530.9790916442871,
+      "best_dist_lp": -317.5949401855469
+    },
+    {
+      "idx": 64,
+      "id": "complex_incl_L_NL",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.38492965698242,
+      "truth_lp": -459.89101791381836,
+      "best_dist_lp": -246.50608825683594
+    },
+    {
+      "idx": 65,
+      "id": "complex_incl_NC1_NC",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.38394165039062,
+      "truth_lp": -650.9737167358398,
+      "best_dist_lp": -437.5897750854492
+    },
+    {
+      "idx": 66,
+      "id": "complex_incl_BPP_BQP",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.50787353515625,
+      "truth_lp": -482.18217849731445,
+      "best_dist_lp": -268.6743049621582
+    },
+    {
+      "idx": 67,
+      "id": "complex_incl_RP_NP",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.38404083251953,
+      "truth_lp": -459.8917999267578,
+      "best_dist_lp": -246.50775909423828
+    },
+    {
+      "idx": 68,
+      "id": "complex_incl_coNP_PH",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.3866310119629,
+      "truth_lp": -470.976318359375,
+      "best_dist_lp": -257.5896873474121
+    },
+    {
+      "idx": 69,
+      "id": "complex_incl_P_NP",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.39359664916992,
+      "truth_lp": -459.8993911743164,
+      "best_dist_lp": -246.50579452514648
+    },
+    {
+      "idx": 70,
+      "id": "complex_incl_PSPACE_NPSPACE",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.38837051391602,
+      "truth_lp": -482.0634117126465,
+      "best_dist_lp": -268.67504119873047
+    },
+    {
+      "idx": 71,
+      "id": "complex_incl_AC0_NC1",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.38462448120117,
+      "truth_lp": -662.0583534240723,
+      "best_dist_lp": -448.6737289428711
+    },
+    {
+      "idx": 72,
+      "id": "complex_incl_BQP_PSPACE",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.45134735107422,
+      "truth_lp": -482.12987899780273,
+      "best_dist_lp": -268.6785316467285
+    },
+    {
+      "idx": 73,
+      "id": "complex_incl_NL_P",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.38574600219727,
+      "truth_lp": -459.8914489746094,
+      "best_dist_lp": -246.5057029724121
+    },
+    {
+      "idx": 74,
+      "id": "complex_incl_P_coRP",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.38610076904297,
+      "truth_lp": -470.981014251709,
+      "best_dist_lp": -257.594913482666
+    },
+    {
+      "idx": 75,
+      "id": "complex_incl_coRP_BPP",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.3828353881836,
+      "truth_lp": -482.06560134887695,
+      "best_dist_lp": -268.68276596069336
+    },
+    {
+      "idx": 76,
+      "id": "complex_incl_P_PH",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.3877716064453,
+      "truth_lp": -459.89342880249023,
+      "best_dist_lp": -246.50565719604492
+    },
+    {
+      "idx": 77,
+      "id": "complex_incl_PSPACE_EXPSPACE",
+      "cluster": "complexity_inclusions",
+      "win": false,
+      "margin": -213.52446746826172,
+      "truth_lp": -542.2007446289062,
+      "best_dist_lp": -328.67627716064453
+    },
+    {
+      "idx": 78,
+      "id": "complex_sep_NP_NEXP",
+      "cluster": "complexity_separations",
+      "win": false,
+      "margin": -257.7217483520508,
+      "truth_lp": -482.0585403442383,
+      "best_dist_lp": -224.3367919921875
+    },
+    {
+      "idx": 79,
+      "id": "complex_sep_NL_PSPACE",
+      "cluster": "complexity_separations",
+      "win": false,
+      "margin": -257.7224235534668,
+      "truth_lp": -482.05907821655273,
+      "best_dist_lp": -224.33665466308594
+    },
+    {
+      "idx": 80,
+      "id": "complex_sep_AC0_NC1",
+      "cluster": "complexity_separations",
+      "win": false,
+      "margin": -448.80287170410156,
+      "truth_lp": -673.1398010253906,
+      "best_dist_lp": -224.33692932128906
+    },
+    {
+      "idx": 81,
+      "id": "complex_sep_L_PSPACE",
+      "cluster": "complexity_separations",
+      "win": false,
+      "margin": -257.7233772277832,
+      "truth_lp": -482.0600471496582,
+      "best_dist_lp": -224.336669921875
+    },
+    {
+      "idx": 82,
+      "id": "complex_sep_P_EXP",
+      "cluster": "complexity_separations",
+      "win": false,
+      "margin": -306.6397361755371,
+      "truth_lp": -530.9764671325684,
+      "best_dist_lp": -224.33673095703125
+    },
+    {
+      "idx": 83,
+      "id": "complex_sep_EXP_EXPSPACE",
+      "cluster": "complexity_separations",
+      "win": false,
+      "margin": -377.72107696533203,
+      "truth_lp": -602.0579299926758,
+      "best_dist_lp": -224.33685302734375
+    },
+    {
+      "idx": 84,
+      "id": "barrier_incompleteness",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -373.0110206604004,
+      "truth_lp": -892.7669143676758,
+      "best_dist_lp": -519.7558937072754
+    },
+    {
+      "idx": 85,
+      "id": "barrier_incompleteness_blocks",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -433.0105323791504,
+      "truth_lp": -728.4310035705566,
+      "best_dist_lp": -295.42047119140625
+    },
+    {
+      "idx": 86,
+      "id": "barrier_independence",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -1227.9448547363281,
+      "truth_lp": -1747.700828552246,
+      "best_dist_lp": -519.755973815918
+    },
+    {
+      "idx": 87,
+      "id": "barrier_independence_blocks",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -11.084442138671875,
+      "truth_lp": -306.5051612854004,
+      "best_dist_lp": -295.4207191467285
+    },
+    {
+      "idx": 88,
+      "id": "barrier_relativization",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -728.4282188415527,
+      "truth_lp": -1248.1841125488281,
+      "best_dist_lp": -519.7558937072754
+    },
+    {
+      "idx": 89,
+      "id": "barrier_relativization_blocks",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -148.67431259155273,
+      "truth_lp": -444.0940132141113,
+      "best_dist_lp": -295.4197006225586
+    },
+    {
+      "idx": 90,
+      "id": "barrier_monotone_circuit",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -930.7936630249023,
+      "truth_lp": -1450.5493278503418,
+      "best_dist_lp": -519.7556648254395
+    },
+    {
+      "idx": 91,
+      "id": "barrier_monotone_circuit_blocks",
+      "cluster": "proof_barriers",
+      "win": true,
+      "margin": 202.16797256469727,
+      "truth_lp": -93.25194549560547,
+      "best_dist_lp": -295.41991806030273
+    },
+    {
+      "idx": 92,
+      "id": "barrier_descriptive_complexity",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -837.7884635925293,
+      "truth_lp": -1357.544635772705,
+      "best_dist_lp": -519.7561721801758
+    },
+    {
+      "idx": 93,
+      "id": "barrier_descriptive_complexity_blocks",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -93.25326919555664,
+      "truth_lp": -388.6733703613281,
+      "best_dist_lp": -295.4201011657715
+    },
+    {
+      "idx": 94,
+      "id": "barrier_natural_proofs",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -635.1781997680664,
+      "truth_lp": -1154.9338150024414,
+      "best_dist_lp": -519.755615234375
+    },
+    {
+      "idx": 95,
+      "id": "barrier_natural_proofs_blocks",
+      "cluster": "proof_barriers",
+      "win": true,
+      "margin": 37.83161163330078,
+      "truth_lp": -257.5882759094238,
+      "best_dist_lp": -295.4198875427246
+    },
+    {
+      "idx": 96,
+      "id": "barrier_black-box_derandomization",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -586.2609367370605,
+      "truth_lp": -1106.0165405273438,
+      "best_dist_lp": -519.7556037902832
+    },
+    {
+      "idx": 97,
+      "id": "barrier_black-box_derandomization_blocks",
+      "cluster": "proof_barriers",
+      "win": true,
+      "margin": 142.16785049438477,
+      "truth_lp": -153.25202178955078,
+      "best_dist_lp": -295.41987228393555
+    },
+    {
+      "idx": 98,
+      "id": "barrier_sos_degree",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -1139.358528137207,
+      "truth_lp": -1659.1144065856934,
+      "best_dist_lp": -519.7558784484863
+    },
+    {
+      "idx": 99,
+      "id": "barrier_sos_degree_blocks",
+      "cluster": "proof_barriers",
+      "win": true,
+      "margin": 108.91590118408203,
+      "truth_lp": -186.50432205200195,
+      "best_dist_lp": -295.420223236084
+    },
+    {
+      "idx": 100,
+      "id": "barrier_algebrization",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -908.4291229248047,
+      "truth_lp": -1428.1848335266113,
+      "best_dist_lp": -519.7557106018066
+    },
+    {
+      "idx": 101,
+      "id": "barrier_algebrization_blocks",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -208.67815399169922,
+      "truth_lp": -504.0981025695801,
+      "best_dist_lp": -295.41994857788086
+    },
+    {
+      "idx": 102,
+      "id": "barrier_gct_barrier",
+      "cluster": "proof_barriers",
+      "win": false,
+      "margin": -481.92376708984375,
+      "truth_lp": -1001.6796455383301,
+      "best_dist_lp": -519.7558784484863
+    },
+    {
+      "idx": 103,
+      "id": "barrier_gct_barrier_blocks",
+      "cluster": "proof_barriers",
+      "win": true,
+      "margin": 37.831504821777344,
+      "truth_lp": -257.5892753601074,
+      "best_dist_lp": -295.42078018188477
+    },
+    {
+      "idx": 104,
+      "id": "pharm_CYP2D6_substrates",
+      "cluster": "pharmacokinetics",
+      "win": false,
+      "margin": -587.0690269470215,
+      "truth_lp": -893.5727844238281,
+      "best_dist_lp": -306.50375747680664
+    },
+    {
+      "idx": 105,
+      "id": "pharm_CYP3A4_substrates",
+      "cluster": "pharmacokinetics",
+      "win": false,
+      "margin": -762.7293281555176,
+      "truth_lp": -1069.2331161499023,
+      "best_dist_lp": -306.50378799438477
+    },
+    {
+      "idx": 106,
+      "id": "pharm_CYP2C19_substrates",
+      "cluster": "pharmacokinetics",
+      "win": false,
+      "margin": -789.2500534057617,
+      "truth_lp": -1095.7538986206055,
+      "best_dist_lp": -306.50384521484375
+    },
+    {
+      "idx": 107,
+      "id": "pharm_CYP2C9_substrates",
+      "cluster": "pharmacokinetics",
+      "win": false,
+      "margin": -778.1438636779785,
+      "truth_lp": -1084.6476669311523,
+      "best_dist_lp": -306.5038032531738
+    },
+    {
+      "idx": 108,
+      "id": "pharm_CYP1A2_substrates",
+      "cluster": "pharmacokinetics",
+      "win": false,
+      "margin": -411.4788246154785,
+      "truth_lp": -717.9826126098633,
+      "best_dist_lp": -306.50378799438477
+    },
+    {
+      "idx": 109,
+      "id": "pharm_CYP2D6_inhibitors",
+      "cluster": "pharmacokinetics",
+      "win": false,
+      "margin": -126.74516677856445,
+      "truth_lp": -575.5622291564941,
+      "best_dist_lp": -448.8170623779297
+    },
+    {
+      "idx": 110,
+      "id": "pharm_CYP3A4_inhibitors",
+      "cluster": "pharmacokinetics",
+      "win": false,
+      "margin": -411.37048721313477,
+      "truth_lp": -860.1873817443848,
+      "best_dist_lp": -448.81689453125
+    },
+    {
+      "idx": 111,
+      "id": "pharm_CYP2C19_inhibitors",
+      "cluster": "pharmacokinetics",
+      "win": true,
+      "margin": 15.37222671508789,
+      "truth_lp": -433.45409393310547,
+      "best_dist_lp": -448.82632064819336
+    },
+    {
+      "idx": 112,
+      "id": "pharm_CYP2C9_inhibitors",
+      "cluster": "pharmacokinetics",
+      "win": true,
+      "margin": 119.98636627197266,
+      "truth_lp": -328.8319282531738,
+      "best_dist_lp": -448.8182945251465
+    },
+    {
+      "idx": 113,
+      "id": "pharm_CYP1A2_inhibitors",
+      "cluster": "pharmacokinetics",
+      "win": true,
+      "margin": 108.90642929077148,
+      "truth_lp": -339.91056060791016,
+      "best_dist_lp": -448.81698989868164
+    },
+    {
+      "idx": 114,
+      "id": "pharm_CYP2D6_poor_metabolizer",
+      "cluster": "pharmacogenomics",
+      "win": false,
+      "margin": -1308.1849937438965,
+      "truth_lp": -1565.7726249694824,
+      "best_dist_lp": -257.58763122558594
+    },
+    {
+      "idx": 115,
+      "id": "pharm_CYP2D6_ultrarapid_metabolizer",
+      "cluster": "pharmacogenomics",
+      "win": false,
+      "margin": -1050.5969352722168,
+      "truth_lp": -1308.1845970153809,
+      "best_dist_lp": -257.58766174316406
+    },
+    {
+      "idx": 116,
+      "id": "pharm_CYP2D6_intermediate_metabolizer",
+      "cluster": "pharmacogenomics",
+      "win": false,
+      "margin": -366.50436782836914,
+      "truth_lp": -624.0922164916992,
+      "best_dist_lp": -257.5878486633301
+    },
+    {
+      "idx": 117,
+      "id": "pharm_CYP2C19_poor_metabolizer",
+      "cluster": "pharmacogenomics",
+      "win": false,
+      "margin": -990.6660499572754,
+      "truth_lp": -1248.2535133361816,
+      "best_dist_lp": -257.58746337890625
+    },
+    {
+      "idx": 118,
+      "id": "pharm_CYP2C19_ultrarapid_metabolizer",
+      "cluster": "pharmacogenomics",
+      "win": false,
+      "margin": -613.0155143737793,
+      "truth_lp": -870.6030387878418,
+      "best_dist_lp": -257.5875244140625
+    },
+    {
+      "idx": 119,
+      "id": "pharm_CYP2C19_intermediate_metabolizer",
+      "cluster": "pharmacogenomics",
+      "win": false,
+      "margin": -317.5907096862793,
+      "truth_lp": -575.1783905029297,
+      "best_dist_lp": -257.5876808166504
+    },
+    {
+      "idx": 120,
+      "id": "pharm_CYP2C9_poor_metabolizer",
+      "cluster": "pharmacogenomics",
+      "win": false,
+      "margin": -837.3466606140137,
+      "truth_lp": -1094.934169769287,
+      "best_dist_lp": -257.58750915527344
+    },
+    {
+      "idx": 121,
+      "id": "pharm_CYP2C9_intermediate_metabolizer",
+      "cluster": "pharmacogenomics",
+      "win": false,
+      "margin": -568.673713684082,
+      "truth_lp": -826.2614440917969,
+      "best_dist_lp": -257.58773040771484
+    },
+    {
+      "idx": 122,
+      "id": "llm_hallucination_definition_truth",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -399.75927734375,
+      "truth_lp": -564.0955619812012,
+      "best_dist_lp": -164.33628463745117
+    },
+    {
+      "idx": 123,
+      "id": "llm_hallucination_definition_misc0",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -1334.9335174560547,
+      "truth_lp": -1581.4380989074707,
+      "best_dist_lp": -246.50458145141602
+    },
+    {
+      "idx": 124,
+      "id": "llm_hallucination_definition_misc1",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -908.4294052124023,
+      "truth_lp": -1154.9339866638184,
+      "best_dist_lp": -246.50458145141602
+    },
+    {
+      "idx": 125,
+      "id": "llm_rag_limitations_truth",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -355.41983795166016,
+      "truth_lp": -410.8404655456543,
+      "best_dist_lp": -55.42062759399414
+    },
+    {
+      "idx": 126,
+      "id": "llm_rag_limitations_misc0",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -575.1786880493164,
+      "truth_lp": -821.6827774047852,
+      "best_dist_lp": -246.50408935546875
+    },
+    {
+      "idx": 127,
+      "id": "llm_rag_limitations_misc1",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -886.261043548584,
+      "truth_lp": -1132.7651329040527,
+      "best_dist_lp": -246.50408935546875
+    },
+    {
+      "idx": 128,
+      "id": "llm_citation_fabrication_truth",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -306.50627517700195,
+      "truth_lp": -493.0096893310547,
+      "best_dist_lp": -186.50341415405273
+    },
+    {
+      "idx": 129,
+      "id": "llm_citation_fabrication_misc0",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -919.5147361755371,
+      "truth_lp": -1166.0183792114258,
+      "best_dist_lp": -246.50364303588867
+    },
+    {
+      "idx": 130,
+      "id": "llm_citation_fabrication_misc1",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -859.5140533447266,
+      "truth_lp": -1106.0176963806152,
+      "best_dist_lp": -246.50364303588867
+    },
+    {
+      "idx": 131,
+      "id": "llm_confidence_calibration_truth",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -22.16802215576172,
+      "truth_lp": -257.5879821777344,
+      "best_dist_lp": -235.41996002197266
+    },
+    {
+      "idx": 132,
+      "id": "llm_confidence_calibration_misc0",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -804.0931282043457,
+      "truth_lp": -1050.596477508545,
+      "best_dist_lp": -246.50334930419922
+    },
+    {
+      "idx": 133,
+      "id": "llm_confidence_calibration_misc1",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -541.9252243041992,
+      "truth_lp": -788.4285736083984,
+      "best_dist_lp": -246.50334930419922
+    },
+    {
+      "idx": 134,
+      "id": "llm_entity_confusion_truth",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -186.50416564941406,
+      "truth_lp": -481.92551040649414,
+      "best_dist_lp": -295.4213447570801
+    },
+    {
+      "idx": 135,
+      "id": "llm_entity_confusion_misc0",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -908.4309997558594,
+      "truth_lp": -1154.9355354309082,
+      "best_dist_lp": -246.50453567504883
+    },
+    {
+      "idx": 136,
+      "id": "llm_entity_confusion_misc1",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -957.3462753295898,
+      "truth_lp": -1203.8508110046387,
+      "best_dist_lp": -246.50453567504883
+    },
+    {
+      "idx": 137,
+      "id": "llm_factual_recall_frequency_truth",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -257.58899688720703,
+      "truth_lp": -361.9253120422363,
+      "best_dist_lp": -104.3363151550293
+    },
+    {
+      "idx": 138,
+      "id": "llm_factual_recall_frequency_misc0",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -799.5141868591309,
+      "truth_lp": -1046.0182762145996,
+      "best_dist_lp": -246.50408935546875
+    },
+    {
+      "idx": 139,
+      "id": "llm_factual_recall_frequency_misc1",
+      "cluster": "llm_hallucination",
+      "win": false,
+      "margin": -575.1781044006348,
+      "truth_lp": -821.6821937561035,
+      "best_dist_lp": -246.50408935546875
+    },
+    {
+      "idx": 140,
+      "id": "llm_chain_of_thought_truth",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -995.1759490966797,
+      "truth_lp": -1050.5962219238281,
+      "best_dist_lp": -55.42027282714844
+    },
+    {
+      "idx": 141,
+      "id": "llm_chain_of_thought_misc0",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -1181.6809768676758,
+      "truth_lp": -1428.1846961975098,
+      "best_dist_lp": -246.50371932983398
+    },
+    {
+      "idx": 142,
+      "id": "llm_chain_of_thought_misc1",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -919.5141410827637,
+      "truth_lp": -1166.0178604125977,
+      "best_dist_lp": -246.50371932983398
+    },
+    {
+      "idx": 143,
+      "id": "llm_reversal_curse_truth",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -126.5039291381836,
+      "truth_lp": -421.9252128601074,
+      "best_dist_lp": -295.4212837219238
+    },
+    {
+      "idx": 144,
+      "id": "llm_reversal_curse_misc0",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -826.2619171142578,
+      "truth_lp": -1072.7660369873047,
+      "best_dist_lp": -246.50411987304688
+    },
+    {
+      "idx": 145,
+      "id": "llm_reversal_curse_misc1",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -766.2613220214844,
+      "truth_lp": -1012.7654418945312,
+      "best_dist_lp": -246.50411987304688
+    },
+    {
+      "idx": 146,
+      "id": "llm_multi_hop_degradation_truth",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -361.9266815185547,
+      "truth_lp": -608.4317893981934,
+      "best_dist_lp": -246.50510787963867
+    },
+    {
+      "idx": 147,
+      "id": "llm_multi_hop_degradation_misc0",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -1034.9358291625977,
+      "truth_lp": -1281.4407958984375,
+      "best_dist_lp": -246.50496673583984
+    },
+    {
+      "idx": 148,
+      "id": "llm_multi_hop_degradation_misc1",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -1034.9371490478516,
+      "truth_lp": -1281.4421157836914,
+      "best_dist_lp": -246.50496673583984
+    },
+    {
+      "idx": 149,
+      "id": "llm_negation_failures_truth",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -657.3469924926758,
+      "truth_lp": -892.7673873901367,
+      "best_dist_lp": -235.42039489746094
+    },
+    {
+      "idx": 150,
+      "id": "llm_negation_failures_misc0",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -919.5141143798828,
+      "truth_lp": -1166.0179252624512,
+      "best_dist_lp": -246.50381088256836
+    },
+    {
+      "idx": 151,
+      "id": "llm_negation_failures_misc1",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -919.5142288208008,
+      "truth_lp": -1166.0180397033691,
+      "best_dist_lp": -246.50381088256836
+    },
+    {
+      "idx": 152,
+      "id": "llm_math_pattern_matching_truth",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -444.0921325683594,
+      "truth_lp": -608.4288787841797,
+      "best_dist_lp": -164.3367462158203
+    },
+    {
+      "idx": 153,
+      "id": "llm_math_pattern_matching_misc0",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -690.5967254638672,
+      "truth_lp": -937.1007995605469,
+      "best_dist_lp": -246.5040740966797
+    },
+    {
+      "idx": 154,
+      "id": "llm_math_pattern_matching_misc1",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -739.5134429931641,
+      "truth_lp": -986.0175170898438,
+      "best_dist_lp": -246.5040740966797
+    },
+    {
+      "idx": 155,
+      "id": "llm_planning_limitations_truth",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -437.58895111083984,
+      "truth_lp": -684.0938110351562,
+      "best_dist_lp": -246.5048599243164
+    },
+    {
+      "idx": 156,
+      "id": "llm_planning_limitations_misc0",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -1121.6802711486816,
+      "truth_lp": -1368.1841621398926,
+      "best_dist_lp": -246.50389099121094
+    },
+    {
+      "idx": 157,
+      "id": "llm_planning_limitations_misc1",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -1099.5129776000977,
+      "truth_lp": -1346.0168685913086,
+      "best_dist_lp": -246.50389099121094
+    },
+    {
+      "idx": 158,
+      "id": "llm_compositional_generalization_truth",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -426.5044250488281,
+      "truth_lp": -781.9248504638672,
+      "best_dist_lp": -355.42042541503906
+    },
+    {
+      "idx": 159,
+      "id": "llm_compositional_generalization_misc0",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -1246.2613525390625,
+      "truth_lp": -1492.765365600586,
+      "best_dist_lp": -246.50401306152344
+    },
+    {
+      "idx": 160,
+      "id": "llm_compositional_generalization_misc1",
+      "cluster": "llm_reasoning",
+      "win": false,
+      "margin": -1268.4298973083496,
+      "truth_lp": -1514.933910369873,
+      "best_dist_lp": -246.50401306152344
+    },
+    {
+      "idx": 161,
+      "id": "llm_rlhf_limitations_truth",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -601.9243392944336,
+      "truth_lp": -848.4287528991699,
+      "best_dist_lp": -246.50441360473633
+    },
+    {
+      "idx": 162,
+      "id": "llm_rlhf_limitations_misc0",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1334.9348411560059,
+      "truth_lp": -1581.4386253356934,
+      "best_dist_lp": -246.5037841796875
+    },
+    {
+      "idx": 163,
+      "id": "llm_rlhf_limitations_misc1",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1192.7664260864258,
+      "truth_lp": -1439.2702102661133,
+      "best_dist_lp": -246.5037841796875
+    },
+    {
+      "idx": 164,
+      "id": "llm_sycophancy_truth",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -721.9243927001953,
+      "truth_lp": -886.2609939575195,
+      "best_dist_lp": -164.33660125732422
+    },
+    {
+      "idx": 165,
+      "id": "llm_sycophancy_misc0",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1230.5991439819336,
+      "truth_lp": -1477.1024017333984,
+      "best_dist_lp": -246.50325775146484
+    },
+    {
+      "idx": 166,
+      "id": "llm_sycophancy_misc1",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1159.5157737731934,
+      "truth_lp": -1406.0190315246582,
+      "best_dist_lp": -246.50325775146484
+    },
+    {
+      "idx": 167,
+      "id": "llm_reward_hacking_truth",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -493.0092887878418,
+      "truth_lp": -597.3455772399902,
+      "best_dist_lp": -104.33628845214844
+    },
+    {
+      "idx": 168,
+      "id": "llm_reward_hacking_misc0",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1072.7652969360352,
+      "truth_lp": -1319.269401550293,
+      "best_dist_lp": -246.5041046142578
+    },
+    {
+      "idx": 169,
+      "id": "llm_reward_hacking_misc1",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -881.6819305419922,
+      "truth_lp": -1128.18603515625,
+      "best_dist_lp": -246.5041046142578
+    },
+    {
+      "idx": 170,
+      "id": "llm_jailbreaking_truth",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -268.67250061035156,
+      "truth_lp": -515.1770782470703,
+      "best_dist_lp": -246.50457763671875
+    },
+    {
+      "idx": 171,
+      "id": "llm_jailbreaking_misc0",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -941.6817359924316,
+      "truth_lp": -1188.185546875,
+      "best_dist_lp": -246.50381088256836
+    },
+    {
+      "idx": 172,
+      "id": "llm_jailbreaking_misc1",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1214.9338684082031,
+      "truth_lp": -1461.4376792907715,
+      "best_dist_lp": -246.50381088256836
+    },
+    {
+      "idx": 173,
+      "id": "llm_deceptive_alignment_truth",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -673.1310729980469,
+      "truth_lp": -908.5510368347168,
+      "best_dist_lp": -235.41996383666992
+    },
+    {
+      "idx": 174,
+      "id": "llm_deceptive_alignment_misc0",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1466.047275543213,
+      "truth_lp": -1712.551197052002,
+      "best_dist_lp": -246.50392150878906
+    },
+    {
+      "idx": 175,
+      "id": "llm_deceptive_alignment_misc1",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1192.7658462524414,
+      "truth_lp": -1439.2697677612305,
+      "best_dist_lp": -246.50392150878906
+    },
+    {
+      "idx": 176,
+      "id": "llm_constitutional_ai_truth",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -590.8478088378906,
+      "truth_lp": -826.2682952880859,
+      "best_dist_lp": -235.4204864501953
+    },
+    {
+      "idx": 177,
+      "id": "llm_constitutional_ai_misc0",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1252.7674560546875,
+      "truth_lp": -1499.2718086242676,
+      "best_dist_lp": -246.50435256958008
+    },
+    {
+      "idx": 178,
+      "id": "llm_constitutional_ai_misc1",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1170.6023902893066,
+      "truth_lp": -1417.1067428588867,
+      "best_dist_lp": -246.50435256958008
+    },
+    {
+      "idx": 179,
+      "id": "llm_goodhart_alignment_truth",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -793.0077438354492,
+      "truth_lp": -1017.3439331054688,
+      "best_dist_lp": -224.33618927001953
+    },
+    {
+      "idx": 180,
+      "id": "llm_goodhart_alignment_misc0",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1290.5964889526367,
+      "truth_lp": -1537.100242614746,
+      "best_dist_lp": -246.50375366210938
+    },
+    {
+      "idx": 181,
+      "id": "llm_goodhart_alignment_misc1",
+      "cluster": "llm_alignment",
+      "win": false,
+      "margin": -1279.512596130371,
+      "truth_lp": -1526.0163497924805,
+      "best_dist_lp": -246.50375366210938
+    },
+    {
+      "idx": 182,
+      "id": "llm_scaling_laws_truth",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1472.9693031311035,
+      "truth_lp": -1626.2216300964355,
+      "best_dist_lp": -153.25232696533203
+    },
+    {
+      "idx": 183,
+      "id": "llm_scaling_laws_misc0",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1806.1313743591309,
+      "truth_lp": -2052.6354637145996,
+      "best_dist_lp": -246.50408935546875
+    },
+    {
+      "idx": 184,
+      "id": "llm_scaling_laws_misc1",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1888.3456802368164,
+      "truth_lp": -2134.849769592285,
+      "best_dist_lp": -246.50408935546875
+    },
+    {
+      "idx": 185,
+      "id": "llm_emergence_truth",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1237.3212432861328,
+      "truth_lp": -1461.657485961914,
+      "best_dist_lp": -224.33624267578125
+    },
+    {
+      "idx": 186,
+      "id": "llm_emergence_misc0",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1121.6872940063477,
+      "truth_lp": -1368.1909065246582,
+      "best_dist_lp": -246.50361251831055
+    },
+    {
+      "idx": 187,
+      "id": "llm_emergence_misc1",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1181.7159576416016,
+      "truth_lp": -1428.219570159912,
+      "best_dist_lp": -246.50361251831055
+    },
+    {
+      "idx": 188,
+      "id": "llm_chinchilla_undertrained_truth",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -291.0148391723633,
+      "truth_lp": -657.5193328857422,
+      "best_dist_lp": -366.5044937133789
+    },
+    {
+      "idx": 189,
+      "id": "llm_chinchilla_undertrained_misc0",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1286.0168495178223,
+      "truth_lp": -1532.5206756591797,
+      "best_dist_lp": -246.50382614135742
+    },
+    {
+      "idx": 190,
+      "id": "llm_chinchilla_undertrained_misc1",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1023.8479843139648,
+      "truth_lp": -1270.3518104553223,
+      "best_dist_lp": -246.50382614135742
+    },
+    {
+      "idx": 191,
+      "id": "llm_data_quality_truth",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -541.926082611084,
+      "truth_lp": -777.3466339111328,
+      "best_dist_lp": -235.42055130004883
+    },
+    {
+      "idx": 192,
+      "id": "llm_data_quality_misc0",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1203.8520889282227,
+      "truth_lp": -1450.3563270568848,
+      "best_dist_lp": -246.5042381286621
+    },
+    {
+      "idx": 193,
+      "id": "llm_data_quality_misc1",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1132.767463684082,
+      "truth_lp": -1379.2717018127441,
+      "best_dist_lp": -246.5042381286621
+    },
+    {
+      "idx": 194,
+      "id": "llm_catastrophic_forgetting_truth",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -406.2641716003418,
+      "truth_lp": -690.600456237793,
+      "best_dist_lp": -284.3362846374512
+    },
+    {
+      "idx": 195,
+      "id": "llm_catastrophic_forgetting_misc0",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1154.9348487854004,
+      "truth_lp": -1401.4389381408691,
+      "best_dist_lp": -246.50408935546875
+    },
+    {
+      "idx": 196,
+      "id": "llm_catastrophic_forgetting_misc1",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -919.5136795043945,
+      "truth_lp": -1166.0177688598633,
+      "best_dist_lp": -246.50408935546875
+    },
+    {
+      "idx": 197,
+      "id": "llm_benchmark_contamination_truth",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -684.0931510925293,
+      "truth_lp": -848.429313659668,
+      "best_dist_lp": -164.33616256713867
+    },
+    {
+      "idx": 198,
+      "id": "llm_benchmark_contamination_misc0",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1088.4307556152344,
+      "truth_lp": -1334.9347381591797,
+      "best_dist_lp": -246.5039825439453
+    },
+    {
+      "idx": 199,
+      "id": "llm_benchmark_contamination_misc1",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1039.5147666931152,
+      "truth_lp": -1286.0187492370605,
+      "best_dist_lp": -246.5039825439453
+    },
+    {
+      "idx": 200,
+      "id": "llm_lora_peft_truth",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -542.1105155944824,
+      "truth_lp": -706.4465560913086,
+      "best_dist_lp": -164.33604049682617
+    },
+    {
+      "idx": 201,
+      "id": "llm_lora_peft_misc0",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -990.6074256896973,
+      "truth_lp": -1237.1112060546875,
+      "best_dist_lp": -246.50378036499023
+    },
+    {
+      "idx": 202,
+      "id": "llm_lora_peft_misc1",
+      "cluster": "llm_training",
+      "win": false,
+      "margin": -1110.6105117797852,
+      "truth_lp": -1357.1142921447754,
+      "best_dist_lp": -246.50378036499023
+    },
+    {
+      "idx": 203,
+      "id": "llm_benchmark_saturation_truth",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -579.7555046081543,
+      "truth_lp": -804.0917587280273,
+      "best_dist_lp": -224.33625411987305
+    },
+    {
+      "idx": 204,
+      "id": "llm_benchmark_saturation_misc0",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -1301.68062210083,
+      "truth_lp": -1548.1853408813477,
+      "best_dist_lp": -246.50471878051758
+    },
+    {
+      "idx": 205,
+      "id": "llm_benchmark_saturation_misc1",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -1208.428581237793,
+      "truth_lp": -1454.9333000183105,
+      "best_dist_lp": -246.50471878051758
+    },
+    {
+      "idx": 206,
+      "id": "llm_llm_as_judge_bias_truth",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -508.6749458312988,
+      "truth_lp": -744.0958061218262,
+      "best_dist_lp": -235.42086029052734
+    },
+    {
+      "idx": 207,
+      "id": "llm_llm_as_judge_bias_misc0",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -1099.5163688659668,
+      "truth_lp": -1346.0206756591797,
+      "best_dist_lp": -246.5043067932129
+    },
+    {
+      "idx": 208,
+      "id": "llm_llm_as_judge_bias_misc1",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -1088.4316673278809,
+      "truth_lp": -1334.9359741210938,
+      "best_dist_lp": -246.5043067932129
+    },
+    {
+      "idx": 209,
+      "id": "llm_capability_elicitation_truth",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -246.50306701660156,
+      "truth_lp": -541.9238471984863,
+      "best_dist_lp": -295.42078018188477
+    },
+    {
+      "idx": 210,
+      "id": "llm_capability_elicitation_misc0",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -946.2609825134277,
+      "truth_lp": -1192.7650566101074,
+      "best_dist_lp": -246.5040740966797
+    },
+    {
+      "idx": 211,
+      "id": "llm_capability_elicitation_misc1",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -1006.2609100341797,
+      "truth_lp": -1252.7649841308594,
+      "best_dist_lp": -246.5040740966797
+    },
+    {
+      "idx": 212,
+      "id": "llm_mc_position_bias_truth",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -519.7561912536621,
+      "truth_lp": -815.1766624450684,
+      "best_dist_lp": -295.42047119140625
+    },
+    {
+      "idx": 213,
+      "id": "llm_mc_position_bias_misc0",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -1230.5987243652344,
+      "truth_lp": -1477.102611541748,
+      "best_dist_lp": -246.50388717651367
+    },
+    {
+      "idx": 214,
+      "id": "llm_mc_position_bias_misc1",
+      "cluster": "llm_evaluation",
+      "win": false,
+      "margin": -1219.5145263671875,
+      "truth_lp": -1466.0184135437012,
+      "best_dist_lp": -246.50388717651367
+    },
+    {
+      "idx": 215,
+      "id": "llm_lost_in_the_middle_truth",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -639.7575531005859,
+      "truth_lp": -815.1781463623047,
+      "best_dist_lp": -175.42059326171875
+    },
+    {
+      "idx": 216,
+      "id": "llm_lost_in_the_middle_misc0",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -1099.5135078430176,
+      "truth_lp": -1346.017349243164,
+      "best_dist_lp": -246.50384140014648
+    },
+    {
+      "idx": 217,
+      "id": "llm_lost_in_the_middle_misc1",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -1099.5139503479004,
+      "truth_lp": -1346.0177917480469,
+      "best_dist_lp": -246.50384140014648
+    },
+    {
+      "idx": 218,
+      "id": "llm_kv_cache_scaling_truth",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -990.5978012084961,
+      "truth_lp": -1023.8499298095703,
+      "best_dist_lp": -33.25212860107422
+    },
+    {
+      "idx": 219,
+      "id": "llm_kv_cache_scaling_misc0",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -1297.1028747558594,
+      "truth_lp": -1543.6074256896973,
+      "best_dist_lp": -246.5045509338379
+    },
+    {
+      "idx": 220,
+      "id": "llm_kv_cache_scaling_misc1",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -1237.1028747558594,
+      "truth_lp": -1483.6074256896973,
+      "best_dist_lp": -246.5045509338379
+    },
+    {
+      "idx": 221,
+      "id": "llm_stateless_api_truth",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -930.7714500427246,
+      "truth_lp": -1106.1917839050293,
+      "best_dist_lp": -175.4203338623047
+    },
+    {
+      "idx": 222,
+      "id": "llm_stateless_api_misc0",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -1023.849235534668,
+      "truth_lp": -1270.3528175354004,
+      "best_dist_lp": -246.50358200073242
+    },
+    {
+      "idx": 223,
+      "id": "llm_stateless_api_misc1",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -1143.850513458252,
+      "truth_lp": -1390.3540954589844,
+      "best_dist_lp": -246.50358200073242
+    },
+    {
+      "idx": 224,
+      "id": "llm_knowledge_editing_truth",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -186.50520706176758,
+      "truth_lp": -410.84149169921875,
+      "best_dist_lp": -224.33628463745117
+    },
+    {
+      "idx": 225,
+      "id": "llm_knowledge_editing_misc0",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -695.1771812438965,
+      "truth_lp": -941.6811790466309,
+      "best_dist_lp": -246.50399780273438
+    },
+    {
+      "idx": 226,
+      "id": "llm_knowledge_editing_misc1",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -766.2613677978516,
+      "truth_lp": -1012.7653656005859,
+      "best_dist_lp": -246.50399780273438
+    },
+    {
+      "idx": 227,
+      "id": "llm_context_degradation_truth",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -377.58916091918945,
+      "truth_lp": -541.9254760742188,
+      "best_dist_lp": -164.3363151550293
+    },
+    {
+      "idx": 228,
+      "id": "llm_context_degradation_misc0",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -957.3459548950195,
+      "truth_lp": -1203.8509826660156,
+      "best_dist_lp": -246.5050277709961
+    },
+    {
+      "idx": 229,
+      "id": "llm_context_degradation_misc1",
+      "cluster": "llm_context_memory",
+      "win": false,
+      "margin": -886.2610626220703,
+      "truth_lp": -1132.7660903930664,
+      "best_dist_lp": -246.5050277709961
+    },
+    {
+      "idx": 230,
+      "id": "knot_reidemeister",
+      "cluster": "knot_theory",
+      "win": false,
+      "margin": -219.75903701782227,
+      "truth_lp": -455.1791534423828,
+      "best_dist_lp": -235.42011642456055
+    },
+    {
+      "idx": 231,
+      "id": "knot_jones_polynomial",
+      "cluster": "knot_theory",
+      "win": false,
+      "margin": -530.8423690795898,
+      "truth_lp": -657.346363067627,
+      "best_dist_lp": -126.50399398803711
+    },
+    {
+      "idx": 232,
+      "id": "knot_crossing_number",
+      "cluster": "knot_theory",
+      "win": false,
+      "margin": -317.58878326416016,
+      "truth_lp": -541.9249458312988,
+      "best_dist_lp": -224.33616256713867
+    },
+    {
+      "idx": 233,
+      "id": "nt_goldbach",
+      "cluster": "number_theory",
+      "win": false,
+      "margin": -1110.607681274414,
+      "truth_lp": -1570.3651885986328,
+      "best_dist_lp": -459.75750732421875
+    },
+    {
+      "idx": 234,
+      "id": "nt_collatz",
+      "cluster": "number_theory",
+      "win": false,
+      "margin": -1203.9269485473633,
+      "truth_lp": -1570.4317321777344,
+      "best_dist_lp": -366.5047836303711
+    },
+    {
+      "idx": 235,
+      "id": "nt_twin_primes",
+      "cluster": "number_theory",
+      "win": false,
+      "margin": -1357.2583236694336,
+      "truth_lp": -1723.7635803222656,
+      "best_dist_lp": -366.50525665283203
+    },
+    {
+      "idx": 236,
+      "id": "nt_abc",
+      "cluster": "number_theory",
+      "win": false,
+      "margin": -892.9573516845703,
+      "truth_lp": -1248.3784217834473,
+      "best_dist_lp": -355.42107009887695
+    },
+    {
+      "idx": 237,
+      "id": "cons_noether",
+      "cluster": "conservation",
+      "win": false,
+      "margin": -448.6712303161621,
+      "truth_lp": -673.0080680847168,
+      "best_dist_lp": -224.3368377685547
+    },
+    {
+      "idx": 238,
+      "id": "cons_hamiltonian",
+      "cluster": "conservation",
+      "win": false,
+      "margin": -497.5892448425293,
+      "truth_lp": -804.0940437316895,
+      "best_dist_lp": -306.50479888916016
+    },
+    {
+      "idx": 239,
+      "id": "cons_liouville",
+      "cluster": "conservation",
+      "win": false,
+      "margin": -541.926456451416,
+      "truth_lp": -706.2627906799316,
+      "best_dist_lp": -164.33633422851562
+    },
+    {
+      "idx": 240,
+      "id": "cons_em_helicity",
+      "cluster": "conservation",
+      "win": false,
+      "margin": -590.8403282165527,
+      "truth_lp": -826.2608451843262,
+      "best_dist_lp": -235.42051696777344
+    },
+    {
+      "idx": 241,
+      "id": "cons_vorticity",
+      "cluster": "conservation",
+      "win": false,
+      "margin": -541.9258308410645,
+      "truth_lp": -897.3466262817383,
+      "best_dist_lp": -355.4207954406738
+    },
+    {
+      "idx": 242,
+      "id": "red_sat_3sat",
+      "cluster": "reductions",
+      "win": false,
+      "margin": -979.5152816772461,
+      "truth_lp": -1188.1892929077148,
+      "best_dist_lp": -208.67401123046875
+    },
+    {
+      "idx": 243,
+      "id": "red_cook_levin",
+      "cluster": "reductions",
+      "win": false,
+      "margin": -815.1784133911133,
+      "truth_lp": -908.4302635192871,
+      "best_dist_lp": -93.25185012817383
+    }
+  ]
+}

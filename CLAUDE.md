@@ -169,7 +169,7 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
-**Established domain results (999/999 = 100% across all 67 domains):**
+**Established domain results (1014/1014 = 100% across all 67 domains):**
 
 | Domain | Facts | Baseline | Final | Method |
 |--------|-------|----------|-------|--------|
@@ -234,13 +234,16 @@ so they never compete for the same parameters.
 | Particle Physics Frontiers | 12 | 7/12 | **12/12** | Orthogonal adapters |
 | Holographic QInfo | 12 | 10/12 | **12/12** | Orthogonal adapters |
 
-**All 999 facts flipped across all 67 domains (100%).**
+**All 1014 facts flipped across all 67 domains (100%).**
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:
 2. Staged training (sequential clusters) → solved Hamiltonian (16/16). If plateau, try:
 3. Orthogonal adapters (specialist per cluster, routed at inference) → solved NS (16/16) and Knot invariants (16/16). Generalizes across physics and pure math. If still stuck, try:
 4. Cross-domain joint training (train single adapter on multiple domains) → confirmed with difficulty-weighted sampling: NS 0→10/16, knots 1→11/16, chemical 0→13/16, Hamiltonian 1→14/16 from ONE adapter. Difficulty-weighted sampling (oversample hard facts) gives best transfer on hardest domain.
+5. Hybrid routing (evaluate both joint and orthogonal adapters, pick higher margin per fact) → 82.1% on physics frontier (69/84) vs 70.2% orthogonal-only vs 44.0% joint-only. Joint wins on particle physics/neutrino/holographic; orthogonal wins on dark matter/quantum gravity/cosmology/condensed matter.
+
+**Negative result:** A single unified adapter trained on 244 heterogeneous toolkit facts (16 clusters from complexity theory to pharmacokinetics) scored 7.8% — worse than the 10.2% baseline. Joint training only works for semantically related domains.
 
 ---
 
@@ -493,6 +496,11 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/validate.py` | Integrator validation via conservation laws |
 | `noethersolve/audit_chem.py` | Chemical network thermodynamic auditor |
 | `experiments/corruption_benchmark.py` | 5 benchmark experiments proving monitor sensitivity |
+| `experiments/train_toolkit_adapter.py` | Joint unified adapter training (244 facts, 16 clusters) |
+| `experiments/train_frontier_domains.py` | Orthogonal adapter training for frontier domains |
+| `experiments/verify_frontier_domains.py` | Verify frontier domain adapters (96/96 = 100%) |
+| `experiments/benchmark_toolkit_adapter.py` | Benchmark any adapter against toolkit facts |
+| `results/discoveries/adapter_combination_findings.md` | Hybrid routing findings (82.1% on physics frontier) |
 | `research/knot_invariants.py` | Numerical verification of knot invariants |
 | `research/hamiltonian_invariants.py` | Hamiltonian system invariant checks |
 | `research/chemical_networks.py` | Chemical network conservation verification |
