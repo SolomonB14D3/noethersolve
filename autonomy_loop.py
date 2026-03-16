@@ -1005,6 +1005,30 @@ def cmd_show_queue(args):
     print_open_questions_menu()
 
 
+def cmd_rebuild_router(args):
+    """Rebuild the persistent adapter router from all facts + adapters.
+
+    Use after training adapters outside the autonomy loop (e.g., via
+    train_vortex_adapter.py) so the router picks them up next session.
+    """
+    import mlx_lm
+    from noethersolve.adapter_router import AdapterRouter
+
+    router_path = args.router_path or os.path.join(_HERE, "router_state.npz")
+    problems_dir = os.path.join(_HERE, "problems")
+    adapters_dir = os.path.join(_HERE, "adapters")
+
+    print(f"  Loading {args.model}...")
+    model, tokenizer = mlx_lm.load(args.model)
+    model.eval()
+
+    print(f"  Building router from {problems_dir} + {adapters_dir}...")
+    router = AdapterRouter.build(model, tokenizer, problems_dir, adapters_dir)
+    router.save(router_path)
+    print(f"\n  Done. {len(router.centroids)} centroids -> {router_path}")
+    print(router.info())
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Subcommand: propose a new problem interactively
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1176,6 +1200,12 @@ Examples:
     # ── show-queue ────────────────────────────────────────────────────────────
     sub.add_parser("show-queue", help="Print open questions queue")
 
+    # ── rebuild-router ─────────────────────────────────────────────────────────
+    rr = sub.add_parser("rebuild-router",
+                        help="Rebuild adapter router from all facts/adapters")
+    rr.add_argument("--model", default="Qwen/Qwen3-4B-Base")
+    rr.add_argument("--router-path", default=None)
+
     # ── propose-problem ───────────────────────────────────────────────────────
     pp = sub.add_parser("propose-problem", help="Generate a problem YAML from a question")
     pp.add_argument("--text", dest="problem_text", default=None,
@@ -1198,6 +1228,10 @@ Examples:
     top.add_argument("--model",          default=None)
     top.add_argument("--backend",        choices=["mlx", "torch"], default="mlx")
     top.add_argument("--no-publish",     action="store_true")
+    top.add_argument("--no-router",     action="store_true",
+                     help="Disable persistent adapter router")
+    top.add_argument("--router-path",   default=None,
+                     help="Override router_state.npz location")
     top.add_argument("--generate-problems", action="store_true",
                      help="After loop, call Claude to propose new hypotheses")
 
@@ -1205,6 +1239,9 @@ Examples:
 
     if args.subcommand == "show-queue":
         cmd_show_queue(args)
+        return
+    if args.subcommand == "rebuild-router":
+        cmd_rebuild_router(args)
         return
     if args.subcommand == "propose-problem":
         cmd_propose_problem(args)
@@ -1230,6 +1267,10 @@ def _add_run_args(p):
     p.add_argument("--model",          default=None)
     p.add_argument("--backend",        choices=["mlx", "torch"], default="mlx")
     p.add_argument("--no-publish",     action="store_true")
+    p.add_argument("--no-router",     action="store_true",
+                    help="Disable persistent adapter router")
+    p.add_argument("--router-path",   default=None,
+                    help="Override router_state.npz location")
     p.add_argument("--generate-problems", action="store_true")
 
 
@@ -1247,6 +1288,9 @@ def _run_loop(args):
     checker_type = detect_checker_type(problem)
     domain_desc  = (problem.get("description") or problem.get("name") or
                     "Unknown physics domain")
+    no_router    = getattr(args, "no_router", False)
+    router_path  = getattr(args, "router_path", None) or os.path.join(
+                       _HERE, "router_state.npz")
 
     print(f"\n{'='*72}")
     print(f"  NoetherSolve Autonomy Loop")
@@ -1261,6 +1305,7 @@ def _run_loop(args):
     print(f"  Skip oracle: {args.skip_oracle}")
     print(f"  Skip train:  {args.skip_training}")
     print(f"  Publish:     {not args.no_publish}")
+    print(f"  Router:      {'disabled' if no_router else router_path}")
 
     # ── Show open questions queue ─────────────────────────────────────────────
     open_qs = [q for q in load_open_questions() if q.get("status") == "open"]
@@ -1357,6 +1402,29 @@ def _run_loop(args):
             print("  ERROR: noethersolve_torch.py not found. Use --backend mlx.")
             return
 
+    # ── Load or build the persistent adapter router ─────────────────────────
+    router = None
+    if args.backend == "mlx" and not no_router:
+        try:
+            from noethersolve.adapter_router import AdapterRouter
+            if os.path.exists(router_path):
+                router = AdapterRouter.load(router_path)
+                print(f"  Router: {len(router.centroids)} centroids loaded")
+            else:
+                # Build from scratch if adapters/ and problems/ exist
+                problems_dir = os.path.join(_HERE, "problems")
+                adapters_dir = os.path.join(_HERE, "adapters")
+                if os.path.isdir(problems_dir) and os.path.isdir(adapters_dir):
+                    print("  Building adapter router (first run)...")
+                    router = AdapterRouter.build(
+                        model, tokenizer, problems_dir, adapters_dir)
+                    router.save(router_path)
+                else:
+                    print("  Router: no problems/ or adapters/ dir, skipping")
+        except Exception as exc:
+            print(f"  Router load/build failed (non-fatal): {exc}")
+            router = None
+
     anthropic_client = None
     if not args.skip_training:
         api_key = os.environ.get("ANTHROPIC_API_KEY", "")
@@ -1417,15 +1485,43 @@ def _run_loop(args):
                 print(f"  │  No oracle facts — skipping")
                 continue
 
-        # Step B: Baseline oracle (with accumulated adapters from prior flips)
-        baseline_adapter = accumulated_adapters if accumulated_adapters else None
-        baseline = run_oracle_on_facts(model, tokenizer, oracle_facts,
-                                       adapter=baseline_adapter, lm_head=lm_head)
+        # Step B: Baseline oracle — try router first, then accumulated adapters
+        routed_this_fact = False
+        if router is not None and args.backend == "mlx":
+            # Use first fact's context for routing decision
+            route_ctx = oracle_facts[0].get("context", "") if oracle_facts else ""
+            if route_ctx:
+                try:
+                    from noethersolve.adapter_router import AdapterRouter
+                    decision = router.route(model, tokenizer, route_ctx)
+                    if decision.level != "fallback":
+                        vocab_size = model.model.embed_tokens.weight.shape[0]
+                        routed_adapter = router.get_adapter(
+                            decision.primary_key, vocab_size)
+                        if routed_adapter is not None:
+                            baseline = run_oracle_on_facts(
+                                model, tokenizer, oracle_facts,
+                                adapter=routed_adapter, lm_head=lm_head)
+                            routed_this_fact = True
+                            print(f"  │  Routed → {decision.primary_key} "
+                                  f"(sim={decision.primary_sim:.3f}, "
+                                  f"level={decision.level})")
+                except Exception as exc:
+                    print(f"  │  Router error (falling back): {exc}")
+
+        if not routed_this_fact:
+            baseline_adapter = accumulated_adapters if accumulated_adapters else None
+            baseline = run_oracle_on_facts(model, tokenizer, oracle_facts,
+                                           adapter=baseline_adapter, lm_head=lm_head)
         oracle_count += 1
         b_margin  = baseline["mean_margin"]
         pass_rate = f"{baseline['n_pass']}/{baseline['n_total']}"
-        stack_note = f"  (stack={len(accumulated_adapters)})" if accumulated_adapters else ""
-        print(f"  │  Baseline: margin={b_margin:+.3f}  ({pass_rate} pass){stack_note}")
+        route_note = ""
+        if routed_this_fact:
+            route_note = "  (routed)"
+        elif accumulated_adapters:
+            route_note = f"  (stack={len(accumulated_adapters)})"
+        print(f"  │  Baseline: margin={b_margin:+.3f}  ({pass_rate} pass){route_note}")
 
         if b_margin > 0:
             print(f"  └─ ✓ DUAL-PASS — model already knows this!")
@@ -1491,6 +1587,24 @@ def _run_loop(args):
             flipped.append((expr, b_margin, r_margin, fv_by_ic, adapter_path))
             accumulated_adapters.append(adapter)
             print(f"  │  Adapter added to stack (total={len(accumulated_adapters)})")
+
+            # Register with persistent router for cross-session memory
+            if router is not None and args.backend == "mlx":
+                try:
+                    from noethersolve.adapter_router import AdapterRouter
+                    # Compute centroid from training facts
+                    centroid_texts = [ex.get("context", "") for ex in training_examples
+                                     if ex.get("context")]
+                    if centroid_texts:
+                        embeddings = [AdapterRouter.embed_text(model, tokenizer, t)
+                                      for t in centroid_texts[:10]]
+                        centroid = np.mean(embeddings, axis=0)
+                        adapter_key = os.path.splitext(adapter_name)[0]
+                        router.register_adapter(adapter_key, adapter_path, centroid)
+                        print(f"  │  Registered in router: {adapter_key}")
+                except Exception as exc:
+                    print(f"  │  Router registration failed (non-fatal): {exc}")
+
             if not args.no_publish:
                 append_tsv_row(expr, ic_name, fv_by_ic, b_margin, r_margin,
                                "QUADRANT3→FLIPPED",
@@ -1638,6 +1752,15 @@ def _run_loop(args):
         print(f"  Added {added} new questions to open queue.")
         print_open_questions_menu()
 
+    # ── Save router state (cross-session persistence) ─────────────────────────
+    if router is not None and flipped:
+        try:
+            router.save(router_path)
+            print(f"\n  Router saved: {len(router.centroids)} centroids "
+                  f"({len(flipped)} new adapter(s) registered)")
+        except Exception as exc:
+            print(f"\n  Router save failed (non-fatal): {exc}")
+
     # ── Summary ───────────────────────────────────────────────────────────────
     print(f"\n{'='*72}")
     print(f"  NoetherSolve Autonomy Loop — Complete")
@@ -1647,6 +1770,8 @@ def _run_loop(args):
     print(f"  DUAL-PASS:           {len(dual_pass)}")
     print(f"  FLIPPED:             {len(flipped)}")
     print(f"  Open gaps:           {len(open_gaps)}")
+    if router is not None:
+        print(f"  Router centroids:    {len(router.centroids)}")
 
     if dual_pass:
         print(f"\n  ✓ DUAL-PASS:")
