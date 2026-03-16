@@ -14,6 +14,12 @@ Key finding (Length Ratio Discovery, 2026-03-16):
   - Ratio 1.2-2.5: 13% baseline (hard)
   - Ratio > 2.5: 7% baseline (very hard)
 
+Key finding (Linguistic Hedge Predictor, 2026-03-16):
+  - Hedge words (may, might, possibly, etc.) predict mean-scoring failure
+  - Confidence words (exactly, proven, always, etc.) predict mean-scoring success
+  - Zero-shot accuracy: 72% (no model inference needed)
+  - Perfect domain-level correlation: r = -1.000 between hedged% and mean pass%
+
 Catches:
   - Token-length bias (distractor shorter than truth)
   - Length ratio issues (truth too long relative to distractors)
@@ -21,14 +27,21 @@ Catches:
 
 Usage:
     from noethersolve.audit_facts import audit_facts, FactAuditReport
+    from noethersolve.audit_facts import predict_difficulty, predict_mean_pass
 
     report = audit_facts("problems/chemical_conservation_facts.json")
     print(report)
     # Shows per-fact diagnostics, risk levels, and overall summary
 
+    prediction = predict_difficulty("problems/my_facts.json")
+    print(f"Predicted sum pass: {prediction['sum_pct']:.0f}%")
+    print(f"Predicted mean pass: {prediction['mean_pct']:.0f}%")
+
 CLI:
     python -m noethersolve.audit_facts --all
     python -m noethersolve.audit_facts --file problems/my_facts.json
+    python -m noethersolve.audit_facts --all --predict-difficulty
+    python -m noethersolve.audit_facts --file problems/my_facts.json --predict-difficulty
 """
 
 import json
@@ -368,6 +381,131 @@ def analyze_length_ratio(path_or_dict) -> dict:
     }
 
 
+# ─── Linguistic hedge predictor (from Linguistic Hedge Predictor Discovery) ──
+
+HEDGE_WORDS = {
+    "may", "might", "could", "possibly", "potentially", "likely", "unlikely",
+    "suggests", "suggesting", "uncertain", "unknown", "unclear",
+    "remains", "pending", "viable", "possible", "perhaps", "probably",
+    "estimated", "approximately", "roughly", "about", "some",
+    "appears", "seems", "indicates", "implies", "but",
+}
+
+CONFIDENCE_WORDS = {
+    "exactly", "precisely", "always", "never", "must", "definitely", "certainly",
+    "proven", "confirmed", "established", "demonstrated", "known", "guaranteed",
+    "is", "are", "has", "have", "will", "does",
+}
+
+
+def _hedge_score(text: str) -> int:
+    """Compute linguistic hedge score. Positive = hedged, negative = confident."""
+    import re
+    words = re.findall(r'\b\w+\b', text.lower())
+    word_set = set(words)
+
+    hedge_count = len(word_set & HEDGE_WORDS)
+    confidence_count = len(word_set & CONFIDENCE_WORDS)
+
+    score = hedge_count - confidence_count
+
+    if '(' in text:  # Parentheticals add hedging
+        score += 1
+    if len(words) > 15:  # Long explanations add hedging
+        score += 1
+
+    return score
+
+
+def predict_mean_pass(fact: dict) -> bool:
+    """Predict if fact will pass mean-normalized scoring (no model needed).
+
+    Based on Linguistic Hedge Predictor Discovery: 72% accuracy.
+    """
+    truth = fact.get("truth", "")
+    distractors = fact.get("distractors", [])
+
+    if not distractors:
+        return True
+
+    truth_score = _hedge_score(truth)
+    min_dist_score = min(_hedge_score(d) for d in distractors)
+
+    return truth_score <= min_dist_score
+
+
+def predict_sum_pass(fact: dict) -> bool:
+    """Predict if fact will pass sum scoring (no model needed)."""
+    truth = fact.get("truth", "")
+    distractors = fact.get("distractors", [])
+
+    if not distractors:
+        return True
+
+    truth_len = len(truth)
+    min_dist_len = min(len(d) for d in distractors)
+
+    if min_dist_len == 0:
+        return True
+
+    length_ratio = truth_len / min_dist_len
+    truth_hedge = _hedge_score(truth)
+    min_dist_hedge = min(_hedge_score(d) for d in distractors)
+
+    # Sum passes if: shorter AND not too much more hedged
+    if length_ratio < 1.2:
+        return True
+    if truth_hedge < min_dist_hedge - 1:
+        return True
+    if length_ratio < 1.5 and truth_hedge <= min_dist_hedge:
+        return True
+    return False
+
+
+def predict_difficulty(path_or_dict) -> dict:
+    """Zero-shot oracle difficulty prediction using linguistic features.
+
+    No model inference needed. ~72% accuracy on mean scoring predictions.
+
+    Returns:
+        dict with predicted sum/mean pass rates and per-fact predictions.
+    """
+    if isinstance(path_or_dict, str):
+        with open(path_or_dict, "r") as f:
+            data = json.load(f)
+    else:
+        data = path_or_dict
+
+    facts = data.get("facts", data.get("examples", []))
+    results = []
+
+    for fact in facts:
+        fact_id = fact.get("id", "unknown")
+        sum_pred = predict_sum_pass(fact)
+        mean_pred = predict_mean_pass(fact)
+        truth_hedge = _hedge_score(fact.get("truth", ""))
+
+        results.append({
+            "fact_id": fact_id,
+            "sum_pred": sum_pred,
+            "mean_pred": mean_pred,
+            "truth_hedge_score": truth_hedge,
+        })
+
+    n = len(results)
+    if n == 0:
+        return {"sum_pct": 0, "mean_pct": 0, "facts": []}
+
+    sum_pct = 100 * sum(r["sum_pred"] for r in results) / n
+    mean_pct = 100 * sum(r["mean_pred"] for r in results) / n
+
+    return {
+        "sum_pct": sum_pct,
+        "mean_pct": mean_pct,
+        "facts": results,
+    }
+
+
 # ─── CLI ────────────────────────────────────────────────────────────────────
 
 def main():
@@ -389,10 +527,29 @@ def main():
         "--check-lengths", action="store_true",
         help="Show length ratio analysis (from Length Ratio Discovery)"
     )
+    parser.add_argument(
+        "--predict-difficulty", action="store_true",
+        help="Zero-shot difficulty prediction using linguistic features (no model needed)"
+    )
     args = parser.parse_args()
 
     if args.file:
-        if args.check_lengths:
+        if args.predict_difficulty:
+            prediction = predict_difficulty(str(args.file))
+            print(f"File: {args.file}")
+            print(f"  Zero-shot difficulty prediction (72% accurate on mean scoring)")
+            print()
+            print(f"  Predicted sum pass rate:  {prediction['sum_pct']:.0f}%")
+            print(f"  Predicted mean pass rate: {prediction['mean_pct']:.0f}%")
+            print()
+            print("  Per-fact predictions:")
+            print(f"  {'ID':<15} {'Sum':>6} {'Mean':>6} {'Hedge':>6}")
+            print("  " + "-" * 35)
+            for f in prediction["facts"]:
+                sum_str = "PASS" if f["sum_pred"] else "FAIL"
+                mean_str = "PASS" if f["mean_pred"] else "FAIL"
+                print(f"  {f['fact_id']:<15} {sum_str:>6} {mean_str:>6} {f['truth_hedge_score']:>6}")
+        elif args.check_lengths:
             analysis = analyze_length_ratio(str(args.file))
             print(f"File: {args.file}")
             print(f"  Avg length ratio: {analysis['avg_ratio']:.2f}")
@@ -419,7 +576,38 @@ def main():
 
         facts_files = sorted(problems_dir.glob("*_facts.json"))
 
-        if args.check_lengths:
+        if args.predict_difficulty:
+            print("=" * 75)
+            print("ZERO-SHOT DIFFICULTY PREDICTION (see linguistic_hedge_predictor.md)")
+            print("72% accurate on mean scoring, no model inference needed")
+            print("=" * 75)
+            print()
+            print(f"{'Domain':<35} {'N':>3} {'Sum%':>6} {'Mean%':>6}")
+            print("-" * 55)
+
+            results = []
+            for f in facts_files:
+                try:
+                    prediction = predict_difficulty(str(f))
+                    domain = f.stem.replace("_facts", "")
+                    n = len(prediction["facts"])
+                    results.append((domain, n, prediction["sum_pct"], prediction["mean_pct"]))
+                except Exception as e:
+                    print(f"Error: {f}: {e}")
+
+            # Sort by mean pass rate (hardest first)
+            results.sort(key=lambda x: x[3])
+
+            for domain, n, sum_pct, mean_pct in results:
+                print(f"{domain:<35} {n:>3} {sum_pct:>5.0f}% {mean_pct:>5.0f}%")
+
+            print()
+            print("Interpretation:")
+            print("  - Low mean% + high sum% = hedged truths → use SUM scoring")
+            print("  - High mean% + low sum% = verbose truths → use MEAN scoring")
+            print("  - Low both = hard domain → needs incoherent distractors")
+
+        elif args.check_lengths:
             print("=" * 75)
             print("LENGTH RATIO ANALYSIS (see length_ratio_discovery.md)")
             print("=" * 75)
