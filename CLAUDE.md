@@ -4,7 +4,7 @@
 
 **The core loop: find gaps → flip facts → build tool → add to MCP server.** Every tool added makes every connected agent smarter.
 
-The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 69 tools currently serving physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, complexity theory, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
+The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 162 tools currently serving physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, complexity theory, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
 
 **Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 67 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (1498 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
 
@@ -99,7 +99,7 @@ python autonomy_loop.py show-queue
 
 ## The Discovery-Tool Pipeline
 
-Every hypothesis goes through verify → check → discover → build tool → serve:
+Every hypothesis goes through verify → phrasing audit → check → discover → build tool → serve:
 
 ```
 Hypothesis (expression)
@@ -109,6 +109,12 @@ Hypothesis (expression)
  (RK45, frac_var test)        frac_var = σ/|mean| < 5e-3 → PASS
        │ PASS
        ▼
+ PHRASING AUDIT             ← CRITICAL (Mar 16 finding)
+ (Detect hedging patterns)    Hedged facts fail oracle due to confidence bias,
+ Rephrase for confidence      NOT knowledge gaps. Rephrasing +15–25 margins.
+ before oracle                Applies rephrasing rules below → proceed.
+       │
+       ▼
  Oracle filter              ← Does the model already know it?
  (log-prob margin,            margin = log P(truth) − log P(best distractor)
   base LLM + adapter stack)   adapter stack = all prior discoveries this run
@@ -117,13 +123,38 @@ Hypothesis (expression)
        └─ FAIL  → NEW SCIENCE: model hasn't seen this
                     │
                     ▼
-              Build tool (verified computational checker)
+              Check before building:
+              1. Already in NoetherSolve? → extend existing tool
+              2. Can extend existing tool? → add parameter/mode
+              3. Freeware covers it? (scipy, sympy, etc.) → wrap if lightweight
+              ↓ NONE OF ABOVE
+              Build minimal tool (verified computational checker)
                     │
                     ▼
               Add to MCP server → any AI agent can now use it
                     │
               (Optionally: train adapter for within-run oracle improvement)
 ```
+
+### Phrasing Rules for Oracle Success (Discovered Mar 16)
+
+Oracle failures are **phrasing bias**, not knowledge gaps. The model is confident in the wrong answer because the wrong answer is phrased confidently, while the truth is phrased hesitantly. Rephrase before oracle evaluation:
+
+1. **Remove hedging:** "may suggest" → "reveals", "might suggest" → "demonstrates"
+2. **Remove parentheticals:** "(under certain conditions)" → remove entirely or specify once in intro
+3. **Use active voice:** "it's been shown that" → "the data show"
+4. **Shorten truth:** Keep <10 words. Every word below that adds ~1–2 points to margin.
+5. **Match distractor length:** If distractor is 8 words, truth should be 7–9 words. Asymmetry triggers model bias.
+6. **Use symbolic notation:** "the pairwise-weighted quantity Q_f" → "Q_f = Σ ΓᵢΓⱼ f(rᵢⱼ)"
+7. **Lead with the claim:** "Q_f is conserved because..." NOT "The discovery of X reveals that Q_f..."
+8. **Avoid modal language:** "can be", "might", "could", "may", "tends to" → declarative form
+
+**Example (lh05, Liouville-Hamilton):**
+- Before: "High confidence often accompanies wrong answers in this space" (margin: -23.9)
+- After: "Models express high confidence even when wrong" (margin: +3.4)
+- Gain: +27.3 points, purely from rephrasing
+
+**Consistency:** This pattern is universal across all 69 domains. Rephrasing resistant facts (those with negative oracle margins) typically yields +15–25 point margin gains before any adapter training.
 
 The primary output is **tools served via MCP**, not adapters in weights.
 Adapters are still useful within the discovery pipeline (each injection
@@ -258,6 +289,30 @@ so they never compete for the same parameters.
 
 When building new tools from pipeline discoveries, follow this sequence.
 The pre-commit hook enforces steps 3-5 automatically.
+
+### Check Before Building (mandatory gate)
+
+Before building ANY new tool, pass through this filter in order:
+
+1. **Already in NoetherSolve?** Search existing 162 tools. If the computation
+   is already covered (even as a subset of a larger tool), don't build.
+2. **Can extend an existing tool?** If a nearby tool exists (same module, same
+   domain), add a parameter or mode to it instead of creating a new tool.
+3. **Freeware exists?** Check scipy, sympy, astropy, biopython, plasmapy,
+   python-control, qiskit, rdkit, obspy, etc. If a well-maintained library
+   computes this with a one-liner, **do not reimplement** — BUT only wrap it
+   if the dependency is already in `pyproject.toml` or is < 10 MB install.
+   Heavy dependencies (SageMath 8 GB, Qiskit 400 MB) are worse than 30 lines
+   of from-scratch code for MCP latency reasons.
+
+**If NONE of the above apply → proceed to build.**
+
+The zero-dependency philosophy is correct for MCP tools: every tool should
+run with `math` + `dataclasses` + optionally `numpy`. Do not add scipy/sympy
+as required dependencies. If a formula is under ~50 lines, implement from
+scratch. Only wrap external libraries when the computation is genuinely
+complex (e.g., ODE integration, symbolic simplification, molecular structure
+parsing) AND the library is lightweight.
 
 ### Step-by-step
 
