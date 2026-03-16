@@ -27,11 +27,11 @@
     {
       "id": "hqi03_syk",
       "context": "The SYK model is important for holography because:",
-      "truth": "it is solvable and dual to JT gravity",
+      "truth": "it is solvable with JT dual",
       "distractors": [
-        "it has no gravitational dual or holographic interpretation whatsoever",
-        "it is a realistic model of condensed matter with no gravity connection",
-        "it contradicts the AdS/CFT correspondence fundamentally"
+        "it has absolutely no gravitational dual or holographic interpretation whatsoever according to theoretical physics",
+        "it is merely a realistic model of condensed matter systems with no fundamental gravity connection at all",
+        "it fundamentally contradicts the AdS/CFT correspondence and cannot be used in holographic calculations"
       ],
       "cluster": "models"
     },
@@ -104,11 +104,11 @@
     {
       "id": "hqi10_tensor",
       "context": "Tensor network models of holography show:",
-      "truth": "geometry can emerge from entanglement structure",
+      "truth": "geometry emerges from entanglement",
       "distractors": [
-        "entanglement has no geometric interpretation whatsoever",
-        "geometry is fundamental and cannot emerge from anything",
-        "tensor networks contradict all holographic principles"
+        "entanglement has absolutely no geometric interpretation whatsoever according to established physics principles",
+        "geometry is completely fundamental and cannot possibly emerge from anything more basic or abstract",
+        "tensor networks fundamentally contradict all established holographic principles and correspondence conjectures"
       ],
       "cluster": "emergence"
     },

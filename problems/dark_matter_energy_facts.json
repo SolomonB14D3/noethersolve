@@ -5,11 +5,11 @@
     {
       "id": "dm01_rotation",
       "context": "Dark matter evidence from galaxy rotation curves shows:",
-      "truth": "stars orbit faster than visible mass predicts",
+      "truth": "velocities exceed visible mass predictions",
       "distractors": [
-        "stars orbit slower than expected from observations",
-        "rotation curves match visible matter perfectly",
-        "galaxies do not rotate at all detectably"
+        "stars in galaxies orbit significantly slower than expected from observations of luminous matter distribution",
+        "rotation curves of spiral galaxies match predictions from visible baryonic matter alone perfectly accurately",
+        "galaxies do not actually rotate at all in any way that is detectably measurable by modern instruments"
       ],
       "cluster": "dark_matter"
     },
@@ -60,22 +60,22 @@
     {
       "id": "dm06_dark_energy",
       "context": "Dark energy causes the universe to:",
-      "truth": "expand at an accelerating rate",
+      "truth": "accelerate in expansion",
       "distractors": [
-        "contract and eventually collapse inward",
-        "expand at a constant unchanging rate",
-        "stop expanding and remain static"
+        "contract gravitationally and eventually collapse completely inward into a final singularity state",
+        "expand at a perfectly constant unchanging rate without any acceleration or deceleration whatsoever",
+        "stop expanding entirely and remain completely static and unchanging for all future time"
       ],
       "cluster": "dark_energy"
     },
     {
       "id": "dm07_cosmological_constant",
       "context": "The cosmological constant problem is that:",
-      "truth": "calculated vacuum energy is 10^120 times larger than observed",
+      "truth": "theory overshoots by 120 orders of magnitude",
       "distractors": [
-        "theory matches observation perfectly",
-        "the discrepancy is only a factor of two",
-        "vacuum energy cannot be calculated theoretically"
+        "theoretical quantum field theory predictions match cosmological observations of dark energy perfectly accurately",
+        "the discrepancy between theory and observation is only about a factor of two or three at most",
+        "vacuum energy from quantum fields fundamentally cannot be calculated using any theoretical framework"
       ],
       "cluster": "dark_energy"
     },
@@ -104,11 +104,11 @@
     {
       "id": "dm10_primordial",
       "context": "Primordial black holes as dark matter:",
-      "truth": "are constrained but not ruled out in some mass ranges",
+      "truth": "remain viable in some mass windows",
       "distractors": [
-        "have been confirmed as the dark matter",
-        "are completely ruled out by all observations",
-        "cannot form in the early universe physics"
+        "have been definitively confirmed as the primary constituent of dark matter in the universe",
+        "are completely and definitively ruled out as dark matter by all observational constraints",
+        "cannot possibly form in the early universe according to standard cosmological physics"
       ],
       "cluster": "candidates"
     },
@@ -126,11 +126,11 @@
     {
       "id": "dm12_detection",
       "context": "Direct dark matter detection experiments search for:",
-      "truth": "rare nuclear recoils from dark matter scattering",
+      "truth": "nuclear recoils from WIMP scattering",
       "distractors": [
-        "dark matter production in particle colliders",
-        "gravitational effects on detector apparatus",
-        "electromagnetic radiation from dark matter"
+        "dark matter particle production events occurring inside high-energy particle collider experiments",
+        "gravitational effects of dark matter on the sensitive detector apparatus and surrounding equipment",
+        "electromagnetic radiation signals emitted directly from dark matter particles or interactions"
       ],
       "cluster": "alternatives"
     }

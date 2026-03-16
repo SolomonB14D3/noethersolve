@@ -16,11 +16,11 @@
     {
       "id": "ppf02_g2_theory",
       "context": "The muon g-2 theory situation involves:",
-      "truth": "tension between lattice and dispersive predictions",
+      "truth": "disagreement between calculation methods",
       "distractors": [
-        "complete theoretical consensus with no disagreements between calculations",
-        "theory predictions that exactly match the experimental measurement now",
-        "abandonment of theoretical calculations as fundamentally unreliable"
+        "complete theoretical consensus among all research groups with no disagreements between any calculation methods whatsoever",
+        "theory predictions from all methods that exactly match the experimental measurement with perfect agreement now",
+        "abandonment of all theoretical hadronic calculations as fundamentally unreliable and impossible to compute accurately"
       ],
       "cluster": "anomalies"
     },
@@ -60,11 +60,11 @@
     {
       "id": "ppf06_neutrino_cp",
       "context": "CP violation in neutrino oscillations:",
-      "truth": "shows hints but not yet definitive discovery",
+      "truth": "shows hints but awaits confirmation",
       "distractors": [
-        "has been definitively established at discovery-level significance already",
-        "has been completely ruled out by all neutrino experiments to date",
-        "is theoretically impossible in the neutrino sector of physics"
+        "has been definitively established at five-sigma discovery-level statistical significance by multiple experiments already",
+        "has been completely and definitively ruled out by all neutrino oscillation experiments conducted to date",
+        "is theoretically impossible to occur in the neutrino sector according to fundamental physics principles"
       ],
       "cluster": "neutrinos"
     },

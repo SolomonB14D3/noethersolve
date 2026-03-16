@@ -27,11 +27,11 @@
     {
       "id": "nf03_reactor",
       "context": "The reactor antineutrino anomaly:",
-      "truth": "may be sterile neutrinos or flux errors",
+      "truth": "has uncertain origin still debated",
       "distractors": [
-        "has been definitively explained by sterile neutrino oscillations confirmed",
-        "was proven to be a simple calculation error with no physics implications",
-        "does not exist because all reactor experiments perfectly match predictions"
+        "has been definitively and conclusively explained by sterile neutrino oscillations confirmed by multiple experiments",
+        "was proven to be nothing more than a simple calculation error with absolutely no physics implications whatsoever",
+        "does not actually exist because all reactor neutrino experiments perfectly match theoretical predictions always"
       ],
       "cluster": "sterile"
     },
@@ -93,22 +93,22 @@
     {
       "id": "nf09_coherent",
       "context": "Coherent elastic neutrino-nucleus scattering:",
-      "truth": "was first observed by COHERENT in 2017",
+      "truth": "was observed by COHERENT 2017",
       "distractors": [
-        "has never been observed despite decades of experimental searches ongoing",
-        "is theoretically forbidden by Standard Model physics and cannot occur",
-        "was observed in 1960s and is well-established textbook physics now"
+        "has never been experimentally observed despite many decades of dedicated experimental searches ongoing worldwide",
+        "is theoretically forbidden by fundamental Standard Model physics principles and cannot possibly occur ever",
+        "was first observed in the 1960s and is now considered well-established textbook particle physics knowledge"
       ],
       "cluster": "detection"
     },
     {
       "id": "nf10_geo",
       "context": "Geoneutrinos from Earth's interior:",
-      "truth": "have been detected confirming heat models",
+      "truth": "have been detected by experiments",
       "distractors": [
-        "cannot be detected because they are absorbed before reaching surface",
-        "have been proven not to exist contradicting geophysical models",
-        "are purely theoretical and no experiment can detect them ever"
+        "cannot possibly be detected because they are completely absorbed before reaching the surface of the Earth",
+        "have been definitively proven not to exist which directly contradicts standard geophysical heat models",
+        "are purely theoretical constructs and absolutely no experiment can detect them ever under any conditions"
       ],
       "cluster": "detection"
     },

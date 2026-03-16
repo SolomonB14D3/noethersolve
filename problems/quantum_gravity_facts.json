@@ -60,33 +60,33 @@
     {
       "id": "qg06_ads_cft",
       "context": "AdS/CFT correspondence relates:",
-      "truth": "gravity in AdS space to CFT on its boundary",
+      "truth": "bulk gravity to boundary CFT",
       "distractors": [
-        "two completely unrelated physical theories",
-        "quantum mechanics to classical mechanics only",
-        "string theory to loop quantum gravity directly"
+        "two completely unrelated physical theories that have absolutely no mathematical connection whatsoever",
+        "quantum mechanics to classical mechanics only without any gravitational or holographic implications",
+        "string theory to loop quantum gravity directly despite these being fundamentally incompatible approaches"
       ],
       "cluster": "theories"
     },
     {
       "id": "qg07_hawking",
       "context": "Hawking radiation implies black holes:",
-      "truth": "emit thermal radiation and eventually evaporate",
+      "truth": "radiate thermally and evaporate",
       "distractors": [
-        "grow forever absorbing all matter nearby",
-        "are completely stable with no radiation",
-        "emit particles only at their formation"
+        "grow forever by continuously absorbing all matter and radiation in their nearby surroundings",
+        "are completely stable objects with absolutely no radiation emission whatsoever under any conditions",
+        "emit particles only during their initial formation event and never again after that time"
       ],
       "cluster": "black_holes"
     },
     {
       "id": "qg08_firewall",
       "context": "The firewall paradox challenges the idea that:",
-      "truth": "infalling observers experience nothing special at horizon",
+      "truth": "horizon crossing is uneventful",
       "distractors": [
-        "black holes emit any radiation at all",
-        "event horizons are physical surfaces",
-        "information can be stored in black holes"
+        "black holes emit any Hawking radiation at all according to quantum field theory in curved spacetime",
+        "event horizons are real physical surfaces that have measurable effects on infalling matter",
+        "quantum information can be stored inside black holes and later recovered from their radiation"
       ],
       "cluster": "black_holes"
     },
