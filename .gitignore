@@ -9,6 +9,8 @@ build/
 
 # Adapter weights (large binary files — train locally)
 adapters/*.npz
+adapters/**/*.safetensors
+adapters/**/*.bin
 
 # Hunt results (regenerated)
 results/hunt_results.json
