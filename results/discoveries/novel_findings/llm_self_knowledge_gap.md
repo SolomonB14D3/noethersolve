@@ -222,3 +222,33 @@ For domains with strong false priors in training data:
 4. **Tools override beliefs** - correct answer comes from tool, not memory
 
 This is exactly what NoetherSolve does: 69 verified tools that any AI agent can call to get correct answers, bypassing unreliable model beliefs.
+
+---
+
+## Update: Root Cause Identified (2026-03-16)
+
+### The Actual Mechanism: Length Ratio
+
+Further investigation revealed the **primary** cause is not distractor attractiveness but **length ratio** — the ratio of truth length to shortest distractor length.
+
+| Length Ratio | Avg Baseline |
+|--------------|--------------|
+| < 1.2 | 63.8% |
+| 1.2 - 2.5 | 13.2% |
+| ≥ 2.5 | 7.0% |
+
+**Correlation: r = -0.742** (strong negative)
+
+### Why Marketing Language Seemed Important
+
+Marketing language distractors ("RAG guarantees accuracy" = 24 chars) happen to be SHORT while nuanced truths ("models may ignore retrieved context or hallucinate beyond it" = 60 chars) are LONG.
+
+The correlation with "marketing language" was **spurious** — it was actually a correlation with length.
+
+### Verified Fix
+
+Length-balancing LLM hallucination facts (ratio 2.02 → 1.04):
+- **Original**: 0/12 (0%)
+- **Balanced**: 4/12 (33%)
+
+Same facts, same semantics, just balanced lengths. See `length_ratio_discovery.md` for full analysis.
