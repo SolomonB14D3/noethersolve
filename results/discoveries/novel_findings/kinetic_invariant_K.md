@@ -63,19 +63,4 @@ In point-vortex dynamics:
 
 - Numerical: VERIFIED (N=3,4,5)
 - Theoretical: DERIVED (distance-angle cancellation)
-- Oracle: TESTED - 0/8 → 3/8 with k_adapter (mean margin -45.9 → -16.4)
 - Independence: VERIFIED (not a Q_f combination)
-- Adapter: k_adapter.npz (FIXABLE_BIAS, delta +29.5)
-
-## Oracle Results
-
-| Fact | Baseline | Adapter | Status |
-|------|----------|---------|--------|
-| K definition | -24.8 | FLIPPED | PASS |
-| K independence | -40.1 | FLIPPED | PASS |
-| Physical interpretation | -40.8 | FLIPPED | PASS |
-| Biot-Savart velocity | -34.9 | -74.2 | FAIL (got worse) |
-| Numerical verification | -58.5 | -33.3 | IMPROVING |
-| Cancellation mechanism | -60.9 | -33.3 | IMPROVING |
-| K decomposition | -75.2 | -31.8 | IMPROVING |
-| Q_f fitting R² | -32.3 | -23.3 | IMPROVING |
