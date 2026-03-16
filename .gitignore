@@ -12,6 +12,9 @@ adapters/*.npz
 adapters/**/*.safetensors
 adapters/**/*.bin
 
+# Router state (built locally from adapters + facts)
+router_state.npz
+
 # Hunt results (regenerated)
 results/hunt_results.json
 

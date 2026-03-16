@@ -6,7 +6,7 @@
 
 The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 69 tools currently serving physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, complexity theory, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
 
-**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 67 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (1332 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
+**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 67 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (1498 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
 
 ---
 
@@ -242,8 +242,11 @@ so they never compete for the same parameters.
 3. Orthogonal adapters (specialist per cluster, routed at inference) → solved NS (16/16) and Knot invariants (16/16). Generalizes across physics and pure math. If still stuck, try:
 4. Cross-domain joint training (train single adapter on multiple domains) → confirmed with difficulty-weighted sampling: NS 0→10/16, knots 1→11/16, chemical 0→13/16, Hamiltonian 1→14/16 from ONE adapter. Difficulty-weighted sampling (oversample hard facts) gives best transfer on hardest domain.
 5. Hybrid routing (evaluate both joint and orthogonal adapters, pick higher margin per fact) → 82.1% on physics frontier (69/84) vs 70.2% orthogonal-only vs 44.0% joint-only. Joint wins on particle physics/neutrino/holographic; orthogonal wins on dark matter/quantum gravity/cosmology/condensed matter.
+6. Persistent adapter router (embedding-based cascade) — loads router_state.npz at session start, routes each fact to the best adapter automatically. Cascade: high-confidence single (sim>0.85) → ambiguous try-both (gap<0.05) → vanilla fallback (sim<0.60). LRU-5 cache keeps ~580MB in memory. Cross-session persistent: each run starts smarter than the last.
 
 **Negative result:** A single unified adapter trained on 244 heterogeneous toolkit facts (16 clusters from complexity theory to pharmacokinetics) scored 7.8% — worse than the 10.2% baseline. Joint training only works for semantically related domains.
+
+**Negative result:** Base-trained adapters do NOT transfer to Instruct models. Tested across 6 domains: Instruct baseline (17.0%) is worse than Base baseline (20.5%) on oracle facts, and adapters that lift Base (e.g., Hamiltonian 1→16) have zero effect on Instruct (1→1). RLHF damages the representation space that adapters target. Use Base for the research oracle.
 
 ---
 
@@ -489,6 +492,10 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `problems/*.yaml` | Domain plugin definitions |
 | `problems/*_facts.json` | Oracle verification sets (8–15 facts per domain) |
 | `adapters/` | Trained adapter weights (gitignored — local only) |
+| `noethersolve/adapter_router.py` | **Persistent adapter router** — embedding cascade, LRU cache, save/load |
+| `experiments/build_router.py` | Build + validate router from all facts/adapters |
+| `experiments/test_instruct_transfer.py` | Base→Instruct adapter transfer test (negative result) |
+| `router_state.npz` | Persisted router state (gitignored — built locally) |
 | `noethersolve/monitor.py` | Conservation law monitors (Vortex, Chemical, Gravity) |
 | `noethersolve/monitor_em.py` | EM field monitor (energy, chirality, helicity, zilch, super-energy) |
 | `noethersolve/hamiltonian.py` | Hamiltonian validator (energy, Liouville volume, Poincare invariant) |
@@ -532,7 +539,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/distributed_calc.py` | Quorum systems, Byzantine thresholds, vector clocks, consistency models |
 | `noethersolve/network_calc.py` | Bandwidth-delay product, TCP throughput, subnetting, IP fragmentation |
 | `noethersolve/os_calc.py` | Page tables, CPU scheduling, deadlock detection, TLB analysis |
-| `tests/` | 1332 tests for all 35 toolkit modules |
+| `tests/` | 1498 tests for all 35 toolkit modules |
 
 ---
 
