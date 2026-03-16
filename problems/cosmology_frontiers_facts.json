@@ -1,0 +1,138 @@
+{
+  "problem": "cosmology_frontiers",
+  "description": "Cosmology frontiers - tensions, inflation, nucleosynthesis, large-scale structure.",
+  "facts": [
+    {
+      "id": "cof01_hubble",
+      "context": "The Hubble tension refers to:",
+      "truth": "disagreement between local and CMB H0 values",
+      "distractors": [
+        "perfect agreement between all cosmological expansion measurements",
+        "a problem that has been completely resolved by recent observations",
+        "an observational artifact with no actual physical meaning"
+      ],
+      "cluster": "tensions"
+    },
+    {
+      "id": "cof02_inflation",
+      "context": "Inflation theory's predictions have been:",
+      "truth": "supported but not uniquely confirmed by CMB",
+      "distractors": [
+        "completely proven beyond any possible scientific doubt by observations",
+        "definitively ruled out by Planck satellite data analysis completely",
+        "never tested by any observational evidence whatsoever to date"
+      ],
+      "cluster": "inflation"
+    },
+    {
+      "id": "cof03_pgw",
+      "context": "Primordial gravitational waves from inflation:",
+      "truth": "have not been detected despite searches",
+      "distractors": [
+        "were conclusively detected by the BICEP2 experiment definitively",
+        "cannot exist according to standard inflationary cosmology theory",
+        "have been detected by LIGO gravitational wave interferometers"
+      ],
+      "cluster": "inflation"
+    },
+    {
+      "id": "cof04_lithium",
+      "context": "The cosmic lithium problem is:",
+      "truth": "observed Li-7 abundance below BBN prediction",
+      "distractors": [
+        "completely explained by standard Big Bang nucleosynthesis perfectly",
+        "that lithium does not exist in old stars at all surprisingly",
+        "a problem that has been completely and fully solved already"
+      ],
+      "cluster": "nucleosynthesis"
+    },
+    {
+      "id": "cof05_sigma8",
+      "context": "Large-scale structure tensions with LCDM:",
+      "truth": "include sigma-8 disagreements from lensing",
+      "distractors": [
+        "do not exist because LCDM perfectly matches all observational data",
+        "prove LCDM cosmology must be completely abandoned immediately",
+        "are only seen in one single unreliable survey with poor data"
+      ],
+      "cluster": "tensions"
+    },
+    {
+      "id": "cof06_homogeneity",
+      "context": "The cosmological principle of homogeneity:",
+      "truth": "is supported but tested at larger scales",
+      "distractors": [
+        "has been definitively proven correct at all scales universally",
+        "has been completely disproven by modern cosmological observations",
+        "is not testable by any known observational methodology whatsoever"
+      ],
+      "cluster": "lss"
+    },
+    {
+      "id": "cof07_reionization",
+      "context": "Cosmic reionization epoch observations show:",
+      "truth": "complex history not fully characterized yet",
+      "distractors": [
+        "instantaneous reionization at precisely redshift 6.0 exactly",
+        "no reionization occurred because universe stayed neutral always",
+        "complete understanding with no remaining questions whatsoever"
+      ],
+      "cluster": "lss"
+    },
+    {
+      "id": "cof08_baryon_asymmetry",
+      "context": "The cosmic matter-antimatter asymmetry:",
+      "truth": "requires physics beyond Standard Model to explain",
+      "distractors": [
+        "is completely explained by Standard Model CP violation mechanisms",
+        "does not exist because matter and antimatter are equally abundant",
+        "is random and requires no physical explanation whatsoever"
+      ],
+      "cluster": "nucleosynthesis"
+    },
+    {
+      "id": "cof09_multiverse",
+      "context": "Multiverse theories in cosmology are:",
+      "truth": "debated regarding testability and scientific status",
+      "distractors": [
+        "definitively proven by cosmological observations already conclusively",
+        "completely ruled out by all scientific evidence available now",
+        "accepted by all cosmologists as established standard science"
+      ],
+      "cluster": "inflation"
+    },
+    {
+      "id": "cof10_bao",
+      "context": "Baryon acoustic oscillations provide:",
+      "truth": "standard ruler for cosmic distance measurements",
+      "distractors": [
+        "no useful cosmological information because they are too weak",
+        "evidence against expansion of the universe fundamentally",
+        "confirmation that universe is not expanding at all"
+      ],
+      "cluster": "lss"
+    },
+    {
+      "id": "cof11_neutrino_mass_cosmo",
+      "context": "Cosmological bounds on neutrino mass sum:",
+      "truth": "are tighter than lab limits but model-dependent",
+      "distractors": [
+        "are weaker than all laboratory experimental constraints always",
+        "prove neutrinos are exactly massless with certainty cosmologically",
+        "are impossible to obtain from any cosmological observations"
+      ],
+      "cluster": "tensions"
+    },
+    {
+      "id": "cof12_early_galaxies",
+      "context": "JWST observations of early galaxies:",
+      "truth": "reveal surprisingly massive galaxies at high redshift",
+      "distractors": [
+        "perfectly match all predictions of standard galaxy formation",
+        "show no galaxies existed before redshift 10 at all",
+        "prove Big Bang cosmology is fundamentally incorrect now"
+      ],
+      "cluster": "lss"
+    }
+  ]
+}

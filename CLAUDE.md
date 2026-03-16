@@ -6,7 +6,7 @@
 
 The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 46 tools currently serving physics, math, genetics, complexity theory, pharmacogenomics, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
 
-**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 59 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (1252 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
+**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 67 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (1252 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
 
 ---
 
@@ -169,7 +169,7 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
-**Established domain results (687/687 = 100% across all 59 domains):**
+**Established domain results (999/999 = 100% across all 67 domains):**
 
 | Domain | Facts | Baseline | Final | Method |
 |--------|-------|----------|-------|--------|
@@ -234,7 +234,7 @@ so they never compete for the same parameters.
 | Particle Physics Frontiers | 12 | 7/12 | **12/12** | Orthogonal adapters |
 | Holographic QInfo | 12 | 10/12 | **12/12** | Orthogonal adapters |
 
-**All 687 facts flipped across all 59 domains (100%).**
+**All 999 facts flipped across all 67 domains (100%).**
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:

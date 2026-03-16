@@ -1,0 +1,138 @@
+{
+  "problem": "climate_science_frontiers",
+  "description": "Climate science frontiers - sensitivity, tipping points, attribution, mitigation.",
+  "facts": [
+    {
+      "id": "csf01_sensitivity",
+      "context": "Climate sensitivity to CO2 doubling:",
+      "truth": "remains uncertain in 2.5-4C likely range",
+      "distractors": [
+        "has been precisely determined to be exactly 3.0 degrees Celsius by consensus",
+        "is known to be less than 1 degree Celsius with very high confidence",
+        "cannot possibly be estimated by any known scientific methodology"
+      ],
+      "cluster": "sensitivity"
+    },
+    {
+      "id": "csf02_arctic_ice",
+      "context": "Arctic sea ice trends show:",
+      "truth": "decline exceeding many model projections",
+      "distractors": [
+        "completely stable conditions showing no significant measurable change",
+        "recovery and substantial growth over the past decade consistently",
+        "exactly matching all climate model predictions with high precision"
+      ],
+      "cluster": "observations"
+    },
+    {
+      "id": "csf03_tipping",
+      "context": "Tipping points in Earth's climate system:",
+      "truth": "are possible but thresholds remain uncertain",
+      "distractors": [
+        "have all been definitively identified with precise threshold values",
+        "do not exist according to established climate science consensus",
+        "have already all been irreversibly crossed according to data"
+      ],
+      "cluster": "tipping"
+    },
+    {
+      "id": "csf04_attribution",
+      "context": "Attribution science linking weather to climate change:",
+      "truth": "has advanced but remains probabilistic",
+      "distractors": [
+        "can prove exact causation for every single extreme weather event",
+        "has been completely abandoned as scientifically impossible always",
+        "shows absolutely no connection between climate and weather events"
+      ],
+      "cluster": "attribution"
+    },
+    {
+      "id": "csf05_ccs",
+      "context": "Carbon capture and storage technology:",
+      "truth": "exists but scale and cost are challenges",
+      "distractors": [
+        "has already completely solved climate change problem worldwide",
+        "is impossible according to fundamental thermodynamic physical laws",
+        "is now cheaper than all other existing energy sources globally"
+      ],
+      "cluster": "mitigation"
+    },
+    {
+      "id": "csf06_acidification",
+      "context": "Ocean acidification due to CO2 absorption:",
+      "truth": "is measurable and threatens marine life",
+      "distractors": [
+        "is not actually occurring according to ocean measurement data",
+        "has absolutely no effect on any marine life whatsoever",
+        "is actually beneficial for all marine organisms universally"
+      ],
+      "cluster": "observations"
+    },
+    {
+      "id": "csf07_amoc",
+      "context": "Atlantic Meridional Overturning Circulation:",
+      "truth": "shows weakening signals but collapse uncertain",
+      "distractors": [
+        "is strengthening dramatically according to all observational data",
+        "is perfectly stable with no changes observed whatsoever",
+        "has already completely collapsed disrupting European climate"
+      ],
+      "cluster": "tipping"
+    },
+    {
+      "id": "csf08_permafrost",
+      "context": "Permafrost thawing and carbon release:",
+      "truth": "is ongoing with uncertain total magnitude",
+      "distractors": [
+        "is definitively not occurring according to Arctic field measurement campaigns",
+        "releases completely negligible carbon compared to human industrial emissions",
+        "has been completely quantified with absolutely no remaining scientific uncertainty"
+      ],
+      "cluster": "tipping"
+    },
+    {
+      "id": "csf09_aerosol",
+      "context": "Aerosol effects on climate:",
+      "truth": "provide cooling that masks some warming",
+      "distractors": [
+        "have absolutely no effect on global temperature whatsoever",
+        "cause warming that exceeds greenhouse gas effects completely",
+        "are perfectly understood with no remaining uncertainty at all"
+      ],
+      "cluster": "sensitivity"
+    },
+    {
+      "id": "csf10_carbon_budget",
+      "context": "Remaining carbon budget for 1.5C:",
+      "truth": "is small and uncertain but not exhausted",
+      "distractors": [
+        "has already been completely exhausted according to all analyses",
+        "is unlimited because 1.5C target is already impossible to achieve",
+        "allows centuries more emissions at current rates comfortably"
+      ],
+      "cluster": "mitigation"
+    },
+    {
+      "id": "csf11_cloud",
+      "context": "Cloud feedback in climate sensitivity:",
+      "truth": "is largest source of uncertainty in projections",
+      "distractors": [
+        "is perfectly understood and contributes no uncertainty whatsoever",
+        "is negligible compared to other climate system feedbacks",
+        "always cools the planet counteracting greenhouse warming"
+      ],
+      "cluster": "sensitivity"
+    },
+    {
+      "id": "csf12_ecs_history",
+      "context": "Paleoclimate constraints on climate sensitivity:",
+      "truth": "support IPCC likely range but have limitations",
+      "distractors": [
+        "prove sensitivity is below 2C beyond any scientific doubt",
+        "are completely irrelevant to future climate projections",
+        "show climate never changed before human emissions existed"
+      ],
+      "cluster": "sensitivity"
+    }
+  ]
+}
