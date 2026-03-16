@@ -921,7 +921,7 @@ Oracle results: baseline **0/12 pass rate** (complete knowledge gap). Single ada
 | Conservation mechanism | -43.7 | +11.3 | +55.0 |
 | Q_f bounds → NS regularity | -11.7 | +3.6 | +15.3 |
 
-Viscous (Navier-Stokes) decay scales linearly with ν. See `results/discoveries/qf_family_comprehensive.md` and `results/discoveries/continuous_qf_oracle.md`.
+Viscous (Navier-Stokes) decay scales linearly with ν. See `results/discoveries/novel_findings/qf_family_comprehensive.md` and `results/discoveries/model_specific/continuous_qf_oracle.md`.
 
 </details>
 
@@ -975,7 +975,7 @@ Oracle results on Qwen3-4B-Base: baseline **1/12 pass rate** (8.3%). The model f
 
 Single adapter (`em_adapter_v4`): 6/12 (50%). With orthogonal adapters: **12/12 (100%)**. Flipped examples: energy (-4.08→+14.96), chirality (-11.63→+8.21), super-energy (-9.94→+12.34), helicity (-7.89→+9.45).
 
-See `results/discoveries/em_conservation_laws.md` and `results/discoveries/em_zilch_chirality.md`.
+See `results/discoveries/novel_findings/em_conservation_laws.md` and `results/discoveries/novel_findings/em_zilch_chirality.md`.
 
 </details>
 

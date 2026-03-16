@@ -396,7 +396,7 @@ python noethersolve_torch.py train-adapter \
 ```
 
 ### Step 6: Publish results
-Add a row to `results/candidates.tsv` and open a PR. If DUAL-PASS or FLIPPED, add a discovery note to `results/discoveries/`. Remove your entry from `claims.json`.
+Add a row to `results/candidates.tsv` and open a PR. If DUAL-PASS or FLIPPED, add a discovery note to `results/discoveries/novel_findings/` (for new science) or `results/discoveries/model_specific/` (for adapter results). Remove your entry from `claims.json`.
 
 ---
 
@@ -500,7 +500,8 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `experiments/train_frontier_domains.py` | Orthogonal adapter training for frontier domains |
 | `experiments/verify_frontier_domains.py` | Verify frontier domain adapters (96/96 = 100%) |
 | `experiments/benchmark_toolkit_adapter.py` | Benchmark any adapter against toolkit facts |
-| `results/discoveries/adapter_combination_findings.md` | Hybrid routing findings (82.1% on physics frontier) |
+| `results/discoveries/model_specific/adapter_combination_findings.md` | Hybrid routing findings (82.1% on physics frontier) |
+| `results/discoveries/novel_findings/` | Novel scientific findings (Q_f family, Z₃ symmetry, EM invariants, etc.) |
 | `research/knot_invariants.py` | Numerical verification of knot invariants |
 | `research/hamiltonian_invariants.py` | Hamiltonian system invariant checks |
 | `research/chemical_networks.py` | Chemical network conservation verification |
