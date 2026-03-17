@@ -140,6 +140,7 @@ Run this checklist on every paragraph:
 - [ ] Specific claims, not vague ones ("improves by 12%" not "significantly improves")
 - [ ] Short sentences preferred. Max 35 words per sentence.
 - [ ] No paragraph starts with "Furthermore", "Moreover", "Additionally" in sequence
+- [ ] No excessive em-dashes — max 1 per 2 pages. Use commas, parentheses, or separate sentences instead.
 
 **Banned word/phrase list:**
 ```
@@ -279,6 +280,7 @@ curl -X POST "https://zenodo.org/api/deposit/depositions/{id}/actions/publish" \
 | D3 | Where LLMs Are Wrong | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19055582 |
 | D4 | Orthogonal Adapter Routing | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19055588 |
 | D5 | Certainty Contamination | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19068373 |
+| D6 | Resolvent-Conservation Unification | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19071198 |
 
 ---
 
@@ -291,3 +293,4 @@ curl -X POST "https://zenodo.org/api/deposit/depositions/{id}/actions/publish" \
 | D3 | llm_knowledge_gaps | `d3_` | AI / machine learning |
 | D4 | orthogonal_routing | `d4_` | NLP / adapter methods |
 | D5 | certainty_contamination | `d5_` | AI / evaluation methodology |
+| D6 | resolvent_unification | `d6_` | Mathematical physics / spectral theory |

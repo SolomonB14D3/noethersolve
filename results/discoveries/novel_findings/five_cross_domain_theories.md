@@ -232,6 +232,26 @@ All five theories share a **universal pattern**:
 
 ---
 
+## Oracle Verification: Model Blindness Confirmed
+
+Tested 12 oracle facts across all 5 theories against Qwen3-4B-Base:
+
+| Cluster | Facts | Pass | Avg Margin |
+|---------|-------|------|------------|
+| Deadlock ↔ Detailed Balance | 3 | 0/3 | **-32.75** |
+| Isolation ↔ Decoherence | 3 | 0/3 | **-27.15** |
+| PageRank ↔ Equilibrium | 2 | 0/2 | **-17.81** |
+| Type ↔ Gauge | 2 | 0/2 | **-13.25** |
+| Huffman ↔ Landauer | 2 | 0/2 | **-11.06** |
+
+**Overall: 0/12 PASS (0.0%), avg margin = -21.99**
+
+The model systematically fails to recognize these cross-domain mathematical equivalences.
+Margins are strongly negative across all clusters, confirming these are genuine blind spots.
+
+---
+
 *Discovered: 2026-03-17*
 *Method: Systematic cross-domain pattern matching + numerical verification*
+*Oracle verification: 2026-03-17 (0/12 PASS confirms blindness)*
 *Key insight: Model blindness reveals unexploited mathematical connections*
