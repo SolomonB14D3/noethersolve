@@ -30,6 +30,7 @@ Usage:
 import json
 import os
 from collections import OrderedDict
+from typing import List
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Optional
@@ -47,6 +48,10 @@ class RouterConfig:
     fallback: float = 0.60         # below → no adapter
     d_inner: int = 64              # adapter inner dim
     max_cache: int = 5             # LRU cache size (0 = unlimited, preload all)
+
+    # Certainty cascade: try global adapters when baseline fails on high-gap facts
+    certainty_cascade: bool = True  # Enable certainty-aware cascade
+    certainty_gap_threshold: int = 2  # Min certainty gap to trigger cascade
 
 
 @dataclass
@@ -71,6 +76,10 @@ class AdapterRouter:
         self._loaded_adapters: OrderedDict = OrderedDict()  # LRU cache
         self._centroid_matrix: Optional[np.ndarray] = None  # precomputed for fast routing
         self._centroid_keys: list[str] = []
+
+        # Global adapters: always tried as fallback regardless of domain routing
+        # These are cross-domain adapters like certainty decontamination
+        self.global_adapters: dict[str, str] = {}  # key -> path
 
     # ── Embedding ────────────────────────────────────────────────────
 
@@ -333,6 +342,159 @@ class AdapterRouter:
             decision.primary_sim = decision.secondary_sim
             return (*r2, decision)
 
+    # ── Certainty Cascade Routing ────────────────────────────────────
+
+    def score_fact_cascade(self, model, tokenizer, lm_head,
+                           context: str, truth: str, distractors: list,
+                           fact_id: str = ""):
+        """Score with certainty-aware cascade: baseline first, adapter fallback on failure.
+
+        Strategy:
+        1. Try baseline (no adapter)
+        2. If baseline PASSES → return baseline result (no change)
+        3. If baseline FAILS and certainty_gap >= threshold:
+           a. Try domain adapter (from routing)
+           b. Try global certainty adapters (cert_decon, anti_def)
+           c. Return whichever has highest margin
+        4. If baseline FAILS and low certainty_gap:
+           - Just try domain adapter, return best
+
+        This ensures zero regressions: adapters only applied when baseline already fails.
+
+        Returns: (win, margin, truth_lp, best_dist_lp, route_decision, cascade_used)
+        """
+        from noethersolve.oracle import score_fact_mc
+        from noethersolve.audit_facts import CERTAINTY_MARKERS, HEDGING_MARKERS, _count_markers
+
+        # Step 1: Baseline (no adapter)
+        baseline = score_fact_mc(model, tokenizer, context, truth, distractors)
+        baseline_win, baseline_margin, _, _ = baseline
+
+        if baseline_win:
+            # Baseline passes → no adapter needed, zero regression risk
+            decision = RouteDecision(level="baseline_pass")
+            return (*baseline, decision, None)
+
+        # Step 2: Compute certainty gap
+        truth_certainty = _count_markers(truth, CERTAINTY_MARKERS)
+        max_dist_certainty = max(_count_markers(d, CERTAINTY_MARKERS) for d in distractors)
+        certainty_gap = max_dist_certainty - truth_certainty
+
+        # Step 3: Get domain adapter from routing
+        decision = self.route(model, tokenizer, context)
+        vocab_size = model.model.embed_tokens.weight.shape[0]
+        best_result = baseline
+        best_margin = baseline_margin
+        cascade_used = None
+
+        # Try domain adapter
+        if decision.level != "fallback" and decision.primary_key:
+            adapter = self.get_adapter(decision.primary_key, vocab_size)
+            if adapter is not None:
+                domain_result = score_fact_mc(
+                    model, tokenizer, context, truth, distractors,
+                    adapter=adapter, lm_head=lm_head,
+                )
+                if domain_result[1] > best_margin:
+                    best_result = domain_result
+                    best_margin = domain_result[1]
+                    cascade_used = decision.primary_key
+
+        # Step 4: If high certainty gap, also try global certainty adapters
+        if (self.config.certainty_cascade and
+            certainty_gap >= self.config.certainty_gap_threshold and
+            self.global_adapters):
+
+            for key, path in self.global_adapters.items():
+                adapter = self._load_global_adapter(key, path, vocab_size)
+                if adapter is None:
+                    continue
+
+                cert_result = score_fact_mc(
+                    model, tokenizer, context, truth, distractors,
+                    adapter=adapter, lm_head=lm_head,
+                )
+                if cert_result[1] > best_margin:
+                    best_result = cert_result
+                    best_margin = cert_result[1]
+                    cascade_used = key
+
+        return (*best_result, decision, cascade_used)
+
+    def _load_global_adapter(self, key: str, path: str, vocab_size: int):
+        """Load a global adapter, with caching."""
+        cache_key = f"global_{key}"
+        if cache_key in self._loaded_adapters:
+            self._loaded_adapters.move_to_end(cache_key)
+            return self._loaded_adapters[cache_key]
+
+        if not os.path.exists(path):
+            return None
+
+        from noethersolve.adapter import SnapOnConfig, SnapOnLogitMLP
+
+        config = SnapOnConfig(
+            d_inner=self.config.d_inner,
+            vocab_size=vocab_size,
+            mode="logit",
+        )
+        adapter = SnapOnLogitMLP(config)
+        mx.eval(adapter.parameters())
+
+        data = dict(np.load(path))
+        params = {}
+        for k, v in data.items():
+            parts = k.split(".")
+            d = params
+            for p in parts[:-1]:
+                d = d.setdefault(p, {})
+            d[parts[-1]] = mx.array(v)
+
+        flat = []
+        _flatten_dict(params, "", flat)
+        adapter.load_weights(flat)
+        mx.eval(adapter.parameters())
+
+        # LRU eviction
+        if self.config.max_cache > 0 and len(self._loaded_adapters) >= self.config.max_cache:
+            self._loaded_adapters.popitem(last=False)
+        self._loaded_adapters[cache_key] = adapter
+        return adapter
+
+    def register_global_adapter(self, key: str, adapter_path: str):
+        """Register a global adapter (cross-domain, always tried as fallback)."""
+        self.global_adapters[key] = adapter_path
+
+    def auto_register_global_adapters(self, adapters_dir: str):
+        """Auto-discover and register global adapters.
+
+        Global adapters are identified by naming convention:
+        - certainty_decontamination_adapter.npz
+        - anti_definitive_adapter.npz
+        - *_global_adapter.npz
+        """
+        adapters_path = Path(adapters_dir)
+        global_patterns = [
+            "certainty_decontamination_adapter.npz",
+            "anti_definitive_adapter.npz",
+        ]
+
+        # Exact matches
+        for pattern in global_patterns:
+            path = adapters_path / pattern
+            if path.exists():
+                key = pattern.replace("_adapter.npz", "").replace(".npz", "")
+                self.global_adapters[key] = str(path)
+
+        # Pattern: *_global_adapter.npz
+        for path in adapters_path.glob("*_global_adapter.npz"):
+            key = path.stem.replace("_global_adapter", "")
+            self.global_adapters[key] = str(path)
+
+        if self.global_adapters:
+            print(f"  Auto-registered {len(self.global_adapters)} global adapters: "
+                  f"{list(self.global_adapters.keys())}")
+
     # ── Registration ─────────────────────────────────────────────────
 
     def register_adapter(self, key: str, adapter_path: str,
@@ -362,8 +524,9 @@ class AdapterRouter:
             keys_json=json.dumps(keys),
             adapter_paths_json=json.dumps(self.adapter_paths),
             centroid_matrix=centroid_matrix,
+            global_adapters_json=json.dumps(self.global_adapters),
         )
-        print(f"  Router saved: {len(keys)} centroids -> {path}")
+        print(f"  Router saved: {len(keys)} centroids, {len(self.global_adapters)} global -> {path}")
 
     @classmethod
     def load(cls, path: str) -> "AdapterRouter":
@@ -382,17 +545,30 @@ class AdapterRouter:
         router.adapter_paths = adapter_paths
         router._rebuild_matrix()
 
-        print(f"  Router loaded: {len(keys)} centroids from {path}")
+        # Load global adapters if present (backward-compatible)
+        if "global_adapters_json" in data:
+            router.global_adapters = json.loads(str(data["global_adapters_json"]))
+
+        n_global = len(router.global_adapters)
+        print(f"  Router loaded: {len(keys)} centroids, {n_global} global from {path}")
         return router
 
     # ── Info ──────────────────────────────────────────────────────────
 
     def info(self) -> str:
         """Print summary of router state."""
-        lines = [f"AdapterRouter: {len(self.centroids)} centroids"]
+        lines = [f"AdapterRouter: {len(self.centroids)} centroids, {len(self.global_adapters)} global"]
         lines.append(f"  Config: high={self.config.high_confidence}, "
                       f"gap={self.config.ambiguity_gap}, "
                       f"fallback={self.config.fallback}")
+        lines.append(f"  Certainty cascade: {self.config.certainty_cascade} "
+                      f"(gap threshold: {self.config.certainty_gap_threshold})")
+
+        # Global adapters
+        if self.global_adapters:
+            lines.append("  Global adapters (certainty fallback):")
+            for key in sorted(self.global_adapters.keys()):
+                lines.append(f"    - {key}")
 
         # Group by domain prefix
         domains: dict[str, list] = {}

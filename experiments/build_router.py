@@ -39,6 +39,10 @@ def build(model, tokenizer):
         model, tokenizer,
         str(PROBLEMS_DIR), str(ADAPTERS_DIR),
     )
+
+    # Auto-register global adapters (certainty decontamination, etc.)
+    router.auto_register_global_adapters(str(ADAPTERS_DIR))
+
     print(f"  Build time: {time.time()-t0:.1f}s")
     router.save(str(ROUTER_PATH))
     return router
