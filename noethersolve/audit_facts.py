@@ -49,6 +49,37 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Union
 
 
+# ─── Certainty Contamination Bias markers ────────────────────────────────────
+# Discovery: LLMs prefer definitive claims over hedged scientific language.
+# Correlation r = -0.402 between certainty gap and oracle margin.
+# See: results/discoveries/novel_findings/certainty_contamination_bias.md
+
+CERTAINTY_MARKERS = [
+    'definitively', 'completely', 'proven', 'ruled out',
+    'impossible', 'always', 'never', 'guaranteed',
+    'certain', 'absolutely', 'all ', 'none', 'every',
+    'must', 'cannot', 'does not exist', 'no ', 'zero',
+    'perfect', 'exactly', 'precise', 'fundamentally',
+    'whatsoever', 'entirely', 'permanently', 'universal'
+]
+
+HEDGING_MARKERS = [
+    'may', 'might', 'could', 'uncertain', 'varies',
+    'approximately', 'suggests', 'indicates', 'possible',
+    'likely', 'probably', 'tentative', 'preliminary',
+    'not ruled out', 'remains open', 'still debated',
+    'large uncertainties', 'significance varies',
+    'consistent', 'some', 'limited', 'current', 'hints',
+    'awaits confirmation', 'inconclusive', 'not precisely'
+]
+
+
+def _count_markers(text: str, markers: List[str]) -> int:
+    """Count how many markers appear in text."""
+    text_lower = text.lower()
+    return sum(1 for m in markers if m in text_lower)
+
+
 # ─── Token-length approximation ──────────────────────────────────────────────
 
 def _approx_tokens(text: str) -> int:
@@ -273,6 +304,48 @@ def audit_facts(
                     distractor_idx=idx,
                 )
                 issues.append(issue)
+
+        # ── Certainty bias check ─────────────────────────────────────────
+        # Discovery: distractors with more certainty markers than truth
+        # cause oracle failures (r = -0.402, t = 3.57).
+        truth_certainty = _count_markers(truth, CERTAINTY_MARKERS)
+        max_dist_certainty = 0
+        worst_dist_idx = 0
+        for idx, d in enumerate(distractors):
+            d_certainty = _count_markers(d, CERTAINTY_MARKERS)
+            if d_certainty > max_dist_certainty:
+                max_dist_certainty = d_certainty
+                worst_dist_idx = idx
+
+        certainty_gap = max_dist_certainty - truth_certainty
+
+        if certainty_gap >= 4:
+            issue = FactIssue(
+                fact_id=fact_id,
+                issue_type="CERTAINTY_BIAS",
+                severity="HIGH",
+                description=(
+                    f"CRITICAL certainty gap={certainty_gap}: distractor has {max_dist_certainty} "
+                    f"certainty markers vs truth's {truth_certainty}. "
+                    f"Rewrite distractor with hedged language."
+                ),
+                distractor_idx=worst_dist_idx,
+                details={"certainty_gap": certainty_gap, "dist_certainty": max_dist_certainty},
+            )
+            issues.append(issue)
+        elif certainty_gap >= 3:
+            issue = FactIssue(
+                fact_id=fact_id,
+                issue_type="CERTAINTY_BIAS",
+                severity="MODERATE",
+                description=(
+                    f"High certainty gap={certainty_gap}: distractor has {max_dist_certainty} "
+                    f"certainty markers vs truth's {truth_certainty}."
+                ),
+                distractor_idx=worst_dist_idx,
+                details={"certainty_gap": certainty_gap, "dist_certainty": max_dist_certainty},
+            )
+            issues.append(issue)
 
         # ── Risk level ────────────────────────────────────────────────────
         has_high = any(i.severity == "HIGH" for i in issues)

@@ -78,6 +78,37 @@ awaits confirmation, inconclusive`
 - Rebalancing intervention (+0.89 average improvement)
 - Domain analysis (67% high-gap in frontier domains)
 
+## Cascade Routing Results
+
+Using adapters as fallback when baseline fails (not as replacement):
+
+| Metric | Baseline | Cascade | Change |
+|--------|----------|---------|--------|
+| Overall pass rate | 60.8% | 62.6% | **+1.8%** |
+| gap=2 pass rate | 45% | 63% | **+18 pts** |
+| gap=3 pass rate | 26% | 47% | **+21 pts** |
+| gap≥4 pass rate | 25% | 25% | 0 |
+
+**Key: zero regressions** — cascade only applies adapters to failing facts.
+
+Rescues by adapter: cert_decon: 10, anti_def: 10
+
+## Distractor Rewriting Results
+
+For gap≥4 facts, rewriting distractors with balanced language fixes most:
+
+| Fact | Original Margin | Balanced Margin | Result |
+|------|----------------|-----------------|--------|
+| nf01_sterile | -1.46 | +0.16 | **FIXED** |
+| dm10_primordial | -1.20 | +0.64 | **FIXED** |
+| ppf04_higgs_width | -0.11 | +0.25 | **FIXED** |
+| ppf06_neutrino_cp | -1.64 | -0.23 | Improved |
+
+Replacements used:
+- "completely ruled out" → "appears unlikely"
+- "definitively proven" → "seems supported"
+- "fundamentally cannot" → "is difficult to"
+
 ## Adapter Training Results
 
 Trained a certainty decontamination adapter on 118 high-gap examples:
