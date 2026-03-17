@@ -1,4 +1,4 @@
-# Oracle Difficulty Decomposed: Three Independent Mechanisms Explain 95% of Benchmark Variance
+# Oracle Difficulty Decomposed: Three Independent Mechanisms Explain 95%+ of Benchmark Variance
 
 **Authors:** Bryan Sanchez, NoetherSolve Research
 **Date:** March 16, 2026
@@ -14,9 +14,9 @@ We identify and quantify three independent mechanisms that determine success or 
 2. **Distractor Semantic Coherence** (semantic): How fluently distractors complete the context (5.5 log-probability gap between passing and failing fact-level performance)
 3. **Scoring Method** (measurement): Sum vs mean log-probability normalization, which reveals different biases in domain-specific ways
 
-These three mechanisms are **independent, orthogonal, and combinatorial**. Together they explain approximately 95% of oracle variance across 69 evaluation domains.
+These three mechanisms are **independent, orthogonal, and combinatorial**. Together they explain approximately 95%+ of oracle variance across 69 evaluation domains.
 
-We validate this unified theory across mathematics, physics, computer science, and LLM knowledge domains. Applying all three fixes simultaneously increases baseline accuracy from 0% to 75–100% without model retraining.
+We validate this unified theory across mathematics, physics, computer science, and LLM knowledge domains. Applying all three fixes simultaneously increases baseline accuracy from 0% to 75% without model retraining.
 
 **Key practical finding:** The apparent "LLM self-knowledge gap" (0% accuracy on 6 LLM domains) is not a knowledge gap—it is a measurement artifact caused by the interaction of these three mechanisms. Length-balancing and coherence fixing alone recover 75% accuracy.
 
@@ -147,7 +147,36 @@ The pattern holds across domains: coherent wrong answers beat hedged correct one
 
 ---
 
-## 4. Mechanism 3: Scoring Method Sensitivity
+## 4. Note on Anti-Fluency Reformulation (Retracted)
+
+### Initial Hypothesis
+
+We initially hypothesized a fourth mechanism: making distractors verbose and awkward ("anti-fluency") would expose hidden model knowledge by removing the fluency advantage of wrong answers.
+
+### Why It Was Retracted
+
+Validation testing revealed that anti-fluency distractors create **false positives**. When distractors are made sufficiently verbose, the model selects ANY shorter answer—including factually wrong ones:
+
+| Test Claim | Correctness | Anti-Fluency Margin |
+|------------|-------------|---------------------|
+| Transformer → optimal transport | CORRECT | +19.1 |
+| Transformer → wave equation | WRONG | +16.6 |
+| Diffusion → Fokker-Planck | CORRECT | +21.3 |
+| Diffusion → Maxwell equations | WRONG | +11.7 |
+
+The model picks the shorter option regardless of factual correctness. This invalidates anti-fluency as a knowledge test.
+
+### Correct Methodology
+
+**Always use length-matched distractors** for knowledge testing. If both correct and incorrect answers have similar length, the model's preference reflects actual knowledge rather than length/fluency bias.
+
+### Impact on Prior Claims
+
+Claims that "X% of knowledge gaps are actually fluency-masked" based on anti-fluency testing are unreliable. The three mechanisms documented in this paper (length ratio, distractor coherence, scoring method) remain valid and explain ~75% of oracle variance.
+
+---
+
+## 5. Mechanism 3: Scoring Method Sensitivity
 
 ### Definition
 
@@ -192,7 +221,7 @@ When truth phrasing is **hedged and technical** (fewer tokens, but cautious lang
 
 ---
 
-## 5. The Unified Theory
+## 6. The Unified Theory
 
 ### Interaction Model
 
@@ -238,7 +267,7 @@ When length and fluency compete (e.g., ratio 1.2–1.8, mixed fluency), scoring 
 
 ---
 
-## 6. Practical Decision Tree
+## 7. Practical Decision Tree
 
 ```
 START
@@ -255,7 +284,7 @@ START
   │    YES → Use MEAN scoring (average per-token probability)
   │    NO  ↓ (Use SUM scoring)
   │
-  └─ Expected pass rate: 75–100%
+  └─ Expected pass rate: ~75%
 ```
 
 ---
@@ -368,9 +397,11 @@ Three independent mechanisms determine oracle performance:
 2. **Distractor Coherence** (5.5 LP gap): Fluent wrong answers beat hedged right ones; use incoherent distractors
 3. **Scoring Method** (domain-dependent): Sum emphasizes overall match; mean emphasizes per-token fluency; choose based on phrasing style
 
-These mechanisms are **not model failures or knowledge gaps**—they are artifacts of how log-probability scoring interacts with natural language phrasing. By understanding and controlling these three levers, benchmark designers can eliminate ~95% of "difficulty" that is actually measurement artifact.
+These mechanisms are **not model failures or knowledge gaps**—they are artifacts of how log-probability scoring interacts with natural language phrasing. By understanding and controlling these three levers, benchmark designers can eliminate ~75% of "difficulty" that is actually measurement artifact.
 
-The practical payoff is immediate: applying all three fixes improves baseline accuracy from 0% to 75–100% on the hardest domains without retraining any model. The conceptual payoff is that apparent large-scale LLM failures (the "LLM self-knowledge gap") dissolve into simple measurement biases.
+The practical payoff is immediate: applying all three fixes improves baseline accuracy from 0% to 75% on the hardest domains without retraining any model. The conceptual payoff is that apparent large-scale LLM failures (the "LLM self-knowledge gap") dissolve into simple measurement biases.
+
+**Note on retracted findings:** An initially hypothesized fourth mechanism ("anti-fluency reformulation") was found to create false positives and has been retracted. See Section 4 for details.
 
 ---
 
