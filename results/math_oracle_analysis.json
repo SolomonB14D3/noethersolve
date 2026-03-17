@@ -1,0 +1,756 @@
+[
+  {
+    "fact_id": "nt01_goldbach",
+    "domain": "number_theory_conjectures",
+    "passed": true,
+    "margin": 9.417095184326172,
+    "truth": "every even integer greater than 2 is the sum of two primes",
+    "distractors": [
+      "every odd integer is the sum of two primes",
+      "every integer is prime or the sum of two primes",
+      "the conjecture has been proven"
+    ],
+    "context": "Goldbach's Conjecture (1742) states that:"
+  },
+  {
+    "fact_id": "nt02_goldbach_weak",
+    "domain": "number_theory_conjectures",
+    "passed": false,
+    "margin": -0.4236030578613281,
+    "truth": "proven by Harald Helfgott in 2013",
+    "distractors": [
+      "still unsolved",
+      "disproven by counterexample",
+      "equivalent to strong Goldbach"
+    ],
+    "context": "The weak Goldbach conjecture (odd Goldbach) states every odd n>5 is sum of three primes. Its status is:"
+  },
+  {
+    "fact_id": "nt03_twin_prime",
+    "domain": "number_theory_conjectures",
+    "passed": true,
+    "margin": 4.491182327270508,
+    "truth": "there are infinitely many pairs of primes differing by 2",
+    "distractors": [
+      "twin primes are finite in number",
+      "all primes greater than 3 are twins",
+      "the conjecture has been proven"
+    ],
+    "context": "The Twin Prime Conjecture states that:"
+  },
+  {
+    "fact_id": "nt04_twin_progress",
+    "domain": "number_theory_conjectures",
+    "passed": false,
+    "margin": -21.724803924560547,
+    "truth": "infinitely many prime pairs with gap at most 70 million (now reduced to 246)",
+    "distractors": [
+      "the twin prime conjecture is true",
+      "there are only finitely many close primes",
+      "no progress on prime gaps"
+    ],
+    "context": "Zhang's 2013 breakthrough on bounded gaps between primes showed:"
+  },
+  {
+    "fact_id": "nt05_collatz",
+    "domain": "number_theory_conjectures",
+    "passed": true,
+    "margin": 8.806917190551758,
+    "truth": "eventually reaches 1 for all positive integers",
+    "distractors": [
+      "has cycles other than 4-2-1",
+      "diverges for some integers",
+      "has been proven for all integers"
+    ],
+    "context": "The Collatz Conjecture states that iterating n\u2192n/2 (even) or n\u21923n+1 (odd):"
+  },
+  {
+    "fact_id": "nt06_collatz_verified",
+    "domain": "number_theory_conjectures",
+    "passed": true,
+    "margin": 0.9759635925292969,
+    "truth": "all integers up to approximately 10^20",
+    "distractors": [
+      "only integers up to 1 million",
+      "a counterexample exists near 10^15",
+      "computation cannot help"
+    ],
+    "context": "Computational verification of the Collatz Conjecture has confirmed it for:"
+  },
+  {
+    "fact_id": "nt07_abc",
+    "domain": "number_theory_conjectures",
+    "passed": false,
+    "margin": -9.590829849243164,
+    "truth": "for any \u03b5>0, there are finitely many triples where c > rad(abc)^(1+\u03b5)",
+    "distractors": [
+      "a+b always equals c exactly",
+      "the radical is always larger than c",
+      "the conjecture has been definitively proven"
+    ],
+    "context": "The ABC Conjecture relates the prime factors of a, b, and a+b=c. It states:"
+  },
+  {
+    "fact_id": "nt08_abc_status",
+    "domain": "number_theory_conjectures",
+    "passed": false,
+    "margin": -29.659168243408203,
+    "truth": "remains controversial with key steps disputed by Scholze and Stix",
+    "distractors": [
+      "is universally accepted",
+      "has been definitively refuted",
+      "does not address ABC at all"
+    ],
+    "context": "Mochizuki's claimed proof of ABC using Inter-universal Teichm\u00fcller Theory (IUT):"
+  },
+  {
+    "fact_id": "nt09_legendre",
+    "domain": "number_theory_conjectures",
+    "passed": false,
+    "margin": -4.218084335327148,
+    "truth": "always at least one prime (unproven)",
+    "distractors": [
+      "never any primes",
+      "exactly one prime always",
+      "the conjecture has been proven"
+    ],
+    "context": "Legendre's Conjecture states that between n\u00b2 and (n+1)\u00b2 there is:"
+  },
+  {
+    "fact_id": "nt10_sophie_germain",
+    "domain": "number_theory_conjectures",
+    "passed": false,
+    "margin": -8.749906539916992,
+    "truth": "there are infinitely many Sophie Germain primes (unproven)",
+    "distractors": [
+      "Sophie Germain primes are finite",
+      "all primes are Sophie Germain",
+      "the conjecture has been proven"
+    ],
+    "context": "A Sophie Germain prime p satisfies that 2p+1 is also prime. The conjecture states:"
+  },
+  {
+    "fact_id": "nt11_fermat_primes",
+    "domain": "number_theory_conjectures",
+    "passed": false,
+    "margin": -36.22209548950195,
+    "truth": "whether infinitely many exist is unknown; none found for n>4",
+    "distractors": [
+      "all Fermat numbers are prime",
+      "there are exactly 5 Fermat primes (proven)",
+      "F_5 is prime"
+    ],
+    "context": "Fermat numbers F_n = 2^(2^n) + 1 are prime for n=0,1,2,3,4. The conjecture on Fermat primes:"
+  },
+  {
+    "fact_id": "nt12_mersenne",
+    "domain": "number_theory_conjectures",
+    "passed": false,
+    "margin": -22.426542282104492,
+    "truth": "infinitely many Mersenne primes exist (unproven, but 51 known)",
+    "distractors": [
+      "there are only finitely many",
+      "all 2^p - 1 are prime when p is prime",
+      "the largest possible has been found"
+    ],
+    "context": "Mersenne primes have form 2^p - 1 where p is prime. It is conjectured that:"
+  },
+  {
+    "fact_id": "at01_poincare",
+    "domain": "algebra_topology_conjectures",
+    "passed": false,
+    "margin": -18.458786010742188,
+    "truth": "every simply connected closed 3-manifold is homeomorphic to S\u00b3 (proven by Perelman 2003)",
+    "distractors": [
+      "remains unsolved",
+      "is false with counterexamples",
+      "only applies to 2-manifolds"
+    ],
+    "context": "The Poincar\u00e9 Conjecture for 3-manifolds stated that:"
+  },
+  {
+    "fact_id": "at02_smooth_poincare",
+    "domain": "algebra_topology_conjectures",
+    "passed": false,
+    "margin": -15.891275405883789,
+    "truth": "whether every smooth 4-manifold homeomorphic to S\u2074 is diffeomorphic to S\u2074 (open)",
+    "distractors": [
+      "is proven true",
+      "is proven false",
+      "only concerns dimension 3"
+    ],
+    "context": "The smooth Poincar\u00e9 conjecture in dimension 4 asks:"
+  },
+  {
+    "fact_id": "at03_exotic_r4",
+    "domain": "algebra_topology_conjectures",
+    "passed": false,
+    "margin": -17.506216049194336,
+    "truth": "uncountably many exotic R\u2074s exist (unique to dimension 4)",
+    "distractors": [
+      "only one smooth structure exists on R\u2074",
+      "exotic structures exist in all dimensions",
+      "R\u2074 has exactly 28 exotic structures"
+    ],
+    "context": "Exotic R\u2074s are smooth structures on R\u2074 not diffeomorphic to standard R\u2074. It is known that:"
+  },
+  {
+    "fact_id": "at04_unknotting",
+    "domain": "algebra_topology_conjectures",
+    "passed": false,
+    "margin": -46.156246185302734,
+    "truth": "is decidable but optimal complexity is unknown (known to be in NP \u2229 co-NP)",
+    "distractors": [
+      "is undecidable",
+      "is in P",
+      "no algorithm exists"
+    ],
+    "context": "The unknotting problem asks if an algorithm exists to determine if a knot diagram represents the unknot:"
+  },
+  {
+    "fact_id": "at05_jacobian",
+    "domain": "algebra_topology_conjectures",
+    "passed": false,
+    "margin": -12.447332382202148,
+    "truth": "has a polynomial inverse (unproven for n \u2265 2)",
+    "distractors": [
+      "has no inverse",
+      "is proven for all n",
+      "only applies to n=1"
+    ],
+    "context": "The Jacobian Conjecture states that a polynomial map F: C\u207f \u2192 C\u207f with constant nonzero Jacobian:"
+  },
+  {
+    "fact_id": "at06_invariant_subspace",
+    "domain": "algebra_topology_conjectures",
+    "passed": false,
+    "margin": -13.956710815429688,
+    "truth": "has a non-trivial closed invariant subspace (open for general operators)",
+    "distractors": [
+      "is proven true for all operators",
+      "is proven false",
+      "only applies to finite dimensions"
+    ],
+    "context": "The Invariant Subspace Problem asks if every bounded linear operator on Hilbert space:"
+  },
+  {
+    "fact_id": "at07_chromatic",
+    "domain": "algebra_topology_conjectures",
+    "passed": false,
+    "margin": -56.0958309173584,
+    "truth": "is between 5 and 7 (de Grey 2018 proved \u22655, upper bound 7 known)",
+    "distractors": [
+      "is exactly 4",
+      "is exactly 7 (proven)",
+      "is infinite"
+    ],
+    "context": "The chromatic number of the plane asks how many colors are needed so no two points at distance 1 share a color:"
+  },
+  {
+    "fact_id": "at08_hadamard",
+    "domain": "algebra_topology_conjectures",
+    "passed": false,
+    "margin": -32.50253868103027,
+    "truth": "every order divisible by 4 (unproven; smallest unknown order is 668)",
+    "distractors": [
+      "all orders",
+      "only prime orders",
+      "the conjecture has been proven"
+    ],
+    "context": "The Hadamard Conjecture states that Hadamard matrices exist for:"
+  },
+  {
+    "fact_id": "at09_schanuel",
+    "domain": "algebra_topology_conjectures",
+    "passed": true,
+    "margin": 7.005115509033203,
+    "truth": "the transcendence degree of Q(z\u2081,...,z\u2099,e^z\u2081,...,e^z\u2099) over Q is at least n",
+    "distractors": [
+      "all exponentials are algebraic",
+      "the conjecture is proven",
+      "only applies to real numbers"
+    ],
+    "context": "Schanuel's Conjecture in transcendental number theory states that if z\u2081,...,z\u2099 are linearly independent over Q:"
+  },
+  {
+    "fact_id": "at10_sullivan",
+    "domain": "algebra_topology_conjectures",
+    "passed": false,
+    "margin": -36.70119667053223,
+    "truth": "the space of maps from BG to X is weakly contractible if X is finite (Miller 1984)",
+    "distractors": [
+      "remains unproven",
+      "is false",
+      "only applies to infinite groups"
+    ],
+    "context": "The Sullivan Conjecture (proven) states that for finite group G and CW complex X:"
+  },
+  {
+    "fact_id": "pt01_diagonalization",
+    "domain": "proof_techniques",
+    "passed": false,
+    "margin": -17.736047744750977,
+    "truth": "constructing objects that differ from every element in a countable list at that element's index",
+    "distractors": [
+      "using matrix determinants",
+      "only working for finite sets",
+      "requiring physical computation"
+    ],
+    "context": "Diagonalization arguments (Cantor, Turing) prove impossibility results by:"
+  },
+  {
+    "fact_id": "pt02_relativization",
+    "domain": "proof_techniques",
+    "passed": false,
+    "margin": -4.9925994873046875,
+    "truth": "there exist oracles A and B where P^A = NP^A and P^B \u2260 NP^B",
+    "distractors": [
+      "P = NP relative to all oracles",
+      "oracles are irrelevant to complexity",
+      "the barrier has been overcome"
+    ],
+    "context": "Relativization barrier for P vs NP shows that:"
+  },
+  {
+    "fact_id": "pt03_algebrization",
+    "domain": "proof_techniques",
+    "passed": false,
+    "margin": -9.1033935546875,
+    "truth": "techniques that algebrize cannot separate P from NP",
+    "distractors": [
+      "algebraic methods solve P vs NP",
+      "algebrization is weaker than relativization",
+      "only applies to specific problems"
+    ],
+    "context": "The algebrization barrier (Aaronson-Wigderson 2009) extends relativization showing:"
+  },
+  {
+    "fact_id": "pt04_gct",
+    "domain": "proof_techniques",
+    "passed": true,
+    "margin": 4.401096343994141,
+    "truth": "algebraic geometry and representation theory to prove circuit lower bounds",
+    "distractors": [
+      "purely combinatorial arguments",
+      "has already separated P from NP",
+      "only works for space complexity"
+    ],
+    "context": "Geometric Complexity Theory (GCT) approaches P vs NP using:"
+  },
+  {
+    "fact_id": "pt05_forcing",
+    "domain": "proof_techniques",
+    "passed": false,
+    "margin": -30.622182846069336,
+    "truth": "independence of Continuum Hypothesis from ZFC (neither provable nor refutable)",
+    "distractors": [
+      "CH is true",
+      "CH is false",
+      "forcing cannot address CH"
+    ],
+    "context": "Cohen's forcing technique in set theory was used to prove:"
+  },
+  {
+    "fact_id": "pt06_model_theory",
+    "domain": "proof_techniques",
+    "passed": true,
+    "margin": 0.6520843505859375,
+    "truth": "a theory has a model iff every finite subset has a model",
+    "distractors": [
+      "all theories have models",
+      "only applies to finite theories",
+      "compactness fails for first-order logic"
+    ],
+    "context": "The compactness theorem in model theory states:"
+  },
+  {
+    "fact_id": "pt07_circle_method",
+    "domain": "proof_techniques",
+    "passed": false,
+    "margin": -30.734050750732422,
+    "truth": "analyzing generating functions via complex contour integrals, separating major and minor arcs",
+    "distractors": [
+      "directly counting solutions",
+      "using geometric circles only",
+      "only works for prime counting"
+    ],
+    "context": "The Hardy-Littlewood circle method is used in additive number theory by:"
+  },
+  {
+    "fact_id": "pt08_sieve",
+    "domain": "proof_techniques",
+    "passed": false,
+    "margin": -42.3555908203125,
+    "truth": "upper bounds on primes in sets but cannot prove infinitude (parity barrier)",
+    "distractors": [
+      "exact prime counts",
+      "lower bounds directly",
+      "solutions to twin prime conjecture"
+    ],
+    "context": "Modern sieve methods in number theory provide:"
+  },
+  {
+    "fact_id": "pt09_ricci_flow",
+    "domain": "proof_techniques",
+    "passed": false,
+    "margin": -16.949430465698242,
+    "truth": "\u2202g/\u2202t = -2Ric(g), deforming geometry to find canonical structures",
+    "distractors": [
+      "increasing curvature everywhere",
+      "only working in 2 dimensions",
+      "preserving volume always"
+    ],
+    "context": "Ricci flow, used by Perelman to prove Poincar\u00e9, evolves metric by:"
+  },
+  {
+    "fact_id": "pt10_modular_forms",
+    "domain": "proof_techniques",
+    "passed": true,
+    "margin": 4.343757629394531,
+    "truth": "the modularity theorem linking elliptic curves to modular forms",
+    "distractors": [
+      "direct algebraic manipulation",
+      "computer enumeration",
+      "only providing partial results"
+    ],
+    "context": "Modular forms were essential to Wiles' proof of Fermat's Last Theorem via:"
+  },
+  {
+    "fact_id": "pt11_independence",
+    "domain": "proof_techniques",
+    "passed": false,
+    "margin": -29.892635345458984,
+    "truth": "are true but unprovable in Peano arithmetic (first natural independence result)",
+    "distractors": [
+      "are provable in PA",
+      "are false",
+      "require set theory to state"
+    ],
+    "context": "Paris-Harrington theorem shows that certain combinatorial statements:"
+  },
+  {
+    "fact_id": "pt12_reverse_math",
+    "domain": "proof_techniques",
+    "passed": false,
+    "margin": -29.11772346496582,
+    "truth": "WKL\u2080 or ACA\u2080 (weak systems much weaker than full ZFC)",
+    "distractors": [
+      "full ZFC with large cardinals",
+      "only basic arithmetic",
+      "no axioms at all"
+    ],
+    "context": "Reverse mathematics classifies theorems by the axioms needed to prove them. Most analysis theorems need:"
+  },
+  {
+    "fact_id": "ap01_navier_stokes_energy",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -6.484731674194336,
+    "truth": "whether weak solutions are unique and regular (smooth)",
+    "distractors": [
+      "energy is not conserved",
+      "weak solutions don't exist",
+      "the problem is solved"
+    ],
+    "context": "For 3D Navier-Stokes, energy inequality and weak solutions are known. The gap is:"
+  },
+  {
+    "fact_id": "ap02_euler_blowup",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -45.80233192443848,
+    "truth": "is conjectured but not proven; recent progress by Elgindi for C^(1,\u03b1) data",
+    "distractors": [
+      "is proven impossible",
+      "is proven to occur for smooth data",
+      "only matters in 2D"
+    ],
+    "context": "For 3D incompressible Euler equations, finite-time blowup:"
+  },
+  {
+    "fact_id": "ap03_kakeya",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -23.84724998474121,
+    "truth": "Hausdorff dimension n in R\u207f (proven for n=2, open for n\u22653)",
+    "distractors": [
+      "dimension 0",
+      "been proven for all n",
+      "dimension n-1"
+    ],
+    "context": "The Kakeya conjecture states that Kakeya sets (containing unit segment in each direction) have:"
+  },
+  {
+    "fact_id": "ap04_erdos_distance",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -50.458740234375,
+    "truth": "at least cn/\u221a(log n) (proven by Guth-Katz 2015); conjectured cn/\u221a(log n) is tight",
+    "distractors": [
+      "at least cn\u00b2 distances",
+      "at most \u221an distances",
+      "the problem is solved exactly"
+    ],
+    "context": "The Erd\u0151s distinct distances problem asks: n points in the plane determine how many distinct distances?"
+  },
+  {
+    "fact_id": "ap05_local_global",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -2.9279327392578125,
+    "truth": "whether local solvability (over all completions) implies global solvability",
+    "distractors": [
+      "only local solutions matter",
+      "has been fully resolved",
+      "only applies to finite fields"
+    ],
+    "context": "The local-global conjecture for elliptic curves concerns:"
+  },
+  {
+    "fact_id": "ap06_erdos_turan",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -26.560489654541016,
+    "truth": "if \u03a31/a\u2099 diverges, the sequence contains arbitrarily long arithmetic progressions",
+    "distractors": [
+      "has been proven by Green-Tao",
+      "is known to be false",
+      "only concerns primes"
+    ],
+    "context": "The Erd\u0151s-Tur\u00e1n conjecture on arithmetic progressions in dense sets states:"
+  },
+  {
+    "fact_id": "ap07_szemeredi_corners",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -8.236993789672852,
+    "truth": "corners (x,y), (x+d,y), (x,y+d) for some d>0",
+    "distractors": [
+      "no corners",
+      "only applies to 1D",
+      "the theorem is unproven"
+    ],
+    "context": "The corners theorem (Ajtai-Szemer\u00e9di) proves that dense subsets of [n]\u00b2 contain:"
+  },
+  {
+    "fact_id": "ap08_mobius_randomness",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -57.21368217468262,
+    "truth": "M\u00f6bius function \u03bc(n) behaves like random \u00b11,0 for complexity purposes (Sarnak conjecture)",
+    "distractors": [
+      "\u03bc(n) is predictable",
+      "\u03bc(n) is always positive",
+      "the heuristic has been disproven"
+    ],
+    "context": "The M\u00f6bius randomness heuristic suggests that:"
+  },
+  {
+    "fact_id": "ap09_singmaster",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -68.73068618774414,
+    "truth": "finite (conjectured \u22648, known infinite entries only for 1,2,3,6,10,20,120)",
+    "distractors": [
+      "infinite for all numbers",
+      "exactly 1 for all numbers",
+      "the conjecture is proven"
+    ],
+    "context": "Singmaster's conjecture states that the maximum number of times a number >1 appears in Pascal's triangle is:"
+  },
+  {
+    "fact_id": "ap10_invariant_measure",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -23.11578941345215,
+    "truth": "the only ergodic \u00d72 and \u00d73 invariant measure on R/Z is Lebesgue (open)",
+    "distractors": [
+      "many invariant measures exist",
+      "the conjecture is proven",
+      "only applies to integers"
+    ],
+    "context": "The Furstenberg conjecture on \u00d72, \u00d73 ergodicity states:"
+  },
+  {
+    "fact_id": "ap11_regularity_minimal",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -24.013208389282227,
+    "truth": "singular minimal hypersurfaces exist (Bombieri-De Giorgi-Giusti)",
+    "distractors": [
+      "all minimal surfaces are smooth",
+      "singularities occur in all dimensions",
+      "n=8 is the smooth threshold"
+    ],
+    "context": "For minimal surfaces in R\u207f, interior regularity holds for n\u22647. For n\u22658:"
+  },
+  {
+    "fact_id": "ap12_uniform_boundedness",
+    "domain": "analysis_pde_conjectures",
+    "passed": false,
+    "margin": -56.76128387451172,
+    "truth": "partial sums are uniformly bounded (proven); open for H\u00f6lder C^\u03b1, \u03b1<1",
+    "distractors": [
+      "partial sums can grow unboundedly",
+      "is fully resolved for all regularity",
+      "only applies to L\u00b2 functions"
+    ],
+    "context": "The uniform boundedness of Fourier series for C\u00b9 functions states:"
+  },
+  {
+    "fact_id": "cc01_npi",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -33.742990493774414,
+    "truth": "P \u2260 NP (Ladner's theorem); candidates include factoring, graph isomorphism",
+    "distractors": [
+      "P = NP",
+      "regardless of P vs NP",
+      "no such problems can exist"
+    ],
+    "context": "NP-intermediate problems (in NP but neither in P nor NP-complete) exist if:"
+  },
+  {
+    "fact_id": "cc02_graph_iso",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -31.913965225219727,
+    "truth": "in quasipolynomial time (Babai 2015) but not known to be in P or NP-complete",
+    "distractors": [
+      "NP-complete",
+      "in P",
+      "undecidable"
+    ],
+    "context": "Graph isomorphism problem's complexity status is:"
+  },
+  {
+    "fact_id": "cc03_unique_games",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -27.767738342285156,
+    "truth": "approximating unique label cover is NP-hard; implies many tight inapproximability results",
+    "distractors": [
+      "unique games are in P",
+      "has been proven",
+      "has been disproven"
+    ],
+    "context": "The Unique Games Conjecture (Khot 2002) states that:"
+  },
+  {
+    "fact_id": "cc04_bpp_p",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -33.425384521484375,
+    "truth": "randomized polynomial time equals deterministic polynomial time (widely believed true, open)",
+    "distractors": [
+      "BPP strictly contains P (proven)",
+      "randomness is proven necessary",
+      "the question is undecidable"
+    ],
+    "context": "The relationship BPP =? P concerns whether:"
+  },
+  {
+    "fact_id": "cc05_np_conp",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -7.066806793212891,
+    "truth": "P \u2260 NP (contrapositive: P = NP implies NP = coNP)",
+    "distractors": [
+      "P = NP follows",
+      "no relationship exists",
+      "NP = coNP is proven"
+    ],
+    "context": "Whether NP = coNP is unknown. If NP \u2260 coNP, then:"
+  },
+  {
+    "fact_id": "cc06_l_nl",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -43.60275650024414,
+    "truth": "nondeterministic log-space equals deterministic log-space (open; NL \u2286 P known)",
+    "distractors": [
+      "L = NL is proven",
+      "NL is not in P",
+      "log-space is uncomputable"
+    ],
+    "context": "The L vs NL problem asks whether:"
+  },
+  {
+    "fact_id": "cc07_matrix_mult",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -54.783119201660156,
+    "truth": "2 \u2264 \u03c9 \u2264 2.373 (conjectured \u03c9 = 2, current best upper bound by Williams et al.)",
+    "distractors": [
+      "\u03c9 = 3 exactly (naive algorithm optimal)",
+      "\u03c9 = 2 is proven",
+      "\u03c9 > 3"
+    ],
+    "context": "The optimal exponent \u03c9 for matrix multiplication satisfies:"
+  },
+  {
+    "fact_id": "cc08_sorting_lower",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -10.171268463134766,
+    "truth": "\u03a9(n log n) comparisons, matched by mergesort and heapsort",
+    "distractors": [
+      "\u03a9(n\u00b2) comparisons",
+      "O(n) is achievable with comparisons",
+      "no lower bound exists"
+    ],
+    "context": "The information-theoretic lower bound for comparison sorting n elements is:"
+  },
+  {
+    "fact_id": "cc09_3sum",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -55.0234260559082,
+    "truth": "\u03a9(n\u00b2) in comparison model; recent progress shows n^(2-o(1)) is tight under some models",
+    "distractors": [
+      "O(n log n) is achievable",
+      "is NP-complete",
+      "\u03a9(n\u00b3) is proven"
+    ],
+    "context": "The 3SUM problem (find a+b+c=0 in array) has conjectured complexity:"
+  },
+  {
+    "fact_id": "cc10_eth",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -26.208740234375,
+    "truth": "3-SAT cannot be solved in 2^(o(n)) time (implies many conditional lower bounds)",
+    "distractors": [
+      "3-SAT is in polynomial time",
+      "ETH has been proven",
+      "ETH has been disproven"
+    ],
+    "context": "The Exponential Time Hypothesis (ETH) states that:"
+  },
+  {
+    "fact_id": "cc11_integer_factoring",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -50.805850982666016,
+    "truth": "unknown; in NP \u2229 coNP but not known to be in P or NP-complete; quantum polynomial via Shor",
+    "distractors": [
+      "NP-complete",
+      "in P",
+      "undecidable"
+    ],
+    "context": "The complexity of integer factoring is:"
+  },
+  {
+    "fact_id": "cc12_communication",
+    "domain": "computational_conjectures",
+    "passed": false,
+    "margin": -40.01854705810547,
+    "truth": "deterministic communication \u2264 (log rank)^O(1) for any boolean matrix (open)",
+    "distractors": [
+      "is proven true",
+      "is proven false",
+      "communication equals rank exactly"
+    ],
+    "context": "The log-rank conjecture in communication complexity states:"
+  }
+]
