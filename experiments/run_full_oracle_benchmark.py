@@ -365,7 +365,7 @@ def main():
     parser.add_argument("--all", action="store_true",
                         help="Benchmark all domains with facts and adapters")
     parser.add_argument("--method", default="greedy",
-                        choices=["greedy", "beam", "genetic"])
+                        choices=["greedy", "beam", "genetic", "guided"])
     parser.add_argument("--output", help="Output JSON file")
     args = parser.parse_args()
 

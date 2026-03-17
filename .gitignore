@@ -55,3 +55,29 @@ figures/
 # open_questions.jsonl — TRACKED (shared AI-generated hypothesis queue)
 # If you want to gitignore it, uncomment:
 # results/open_questions.jsonl
+
+# Oracle gem investigation (false lead — confidence reduction, not suppression removal)
+oracle_gem_publishable_benchmark.py
+benchmark_oracle_gem.py
+ORACLE_GEM_DELIVERY.txt
+experiments/confound_decomposition_test.py
+experiments/oracle_gem_mechanism_test.py
+results/ORACLE_GEM_RESEARCH_REPORT.md
+results/ORACLE_GEM_SHARE.txt
+results/READY_TO_SHARE.md
+results/oracle_gem_benchmark_results.json
+results/oracle_gem_mechanism_results.json
+results/confound_decomposition_results.json
+
+# Benchmark outputs (regenerated locally)
+results/benchmark_all_domains.json
+results/benchmark_all_domains_v2.json
+results/benchmark_core_4_domains.json
+
+# Meta-router training data (regenerated from outcomes)
+results/meta_router_outcomes.jsonl
+results/meta_router_training.jsonl
+results/meta_router.json
+results/stage_discovery_guided.json
+results/train_missing_adapters.log
+results/train_missing_adapters_v2.log
