@@ -10,6 +10,7 @@ Approaches:
 1. Greedy: Add adapter that flips most remaining facts without regression
 2. Beam search: Track top-k partial sequences
 3. Genetic: Evolve populations of adapter sequences
+4. Guided: Use meta-router to prioritize adapters for remaining facts
 
 Usage:
     discoverer = StageDiscoverer(
@@ -24,6 +25,9 @@ Usage:
 
     # Or use beam search for potentially better solutions
     sequence = discoverer.discover(method="beam", beam_width=3)
+
+    # Or use meta-router guided search
+    sequence = discoverer.discover(method="guided", router_path="results/meta_router.json")
 """
 
 from dataclasses import dataclass, field
@@ -32,7 +36,7 @@ from pathlib import Path
 import json
 import random
 import numpy as np
-from collections import defaultdict
+from collections import defaultdict, Counter
 import heapq
 
 
@@ -274,11 +278,208 @@ class StageDiscoverer:
 
         return best_ever
 
-    def discover(self, method: str = "greedy") -> StageSequence:
+    def discover_guided(
+        self,
+        router_path: Optional[str] = None,
+        fact_embeddings: Optional[Dict[str, np.ndarray]] = None,
+    ) -> StageSequence:
+        """Guided discovery: use meta-router to prioritize adapters.
+
+        The meta-router predicts which adapters are likely to flip each remaining fact.
+        We prioritize adapters that have high predicted success for remaining facts.
+
+        Args:
+            router_path: Path to meta_router.json file
+            fact_embeddings: Pre-computed embeddings for facts
+
+        Returns:
+            StageSequence with discovered adapters
+        """
+        # Load meta-router
+        if router_path is None:
+            router_path = Path(__file__).parent.parent / "results" / "meta_router.json"
+        else:
+            router_path = Path(router_path)
+
+        if not router_path.exists():
+            print(f"Meta-router not found at {router_path}, falling back to greedy")
+            return self.discover_greedy()
+
+        # Load router state
+        with open(router_path) as f:
+            router_state = json.load(f)
+
+        adapter_centroids = {
+            k: np.array(v[0], dtype=np.float32)
+            for k, v in router_state["adapter_centroids"].items()
+        }
+
+        # Get embeddings for facts if not provided
+        if fact_embeddings is None:
+            fact_embeddings = self._get_fact_embeddings()
+
+        sequence = StageSequence(adapters=[], passed_ids=set(), score=0.0)
+
+        # Consider ALL candidate adapters, not just those in the router
+        # Router is used to prioritize, but non-router adapters are also tried
+        routed_adapters = set(self.candidate_adapters) & set(adapter_centroids.keys())
+        non_routed_adapters = set(self.candidate_adapters) - set(adapter_centroids.keys())
+        remaining_routed = set(routed_adapters)
+        remaining_non_routed = set(non_routed_adapters)
+
+        if not routed_adapters and not non_routed_adapters:
+            print("No candidate adapters available")
+            return sequence
+
+        for stage in range(self.config.max_stages):
+            # Find remaining facts
+            remaining_fact_ids = self.fact_ids - sequence.passed_ids
+
+            if not remaining_fact_ids:
+                break
+
+            # Score each adapter by how well it matches remaining facts
+            adapter_scores = Counter()
+
+            for fid in remaining_fact_ids:
+                if fid not in fact_embeddings:
+                    continue
+
+                emb = fact_embeddings[fid]
+                emb = emb / (np.linalg.norm(emb) + 1e-8)
+
+                # Find best adapter for this fact
+                best_sim = -1
+                best_adapter = None
+
+                for adapter in remaining_routed:
+                    if adapter in adapter_centroids:
+                        centroid = adapter_centroids[adapter]
+                        sim = float(np.dot(emb, centroid))
+                        if sim > best_sim:
+                            best_sim = sim
+                            best_adapter = adapter
+
+                if best_adapter:
+                    adapter_scores[best_adapter] += 1
+
+            # Try adapters in order of predicted relevance
+            best_adapter = None
+            best_improvement = 0
+            best_result = None
+
+            # Sort by predicted score, then try each
+            for adapter, _ in adapter_scores.most_common():
+                if adapter not in remaining_routed:
+                    continue
+
+                result = self._evaluate(adapter)
+
+                # Count new facts flipped
+                new_passed = result.passed_ids - sequence.passed_ids
+                improvement = len(new_passed)
+
+                # Check for regression
+                regressed = sequence.passed_ids - result.passed_ids
+                if len(regressed) > self.config.regression_tolerance:
+                    continue
+
+                if improvement > best_improvement:
+                    best_improvement = improvement
+                    best_adapter = adapter
+                    best_result = result
+
+                # Early exit if we found a good one
+                if improvement >= 3:
+                    break
+
+            if best_adapter is None or best_improvement < self.config.min_improvement:
+                # No guided option worked, try remaining routed adapters
+                for adapter in remaining_routed:
+                    if adapter in [a for a, _ in adapter_scores.most_common()]:
+                        continue  # Already tried
+
+                    result = self._evaluate(adapter)
+                    new_passed = result.passed_ids - sequence.passed_ids
+                    improvement = len(new_passed)
+
+                    regressed = sequence.passed_ids - result.passed_ids
+                    if len(regressed) > self.config.regression_tolerance:
+                        continue
+
+                    if improvement > best_improvement:
+                        best_improvement = improvement
+                        best_adapter = adapter
+                        best_result = result
+
+            if best_adapter is None or best_improvement < self.config.min_improvement:
+                # Still no luck - try non-routed adapters (not in meta-router)
+                for adapter in remaining_non_routed:
+                    result = self._evaluate(adapter)
+                    new_passed = result.passed_ids - sequence.passed_ids
+                    improvement = len(new_passed)
+
+                    regressed = sequence.passed_ids - result.passed_ids
+                    if len(regressed) > self.config.regression_tolerance:
+                        continue
+
+                    if improvement > best_improvement:
+                        best_improvement = improvement
+                        best_adapter = adapter
+                        best_result = result
+
+            if best_adapter is None or best_improvement < self.config.min_improvement:
+                break
+
+            # Add to sequence
+            sequence.adapters.append(best_adapter)
+            sequence.passed_ids.update(best_result.passed_ids)
+            sequence.score = len(sequence.passed_ids) / len(self.fact_ids)
+            sequence.history.append(best_result)
+
+            # Remove from appropriate set
+            if best_adapter in remaining_routed:
+                remaining_routed.remove(best_adapter)
+                source = "guided"
+            else:
+                remaining_non_routed.remove(best_adapter)
+                source = "fallback"
+
+            print(f"Stage {stage+1}: +{best_adapter} → {len(sequence.passed_ids)}/{len(self.fact_ids)} "
+                  f"({sequence.score:.1%}) [{source}]")
+
+            if sequence.score >= self.config.early_stop_threshold:
+                break
+
+        return sequence
+
+    def _get_fact_embeddings(self) -> Dict[str, np.ndarray]:
+        """Compute embeddings for facts using sentence-transformers."""
+        try:
+            from sentence_transformers import SentenceTransformer
+        except ImportError:
+            return {}
+
+        model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+
+        embeddings = {}
+        for fact in self.facts:
+            fid = fact.get("id", "")
+            text = fact.get("truth", fact.get("fact", ""))
+            if fact.get("context"):
+                text = f"{fact['context']}: {text}"
+
+            vec = model.encode(text, convert_to_numpy=True)
+            embeddings[fid] = vec
+
+        return embeddings
+
+    def discover(self, method: str = "greedy", **kwargs) -> StageSequence:
         """Run discovery with specified method.
 
         Args:
-            method: "greedy", "beam", or "genetic"
+            method: "greedy", "beam", "genetic", or "guided"
+            **kwargs: Additional arguments for specific methods (e.g., router_path for guided)
 
         Returns:
             Best discovered StageSequence
@@ -289,6 +490,8 @@ class StageDiscoverer:
             return self.discover_beam()
         elif method == "genetic":
             return self.discover_genetic()
+        elif method == "guided":
+            return self.discover_guided(**kwargs)
         else:
             raise ValueError(f"Unknown method: {method}")
 
