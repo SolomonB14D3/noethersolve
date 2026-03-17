@@ -385,6 +385,37 @@ python -m noethersolve.audit_facts --file problems/my_facts.json
 
 **See:** `results/discoveries/novel_findings/technical_simplification_bias.md`
 
+#### Mechanism 8: Context-Independent Term Preference Bias (Discovered Mar 17)
+
+**Models have fixed preferences for specific physics terms**, regardless of which answer is correct. This is tested via "mirror pairs" where the same terms swap roles (truth ↔ distractor):
+
+| Preferred Term | Avoided Term | Preference Score |
+|----------------|--------------|------------------|
+| Navier-Stokes | Euler equations | +2.0 |
+| kinetic energy | enstrophy | **+8.7** |
+| linear momentum | total energy | +1.7 |
+| simple powers (r) | logarithmic (-ln(r)) | +15+ |
+
+**How mirror pairs work:**
+- pf07: Truth="Navier-Stokes" → margin=+0.1 (barely pass)
+- pf08: Truth="Euler equations" → margin=-2.0 (fail)
+- Preference for NS = 0.1 - (-2.0) = +2.0
+
+**Interaction with length bias:**
+- When biases align (preferred + shorter): extreme failure (-9.6)
+- When biases conflict (preferred but longer): weaker effect (-0.9)
+
+**This is distinct from Technical Simplification Bias:**
+- Technical bias: prefers simple LANGUAGE over technical
+- Term preference: prefers specific TERMS over others, regardless of context
+- Example: "kinetic energy" beats "enstrophy" even when both are technical physics terms
+
+**Fix for fact files:** Don't pit famous vs obscure terms:
+- Bad: truth="enstrophy", distractor="kinetic energy" → -9.6 margin
+- Good: truth="enstrophy", distractor="potential enstrophy" → neutral
+
+**See:** `results/discoveries/novel_findings/term_preference_bias.md`
+
 #### Unified Audit Checklist
 
 Before running oracle on a new fact file:
@@ -396,7 +427,8 @@ Before running oracle on a new fact file:
 5. [ ] **Distractors avoid round numbers?** For precise truths (0.326, 2%), use equally-precise distractors (0.412, 3%), NOT round alternatives (0.25, 10%).
 6. [ ] **Certainty balanced?** Don't use definitive distractors with hedged truths. Match certainty level.
 7. [ ] **Technical complexity balanced?** Don't use simple/familiar distractors with technical truths. Match jargon level.
-8. [ ] **Try rescue strategy (truth-type dependent)?**
+8. [ ] **Term familiarity balanced?** Don't pit famous terms against obscure ones. Use mirror pair analysis to detect.
+9. [ ] **Try rescue strategy (truth-type dependent)?**
    - **Short numerical truths (≤5 tokens):** Use length-matched distractors. Anti-fluency creates false positives!
    - **Verbose/conceptual truths:** Use anti-fluency distractors (verbose/awkward).
    - If fact flips, model already knows — adapter is unnecessary.
