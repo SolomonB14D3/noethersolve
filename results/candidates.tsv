@@ -297,3 +297,4 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-17	Q_screened = Σ ΓᵢΓⱼ r·exp(-r/λ)	~1.4e-2	random	FAIL	Screened potential does not conserve
 2026-03-17	Optimal weight search	5.82e-3	random	NULL	Standard ΓᵢΓⱼ is optimal; alternatives all worse
 2026-03-17	Q_r conservation N>3	degrading	random	NEGATIVE	Conservation WORSENS with N: N=3 1e-3, N=8 4e-2
+2026-03-17	Q_osc = Σ ΓᵢΓⱼ sin(kr)/r	varies by k	random	FAIL	Only k→0 conserves (trivial); k>0.1 all FAIL
