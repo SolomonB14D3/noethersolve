@@ -123,17 +123,13 @@ Hypothesis (expression)
        │
        ├─ PASS  → DUAL-PASS (model knows it, archive)
        │
-       └─ FAIL  → ANTI-FLUENCY CHECK (before adapter training!)
-                    │
-                    ▼
-              Try anti-fluency distractors:
-              Make distractors verbose/awkward, keep truth simple
-              Example: "0%" → "exactly zero percent (physically impossible)"
-                    │
-                    ├─ FLIPS → Model knows it! No adapter needed.
-                    │          Archive as FLUENCY-RESCUED
-                    │
-                    └─ STILL FAILS → TRUE KNOWLEDGE GAP
+       └─ FAIL  → TRUE KNOWLEDGE GAP (skip anti-fluency — creates false positives)
+                              │
+                              ▼
+                        ⚠️ ANTI-FLUENCY WARNING:
+                        Anti-fluency distractors create FALSE POSITIVES.
+                        Wrong claims also pass when distractors are verbose.
+                        ALWAYS use LENGTH-MATCHED distractors for validation.
                               │
                               ▼
                         Check before building:
@@ -161,6 +157,8 @@ Oracle failures are **phrasing bias**, not knowledge gaps. The model is confiden
 6. **Use symbolic notation:** "the pairwise-weighted quantity Q_f" → "Q_f = Σ ΓᵢΓⱼ f(rᵢⱼ)"
 7. **Lead with the claim:** "Q_f is conserved because..." NOT "The discovery of X reveals that Q_f..."
 8. **Avoid modal language:** "can be", "might", "could", "may", "tends to" → declarative form
+9. **Avoid round-number distractors:** Model prefers 0.5 over 1.5, 0.25 over 0.326, 10% over 2%. Use equally-precise distractors (e.g., "0.326" vs "0.412", not "0.326" vs "0.25").
+10. **Avoid simple-power distractors for logarithmic truths:** Model strongly prefers r² over -ln(r) (-15.9 gap). For logarithmic truths, use other logarithmic forms as distractors.
 
 **Example (lh05, Liouville-Hamilton):**
 - Before: "High confidence often accompanies wrong answers in this space" (margin: -23.9)
@@ -258,9 +256,38 @@ Sum vs mean normalization reveals different biases:
 3. Add judgmental qualifiers: "showing poor...", "indicating failure..."
 4. Make grammatically awkward: "which would only double" vs "doubles"
 
-**When to use:** Before training adapters on "failing" facts, try anti-fluency reformulation. If it flips, the model already knows — adapter is unnecessary.
+**⚠️ CRITICAL WARNING — DO NOT USE FOR KNOWLEDGE TESTING:**
+
+Anti-fluency creates **false positives for ALL claim types**. The model picks ANY shorter/more fluent answer over verbose distractors — regardless of correctness.
+
+**Evidence of false positives:**
+| Wrong Claim | Anti-F Margin | Status |
+|-------------|---------------|--------|
+| Transformer → wave equation (WRONG) | +16.6 | PASS ✗ |
+| Diffusion → Maxwell equations (WRONG) | +11.7 | PASS ✗ |
+| R_f = 50% (WRONG) | +21.7 | PASS ✗ |
+
+**ALWAYS use LENGTH-MATCHED distractors for knowledge testing.** Anti-fluency is only valid when truth and distractors are similar length and you're testing fluency bias specifically.
 
 **See:** `results/discoveries/novel_findings/anti_fluency_distractor_strategy.md`
+
+#### Mechanism 5: Round Number Bias (Discovered Mar 16)
+
+Models systematically prefer round numbers and simple forms over precise values:
+
+| Correct Value | Model Prefers | Gap |
+|---------------|---------------|-----|
+| C_K = 1.5 | 0.5 | -1.0 |
+| beta = 0.326 | 0.250 | -2.3 |
+| R_f = 2% | 10% | -1.2 |
+| kernel = -ln(r) | r² | **-15.9** |
+
+**Implications:**
+- Use equally-precise distractors for numerical truths (0.326 vs 0.412, not 0.326 vs 0.25)
+- For logarithmic forms, use other logarithmic distractors (ln(r) vs -ln(r), not -ln(r) vs r²)
+- Round numbers as distractors will beat precise truths on fluency alone
+
+**See:** `results/discoveries/novel_findings/round_number_bias.md`
 
 #### Unified Audit Checklist
 
@@ -270,7 +297,11 @@ Before running oracle on a new fact file:
 2. [ ] **Truths confident?** Apply phrasing rules above. Remove hedging.
 3. [ ] **Distractors appropriate?** Coherent for benchmarks, incoherent for adapter training.
 4. [ ] **Scoring method chosen?** Sum for hedged domains, mean for verbose domains.
-5. [ ] **Try anti-fluency first?** Before adapter training, make distractors verbose/awkward. If fact flips, model already knows.
+5. [ ] **Distractors avoid round numbers?** For precise truths (0.326, 2%), use equally-precise distractors (0.412, 3%), NOT round alternatives (0.25, 10%).
+6. [ ] **Try rescue strategy (truth-type dependent)?**
+   - **Short numerical truths (≤5 tokens):** Use length-matched distractors. Anti-fluency creates false positives!
+   - **Verbose/conceptual truths:** Use anti-fluency distractors (verbose/awkward).
+   - If fact flips, model already knows — adapter is unnecessary.
 
 **See:** `results/discoveries/novel_findings/` for detailed analysis of each mechanism.
 

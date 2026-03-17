@@ -76,26 +76,32 @@ These confusions predict where oracle facts will fail:
 - NS vs Euler distinctions
 - 2D turbulence cascade direction
 
-## Anti-Fluency Rescue Results
+## Anti-Fluency Rescue Results — RETRACTED
 
-**UPDATE:** Anti-fluency testing reveals most confusions are fluency artifacts, not true gaps:
+**⚠️ CORRECTION:** Anti-fluency creates false positives. Re-testing with LENGTH-MATCHED distractors shows these ARE true gaps:
 
-| Confusion | Fluent Margin | Anti-F Margin | Result |
-|-----------|---------------|---------------|--------|
-| 2D kernel = -ln(r) | -13.1 | +13.1 | RESCUED |
-| Translation → momentum | +0.7 | +20.4 | Already knew |
-| Viscous = NS | -8.8 | +9.4 | RESCUED |
-| Inverse cascade = energy | -6.7 | +19.0 | RESCUED |
+| Confusion | Length-Matched Margin | Status |
+|-----------|----------------------|--------|
+| 2D kernel = -ln(r) | -13.1 | TRUE GAP |
+| 3D kernel = 1/r | -19.2 | TRUE GAP |
+| Translation → momentum | -2.5 | TRUE GAP |
+| Time → energy | +2.2 | KNOWN ✓ |
+| Viscous = NS | -8.8 | TRUE GAP |
+| Ideal = Euler | +2.8 | KNOWN ✓ |
+| Inverse cascade = energy | -9.8 | TRUE GAP |
+| Forward cascade = enstrophy | -13.1 | TRUE GAP |
 
-**Key insight:** The model DOES know these distinctions. The "confusion" appears only when fluent wrong answers are available. The model's internal representation distinguishes these concepts correctly.
+**Corrected result:** Model knows only 2/8 (25%), not the 75-100% claimed with anti-fluency.
+
+**Key insight:** These ARE true conceptual gaps, not fluency-masked knowledge. The model genuinely confuses these related concepts.
 
 ## Relationship to Other Findings
 
 | Finding | This Discovery Adds |
 |---------|---------------------|
-| Round number bias | Explains preference for r over -ln(r) in fluent context |
-| Anti-fluency rescue | WORKS here — confusions are fluency-masked knowledge |
-| Hidden knowledge | These ARE hidden knowledge, rescued by anti-fluency |
+| Round number bias | Explains preference for r over -ln(r) |
+| Anti-fluency rescue | Creates FALSE POSITIVES — not valid for testing knowledge |
+| Hidden knowledge | These are NOT hidden — they are TRUE GAPS |
 
 ## Method
 

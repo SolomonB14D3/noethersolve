@@ -1,8 +1,25 @@
 # Anti-Fluency Distractor Strategy: Rescuing Hidden Knowledge
 
 ## Discovery Date: 2026-03-16
+## CRITICAL UPDATE: 2026-03-16
 
-## Summary
+## ⚠️ CRITICAL WARNING: FALSE POSITIVES
+
+**Anti-fluency creates false positives.** The model picks ANY shorter/more fluent answer over verbose distractors — regardless of correctness. WRONG claims also pass with anti-fluency:
+
+| Wrong Claim | Margin |
+|-------------|--------|
+| Transformer → wave equation | +16.6 PASS |
+| Diffusion → Maxwell equations | +11.7 PASS |
+| Attention sinks → laminar flow | +35.9 PASS |
+
+**When to use anti-fluency:** ONLY when the truth is itself verbose/hedged and you're comparing against confident-sounding wrong answers. NOT for testing whether the model knows a short factual claim.
+
+**Proper validation:** Always test with LENGTH-MATCHED distractors first. If it fails length-matched, THEN the model doesn't know. Anti-fluency should only be used to distinguish fluency bias from knowledge when both truth and distractors are roughly equal length.
+
+---
+
+## Original Summary (Use with caution)
 
 **Models know facts they appear to fail on.** When distractors are made verbose/awkward while keeping truth simple, facts that show as "deep knowledge gaps" flip to passing. This suggests many oracle failures are **fluency bias**, not knowledge gaps.
 

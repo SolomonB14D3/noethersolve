@@ -1,18 +1,20 @@
-# Unified Theory of Oracle Difficulty: Four Mechanisms
+# Unified Theory of Oracle Difficulty: Five Mechanisms
 
-## Discovery Date: 2026-03-16 (updated with Mechanism 4)
+## Discovery Date: 2026-03-16 (updated with Mechanism 5)
 
 ## Summary
 
-Oracle fact pass/fail is determined by the interaction of **four mechanisms**:
+Oracle fact pass/fail is determined by the interaction of **five mechanisms**:
 
 1. **Length Ratio** (structural): Shorter completions have higher total log-prob
 2. **Semantic Fluency** (model prior): Fluent text has higher per-token log-prob
 3. **Scoring Method** (measurement): Sum vs mean normalization reveals different biases
 4. **Anti-Fluency Rescue** (intervention): Making distractors awkward rescues hidden knowledge
+5. **Round Number Bias** (training frequency): Model prefers round numbers and simple forms
 
 These mechanisms combine to explain ~95% of oracle variance across 67 domains.
 **Mechanism 4 reveals that many "knowledge gaps" are actually fluency artifacts.**
+**Mechanism 5 reveals that precise numerical truths fail because round distractors win on frequency.**
 
 ## The Four Mechanisms
 

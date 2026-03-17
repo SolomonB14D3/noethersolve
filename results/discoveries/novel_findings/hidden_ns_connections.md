@@ -1,12 +1,29 @@
-# Hidden Cross-Domain NS Knowledge: 83% of Surprising Connections Masked by Fluency
+# Hidden Cross-Domain NS Knowledge: RETRACTED — Anti-Fluency Creates False Positives
 
 ## Discovery Date: 2026-03-16
+## CORRECTION Date: 2026-03-16
 
-## Summary
+## ⚠️ RETRACTION
 
-The model knows **19/23 (83%)** surprising connections between Navier-Stokes and other domains - but this knowledge is completely hidden by fluency bias until anti-fluency distractors are used.
+**Original claim (83%) is INVALID.** Anti-fluency distractors create false positives for ANY claim when distractors are verbose enough — the model picks the shorter/more fluent option regardless of correctness.
 
-Most striking: The model knows **transformer attention resembles optimal transport**, **diffusion models relate to Fokker-Planck**, and **attention sinks resemble vortex accumulation** - structural ML↔NS connections that are cutting-edge research topics.
+**Validation test:** WRONG conceptual claims (e.g., "transformer attention resembles wave equation") ALSO pass with anti-fluency distractors (+16.6 margin). This invalidates the methodology.
+
+**Corrected result with length-matched distractors:** Only **3/8 (38%)** connections are actually known:
+- ✓ Fokker-Planck (diffusion models) — KNOWN
+- ✓ MHD equations (plasma) — KNOWN
+- ✓ Burgers equation (traffic) — KNOWN
+- ✗ Optimal transport (transformers) — NOT KNOWN
+- ✗ Vortex accumulation (attention sinks) — NOT KNOWN
+- ✗ Policy diffusion (RL) — NOT KNOWN
+- ✗ Non-Newtonian NS (blood flow) — NOT KNOWN
+- ✗ Turbulent cascade (stock volatility) — NOT KNOWN
+
+## Original Summary (RETRACTED)
+
+~~The model knows **19/23 (83%)** surprising connections between Navier-Stokes and other domains - but this knowledge is completely hidden by fluency bias until anti-fluency distractors are used.~~
+
+~~Most striking: The model knows **transformer attention resembles optimal transport**, **diffusion models relate to Fokker-Planck**, and **attention sinks resemble vortex accumulation** - structural ML↔NS connections that are cutting-edge research topics.~~
 
 ## Evidence by Domain
 
