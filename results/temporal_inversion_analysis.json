@@ -1,0 +1,722 @@
+[
+  {
+    "fact_id": "ppf01_muon_g2",
+    "domain": "particle_physics_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2021,
+    "margin": 0.39613914489746094,
+    "passed": true,
+    "truth": "confirmed anomaly suggesting physics beyond SM",
+    "best_distractor": "found perfect agreement with all Standard Model theoretical predictions"
+  },
+  {
+    "fact_id": "ppf02_g2_theory",
+    "domain": "particle_physics_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": 41.79294204711914,
+    "passed": true,
+    "truth": "disagreement between calculation methods",
+    "best_distractor": "complete theoretical consensus among all research groups with no disagreements between any calculation methods whatsoever"
+  },
+  {
+    "fact_id": "ppf03_higgs_coupling",
+    "domain": "particle_physics_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": -5.086818695068359,
+    "passed": false,
+    "truth": "have large uncertainties but are SM-consistent",
+    "best_distractor": "have precisely confirmed the Standard Model prediction with high accuracy"
+  },
+  {
+    "fact_id": "ppf04_higgs_width",
+    "domain": "particle_physics_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2022,
+    "margin": 33.07788848876953,
+    "passed": true,
+    "truth": "agrees with SM narrow width prediction",
+    "best_distractor": "reveals the Higgs boson is significantly wider than Standard Model theoretical predictions indicating undiscovered decay channels"
+  },
+  {
+    "fact_id": "ppf05_neutrino_mass",
+    "domain": "particle_physics_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": 0.16216659545898438,
+    "passed": true,
+    "truth": "slightly favors normal but remains uncertain",
+    "best_distractor": "has definitively established the inverted mass hierarchy with certainty"
+  },
+  {
+    "fact_id": "ppf06_neutrino_cp",
+    "domain": "particle_physics_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": 13.079839706420898,
+    "passed": true,
+    "truth": "shows hints but awaits confirmation",
+    "best_distractor": "has been definitively established at five-sigma discovery-level statistical significance by multiple experiments already"
+  },
+  {
+    "fact_id": "ppf07_dm_direct",
+    "domain": "particle_physics_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": 5.420360565185547,
+    "passed": true,
+    "truth": "set strong limits but no confirmed detection",
+    "best_distractor": "definitively detected WIMP dark matter particles in multiple experiments"
+  },
+  {
+    "fact_id": "ppf08_susy",
+    "domain": "particle_physics_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -15.477180480957031,
+    "passed": false,
+    "truth": "excluded simple models but SUSY not ruled out",
+    "best_distractor": "discovered superpartner particles confirming supersymmetry theory"
+  },
+  {
+    "fact_id": "ppf09_flavor",
+    "domain": "particle_physics_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -5.716737747192383,
+    "passed": false,
+    "truth": "some tensions persist but significance varies",
+    "best_distractor": "have all been resolved as statistical fluctuations with no anomalies"
+  },
+  {
+    "fact_id": "ppf10_w_mass",
+    "domain": "particle_physics_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2020,
+    "margin": -4.350522994995117,
+    "passed": false,
+    "truth": "shows tension with SM but other experiments disagree",
+    "best_distractor": "perfectly confirms the Standard Model prediction with high precision"
+  },
+  {
+    "fact_id": "ppf11_lhc_run3",
+    "domain": "particle_physics_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 10.887548446655273,
+    "passed": true,
+    "truth": "precision Higgs and rare process measurements",
+    "best_distractor": "only searching for supersymmetric particles and nothing else"
+  },
+  {
+    "fact_id": "ppf12_dune",
+    "domain": "particle_physics_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 7.221181869506836,
+    "passed": true,
+    "truth": "CP violation and mass ordering in neutrinos",
+    "best_distractor": "Higgs boson properties using neutrino beams directly"
+  },
+  {
+    "fact_id": "bhf01_eht",
+    "domain": "black_hole_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2019,
+    "margin": 4.961818695068359,
+    "passed": true,
+    "truth": "ring of light confirming black hole predictions",
+    "best_distractor": "that general relativity predictions were fundamentally incorrect at horizon scales"
+  },
+  {
+    "fact_id": "bhf02_ringdown",
+    "domain": "black_hole_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2019,
+    "margin": -4.713615417480469,
+    "passed": false,
+    "truth": "match GR quasi-normal modes precisely",
+    "best_distractor": "revealed significant deviations from general relativistic predictions requiring new physics"
+  },
+  {
+    "fact_id": "bhf03_islands",
+    "domain": "black_hole_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2019,
+    "margin": 9.412528991699219,
+    "passed": true,
+    "truth": "adds contributions from disconnected spacetime regions",
+    "best_distractor": "proves that quantum corrections to entropy are completely negligible in all cases"
+  },
+  {
+    "fact_id": "bhf04_soft_hair",
+    "domain": "black_hole_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": 6.086313247680664,
+    "passed": true,
+    "truth": "supertranslation charges storing quantum information",
+    "best_distractor": "purely classical geometric deformations of the event horizon surface structure"
+  },
+  {
+    "fact_id": "bhf05_complexity",
+    "domain": "black_hole_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": 0.5143241882324219,
+    "passed": true,
+    "truth": "computational complexity grows with volume behind horizon",
+    "best_distractor": "complexity scales with boundary surface area identical to entropy holographic bound"
+  },
+  {
+    "fact_id": "bhf06_page_curve",
+    "domain": "black_hole_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2019,
+    "margin": 3.1829147338867188,
+    "passed": true,
+    "truth": "entropy rising then falling during evaporation",
+    "best_distractor": "monotonically increasing entropy throughout the entire black hole lifetime"
+  },
+  {
+    "fact_id": "bhf07_replica",
+    "domain": "black_hole_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2019,
+    "margin": -3.9927406311035156,
+    "passed": false,
+    "truth": "enable Page curve derivation from gravity",
+    "best_distractor": "have been proven to be unphysical mathematical artifacts with no real consequences"
+  },
+  {
+    "fact_id": "bhf08_sgra",
+    "domain": "black_hole_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2020,
+    "margin": 18.68878173828125,
+    "passed": true,
+    "truth": "confirmed 4 million solar mass black hole",
+    "best_distractor": "showed no evidence for a black hole at the galactic center contrary to expectations"
+  },
+  {
+    "fact_id": "bhf09_photon_ring",
+    "domain": "black_hole_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 5.348527908325195,
+    "passed": true,
+    "truth": "encodes spacetime geometry through light orbit",
+    "best_distractor": "is a purely artistic artifact introduced during image processing reconstruction"
+  },
+  {
+    "fact_id": "bhf10_scrambling",
+    "domain": "black_hole_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 11.832311630249023,
+    "passed": true,
+    "truth": "information spreads across horizon in log time",
+    "best_distractor": "information remains localized at the point of entry indefinitely until evaporation"
+  },
+  {
+    "fact_id": "bhf11_merger_mass",
+    "domain": "black_hole_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -4.270574569702148,
+    "passed": false,
+    "truth": "unexpected population in pair-instability mass gap",
+    "best_distractor": "all mergers perfectly match simple stellar evolution mass distribution predictions"
+  },
+  {
+    "fact_id": "bhf12_echoes",
+    "domain": "black_hole_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 19.180862426757812,
+    "passed": true,
+    "truth": "potential quantum structure near horizon",
+    "best_distractor": "classical general relativity with no modifications at the quantum scale needed"
+  },
+  {
+    "fact_id": "nf01_sterile",
+    "domain": "neutrino_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": 13.463781356811523,
+    "passed": true,
+    "truth": "remains inconclusive with conflicting results",
+    "best_distractor": "has been completely ruled out by all neutrino oscillation experiments globally"
+  },
+  {
+    "fact_id": "nf02_mass_mechanism",
+    "domain": "neutrino_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": -8.427715301513672,
+    "passed": false,
+    "truth": "is unknown - seesaw and Dirac both viable",
+    "best_distractor": "has been determined to be the standard Higgs mechanism with certainty"
+  },
+  {
+    "fact_id": "nf03_reactor",
+    "domain": "neutrino_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": 18.111425399780273,
+    "passed": true,
+    "truth": "has uncertain origin still debated",
+    "best_distractor": "has been definitively and conclusively explained by sterile neutrino oscillations confirmed by multiple experiments"
+  },
+  {
+    "fact_id": "nf04_gallium",
+    "domain": "neutrino_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2020,
+    "margin": -7.2940826416015625,
+    "passed": false,
+    "truth": "shows deficit suggesting possible new physics",
+    "best_distractor": "has been completely explained by standard neutrino oscillation physics"
+  },
+  {
+    "fact_id": "nf05_majorana",
+    "domain": "neutrino_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": -6.943714141845703,
+    "passed": false,
+    "truth": "remains unknown pending double beta decay results",
+    "best_distractor": "has been proven by observation of neutrinoless double beta decay already"
+  },
+  {
+    "fact_id": "nf06_hierarchy",
+    "domain": "neutrino_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 5.473339080810547,
+    "passed": true,
+    "truth": "favors normal ordering but not definitive",
+    "best_distractor": "has definitively established inverted ordering with high confidence now"
+  },
+  {
+    "fact_id": "nf07_absolute",
+    "domain": "neutrino_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 4.556970596313477,
+    "passed": true,
+    "truth": "is constrained but not precisely measured",
+    "best_distractor": "has been precisely measured by KATRIN to be exactly 0.8 eV already"
+  },
+  {
+    "fact_id": "nf08_lsnd",
+    "domain": "neutrino_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2020,
+    "margin": 2.130420684814453,
+    "passed": true,
+    "truth": "was not confirmed by MiniBooNE in same channel",
+    "best_distractor": "was perfectly confirmed by MiniBooNE proving sterile neutrinos exist"
+  },
+  {
+    "fact_id": "nf09_coherent",
+    "domain": "neutrino_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 27.29861831665039,
+    "passed": true,
+    "truth": "was observed by COHERENT 2017",
+    "best_distractor": "has never been experimentally observed despite many decades of dedicated experimental searches ongoing worldwide"
+  },
+  {
+    "fact_id": "nf10_geo",
+    "domain": "neutrino_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 23.82323455810547,
+    "passed": true,
+    "truth": "have been detected by experiments",
+    "best_distractor": "cannot possibly be detected because they are completely absorbed before reaching the surface of the Earth"
+  },
+  {
+    "fact_id": "nf11_supernova",
+    "domain": "neutrino_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 1.4519424438476562,
+    "passed": true,
+    "truth": "would provide thousands of events in detectors",
+    "best_distractor": "is impossible because supernova neutrinos cannot reach Earth at all"
+  },
+  {
+    "fact_id": "nf12_cnb",
+    "domain": "neutrino_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 12.970191955566406,
+    "passed": true,
+    "truth": "exists but has not been directly detected",
+    "best_distractor": "has been directly detected by multiple neutrino observatories now"
+  },
+  {
+    "fact_id": "cof01_hubble",
+    "domain": "cosmology_frontiers",
+    "category": "FRONTIER",
+    "year": null,
+    "margin": 9.559967041015625,
+    "passed": true,
+    "truth": "disagreement between local and CMB H0 values",
+    "best_distractor": "perfect agreement between all cosmological expansion measurements"
+  },
+  {
+    "fact_id": "cof02_inflation",
+    "domain": "cosmology_frontiers",
+    "category": "RECENT_CONFIRMATION",
+    "year": 2020,
+    "margin": 8.304895401000977,
+    "passed": true,
+    "truth": "supported but not uniquely confirmed by CMB",
+    "best_distractor": "completely proven beyond any possible scientific doubt by observations"
+  },
+  {
+    "fact_id": "cof03_pgw",
+    "domain": "cosmology_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 3.3045597076416016,
+    "passed": true,
+    "truth": "have not been detected despite searches",
+    "best_distractor": "were conclusively detected by the BICEP2 experiment definitively"
+  },
+  {
+    "fact_id": "cof04_lithium",
+    "domain": "cosmology_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 8.096460342407227,
+    "passed": true,
+    "truth": "observed Li-7 abundance below BBN prediction",
+    "best_distractor": "completely explained by standard Big Bang nucleosynthesis perfectly"
+  },
+  {
+    "fact_id": "cof05_sigma8",
+    "domain": "cosmology_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -0.10026168823242188,
+    "passed": false,
+    "truth": "include sigma-8 disagreements from lensing",
+    "best_distractor": "do not exist because LCDM perfectly matches all observational data"
+  },
+  {
+    "fact_id": "cof06_homogeneity",
+    "domain": "cosmology_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -5.721858978271484,
+    "passed": false,
+    "truth": "is supported but tested at larger scales",
+    "best_distractor": "has been definitively proven correct at all scales universally"
+  },
+  {
+    "fact_id": "cof07_reionization",
+    "domain": "cosmology_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 5.252738952636719,
+    "passed": true,
+    "truth": "complex history not fully characterized yet",
+    "best_distractor": "instantaneous reionization at precisely redshift 6.0 exactly"
+  },
+  {
+    "fact_id": "cof08_baryon_asymmetry",
+    "domain": "cosmology_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 3.9630088806152344,
+    "passed": true,
+    "truth": "requires physics beyond Standard Model to explain",
+    "best_distractor": "is completely explained by Standard Model CP violation mechanisms"
+  },
+  {
+    "fact_id": "cof09_multiverse",
+    "domain": "cosmology_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 5.125181198120117,
+    "passed": true,
+    "truth": "debated regarding testability and scientific status",
+    "best_distractor": "definitively proven by cosmological observations already conclusively"
+  },
+  {
+    "fact_id": "cof10_bao",
+    "domain": "cosmology_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 12.690084457397461,
+    "passed": true,
+    "truth": "standard ruler for cosmic distance measurements",
+    "best_distractor": "no useful cosmological information because they are too weak"
+  },
+  {
+    "fact_id": "cof11_neutrino_mass_cosmo",
+    "domain": "cosmology_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -9.83525276184082,
+    "passed": false,
+    "truth": "are tighter than lab limits but model-dependent",
+    "best_distractor": "are weaker than all laboratory experimental constraints always"
+  },
+  {
+    "fact_id": "cof12_early_galaxies",
+    "domain": "cosmology_frontiers",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 17.00984764099121,
+    "passed": true,
+    "truth": "reveal surprisingly massive galaxies at high redshift",
+    "best_distractor": "perfectly match all predictions of standard galaxy formation"
+  },
+  {
+    "fact_id": "dm01_rotation",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 14.092460632324219,
+    "passed": true,
+    "truth": "velocities exceed visible mass predictions",
+    "best_distractor": "stars in galaxies orbit significantly slower than expected from observations of luminous matter distribution"
+  },
+  {
+    "fact_id": "dm02_lensing",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -6.898868560791016,
+    "passed": false,
+    "truth": "bends light more than visible mass accounts for",
+    "best_distractor": "is exactly predicted by visible matter alone"
+  },
+  {
+    "fact_id": "dm03_wimp",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 5.91058349609375,
+    "passed": true,
+    "truth": "not been detected despite extensive searches",
+    "best_distractor": "been definitively confirmed at particle colliders"
+  },
+  {
+    "fact_id": "dm04_axion",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 8.420259475708008,
+    "passed": true,
+    "truth": "are very light and weakly interacting",
+    "best_distractor": "are heavy particles like WIMPs"
+  },
+  {
+    "fact_id": "dm05_mond",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -2.415750503540039,
+    "passed": false,
+    "truth": "explains galaxies but fails for galaxy clusters",
+    "best_distractor": "explains all dark matter observations perfectly"
+  },
+  {
+    "fact_id": "dm06_dark_energy",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 40.07497978210449,
+    "passed": true,
+    "truth": "accelerate in expansion",
+    "best_distractor": "contract gravitationally and eventually collapse completely inward into a final singularity state"
+  },
+  {
+    "fact_id": "dm07_cosmological_constant",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 16.13654327392578,
+    "passed": true,
+    "truth": "theory overshoots by 120 orders of magnitude",
+    "best_distractor": "theoretical quantum field theory predictions match cosmological observations of dark energy perfectly accurately"
+  },
+  {
+    "fact_id": "dm08_cmb",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -11.997684478759766,
+    "passed": false,
+    "truth": "showing its gravitational effects on early universe",
+    "best_distractor": "directly detecting dark matter particles"
+  },
+  {
+    "fact_id": "dm09_bullet_cluster",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 7.268484115600586,
+    "passed": true,
+    "truth": "lensing mass offset from visible gas",
+    "best_distractor": "the system demonstrates complete absence of any dark matter component whatsoever"
+  },
+  {
+    "fact_id": "dm10_primordial",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -0.5100612640380859,
+    "passed": false,
+    "truth": "remain viable in some mass windows",
+    "best_distractor": "have been definitively confirmed as the primary constituent of dark matter in the universe"
+  },
+  {
+    "fact_id": "dm11_quintessence",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -10.50904655456543,
+    "passed": false,
+    "truth": "dynamical field instead of constant vacuum energy",
+    "best_distractor": "dark energy is exactly a cosmological constant"
+  },
+  {
+    "fact_id": "dm12_detection",
+    "domain": "dark_matter_energy",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 24.770841598510742,
+    "passed": true,
+    "truth": "nuclear recoils from WIMP scattering",
+    "best_distractor": "dark matter particle production events occurring inside high-energy particle collider experiments"
+  },
+  {
+    "fact_id": "pf01",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -5.460376739501953,
+    "passed": false,
+    "truth": "-ln(r)/(2\u03c0)",
+    "best_distractor": "r/(2\u03c0)"
+  },
+  {
+    "fact_id": "pf02",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 6.920930862426758,
+    "passed": true,
+    "truth": "1/(4\u03c0r)",
+    "best_distractor": "r/(4\u03c0)"
+  },
+  {
+    "fact_id": "pf03",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -9.263311386108398,
+    "passed": false,
+    "truth": "\u03c8 = -\u0393\u00b7ln(r)/(2\u03c0)",
+    "best_distractor": "\u03c8 = \u0393\u00b7r/(2\u03c0)"
+  },
+  {
+    "fact_id": "pf04",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 0.4972820281982422,
+    "passed": true,
+    "truth": "linear momentum",
+    "best_distractor": "total energy"
+  },
+  {
+    "fact_id": "pf05",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -1.2251434326171875,
+    "passed": false,
+    "truth": "total energy",
+    "best_distractor": "linear momentum"
+  },
+  {
+    "fact_id": "pf06",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 3.782533645629883,
+    "passed": true,
+    "truth": "angular momentum",
+    "best_distractor": "total energy"
+  },
+  {
+    "fact_id": "pf07",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 0.059635162353515625,
+    "passed": true,
+    "truth": "Navier-Stokes equations",
+    "best_distractor": "Euler equations"
+  },
+  {
+    "fact_id": "pf08",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -1.9732112884521484,
+    "passed": false,
+    "truth": "Euler equations",
+    "best_distractor": "Navier-Stokes equations"
+  },
+  {
+    "fact_id": "pf09",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -0.9223518371582031,
+    "passed": false,
+    "truth": "kinetic energy",
+    "best_distractor": "enstrophy (squared vorticity)"
+  },
+  {
+    "fact_id": "pf10",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -9.621452331542969,
+    "passed": false,
+    "truth": "enstrophy (squared vorticity)",
+    "best_distractor": "kinetic energy"
+  },
+  {
+    "fact_id": "pf11",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": -7.581850051879883,
+    "passed": false,
+    "truth": "energy cascades to large scales (inverse cascade)",
+    "best_distractor": "energy cascades to small scales"
+  },
+  {
+    "fact_id": "pf12",
+    "domain": "physics_fundamentals",
+    "category": "ESTABLISHED",
+    "year": 2000,
+    "margin": 2.746318817138672,
+    "passed": true,
+    "truth": "\u03bd\u2207\u00b2u (Laplacian of velocity)",
+    "best_distractor": "\u03bd\u2207u (gradient of velocity)"
+  }
+]
