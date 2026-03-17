@@ -517,6 +517,19 @@ def main():
     print(f"  Skip train:  {args.skip_training}")
     print(f"  Publish:     {not args.no_publish}")
 
+    # ── Blind spot check ──────────────────────────────────────────────────────
+    try:
+        from noethersolve.blind_spot_detector import detect_blind_spots, format_blind_spot_warning
+        # Check problem description + name for blind spot triggers
+        check_text = f"{problem.get('name', '')} {problem.get('description', '')} {domain_desc}"
+        blind_spots = detect_blind_spots(check_text)
+        if blind_spots:
+            print(f"\n{'─'*72}")
+            print(format_blind_spot_warning(blind_spots))
+            print(f"{'─'*72}")
+    except ImportError:
+        pass  # blind_spot_detector not available
+
     # ── Expand expression templates ───────────────────────────────────────────
     all_exprs = expand_expressions(hunt_cfg)
     tested    = load_tested_hypotheses()
@@ -973,8 +986,8 @@ def print_open_questions_menu():
         print("  (no open questions in queue)")
         return
 
-    expr_q  = [q for q in questions if q.get("type") == "expression" and q["status"] == "open"]
-    dir_q   = [q for q in questions if q.get("type") == "direction"  and q["status"] == "open"]
+    expr_q  = [q for q in questions if q.get("type") == "expression" and q.get("status", "open") == "open"]
+    dir_q   = [q for q in questions if q.get("type") == "direction"  and q.get("status", "open") == "open"]
 
     if expr_q:
         print(f"\n  Expression hypotheses to test ({len(expr_q)}):")
@@ -996,13 +1009,23 @@ def print_open_questions_menu():
 # ─────────────────────────────────────────────────────────────────────────────
 
 def cmd_show_queue(args):
-    """Print the open questions queue."""
+    """Print the open questions queue + blind spots as research opportunities."""
     questions = load_open_questions()
     total     = len(questions)
     open_qs   = [q for q in questions if q.get("status") == "open"]
     print(f"\n  Open questions queue: {len(open_qs)} open / {total} total")
     print(f"  File: {OPEN_QUESTIONS_FILE}")
     print_open_questions_menu()
+
+    # Also show blind spots as research opportunities
+    try:
+        from noethersolve.blind_spot_detector import list_all_blind_spots
+        print(f"\n{'─'*72}")
+        print("  MODEL BLIND SPOTS (research opportunities)")
+        print(f"{'─'*72}")
+        print(list_all_blind_spots(needs_tool_only=True))
+    except ImportError:
+        pass  # blind_spot_detector not available
 
 
 def cmd_rebuild_router(args):
