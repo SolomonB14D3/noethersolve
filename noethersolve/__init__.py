@@ -7,17 +7,18 @@ Every tool added makes every connected agent smarter.
 Emmy Noether proved every continuous symmetry corresponds to a conserved quantity.
 NoetherSolve finds where LLMs fail to recognize those quantities, builds verified
 computational tools for the right answers, and exposes them via Model Context
-Protocol (MCP) — 162 tools currently serving physics, math, genetics, complexity
+Protocol (MCP) — 69 tools currently serving physics, math, genetics, complexity
 theory, enzyme kinetics, quantum mechanics, pharmacokinetics, drug interactions,
 organic chemistry, elliptic curves, intersection theory (adjunction, blow-ups,
 ruled surfaces, toric varieties), information theory, topological phases, ergodic
 theory, optimization convergence, numerical PDEs, MHD conservation, GR constraints
 (ADM formalism), seismic waves (velocity, moduli, reflection), plasma physics
-(adiabatic invariants μ, J, Φ), and LLM science. 155 are calculators (derive
-from first principles), 7 are lookup tables.
+(adiabatic invariants μ, J, Φ), and LLM science.
 
 Package layout:
-  noethersolve.mcp_server   — MCP server (123 tools for any AI agent)
+  noethersolve.mcp_server   — MCP server (69 tools for any AI agent)
+  noethersolve.tool_graph   — automatic calculator chaining via metadata tags
+  noethersolve.dimension_physics — dimension-dependent physics formulas (2D vs 3D)
   noethersolve.oracle       — model-agnostic MC log-prob scorer (from eval_mc)
   noethersolve.adapter      — snap-on logit adapter architectures (from snap_on)
   noethersolve.train_utils  — LOGIT_SOFTCAP, get_lm_head_fn, apply_adapter
@@ -703,6 +704,24 @@ from noethersolve.plasma_adiabatic import (  # noqa: F401
     ELECTRON_MASS,
     PROTON_MASS,
     ELECTRON_CHARGE,
+)
+
+from noethersolve.dimension_physics import (  # noqa: F401
+    check_dimension_dependence,
+    get_formula,
+    list_dimension_dependent_concepts,
+    DimensionalFormula,
+    DimensionCheckResult,
+    DIMENSIONAL_PHYSICS,
+)
+
+from noethersolve.tool_graph import (  # noqa: F401
+    calculator,
+    get_registry,
+    find_tool_chain,
+    execute_chain,
+    ToolRegistry,
+    CalculatorMeta,
 )
 
 __version__ = "1.18.0"
