@@ -33,6 +33,8 @@
       "trigger_keywords": ["Huffman", "optimal code", "Landauer", "entropy", "compression", "erasure"],
       "insight": "Both optimize Σ p_i × cost_i with cost ∝ -log(p_i)",
       "tools": [],
+      "needs_tool": true,
+      "tool_idea": "calc_landauer_bound(bits_erased, temperature) → minimum energy cost",
       "interpretation": "Shannon entropy bounds both bits needed AND work extractable"
     },
     {
@@ -41,6 +43,8 @@
       "trigger_keywords": ["type inference", "polymorphism", "gauge fixing", "principal type", "unifier"],
       "insight": "Both remove redundancy to get unique solutions",
       "tools": [],
+      "needs_tool": true,
+      "tool_idea": "check_gauge_equivalence(constraints) → identifies redundant DOF",
       "interpretation": "Most general unifier ↔ residual gauge freedom"
     }
   ],

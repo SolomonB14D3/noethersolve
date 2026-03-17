@@ -120,8 +120,20 @@ def format_blind_spot_warning(matches: List[BlindSpotMatch]) -> str:
             lines.append(f"    Insight: {m.insight}")
         if m.tools:
             lines.append(f"    Tools: {', '.join(m.tools)}")
+        else:
+            lines.append(f"    ⚠️ NO TOOLS AVAILABLE - use fallback protocol")
         if m.interpretation:
             lines.append(f"    Interpretation: {m.interpretation}")
+        lines.append("")
+
+    # Add fallback instructions if any match has no tools
+    no_tool_matches = [m for m in matches if not m.tools]
+    if no_tool_matches:
+        lines.append("FALLBACK PROTOCOL (for blind spots without tools):")
+        lines.append("  1. State the known insight explicitly (from above)")
+        lines.append("  2. Acknowledge this is a model blind spot")
+        lines.append("  3. Do NOT fabricate details beyond the insight")
+        lines.append("  4. Recommend user verify with domain experts")
         lines.append("")
 
     return "\n".join(lines)
