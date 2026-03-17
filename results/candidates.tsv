@@ -293,3 +293,7 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-17	MAJOR: Cancellation mechanism for Q_f family	38x (avg)	all	THEORETICAL_BREAKTHROUGH	Q_f conservation explained: dr/dt correlated (0.95-0.99) + opposite-sign Γᵢ Γⱼ → 38x cancellation; restricted=427x; p=2 exact (symplectic)
 2026-03-17	Dipole+vortex phase transition	10000x	ε=0.45	THEORETICAL_PREDICTION	Q_r conservation has sharp transition at ε=R/2.2; tight dipole (ε<<R) → fast motion → poor conservation; loose dipole (ε~R/2) → new cancellation → excellent conservation
 2026-03-17	Cancellation prediction formula	k=0.03	validated	FORMULA_DERIVED	Added to VortexMonitor.cancellation_analysis()
+2026-03-17	Q_exp = Σ ΓᵢΓⱼ exp(-rᵢⱼ)	2.76e-3	random	PASS	Exponential weighting works; added to Q_f family
+2026-03-17	Q_screened = Σ ΓᵢΓⱼ r·exp(-r/λ)	~1.4e-2	random	FAIL	Screened potential does not conserve
+2026-03-17	Optimal weight search	5.82e-3	random	NULL	Standard ΓᵢΓⱼ is optimal; alternatives all worse
+2026-03-17	Q_r conservation N>3	degrading	random	NEGATIVE	Conservation WORSENS with N: N=3 1e-3, N=8 4e-2

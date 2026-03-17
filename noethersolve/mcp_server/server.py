@@ -3915,6 +3915,73 @@ def calc_cyclotron_params(
     return "\n".join(lines)
 
 
+# ── Information-Thermodynamics (Landauer-Shannon Bridge) ─────────────
+
+@mcp.tool()
+def calc_landauer_bound(bits_erased: float, temperature: float = 300.0) -> str:
+    """Calculate minimum energy required to erase information (Landauer's principle).
+
+    Landauer's principle (1961): Erasing one bit of information requires
+    dissipating at least kT·ln(2) of energy as heat. This is the fundamental
+    limit connecting information and thermodynamics.
+
+    At room temperature (300 K), erasing 1 bit costs ~2.87 × 10⁻²¹ J.
+    Modern computers dissipate ~10⁴ times this limit per bit operation.
+
+    bits_erased: Number of bits to erase (can be fractional)
+    temperature: Temperature of heat bath in Kelvin (default: 300 K)
+
+    Example: calc_landauer_bound(1.0, 300)
+    → 2.867e-21 J minimum, 0.693 kT per bit
+    """
+    from noethersolve.info_thermo import calc_landauer_bound as _calc
+    return str(_calc(bits_erased, temperature))
+
+
+@mcp.tool()
+def calc_shannon_entropy(probabilities: list[float]) -> str:
+    """Calculate Shannon entropy of a probability distribution.
+
+    H = -Σ p_i × log₂(p_i)
+
+    Shannon entropy gives the minimum average number of bits needed to
+    encode symbols drawn from this distribution (Shannon's source coding
+    theorem). It also bounds the thermodynamic work extractable.
+
+    probabilities: List of probabilities (must sum to 1)
+
+    Example: calc_shannon_entropy([0.5, 0.5])
+    → H = 1.000 bits (fair coin)
+
+    Example: calc_shannon_entropy([0.9, 0.1])
+    → H = 0.469 bits (biased coin)
+    """
+    from noethersolve.info_thermo import calc_shannon_entropy as _calc
+    return str(_calc(probabilities))
+
+
+@mcp.tool()
+def calc_huffman_landauer(probabilities: list[float], temperature: float = 300.0) -> str:
+    """Show the parallel between Huffman coding and Landauer erasure.
+
+    Both optimize the same objective: Σ p_i × cost_i where cost ∝ -log(p_i)
+    - Huffman: cost = code length (bits)
+    - Landauer: cost = erasure energy (kT × ln(2) per bit)
+
+    Shannon entropy H bounds BOTH:
+    - Minimum bits for lossless compression
+    - Minimum energy for irreversible erasure
+
+    probabilities: Probability distribution
+    temperature: Temperature in Kelvin
+
+    Example: calc_huffman_landauer([0.5, 0.25, 0.125, 0.125], 300)
+    → Shows parallel structure with H = 1.75 bits
+    """
+    from noethersolve.info_thermo import calc_huffman_landauer_parallel
+    return str(calc_huffman_landauer_parallel(probabilities, temperature))
+
+
 # ── Blind Spot Detection ──────────────────────────────────────────────
 
 @mcp.tool()

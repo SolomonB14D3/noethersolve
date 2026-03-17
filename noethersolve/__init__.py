@@ -715,6 +715,19 @@ from noethersolve.dimension_physics import (  # noqa: F401
     DIMENSIONAL_PHYSICS,
 )
 
+from noethersolve.info_thermo import (  # noqa: F401
+    calc_landauer_bound,
+    calc_shannon_entropy,
+    calc_info_thermo_bridge,
+    calc_huffman_landauer_parallel,
+    LandauerReport,
+    ShannonEntropyReport,
+    InfoThermoBridgeReport,
+    HuffmanLandauerReport,
+    K_B,
+    LN_2,
+)
+
 from noethersolve.tool_graph import (  # noqa: F401
     calculator,
     get_registry,
