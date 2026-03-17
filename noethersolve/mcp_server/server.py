@@ -1,4 +1,4 @@
-"""NoetherSolve MCP Server — expose 162 verified tools to any AI agent.
+"""NoetherSolve MCP Server — expose 163 verified tools to any AI agent.
 
 The full pipeline: find gaps → flip facts → build tool → add to MCP server.
 Every tool added here makes every connected agent smarter.
@@ -14,7 +14,7 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="162 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
+    instructions="163 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
                  "epidemiology, climate physics, turbulence, topological phases, ergodic theory, optimization, "
                  "numerical PDEs, MHD conservation, GR constraints, seismic waves, plasma adiabatic invariants, "
                  "intersection theory, and LLM science — verified calculators from first principles, not guesses.",

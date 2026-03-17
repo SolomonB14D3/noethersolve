@@ -4,9 +4,9 @@
 
 **The core loop: find gaps → flip facts → build tool → add to MCP server.** Every tool added makes every connected agent smarter.
 
-The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 162 tools currently serving physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, complexity theory, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
+The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 163 tools currently serving physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, complexity theory, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
 
-**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 67 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (1498 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
+**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 67 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (2218 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
 
 ---
 
@@ -30,6 +30,7 @@ The discovery pipeline proposes candidates, verifies them numerically, checks if
 - Chemical reaction networks → `audit_chemical_network()`
 - Knot invariants → `check_knot_invariants()`
 - PDE regularity / Sobolev embeddings → `check_pde_regularity()`, `check_sobolev_embedding()`
+- **Dimension-dependent physics (2D vs 3D)** → `check_dimension_physics()` — CRITICAL: models are 100% blind to how physics changes with dimension
 - Number theory verification → `verify_goldbach()`, `verify_collatz()`, `check_abc_triple()`
 - Chinchilla scaling → `chinchilla_scaling()`
 - Electrochemistry / acid-base / crystal field → `calc_nernst()`, `calc_buffer_ph()`, `calc_crystal_field()`
@@ -748,6 +749,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/number_theory.py` | Number theory conjecture numerical verifier |
 | `noethersolve/reductions.py` | Computational reduction chain validator |
 | `noethersolve/pde_regularity.py` | PDE regularity and Sobolev embedding checker |
+| `noethersolve/dimension_physics.py` | Dimension-dependent physics (2D vs 3D Green's functions, cascades, etc.) |
 | `noethersolve/llm_claims.py` | LLM claims auditor (benchmark checker, scaling calculator, misconception DB) |
 | `noethersolve/chemistry_calc.py` | Electrochemistry, acid-base, crystal field, semiconductor calculator |
 | `noethersolve/crypto_calc.py` | Cryptographic security level, birthday bound, cipher mode analyzer |
