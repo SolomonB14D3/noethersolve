@@ -429,6 +429,8 @@ so they never compete for the same parameters.
 5. Hybrid routing (evaluate both joint and orthogonal adapters, pick higher margin per fact) → 82.1% on physics frontier (69/84) vs 70.2% orthogonal-only vs 44.0% joint-only. Joint wins on particle physics/neutrino/holographic; orthogonal wins on dark matter/quantum gravity/cosmology/condensed matter.
 6. Persistent adapter router (embedding-based cascade) — loads router_state.npz at session start, routes each fact to the best adapter automatically. Cascade: high-confidence single (sim>0.85) → ambiguous try-both (gap<0.05) → vanilla fallback (sim<0.60). LRU-5 cache keeps ~580MB in memory. Cross-session persistent: each run starts smarter than the last.
 
+**Automated discovery benchmark (stage_discovery guided mode):** 603/1043 (57.8%) across 77 domains. PL domains: 64/66 (97.0%), LLM domains: 87/88 (98.9%). The guided mode uses the meta-router for prioritization but falls back to non-routed adapters when routed ones don't improve enough. See `results/benchmark_all_domains_v3.json`.
+
 **Negative result:** A single unified adapter trained on 244 heterogeneous toolkit facts (16 clusters from complexity theory to pharmacokinetics) scored 7.8% — worse than the 10.2% baseline. Joint training only works for semantically related domains.
 
 **Negative result:** Base-trained adapters do NOT transfer to Instruct models. Tested across 6 domains: Instruct baseline (17.0%) is worse than Base baseline (20.5%) on oracle facts, and adapters that lift Base (e.g., Hamiltonian 1→16) have zero effect on Instruct (1→1). RLHF damages the representation space that adapters target. Use Base for the research oracle.
@@ -718,6 +720,8 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `experiments/train_toolkit_adapter.py` | Joint unified adapter training (244 facts, 16 clusters) |
 | `experiments/train_frontier_domains.py` | Orthogonal adapter training for frontier domains |
 | `experiments/verify_frontier_domains.py` | Verify frontier domain adapters (96/96 = 100%) |
+| `experiments/train_missing_adapters.py` | Train 4B adapters for domains that only have 7B adapters (vocab compatibility) |
+| `experiments/run_full_oracle_benchmark.py` | Run full oracle benchmark across all domains with stage discovery |
 | `experiments/benchmark_toolkit_adapter.py` | Benchmark any adapter against toolkit facts |
 | `results/discoveries/model_specific/adapter_combination_findings.md` | Hybrid routing findings (82.1% on physics frontier) |
 | `results/discoveries/novel_findings/length_ratio_discovery.md` | **Length ratio discovery** — r=-0.742 correlation with baseline |
@@ -752,7 +756,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/dimension_physics.py` | Dimension-dependent physics (2D vs 3D Green's functions, cascades, etc.) |
 | `noethersolve/tool_graph.py` | **Tool graph framework** — `@calculator` decorator, type-based chain discovery, execute_chain() |
 | `noethersolve/meta_router.py` | **Meta-router** — learns optimal adapter chains from outcome data (Phase 1) |
-| `noethersolve/stage_discovery.py` | **Stage discovery** — automatic adapter sequence finding via greedy/beam/genetic (Phase 2) |
+| `noethersolve/stage_discovery.py` | **Stage discovery** — automatic adapter sequence finding via greedy/guided/beam (Phase 2). Guided mode uses router for prioritization + fallback to non-routed adapters |
 | `noethersolve/outcome_logger.py` | **Outcome logger** — thread-safe logging of fact × adapter outcomes for training |
 | `noethersolve/llm_claims.py` | LLM claims auditor (benchmark checker, scaling calculator, misconception DB) |
 | `noethersolve/chemistry_calc.py` | Electrochemistry, acid-base, crystal field, semiconductor calculator |
