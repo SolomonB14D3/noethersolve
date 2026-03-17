@@ -49,6 +49,62 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Union
 
 
+# ─── Technical Simplification Bias markers ───────────────────────────────────
+# Discovery: LLMs prefer simple/familiar terms over precise technical language.
+# t = -3.73, p = 0.0004 (highly significant)
+# See: results/discoveries/novel_findings/technical_simplification_bias.md
+
+TECHNICAL_MARKERS = [
+    # Math notation
+    'ln(r)', 'log', 'sqrt', 'π', 'exp', 'integral', '∫', '∂', '∇',
+    # Fluid mechanics
+    'enstrophy', 'vorticity', 'advection', 'dissipation', 'helicity',
+    # Physics jargon
+    'quasi-normal', 'supertranslation', 'holographic', 'geodesic',
+    # Subtle distinctions
+    'deficit', 'asymmetry', 'hierarchy', 'ordering', 'degeneracy',
+    # Hedging/nuance
+    'tension', 'disagree', 'uncertain', 'pending', 'anomaly',
+    # Nuanced terms
+    'model-dependent', 'viable', 'consistent', 'favored', 'excluded',
+]
+
+SIMPLE_MARKERS = [
+    # Basic physics
+    'energy', 'momentum', 'mass', 'force', 'velocity', 'acceleration',
+    # Definitive outcomes
+    'confirmed', 'proven', 'discovered', 'detected', 'found', 'shows',
+    # Absolutism
+    'perfect', 'exact', 'precisely', 'always', 'all', 'every', 'completely',
+    # Closure
+    'explained', 'resolved', 'determined', 'established', 'known',
+    # Basic concepts
+    'particle', 'wave', 'field', 'direct', 'simple',
+]
+
+
+def _count_technical(text: str) -> int:
+    """Count technical markers in text."""
+    text_lower = text.lower()
+    return sum(1 for m in TECHNICAL_MARKERS if m.lower() in text_lower)
+
+
+def _count_simple(text: str) -> int:
+    """Count simple/familiar markers in text."""
+    text_lower = text.lower()
+    return sum(1 for m in SIMPLE_MARKERS if m.lower() in text_lower)
+
+
+def technical_ratio(truth: str, distractor: str) -> float:
+    """Compute technical complexity ratio (truth / distractor).
+
+    Ratio > 1.5 indicates high failure risk due to technical simplification bias.
+    """
+    truth_tech = _count_technical(truth)
+    dist_tech = _count_technical(distractor)
+    return (truth_tech + 0.5) / (dist_tech + 0.5)
+
+
 # ─── Certainty Contamination Bias markers ────────────────────────────────────
 # Discovery: LLMs prefer definitive claims over hedged scientific language.
 # Correlation r = -0.402 between certainty gap and oracle margin.
@@ -346,6 +402,61 @@ def audit_facts(
                 details={"certainty_gap": certainty_gap, "dist_certainty": max_dist_certainty},
             )
             issues.append(issue)
+
+        # ── Technical simplification bias check ───────────────────────────
+        # Discovery: when truth uses technical jargon and distractors use
+        # simple/familiar terms, the model picks the simpler answer.
+        # t = -3.73, p = 0.0004 (highly significant)
+        truth_tech = _count_technical(truth)
+        truth_simple = _count_simple(truth)
+        max_tech_ratio = 0.0
+        worst_tech_idx = 0
+
+        for idx, d in enumerate(distractors):
+            dist_tech = _count_technical(d)
+            dist_simple = _count_simple(d)
+
+            # Technical gap: truth is technical, distractor is simple
+            # Positive gap = high failure risk
+            tech_gap = (truth_tech - dist_tech) + (dist_simple - truth_simple)
+            ratio = technical_ratio(truth, d)
+
+            if ratio > max_tech_ratio:
+                max_tech_ratio = ratio
+                worst_tech_idx = idx
+
+        # Flag if truth is significantly more technical
+        if truth_tech >= 2 and max_tech_ratio >= 2.0:
+            issue = FactIssue(
+                fact_id=fact_id,
+                issue_type="TECHNICAL_BIAS",
+                severity="HIGH",
+                description=(
+                    f"CRITICAL technical gap: truth has {truth_tech} technical markers, "
+                    f"distractor[{worst_tech_idx}] is simpler (ratio={max_tech_ratio:.1f}). "
+                    f"Use equally technical distractor."
+                ),
+                distractor_idx=worst_tech_idx,
+                details={"truth_technical": truth_tech, "tech_ratio": max_tech_ratio},
+            )
+            issues.append(issue)
+        elif truth_tech >= 1 and max_tech_ratio >= 1.5:
+            # Check if distractor has simple markers making it attractive
+            worst_dist = distractors[worst_tech_idx] if distractors else ""
+            dist_simple = _count_simple(worst_dist)
+            if dist_simple >= 2:
+                issue = FactIssue(
+                    fact_id=fact_id,
+                    issue_type="TECHNICAL_BIAS",
+                    severity="MODERATE",
+                    description=(
+                        f"Technical imbalance: truth uses technical language ({truth_tech} markers), "
+                        f"distractor[{worst_tech_idx}] uses simple terms ({dist_simple} simple markers)."
+                    ),
+                    distractor_idx=worst_tech_idx,
+                    details={"truth_technical": truth_tech, "dist_simple": dist_simple},
+                )
+                issues.append(issue)
 
         # ── Risk level ────────────────────────────────────────────────────
         has_high = any(i.severity == "HIGH" for i in issues)

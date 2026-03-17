@@ -342,6 +342,49 @@ win, margin, truth_lp, best_dist_lp, decision, cascade_used = result
 
 **See:** `results/discoveries/novel_findings/certainty_contamination_bias.md`
 
+#### Mechanism 7: Technical Simplification Bias (Discovered Mar 17)
+
+**Models prefer simple/familiar terms over precise technical language**, even when the technical phrasing is correct:
+
+| Truth | Distractor | Margin |
+|-------|------------|--------|
+| enstrophy (squared vorticity) | kinetic energy | **-9.62** |
+| ψ = -Γ·ln(r)/(2π) | ψ = Γ·r/(2π) | **-9.26** |
+| inverse cascade (to large scales) | direct cascade (to small scales) | **-7.58** |
+| excluded simple models | discovered superpartners | **-15.48** |
+| Euler equations | Navier-Stokes equations | **-1.97** |
+
+**Statistical significance:** t = -3.73, p = 0.0004 (highly significant)
+- Failed facts: truth MORE technical than distractor (+0.52 technical markers)
+- Passed facts: truth LESS technical than distractor (-0.21 technical markers)
+
+**This is independent of certainty bias** (r = -0.402 with certainty gap, but r = -0.742 with technical gap).
+
+**Technical markers (trigger bias when in truth):**
+`ln(r), log, sqrt, π, exp, integral, enstrophy, vorticity, advection, dissipation, quasi-normal, supertranslation, holographic, deficit, asymmetry, hierarchy, ordering, tension, disagree, uncertain, pending, model-dependent, viable, consistent`
+
+**Simple markers (attract model when in distractors):**
+`energy, momentum, mass, force, confirmed, proven, discovered, detected, perfect, exact, precisely, always, all, explained, resolved, determined, particle, wave, field`
+
+**Mechanism:** Training data over-represents simple explanations:
+1. Wikipedia effect: simple intros more common than technical details
+2. Pop-science contamination: "energy" >> "enstrophy" in training
+3. Famous term preference: "Navier-Stokes" >> "Euler equations"
+4. Drama bias: "discovered X" >> "excluded simple models of X"
+
+**Detection:** The audit automatically flags facts where technical ratio > 1.5:
+```bash
+python -m noethersolve.audit_facts --file problems/my_facts.json
+# Flags: TECHNICAL_BIAS (HIGH/MODERATE severity)
+```
+
+**Fix for fact files:** Match technical complexity between truth and distractors:
+- If truth uses "enstrophy", use "potential enstrophy" as distractor (not "energy")
+- If truth uses "ln(r)", use "1/r" as distractor (not "r")
+- If truth uses "inverse cascade", use "forward cascade" (not "direct cascade")
+
+**See:** `results/discoveries/novel_findings/technical_simplification_bias.md`
+
 #### Unified Audit Checklist
 
 Before running oracle on a new fact file:
@@ -351,7 +394,9 @@ Before running oracle on a new fact file:
 3. [ ] **Distractors appropriate?** Coherent for benchmarks, incoherent for adapter training.
 4. [ ] **Scoring method chosen?** Sum for hedged domains, mean for verbose domains.
 5. [ ] **Distractors avoid round numbers?** For precise truths (0.326, 2%), use equally-precise distractors (0.412, 3%), NOT round alternatives (0.25, 10%).
-6. [ ] **Try rescue strategy (truth-type dependent)?**
+6. [ ] **Certainty balanced?** Don't use definitive distractors with hedged truths. Match certainty level.
+7. [ ] **Technical complexity balanced?** Don't use simple/familiar distractors with technical truths. Match jargon level.
+8. [ ] **Try rescue strategy (truth-type dependent)?**
    - **Short numerical truths (≤5 tokens):** Use length-matched distractors. Anti-fluency creates false positives!
    - **Verbose/conceptual truths:** Use anti-fluency distractors (verbose/awkward).
    - If fact flips, model already knows — adapter is unnecessary.
