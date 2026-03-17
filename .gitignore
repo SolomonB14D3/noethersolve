@@ -82,3 +82,8 @@ results/meta_router.json
 results/stage_discovery_guided.json
 results/train_missing_adapters.log
 results/train_missing_adapters_v2.log
+
+# Collaboration infrastructure (retained locally, not tracked)
+claim.py
+claims.json
+CONTRIBUTING.md

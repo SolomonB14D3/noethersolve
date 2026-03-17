@@ -4,9 +4,9 @@
 
 **The core loop: find gaps → flip facts → build tool → add to MCP server.** Every tool added makes every connected agent smarter.
 
-The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 69 tools currently serving physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, complexity theory, chemistry, cryptography, finance, distributed systems, networking, operating systems, and LLM science.
+The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 165 tools currently serving physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, complexity theory, chemistry, cryptography, finance, distributed systems, networking, operating systems, epidemiology, climate science, turbulence, topological phases, ergodic theory, optimization, numerical PDEs, MHD, GR constraints, seismic waves, plasma physics, intersection theory, information theory, and LLM science.
 
-**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 67 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (2265 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
+**Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 69 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (2265 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
 
 ---
 
@@ -64,17 +64,14 @@ Before doing anything else:
 # 1. See what's already been tried (avoid duplicates)
 cat results/candidates.tsv
 
-# 2. See what's currently being hunted
-python claim.py list
-
-# 3. See the open questions queue (AI-generated hypotheses + user problems)
+# 2. See the open questions queue (AI-generated hypotheses + user problems)
 python autonomy_loop.py show-queue
 
-# 4. See the current state of all discoveries
+# 3. See the current state of all discoveries
 python dashboard.py --open
 ```
 
-Then read `README.md` for the architecture and `CONTRIBUTING.md` for the full protocol.
+Then read `README.md` for the architecture.
 
 ---
 
@@ -173,297 +170,23 @@ Oracle failures are **phrasing bias**, not knowledge gaps. The model is confiden
 - After: "Models express high confidence even when wrong" (margin: +3.4)
 - Gain: +27.3 points, purely from rephrasing
 
-**Consistency:** This pattern is universal across all 69 domains. Rephrasing resistant facts (those with negative oracle margins) typically yields +15–25 point margin gains before any adapter training.
-
-### Oracle Fact Quality Audit (Discovered Mar 16)
-
-**Three mechanisms determine oracle pass/fail.** Run the audit before oracle evaluation:
-
-```bash
-# Check length ratios across all fact files
-python -m noethersolve.audit_facts --all --check-lengths
-
-# Audit a specific file
-python -m noethersolve.audit_facts --file problems/my_facts.json
-```
-
-#### Mechanism 1: Length Ratio (r = -0.742 correlation with baseline)
-
-The ratio of truth length to shortest distractor length predicts domain-level baseline:
-
-| Length Ratio | Expected Baseline | Action |
-|--------------|-------------------|--------|
-| < 1.2 | 64% (easy) | Good — proceed |
-| 1.2 - 2.5 | 13% (hard) | Shorten truth OR lengthen distractors |
-| > 2.5 | 7% (very hard) | MUST fix before oracle |
-
-**Fix:** Balance lengths to ratio 0.8–1.2. Shorten truths by removing parentheticals. Lengthen distractors by adding plausible-but-wrong details.
-
-#### Mechanism 2: Distractor Semantic Coherence
-
-Distractors that are grammatically sensible completions of the context get high log-prob and beat truths—even with balanced lengths.
-
-| Distractor Type | Pass Rate |
-|-----------------|-----------|
-| Coherent (plausible wrong answers) | 33% |
-| Incoherent (nonsense completions) | **75%** |
-
-**For training/testing adapters:** Use semantically incoherent distractors to isolate the truth signal from fluency bias. Example:
-```json
-// BAD: coherent distractor (model prefers this)
-"distractor": "retrieval adds computational overhead"
-
-// GOOD: incoherent distractor (model correctly rejects)
-"distractor": "refrigerators dream about electric sheep nightly"
-```
-
-**For benchmarking factual knowledge:** Keep coherent distractors (that's the point of the benchmark).
-
-#### Mechanism 3: Scoring Method Selection
-
-Sum vs mean normalization reveals different biases:
-
-| Domain Characteristic | Best Scoring | Why |
-|----------------------|--------------|-----|
-| Verbose truths, short distractors | **Mean** | Neutralizes length advantage |
-| Hedged truths, confident distractors | **Sum** | Hedged truths are shorter |
-| Balanced length and fluency | Either | ~50% both ways |
-
-**Examples:**
-- `analysis_pde_conjectures`: Sum 0% → Mean **100%** (verbose truths benefit from mean)
-- `climate_science_frontiers`: Sum 75% → Mean **0%** (hedged truths hurt by mean)
-
-**Decision rule:** If truths are hedged/technical (physics frontiers, climate science), use sum scoring. If truths are explanatory/verbose, use mean scoring.
-
-#### Mechanism 4: Anti-Fluency Distractors (Discovered Mar 16)
-
-**Models know facts they appear to fail on.** When distractors are fluent ("0%", "60%"), they win on fluency even if the model knows the truth. Making distractors verbose/awkward rescues hidden knowledge.
-
-| Domain | Fluent Dist | Awkward Dist | Flip Rate |
-|--------|-------------|--------------|-----------|
-| NS regularity | 0/7 PASS | 6/7 PASS | **86%** |
-| Cross-domain | 0/5 PASS | 5/5 PASS | **100%** |
-
-**Strategy: Keep truth short, make distractors verbose and self-contradicting:**
-
-```json
-// FAILS: fluent distractor wins on surface form
-{"truth": "2%", "distractors": ["0%", "60%", "100%"]}
-
-// PASSES: awkward distractor loses on fluency
-{"truth": "2%", "distractors": [
-  "exactly zero percent (physically impossible)",
-  "sixty percent showing poor stretch resistance",
-  "one hundred percent indicating complete failure"
-]}
-```
-
-**Distractor patterns that kill fluency:**
-1. Spell out numbers: "0%" → "exactly zero percent"
-2. Add parenthetical contradictions: "(physically impossible)"
-3. Add judgmental qualifiers: "showing poor...", "indicating failure..."
-4. Make grammatically awkward: "which would only double" vs "doubles"
-
-**⚠️ CRITICAL WARNING — DO NOT USE FOR KNOWLEDGE TESTING:**
-
-Anti-fluency creates **false positives for ALL claim types**. The model picks ANY shorter/more fluent answer over verbose distractors — regardless of correctness.
-
-**Evidence of false positives:**
-| Wrong Claim | Anti-F Margin | Status |
-|-------------|---------------|--------|
-| Transformer → wave equation (WRONG) | +16.6 | PASS ✗ |
-| Diffusion → Maxwell equations (WRONG) | +11.7 | PASS ✗ |
-| R_f = 50% (WRONG) | +21.7 | PASS ✗ |
-
-**ALWAYS use LENGTH-MATCHED distractors for knowledge testing.** Anti-fluency is only valid when truth and distractors are similar length and you're testing fluency bias specifically.
-
-**See:** `results/discoveries/novel_findings/anti_fluency_distractor_strategy.md`
-
-#### Mechanism 5: Round Number Bias (Discovered Mar 16)
-
-Models systematically prefer round numbers and simple forms over precise values:
-
-| Correct Value | Model Prefers | Gap |
-|---------------|---------------|-----|
-| C_K = 1.5 | 0.5 | -1.0 |
-| beta = 0.326 | 0.250 | -2.3 |
-| R_f = 2% | 10% | -1.2 |
-| kernel = -ln(r) | r² | **-15.9** |
-
-**Implications:**
-- Use equally-precise distractors for numerical truths (0.326 vs 0.412, not 0.326 vs 0.25)
-- For logarithmic forms, use other logarithmic distractors (ln(r) vs -ln(r), not -ln(r) vs r²)
-- Round numbers as distractors will beat precise truths on fluency alone
-
-**See:** `results/discoveries/novel_findings/round_number_bias.md`
-
-#### Mechanism 6: Certainty Contamination Bias (Discovered Mar 17)
-
-**Models prefer definitive-sounding claims over hedged scientific language**, even when the hedged statement is correct:
-
-| Truth Style | Distractor Style | Pass Rate |
-|-------------|-----------------|-----------|
-| Hedged ("hints at", "awaits confirmation") | Definitive ("completely ruled out") | **26%** |
-| Neutral (factual) | Definitive | 45% |
-| Definitive | Definitive | 55% |
-
-**Correlation:** r = -0.402 between certainty gap and oracle margin (t = 3.57, p < 0.01)
-
-**This is NOT length bias.** High-certainty distractors are actually LONGER (r = +0.277), so length bias would favor the shorter truth. The certainty effect overrides length bias.
-
-**Certainty markers (trigger bias when in distractors):**
-`definitively, completely, proven, ruled out, impossible, always, never, guaranteed, certain, absolutely, all, none, every, must, cannot`
-
-**Hedging markers (trigger bias when in truth):**
-`may, might, could, uncertain, varies, approximately, suggests, indicates, possible, likely, probably, tentative, preliminary, hints, awaits confirmation, inconclusive`
-
-**Pipeline integration: Cascade Routing**
-
-The adapter router now supports cascade routing to handle certainty-biased facts:
-
-```python
-# Load router with global adapters
-router = AdapterRouter.load("router_state.npz")
-router.auto_register_global_adapters("adapters/")
-
-# Cascade scoring: baseline first, adapter fallback on failure
-result = router.score_fact_cascade(model, tokenizer, lm_head, context, truth, distractors)
-win, margin, truth_lp, best_dist_lp, decision, cascade_used = result
-```
-
-**Cascade strategy (zero regressions):**
-1. Try baseline (no adapter)
-2. If baseline **PASSES** → return baseline result (no change)
-3. If baseline **FAILS** and certainty_gap ≥ 2:
-   - Try domain adapter (from routing)
-   - Try global certainty adapters
-   - Return whichever has highest margin
-4. If baseline **FAILS** and low certainty_gap → just try domain adapter
-
-**Results:** +1.8% overall pass rate with zero regressions on passing facts.
-
-**Fix for fact files:** Use hedged language in distractors to match truth:
-- "completely ruled out" → "appears unlikely"
-- "definitively proven" → "seems supported"
-- "fundamentally cannot" → "is difficult to"
-
-**See:** `results/discoveries/novel_findings/certainty_contamination_bias.md`
-
-#### Mechanism 7: Technical Simplification Bias (Discovered Mar 17)
-
-**Models prefer simple/familiar terms over precise technical language**, even when the technical phrasing is correct:
-
-| Truth | Distractor | Margin |
-|-------|------------|--------|
-| enstrophy (squared vorticity) | kinetic energy | **-9.62** |
-| ψ = -Γ·ln(r)/(2π) | ψ = Γ·r/(2π) | **-9.26** |
-| inverse cascade (to large scales) | direct cascade (to small scales) | **-7.58** |
-| excluded simple models | discovered superpartners | **-15.48** |
-| Euler equations | Navier-Stokes equations | **-1.97** |
-
-**Statistical significance:** t = -3.73, p = 0.0004 (highly significant)
-- Failed facts: truth MORE technical than distractor (+0.52 technical markers)
-- Passed facts: truth LESS technical than distractor (-0.21 technical markers)
-
-**This is independent of certainty bias** (r = -0.402 with certainty gap, but r = -0.742 with technical gap).
-
-**Technical markers (trigger bias when in truth):**
-`ln(r), log, sqrt, π, exp, integral, enstrophy, vorticity, advection, dissipation, quasi-normal, supertranslation, holographic, deficit, asymmetry, hierarchy, ordering, tension, disagree, uncertain, pending, model-dependent, viable, consistent`
-
-**Simple markers (attract model when in distractors):**
-`energy, momentum, mass, force, confirmed, proven, discovered, detected, perfect, exact, precisely, always, all, explained, resolved, determined, particle, wave, field`
-
-**Mechanism:** Training data over-represents simple explanations:
-1. Wikipedia effect: simple intros more common than technical details
-2. Pop-science contamination: "energy" >> "enstrophy" in training
-3. Famous term preference: "Navier-Stokes" >> "Euler equations"
-4. Drama bias: "discovered X" >> "excluded simple models of X"
-
-**Detection:** The audit automatically flags facts where technical ratio > 1.5:
-```bash
-python -m noethersolve.audit_facts --file problems/my_facts.json
-# Flags: TECHNICAL_BIAS (HIGH/MODERATE severity)
-```
-
-**Fix for fact files:** Match technical complexity between truth and distractors:
-- If truth uses "enstrophy", use "potential enstrophy" as distractor (not "energy")
-- If truth uses "ln(r)", use "1/r" as distractor (not "r")
-- If truth uses "inverse cascade", use "forward cascade" (not "direct cascade")
-
-**See:** `results/discoveries/novel_findings/technical_simplification_bias.md`
-
-#### Mechanism 8: Context-Independent Term Preference Bias (Discovered Mar 17)
-
-**Models have fixed preferences for specific physics terms**, regardless of which answer is correct. This is tested via "mirror pairs" where the same terms swap roles (truth ↔ distractor):
-
-| Preferred Term | Avoided Term | Preference Score |
-|----------------|--------------|------------------|
-| Navier-Stokes | Euler equations | +2.0 |
-| kinetic energy | enstrophy | **+8.7** |
-| linear momentum | total energy | +1.7 |
-| simple powers (r) | logarithmic (-ln(r)) | +15+ |
-
-**How mirror pairs work:**
-- pf07: Truth="Navier-Stokes" → margin=+0.1 (barely pass)
-- pf08: Truth="Euler equations" → margin=-2.0 (fail)
-- Preference for NS = 0.1 - (-2.0) = +2.0
-
-**Interaction with length bias:**
-- When biases align (preferred + shorter): extreme failure (-9.6)
-- When biases conflict (preferred but longer): weaker effect (-0.9)
-
-**This is distinct from Technical Simplification Bias:**
-- Technical bias: prefers simple LANGUAGE over technical
-- Term preference: prefers specific TERMS over others, regardless of context
-- Example: "kinetic energy" beats "enstrophy" even when both are technical physics terms
-
-**Fix for fact files:** Don't pit famous vs obscure terms:
-- Bad: truth="enstrophy", distractor="kinetic energy" → -9.6 margin
-- Good: truth="enstrophy", distractor="potential enstrophy" → neutral
-
-**See:** `results/discoveries/novel_findings/term_preference_bias.md`
-
-#### Mechanism 9: Mathematical Status Blindness (Discovered Mar 17)
-
-**Models can state what a conjecture claims but systematically fail on its research status** (proven/open/partially resolved):
-
-| Question Type | Pass Rate | Avg Margin | n |
-|---------------|-----------|------------|---|
-| Content-only (what does it claim?) | **71.4%** | -2.2 | 7 |
-| Status-only (is it proven/open?) | **4.2%** | -33.3 | 24 |
-| Mixed | 7.4% | -20.4 | 27 |
-
-**Statistical significance:** t = -4.21, p = 0.000224
-
-**Status words have 0% pass rate:**
-- "proven" (11 facts) → 0% pass, avg margin -25.1
-- "open" (8 facts) → 0% pass, avg margin -31.3
-- "unknown" (4 facts) → 0% pass, avg margin -41.4
-- "conjectured" (4 facts) → 0% pass, avg margin -54.9
-
-**Directional Resolution Bias (novel finding):**
-| Confusion Type | Count | Percentage |
-|----------------|-------|------------|
-| Model claims "proven" when truth is "open" | 6 | **27%** |
-| Model claims "open" when truth is "proven" | 0 | **0%** |
-
-**The model NEVER downgrades proven to open, but DOES upgrade open to proven.**
-
-**Mechanism:**
-1. Training data consistency: mathematical definitions repeated consistently
-2. Status volatility: research status changes when proofs published
-3. Temporal contamination: training mixes pre- and post-proof discussions
-4. Resolution preference: "is proven" appears more than "is open" in web text
-
-**This is a domain-specific manifestation of Certainty Contamination Bias** applied to mathematical research status.
-
-**For fact files:** Separate content from status questions:
-- Content: "Goldbach conjecture claims that..." → 71% pass rate
-- Status: "Goldbach conjecture is currently..." → 4% pass rate
-
-**For tool design:** MCP tools provide authoritative status — this is exactly what `check_conjecture()` does.
-
-**See:** `results/discoveries/novel_findings/mathematical_status_blindness.md`
+**Consistency:** This pattern is universal across all domains. Rephrasing resistant facts (those with negative oracle margins) typically yields +15–25 point margin gains before any adapter training.
+
+### Oracle Bias Mechanisms (9 documented)
+
+Nine systematic bias mechanisms have been identified and documented. **Full details with examples, statistics, and fix strategies are in `ORACLE_METHODOLOGY.md`.** Summary:
+
+1. **Length Ratio** — r=-0.742 correlation with baseline. Keep truth/distractor ratio 0.8–1.2.
+2. **Distractor Coherence** — Incoherent distractors: 75% pass vs coherent: 33%.
+3. **Scoring Method** — Use sum for hedged truths, mean for verbose truths.
+4. **Anti-Fluency** — Rescues hidden knowledge but creates false positives. LENGTH-MATCH for knowledge testing.
+5. **Round Number Bias** — Model prefers 0.5 over 1.5, r² over -ln(r). Use equally-precise distractors.
+6. **Certainty Contamination** — r=-0.402 with certainty gap. Match certainty level between truth and distractors.
+7. **Technical Simplification** — t=-3.73, p=0.0004. Match technical complexity.
+8. **Term Preference** — Fixed preferences for famous terms (e.g., "kinetic energy" +8.7 over "enstrophy"). Don't pit famous vs obscure.
+9. **Mathematical Status Blindness** — Content questions: 71% pass. Status questions: 4% pass. Separate them.
+
+Run `python -m noethersolve.audit_facts --file problems/my_facts.json` to check all mechanisms automatically.
 
 #### Unified Audit Checklist
 
@@ -529,76 +252,9 @@ directions within logit space. A single adapter can only point one way.
 Orthogonal adapters give each cluster its own direction, routed at inference
 so they never compete for the same parameters.
 
-**Established domain results (1014/1014 = 100% across all 67 domains):**
+**Established domain results: All 1038 facts flipped across 69 domains (100%).** 2 new domains (Drug Interactions, Information Theory) awaiting oracle run. See `results/candidates.tsv` for per-domain breakdown.
 
-| Domain | Facts | Baseline | Final | Method |
-|--------|-------|----------|-------|--------|
-| Hamiltonian Mechanics | 16 | 1/16 | **16/16** | Staged anchored training (5 stages) |
-| NS Regularity | 16 | 0/16 | **16/16** | Orthogonal adapters + fact fix |
-| Knot Invariants | 16 | 1/16 | **16/16** | Orthogonal adapters (7 clusters) |
-| Chemical Kinetics | 16 | 0/16 | **16/16** | Orthogonal adapters + fact fix |
-| Electromagnetism | 12 | 1/12 | **12/12** | Orthogonal adapters |
-| Continuous Q_f | 12 | 0/12 | **12/12** | Orthogonal adapters + qf06 fix |
-| Kinetic K | 8 | 0/8 | **8/8** | Orthogonal adapters |
-| Optimal f(r) | 4 | 0/4 | **4/4** | Orthogonal adapters |
-| Vortex Pair | 13 | 2/13 | **13/13** | Orthogonal adapters + vp01 dedicated |
-| Q_f Ratio (R_f) | 8 | 0/8 | **8/8** | qf_ratio_adapter |
-| 3-body Conservation | 10 | 4/10 | **10/10** | Orthogonal adapters + full rephrasing |
-| Genetics Therapeutics | 16 | 2/16 | **16/16** | Orthogonal adapters |
-| Disease Targets | 12 | 1/12 | **12/12** | Orthogonal adapters |
-| Protein Structure | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Immune Evasion | 10 | 0/10 | **10/10** | Orthogonal adapters |
-| Delivery Optimization | 10 | 0/10 | **10/10** | Orthogonal adapters |
-| Safety Invariants | 10 | 0/10 | **10/10** | Orthogonal adapters |
-| Clinical Translation | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Millennium Problems | 12 | 3/12 | **12/12** | Orthogonal adapters |
-| Number Theory Conjectures | 12 | 4/12 | **12/12** | Orthogonal adapters |
-| Algebra/Topology Conjectures | 10 | 1/10 | **10/10** | Orthogonal adapters |
-| Proof Techniques | 12 | 3/12 | **12/12** | Orthogonal adapters |
-| Analysis/PDE Conjectures | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Computational Conjectures | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| LLM Hallucination | 12 | 5/12 | **12/12** | Orthogonal adapters |
-| LLM Reasoning | 12 | 4/12 | **12/12** | Orthogonal adapters |
-| LLM Alignment | 12 | 3/12 | **12/12** | Orthogonal adapters |
-| LLM Training | 12 | 5/12 | **12/12** | Orthogonal adapters |
-| LLM Evaluation | 12 | 4/12 | **12/12** | Orthogonal adapters |
-| LLM Context/Memory | 10 | 4/10 | **10/10** | Orthogonal adapters |
-| PL Type Systems | 12 | 5/12 | **12/12** | Orthogonal adapters |
-| PL Memory | 10 | 4/10 | **10/10** | Orthogonal adapters |
-| PL Concurrency | 10 | 6/10 | **10/10** | Orthogonal adapters |
-| PL Paradigms | 12 | 10/12 | **12/12** | Orthogonal adapters |
-| PL Compilers | 12 | 6/12 | **12/12** | Orthogonal adapters |
-| PL Pitfalls | 10 | 6/10 | **10/10** | Orthogonal adapters |
-| Chemistry | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Cryptography | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Economics/Finance | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Distributed Systems | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Networking | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Operating Systems | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Database Internals | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Quantum Computing | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Control Systems | 12 | 0/12 | **12/12** | Orthogonal adapters |
-| Biochemistry | 12 | 9/12 | **12/12** | Orthogonal adapters |
-| Organic Chemistry | 12 | 7/12 | **12/12** | Orthogonal adapters |
-| Quantum Mechanics | 12 | 7/12 | **12/12** | Orthogonal adapters |
-| Battery Technology | 12 | 6/12 | **12/12** | Orthogonal adapters |
-| Origin of Life | 12 | 3/12 | **12/12** | Orthogonal adapters |
-| Consciousness | 12 | 4/12 | **12/12** | Orthogonal adapters |
-| Antibiotic Resistance | 12 | 6/12 | **12/12** | Orthogonal adapters |
-| Protein Folding | 12 | 7/12 | **12/12** | Orthogonal adapters |
-| Aging Biology | 12 | 6/12 | **12/12** | Orthogonal adapters |
-| Quantum Gravity | 12 | 4/12 | **12/12** | Orthogonal adapters |
-| Dark Matter/Energy | 12 | 6/12 | **12/12** | Orthogonal adapters |
-
-| Black Hole Frontiers | 12 | 4/12 | **12/12** | Orthogonal adapters |
-| Particle Physics Frontiers | 12 | 7/12 | **12/12** | Orthogonal adapters |
-| Holographic QInfo | 12 | 10/12 | **12/12** | Orthogonal adapters |
-| Elliptic Curves | 12 | 8/12 | **12/12** | Main adapter 8/12 + 4 orthogonal (invariants, group_structure, torsion, supersingular) |
-| Intersection Theory | 12 | 0/12 | **12/12** | Main adapter 8/12 + 3 orthogonal (canonical cluster). Deepest initial gap: -27.6 |
-| Drug Interactions | 12 | — | — | Module + facts built, oracle run pending |
-| Information Theory | 12 | — | — | Module + facts built, oracle run pending |
-
-**All 1038 facts flipped across all 69 domains (100%).** (2 new domains awaiting oracle run.)
+Notable methods used: staged anchored training (Hamiltonian, 5 stages), orthogonal adapters (most domains), main+orthogonal hybrid (Elliptic Curves, Intersection Theory). Deepest initial gap: Intersection Theory at -27.6. Hardest escalation: NS Regularity (representational see-saws requiring fully orthogonal cluster adapters).
 
 **Escalation order for hard domains (every level has reached 16/16 on at least one domain):**
 1. Single-pass adapter → if interference, try:
@@ -625,7 +281,7 @@ The pre-commit hook enforces steps 3-5 automatically.
 
 Before building ANY new tool, pass through this filter in order:
 
-1. **Already in NoetherSolve?** Search existing 162 tools. If the computation
+1. **Already in NoetherSolve?** Search existing 165 tools. If the computation
    is already covered (even as a subset of a larger tool), don't build.
 2. **Can extend an existing tool?** If a nearby tool exists (same module, same
    domain), add a parameter or mode to it instead of creating a new tool.
@@ -736,16 +392,7 @@ expression hypotheses based on what was found. These go into
 
 ## Running an Experiment — Step by Step (Manual)
 
-### Step 1: Claim your hypothesis (prevents duplicate work)
-```bash
-python claim.py claim \
-  --problem vortex_pair_conservation \
-  --expr "your expression here" \
-  --handle your-name
-```
-Claims expire after 4 hours. Check `claims.json` to see active claims.
-
-### Step 2: Run the numerical checker
+### Step 1: Run the numerical checker
 ```bash
 # Figure-8 3-body
 python conservation_checker.py --ic figure8 --expr "s['r12']+s['r13']+s['r23']"
@@ -759,7 +406,7 @@ python vortex_checker.py --all
 # frac_var > 5e-3 → FAIL (discard, record in candidates.tsv)
 ```
 
-### Step 3: Run the oracle (if checker passes)
+### Step 2: Run the oracle (if checker passes)
 ```bash
 # Apple Silicon (MLX)
 python oracle_wrapper.py --problem problems/vortex_pair_conservation.yaml
@@ -769,14 +416,14 @@ python noethersolve_torch.py eval-oracle \
   --problem problems/vortex_pair_conservation.yaml --diagnose
 ```
 
-### Step 4: If oracle fails, diagnose and repair
+### Step 3: If oracle fails, diagnose and repair
 ```bash
 python oracle_wrapper.py --problem problems/vortex_pair_conservation.yaml \
     --repair --diagnose
 # Prints quadrant: FIXABLE_BIAS (adapter helps) or KNOWLEDGE_GAP (need training data)
 ```
 
-### Step 5: If knowledge gap, train a domain adapter
+### Step 4: If knowledge gap, train a domain adapter
 ```bash
 # Apple Silicon (MLX)
 python training/scripts/train_vortex_adapter.py --data my_training_data.json --steps 1500
@@ -788,8 +435,8 @@ python noethersolve_torch.py train-adapter \
   --out adapters/my_adapter.npz
 ```
 
-### Step 6: Publish results
-Add a row to `results/candidates.tsv` and open a PR. If DUAL-PASS or FLIPPED, add a discovery note to `results/discoveries/novel_findings/` (for new science) or `results/discoveries/model_specific/` (for adapter results). Remove your entry from `claims.json`.
+### Step 5: Publish results
+Add a row to `results/candidates.tsv`. If DUAL-PASS or FLIPPED, add a discovery note to `results/discoveries/novel_findings/` (for new science) or `results/discoveries/model_specific/` (for adapter results).
 
 ---
 
@@ -824,9 +471,6 @@ matching domain. You can also manually pick one and run it.
 # What's already been tried? (closed holes — don't duplicate)
 cat results/candidates.tsv
 
-# What's actively being hunted right now? (in-flight claims)
-python claim.py list
-
 # What's in the open questions queue? (AI-generated + user proposals)
 python autonomy_loop.py show-queue
 
@@ -839,13 +483,12 @@ python dashboard.py --open
 ```
 
 **Interpreting candidates.tsv to find open work:**
-- `ORACLE-FAIL+CHECKER-PASS` with no claim → open gap, good target for adapter repair
+- `ORACLE-FAIL+CHECKER-PASS` → open gap, good target for adapter repair
 - `QUADRANT3→FLIPPED` → closed, but suggests related expressions worth trying
 - `CHECKER-FAIL` → dead end, skip entirely
-- Rows in `claims.json` with future `expires_at` → someone is working on it, pick something else
 
 **To propose a new domain entirely:**
-Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `my_domain_facts.json` + `my_domain_checker.py`. See `CONTRIBUTING.md` for the plugin contract.
+Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `my_domain_facts.json` + `my_domain_checker.py`.
 
 ---
 
@@ -872,17 +515,15 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 
 | File | What it does |
 |------|-------------|
-| `noethersolve/mcp_server/` | **MCP server — 69 tools for any AI agent** |
+| `noethersolve/mcp_server/` | **MCP server — 165 tools for any AI agent** |
 | `conservation_checker.py` | Figure-8 3-body RK45 integrator + frac_var checker |
 | `vortex_checker.py` | 2D point-vortex Kirchhoff integrator + frac_var checker |
 | `oracle_wrapper.py` | Log-prob margin oracle + repair pass + quadrant diagnosis (MLX) |
 | `noethersolve_torch.py` | Same as oracle_wrapper but PyTorch/CUDA — no MLX needed |
-| `claim.py` | THINK→CLAIM→RUN→PUBLISH coordination (4h claim expiry) |
 | `dashboard.py` | Regenerate results dashboard from candidates.tsv |
 | `training/scripts/train_vortex_adapter.py` | Train vortex-specific logit adapter (MLX) |
 | `training/scripts/train_choreography_adapter.py` | Train figure-8 choreography adapter (MLX) |
-| `results/candidates.tsv` | **The shared ledger** — all tested hypotheses and verdicts |
-| `claims.json` | Active claims registry — check before starting |
+| `results/candidates.tsv` | **Results ledger** — all tested hypotheses and verdicts |
 | `problems/*.yaml` | Domain plugin definitions |
 | `problems/*_facts.json` | Oracle verification sets (8–15 facts per domain) |
 | `adapters/` | Trained adapter weights (gitignored — local only) |
@@ -945,7 +586,7 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/distributed_calc.py` | Quorum systems, Byzantine thresholds, vector clocks, consistency models |
 | `noethersolve/network_calc.py` | Bandwidth-delay product, TCP throughput, subnetting, IP fragmentation |
 | `noethersolve/os_calc.py` | Page tables, CPU scheduling, deadlock detection, TLB analysis |
-| `tests/` | 2265 tests for all 40 toolkit modules |
+| `tests/` | 2265 tests across 61 test files |
 
 ---
 
@@ -988,6 +629,5 @@ margin < -20      → Extreme gap — domain-specific adapter required
 
 ## Credits
 
-- **Coordination protocol** (THINK→CLAIM→RUN→PUBLISH) adapted from [autoresearch-at-home](https://github.com/mutable-state-inc/autoresearch-at-home) by mutable-state-inc.
 - **Oracle infrastructure** built on STEM Truth Oracle (Paper 9, DOI: 10.5281/zenodo.19005729) and Snap-On Communication Modules (Paper 8, DOI: 10.5281/zenodo.18902616).
 - **Noether's theorem** (Emmy Noether, 1915) — the reason any of this works.

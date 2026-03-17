@@ -946,7 +946,7 @@ Every domain is three files in `problems/`:
 | `my_domain_facts.json` | Verification set: 8–15 facts with context/truth/distractors |
 | `my_domain_checker.py` | Numerical integrator: `integrate()` + `parse_state()` + `frac_var()` |
 
-Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
+Copy `problem_template.yaml` and add three files: `my_domain.yaml` + `my_domain_facts.json` + `my_domain_checker.py`.
 
 **Format rule:** Use compact symbolic notation in facts.
 `"H = -1/(4π) Σᵢ<ⱼ ΓᵢΓⱼ ln(rᵢⱼ²)"` ✓
@@ -1272,29 +1272,6 @@ Full history: `results/candidates.tsv`
 
 ---
 
-<details>
-<summary><h2>Coordination</h2></summary>
-
-NoetherSolve uses the **THINK → CLAIM → RUN → PUBLISH** protocol
-to prevent duplicate work across contributors.
-
-> Coordination design adapted from
-> [autoresearch-at-home](https://github.com/mutable-state-inc/autoresearch-at-home)
-> (mutable-state-inc), which pioneered asynchronous multi-agent research
-> coordination with semantic duplicate detection and claim expiry.
-> We adapt it here for human-in-the-loop physics hunting.
-
-```bash
-python claim.py list     # see what's in flight
-python claim.py claim    # reserve your problem before running
-python claim.py release  # publish your results, free the claim
-```
-
-Claims expire after 4 hours. See `CONTRIBUTING.md` for the full protocol.
-
-</details>
-
----
 
 <details>
 <summary><h2>Architecture</h2></summary>
@@ -1307,7 +1284,6 @@ NoetherSolve
 ├── em_checker.py               ← Spectral Maxwell solver (EM conservation)
 ├── noethersolve_torch.py       ← PyTorch/CUDA backend (no MLX needed)
 ├── autonomy_loop.py            ← Fully autonomous sweep + hypothesis generation
-├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
 ├── dashboard.py                ← Results dashboard from candidates.tsv
 │
 ├── noethersolve/               ← Core package (40+ toolkit modules + MCP server)
@@ -1416,10 +1392,6 @@ NoetherSolve
   DOI: [10.5281/zenodo.18902616](https://doi.org/10.5281/zenodo.18902616)
 
 - **Discovery Papers D1-D6** -- Novel scientific findings discovered by the pipeline, from conservation laws in fluid dynamics to certainty contamination in LLM evaluation. See badges above for DOIs.
-
-- **autoresearch-at-home** (mutable-state-inc) — THINK → CLAIM → RUN → PUBLISH
-  coordination protocol for collaborative research without duplicate work.
-  [github.com/mutable-state-inc/autoresearch-at-home](https://github.com/mutable-state-inc/autoresearch-at-home)
 
 - **Noether's theorem** (Emmy Noether, 1915) — the reason any of this works.
 
