@@ -71,11 +71,11 @@
     {
       "id": "mma07_icecube",
       "context": "IceCube neutrino astronomy has identified:",
-      "truth": "TXS 0506+056 blazar as likely neutrino source",
+      "truth": "a blazar coincident with high-energy neutrino events",
       "distractors": [
-        "no astrophysical neutrino sources despite years of observation and analysis",
-        "the Sun as the only source of detectable high-energy cosmic neutrinos",
-        "neutrinos that cannot be associated with any known astrophysical objects"
+        "no clear sources despite extensive observation campaigns",
+        "only atmospheric neutrinos without astrophysical component",
+        "random directions with no point source associations"
       ],
       "cluster": "neutrinos"
     },

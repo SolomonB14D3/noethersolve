@@ -228,6 +228,123 @@ class VortexMonitor:
             }
         return results
 
+    def cancellation_analysis(self, positions):
+        """Analyze WHY the Q_f family is approximately conserved.
+
+        The Q_f = Σ ΓᵢΓⱼ f(rᵢⱼ) quantities are approximately conserved due to
+        a cancellation mechanism: the dr_ij/dt terms are highly correlated
+        (all pairs expanding/contracting together) while the ΓᵢΓⱼ weights
+        have mixed signs, leading to destructive interference in dQ/dt.
+
+        Returns:
+            dict with:
+                cancellation_factor: ratio of raw_sum to |weighted_sum|
+                raw_sum: Σ |drᵢⱼ/dt|
+                weighted_sum: |Σ ΓᵢΓⱼ drᵢⱼ/dt|
+                dr_dt_coherence: |mean(dr/dt)| / std(dr/dt)
+                weight_sum: Σ ΓᵢΓⱼ (small if opposite signs)
+                weight_rms: √(Σ(ΓᵢΓⱼ)²)
+                predicted_C: theoretical prediction based on weight structure
+                explanation: human-readable interpretation
+        """
+        pos = np.asarray(positions, dtype=np.float64).reshape(self.N, 2)
+        G = self.G
+        N = self.N
+
+        # Compute velocities from Biot-Savart
+        vel = np.zeros_like(pos)
+        for i in range(N):
+            for j in range(N):
+                if i == j:
+                    continue
+                dx = pos[i, 0] - pos[j, 0]
+                dy = pos[i, 1] - pos[j, 1]
+                r2 = dx**2 + dy**2 + 1e-20
+                vel[i, 0] += -G[j] * dy / (2 * np.pi * r2)
+                vel[i, 1] += G[j] * dx / (2 * np.pi * r2)
+
+        # Compute dr_ij/dt for all pairs
+        dr_dt_list = []
+        weights = []
+        for i in range(N):
+            for j in range(i + 1, N):
+                dx = pos[j, 0] - pos[i, 0]
+                dy = pos[j, 1] - pos[i, 1]
+                r = np.sqrt(dx**2 + dy**2 + 1e-20)
+
+                dvx = vel[j, 0] - vel[i, 0]
+                dvy = vel[j, 1] - vel[i, 1]
+                dr_dt = (dx * dvx + dy * dvy) / r
+
+                dr_dt_list.append(dr_dt)
+                weights.append(G[i] * G[j])
+
+        dr_dt = np.array(dr_dt_list)
+        weights = np.array(weights)
+
+        # Compute statistics
+        raw_sum = np.sum(np.abs(dr_dt))
+        weighted_sum = np.abs(np.sum(weights * dr_dt))
+
+        if weighted_sum > 1e-15:
+            C = raw_sum / weighted_sum
+        else:
+            C = float('inf')
+
+        # Weight structure
+        sum_w = np.sum(weights)
+        rms_w = np.sqrt(np.sum(weights**2))
+        weight_cancellation = 1 - np.abs(sum_w) / (rms_w + 1e-15)
+
+        # dr/dt coherence
+        mean_dr = np.mean(dr_dt)
+        std_dr = np.std(dr_dt)
+        if std_dr > 1e-15:
+            coherence = np.abs(mean_dr) / std_dr
+        else:
+            coherence = float('inf')
+
+        # Predicted cancellation: C ≈ raw / (k × rms_w × std_dr) where k ≈ 0.03
+        k = 0.03
+        if rms_w * std_dr > 1e-15:
+            predicted_C = raw_sum / (k * rms_w * std_dr)
+        else:
+            predicted_C = float('inf')
+
+        # Explanation
+        n_pos = int(np.sum(weights > 0))
+        n_neg = int(np.sum(weights < 0))
+
+        if C > 100:
+            quality = "excellent"
+        elif C > 10:
+            quality = "good"
+        elif C > 3:
+            quality = "moderate"
+        else:
+            quality = "poor"
+
+        explanation = (
+            f"Cancellation: {C:.1f}x ({quality}). "
+            f"Weights: {n_pos} positive, {n_neg} negative pairs. "
+            f"Weight sum = {sum_w:.3f} ({"near-zero: good cancellation" if np.abs(sum_w) < rms_w * 0.3 else "significant: less cancellation"}). "
+            f"dr/dt coherence = {coherence:.2f} ({"high: pairs move together" if coherence > 1 else "low: independent motion"})."
+        )
+
+        return {
+            "cancellation_factor": C,
+            "raw_sum": raw_sum,
+            "weighted_sum": weighted_sum,
+            "dr_dt_coherence": coherence,
+            "weight_sum": sum_w,
+            "weight_rms": rms_w,
+            "weight_cancellation": weight_cancellation,
+            "predicted_C": predicted_C,
+            "n_positive_pairs": n_pos,
+            "n_negative_pairs": n_neg,
+            "explanation": explanation,
+        }
+
 
 # ─── Chemical Monitor ─────────────────────────────────────────────────────────
 

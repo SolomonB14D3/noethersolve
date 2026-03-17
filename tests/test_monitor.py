@@ -146,6 +146,45 @@ class TestVortexMonitor:
             assert "final" in summary[key]
             assert "frac_var" in summary[key]
 
+    def test_cancellation_analysis(self, vortex_trajectory):
+        """cancellation_analysis should return meaningful statistics."""
+        G, pos0, sol = vortex_trajectory
+        mon = VortexMonitor(G)
+        # Test at multiple points along trajectory
+        results = []
+        for i in [10, 50, 100]:
+            state = sol.y[:, i].reshape(-1, 2)
+            result = mon.cancellation_analysis(state)
+            results.append(result)
+            # Check all required keys are present
+            assert "cancellation_factor" in result
+            assert "raw_sum" in result
+            assert "weighted_sum" in result
+            assert "dr_dt_coherence" in result
+            assert "weight_sum" in result
+            assert "weight_rms" in result
+            assert "explanation" in result
+            assert "n_positive_pairs" in result
+            assert "n_negative_pairs" in result
+            # Physical constraints
+            assert result["raw_sum"] >= 0
+            assert result["weighted_sum"] >= 0
+            assert result["weight_rms"] > 0
+            # Cancellation should be positive
+            if result["weighted_sum"] > 1e-10:
+                assert result["cancellation_factor"] >= 1.0
+
+    def test_cancellation_analysis_mixed_signs(self):
+        """Mixed-sign circulations should show weight cancellation."""
+        mon = VortexMonitor([1.0, -1.0, 0.5])  # Opposing signs
+        pos = np.array([[0.0, 0.0], [1.0, 0.0], [0.5, 1.0]])
+        result = mon.cancellation_analysis(pos)
+        # With opposing signs, weight_sum should be smaller than weight_rms
+        assert abs(result["weight_sum"]) < result["weight_rms"]
+        # n_positive and n_negative should both be nonzero
+        assert result["n_positive_pairs"] > 0
+        assert result["n_negative_pairs"] > 0
+
 
 # ─── ChemicalMonitor ─────────────────────────────────────────────────────────
 

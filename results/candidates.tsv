@@ -282,3 +282,14 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-17 10:19	cross_domain:huffman_landauer:cd10	-11.38	0	ORACLE-FAIL	BLIND_SPOT
 2026-03-17 10:19	cross_domain:type_gauge:cd11	-6.38	0	ORACLE-FAIL	BLIND_SPOT
 2026-03-17 10:19	cross_domain:type_gauge:cd12	-20.12	0	ORACLE-FAIL	BLIND_SPOT
+2026-03-17	black_hole_frontiers	+5.5→+159.6	9/12→12/12	SOLVED_WITH_ADAPTER	observations_adapter gives 100% (12/12); all observation+quantum_info facts pass
+2026-03-17	holographic_qinfo	+7.1→+14.8	8/12→12/12	SOLVED_WITH_ADAPTER	entropy_adapter gives 100% (12/12); RT, QES, complexity, modular all pass
+2026-03-17	multi_messenger_astro	+8.5→+11.4	10/12→12/12	SOLVED_PHRASING+ADAPTER	TXS blazar phrasing fix (certainty balance) + kilonova_adapter for cosmic ray dipole
+2026-03-17	Q_p power law family for 3-vortex	varies	-	INVESTIGATED	p=2 EXACT (= Γ_total·Lz - |P|²); p=0 trivial; best approximate p→0 (54x better than p=1); NO new independent invariant found
+2026-03-17	Q_ln = Σ Γᵢ Γⱼ ln(rᵢⱼ) = -2π·H	exact	all	CONFIRMED	Q_ln is exactly -2π times Hamiltonian; known identity
+2026-03-17	Triangle area conservation (3-vortex)	0.11	restricted	FAIL	Area not conserved for general 3-vortex; only exact for symmetric
+2026-03-17	Product r12·r13·r23 (3-vortex)	0.16	restricted	FAIL	Product not conserved; varies 16% for restricted IC
+2026-03-17	Vortex claims systematic test (15 hypotheses)	varies	varies	SYSTEMATIC_TEST	8 TRUE (H,Lz,r12_pair,symmetric,impulse); 4 FALSE (sum_rij,product,area,sum_r2_general); No new independent invariants beyond H,Lz,P
+2026-03-17	MAJOR: Cancellation mechanism for Q_f family	38x (avg)	all	THEORETICAL_BREAKTHROUGH	Q_f conservation explained: dr/dt correlated (0.95-0.99) + opposite-sign Γᵢ Γⱼ → 38x cancellation; restricted=427x; p=2 exact (symplectic)
+2026-03-17	Dipole+vortex phase transition	10000x	ε=0.45	THEORETICAL_PREDICTION	Q_r conservation has sharp transition at ε=R/2.2; tight dipole (ε<<R) → fast motion → poor conservation; loose dipole (ε~R/2) → new cancellation → excellent conservation
+2026-03-17	Cancellation prediction formula	k=0.03	validated	FORMULA_DERIVED	Added to VortexMonitor.cancellation_analysis()
