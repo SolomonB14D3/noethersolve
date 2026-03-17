@@ -263,6 +263,12 @@ curl -X POST "https://zenodo.org/api/deposit/depositions/{id}/actions/publish" \
 - [ ] Add DOI to rho-eval CLAUDE.md (if cross-referenced)
 - [ ] Update MEMORY.md paper roadmap with DOI
 - [ ] Add paper entry to README.md publications section
+- [ ] **Update README.md stats** — verify these numbers match reality:
+  - [ ] MCP tool count: `grep -c '@mcp.tool()' noethersolve/mcp_server/server.py`
+  - [ ] Test count: `pytest tests/ --co -q | tail -1`
+  - [ ] Domain count and fact count: count entries in CLAUDE.md domain table
+  - [ ] Discovery paper badges and DOIs
+  - [ ] Architecture tree includes any new modules
 - [ ] Tag release if version bump warranted: `git tag vX.Y.Z`
 - [ ] Push tag (triggers Zenodo webhook for toolkit papers): `git push --tags`
 - [ ] Verify Zenodo auto-linked the GitHub release (if applicable)

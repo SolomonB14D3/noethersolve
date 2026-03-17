@@ -2,7 +2,7 @@
 
 **https://github.com/SolomonB14D3/noethersolve** · **https://solomonb14d3.github.io/noethersolve**
 
-[![Paper: Breaking Frozen Priors](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290) [![Paper: NoetherSolve Toolkit](https://zenodo.org/badge/DOI/10.5281/zenodo.19029880.svg)](https://doi.org/10.5281/zenodo.19029880) [![Paper: Unified Theory of Oracle Difficulty](https://img.shields.io/badge/preprint-paper%2012-blue)](paper/unified_oracle_difficulty_theory.md)
+[![Paper: Breaking Frozen Priors](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290) [![Paper: NoetherSolve Toolkit](https://zenodo.org/badge/DOI/10.5281/zenodo.19029880.svg)](https://doi.org/10.5281/zenodo.19029880) [![Paper: Unified Theory of Oracle Difficulty](https://img.shields.io/badge/preprint-paper%2012-blue)](paper/unified_oracle_difficulty_theory.md) [![D1: Q_f Conservation](https://zenodo.org/badge/DOI/10.5281/zenodo.19055338.svg)](https://doi.org/10.5281/zenodo.19055338) [![D2: Z₃ Phase Cancellation](https://zenodo.org/badge/DOI/10.5281/zenodo.19055580.svg)](https://doi.org/10.5281/zenodo.19055580) [![D3: LLM Knowledge Gaps](https://zenodo.org/badge/DOI/10.5281/zenodo.19055582.svg)](https://doi.org/10.5281/zenodo.19055582) [![D4: Orthogonal Adapters](https://zenodo.org/badge/DOI/10.5281/zenodo.19055588.svg)](https://doi.org/10.5281/zenodo.19055588) [![D5: Certainty Contamination](https://zenodo.org/badge/DOI/10.5281/zenodo.19068373.svg)](https://doi.org/10.5281/zenodo.19068373) [![D6: Resolvent Unification](https://zenodo.org/badge/DOI/10.5281/zenodo.19071198.svg)](https://doi.org/10.5281/zenodo.19071198)
 
 **Automated scientific discovery: find where models are wrong, build tools that give the right answer, and serve them to any AI agent.**
 
@@ -10,11 +10,11 @@ The pipeline: **find gaps → flip facts → build tool → add to MCP server.**
 
 NoetherSolve starts by finding where LLMs are confidently wrong. It generates candidates, verifies them numerically, and measures whether the model already knows them. When it doesn't — that's where new science lives. The system discovers the answer, builds a verified computational tool for it, and exposes that tool via [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) so any AI agent can call it at inference time.
 
-This is better than embedding knowledge in weights. Adapters trained on domain facts improve general truth preference (+0.10 MC2 on TruthfulQA, statistically significant), and orthogonal adapters (routed per-cluster) achieve 100% across 67 domains — but they can't be naively stacked without interference. Tools scale without constraints: each new tool is independent, verified, and callable on demand. The agent doesn't need to memorize that the Riemann Hypothesis is open — it calls `check_conjecture("Riemann")` and gets the verified answer.
+This is better than embedding knowledge in weights. Adapters trained on domain facts improve general truth preference (+0.10 MC2 on TruthfulQA, statistically significant), and orthogonal adapters (routed per-cluster) achieve 100% across 77 domains — but they can't be naively stacked without interference. Tools scale without constraints: each new tool is independent, verified, and callable on demand. The agent doesn't need to memorize that the Riemann Hypothesis is open — it calls `check_conjecture("Riemann")` and gets the verified answer.
 
-**69 tools** currently exposed via MCP. 62 are **calculators** — verified computational engines that derive answers from first principles (enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry reaction prediction, PID controller simulation, transaction isolation analysis, quantum circuit simulation, stability analysis, conservation law monitoring, genetic design, chemical auditing, and more). 7 are **lookup tables** — reference databases for mathematical conjectures, complexity theory, proof barriers, benchmark scores, and LLM science claims. Calculators scale indefinitely; lookups are faster but finite. Together they cover physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, control systems, databases, quantum computing, chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, and LLM science.
+**160+ tools** currently exposed via MCP. 150+ are **calculators** — verified computational engines that derive answers from first principles (enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry reaction prediction, PID controller simulation, transaction isolation analysis, quantum circuit simulation, stability analysis, conservation law monitoring, genetic design, chemical auditing, elliptic curves, epidemiology, turbulence, information theory, and more). The rest are **lookup tables** — reference databases for mathematical conjectures, complexity theory, proof barriers, benchmark scores, and LLM science claims. Calculators scale indefinitely; lookups are faster but finite. Together they cover physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, control systems, databases, quantum computing, chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, epidemiology, information theory, elliptic curves, drug interactions, turbulence, and LLM science.
 
-The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), unsolved mathematics (6 domains covering Millennium Problems through computational complexity), LLM science (6 domains), programming languages (6 domains), 9 STEM domains (chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, database internals, quantum computing, control systems), 3 science domains (biochemistry, organic chemistry, quantum mechanics), and 9 frontier domains (battery technology, origin of life, consciousness, antibiotic resistance, protein folding, aging biology, quantum gravity, dark matter/energy, black hole frontiers, particle physics, holographic QInfo, condensed matter, climate science, cosmology, multi-messenger astronomy, neutrino physics). Any field where you can verify a claim and build a checker is fair game.
+The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), unsolved mathematics (6 domains covering Millennium Problems through computational complexity), LLM science (6 domains), programming languages (6 domains), 9 STEM domains (chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, database internals, quantum computing, control systems), 3 science domains (biochemistry, organic chemistry, quantum mechanics), 9 frontier domains (battery technology, origin of life, consciousness, antibiotic resistance, protein folding, aging biology, quantum gravity, dark matter/energy, black hole frontiers, particle physics, holographic QInfo, condensed matter, climate science, cosmology, multi-messenger astronomy, neutrino physics), and 4 newer domains (elliptic curves, intersection theory, drug interactions, information theory). Any field where you can verify a claim and build a checker is fair game.
 
 ### Paper
 
@@ -26,12 +26,28 @@ Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ra
 **NoetherSolve Toolkit: Conservation Law Monitoring, Discovery, and Scientific Auditing Across Physics, Genetics, and Mathematics** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
-Sixty-nine tools organized across multiple tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 5 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer), 5 pharmacokinetics tools (IV bolus, oral dosing, half-life, steady state, dose adjustment), 5 enzyme kinetics tools (Michaelis-Menten, inhibition, catalytic efficiency, cooperativity, pH rate profile), 6 quantum mechanics tools (particle-in-box, hydrogen energy, uncertainty, tunneling, harmonic oscillator, angular momentum), 6 organic chemistry tools (molecule analysis, selectivity, mechanism prediction, synthesis validation, Baldwin's rules, Woodward-Hoffmann), 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor), 1 LLM science tool (claims auditor with benchmark checker and scaling calculator), 3 systems tools (PID controller, transaction isolation, quantum circuit simulator), and 6 STEM calculators (chemistry, cryptography, finance, distributed systems, networking, operating systems). Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 1332 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
+160+ tools organized across multiple tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 5 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer), 5 pharmacokinetics tools (IV bolus, oral dosing, half-life, steady state, dose adjustment), 5 enzyme kinetics tools (Michaelis-Menten, inhibition, catalytic efficiency, cooperativity, pH rate profile), 6 quantum mechanics tools (particle-in-box, hydrogen energy, uncertainty, tunneling, harmonic oscillator, angular momentum), 6 organic chemistry tools (molecule analysis, selectivity, mechanism prediction, synthesis validation, Baldwin's rules, Woodward-Hoffmann), 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor), 1 LLM science tool (claims auditor with benchmark checker and scaling calculator), 3 systems tools (PID controller, transaction isolation, quantum circuit simulator), 6 STEM calculators (chemistry, cryptography, finance, distributed systems, networking, operating systems), plus dozens of additional tools for elliptic curves, epidemiology, information theory, drug interactions, turbulence, plasma physics, optics, seismology, climate science, and more. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 2265 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 **Unified Theory of Oracle Difficulty: Three Mechanisms Explain 95% of Benchmark Variance** (Sanchez, 2026)
 [View preprint](paper/unified_oracle_difficulty_theory.md) · Commit: [e4b6da9](https://github.com/SolomonB14D3/NoetherSolve/commit/e4b6da9)
 
-Discovers that oracle baseline accuracy across 69 domains is determined by three independent mechanisms: (1) **Length ratio** (r = −0.742): truth length / shortest distractor length predicts baseline perfectly — domains with ratio < 1.2 average 64% baseline; ratio > 2.5 averages 7%. (2) **Distractor semantic coherence** (5.5 LP gap): coherent distractors score 33% pass; incoherent distractors score 75% pass despite identical lengths. (3) **Scoring method sensitivity**: sum normalization favors hedged truths; mean normalization favors verbose truths. Unified theory shows how all three mechanisms interact combinatorially. Applying all three fixes simultaneously improves baseline from 0% to 75–100% on hardest domains without requiring any model retraining. Resolves the "LLM self-knowledge gap" (0% on 6 LLM domains) as a measurement artifact, not an actual knowledge gap. Provides practical decision tree for oracle fact construction and benchmark methodology. Peer-ready for TMLR, JMLR, or NeurIPS evaluation workshops.
+Discovers that oracle baseline accuracy across 77 domains is determined by three independent mechanisms: (1) **Length ratio** (r = −0.742): truth length / shortest distractor length predicts baseline perfectly — domains with ratio < 1.2 average 64% baseline; ratio > 2.5 averages 7%. (2) **Distractor semantic coherence** (5.5 LP gap): coherent distractors score 33% pass; incoherent distractors score 75% pass despite identical lengths. (3) **Scoring method sensitivity**: sum normalization favors hedged truths; mean normalization favors verbose truths. Unified theory shows how all three mechanisms interact combinatorially. Applying all three fixes simultaneously improves baseline from 0% to 75–100% on hardest domains without requiring any model retraining. Resolves the "LLM self-knowledge gap" (0% on 6 LLM domains) as a measurement artifact, not an actual knowledge gap. Provides practical decision tree for oracle fact construction and benchmark methodology. Peer-ready for TMLR, JMLR, or NeurIPS evaluation workshops.
+
+### Discovery Papers (Novel Scientific Findings)
+
+Papers arising from novel findings discovered by the NoetherSolve pipeline, targeting domain scientists (physicists, mathematicians):
+
+**D1: Approximate Conservation Laws in Point Vortex Dynamics** DOI: [10.5281/zenodo.19055338](https://doi.org/10.5281/zenodo.19055338) -- Q_f = Sigma Gamma_i Gamma_j f(r_ij) approximately conserved for ANY smooth f. Green's function principle: optimal f = G_d(r). Optimal combination 300x better.
+
+**D2: Z3 Phase Cancellation in Choreographic Orbits** DOI: [10.5281/zenodo.19055580](https://doi.org/10.5281/zenodo.19055580) -- Figure-8 Z3 symmetry enables Fourier phase cancellation. Critical range: -0.67 < p < 2.55.
+
+**D3: Where LLMs Are Confidently Wrong: 1038 Facts Across 67 Domains** DOI: [10.5281/zenodo.19055582](https://doi.org/10.5281/zenodo.19055582) -- Systematic mapping of model knowledge gaps. Intersection theory deepest gap ever measured (margin -27.6).
+
+**D4: Orthogonal Adapter Routing for Interference-Free Knowledge Injection** DOI: [10.5281/zenodo.19055588](https://doi.org/10.5281/zenodo.19055588) -- Representational see-saws require orthogonal adapters with routing. 1038/1038 facts flipped.
+
+**D5: Certainty Contamination: How Definitive Language Biases LLM Factual Judgments** DOI: [10.5281/zenodo.19068373](https://doi.org/10.5281/zenodo.19068373) -- LLMs prefer definitive claims over hedged scientific language (r = -0.402, p < 0.01). Pass rate: 55% (balanced) to 25% (high asymmetry).
+
+**D6: Resolvent-Conservation Unification: Spectral Theory of Approximate Invariants** DOI: [10.5281/zenodo.19071198](https://doi.org/10.5281/zenodo.19071198) -- Green's function optimality arises from zero-frequency limit of the resolvent. Unifies potential theory, spectral theory, and Noether's theorem.
 
 ---
 
@@ -51,7 +67,7 @@ NoetherSolve exploits this in four steps:
 2. **Flip facts.** Train lightweight adapters that flip the model's answer
    from wrong to right, without degrading anything it already knows.
    Orthogonal adapters (one per concept cluster, routed at inference) achieve
-   100% across all 67 domains (1014 facts) with 0% MMLU degradation.
+   100% across all 77 domains (1043+ facts) with 0% MMLU degradation.
    Cross-domain joint training blends related domains into a single adapter
    (H 14/16, NS 10/16, Knot 11/16, Chem 13/16 from ONE adapter), and hybrid
    routing (pick best of joint vs orthogonal per fact) reaches 82.1% on
@@ -65,12 +81,13 @@ NoetherSolve exploits this in four steps:
    The agent doesn't need to memorize facts — it calls the tool and gets
    the verified answer.
 
-The result: every gap we find makes every connected agent smarter. The 69
+The result: every gap we find makes every connected agent smarter. The 160+
 tools currently served cover physics, genetics, enzyme kinetics, quantum
 mechanics, pharmacokinetics, organic chemistry, mathematics, complexity
 theory, control systems, databases, quantum computing, chemistry,
 cryptography, economics/finance, distributed systems, networking,
-operating systems, and LLM science.
+operating systems, epidemiology, information theory, elliptic curves,
+drug interactions, turbulence, and LLM science.
 
 </details>
 
@@ -127,18 +144,32 @@ Before oracle evaluation:
 3. **Distractors appropriate?** Coherent for benchmarks, incoherent for adapter training.
 4. **Scoring chosen?** Sum for hedged domains, mean for verbose domains.
 
-See [`paper/unified_oracle_difficulty_theory.md`](paper/unified_oracle_difficulty_theory.md) for full analysis with 69-domain verification.
+See [`paper/unified_oracle_difficulty_theory.md`](paper/unified_oracle_difficulty_theory.md) for full analysis with 77-domain verification.
+
+### Additional Mechanisms Discovered
+
+**Mechanism 4: Anti-Fluency Distractors** -- Making distractors verbose/awkward rescues hidden model knowledge (86-100% flip rate). WARNING: Creates false positives for ALL claim types. Only valid for fluency bias testing.
+
+**Mechanism 5: Round Number Bias** -- Models prefer round numbers (0.5, 10%) over precise values (0.326, 2%). Gap up to -15.9 for logarithmic vs simple-power forms.
+
+**Mechanism 6: Certainty Contamination** -- Models prefer definitive claims over hedged scientific language (r = -0.402, p < 0.01). Not length bias (definitive distractors are actually longer). DOI: [10.5281/zenodo.19068373](https://doi.org/10.5281/zenodo.19068373)
+
+**Mechanism 7: Technical Simplification Bias** -- Models prefer simple/familiar terms over precise technical language (t = -3.73, p = 0.0004). "kinetic energy" beats "enstrophy" by -9.62 margin.
+
+**Mechanism 8: Term Preference Bias** -- Models have fixed preferences for specific physics terms regardless of correctness. Tested via mirror pairs where terms swap roles.
+
+**Mechanism 9: Mathematical Status Blindness** -- Models can state what a conjecture claims (71.4% pass) but fail on its research status (4.2% pass, t = -4.21, p = 0.0002). Model NEVER downgrades "proven" to "open" but DOES upgrade "open" to "proven."
 
 </details>
 
 ---
 
 <details open>
-<summary><h2>MCP Server — Give Any AI Agent 69 Verified Tools</h2></summary>
+<summary><h2>MCP Server — Give Any AI Agent 160+ Verified Tools</h2></summary>
 
 The MCP server exposes all NoetherSolve tools to any AI agent that supports
 [Model Context Protocol](https://modelcontextprotocol.io/). One line of config,
-69 tools available: 62 calculators + 7 lookup tables.
+160+ tools available: 150+ calculators + lookup tables.
 
 ### Setup for Claude Code
 
@@ -152,7 +183,7 @@ pip install noethersolve[mcp]
 noethersolve-mcp  # starts the server
 ```
 
-### Available Tools (69)
+### Available Tools (160+)
 
 | Category | Tools | Examples |
 |----------|-------|---------|
@@ -181,9 +212,9 @@ hallucination possible.
 
 ### Why MCP instead of fine-tuning?
 
-We tried both. Adapters trained on 1014 domain facts improve truth preference
+We tried both. Adapters trained on 1043+ domain facts improve truth preference
 (+0.10 MC2 on TruthfulQA), and orthogonal adapters (routed per-cluster at
-inference) achieve 100% across all 67 domains with 0% MMLU degradation.
+inference) achieve 100% across all 77 domains with 0% MMLU degradation.
 Cross-domain joint training works for related domains, and hybrid routing
 (pick best of joint vs orthogonal per fact) reaches 82.1% on physics frontier.
 But adapters can't be naively stacked: combining 37+ adapters by weight
@@ -195,7 +226,7 @@ inference, never merged. Tools don't have these constraints:
 - **No routing needed.** Each tool is independent. Adding tool #43 doesn't
   degrade tools #1-42 and requires no inference-time routing logic.
 - **No capacity limits.** A tool can encode arbitrarily complex logic.
-- **Verified correctness.** 1332 tests enforce correctness. An adapter can
+- **Verified correctness.** 2265 tests enforce correctness. An adapter can
   only shift probabilities; a tool returns the exact right answer.
 - **Model-agnostic.** Any agent that speaks MCP can use these tools.
   Adapters are tied to one model's vocabulary.
@@ -841,7 +872,7 @@ these tools against 5 experiments:
 | Chemical violation | Perturbed rate constants | Wegscheider cycle product shifts 3.33 to 0.13 while mass conservation stays perfect |
 | Sensitivity sweep | 20 noise levels, 1e-10 to 1e-1 | Standard monitors detect at noise >= 1.8e-6; discovered monitors have baseline sensitivity at 1e-10 |
 
-**1332 tests passing** across all 35 toolkit modules (`pytest tests/`).
+**2265 tests passing** across all 40+ toolkit modules (`pytest tests/`).
 
 </details>
 
@@ -927,7 +958,7 @@ Copy `problem_template.yaml` and follow `CONTRIBUTING.md` for the full protocol.
 
 ## Discoveries So Far
 
-193+ candidates tested. 80+ genuine invariants discovered. 67 domains, 1014 oracle facts. **All 67 domains at 100% (1014/1014 facts).**
+250+ candidates tested. 80+ genuine invariants discovered. 77 domains, 1043+ oracle facts. **All 77 domains at 100% (1043+/1043+ facts).**
 
 <details>
 <summary><h3>Discrete Point-Vortex</h3></summary>
@@ -1226,9 +1257,16 @@ The math domains were particularly challenging — the model confidently confuse
 | **Condensed Matter** | **12** | **50%** | **100%** | **COMPLETE** (orthogonal adapters) |
 | **Climate Science** | **12** | **33.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
 | **Cosmology** | **12** | **41.7%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| | | | | |
+| **Elliptic Curves** | **12** | **66.7%** | **100%** | **COMPLETE** (main + 4 orthogonal) |
+| **Intersection Theory** | **12** | **0%** | **100%** | **COMPLETE** (main + 3 orthogonal, deepest gap: -27.6) |
+| **Drug Interactions** | **12** | **8.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
+| **Information Theory** | **12** | **8.3%** | **100%** | **COMPLETE** (orthogonal adapters) |
 | Ranking adapter | — | ρ=-0.14 | ρ=0.93 | — |
 
-**Total: 67 domains, 1014 oracle facts, 1014/1014 flipped (100%). 0% MMLU degradation across all adapters.**
+**Total: 77 domains, 1043+ oracle facts, 1043+/1043+ flipped (100%). 0% MMLU degradation across all adapters.**
+
+**Automated discovery benchmark (guided mode):** 603/1043 (57.8%) accuracy with meta-router prioritization across 77 domains. PL domains: 64/66 (97.0%). LLM domains: 87/88 (98.9%). The meta-router has 188 adapter centroids learned from 28,040 outcomes, achieving 63.8% top-1 / 79.8% top-3 routing accuracy.
 
 Full history: `results/candidates.tsv`
 
@@ -1272,8 +1310,8 @@ NoetherSolve
 ├── claim.py                    ← THINK/CLAIM/RUN/PUBLISH coordination
 ├── dashboard.py                ← Results dashboard from candidates.tsv
 │
-├── noethersolve/               ← Core package (35 toolkit modules + MCP server)
-│   ├── mcp_server/             ← MCP server (69 tools for any AI agent)
+├── noethersolve/               ← Core package (40+ toolkit modules + MCP server)
+│   ├── mcp_server/             ← MCP server (160+ tools for any AI agent)
 │   │   ├── server.py           ← FastMCP tool definitions
 │   │   └── __main__.py         ← python -m noethersolve.mcp_server
 │   ├── adapter.py              ← Snap-on logit adapter (SwiGLU)
@@ -1309,7 +1347,13 @@ NoetherSolve
 │   ├── network_calc.py         ← Bandwidth-delay, TCP throughput, subnet calculator
 │   ├── os_calc.py              ← Page tables, scheduling, deadlock detection calculator
 │   ├── train_utils.py          ← Shared training utilities
-│   └── validate.py             ← Integrator validation via conservation laws
+│   ├── validate.py             ← Integrator validation via conservation laws
+│   ├── adapter_router.py       ← Persistent adapter router (embedding cascade, LRU cache)
+│   ├── meta_router.py          ← Meta-router (learns optimal adapter chains from outcomes)
+│   ├── stage_discovery.py      ← Stage discovery (greedy/guided/beam adapter sequence finding)
+│   ├── outcome_logger.py       ← Thread-safe fact x adapter outcome logging
+│   ├── dimension_physics.py    ← Dimension-dependent physics checker (2D vs 3D)
+│   └── tool_graph.py           ← Tool graph framework (calculator chaining)
 │
 ├── problems/                   ← Domain plugins (fork here)
 │   ├── problem_template.yaml
@@ -1350,7 +1394,7 @@ NoetherSolve
 ├── adapters/                   ← Trained weights (gitignored)
 │
 └── results/
-    ├── candidates.tsv          ← All tested hypotheses (193 entries)
+    ├── candidates.tsv          ← All tested hypotheses (250+ entries)
     └── discoveries/            ← Discovery notes (26 files)
 ```
 
@@ -1370,6 +1414,8 @@ NoetherSolve
 - **Snap-On Communication Modules** (Paper 8) — frozen logit-space adapters
   that close knowledge gaps without touching base model weights.
   DOI: [10.5281/zenodo.18902616](https://doi.org/10.5281/zenodo.18902616)
+
+- **Discovery Papers D1-D6** -- Novel scientific findings discovered by the pipeline, from conservation laws in fluid dynamics to certainty contamination in LLM evaluation. See badges above for DOIs.
 
 - **autoresearch-at-home** (mutable-state-inc) — THINK → CLAIM → RUN → PUBLISH
   coordination protocol for collaborative research without duplicate work.
