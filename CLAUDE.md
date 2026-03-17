@@ -290,6 +290,58 @@ Models systematically prefer round numbers and simple forms over precise values:
 
 **See:** `results/discoveries/novel_findings/round_number_bias.md`
 
+#### Mechanism 6: Certainty Contamination Bias (Discovered Mar 17)
+
+**Models prefer definitive-sounding claims over hedged scientific language**, even when the hedged statement is correct:
+
+| Truth Style | Distractor Style | Pass Rate |
+|-------------|-----------------|-----------|
+| Hedged ("hints at", "awaits confirmation") | Definitive ("completely ruled out") | **26%** |
+| Neutral (factual) | Definitive | 45% |
+| Definitive | Definitive | 55% |
+
+**Correlation:** r = -0.402 between certainty gap and oracle margin (t = 3.57, p < 0.01)
+
+**This is NOT length bias.** High-certainty distractors are actually LONGER (r = +0.277), so length bias would favor the shorter truth. The certainty effect overrides length bias.
+
+**Certainty markers (trigger bias when in distractors):**
+`definitively, completely, proven, ruled out, impossible, always, never, guaranteed, certain, absolutely, all, none, every, must, cannot`
+
+**Hedging markers (trigger bias when in truth):**
+`may, might, could, uncertain, varies, approximately, suggests, indicates, possible, likely, probably, tentative, preliminary, hints, awaits confirmation, inconclusive`
+
+**Pipeline integration: Cascade Routing**
+
+The adapter router now supports cascade routing to handle certainty-biased facts:
+
+```python
+# Load router with global adapters
+router = AdapterRouter.load("router_state.npz")
+router.auto_register_global_adapters("adapters/")
+
+# Cascade scoring: baseline first, adapter fallback on failure
+result = router.score_fact_cascade(model, tokenizer, lm_head, context, truth, distractors)
+win, margin, truth_lp, best_dist_lp, decision, cascade_used = result
+```
+
+**Cascade strategy (zero regressions):**
+1. Try baseline (no adapter)
+2. If baseline **PASSES** → return baseline result (no change)
+3. If baseline **FAILS** and certainty_gap ≥ 2:
+   - Try domain adapter (from routing)
+   - Try global certainty adapters
+   - Return whichever has highest margin
+4. If baseline **FAILS** and low certainty_gap → just try domain adapter
+
+**Results:** +1.8% overall pass rate with zero regressions on passing facts.
+
+**Fix for fact files:** Use hedged language in distractors to match truth:
+- "completely ruled out" → "appears unlikely"
+- "definitively proven" → "seems supported"
+- "fundamentally cannot" → "is difficult to"
+
+**See:** `results/discoveries/novel_findings/certainty_contamination_bias.md`
+
 #### Unified Audit Checklist
 
 Before running oracle on a new fact file:
