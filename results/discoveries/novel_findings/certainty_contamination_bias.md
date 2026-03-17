@@ -78,7 +78,31 @@ awaits confirmation, inconclusive`
 - Rebalancing intervention (+0.89 average improvement)
 - Domain analysis (67% high-gap in frontier domains)
 
+## Adapter Training Results
+
+Trained a certainty decontamination adapter on 118 high-gap examples:
+- **Average improvement: +0.28** on high-gap facts
+- **13/27 significantly improved** (Δ > 0.3)
+- **3 errors fixed** (csf04, nf06, cof02)
+- Large gains on hardest facts: nf03 +2.19, ppf06 +1.33, dm10 +1.21
+
+**However**: Pass rate dropped 26% → 11% due to overcorrection.
+
+**Root cause**: Adapter boosts hedged language, but some passing facts have *neutral* truths (no hedging markers). The adapter penalizes neutral truths along with definitive ones.
+
+**Refined approach**: Train to penalize definitive *distractors* rather than boost hedged *truths*. Or use certainty-gap routing: only apply adapter when gap >= 2.
+
+## Truth Style Taxonomy
+
+| Truth Style | Example | Adapter Effect |
+|------------|---------|----------------|
+| Hedged | "remains inconclusive" | ✓ Improved |
+| Neutral/Factual | "bulk gravity to boundary CFT" | ✗ Regressed |
+| Definitive | "is always conserved" | ✗ May regress |
+
+The certainty decontamination adapter only helps when truth is hedged AND distractor is definitive. For neutral truths, use standard routing.
+
 ---
 
 *Discovered: 2026-03-17*
-*Method: Oracle margin analysis across 1138 facts, certainty marker detection, rebalancing intervention*
+*Method: Oracle margin analysis across 1138 facts, certainty marker detection, rebalancing intervention, adapter training experiment*
