@@ -372,7 +372,45 @@ All three are **measurement artifacts** caused by the interaction of length, flu
 
 ---
 
-## 11. Limitations and Future Work
+## 11. True Knowledge Gaps: What Remains After Fixing Measurement Artifacts
+
+Not all oracle failures are measurement artifacts. After applying all three mechanism fixes, some failures persist. These represent **true knowledge gaps** in the model.
+
+### Discovery: Dimensional Asymmetric Learning
+
+We identified a systematic knowledge gap across physics domains: models know 3D physics but **fail to modulate for 2D context**.
+
+| Physics Domain | 3D Correct | 2D Correct | 2D Context → | 3D Context → |
+|----------------|------------|------------|--------------|--------------|
+| Coulomb/Green's function | 1/r | -ln(r) | **1/r (BLIND)** | 1/r (AWARE) |
+| Vortex topology | lines | points | **lines (BLIND)** | lines (AWARE) |
+| Turbulence cascade | downward | upward | **downward (BLIND)** | downward (AWARE) |
+| NS regularity | open | solved | **open (BLIND)** | open (AWARE) |
+
+**Result: 0/6 dimension-aware, 6/6 dimension-blind = 100% blindness rate**
+
+This is **not fixable** by length balancing, distractor coherence, or scoring method changes. It is a structural gap in how dimensional context modulates physics associations. Adapter training also fails (makes accuracy worse), suggesting the representation itself lacks the conditional structure needed.
+
+### Distinguishing Artifacts from Gaps
+
+| Signature | Measurement Artifact | True Knowledge Gap |
+|-----------|---------------------|-------------------|
+| Fixed by length balancing | Yes | No |
+| Fixed by incoherent distractors | Yes | No |
+| Fixed by scoring method | Yes | No |
+| Fixed by adapter training | Often | Rarely |
+| Pattern | Domain-wide uniform | Specific concept patterns |
+| Example | LLM self-knowledge (0%→75%) | Dimensional physics (100% blind) |
+
+The oracle framework serves dual purposes:
+1. **Filter artifacts** (mechanisms 1-3) to reveal true baseline
+2. **Identify true gaps** that require new tools or training data
+
+For dimensional blindness, we built a verified tool (`check_dimension_physics()`) rather than attempting adapter repair.
+
+---
+
+## 12. Limitations and Future Work
 
 ### Limitations
 
@@ -389,7 +427,7 @@ All three are **measurement artifacts** caused by the interaction of length, flu
 
 ---
 
-## 12. Conclusion
+## 13. Conclusion
 
 Three independent mechanisms determine oracle performance:
 
