@@ -416,6 +416,48 @@ python -m noethersolve.audit_facts --file problems/my_facts.json
 
 **See:** `results/discoveries/novel_findings/term_preference_bias.md`
 
+#### Mechanism 9: Mathematical Status Blindness (Discovered Mar 17)
+
+**Models can state what a conjecture claims but systematically fail on its research status** (proven/open/partially resolved):
+
+| Question Type | Pass Rate | Avg Margin | n |
+|---------------|-----------|------------|---|
+| Content-only (what does it claim?) | **71.4%** | -2.2 | 7 |
+| Status-only (is it proven/open?) | **4.2%** | -33.3 | 24 |
+| Mixed | 7.4% | -20.4 | 27 |
+
+**Statistical significance:** t = -4.21, p = 0.000224
+
+**Status words have 0% pass rate:**
+- "proven" (11 facts) → 0% pass, avg margin -25.1
+- "open" (8 facts) → 0% pass, avg margin -31.3
+- "unknown" (4 facts) → 0% pass, avg margin -41.4
+- "conjectured" (4 facts) → 0% pass, avg margin -54.9
+
+**Directional Resolution Bias (novel finding):**
+| Confusion Type | Count | Percentage |
+|----------------|-------|------------|
+| Model claims "proven" when truth is "open" | 6 | **27%** |
+| Model claims "open" when truth is "proven" | 0 | **0%** |
+
+**The model NEVER downgrades proven to open, but DOES upgrade open to proven.**
+
+**Mechanism:**
+1. Training data consistency: mathematical definitions repeated consistently
+2. Status volatility: research status changes when proofs published
+3. Temporal contamination: training mixes pre- and post-proof discussions
+4. Resolution preference: "is proven" appears more than "is open" in web text
+
+**This is a domain-specific manifestation of Certainty Contamination Bias** applied to mathematical research status.
+
+**For fact files:** Separate content from status questions:
+- Content: "Goldbach conjecture claims that..." → 71% pass rate
+- Status: "Goldbach conjecture is currently..." → 4% pass rate
+
+**For tool design:** MCP tools provide authoritative status — this is exactly what `check_conjecture()` does.
+
+**See:** `results/discoveries/novel_findings/mathematical_status_blindness.md`
+
 #### Unified Audit Checklist
 
 Before running oracle on a new fact file:
@@ -428,7 +470,8 @@ Before running oracle on a new fact file:
 6. [ ] **Certainty balanced?** Don't use definitive distractors with hedged truths. Match certainty level.
 7. [ ] **Technical complexity balanced?** Don't use simple/familiar distractors with technical truths. Match jargon level.
 8. [ ] **Term familiarity balanced?** Don't pit famous terms against obscure ones. Use mirror pair analysis to detect.
-9. [ ] **Try rescue strategy (truth-type dependent)?**
+9. [ ] **Status vs content separated?** (Math domains) Don't mix "what does X claim" with "is X proven/open" — status questions fail at 4% vs content at 71%.
+10. [ ] **Try rescue strategy (truth-type dependent)?**
    - **Short numerical truths (≤5 tokens):** Use length-matched distractors. Anti-fluency creates false positives!
    - **Verbose/conceptual truths:** Use anti-fluency distractors (verbose/awkward).
    - If fact flips, model already knows — adapter is unnecessary.
