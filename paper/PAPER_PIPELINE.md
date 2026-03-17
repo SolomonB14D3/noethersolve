@@ -278,6 +278,7 @@ curl -X POST "https://zenodo.org/api/deposit/depositions/{id}/actions/publish" \
 | D2 | Z₃ Phase Cancellation | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19055580 |
 | D3 | Where LLMs Are Wrong | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19055582 |
 | D4 | Orthogonal Adapter Routing | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19055588 |
+| D5 | Certainty Contamination | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | 10.5281/zenodo.19068373 |
 
 ---
 
@@ -289,3 +290,4 @@ curl -X POST "https://zenodo.org/api/deposit/depositions/{id}/actions/publish" \
 | D2 | z3_cancellation | `d2_` | Celestial mechanics / dynamical systems |
 | D3 | llm_knowledge_gaps | `d3_` | AI / machine learning |
 | D4 | orthogonal_routing | `d4_` | NLP / adapter methods |
+| D5 | certainty_contamination | `d5_` | AI / evaluation methodology |
