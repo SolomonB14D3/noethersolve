@@ -1,0 +1,358 @@
+"""Stage Discovery — Automatically find optimal adapter sequences.
+
+Phase 2 of full automation: given a domain with 0% baseline, discover
+the optimal adapter sequence to flip all facts.
+
+The Hamiltonian domain took 5 manual stages to reach 16/16.
+This module automates that discovery process.
+
+Approaches:
+1. Greedy: Add adapter that flips most remaining facts without regression
+2. Beam search: Track top-k partial sequences
+3. Genetic: Evolve populations of adapter sequences
+
+Usage:
+    discoverer = StageDiscoverer(
+        facts_file="problems/hamiltonian_facts.json",
+        adapters_dir="adapters/",
+        oracle_fn=run_oracle  # Function to evaluate
+    )
+
+    # Find optimal sequence
+    sequence = discoverer.discover(method="greedy", max_stages=10)
+    # Returns: ["hamiltonian_symplectic", "hamiltonian_noether", "hamiltonian_energy", ...]
+
+    # Or use beam search for potentially better solutions
+    sequence = discoverer.discover(method="beam", beam_width=3)
+"""
+
+from dataclasses import dataclass, field
+from typing import Callable, Dict, List, Optional, Set, Tuple, Any
+from pathlib import Path
+import json
+import random
+import numpy as np
+from collections import defaultdict
+import heapq
+
+
+@dataclass
+class EvalResult:
+    """Result of evaluating an adapter on facts."""
+    adapter: str
+    n_passed: int
+    n_total: int
+    margins: List[float]  # Per-fact margins
+    passed_ids: Set[str]  # IDs of facts that passed
+    regressed_ids: Set[str] = field(default_factory=set)  # Facts that got worse
+
+
+@dataclass
+class StageSequence:
+    """A sequence of adapters and its cumulative results."""
+    adapters: List[str]
+    passed_ids: Set[str]
+    score: float  # n_passed / n_total
+    history: List[EvalResult] = field(default_factory=list)
+
+    def __lt__(self, other):
+        # For heap: higher score = better
+        return self.score > other.score
+
+
+@dataclass
+class DiscoveryConfig:
+    """Configuration for stage discovery."""
+    max_stages: int = 10
+    min_improvement: int = 1  # Min facts to flip per stage
+    regression_tolerance: int = 0  # Max facts allowed to regress
+    beam_width: int = 3  # For beam search
+    population_size: int = 20  # For genetic algorithm
+    mutation_rate: float = 0.1
+    generations: int = 50
+    early_stop_threshold: float = 1.0  # Stop if this accuracy reached
+
+
+class StageDiscoverer:
+    """Discovers optimal adapter sequences for a domain."""
+
+    def __init__(
+        self,
+        facts: List[dict],
+        candidate_adapters: List[str],
+        oracle_fn: Callable[[str, List[dict]], EvalResult],
+        config: Optional[DiscoveryConfig] = None,
+    ):
+        """
+        Args:
+            facts: List of fact dicts with 'id', 'truth', etc.
+            candidate_adapters: List of adapter names/paths to consider
+            oracle_fn: Function(adapter, facts) -> EvalResult
+            config: Discovery configuration
+        """
+        self.facts = facts
+        self.fact_ids = {f.get("id", f"fact_{i}") for i, f in enumerate(facts)}
+        self.candidate_adapters = candidate_adapters
+        self.oracle_fn = oracle_fn
+        self.config = config or DiscoveryConfig()
+
+        # Cache for eval results
+        self._eval_cache: Dict[str, EvalResult] = {}
+
+    def _evaluate(self, adapter: str) -> EvalResult:
+        """Evaluate an adapter, using cache if available."""
+        if adapter not in self._eval_cache:
+            self._eval_cache[adapter] = self.oracle_fn(adapter, self.facts)
+        return self._eval_cache[adapter]
+
+    def discover_greedy(self) -> StageSequence:
+        """Greedy discovery: add adapter that flips most facts without regression."""
+        sequence = StageSequence(adapters=[], passed_ids=set(), score=0.0)
+        remaining_adapters = set(self.candidate_adapters)
+
+        for stage in range(self.config.max_stages):
+            best_adapter = None
+            best_improvement = 0
+            best_result = None
+
+            for adapter in remaining_adapters:
+                result = self._evaluate(adapter)
+
+                # Count new facts flipped
+                new_passed = result.passed_ids - sequence.passed_ids
+                improvement = len(new_passed)
+
+                # Check for regression
+                regressed = sequence.passed_ids - result.passed_ids
+                if len(regressed) > self.config.regression_tolerance:
+                    continue  # Skip adapters that cause too much regression
+
+                if improvement > best_improvement:
+                    best_improvement = improvement
+                    best_adapter = adapter
+                    best_result = result
+
+            if best_adapter is None or best_improvement < self.config.min_improvement:
+                break  # No more progress possible
+
+            # Add to sequence
+            sequence.adapters.append(best_adapter)
+            sequence.passed_ids.update(best_result.passed_ids)
+            sequence.score = len(sequence.passed_ids) / len(self.fact_ids)
+            sequence.history.append(best_result)
+            remaining_adapters.remove(best_adapter)
+
+            print(f"Stage {stage+1}: +{best_adapter} → {len(sequence.passed_ids)}/{len(self.fact_ids)} "
+                  f"({sequence.score:.1%})")
+
+            if sequence.score >= self.config.early_stop_threshold:
+                break
+
+        return sequence
+
+    def discover_beam(self) -> StageSequence:
+        """Beam search: track top-k partial sequences."""
+        # Initialize with empty sequence
+        beam = [StageSequence(adapters=[], passed_ids=set(), score=0.0)]
+
+        for stage in range(self.config.max_stages):
+            candidates = []
+
+            for seq in beam:
+                used_adapters = set(seq.adapters)
+
+                for adapter in self.candidate_adapters:
+                    if adapter in used_adapters:
+                        continue
+
+                    result = self._evaluate(adapter)
+
+                    # Check regression
+                    regressed = seq.passed_ids - result.passed_ids
+                    if len(regressed) > self.config.regression_tolerance:
+                        continue
+
+                    # Create new sequence
+                    new_passed = seq.passed_ids | result.passed_ids
+                    new_seq = StageSequence(
+                        adapters=seq.adapters + [adapter],
+                        passed_ids=new_passed,
+                        score=len(new_passed) / len(self.fact_ids),
+                        history=seq.history + [result],
+                    )
+                    candidates.append(new_seq)
+
+            if not candidates:
+                break
+
+            # Keep top-k by score
+            beam = heapq.nsmallest(self.config.beam_width, candidates)
+
+            best = beam[0]
+            print(f"Stage {stage+1}: best={len(best.passed_ids)}/{len(self.fact_ids)} "
+                  f"({best.score:.1%}), beam_size={len(beam)}")
+
+            if best.score >= self.config.early_stop_threshold:
+                break
+
+        return beam[0] if beam else StageSequence(adapters=[], passed_ids=set(), score=0.0)
+
+    def discover_genetic(self) -> StageSequence:
+        """Genetic algorithm: evolve populations of adapter sequences."""
+        # Initialize population with random sequences
+        population = []
+        for _ in range(self.config.population_size):
+            # Random sequence of 1-5 adapters
+            length = random.randint(1, min(5, len(self.candidate_adapters)))
+            adapters = random.sample(self.candidate_adapters, length)
+            population.append(adapters)
+
+        best_ever = StageSequence(adapters=[], passed_ids=set(), score=0.0)
+
+        for gen in range(self.config.generations):
+            # Evaluate population
+            scored = []
+            for adapters in population:
+                passed = set()
+                for adapter in adapters:
+                    result = self._evaluate(adapter)
+                    passed.update(result.passed_ids)
+
+                score = len(passed) / len(self.fact_ids)
+                seq = StageSequence(adapters=adapters, passed_ids=passed, score=score)
+                scored.append(seq)
+
+                if score > best_ever.score:
+                    best_ever = seq
+
+            # Sort by fitness
+            scored.sort(key=lambda s: s.score, reverse=True)
+
+            print(f"Gen {gen+1}: best={scored[0].score:.1%}, "
+                  f"avg={sum(s.score for s in scored)/len(scored):.1%}")
+
+            if best_ever.score >= self.config.early_stop_threshold:
+                break
+
+            # Selection: keep top half
+            survivors = scored[:self.config.population_size // 2]
+
+            # Crossover + mutation
+            new_population = [s.adapters for s in survivors]
+            while len(new_population) < self.config.population_size:
+                # Crossover
+                p1 = random.choice(survivors).adapters
+                p2 = random.choice(survivors).adapters
+
+                # One-point crossover
+                if len(p1) > 1 and len(p2) > 1:
+                    cut1 = random.randint(1, len(p1) - 1)
+                    cut2 = random.randint(1, len(p2) - 1)
+                    child = p1[:cut1] + p2[cut2:]
+                else:
+                    child = p1 + p2
+
+                # Remove duplicates
+                seen = set()
+                child = [a for a in child if not (a in seen or seen.add(a))]
+
+                # Mutation
+                if random.random() < self.config.mutation_rate:
+                    if child and random.random() < 0.5:
+                        # Remove random adapter
+                        child.pop(random.randint(0, len(child) - 1))
+                    else:
+                        # Add random adapter
+                        available = set(self.candidate_adapters) - set(child)
+                        if available:
+                            child.append(random.choice(list(available)))
+
+                if child:  # Don't add empty sequences
+                    new_population.append(child)
+
+            population = new_population[:self.config.population_size]
+
+        return best_ever
+
+    def discover(self, method: str = "greedy") -> StageSequence:
+        """Run discovery with specified method.
+
+        Args:
+            method: "greedy", "beam", or "genetic"
+
+        Returns:
+            Best discovered StageSequence
+        """
+        if method == "greedy":
+            return self.discover_greedy()
+        elif method == "beam":
+            return self.discover_beam()
+        elif method == "genetic":
+            return self.discover_genetic()
+        else:
+            raise ValueError(f"Unknown method: {method}")
+
+
+def simulate_oracle(adapter: str, facts: List[dict]) -> EvalResult:
+    """Simulated oracle for testing (random outcomes)."""
+    n = len(facts)
+    # Simulate: each adapter passes ~30-60% of facts
+    pass_rate = random.uniform(0.3, 0.6)
+    passed_mask = [random.random() < pass_rate for _ in range(n)]
+
+    passed_ids = {
+        f.get("id", f"fact_{i}")
+        for i, f in enumerate(facts) if passed_mask[i]
+    }
+
+    margins = [random.uniform(-50, 50) if m else random.uniform(-100, -10)
+               for m in passed_mask]
+
+    return EvalResult(
+        adapter=adapter,
+        n_passed=len(passed_ids),
+        n_total=n,
+        margins=margins,
+        passed_ids=passed_ids,
+    )
+
+
+# Quick test
+if __name__ == "__main__":
+    print("=== Stage Discovery Demo ===\n")
+
+    # Create fake facts
+    facts = [{"id": f"fact_{i:02d}", "truth": f"Test fact {i}"} for i in range(16)]
+
+    # Create fake adapter list
+    adapters = [
+        "domain_cluster1",
+        "domain_cluster2",
+        "domain_cluster3",
+        "domain_cluster4",
+        "domain_general",
+    ]
+
+    # Test greedy
+    print("--- Greedy Discovery ---")
+    discoverer = StageDiscoverer(
+        facts=facts,
+        candidate_adapters=adapters,
+        oracle_fn=simulate_oracle,
+        config=DiscoveryConfig(max_stages=5),
+    )
+    result = discoverer.discover("greedy")
+    print(f"\nResult: {result.adapters}")
+    print(f"Score: {result.score:.1%}")
+
+    # Test beam search
+    print("\n--- Beam Search Discovery ---")
+    discoverer = StageDiscoverer(
+        facts=facts,
+        candidate_adapters=adapters,
+        oracle_fn=simulate_oracle,
+        config=DiscoveryConfig(max_stages=5, beam_width=3),
+    )
+    result = discoverer.discover("beam")
+    print(f"\nResult: {result.adapters}")
+    print(f"Score: {result.score:.1%}")

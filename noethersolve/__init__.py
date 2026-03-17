@@ -724,4 +724,25 @@ from noethersolve.tool_graph import (  # noqa: F401
     CalculatorMeta,
 )
 
+from noethersolve.meta_router import (  # noqa: F401
+    MetaRouter,
+    MetaRouterConfig,
+    OutcomeRecord,
+    FactEmbedder,
+)
+
+from noethersolve.stage_discovery import (  # noqa: F401
+    StageDiscoverer,
+    DiscoveryConfig,
+    EvalResult,
+    StageSequence,
+)
+
+from noethersolve.outcome_logger import (  # noqa: F401
+    OutcomeLogger,
+    get_logger as get_outcome_logger,
+    log_outcome,
+    log_batch,
+)
+
 __version__ = "1.18.0"
