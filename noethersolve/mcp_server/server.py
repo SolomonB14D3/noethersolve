@@ -3982,6 +3982,119 @@ def calc_huffman_landauer(probabilities: list[float], temperature: float = 300.0
     return str(calc_huffman_landauer_parallel(probabilities, temperature))
 
 
+# ── Battery Degradation ──────────────────────────────────────────────
+
+@mcp.tool()
+def calc_battery_calendar_aging(
+    chemistry: str,
+    time_days: float,
+    temperature_C: float = 25.0,
+    soc_storage: float = 0.5,
+) -> str:
+    """Calculate Li-ion battery calendar (storage) aging.
+
+    CRITICAL: Calendar aging follows sqrt(t), NOT linear!
+    This is the #1 LLM error on battery degradation.
+
+    SEI layer growth is diffusion-limited → Q_loss ∝ √t.
+    Doubling storage time does NOT double capacity loss.
+
+    chemistry: "NMC", "LFP", or "NCA"
+    time_days: Storage time in days
+    temperature_C: Storage temperature (default 25°C)
+    soc_storage: State of charge during storage (0-1, default 0.5)
+
+    Example: calc_battery_calendar_aging("NMC", 365, 25, 0.5)
+    → ~2% loss after 1 year at room temperature
+    """
+    from noethersolve.battery_degradation import calc_calendar_aging
+    return str(calc_calendar_aging(chemistry, time_days, temperature_C, soc_storage))
+
+
+@mcp.tool()
+def calc_battery_cycle_aging(
+    chemistry: str,
+    cycles: int,
+    dod: float = 0.8,
+    temperature_C: float = 25.0,
+    c_rate: float = 1.0,
+) -> str:
+    """Calculate Li-ion battery cycle aging.
+
+    Cycle aging is driven by mechanical stress (particle cracking).
+    Higher DOD causes EXPONENTIALLY more stress: Q_loss ∝ DOD^n.
+
+    chemistry: "NMC", "LFP", or "NCA"
+    cycles: Number of charge/discharge cycles
+    dod: Depth of discharge per cycle (0-1, default 0.8)
+    temperature_C: Operating temperature (default 25°C)
+    c_rate: Charge/discharge rate (default 1.0C)
+
+    Example: calc_battery_cycle_aging("NMC", 500, 0.8)
+    → Capacity loss from 500 cycles at 80% DOD
+    """
+    from noethersolve.battery_degradation import calc_cycle_aging
+    return str(calc_cycle_aging(chemistry, cycles, dod, temperature_C, c_rate))
+
+
+@mcp.tool()
+def calc_battery_total_aging(
+    chemistry: str,
+    time_days: float,
+    cycles: int,
+    temperature_C: float = 25.0,
+    dod: float = 0.8,
+    soc_storage: float = 0.5,
+) -> str:
+    """Calculate total Li-ion battery degradation (calendar + cycle).
+
+    CRITICAL: Calendar and cycle aging are ADDITIVE, not multiplicative!
+    Total loss = Calendar loss + Cycle loss
+
+    This is a common LLM error - models often assume multiplicative effects.
+
+    chemistry: "NMC", "LFP", or "NCA"
+    time_days: Total time in days
+    cycles: Number of cycles performed
+    temperature_C: Average operating temperature
+    dod: Typical depth of discharge
+    soc_storage: Average storage SOC when not cycling
+
+    Example: calc_battery_total_aging("NMC", 730, 600, 25, 0.8)
+    → 2 years with 300 cycles/year at 80% DOD
+    """
+    from noethersolve.battery_degradation import calc_combined_aging
+    return str(calc_combined_aging(chemistry, time_days, cycles, temperature_C, dod, soc_storage))
+
+
+@mcp.tool()
+def compare_battery_chemistries(
+    time_days: float,
+    cycles: int,
+    temperature_C: float = 25.0,
+    dod: float = 0.8,
+) -> str:
+    """Compare NMC, LFP, and NCA battery degradation for same usage.
+
+    Useful for battery chemistry selection decisions.
+
+    Key differences:
+    - NMC: Balanced calendar/cycle, moderate cost
+    - LFP: Better cycle life, worse energy density
+    - NCA: High energy density, more sensitive to stress
+
+    time_days: Total time in days
+    cycles: Number of cycles
+    temperature_C: Operating temperature
+    dod: Depth of discharge
+
+    Example: compare_battery_chemistries(730, 600, 25, 0.8)
+    → 2-year EV comparison
+    """
+    from noethersolve.battery_degradation import compare_chemistries
+    return compare_chemistries(time_days, cycles, temperature_C, dod)
+
+
 # ── Blind Spot Detection ──────────────────────────────────────────────
 
 @mcp.tool()

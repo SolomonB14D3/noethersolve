@@ -728,6 +728,17 @@ from noethersolve.info_thermo import (  # noqa: F401
     LN_2,
 )
 
+from noethersolve.battery_degradation import (  # noqa: F401
+    calc_calendar_aging,
+    calc_cycle_aging,
+    calc_combined_aging,
+    compare_chemistries,
+    CalendarAgingReport,
+    CycleAgingReport,
+    CombinedAgingReport,
+    CHEMISTRY_PARAMS,
+)
+
 from noethersolve.tool_graph import (  # noqa: F401
     calculator,
     get_registry,
