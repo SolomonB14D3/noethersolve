@@ -9,6 +9,7 @@ build/
 
 # Adapter weights (large binary files — train locally)
 adapters/*.npz
+adapters/**/*.npz
 adapters/**/*.safetensors
 adapters/**/*.bin
 
