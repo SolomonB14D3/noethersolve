@@ -3915,6 +3915,40 @@ def calc_cyclotron_params(
     return "\n".join(lines)
 
 
+# ── Blind Spot Detection ──────────────────────────────────────────────
+
+@mcp.tool()
+def detect_blind_spots(query: str) -> str:
+    """Detect model blind spots in a query and recommend MCP tools.
+
+    CALL THIS FIRST when unsure if a question involves cross-domain
+    connections or known blind spots. Returns recommended tools to use.
+
+    Cross-domain blind spots include:
+    - Deadlock ↔ Detailed Balance (OS ↔ thermodynamics)
+    - PageRank ↔ Equilibrium (web search ↔ stat mech)
+    - Database Isolation ↔ Quantum Decoherence
+    - Huffman Coding ↔ Landauer's Principle
+    - Type Inference ↔ Gauge Fixing
+
+    Single-domain blind spots include:
+    - Conjecture/proof status (model hallucinates)
+    - Complexity class relationships
+    - LLM capability claims
+
+    Example: detect_blind_spots("Is P = NP proven?")
+    → Recommends check_conjecture() tool
+    """
+    from noethersolve.blind_spot_detector import (
+        detect_blind_spots as _detect,
+        format_blind_spot_warning,
+    )
+    matches = _detect(query)
+    if not matches:
+        return "No known blind spots detected. Safe to answer from knowledge."
+    return format_blind_spot_warning(matches)
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():

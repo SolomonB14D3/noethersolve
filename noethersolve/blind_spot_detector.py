@@ -1,0 +1,147 @@
+"""Blind spot detection and MCP tool routing.
+
+Detects cross-domain and single-domain blind spots from query text,
+recommends appropriate MCP tools.
+"""
+
+import json
+import os
+from dataclasses import dataclass
+from typing import List, Optional
+
+BLIND_SPOTS_PATH = os.path.join(os.path.dirname(__file__), "blind_spots.json")
+
+
+@dataclass
+class BlindSpotMatch:
+    """A matched blind spot with recommended tools."""
+    id: str
+    domains: List[str]
+    insight: str
+    tools: List[str]
+    interpretation: str
+    match_score: float  # 0-1, based on keyword matches
+
+
+def load_blind_spots() -> dict:
+    """Load blind spots registry."""
+    with open(BLIND_SPOTS_PATH) as f:
+        return json.load(f)
+
+
+def detect_blind_spots(query: str) -> List[BlindSpotMatch]:
+    """Detect blind spots triggered by query keywords.
+
+    Args:
+        query: User question or context
+
+    Returns:
+        List of matching blind spots, sorted by match score
+    """
+    data = load_blind_spots()
+    query_lower = query.lower()
+    matches = []
+
+    # Check cross-domain connections
+    for conn in data.get("cross_domain_connections", []):
+        keywords = conn.get("trigger_keywords", [])
+        matched = sum(1 for k in keywords if k.lower() in query_lower)
+        if matched >= 2:  # Need at least 2 keyword matches
+            score = matched / len(keywords)
+            matches.append(BlindSpotMatch(
+                id=conn["id"],
+                domains=conn["domains"],
+                insight=conn["insight"],
+                tools=conn["tools"],
+                interpretation=conn["interpretation"],
+                match_score=score
+            ))
+
+    # Check single-domain blind spots
+    for spot in data.get("single_domain_blind_spots", []):
+        keywords = spot.get("trigger_keywords", [])
+        matched = sum(1 for k in keywords if k.lower() in query_lower)
+        if matched >= 1:
+            score = matched / len(keywords)
+            matches.append(BlindSpotMatch(
+                id=spot["id"],
+                domains=[spot["domain"]],
+                insight=spot.get("reason", ""),
+                tools=spot["tools"],
+                interpretation="",
+                match_score=score
+            ))
+
+    # Sort by score descending
+    matches.sort(key=lambda m: m.match_score, reverse=True)
+    return matches
+
+
+def get_recommended_tools(query: str) -> List[str]:
+    """Get list of MCP tools recommended for this query.
+
+    Args:
+        query: User question
+
+    Returns:
+        List of tool names to call
+    """
+    matches = detect_blind_spots(query)
+    tools = []
+    for m in matches:
+        tools.extend(m.tools)
+    # Deduplicate while preserving order
+    seen = set()
+    unique = []
+    for t in tools:
+        if t not in seen:
+            seen.add(t)
+            unique.append(t)
+    return unique
+
+
+def format_blind_spot_warning(matches: List[BlindSpotMatch]) -> str:
+    """Format a warning message about detected blind spots.
+
+    Args:
+        matches: List of matched blind spots
+
+    Returns:
+        Human-readable warning with tool recommendations
+    """
+    if not matches:
+        return ""
+
+    lines = ["⚠️ BLIND SPOT DETECTED - Use MCP tools, not memory:\n"]
+
+    for m in matches:
+        lines.append(f"  [{m.id}] {' ↔ '.join(m.domains)}")
+        if m.insight:
+            lines.append(f"    Insight: {m.insight}")
+        if m.tools:
+            lines.append(f"    Tools: {', '.join(m.tools)}")
+        if m.interpretation:
+            lines.append(f"    Interpretation: {m.interpretation}")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+# Quick test
+if __name__ == "__main__":
+    test_queries = [
+        "What's the relationship between deadlock and detailed balance?",
+        "Is P = NP proven?",
+        "How does PageRank relate to thermodynamic equilibrium?",
+        "What's the connection between database isolation and quantum decoherence?",
+        "Does RLHF eliminate hallucination?",
+    ]
+
+    for q in test_queries:
+        print(f"Query: {q}")
+        matches = detect_blind_spots(q)
+        if matches:
+            print(format_blind_spot_warning(matches))
+        else:
+            print("  No blind spots detected\n")
+        print("-" * 60)

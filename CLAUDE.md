@@ -43,6 +43,13 @@ The discovery pipeline proposes candidates, verifies them numerically, checks if
 - Database transaction isolation → `check_isolation()`, `analyze_schedule()`
 - Quantum circuits → `simulate_quantum_circuit()`
 
+**Cross-domain blind spots — call `detect_blind_spots()` first:**
+- Deadlock + thermodynamics → `calc_deadlock()` + `audit_chemical_network()` (same cycle math)
+- PageRank + equilibrium → stationary distributions follow Boltzmann statistics
+- Database isolation + decoherence → COMMIT = measurement, isolation = decoherence rate
+- Type inference + gauge fixing → both remove redundancy for unique solutions
+- Huffman + Landauer → both optimize Σ p_i × cost_i
+
 **Setup:** The MCP server is configured in `.mcp.json` at the project root
 (already present). Claude Code auto-discovers it. Or run standalone:
 `python -m noethersolve.mcp_server` / `noethersolve-mcp`

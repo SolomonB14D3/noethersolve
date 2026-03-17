@@ -1,0 +1,77 @@
+{
+  "version": "1.0",
+  "description": "Registry of model blind spots with recommended MCP tool combinations",
+
+  "cross_domain_connections": [
+    {
+      "id": "deadlock_detailed_balance",
+      "domains": ["operating_systems", "thermodynamics"],
+      "trigger_keywords": ["deadlock", "detailed balance", "cycle", "wait-for", "Wegscheider"],
+      "insight": "Deadlock is the infinite-imbalance limit of detailed balance violation",
+      "tools": ["calc_deadlock", "audit_chemical_network"],
+      "interpretation": "If calc_deadlock finds a cycle AND audit_chemical_network shows cycle imbalance → same mathematical structure"
+    },
+    {
+      "id": "pagerank_equilibrium",
+      "domains": ["web_search", "statistical_mechanics"],
+      "trigger_keywords": ["PageRank", "stationary distribution", "Boltzmann", "equilibrium", "thermodynamic", "energy landscape"],
+      "insight": "PageRank defines an energy landscape: E_i = -log(PageRank_i)",
+      "tools": ["calc_scheduling"],
+      "interpretation": "Stationary distributions follow Boltzmann statistics; teleportation = external driving"
+    },
+    {
+      "id": "isolation_decoherence",
+      "domains": ["databases", "quantum_mechanics"],
+      "trigger_keywords": ["isolation", "COMMIT", "decoherence", "measurement", "MVCC", "pointer states", "database", "quantum"],
+      "insight": "COMMIT = measurement, isolation level = decoherence rate",
+      "tools": ["check_isolation", "simulate_quantum_circuit"],
+      "interpretation": "Higher isolation = more classical (decohered) view of transaction state"
+    },
+    {
+      "id": "huffman_landauer",
+      "domains": ["information_theory", "thermodynamics"],
+      "trigger_keywords": ["Huffman", "optimal code", "Landauer", "entropy", "compression", "erasure"],
+      "insight": "Both optimize Σ p_i × cost_i with cost ∝ -log(p_i)",
+      "tools": [],
+      "interpretation": "Shannon entropy bounds both bits needed AND work extractable"
+    },
+    {
+      "id": "type_gauge",
+      "domains": ["programming_languages", "physics"],
+      "trigger_keywords": ["type inference", "polymorphism", "gauge fixing", "principal type", "unifier"],
+      "insight": "Both remove redundancy to get unique solutions",
+      "tools": [],
+      "interpretation": "Most general unifier ↔ residual gauge freedom"
+    }
+  ],
+
+  "single_domain_blind_spots": [
+    {
+      "id": "complexity_relationships",
+      "domain": "complexity_theory",
+      "trigger_keywords": ["P vs NP", "complexity class", "inclusion", "complete"],
+      "tools": ["check_complexity_inclusion", "check_completeness", "check_proof_barriers"],
+      "reason": "Model often confuses proven vs conjectured relationships"
+    },
+    {
+      "id": "conjecture_status",
+      "domain": "mathematics",
+      "trigger_keywords": ["conjecture", "proven", "open problem", "Riemann", "Goldbach"],
+      "tools": ["check_conjecture"],
+      "reason": "Model hallucinates proof status"
+    },
+    {
+      "id": "llm_claims",
+      "domain": "machine_learning",
+      "trigger_keywords": ["LLM", "hallucination", "RLHF", "scaling", "benchmark"],
+      "tools": ["check_llm_claim"],
+      "reason": "Model is miscalibrated about its own capabilities"
+    }
+  ],
+
+  "usage": {
+    "detection": "Check if query contains trigger_keywords from multiple domains",
+    "action": "If cross-domain match, call ALL listed tools and synthesize",
+    "fallback": "If tools unavailable, acknowledge blind spot explicitly"
+  }
+}
