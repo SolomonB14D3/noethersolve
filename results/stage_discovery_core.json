@@ -1,0 +1,213 @@
+{
+  "results": [
+    {
+      "domain": "hamiltonian",
+      "n_facts": 16,
+      "n_adapters": 9,
+      "baseline_pass": 1,
+      "baseline_pct": 6.25,
+      "discovered_sequence": [
+        "hamiltonian_stage5"
+      ],
+      "discovered_pass": 16,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 2.3126602172851562e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "hamiltonian_stage3_anchored": {
+          "n_passed": 10,
+          "pct": 62.5
+        },
+        "hamiltonian_adapter": {
+          "n_passed": 2,
+          "pct": 12.5
+        },
+        "hamiltonian_stage2": {
+          "n_passed": 7,
+          "pct": 43.75
+        },
+        "hamiltonian_stage3": {
+          "n_passed": 8,
+          "pct": 50.0
+        },
+        "hamiltonian_stage1": {
+          "n_passed": 5,
+          "pct": 31.25
+        },
+        "hamiltonian_symplectic": {
+          "n_passed": 5,
+          "pct": 31.25
+        },
+        "hamiltonian_stage4_progressive": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "hamiltonian_stage4": {
+          "n_passed": 13,
+          "pct": 81.25
+        },
+        "hamiltonian_stage5": {
+          "n_passed": 16,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "ns_regularity",
+      "n_facts": 16,
+      "n_adapters": 37,
+      "baseline_pass": 1,
+      "baseline_pct": 6.25,
+      "discovered_sequence": [
+        "ns_stage3_final",
+        "ns_pb_stage1"
+      ],
+      "discovered_pass": 7,
+      "discovered_pct": 43.75,
+      "discovery_time_sec": 4.792213439941406e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "dimensional_physics_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_stage4": {
+          "n_passed": 4,
+          "pct": 25.0
+        },
+        "aging_biology_interventions_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_stage3": {
+          "n_passed": 6,
+          "pct": 37.5
+        },
+        "ns_stage2": {
+          "n_passed": 5,
+          "pct": 31.25
+        },
+        "clinical_translation_regulatory_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_adapter": {
+          "n_passed": 3,
+          "pct": 18.75
+        },
+        "consciousness_philosophy_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "consciousness_theories_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_stage1": {
+          "n_passed": 4,
+          "pct": 25.0
+        },
+        "physics_fundamentals_greens_function_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "physics_fundamentals_fluid_equations_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "clinical_translation_manufacturing_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "continuous_qf_2d_conservation_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "drug_interactions_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_stage3_protected": {
+          "n_passed": 5,
+          "pct": 31.25
+        },
+        "black_hole_frontiers_observations_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "continuous_qf_extension_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "ns_pb_stage1": {
+          "n_passed": 6,
+          "pct": 37.5
+        },
+        "clinical_translation_preclinical_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "consciousness_neuroscience_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "dimensional_all_stages_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_adapter_v2": {
+          "n_passed": 4,
+          "pct": 25.0
+        },
+        "ns_stage3_final": {
+          "n_passed": 6,
+          "pct": 37.5
+        },
+        "ns_regularity_prior_broken": {
+          "n_passed": 3,
+          "pct": 18.75
+        },
+        "millennium_problems_navier_stokes_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "holographic_qinfo_reconstruction_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "genetics_antisense_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "ns_micro_s4": {
+          "n_passed": 4,
+          "pct": 25.0
+        }
+      }
+    },
+    {
+      "domain": "chemical_conservation",
+      "n_facts": 16,
+      "n_adapters": 18,
+      "baseline_pass": 1,
+      "baseline_pct": 6.25,
+      "discovered_sequence": [
+        "chemical_adapter"
+      ],
+      "discovered_pass": 15,
+      "discovered_pct": 93.75,
+      "discovery_time_sec": 1.1920928955078125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "chem_enzyme_focused": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "chemical_adapter": {
+          "n_passed": 15,
+          "pct": 93.75
+        }
+      }
+    }
+  ]
+}

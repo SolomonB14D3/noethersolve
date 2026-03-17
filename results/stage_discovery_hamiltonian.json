@@ -1,0 +1,56 @@
+{
+  "results": [
+    {
+      "domain": "hamiltonian",
+      "n_facts": 16,
+      "n_adapters": 9,
+      "baseline_pass": 1,
+      "baseline_pct": 6.25,
+      "discovered_sequence": [
+        "hamiltonian_stage5"
+      ],
+      "discovered_pass": 16,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 2.09808349609375e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "hamiltonian_stage3_anchored": {
+          "n_passed": 10,
+          "pct": 62.5
+        },
+        "hamiltonian_adapter": {
+          "n_passed": 2,
+          "pct": 12.5
+        },
+        "hamiltonian_stage2": {
+          "n_passed": 7,
+          "pct": 43.75
+        },
+        "hamiltonian_stage3": {
+          "n_passed": 8,
+          "pct": 50.0
+        },
+        "hamiltonian_stage1": {
+          "n_passed": 5,
+          "pct": 31.25
+        },
+        "hamiltonian_symplectic": {
+          "n_passed": 5,
+          "pct": 31.25
+        },
+        "hamiltonian_stage4_progressive": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "hamiltonian_stage4": {
+          "n_passed": 13,
+          "pct": 81.25
+        },
+        "hamiltonian_stage5": {
+          "n_passed": 16,
+          "pct": 100.0
+        }
+      }
+    }
+  ]
+}
