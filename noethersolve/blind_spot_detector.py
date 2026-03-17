@@ -139,6 +139,65 @@ def format_blind_spot_warning(matches: List[BlindSpotMatch]) -> str:
     return "\n".join(lines)
 
 
+def list_all_blind_spots(needs_tool_only: bool = False) -> str:
+    """List all known blind spots as research opportunities.
+
+    Args:
+        needs_tool_only: If True, only show blind spots that need tools built
+
+    Returns:
+        Formatted list of blind spots with status and tool ideas
+    """
+    data = load_blind_spots()
+    lines = ["# Known Model Blind Spots\n"]
+
+    # Cross-domain
+    lines.append("## Cross-Domain Connections")
+    lines.append("(Model fails to connect these separate domains)\n")
+
+    for conn in data.get("cross_domain_connections", []):
+        needs_tool = conn.get("needs_tool", False)
+        if needs_tool_only and not needs_tool:
+            continue
+
+        domains = " ↔ ".join(conn["domains"])
+        status = "🔧 NEEDS TOOL" if needs_tool else "✓ Has tools"
+        lines.append(f"### {conn['id']}")
+        lines.append(f"**Domains:** {domains}")
+        lines.append(f"**Status:** {status}")
+        lines.append(f"**Insight:** {conn['insight']}")
+        if conn.get("tools"):
+            lines.append(f"**Tools:** {', '.join(conn['tools'])}")
+        if conn.get("tool_idea"):
+            lines.append(f"**Tool idea:** {conn['tool_idea']}")
+        lines.append(f"**Interpretation:** {conn.get('interpretation', 'N/A')}")
+        lines.append("")
+
+    # Single-domain
+    if not needs_tool_only:
+        lines.append("## Single-Domain Blind Spots")
+        lines.append("(Model is miscalibrated within these domains)\n")
+
+        for spot in data.get("single_domain_blind_spots", []):
+            lines.append(f"### {spot['id']}")
+            lines.append(f"**Domain:** {spot['domain']}")
+            lines.append(f"**Reason:** {spot.get('reason', 'N/A')}")
+            lines.append(f"**Tools:** {', '.join(spot.get('tools', []))}")
+            lines.append("")
+
+    # Summary
+    cross = data.get("cross_domain_connections", [])
+    single = data.get("single_domain_blind_spots", [])
+    needs_tools = sum(1 for c in cross if c.get("needs_tool", False))
+
+    lines.append("## Summary")
+    lines.append(f"- Cross-domain blind spots: {len(cross)}")
+    lines.append(f"- Single-domain blind spots: {len(single)}")
+    lines.append(f"- **Needing tools (research opportunities): {needs_tools}**")
+
+    return "\n".join(lines)
+
+
 # Quick test
 if __name__ == "__main__":
     test_queries = [

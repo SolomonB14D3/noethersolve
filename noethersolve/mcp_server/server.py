@@ -3949,6 +3949,31 @@ def detect_blind_spots(query: str) -> str:
     return format_blind_spot_warning(matches)
 
 
+@mcp.tool()
+def list_blind_spots(needs_tool_only: bool = False) -> str:
+    """List all known model blind spots as research opportunities.
+
+    Returns a complete inventory of:
+    - Cross-domain blind spots (model fails to connect separate domains)
+    - Single-domain blind spots (model is miscalibrated within domain)
+
+    Each entry shows:
+    - Domains involved
+    - Key insight (the connection the model misses)
+    - Available tools (if any)
+    - Tool ideas (for blind spots needing new tools)
+
+    Args:
+        needs_tool_only: If True, only show blind spots that need tools built
+                        (these are the primary research opportunities)
+
+    Example: list_blind_spots(needs_tool_only=True)
+    → Shows Huffman↔Landauer, Type↔Gauge that need calc_landauer_bound(), etc.
+    """
+    from noethersolve.blind_spot_detector import list_all_blind_spots
+    return list_all_blind_spots(needs_tool_only)
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():
