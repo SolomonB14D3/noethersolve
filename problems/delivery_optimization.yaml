@@ -1,0 +1,9 @@
+name: "delivery_optimization"
+description: "Oracle test for delivery_optimization"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "delivery_optimization_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

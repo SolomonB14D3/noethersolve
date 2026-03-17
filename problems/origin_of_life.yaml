@@ -1,0 +1,9 @@
+name: "origin_of_life"
+description: "Oracle test for origin_of_life"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "origin_of_life_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

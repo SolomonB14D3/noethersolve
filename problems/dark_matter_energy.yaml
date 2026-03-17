@@ -1,0 +1,9 @@
+name: "dark_matter_energy"
+description: "Oracle test for dark_matter_energy domain"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "dark_matter_energy_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

@@ -1,0 +1,9 @@
+name: "c10_repair"
+description: "Oracle test for c10_repair"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "c10_repair_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

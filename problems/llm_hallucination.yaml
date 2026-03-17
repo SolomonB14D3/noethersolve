@@ -1,0 +1,9 @@
+name: "llm_hallucination"
+description: "Oracle test for llm_hallucination"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "llm_hallucination_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

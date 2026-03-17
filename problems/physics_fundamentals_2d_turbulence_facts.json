@@ -1,0 +1,38 @@
+{
+  "domain": "physics_fundamentals_2d_turbulence",
+  "facts": [
+    {
+      "id": "pf09",
+      "context": "In 2D turbulence, the inverse cascade transfers which quantity to large scales:",
+      "truth": "kinetic energy",
+      "distractors": [
+        "enstrophy (squared vorticity)",
+        "vorticity",
+        "momentum"
+      ],
+      "category": "2d_turbulence"
+    },
+    {
+      "id": "pf10",
+      "context": "In 2D turbulence, the forward cascade transfers which quantity to small scales:",
+      "truth": "enstrophy (squared vorticity)",
+      "distractors": [
+        "kinetic energy",
+        "vorticity",
+        "momentum"
+      ],
+      "category": "2d_turbulence"
+    },
+    {
+      "id": "pf11",
+      "context": "The key difference between 2D and 3D turbulence is that in 2D:",
+      "truth": "energy cascades to large scales (inverse cascade)",
+      "distractors": [
+        "energy cascades to small scales",
+        "vorticity is not conserved",
+        "there is no inertial range"
+      ],
+      "category": "2d_turbulence"
+    }
+  ]
+}

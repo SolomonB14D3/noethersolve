@@ -1,0 +1,31 @@
+{
+  "examples": [
+    {
+      "context": "Green's function: 2D uses -ln(r) while 3D uses",
+      "truth": "1/r",
+      "distractors": [
+        "-ln(r) also",
+        "r\u00b2",
+        "exp(-r)"
+      ]
+    },
+    {
+      "context": "Vortices: 2D has points while 3D has",
+      "truth": "lines/tubes",
+      "distractors": [
+        "points also",
+        "sheets",
+        "nothing"
+      ]
+    },
+    {
+      "context": "Energy cascade: 2D goes up while 3D goes",
+      "truth": "down",
+      "distractors": [
+        "up also",
+        "both ways",
+        "neither"
+      ]
+    }
+  ]
+}

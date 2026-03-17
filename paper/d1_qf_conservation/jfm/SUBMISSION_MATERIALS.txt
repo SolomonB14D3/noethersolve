@@ -1,0 +1,18 @@
+JFM RAPIDS SUBMISSION MATERIALS
+================================
+
+TITLE:
+A broad family of approximate conservation laws in point vortex dynamics
+
+ABSTRACT:
+[From paper.tex - Section 1 introduction material]
+The N-vortex system conserves energy, linear impulse, and angular impulse exactly. I report that the pairwise-weighted quantity Q_f = Σ ΓᵢΓⱼ f(rᵢⱼ) is approximately conserved for ANY smooth function f, revealing an infinite family of approximate invariants. I verify this numerically on restricted three-vortex and two-vortex configurations and derive optimal combinations via Green's function principles. The conservation quality depends critically on f: stretch-resistant functions (positive powers) and concentration-detecting functions (negative powers) cannot coexist, revealing a fundamental dichotomy. This family bridges the known exact conservation laws and numerical approximation, with applications to invariant-based monitoring and error estimation in vortex simulations.
+
+SIGNIFICANCE STATEMENT:
+Point vortex dynamics is a fundamental model in fluid mechanics with applications to atmospheric vortices, ocean eddies, and quantum vortex dynamics. The discovery of an infinite family of approximate conservation laws provides new structural insight into vortex systems: beyond the three exactly conserved quantities (energy, linear impulse, angular impulse), an unlimited set of approximate invariants exists, all conserved to high precision. This family enables invariant-based error monitoring for numerical simulations, allows practitioners to choose f based on physical context (concentration vs. stretch sensitivity), and suggests that vortex hierarchies may be more constrained than previously understood. The Green's function optimality principle unifies the family and points toward conservation laws in higher-dimensional vortex-like systems.
+
+RAPIDS JUSTIFICATION:
+The discovery of a broad family of approximate conservation laws is timely because invariant monitoring has become critical in long-time numerical vortex simulations, where standard error measures (energy alone) miss important physics. This finding enables practitioners to choose dynamically conserved quantities tailored to their simulation purpose. The work is sufficiently complete (theory, numerics, optimization, and dichotomy characterization) and short enough for Rapids format.
+
+ASSOCIATE EDITOR RECOMMENDATION:
+T. A. Zaki

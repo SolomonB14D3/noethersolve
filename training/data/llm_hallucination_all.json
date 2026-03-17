@@ -1,0 +1,112 @@
+{
+  "examples": [
+    {
+      "context": "LLM hallucination refers to model outputs that are:",
+      "truth": "fluent and confident but factually incorrect or fabricated",
+      "distractors": [
+        "always detectable by the model itself",
+        "only occurring in smaller models",
+        "eliminated by scaling up model size"
+      ]
+    },
+    {
+      "context": "Closed-book QA (no retrieval) hallucination rates are problematic because:",
+      "truth": "models confabulate plausible-sounding but false details from parametric memory",
+      "distractors": [
+        "models refuse to answer without retrieval",
+        "accuracy exceeds human performance",
+        "hallucination only affects open-book settings"
+      ]
+    },
+    {
+      "context": "Retrieval-Augmented Generation (RAG) reduces but does not eliminate hallucination because:",
+      "truth": "models may ignore retrieved context or hallucinate beyond it",
+      "distractors": [
+        "RAG guarantees factual accuracy",
+        "retrieval is always perfect",
+        "hallucination is impossible with external knowledge"
+      ]
+    },
+    {
+      "context": "LLM-generated citations to academic papers are unreliable because:",
+      "truth": "fake papers, authors, DOIs are fabricated",
+      "distractors": [
+        "models only cite papers they have been specifically trained on during pretraining",
+        "citation accuracy exceeds 95% when verified against databases",
+        "fake citations are reliably self-detected by the model's internal verification"
+      ]
+    },
+    {
+      "context": "LLM confidence calibration is problematic because:",
+      "truth": "models express high confidence even when wrong (overconfidence on errors)",
+      "distractors": [
+        "models are well-calibrated by default",
+        "low confidence always indicates errors",
+        "calibration improves with model scale alone"
+      ]
+    },
+    {
+      "context": "Teaching LLMs to say 'I don't know' is difficult because:",
+      "truth": "training incentivizes generating plausible answers over admitting uncertainty",
+      "distractors": [
+        "models naturally refuse uncertain queries",
+        "RLHF fully solves this problem",
+        "uncertainty is always expressed accurately"
+      ]
+    },
+    {
+      "context": "Entity hallucination (confusing similar entities) occurs because:",
+      "truth": "models blend attributes of entities with similar names or contexts",
+      "distractors": [
+        "entities are stored in separate memory banks",
+        "confusion only happens with fictional entities",
+        "larger models never confuse entities"
+      ]
+    },
+    {
+      "context": "Temporal hallucination in LLMs refers to:",
+      "truth": "mixing up dates, claiming future events happened, or temporal ordering errors",
+      "distractors": [
+        "only affects events after training cutoff",
+        "is fully solved by adding timestamps",
+        "temporal reasoning is a strength of LLMs"
+      ]
+    },
+    {
+      "context": "Self-consistency decoding (sampling multiple times and voting) helps with:",
+      "truth": "reducing variance in reasoning but not eliminating systematic hallucinations",
+      "distractors": [
+        "guaranteeing correct answers",
+        "eliminating all factual errors",
+        "only working for math problems"
+      ]
+    },
+    {
+      "context": "Attribution and source grounding in LLMs is challenging because:",
+      "truth": "knowledge is distributed across parameters without explicit source tracking",
+      "distractors": [
+        "each fact links to its training source",
+        "attribution is solved by attention visualization",
+        "models store explicit source metadata"
+      ]
+    },
+    {
+      "context": "Factual recall in LLMs degrades for:",
+      "truth": "long-tail entities and facts seen rarely during training",
+      "distractors": [
+        "common knowledge more than rare facts",
+        "all facts equally regardless of frequency",
+        "no correlation with training frequency exists"
+      ]
+    },
+    {
+      "context": "Automated hallucination detection is difficult because:",
+      "truth": "requires external knowledge or verification that may itself be incomplete",
+      "distractors": [
+        "model logits reliably indicate hallucination",
+        "hallucinations have distinctive patterns",
+        "detection is a solved problem"
+      ]
+    }
+  ]
+}

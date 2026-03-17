@@ -1,0 +1,9 @@
+name: "neutrino_frontiers"
+description: "Oracle test for neutrino_frontiers domain - cutting edge physics"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "neutrino_frontiers_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

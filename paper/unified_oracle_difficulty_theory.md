@@ -289,7 +289,7 @@ START
 
 ---
 
-## 7. Validation Across Domains
+## 8. Validation Across Domains
 
 ### Knot Invariants (Worst-Case: Ratio 31.5)
 
@@ -325,7 +325,7 @@ START
 
 ---
 
-## 8. Implications for Benchmark Design
+## 9. Implications for Benchmark Design
 
 ### Report Three Metrics
 
@@ -351,7 +351,7 @@ Long-standing benchmarks like MMLU and TruthfulQA can benefit from:
 
 ---
 
-## 9. Connection to Prior Findings
+## 10. Connection to Prior Findings
 
 ### Previous Interpretations
 
@@ -372,7 +372,7 @@ All three are **measurement artifacts** caused by the interaction of length, flu
 
 ---
 
-## 10. Limitations and Future Work
+## 11. Limitations and Future Work
 
 ### Limitations
 
@@ -389,7 +389,7 @@ All three are **measurement artifacts** caused by the interaction of length, flu
 
 ---
 
-## 11. Conclusion
+## 12. Conclusion
 
 Three independent mechanisms determine oracle performance:
 

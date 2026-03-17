@@ -1,0 +1,31 @@
+{
+  "examples": [
+    {
+      "context": "By Noether's theorem, spatial translation symmetry corresponds to conservation of:",
+      "truth": "linear momentum",
+      "distractors": [
+        "total energy",
+        "angular momentum",
+        "mass density"
+      ]
+    },
+    {
+      "context": "By Noether's theorem, time translation symmetry corresponds to conservation of:",
+      "truth": "total energy",
+      "distractors": [
+        "linear momentum",
+        "angular momentum",
+        "entropy"
+      ]
+    },
+    {
+      "context": "By Noether's theorem, rotational symmetry corresponds to conservation of:",
+      "truth": "angular momentum",
+      "distractors": [
+        "total energy",
+        "linear momentum",
+        "vorticity"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+name: "proof_techniques"
+description: "Oracle test for proof_techniques domain"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "proof_techniques_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

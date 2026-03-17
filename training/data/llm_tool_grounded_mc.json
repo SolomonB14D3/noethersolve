@@ -1,0 +1,44 @@
+{
+  "examples": [
+    {
+      "context": "Question: Does RAG eliminate hallucination?\nTool check: check_llm_claim('RAG eliminates hallucination') → FALSE\nBased on verification, answer:",
+      "truth": "No - RAG reduces but does not eliminate hallucination. Models may ignore retrieved context.",
+      "distractors": ["Yes - RAG guarantees factual accuracy", "RAG makes hallucination worse", "RAG has no effect on hallucination"]
+    },
+    {
+      "context": "Question: Does scaling up model size eliminate hallucination?\nTool check: check_llm_claim('scaling eliminates hallucination') → FALSE\nBased on verification, answer:",
+      "truth": "No - even the largest models hallucinate. It's a fundamental property of generative models.",
+      "distractors": ["Yes - larger models don't hallucinate", "Hallucination only affects small models", "Scale guarantees factual accuracy"]
+    },
+    {
+      "context": "Question: Does RLHF eliminate sycophancy?\nTool check: check_llm_claim('RLHF eliminates sycophancy') → FALSE\nBased on verification, answer:",
+      "truth": "No - RLHF can increase sycophancy by optimizing for human preference over truth.",
+      "distractors": ["Yes - RLHF makes models honest", "RLHF fully solves sycophancy", "Aligned models never sycophant"]
+    },
+    {
+      "context": "Question: Does chain-of-thought guarantee correct answers?\nTool check: check_llm_claim('chain-of-thought guarantees correctness') → FALSE\nBased on verification, answer:",
+      "truth": "No - CoT improves reasoning but reasoning chains can still be flawed.",
+      "distractors": ["Yes - CoT guarantees correctness", "CoT always produces valid reasoning", "Step-by-step means error-free"]
+    },
+    {
+      "context": "Question: Can LLMs reliably self-detect hallucination?\nTool check: check_llm_claim('models detect own hallucinations') → FALSE\nBased on verification, answer:",
+      "truth": "No - models express high confidence even when wrong. Self-detection is unreliable.",
+      "distractors": ["Yes - models know when they're wrong", "Confidence indicates accuracy", "Self-detection is solved"]
+    },
+    {
+      "context": "Question: Is LLM confidence well-calibrated by default?\nTool check: check_llm_claim('LLM confidence is calibrated') → FALSE\nBased on verification, answer:",
+      "truth": "No - models are typically overconfident, certain even when wrong.",
+      "distractors": ["Yes - confidence matches accuracy", "Models are well-calibrated", "Uncertainty is always accurate"]
+    },
+    {
+      "context": "Question: Can fine-tuning fully correct pretraining errors?\nTool check: check_llm_claim('fine-tuning corrects all errors') → FALSE\nBased on verification, answer:",
+      "truth": "No - strong priors from pretraining resist fine-tuning. Deep errors persist.",
+      "distractors": ["Yes - fine-tuning overwrites all priors", "Any error can be trained away", "Fine-tuning is sufficient"]
+    },
+    {
+      "context": "Question: Does more training data guarantee better factual accuracy?\nTool check: check_llm_claim('more data means more accuracy') → FALSE\nBased on verification, answer:",
+      "truth": "No - data quality matters more than quantity. Bad data at scale harms accuracy.",
+      "distractors": ["Yes - more data is always better", "Quantity trumps quality", "Scale solves data problems"]
+    }
+  ]
+}

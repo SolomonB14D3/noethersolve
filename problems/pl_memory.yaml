@@ -1,0 +1,9 @@
+name: "pl_memory"
+description: "Oracle test for pl_memory"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "pl_memory_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

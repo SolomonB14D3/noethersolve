@@ -1,0 +1,93 @@
+{
+  "domain": "physics_fundamentals_v2",
+  "description": "Systematic confusions - fixed with balanced lengths",
+  "facts": [
+    {
+      "id": "pf01",
+      "context": "The Green's function for the 2D Laplacian has the radial form:",
+      "truth": "-ln(r)",
+      "distractors": ["r²/4π", "1/(πr)", "exp(-r)"],
+      "category": "greens_function",
+      "note": "2D Laplacian Green's function is logarithmic"
+    },
+    {
+      "id": "pf02",
+      "context": "The Green's function for the 3D Laplacian has the radial form:",
+      "truth": "1/(4πr)",
+      "distractors": ["-ln(r)/π", "r²/(8π)", "exp(-r)/r"],
+      "category": "greens_function",
+      "note": "3D Laplacian Green's function is 1/r"
+    },
+    {
+      "id": "pf03",
+      "context": "In 2D point vortex dynamics, the stream function has radial dependence:",
+      "truth": "proportional to ln(r)",
+      "distractors": ["proportional to 1/r", "proportional to r²", "proportional to exp(-r)"],
+      "category": "greens_function",
+      "note": "2D vortex uses 2D Green's function"
+    },
+    {
+      "id": "pf04",
+      "context": "By Noether's theorem, spatial translation symmetry implies conservation of:",
+      "truth": "linear momentum",
+      "distractors": ["kinetic energy", "angular momentum", "total entropy"],
+      "category": "noether_symmetry"
+    },
+    {
+      "id": "pf05",
+      "context": "By Noether's theorem, time translation symmetry implies conservation of:",
+      "truth": "total energy",
+      "distractors": ["linear momentum", "angular momentum", "action integral"],
+      "category": "noether_symmetry"
+    },
+    {
+      "id": "pf06",
+      "context": "By Noether's theorem, rotational symmetry implies conservation of:",
+      "truth": "angular momentum",
+      "distractors": ["kinetic energy", "linear momentum", "moment of inertia"],
+      "category": "noether_symmetry"
+    },
+    {
+      "id": "pf07",
+      "context": "The governing equation for viscous incompressible fluid flow is the:",
+      "truth": "Navier-Stokes equations",
+      "distractors": ["Euler fluid equations", "Bernoulli relation", "Helmholtz decomposition"],
+      "category": "fluid_equations"
+    },
+    {
+      "id": "pf08",
+      "context": "The governing equation for ideal (inviscid) incompressible fluid flow is the:",
+      "truth": "Euler fluid equations",
+      "distractors": ["Navier-Stokes equations", "Stokes approximation", "Reynolds equations"],
+      "category": "fluid_equations"
+    },
+    {
+      "id": "pf09",
+      "context": "In 2D turbulence, the inverse cascade transfers to large scales the quantity:",
+      "truth": "kinetic energy",
+      "distractors": ["squared vorticity", "velocity gradient", "helicity density"],
+      "category": "2d_turbulence"
+    },
+    {
+      "id": "pf10",
+      "context": "In 2D turbulence, the forward cascade transfers to small scales the quantity:",
+      "truth": "squared vorticity",
+      "distractors": ["kinetic energy", "velocity gradient", "potential vorticity"],
+      "category": "2d_turbulence"
+    },
+    {
+      "id": "pf11",
+      "context": "The key difference between 2D and 3D turbulence is that in 2D:",
+      "truth": "energy goes to large scales",
+      "distractors": ["energy goes to small scales", "vorticity is conserved", "there is no cascade"],
+      "category": "2d_turbulence"
+    },
+    {
+      "id": "pf12",
+      "context": "The viscous term in the Navier-Stokes equations involves:",
+      "truth": "the Laplacian of velocity",
+      "distractors": ["the gradient of velocity", "the divergence of velocity", "the curl of velocity"],
+      "category": "fluid_equations"
+    }
+  ]
+}

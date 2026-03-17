@@ -1,0 +1,1169 @@
+{
+  "base_model": "Qwen/Qwen3-4B-Base",
+  "inst_model": "Qwen/Qwen3-4B",
+  "base_vocab": 151936,
+  "inst_vocab": 151936,
+  "domains": {
+    "hamiltonian": {
+      "n_facts": 16,
+      "adapter": "hamiltonian_stage5.npz",
+      "base_baseline": 1,
+      "base_adapted": 16,
+      "inst_baseline": 1,
+      "inst_adapted": 1,
+      "base_bl_margins": [
+        -14.709835052490234,
+        4.279516220092773,
+        -32.74170684814453,
+        -24.89554786682129,
+        -29.87540626525879,
+        -8.009559631347656,
+        -42.86446571350098,
+        -37.01675224304199,
+        -16.048988342285156,
+        -28.38941764831543,
+        -41.874338150024414,
+        -14.38494873046875,
+        -26.152408599853516,
+        -19.56779670715332,
+        -11.041603088378906,
+        -17.793495178222656
+      ],
+      "inst_bl_margins": [
+        -15.208562850952148,
+        10.764749526977539,
+        -32.283578872680664,
+        -29.613666534423828,
+        -24.647502899169922,
+        -7.281755447387695,
+        -57.21932029724121,
+        -44.509714126586914,
+        -26.175559997558594,
+        -28.624164581298828,
+        -50.1055965423584,
+        -11.58717155456543,
+        -40.12065505981445,
+        -24.15888786315918,
+        -15.695884704589844,
+        -22.052888870239258
+      ],
+      "inst_ad_margins": [
+        -9.423575401306152,
+        8.886401653289795,
+        -20.584003448486328,
+        -18.30366277694702,
+        -14.693177223205566,
+        -3.631898880004883,
+        -42.40271806716919,
+        -30.669354915618896,
+        -16.18646001815796,
+        -22.099608421325684,
+        -31.55794494599104,
+        -4.016850471496582,
+        -24.448049068450928,
+        -17.675559043884277,
+        -9.788589477539062,
+        -14.459312438964844
+      ]
+    },
+    "ns_regularity": {
+      "n_facts": 16,
+      "adapter": "ns_regularity_prior_broken.npz",
+      "base_baseline": 1,
+      "base_adapted": 3,
+      "inst_baseline": 1,
+      "inst_adapted": 1,
+      "base_bl_margins": [
+        -34.63548278808594,
+        -45.836721420288086,
+        5.381296157836914,
+        -32.81013107299805,
+        -76.06129837036133,
+        -42.73774337768555,
+        -79.09255790710449,
+        -65.23250389099121,
+        -38.85992431640625,
+        -57.72993278503418,
+        -21.44898796081543,
+        -49.55594253540039,
+        -54.28891944885254,
+        -30.107053756713867,
+        -10.441274642944336,
+        -65.07223320007324
+      ],
+      "inst_bl_margins": [
+        -32.44226837158203,
+        -52.6424446105957,
+        3.763216018676758,
+        -40.942344665527344,
+        -88.81526184082031,
+        -40.69294548034668,
+        -81.88611221313477,
+        -75.95037078857422,
+        -45.30407524108887,
+        -68.74524307250977,
+        -27.826135635375977,
+        -65.82222557067871,
+        -54.671329498291016,
+        -35.43241310119629,
+        -5.796924591064453,
+        -61.27109718322754
+      ],
+      "inst_ad_margins": [
+        -18.928158044815063,
+        -33.752235651016235,
+        3.752012252807617,
+        -21.033247709274292,
+        -59.39372444152832,
+        -24.56566047668457,
+        -52.4690203666687,
+        -50.044023513793945,
+        -32.961904525756836,
+        -40.5451078414917,
+        -16.641105890274048,
+        -44.011348247528076,
+        -34.94803762435913,
+        -18.819377899169922,
+        -1.7137188911437988,
+        -53.33786106109619
+      ]
+    },
+    "chemical_kinetics": {
+      "n_facts": 16,
+      "adapter": "chemical_adapter.npz",
+      "base_baseline": 1,
+      "base_adapted": 15,
+      "inst_baseline": 1,
+      "inst_adapted": 2,
+      "base_bl_margins": [
+        -19.891748428344727,
+        -13.560672760009766,
+        -2.858020782470703,
+        -15.895801544189453,
+        -12.852577209472656,
+        -9.977771759033203,
+        -14.600425720214844,
+        4.325405120849609,
+        -32.62378120422363,
+        -13.337915420532227,
+        -36.49334526062012,
+        -55.58916091918945,
+        -20.711013793945312,
+        -32.415828704833984,
+        -19.98838233947754,
+        -15.21255111694336
+      ],
+      "inst_bl_margins": [
+        -24.957176208496094,
+        -16.977123260498047,
+        -4.182641983032227,
+        -19.942272186279297,
+        -19.43674087524414,
+        -19.478046417236328,
+        -17.157997131347656,
+        4.918230056762695,
+        -34.38592529296875,
+        -15.355667114257812,
+        -59.40079116821289,
+        -61.15110969543457,
+        -24.01226234436035,
+        -37.165428161621094,
+        -24.256860733032227,
+        -21.492042541503906
+      ],
+      "inst_ad_margins": [
+        -20.24286460876465,
+        -7.0280914306640625,
+        -59.30499076843262,
+        -48.12712287902832,
+        -11.983737230300903,
+        -11.882346153259277,
+        -4.762855291366577,
+        0.18321704864501953,
+        -59.3004035949707,
+        5.264370918273926,
+        -75.35182523727417,
+        -92.61016273498535,
+        -11.34215497970581,
+        -60.0919075012207,
+        -21.04344081878662,
+        -2.070598602294922
+      ]
+    },
+    "genetics": {
+      "n_facts": 16,
+      "adapter": "genetics_crispr_adapter.npz",
+      "base_baseline": 3,
+      "base_adapted": 3,
+      "inst_baseline": 3,
+      "inst_adapted": 2,
+      "base_bl_margins": [
+        -24.366037368774414,
+        -13.197853088378906,
+        -16.382017135620117,
+        -18.68165397644043,
+        -44.50076484680176,
+        4.991857528686523,
+        -21.442201614379883,
+        -21.329809188842773,
+        -19.876697540283203,
+        -15.423465728759766,
+        -5.7850799560546875,
+        2.1795921325683594,
+        -25.423919677734375,
+        -6.703714370727539,
+        -39.08443260192871,
+        2.5882339477539062
+      ],
+      "inst_bl_margins": [
+        -29.882295608520508,
+        -14.35007095336914,
+        -24.883790969848633,
+        -18.78122901916504,
+        -57.15496635437012,
+        7.800848007202148,
+        -28.125850677490234,
+        -32.68056297302246,
+        -20.47319793701172,
+        -23.989017486572266,
+        -7.213296890258789,
+        12.885931015014648,
+        -32.584991455078125,
+        -9.733602523803711,
+        -50.86991500854492,
+        0.39862823486328125
+      ],
+      "inst_ad_margins": [
+        -49.59109401702881,
+        -112.12411665916443,
+        -30.40468740463257,
+        -90.74484157562256,
+        -209.34638786315918,
+        -3.3619794845581055,
+        -100.08667553961277,
+        -463.20021003484726,
+        -46.12325859069824,
+        -177.48864436149597,
+        -33.20018827915192,
+        0.2250986099243164,
+        -150.52024495601654,
+        -93.36798238754272,
+        -178.8283509016037,
+        55.21656799316406
+      ]
+    },
+    "millennium": {
+      "n_facts": 12,
+      "adapter": "millennium_problems_riemann_adapter.npz",
+      "base_baseline": 3,
+      "base_adapted": 3,
+      "inst_baseline": 1,
+      "inst_adapted": 2,
+      "base_bl_margins": [
+        -13.219064712524414,
+        1.526468276977539,
+        -11.620012283325195,
+        4.864543914794922,
+        -12.932249069213867,
+        -4.128353118896484,
+        -29.713335037231445,
+        -29.376380920410156,
+        -7.168735504150391,
+        14.702167510986328,
+        -11.604888916015625,
+        -4.386133193969727
+      ],
+      "inst_bl_margins": [
+        -9.124208450317383,
+        -4.067455291748047,
+        -2.9570674896240234,
+        -3.5194835662841797,
+        -18.112009048461914,
+        -21.130168914794922,
+        -14.065568923950195,
+        -34.32190704345703,
+        -0.050724029541015625,
+        19.47515296936035,
+        -10.983428955078125,
+        -11.225244522094727
+      ],
+      "inst_ad_margins": [
+        -52.14053440093994,
+        13.278037548065186,
+        12.324870586395264,
+        -43.40691518783569,
+        -73.12687301635742,
+        -82.32973194122314,
+        -69.63376045227051,
+        -64.21105241775513,
+        -63.538535594940186,
+        -5.815340995788574,
+        -149.16650128364563,
+        -46.96121644973755
+      ]
+    },
+    "chemistry": {
+      "n_facts": 12,
+      "adapter": "chem_enzyme_focused.npz",
+      "base_baseline": 9,
+      "base_adapted": 8,
+      "inst_baseline": 8,
+      "inst_adapted": 8,
+      "base_bl_margins": [
+        -8.553266525268555,
+        6.039058685302734,
+        13.271650314331055,
+        2.0350418090820312,
+        5.331268310546875,
+        4.674089431762695,
+        3.7564258575439453,
+        3.722677230834961,
+        10.663644790649414,
+        -3.526958465576172,
+        -4.509939193725586,
+        8.966724395751953
+      ],
+      "inst_bl_margins": [
+        -9.283430099487305,
+        6.207462310791016,
+        14.304092407226562,
+        0.11232376098632812,
+        10.55949592590332,
+        15.180351257324219,
+        -0.7026786804199219,
+        4.664430618286133,
+        11.038103103637695,
+        -5.468208312988281,
+        -8.206512451171875,
+        6.492683410644531
+      ],
+      "inst_ad_margins": [
+        16.18634796142578,
+        11.638933658599854,
+        -1.9607539176940918,
+        1.8323554992675781,
+        9.09766674041748,
+        32.11321830749512,
+        2.9622650146484375,
+        -11.065644025802612,
+        5.091451168060303,
+        -0.6175594329833984,
+        -87.6483850479126,
+        7.198827743530273
+      ]
+    }
+  },
+  "per_fact": {
+    "hamiltonian": [
+      {
+        "id": "ham01_energy",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -15.208562850952148,
+        "inst_ad_margin": -9.423575401306152
+      },
+      {
+        "id": "ham02_liouville",
+        "base_bl": true,
+        "base_ad": true,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 10.764749526977539,
+        "inst_ad_margin": 8.886401653289795
+      },
+      {
+        "id": "ham03_symplectic",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -32.283578872680664,
+        "inst_ad_margin": -20.584003448486328
+      },
+      {
+        "id": "ham04_poincare",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -29.613666534423828,
+        "inst_ad_margin": -18.30366277694702
+      },
+      {
+        "id": "ham05_noether",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -24.647502899169922,
+        "inst_ad_margin": -14.693177223205566
+      },
+      {
+        "id": "ham06_kepler_l",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -7.281755447387695,
+        "inst_ad_margin": -3.631898880004883
+      },
+      {
+        "id": "ham07_lrl",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -57.21932029724121,
+        "inst_ad_margin": -42.40271806716919
+      },
+      {
+        "id": "ham08_lrl_consequence",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -44.509714126586914,
+        "inst_ad_margin": -30.669354915618896
+      },
+      {
+        "id": "ham09_action",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -26.175559997558594,
+        "inst_ad_margin": -16.18646001815796
+      },
+      {
+        "id": "ham10_kam",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -28.624164581298828,
+        "inst_ad_margin": -22.099608421325684
+      },
+      {
+        "id": "ham11_henon_heiles",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -50.1055965423584,
+        "inst_ad_margin": -31.55794494599104
+      },
+      {
+        "id": "ham12_ergodic",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -11.58717155456543,
+        "inst_ad_margin": -4.016850471496582
+      },
+      {
+        "id": "ham13_canonical",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -40.12065505981445,
+        "inst_ad_margin": -24.448049068450928
+      },
+      {
+        "id": "ham14_generating",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -24.15888786315918,
+        "inst_ad_margin": -17.675559043884277
+      },
+      {
+        "id": "ham15_integrable",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -15.695884704589844,
+        "inst_ad_margin": -9.788589477539062
+      },
+      {
+        "id": "ham16_poisson",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -22.052888870239258,
+        "inst_ad_margin": -14.459312438964844
+      }
+    ],
+    "ns_regularity": [
+      {
+        "id": "ns01_bkm_criterion",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -32.44226837158203,
+        "inst_ad_margin": -18.928158044815063
+      },
+      {
+        "id": "ns02_stretching_term",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -52.6424446105957,
+        "inst_ad_margin": -33.752235651016235
+      },
+      {
+        "id": "ns03_stretching_qf",
+        "base_bl": true,
+        "base_ad": false,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 3.763216018676758,
+        "inst_ad_margin": 3.752012252807617
+      },
+      {
+        "id": "ns04_energy_3d_protected",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -40.942344665527344,
+        "inst_ad_margin": -21.033247709274292
+      },
+      {
+        "id": "ns05_stretch_resistant_ratio",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -88.81526184082031,
+        "inst_ad_margin": -59.39372444152832
+      },
+      {
+        "id": "ns06_rf_numerical",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -40.69294548034668,
+        "inst_ad_margin": -24.56566047668457
+      },
+      {
+        "id": "ns07_enstrophy_norm",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -81.88611221313477,
+        "inst_ad_margin": -52.4690203666687
+      },
+      {
+        "id": "ns08_curvature_weighted",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -75.95037078857422,
+        "inst_ad_margin": -50.044023513793945
+      },
+      {
+        "id": "ns09_viscous_decay",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -45.30407524108887,
+        "inst_ad_margin": -32.961904525756836
+      },
+      {
+        "id": "ns10_concentration_bound",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -68.74524307250977,
+        "inst_ad_margin": -40.5451078414917
+      },
+      {
+        "id": "ns11_2d_regularity",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -27.826135635375977,
+        "inst_ad_margin": -16.641105890274048
+      },
+      {
+        "id": "ns12_3d_challenge",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -65.82222557067871,
+        "inst_ad_margin": -44.011348247528076
+      },
+      {
+        "id": "ns13_rf_meaning",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -54.671329498291016,
+        "inst_ad_margin": -34.94803762435913
+      },
+      {
+        "id": "ns14_helicity_3d",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -35.43241310119629,
+        "inst_ad_margin": -18.819377899169922
+      },
+      {
+        "id": "ns15_millennium",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -5.796924591064453,
+        "inst_ad_margin": -1.7137188911437988
+      },
+      {
+        "id": "ns16_rf_combined",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -61.27109718322754,
+        "inst_ad_margin": -53.33786106109619
+      }
+    ],
+    "chemical_kinetics": [
+      {
+        "id": "chem01_source",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -24.957176208496094,
+        "inst_ad_margin": -20.24286460876465
+      },
+      {
+        "id": "chem02_simple_AB",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -16.977123260498047,
+        "inst_ad_margin": -7.0280914306640625
+      },
+      {
+        "id": "chem03_enzyme",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -4.182641983032227,
+        "inst_ad_margin": -59.30499076843262
+      },
+      {
+        "id": "chem04_nullspace_dim",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -19.942272186279297,
+        "inst_ad_margin": -48.12712287902832
+      },
+      {
+        "id": "chem05_glycolysis_atp",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -19.43674087524414,
+        "inst_ad_margin": -11.983737230300903
+      },
+      {
+        "id": "chem06_glycolysis_nad",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -19.478046417236328,
+        "inst_ad_margin": -11.882346153259277
+      },
+      {
+        "id": "chem07_open_systems",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -17.157997131347656,
+        "inst_ad_margin": -4.762855291366577
+      },
+      {
+        "id": "chem08_mass_action",
+        "base_bl": true,
+        "base_ad": false,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 4.918230056762695,
+        "inst_ad_margin": 0.18321704864501953
+      },
+      {
+        "id": "chem09_lotka",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -34.38592529296875,
+        "inst_ad_margin": -59.3004035949707
+      },
+      {
+        "id": "chem10_brusselator",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": true,
+        "inst_bl_margin": -15.355667114257812,
+        "inst_ad_margin": 5.264370918273926
+      },
+      {
+        "id": "chem11_deficiency",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -59.40079116821289,
+        "inst_ad_margin": -75.35182523727417
+      },
+      {
+        "id": "chem12_complex_conserv",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -61.15110969543457,
+        "inst_ad_margin": -92.61016273498535
+      },
+      {
+        "id": "chem13_verify_numerical",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -24.01226234436035,
+        "inst_ad_margin": -11.34215497970581
+      },
+      {
+        "id": "chem14_physical_meaning",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -37.165428161621094,
+        "inst_ad_margin": -60.0919075012207
+      },
+      {
+        "id": "chem15_compatibility",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -24.256860733032227,
+        "inst_ad_margin": -21.04344081878662
+      },
+      {
+        "id": "chem16_nontrivial",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -21.492042541503906,
+        "inst_ad_margin": -2.070598602294922
+      }
+    ],
+    "genetics": [
+      {
+        "id": "gt01_crispr_pam",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -29.882295608520508,
+        "inst_ad_margin": -49.59109401702881
+      },
+      {
+        "id": "gt02_grna_length",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -14.35007095336914,
+        "inst_ad_margin": -112.12411665916443
+      },
+      {
+        "id": "gt03_codon_optimization",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -24.883790969848633,
+        "inst_ad_margin": -30.40468740463257
+      },
+      {
+        "id": "gt04_mrna_cap",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -18.78122901916504,
+        "inst_ad_margin": -90.74484157562256
+      },
+      {
+        "id": "gt05_utr_stability",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -57.15496635437012,
+        "inst_ad_margin": -209.34638786315918
+      },
+      {
+        "id": "gt06_aav_packaging",
+        "base_bl": true,
+        "base_ad": false,
+        "inst_bl": true,
+        "inst_ad": false,
+        "inst_bl_margin": 7.800848007202148,
+        "inst_ad_margin": -3.3619794845581055
+      },
+      {
+        "id": "gt07_aav_tropism",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -28.125850677490234,
+        "inst_ad_margin": -100.08667553961277
+      },
+      {
+        "id": "gt08_lnp_ionizable",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -32.68056297302246,
+        "inst_ad_margin": -463.20021003484726
+      },
+      {
+        "id": "gt09_splice_donor",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -20.47319793701172,
+        "inst_ad_margin": -46.12325859069824
+      },
+      {
+        "id": "gt10_splice_acceptor",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -23.989017486572266,
+        "inst_ad_margin": -177.48864436149597
+      },
+      {
+        "id": "gt11_cyp2d6_metabolism",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -7.213296890258789,
+        "inst_ad_margin": -33.20018827915192
+      },
+      {
+        "id": "gt12_hla_association",
+        "base_bl": true,
+        "base_ad": false,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 12.885931015014648,
+        "inst_ad_margin": 0.2250986099243164
+      },
+      {
+        "id": "gt13_antisense_chemistry",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -32.584991455078125,
+        "inst_ad_margin": -150.52024495601654
+      },
+      {
+        "id": "gt14_sirna_overhang",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -9.733602523803711,
+        "inst_ad_margin": -93.36798238754272
+      },
+      {
+        "id": "gt15_promoter_tissue",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -50.86991500854492,
+        "inst_ad_margin": -178.8283509016037
+      },
+      {
+        "id": "gt16_base_editing",
+        "base_bl": true,
+        "base_ad": true,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 0.39862823486328125,
+        "inst_ad_margin": 55.21656799316406
+      }
+    ],
+    "millennium": [
+      {
+        "id": "mp01_riemann_statement",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -9.124208450317383,
+        "inst_ad_margin": -52.14053440093994
+      },
+      {
+        "id": "mp02_riemann_verified",
+        "base_bl": true,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": true,
+        "inst_bl_margin": -4.067455291748047,
+        "inst_ad_margin": 13.278037548065186
+      },
+      {
+        "id": "mp03_riemann_consequence",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": true,
+        "inst_bl_margin": -2.9570674896240234,
+        "inst_ad_margin": 12.324870586395264
+      },
+      {
+        "id": "mp04_pnp_statement",
+        "base_bl": true,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -3.5194835662841797,
+        "inst_ad_margin": -43.40691518783569
+      },
+      {
+        "id": "mp05_pnp_barriers",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -18.112009048461914,
+        "inst_ad_margin": -73.12687301635742
+      },
+      {
+        "id": "mp06_pnp_natural",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -21.130168914794922,
+        "inst_ad_margin": -82.32973194122314
+      },
+      {
+        "id": "mp07_ns_statement",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -14.065568923950195,
+        "inst_ad_margin": -69.63376045227051
+      },
+      {
+        "id": "mp08_ns_2d",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -34.32190704345703,
+        "inst_ad_margin": -64.21105241775513
+      },
+      {
+        "id": "mp09_hodge_statement",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -0.050724029541015625,
+        "inst_ad_margin": -63.538535594940186
+      },
+      {
+        "id": "mp10_bsd_statement",
+        "base_bl": true,
+        "base_ad": false,
+        "inst_bl": true,
+        "inst_ad": false,
+        "inst_bl_margin": 19.47515296936035,
+        "inst_ad_margin": -5.815340995788574
+      },
+      {
+        "id": "mp11_bsd_partial",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -10.983428955078125,
+        "inst_ad_margin": -149.16650128364563
+      },
+      {
+        "id": "mp12_yangmills_statement",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -11.225244522094727,
+        "inst_ad_margin": -46.96121644973755
+      }
+    ],
+    "chemistry": [
+      {
+        "id": "ch01_sn1_sn2",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": true,
+        "inst_bl_margin": -9.283430099487305,
+        "inst_ad_margin": 16.18634796142578
+      },
+      {
+        "id": "ch02_galvanic",
+        "base_bl": true,
+        "base_ad": true,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 6.207462310791016,
+        "inst_ad_margin": 11.638933658599854
+      },
+      {
+        "id": "ch03_crystal_field",
+        "base_bl": true,
+        "base_ad": true,
+        "inst_bl": true,
+        "inst_ad": false,
+        "inst_bl_margin": 14.304092407226562,
+        "inst_ad_margin": -1.9607539176940918
+      },
+      {
+        "id": "ch04_glass_transition",
+        "base_bl": true,
+        "base_ad": true,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 0.11232376098632812,
+        "inst_ad_margin": 1.8323554992675781
+      },
+      {
+        "id": "ch05_n_type",
+        "base_bl": true,
+        "base_ad": true,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 10.55949592590332,
+        "inst_ad_margin": 9.09766674041748
+      },
+      {
+        "id": "ch06_markovnikov",
+        "base_bl": true,
+        "base_ad": true,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 15.180351257324219,
+        "inst_ad_margin": 32.11321830749512
+      },
+      {
+        "id": "ch07_le_chatelier",
+        "base_bl": true,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": true,
+        "inst_bl_margin": -0.7026786804199219,
+        "inst_ad_margin": 2.9622650146484375
+      },
+      {
+        "id": "ch08_hess_law",
+        "base_bl": true,
+        "base_ad": false,
+        "inst_bl": true,
+        "inst_ad": false,
+        "inst_bl_margin": 4.664430618286133,
+        "inst_ad_margin": -11.065644025802612
+      },
+      {
+        "id": "ch09_oxidation",
+        "base_bl": true,
+        "base_ad": false,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 11.038103103637695,
+        "inst_ad_margin": 5.091451168060303
+      },
+      {
+        "id": "ch10_buffer",
+        "base_bl": false,
+        "base_ad": false,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -5.468208312988281,
+        "inst_ad_margin": -0.6175594329833984
+      },
+      {
+        "id": "ch11_ligand_field",
+        "base_bl": false,
+        "base_ad": true,
+        "inst_bl": false,
+        "inst_ad": false,
+        "inst_bl_margin": -8.206512451171875,
+        "inst_ad_margin": -87.6483850479126
+      },
+      {
+        "id": "ch12_band_gap",
+        "base_bl": true,
+        "base_ad": true,
+        "inst_bl": true,
+        "inst_ad": true,
+        "inst_bl_margin": 6.492683410644531,
+        "inst_ad_margin": 7.198827743530273
+      }
+    ]
+  },
+  "totals": {
+    "base_bl": 18,
+    "base_ad": 48,
+    "inst_bl": 15,
+    "inst_ad": 16,
+    "n": 88
+  }
+}

@@ -245,6 +245,50 @@ def check_pde_regularity(pde_name: str, dimension: int = 3) -> str:
     return str(report) if report else f"No regularity data for '{pde_name}'"
 
 
+@mcp.tool()
+def check_dimension_physics(concept: str, dimension: int = 0) -> str:
+    """Check how physics formulas change with spatial dimension.
+
+    CRITICAL: Models are systematically blind to dimension-dependent physics.
+    They know 3D physics but fail to modulate for 2D contexts.
+
+    concept: Physics concept to check. Options:
+        - "greens_function" or "laplacian"
+        - "coulomb" or "electrostatic"
+        - "vortex" or "vortex_topology"
+        - "turbulence" or "energy_cascade"
+        - "enstrophy"
+        - "navier_stokes" or "ns_regularity"
+        - "wave" or "huygens"
+        - "stream_function"
+
+    dimension: If 0, returns all dimensions. If 1/2/3, returns that specific form.
+
+    Example: check_dimension_physics("greens_function")
+    → Shows: 1D is |x|/2, 2D is -ln(r)/(2π), 3D is 1/(4πr)
+
+    Example: check_dimension_physics("turbulence", 2)
+    → Shows: In 2D, energy cascades UPWARD (inverse cascade)
+    """
+    from noethersolve.dimension_physics import check_dimension_dependence, get_formula
+
+    if dimension == 0:
+        result = check_dimension_dependence(concept)
+        return str(result)
+    else:
+        formula = get_formula(concept, dimension)
+        if formula:
+            return (
+                f"{formula.concept} in {dimension}D:\n"
+                f"  Formula: {formula.formula}\n"
+                f"  LaTeX: {formula.latex}\n"
+                f"  Note: {formula.notes}\n"
+                f"  Common error: {formula.common_error}"
+            )
+        else:
+            return f"No formula for '{concept}' in {dimension}D"
+
+
 # ── Pharmacokinetics ──────────────────────────────────────────────────
 
 @mcp.tool()

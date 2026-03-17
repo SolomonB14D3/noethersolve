@@ -1,0 +1,9 @@
+name: "protein_folding"
+description: "Oracle test for protein_folding domain"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "protein_folding_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

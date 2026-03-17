@@ -1,0 +1,9 @@
+name: "clinical_translation"
+description: "Oracle test for clinical_translation"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "clinical_translation_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

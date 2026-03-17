@@ -1,0 +1,9 @@
+name: "operating_systems"
+description: "Oracle test for operating_systems domain"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "operating_systems_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

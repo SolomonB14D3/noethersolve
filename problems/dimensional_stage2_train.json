@@ -1,0 +1,31 @@
+{
+  "examples": [
+    {
+      "context": "In 2D (NOT 3D), the Coulomb potential is",
+      "truth": "-ln(r) (logarithmic)",
+      "distractors": [
+        "1/r (same as 3D)",
+        "r\u00b2",
+        "exp(-r)"
+      ]
+    },
+    {
+      "context": "In 2D (NOT 3D), vortices are",
+      "truth": "point singularities",
+      "distractors": [
+        "line structures",
+        "sheets",
+        "tubes"
+      ]
+    },
+    {
+      "context": "In 2D (NOT 3D), energy cascade goes",
+      "truth": "UP to large scales (inverse)",
+      "distractors": [
+        "DOWN to small scales",
+        "both directions equally",
+        "nowhere"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "prompt": "Question: Does RAG (Retrieval-Augmented Generation) eliminate hallucination in LLMs?\n\nBefore answering, let me check the verified tool:\n>>> check_llm_claim('RAG eliminates hallucination')\nResult: FALSE - 'RAG reduces but does not eliminate hallucination because models may ignore retrieved context or hallucinate beyond it'\n\nBased on this verified check, the answer is:",
+    "completion": "No, RAG reduces but does not eliminate hallucination. Models may ignore retrieved context or generate content beyond what was retrieved."
+  },
+  {
+    "prompt": "Question: Does scaling up model size eliminate hallucination?\n\nBefore answering, let me check the verified tool:\n>>> check_llm_claim('scaling eliminates hallucination')\nResult: FALSE - 'Larger models still hallucinate. Hallucination is a fundamental property of generative models, not a capacity limitation.'\n\nBased on this verified check, the answer is:",
+    "completion": "No, scaling does not eliminate hallucination. Even the largest models generate plausible-sounding but factually incorrect content."
+  },
+  {
+    "prompt": "Question: Does RLHF eliminate sycophancy in LLMs?\n\nBefore answering, let me check the verified tool:\n>>> check_llm_claim('RLHF eliminates sycophancy')\nResult: FALSE - 'RLHF optimizes for human preference which can INCREASE sycophancy (telling users what they want to hear)'\n\nBased on this verified check, the answer is:",
+    "completion": "No, RLHF can actually increase sycophancy. It optimizes for human preference ratings, and humans often prefer agreeable responses over honest ones."
+  },
+  {
+    "prompt": "Question: Does chain-of-thought reasoning guarantee correct answers?\n\nBefore answering, let me check the verified tool:\n>>> check_llm_claim('chain-of-thought guarantees correctness')\nResult: FALSE - 'CoT improves performance on reasoning tasks but does not guarantee correctness. Reasoning chains can be flawed.'\n\nBased on this verified check, the answer is:",
+    "completion": "No, chain-of-thought improves reasoning performance but does not guarantee correctness. The model can generate plausible but flawed reasoning chains."
+  },
+  {
+    "prompt": "Question: Can LLMs reliably detect their own hallucinations?\n\nBefore answering, let me check the verified tool:\n>>> check_llm_claim('models can detect own hallucinations')\nResult: FALSE - 'Self-detection of hallucination is unreliable. Models express high confidence even when wrong.'\n\nBased on this verified check, the answer is:",
+    "completion": "No, LLMs cannot reliably detect their own hallucinations. They express high confidence even when generating fabricated content."
+  },
+  {
+    "prompt": "Question: Is model confidence well-calibrated by default?\n\nBefore answering, let me check the verified tool:\n>>> check_llm_claim('LLM confidence is well calibrated')\nResult: FALSE - 'Models are typically overconfident, expressing high confidence even on incorrect answers.'\n\nBased on this verified check, the answer is:",
+    "completion": "No, LLM confidence is poorly calibrated by default. Models are overconfident, expressing certainty even when wrong."
+  },
+  {
+    "prompt": "Question: Does pretraining on more data guarantee better factual accuracy?\n\nBefore answering, let me check the verified tool:\n>>> check_llm_claim('more data guarantees factual accuracy')\nResult: FALSE - 'Data quality matters more than quantity. Low-quality or biased data can harm accuracy regardless of volume.'\n\nBased on this verified check, the answer is:",
+    "completion": "No, more data does not guarantee better factual accuracy. Data quality and composition matter more than raw quantity."
+  },
+  {
+    "prompt": "Question: Can fine-tuning fully correct factual errors from pretraining?\n\nBefore answering, let me check the verified tool:\n>>> check_llm_claim('fine-tuning fully corrects pretraining errors')\nResult: FALSE - 'Fine-tuning has limited ability to overwrite strong priors from pretraining. Deeply embedded errors persist.'\n\nBased on this verified check, the answer is:",
+    "completion": "No, fine-tuning cannot fully correct errors from pretraining. Strong priors embedded during pretraining are difficult to overwrite."
+  }
+]

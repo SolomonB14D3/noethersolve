@@ -1,0 +1,38 @@
+{
+  "domain": "physics_fundamentals_greens_function",
+  "facts": [
+    {
+      "id": "pf01",
+      "context": "The Green's function for the 2D Laplacian (solving \u2207\u00b2\u03c6 = \u03b4 in 2D) is:",
+      "truth": "-ln(r)/(2\u03c0)",
+      "distractors": [
+        "r/(2\u03c0)",
+        "1/r",
+        "r\u00b2/(4\u03c0)"
+      ],
+      "category": "greens_function"
+    },
+    {
+      "id": "pf02",
+      "context": "The Green's function for the 3D Laplacian (solving \u2207\u00b2\u03c6 = \u03b4 in 3D) is:",
+      "truth": "1/(4\u03c0r)",
+      "distractors": [
+        "r/(4\u03c0)",
+        "-ln(r)/(4\u03c0)",
+        "r\u00b2/(8\u03c0)"
+      ],
+      "category": "greens_function"
+    },
+    {
+      "id": "pf03",
+      "context": "In 2D point vortex dynamics, the stream function induced by a vortex of circulation \u0393 has the form:",
+      "truth": "\u03c8 = -\u0393\u00b7ln(r)/(2\u03c0)",
+      "distractors": [
+        "\u03c8 = \u0393\u00b7r/(2\u03c0)",
+        "\u03c8 = \u0393/(2\u03c0r)",
+        "\u03c8 = \u0393\u00b7r\u00b2/(4\u03c0)"
+      ],
+      "category": "greens_function"
+    }
+  ]
+}

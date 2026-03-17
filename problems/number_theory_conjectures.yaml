@@ -1,0 +1,9 @@
+name: "number_theory_conjectures"
+description: "Oracle test for number_theory_conjectures"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "number_theory_conjectures_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

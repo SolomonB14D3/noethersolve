@@ -1,0 +1,9 @@
+name: "3body_conservation"
+description: "Oracle test for 3body_conservation domain"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "3body_conservation_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

@@ -1,0 +1,42 @@
+{
+  "problem": "llm_hallucination_grounded",
+  "description": "LLM hallucination facts with tool-grounding context",
+  "facts": [
+    {
+      "id": "lhg01",
+      "context": "Tool check: check_llm_claim('RAG eliminates hallucination') → FALSE.\nRAG reduces but does not eliminate hallucination because:",
+      "truth": "models may ignore retrieved context or hallucinate beyond it",
+      "distractors": ["RAG guarantees factual accuracy", "retrieval is always perfect", "hallucination is impossible with external knowledge"]
+    },
+    {
+      "id": "lhg02",
+      "context": "Tool check: check_llm_claim('scaling eliminates hallucination') → FALSE.\nLarger LLMs still hallucinate because:",
+      "truth": "hallucination is a fundamental property of generative models, not a capacity limitation",
+      "distractors": ["larger models don't hallucinate", "scale guarantees accuracy", "size eliminates confabulation"]
+    },
+    {
+      "id": "lhg03",
+      "context": "Tool check: check_llm_claim('LLM confidence is calibrated') → FALSE.\nLLM confidence is problematic because:",
+      "truth": "models express high confidence even when wrong (overconfidence on errors)",
+      "distractors": ["models are well-calibrated by default", "low confidence always indicates errors", "calibration improves with scale alone"]
+    },
+    {
+      "id": "lhg04",
+      "context": "Tool check: check_llm_claim('models self-detect hallucination') → FALSE.\nAutomated hallucination detection is difficult because:",
+      "truth": "requires external knowledge or verification that may itself be incomplete",
+      "distractors": ["model logits reliably indicate hallucination", "hallucinations have distinctive patterns", "detection is a solved problem"]
+    },
+    {
+      "id": "lhg05",
+      "context": "Tool check: check_llm_claim('self-consistency guarantees correctness') → FALSE.\nSelf-consistency decoding (sampling + voting) helps with:",
+      "truth": "reducing variance in reasoning but not eliminating systematic hallucinations",
+      "distractors": ["guaranteeing correct answers", "eliminating all factual errors", "only working for math problems"]
+    },
+    {
+      "id": "lhg06",
+      "context": "Tool check: check_llm_claim('RLHF solves saying I dont know') → FALSE.\nTeaching LLMs to say 'I don't know' is difficult because:",
+      "truth": "training incentivizes generating plausible answers over admitting uncertainty",
+      "distractors": ["models naturally refuse uncertain queries", "RLHF fully solves this problem", "uncertainty is always expressed accurately"]
+    }
+  ]
+}

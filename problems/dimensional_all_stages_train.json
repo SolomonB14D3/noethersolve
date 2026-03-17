@@ -1,0 +1,94 @@
+{
+  "examples": [
+    {
+      "context": "Physics in 2D differs from 3D because",
+      "truth": "spatial dimension changes fundamental laws",
+      "distractors": [
+        "they are the same",
+        "only scale differs",
+        "units change"
+      ]
+    },
+    {
+      "context": "The number of spatial dimensions affects",
+      "truth": "the form of Green's functions and potentials",
+      "distractors": [
+        "nothing fundamental",
+        "only visualization",
+        "computational cost"
+      ]
+    },
+    {
+      "context": "When moving from 3D to 2D physics,",
+      "truth": "many formulas change form (e.g., 1/r \u2192 ln(r))",
+      "distractors": [
+        "formulas stay the same",
+        "only constants change",
+        "results are identical"
+      ]
+    },
+    {
+      "context": "2D vs 3D in physics matters for",
+      "truth": "potentials, vortices, and turbulence",
+      "distractors": [
+        "nothing important",
+        "only abstract theory",
+        "visualization only"
+      ]
+    },
+    {
+      "context": "In 2D (NOT 3D), the Coulomb potential is",
+      "truth": "-ln(r) (logarithmic)",
+      "distractors": [
+        "1/r (same as 3D)",
+        "r\u00b2",
+        "exp(-r)"
+      ]
+    },
+    {
+      "context": "In 2D (NOT 3D), vortices are",
+      "truth": "point singularities",
+      "distractors": [
+        "line structures",
+        "sheets",
+        "tubes"
+      ]
+    },
+    {
+      "context": "In 2D (NOT 3D), energy cascade goes",
+      "truth": "UP to large scales (inverse)",
+      "distractors": [
+        "DOWN to small scales",
+        "both directions equally",
+        "nowhere"
+      ]
+    },
+    {
+      "context": "Green's function: 2D uses -ln(r) while 3D uses",
+      "truth": "1/r",
+      "distractors": [
+        "-ln(r) also",
+        "r\u00b2",
+        "exp(-r)"
+      ]
+    },
+    {
+      "context": "Vortices: 2D has points while 3D has",
+      "truth": "lines/tubes",
+      "distractors": [
+        "points also",
+        "sheets",
+        "nothing"
+      ]
+    },
+    {
+      "context": "Energy cascade: 2D goes up while 3D goes",
+      "truth": "down",
+      "distractors": [
+        "up also",
+        "both ways",
+        "neither"
+      ]
+    }
+  ]
+}

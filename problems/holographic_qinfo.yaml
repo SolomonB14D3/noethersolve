@@ -1,0 +1,9 @@
+name: "holographic_qinfo"
+description: "Oracle test for holographic_qinfo domain"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "holographic_qinfo_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null

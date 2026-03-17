@@ -1,0 +1,9 @@
+name: "analysis_pde_conjectures"
+description: "Oracle test for analysis_pde_conjectures domain"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "analysis_pde_conjectures_facts.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null
