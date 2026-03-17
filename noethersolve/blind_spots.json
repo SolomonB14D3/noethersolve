@@ -32,9 +32,7 @@
       "domains": ["information_theory", "thermodynamics"],
       "trigger_keywords": ["Huffman", "optimal code", "Landauer", "entropy", "compression", "erasure"],
       "insight": "Both optimize Σ p_i × cost_i with cost ∝ -log(p_i)",
-      "tools": [],
-      "needs_tool": true,
-      "tool_idea": "calc_landauer_bound(bits_erased, temperature) → minimum energy cost",
+      "tools": ["calc_landauer_bound", "calc_shannon_entropy", "calc_huffman_landauer"],
       "interpretation": "Shannon entropy bounds both bits needed AND work extractable"
     },
     {
