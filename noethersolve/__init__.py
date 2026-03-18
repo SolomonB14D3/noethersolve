@@ -786,6 +786,21 @@ from noethersolve.noether_symmetry import (  # noqa: F401
     NOETHER_PAIRS,
 )
 
+from noethersolve.mrna_design import (  # noqa: F401
+    calculate_base_pair_energy,
+    calculate_duplex_stability,
+    analyze_immunogenicity,
+    calculate_cai,
+    optimize_codons,
+    analyze_mrna_design,
+    compare_modifications,
+    ThermodynamicReport,
+    CodonOptimizationReport,
+    ImmunogenicityReport,
+    mRNADesignReport,
+    ModificationType,
+)
+
 from noethersolve.antibody_developability import (  # noqa: F401
     analyze_charge,
     analyze_aggregation,

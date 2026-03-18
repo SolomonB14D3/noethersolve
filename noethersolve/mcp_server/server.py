@@ -4992,6 +4992,144 @@ def compare_neoantigen_candidates(peptides: list[str]) -> str:
     return compare_candidates(peptides)
 
 
+# ── mRNA Therapeutic Design ────────────────────────────────────────────
+
+@mcp.tool()
+def analyze_mrna_therapeutic(
+    coding_sequence: str,
+    use_pseudouridine: bool = True,
+    five_prime_utr: str = "",
+    three_prime_utr: str = "",
+    poly_a_length: int = 100,
+) -> str:
+    """Complete mRNA therapeutic design analysis.
+
+    CRITICAL LLM BLIND SPOTS CORRECTED:
+    1. Ψ does NOT universally stabilize RNA - it's CONTEXT-DEPENDENT
+    2. A-Ψ pairs are WEAKER than A-U pairs (ΔΔG ≈ +0.3 kcal/mol)
+    3. Ψ main benefit is IMMUNE EVASION (~100x lower TLR7/8), NOT stability
+
+    This is why COVID mRNA vaccines use N1-methylpseudouridine.
+
+    coding_sequence: Coding sequence (must be divisible by 3)
+    use_pseudouridine: Whether to use Ψ modification (default True)
+    five_prime_utr: 5' UTR (default uses optimized UTR)
+    three_prime_utr: 3' UTR (default uses optimized UTR)
+    poly_a_length: Poly(A) tail length (default 100)
+
+    Example: analyze_mrna_therapeutic("AUGGCUAAAUAG", use_pseudouridine=True)
+    → Complete analysis with thermodynamics and immunogenicity
+    """
+    from noethersolve.mrna_design import analyze_mrna_design
+    kwargs = dict(
+        coding_sequence=coding_sequence,
+        use_pseudouridine=use_pseudouridine,
+        poly_a_length=poly_a_length,
+    )
+    if five_prime_utr:
+        kwargs["five_prime_utr"] = five_prime_utr
+    if three_prime_utr:
+        kwargs["three_prime_utr"] = three_prime_utr
+    return str(analyze_mrna_design(**kwargs))
+
+
+@mcp.tool()
+def compare_mrna_modifications(
+    sequence: str,
+    complement: str,
+) -> str:
+    """Compare RNA stability with and without pseudouridine.
+
+    DEMONSTRATES THE CRITICAL INSIGHT: Ψ DESTABILIZES A-U pairs!
+
+    LLMs commonly assume all RNA modifications stabilize. WRONG!
+    - A-Ψ hydrogen bonds are WEAKER than A-U
+    - The benefit of Ψ is immune evasion, not stability
+
+    sequence: RNA sequence (e.g., "AUAUAUAU")
+    complement: Complementary sequence (e.g., "UAUAUAUA")
+
+    Example: compare_mrna_modifications("AUAUAUAU", "UAUAUAUA")
+    → Shows Ψ DESTABILIZES this A-U rich sequence
+    """
+    from noethersolve.mrna_design import compare_modifications
+    return compare_modifications(sequence, complement)
+
+
+@mcp.tool()
+def analyze_mrna_immunogenicity(
+    sequence: str,
+    use_pseudouridine: bool = False,
+) -> str:
+    """Analyze innate immune activation risk of RNA sequence.
+
+    CRITICAL: Ψ modification reduces TLR7/8 recognition ~100-fold.
+    This is the PRIMARY reason for using Ψ in mRNA vaccines.
+
+    Checks:
+    - TLR7/8 risk (recognizes single-stranded RNA)
+    - RIG-I risk (recognizes double-stranded motifs)
+    - CpG content (immunostimulatory)
+    - Uridine runs (immunogenic)
+
+    sequence: RNA sequence to analyze
+    use_pseudouridine: Whether sequence uses Ψ modification
+
+    Example: analyze_mrna_immunogenicity("UUUUUUUUAUUUUUUU")
+    → HIGH risk for unmodified, LOW risk with Ψ
+    """
+    from noethersolve.mrna_design import analyze_immunogenicity, ModificationType
+    mod = ModificationType.PSEUDOURIDINE if use_pseudouridine else ModificationType.NONE
+    return str(analyze_immunogenicity(sequence, mod))
+
+
+@mcp.tool()
+def optimize_mrna_codons(
+    sequence: str,
+    strategy: str = "balanced",
+) -> str:
+    """Optimize codon usage for human expression.
+
+    Codon optimization improves translation efficiency by using
+    codons that match human tRNA abundance.
+
+    strategy:
+    - "high_cai": Maximize Codon Adaptation Index
+    - "balanced": Balance CAI with GC content and uridine reduction
+
+    sequence: Coding sequence (must be divisible by 3)
+
+    Example: optimize_mrna_codons("UUUAUAGAA")
+    → Shows CAI improvement and codon changes
+    """
+    from noethersolve.mrna_design import optimize_codons
+    return str(optimize_codons(sequence, strategy))
+
+
+@mcp.tool()
+def calc_mrna_duplex_stability(
+    sequence: str,
+    complement: str,
+    use_pseudouridine: bool = False,
+) -> str:
+    """Calculate RNA duplex stability using nearest-neighbor model.
+
+    CRITICAL: With Ψ modification, A-U rich sequences are DESTABILIZED!
+    This contradicts the common assumption that modifications stabilize.
+
+    sequence: RNA strand sequence
+    complement: Complementary strand sequence
+    use_pseudouridine: Whether to use Ψ in place of U
+
+    Returns ΔG (kcal/mol), stability change, and detailed notes.
+
+    Example: calc_mrna_duplex_stability("GCGCAUAU", "CGCGUAUA", True)
+    → Shows destabilization of A-U pairs with Ψ
+    """
+    from noethersolve.mrna_design import calculate_duplex_stability
+    return str(calculate_duplex_stability(sequence, complement, use_pseudouridine))
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():
