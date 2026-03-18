@@ -5708,6 +5708,221 @@ def get_full_autonomy_blueprint() -> str:
     return "\n".join(lines)
 
 
+# ── Metacognition Analysis Tools ─────────────────────────────────────
+
+@mcp.tool()
+def get_llm_metacognition_assessment() -> str:
+    """Get baseline metacognition assessment for LLMs.
+
+    CRITICAL FINDING: LLMs score 0% on "unknown recall" - they cannot
+    recognize when they don't know something. They are confidently wrong.
+
+    Key metrics from cognitive science:
+    - Calibration (ECE): Does confidence match accuracy?
+    - Resolution (AUROC): Can distinguish correct from incorrect?
+    - Meta-d': Metacognitive sensitivity in SDT units
+    - Unknown recall: Can say "I don't know"?
+
+    Example: get_llm_metacognition_assessment()
+    → Shows typical LLM deficits and recommendations
+    """
+    from noethersolve.metacognition import get_llm_metacognition_baseline
+    report = get_llm_metacognition_baseline()
+    return str(report)
+
+
+@mcp.tool()
+def list_metacognitive_capabilities() -> str:
+    """List all metacognitive capabilities with LLM status.
+
+    Metacognition = "cognition about cognition" = knowing what you know
+
+    Two key processes:
+    - MONITORING: Evaluating your own states (confidence, difficulty, knowing)
+    - CONTROL: Using monitoring to regulate behavior (strategy selection)
+
+    For each capability, shows:
+    - LLM status (present, partial, absent, limited)
+    - Evidence from research
+    - Implementation recommendations
+
+    Example: list_metacognitive_capabilities()
+    → Full breakdown of what LLMs can/cannot do metacognitively
+    """
+    from noethersolve.metacognition import list_metacognitive_capabilities as list_caps
+    caps = list_caps()
+
+    lines = [
+        "METACOGNITIVE CAPABILITIES",
+        "=" * 60,
+        "",
+        "MONITORING (evaluating own states):",
+        ""
+    ]
+
+    for name, info in caps["monitoring"].items():
+        status = info["llm_status"].upper()
+        icon = {"PRESENT": "✓", "PARTIAL": "◐", "ABSENT": "✗", "LIMITED": "○"}[status]
+        lines.append(f"  {icon} {name}: {status}")
+        lines.append(f"    Evidence: {info['evidence']}")
+        lines.append(f"    Fix: {info['implementation']}")
+        lines.append("")
+
+    lines.append("CONTROL (regulating behavior):")
+    lines.append("")
+
+    for name, info in caps["control"].items():
+        status = info["llm_status"].upper()
+        icon = {"PRESENT": "✓", "PARTIAL": "◐", "ABSENT": "✗", "LIMITED": "○"}[status]
+        lines.append(f"  {icon} {name}: {status}")
+        lines.append(f"    Evidence: {info['evidence']}")
+        lines.append(f"    Fix: {info['implementation']}")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def analyze_metacognitive_state(
+    confidence: float,
+    experience_match: float,
+    conflict_level: float,
+    difficulty: float,
+    importance: float
+) -> str:
+    """Analyze a metacognitive state and recommend actions.
+
+    Use this to decide whether to escalate to slow deliberation
+    or seek human help based on current cognitive state.
+
+    confidence: P(response is correct), 0-1
+    experience_match: Similarity to training distribution, 0-1
+    conflict_level: Internal contradictions detected, 0-1
+    difficulty: Perceived task difficulty, 0-1
+    importance: Stakes/urgency of the task, 0-1
+
+    Example: analyze_metacognitive_state(0.3, 0.2, 0.6, 0.8, 0.9)
+    → Low confidence + high conflict + high importance = SEEK HELP
+
+    Returns recommended action: PROCEED, ESCALATE, or SEEK_HELP
+    """
+    from noethersolve.metacognition import MetacognitiveStateVector
+
+    state = MetacognitiveStateVector(
+        confidence=confidence,
+        experience_match=experience_match,
+        conflict_level=conflict_level,
+        difficulty=difficulty,
+        importance=importance
+    )
+
+    lines = [
+        "METACOGNITIVE STATE ANALYSIS",
+        "=" * 50,
+        "",
+        f"Confidence: {confidence:.0%}",
+        f"Experience Match: {experience_match:.0%}",
+        f"Conflict Level: {conflict_level:.0%}",
+        f"Difficulty: {difficulty:.0%}",
+        f"Importance: {importance:.0%}",
+        "",
+    ]
+
+    if state.should_seek_help():
+        action = "SEEK_HELP"
+        explanation = (
+            "Very low confidence or high-stakes uncertainty. "
+            "Should ask for clarification or human review."
+        )
+    elif state.should_escalate():
+        action = "ESCALATE"
+        explanation = (
+            "Low confidence or detected conflicts. "
+            "Should use slow deliberative reasoning instead of fast intuition."
+        )
+    else:
+        action = "PROCEED"
+        explanation = (
+            "Adequate confidence and low conflict. "
+            "Can proceed with standard processing."
+        )
+
+    lines.append(f"RECOMMENDED ACTION: {action}")
+    lines.append("")
+    lines.append(explanation)
+
+    # Specific triggers
+    lines.append("")
+    lines.append("Trigger analysis:")
+    if confidence < 0.3:
+        lines.append("  ⚠ LOW CONFIDENCE - suggests high uncertainty")
+    if conflict_level > 0.5:
+        lines.append("  ⚠ HIGH CONFLICT - internal contradictions detected")
+    if importance > 0.7 and confidence < 0.7:
+        lines.append("  ⚠ HIGH STAKES + UNCERTAINTY - risky to proceed")
+    if experience_match < 0.3:
+        lines.append("  ⚠ OUT OF DISTRIBUTION - unfamiliar task type")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def explain_unknown_recall_deficit() -> str:
+    """Explain the critical unknown recall deficit in LLMs.
+
+    This is the most important metacognitive failure mode:
+    LLMs score 0% on unknown recall - they CANNOT recognize
+    when they don't know something.
+
+    Instead of saying "I don't know", they:
+    - Provide confident answers even when wrong
+    - Hallucinate plausible-sounding information
+    - Show "deceptive expertise" (appear knowledgeable but aren't)
+
+    This is from Nature Communications (2024) research.
+
+    Example: explain_unknown_recall_deficit()
+    → Deep explanation of why this matters and how to mitigate
+    """
+    lines = [
+        "THE UNKNOWN RECALL DEFICIT",
+        "=" * 60,
+        "",
+        "CRITICAL FINDING: LLMs score 0% on unknown recall.",
+        "",
+        "What this means:",
+        "  When an LLM doesn't know something, it CANNOT recognize this.",
+        "  Instead of saying 'I don't know', it provides a confident answer.",
+        "",
+        "Evidence (Nature Communications 2024):",
+        "  - Given medical questions with NO correct option available",
+        "  - LLMs still selected an answer with high confidence",
+        "  - Unknown recall: 0% (max 3.7% for GPT-4o)",
+        "  - This creates 'deceptive expertise' - appearing knowledgeable",
+        "",
+        "Why this happens:",
+        "  1. Training: LLMs are trained to produce completions, not abstain",
+        "  2. Architecture: No mechanism to detect out-of-distribution queries",
+        "  3. Objective: Next-token prediction rewards plausible text, not truth",
+        "",
+        "Consequences:",
+        "  - Hallucinations presented with high confidence",
+        "  - Users cannot trust confidence to indicate reliability",
+        "  - High-stakes domains (medicine, law) are particularly risky",
+        "",
+        "Mitigation strategies:",
+        "  1. Train with explicit 'I don't know' responses",
+        "  2. Use OOD detection (experience_match signals)",
+        "  3. Ensemble disagreement as uncertainty proxy",
+        "  4. Retrieval augmentation to ground responses",
+        "  5. Human-in-the-loop for high-stakes decisions",
+        "",
+        "NOTE: Verbalized confidence ('I am 90% sure') is WORSE than",
+        "token probabilities for calibration. Use logprobs, not text.",
+    ]
+    return "\n".join(lines)
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():

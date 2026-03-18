@@ -67,6 +67,7 @@ Package layout:
   noethersolve.noether_symmetry — Bidirectional Noether theorem mapping (symmetry ↔ conservation)
   noethersolve.antibody_developability — Antibody developability (viscosity, aggregation, polyreactivity)
   noethersolve.autonomy_analysis — Autonomy requirements checker (control theory, autopoiesis, robotics)
+  noethersolve.metacognition — Metacognition analysis (calibration, resolution, meta-d', unknown recall)
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -849,6 +850,29 @@ from noethersolve.autonomy_analysis import (  # noqa: F401
     design_autonomous_system,
     get_minimum_viable_autonomy,
     get_full_autonomy_blueprint,
+)
+
+from noethersolve.metacognition import (  # noqa: F401
+    MetacognitiveProcess,
+    KnowledgeType,
+    MonitoringJudgment,
+    ConfidenceSample,
+    CalibrationResult,
+    ResolutionResult,
+    MetaDPrimeResult,
+    UnknownRecallResult,
+    SelfCorrectionResult,
+    MetacognitiveStateVector,
+    MetacognitionReport,
+    compute_calibration,
+    compute_resolution,
+    compute_meta_d_prime,
+    analyze_unknown_recall,
+    analyze_self_correction,
+    assess_metacognition,
+    get_llm_metacognition_baseline,
+    list_metacognitive_capabilities,
+    LLM_TYPICAL_PROFILE,
 )
 
 from noethersolve.antibody_developability import (  # noqa: F401
