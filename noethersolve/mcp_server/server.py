@@ -5130,6 +5130,165 @@ def calc_mrna_duplex_stability(
     return str(calculate_duplex_stability(sequence, complement, use_pseudouridine))
 
 
+# ── Behavioral Finance (Prospect Theory, Cognitive Biases) ────────────
+
+@mcp.tool()
+def analyze_decision_prospect_theory(
+    outcomes: list[list],
+    reference_point: float = 0.0,
+) -> str:
+    """Analyze a financial decision using Kahneman-Tversky prospect theory.
+
+    CRITICAL LLM BLIND SPOTS:
+    1. LLMs maximize EXPECTED VALUE, but humans maximize PROSPECT VALUE
+    2. Loss aversion λ ≈ 2.25 (losses hurt 2.25x more than gains feel good)
+    3. Probability weighting: small probs OVERWEIGHTED, large UNDERWEIGHTED
+
+    outcomes: List of [outcome_value, probability] pairs
+              e.g., [[100, 0.5], [-50, 0.5]] for a coin flip
+    reference_point: What counts as "no change" (default 0)
+
+    Example: analyze_decision_prospect_theory([[100, 0.5], [-100, 0.5]], 0)
+    → Shows EV=0 but PV<0 (fair gambles feel bad due to loss aversion)
+    """
+    from noethersolve.behavioral_finance import analyze_prospect
+    outcome_tuples = [(o[0], o[1]) for o in outcomes]
+    return str(analyze_prospect(outcome_tuples, reference_point))
+
+
+@mcp.tool()
+def analyze_loss_aversion_gamble(
+    gain_amount: float,
+    loss_amount: float,
+    gain_probability: float = 0.5,
+    loss_probability: float = 0.5,
+) -> str:
+    """Analyze a gamble through the lens of loss aversion.
+
+    CRITICAL: To accept a 50-50 gamble, gain must be ~2.25x the loss!
+    This is why people reject positive-EV gambles.
+
+    gain_amount: Potential gain if successful
+    loss_amount: Potential loss if unsuccessful (positive number)
+    gain_probability: Probability of gain (default 0.5)
+    loss_probability: Probability of loss (default 0.5)
+
+    Example: analyze_loss_aversion_gamble(100, 100, 0.5, 0.5)
+    → Shows EV=0 but PT rejects due to λ=2.25 loss aversion
+    """
+    from noethersolve.behavioral_finance import analyze_loss_aversion
+    return str(analyze_loss_aversion(gain_amount, loss_amount, gain_probability, loss_probability))
+
+
+@mcp.tool()
+def compare_temporal_discounting(
+    future_value: float,
+    periods: float,
+    annual_rate: float = 0.05,
+    hyperbolic_k: float = 0.1,
+) -> str:
+    """Compare exponential vs hyperbolic time discounting.
+
+    CRITICAL: Humans use HYPERBOLIC discounting, not exponential!
+    This causes:
+    - Present bias (overvalue immediate rewards)
+    - Preference reversals (choices flip as options approach)
+
+    future_value: Amount to be received in the future
+    periods: Time periods until receipt
+    annual_rate: Exponential discount rate
+    hyperbolic_k: Hyperbolic discount parameter
+
+    Example: compare_temporal_discounting(1000, 5, 0.05, 0.1)
+    → Shows hyperbolic vs exponential present values
+    """
+    from noethersolve.behavioral_finance import analyze_temporal_discounting
+    return str(analyze_temporal_discounting(future_value, periods, annual_rate, hyperbolic_k))
+
+
+@mcp.tool()
+def detect_allais_paradox(
+    certain_amount: float = 1000000,
+    risky_high: float = 5000000,
+    risky_high_prob: float = 0.89,
+    risky_mid: float = 1000000,
+    risky_mid_prob: float = 0.10,
+) -> str:
+    """Analyze the Allais paradox - certainty effect violation of EV.
+
+    The Allais paradox: humans prefer certainty over higher expected value.
+    This violates expected utility theory but is explained by prospect theory.
+
+    Default: $1M certain vs ($5M at 89%, $1M at 10%, $0 at 1%)
+    Most humans choose certain $1M even though EV(risky) = $4.55M
+
+    Example: detect_allais_paradox()
+    → Shows EV vs PT analysis of classic paradox
+    """
+    from noethersolve.behavioral_finance import analyze_allais_paradox
+    return str(analyze_allais_paradox(certain_amount, risky_high, risky_high_prob, risky_mid, risky_mid_prob))
+
+
+@mcp.tool()
+def demonstrate_framing_effect(amount: float = 100) -> str:
+    """Demonstrate how framing changes decisions for IDENTICAL outcomes.
+
+    CRITICAL: Same outcome framed as gain vs loss leads to opposite choices!
+    - "Keep $50" vs "Lose $50" are identical outcomes
+    - But humans choose differently based on framing
+
+    This is a core LLM blind spot - models don't account for reference points.
+
+    amount: Starting amount for the demonstration
+
+    Example: demonstrate_framing_effect(100)
+    → Shows identical choices with different frames leading to different decisions
+    """
+    from noethersolve.behavioral_finance import framing_effect_demo
+    return framing_effect_demo(amount)
+
+
+@mcp.tool()
+def calc_herding_cascade_threshold(
+    prior_probability: float,
+    signal_precision: float,
+    n_predecessors: int,
+) -> str:
+    """Calculate when an information cascade (herding) triggers.
+
+    In a cascade, agents RATIONALLY ignore their private information
+    and follow the crowd. This explains market bubbles, bank runs, etc.
+
+    prior_probability: Prior belief P(good state)
+    signal_precision: Accuracy of private signals (must be > 0.5)
+    n_predecessors: Number of previous agents who chose same action
+
+    Example: calc_herding_cascade_threshold(0.5, 0.7, 5)
+    → Shows whether 5 concordant predecessors trigger a cascade
+    """
+    from noethersolve.behavioral_finance import herding_cascade_threshold
+    result = herding_cascade_threshold(prior_probability, signal_precision, n_predecessors)
+
+    if "error" in result:
+        return f"Error: {result['error']}"
+
+    lines = [
+        "INFORMATION CASCADE ANALYSIS",
+        "=" * 50,
+        "",
+        f"Prior probability (good state): {result['prior_probability']:.1%}",
+        f"Signal precision: {result['signal_precision']:.1%}",
+        f"Predecessors in consensus: {result['n_predecessors']}",
+        "",
+        f"Posterior probability: {result['posterior_probability']:.1%}",
+        f"Min predecessors for cascade: {result['min_predecessors_for_cascade']}",
+        "",
+        f"CASCADE TRIGGERED: {'YES' if result['cascade_triggered'] else 'NO'}",
+        f"{result['explanation']}",
+    ]
+    return "\n".join(lines)
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():

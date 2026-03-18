@@ -801,6 +801,30 @@ from noethersolve.mrna_design import (  # noqa: F401
     ModificationType,
 )
 
+from noethersolve.behavioral_finance import (  # noqa: F401
+    prospect_value_function,
+    probability_weight,
+    calculate_prospect_value,
+    calculate_expected_value,
+    analyze_prospect,
+    exponential_discount,
+    hyperbolic_discount,
+    analyze_temporal_discounting,
+    analyze_allais_paradox,
+    analyze_loss_aversion,
+    mental_accounting_violation,
+    framing_effect_demo,
+    herding_cascade_threshold,
+    ProspectTheoryReport,
+    TemporalDiscountReport,
+    AllaisParadoxReport,
+    LossAversionReport,
+    DecisionType,
+    LOSS_AVERSION_LAMBDA,
+    VALUE_CURVATURE_ALPHA,
+    PROB_WEIGHT_GAMMA_GAINS,
+)
+
 from noethersolve.antibody_developability import (  # noqa: F401
     analyze_charge,
     analyze_aggregation,
