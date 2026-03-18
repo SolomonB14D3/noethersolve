@@ -4444,6 +4444,109 @@ def explain_why_free_energy_is_impossible() -> str:
     return "\n".join(lines)
 
 
+# ── Noether's Theorem (Symmetry ↔ Conservation) ───────────────────────
+
+@mcp.tool()
+def noether_symmetry_to_conservation(symmetry: str) -> str:
+    """Map a symmetry to its conserved quantity via Noether's theorem.
+
+    Emmy Noether proved (1915): Every continuous symmetry corresponds
+    to a conserved quantity.
+
+    CRITICAL MODEL ERROR: Models often say "translation → energy" (WRONG!)
+    The correct mapping is: spatial translation → momentum
+                           time translation → energy
+
+    symmetry: Symmetry name or description, e.g.:
+        - "time translation" → Energy
+        - "spatial translation" → Momentum (NOT energy!)
+        - "rotation" → Angular momentum
+        - "U(1) gauge" → Electric charge
+
+    Returns detailed mapping with common errors and examples.
+
+    Example: noether_symmetry_to_conservation("spatial translation")
+    → Momentum conservation (warns about common energy confusion)
+    """
+    from noethersolve.noether_symmetry import symmetry_to_conservation
+    return str(symmetry_to_conservation(symmetry))
+
+
+@mcp.tool()
+def noether_conservation_to_symmetry(conserved: str) -> str:
+    """Map a conserved quantity to its underlying symmetry via Noether's theorem.
+
+    The reverse direction: given a conservation law, what symmetry implies it?
+
+    conserved: Conservation law or quantity, e.g.:
+        - "energy" → Time translation
+        - "momentum" → Spatial translation
+        - "angular momentum" → Rotational symmetry
+        - "charge" → U(1) gauge symmetry
+
+    Returns detailed mapping with common errors and examples.
+
+    Example: noether_conservation_to_symmetry("momentum")
+    → Spatial translation symmetry
+    """
+    from noethersolve.noether_symmetry import conservation_to_symmetry
+    return str(conservation_to_symmetry(conserved))
+
+
+@mcp.tool()
+def verify_noether_claim(symmetry: str, conserved: str) -> str:
+    """Verify if a symmetry-conservation claim is correct.
+
+    CRITICAL: LLMs frequently confuse:
+    - Spatial translation → momentum (correct)
+    - Time translation → energy (correct)
+    - Spatial translation → energy (WRONG!)
+    - Time translation → momentum (WRONG!)
+
+    symmetry: Claimed symmetry
+    conserved: Claimed conserved quantity
+
+    Returns whether the claim is correct and the correct mapping if wrong.
+
+    Example: verify_noether_claim("spatial translation", "energy")
+    → INCORRECT: spatial translation → momentum, not energy
+    """
+    from noethersolve.noether_symmetry import verify_noether_claim as _verify
+    is_correct, explanation = _verify(symmetry, conserved)
+    return f"{'CORRECT' if is_correct else 'INCORRECT'}\n\n{explanation}"
+
+
+@mcp.tool()
+def list_noether_symmetries() -> str:
+    """List all known Noether symmetry-conservation pairs.
+
+    Returns the complete database of verified mappings including:
+    - Spacetime symmetries (time, space, rotation, boost)
+    - Internal symmetries (U(1), SU(3), baryon/lepton number)
+    - Discrete symmetries (P, CPT)
+
+    Each entry shows the bidirectional mapping and common errors.
+    """
+    from noethersolve.noether_symmetry import NOETHER_PAIRS
+
+    lines = [
+        "NOETHER'S THEOREM: SYMMETRY ↔ CONSERVATION PAIRS",
+        "=" * 55,
+        "",
+    ]
+
+    for key, pair in NOETHER_PAIRS.items():
+        lines.append(f"{pair.symmetry} ↔ {pair.conservation_law}")
+        lines.append(f"  {pair.symmetry_description}")
+        lines.append(f"  Conserved: {pair.conserved_quantity} ({pair.quantity_symbol})")
+        lines.append("")
+
+    lines.append("Use noether_symmetry_to_conservation() or")
+    lines.append("noether_conservation_to_symmetry() for detailed mappings.")
+
+    return "\n".join(lines)
+
+
 # ── Antibody Developability ───────────────────────────────────────────
 
 @mcp.tool()

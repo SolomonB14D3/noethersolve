@@ -63,6 +63,7 @@ Package layout:
   noethersolve.seismic_waves       — P/S-wave velocities, elastic moduli, reflection coefficients, Snell's law
   noethersolve.plasma_adiabatic    — Adiabatic invariants (μ, J, Φ), magnetic mirrors, loss cone, cyclotron motion
   noethersolve.gauge_equivalence   — Type inference ↔ gauge fixing parallel (MGU, Gribov, redundant DOF)
+  noethersolve.noether_symmetry — Bidirectional Noether theorem mapping (symmetry ↔ conservation)
   noethersolve.antibody_developability — Antibody developability (viscosity, aggregation, polyreactivity)
 """
 
@@ -756,6 +757,19 @@ from noethersolve.catalysis import (  # noqa: F401
     D_BAND_CENTERS,
 )
 
+from noethersolve.noether_symmetry import (  # noqa: F401
+    symmetry_to_conservation,
+    conservation_to_symmetry,
+    verify_noether_claim,
+    list_all_pairs as list_noether_pairs,
+    get_pair as get_noether_pair,
+    NoetherReport,
+    NoetherPair,
+    SymmetryType,
+    ConservationType,
+    NOETHER_PAIRS,
+)
+
 from noethersolve.antibody_developability import (  # noqa: F401
     analyze_charge,
     analyze_aggregation,
@@ -815,4 +829,4 @@ from noethersolve.outcome_logger import (  # noqa: F401
     log_batch,
 )
 
-__version__ = "1.20.0"
+__version__ = "1.21.0"
