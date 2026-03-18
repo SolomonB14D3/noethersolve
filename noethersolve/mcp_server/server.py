@@ -4444,6 +4444,121 @@ def explain_why_free_energy_is_impossible() -> str:
     return "\n".join(lines)
 
 
+# ── Gauge Equivalence (Type Inference ↔ Gauge Fixing) ─────────────────
+
+@mcp.tool()
+def check_gauge_equivalence(
+    system_description: str,
+    domain: str = "auto",
+) -> str:
+    """Analyze redundant degrees of freedom in constraint systems.
+
+    REVEALS THE DEEP PARALLEL between:
+    - Type inference in programming languages (finding most general unifiers)
+    - Gauge fixing in physics (removing redundant degrees of freedom)
+
+    Both solve the SAME mathematical problem: given constraints with
+    equivalence classes, find a canonical representative.
+
+    system_description: What system to analyze. Examples:
+        - "U(1) electromagnetism" → gauge freedom A_μ → A_μ + ∂_μχ
+        - "Hindley-Milner type inference" → type variable unification
+        - "Yang-Mills SU(2)" → non-abelian gauge + Gribov copies
+        - "parametric polymorphism" → ∀α quantification
+
+    domain: "type_system", "gauge_theory", or "auto" (default)
+
+    Returns analysis of:
+    - Redundant DOF identified
+    - Fixing conditions (gauge conditions / unification)
+    - Residual freedom (global symmetry / principal type)
+    - Cross-domain analogy
+
+    Example: check_gauge_equivalence("U(1) electromagnetism")
+    → Shows gauge freedom, Coulomb/Lorenz gauge options, global U(1) residual
+    """
+    from noethersolve.gauge_equivalence import (
+        check_gauge_equivalence as _check
+    )
+    report = _check(system_description, domain=domain)
+    return str(report)
+
+
+@mcp.tool()
+def explain_type_gauge_parallel(concept: str) -> str:
+    """Explain the parallel between type theory and gauge theory concepts.
+
+    CRITICAL INSIGHT: Type inference and gauge fixing are mathematically
+    IDENTICAL problems — both find canonical representatives of equivalence
+    classes. LLMs are blind to this because training data keeps these
+    domains completely separate.
+
+    Known parallels:
+    - most_general_unifier ↔ gauge orbit representative
+    - type_variable ↔ gauge parameter
+    - unification_constraint ↔ gauge constraint
+    - substitution ↔ gauge transformation
+    - occurs_check ↔ Gribov ambiguity
+    - principal_type ↔ residual gauge freedom
+
+    concept: One of the parallel concepts above (partial match works)
+
+    Example: explain_type_gauge_parallel("occurs_check")
+    → Shows parallel: α = List[α] fails (infinite type) ↔
+      Gribov copies (multiple A satisfy ∇·A = 0)
+    """
+    from noethersolve.gauge_equivalence import explain_parallel
+    result = explain_parallel(concept)
+    if result is None:
+        from noethersolve.gauge_equivalence import list_parallels
+        available = list_parallels()
+        return f"Unknown concept. Available parallels: {available}"
+
+    lines = [
+        f"TYPE THEORY ↔ GAUGE THEORY PARALLEL: {concept}",
+        "=" * 50,
+        "",
+        f"Type Theory: {result.get('type_concept', 'N/A')}",
+        f"  {result.get('type_description', '')}",
+        f"  Example: {result.get('example_type', 'N/A')}",
+        "",
+        f"Gauge Theory: {result.get('gauge_concept', 'N/A')}",
+        f"  {result.get('gauge_description', '')}",
+        f"  Example: {result.get('example_gauge', 'N/A')}",
+        "",
+        f"SHARED STRUCTURE: {result.get('shared_structure', 'N/A')}",
+    ]
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def simple_type_unify(type1: str, type2: str) -> str:
+    """Perform simple first-order type unification.
+
+    Demonstrates the parallel with gauge fixing: finding a canonical
+    representative (the most general unifier) from an equivalence class.
+
+    type1: First type, e.g., "List[α]", "Pair[α,β]"
+    type2: Second type, e.g., "List[Int]", "Pair[Int,String]"
+
+    Returns:
+    - MGU (most general unifier) if successful
+    - Occurs check failure if type contains itself (like Gribov ambiguity)
+    - Constructor mismatch if incompatible
+
+    Examples:
+    - simple_type_unify("α", "Int") → {α ↦ Int}
+    - simple_type_unify("List[α]", "List[Int]") → {α ↦ Int}
+    - simple_type_unify("α", "List[α]") → FAILS (occurs check)
+
+    The gauge analog: Finding σ is like choosing gauge condition.
+    Occurs check failure is like Gribov copies (no unique solution).
+    """
+    from noethersolve.gauge_equivalence import simple_unify
+    result = simple_unify(type1, type2)
+    return str(result)
+
+
 # ── Blind Spot Detection ──────────────────────────────────────────────
 
 @mcp.tool()

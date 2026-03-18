@@ -38,11 +38,9 @@
     {
       "id": "type_gauge",
       "domains": ["programming_languages", "physics"],
-      "trigger_keywords": ["type inference", "polymorphism", "gauge fixing", "principal type", "unifier"],
+      "trigger_keywords": ["type inference", "polymorphism", "gauge fixing", "principal type", "unifier", "MGU", "most general unifier", "Gribov"],
       "insight": "Both remove redundancy to get unique solutions",
-      "tools": [],
-      "needs_tool": true,
-      "tool_idea": "check_gauge_equivalence(constraints) → identifies redundant DOF",
+      "tools": ["check_gauge_equivalence", "explain_type_gauge_parallel", "simple_type_unify"],
       "interpretation": "Most general unifier ↔ residual gauge freedom"
     }
   ],

@@ -62,6 +62,7 @@ Package layout:
   noethersolve.gr_constraints      — ADM/Bondi/Komar mass, Hamiltonian/momentum constraints, ADM formalism
   noethersolve.seismic_waves       — P/S-wave velocities, elastic moduli, reflection coefficients, Snell's law
   noethersolve.plasma_adiabatic    — Adiabatic invariants (μ, J, Φ), magnetic mirrors, loss cone, cyclotron motion
+  noethersolve.gauge_equivalence   — Type inference ↔ gauge fixing parallel (MGU, Gribov, redundant DOF)
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -754,6 +755,18 @@ from noethersolve.catalysis import (  # noqa: F401
     D_BAND_CENTERS,
 )
 
+from noethersolve.gauge_equivalence import (  # noqa: F401
+    check_gauge_equivalence,
+    explain_parallel,
+    list_parallels,
+    simple_unify,
+    GaugeEquivalenceReport,
+    UnificationResult,
+    RedundantDOF,
+    Domain as GaugeDomain,
+    KNOWN_PARALLELS,
+)
+
 from noethersolve.tool_graph import (  # noqa: F401
     calculator,
     get_registry,
@@ -784,4 +797,4 @@ from noethersolve.outcome_logger import (  # noqa: F401
     log_batch,
 )
 
-__version__ = "1.18.0"
+__version__ = "1.19.0"
