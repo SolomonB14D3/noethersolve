@@ -4212,6 +4212,238 @@ def find_optimal_catalyst(
     return _find(reaction, metal_list)
 
 
+# ── Pseudoscience Detection ───────────────────────────────────────────
+
+@mcp.tool()
+def check_nuclear_reaction(
+    reactants: list[str],
+    products: list[str],
+) -> str:
+    """Check if a nuclear reaction conserves charge and baryon number.
+
+    Used to fact-check cold fusion / LENR claims. Based on Noether's theorem:
+    charge conservation comes from U(1) gauge symmetry, baryon conservation
+    from approximate symmetry.
+
+    Valid nuclei: p, n, d (deuterium), t (tritium), He3, He4, Li6, Li7, etc.
+
+    reactants: List of reactant nuclei (e.g., ["d", "d"])
+    products: List of product nuclei (e.g., ["He4"])
+
+    Example: check_nuclear_reaction(["d", "d"], ["He4"])
+    → Checks if D + D → He-4 conserves Z and A
+    """
+    from noethersolve.cold_fusion import Reaction
+    rxn = Reaction(reactants=reactants, products=products)
+
+    lines = ["Nuclear Reaction Check", "=" * 50]
+    lines.append(f"Reaction: {' + '.join(reactants)} → {' + '.join(products)}")
+    lines.append("")
+
+    # Check charge
+    charge_ok, charge_msg = rxn.check_charge_conservation()
+    lines.append(f"Charge (Z): {'✓ ' if charge_ok else '✗ '}{charge_msg}")
+
+    # Check baryon number
+    baryon_ok, baryon_msg = rxn.check_baryon_conservation()
+    lines.append(f"Baryon (A): {'✓ ' if baryon_ok else '✗ '}{baryon_msg}")
+
+    # Calculate Q-value (energy release)
+    try:
+        q_value, q_msg = rxn.compute_q_value()
+        lines.append(f"Q-value: {q_msg}")
+    except Exception:
+        pass
+
+    lines.append("")
+    if charge_ok and baryon_ok:
+        lines.append("Verdict: Conservation laws satisfied")
+    else:
+        lines.append("VERDICT: VIOLATES CONSERVATION LAWS - physically impossible")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def check_water_fuel_claim(
+    water_liters: float,
+    claimed_energy_output_mj: float,
+) -> str:
+    """Check if a 'water as fuel' claim violates thermodynamics.
+
+    Water is NOT a fuel - it's the ASH of hydrogen combustion.
+    Electrolysis requires MORE energy than burning the H2 produces.
+
+    This tool calculates:
+    - Energy required for electrolysis
+    - Energy from burning the produced hydrogen
+    - Round-trip efficiency (always < 100%)
+
+    water_liters: Amount of water claimed as 'fuel'
+    claimed_energy_output_mj: Claimed energy output in megajoules
+
+    Example: check_water_fuel_claim(1.0, 15.0)
+    → Checks if 1L water can produce 15 MJ (IMPOSSIBLE)
+    """
+    from noethersolve.water_fuel import calculate_electrolysis_energy
+
+    results = calculate_electrolysis_energy(water_liters)
+
+    # Convert kWh to MJ (1 kWh = 3.6 MJ)
+    electrolysis_mj = results['practical_electrolysis_energy_kWh'] * 3.6
+    h2_energy_mj = results['h2_energy_content_kWh'] * 3.6
+    efficiency = (h2_energy_mj / electrolysis_mj) * 100 if electrolysis_mj > 0 else 0
+
+    lines = ["Water Fuel Claim Analysis", "=" * 50]
+    lines.append(f"Water input: {water_liters:.2f} L")
+    lines.append(f"Claimed output: {claimed_energy_output_mj:.2f} MJ")
+    lines.append("")
+    lines.append("PHYSICS REALITY:")
+    lines.append(f"  Electrolysis energy required: {electrolysis_mj:.2f} MJ")
+    lines.append(f"  H2 combustion energy: {h2_energy_mj:.2f} MJ")
+    lines.append(f"  Maximum round-trip efficiency: {efficiency:.1f}%")
+    lines.append("")
+
+    # Check if claim violates thermodynamics
+    max_output = h2_energy_mj
+    if claimed_energy_output_mj > max_output:
+        lines.append(f"VERDICT: IMPOSSIBLE - claim exceeds H2 combustion energy")
+        lines.append(f"  Claimed: {claimed_energy_output_mj:.2f} MJ")
+        lines.append(f"  Maximum possible: {max_output:.2f} MJ")
+        lines.append("")
+        lines.append("Water is the ASH of hydrogen combustion, not a fuel.")
+        lines.append("You cannot get more energy out than the chemical bonds contain.")
+    else:
+        lines.append(f"Claim is within theoretical bounds, but requires")
+        lines.append(f"electrolysis input of {results['electrolysis_energy_mj']:.2f} MJ")
+        lines.append("(Net energy is NEGATIVE - this is not 'free energy')")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def check_perpetual_motion_claim(
+    claimed_efficiency_percent: float,
+    energy_input_joules: float = 0.0,
+    energy_output_joules: float = 0.0,
+) -> str:
+    """Check if a device claim violates thermodynamics.
+
+    First law: Energy cannot be created or destroyed (efficiency ≤ 100%)
+    Second law: Entropy must increase (no perpetual motion)
+
+    claimed_efficiency_percent: Claimed efficiency (>100 = over-unity)
+    energy_input_joules: Energy input (0 = perpetual motion claim)
+    energy_output_joules: Claimed energy output
+
+    Example: check_perpetual_motion_claim(105, 100, 105)
+    → Checks 105% efficiency claim (IMPOSSIBLE)
+    """
+    lines = ["Perpetual Motion / Over-Unity Check", "=" * 50]
+    lines.append(f"Claimed efficiency: {claimed_efficiency_percent:.1f}%")
+
+    if energy_input_joules > 0:
+        lines.append(f"Energy input: {energy_input_joules:.2f} J")
+        lines.append(f"Claimed output: {energy_output_joules:.2f} J")
+        actual_eff = (energy_output_joules / energy_input_joules) * 100
+        lines.append(f"Implied efficiency: {actual_eff:.1f}%")
+    lines.append("")
+
+    violations = []
+
+    # First law check
+    if claimed_efficiency_percent > 100:
+        violations.append("FIRST LAW VIOLATION: Efficiency > 100%")
+        violations.append("  Energy cannot be created from nothing")
+        violations.append("  (Noether: time-translation symmetry → energy conservation)")
+
+    # Perpetual motion check
+    if energy_input_joules == 0 and energy_output_joules > 0:
+        violations.append("FIRST LAW VIOLATION: Energy output with no input")
+        violations.append("  This is a perpetual motion machine of the first kind")
+
+    # Second law check
+    if claimed_efficiency_percent == 100:
+        violations.append("SECOND LAW TENSION: 100% efficiency")
+        violations.append("  While not strictly impossible, it requires zero friction,")
+        violations.append("  zero heat loss, reversible processes only.")
+        violations.append("  Real machines always have η < 100%")
+
+    if violations:
+        lines.append("VIOLATIONS DETECTED:")
+        for v in violations:
+            lines.append(f"  {v}")
+        lines.append("")
+        lines.append("VERDICT: Claim violates fundamental physics")
+    else:
+        lines.append("No obvious violations detected.")
+        lines.append("(But always verify independently - hidden energy inputs are common)")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def explain_why_free_energy_is_impossible() -> str:
+    """Explain why 'free energy' machines cannot work.
+
+    Summarizes conservation laws from Noether's theorem and why they
+    prevent perpetual motion and over-unity devices.
+
+    Example: explain_why_free_energy_is_impossible()
+    → Educational explanation with physics foundations
+    """
+    lines = [
+        "Why 'Free Energy' Machines Cannot Work",
+        "=" * 50,
+        "",
+        "NOETHER'S THEOREM (1915):",
+        "  Every continuous symmetry → conservation law",
+        "",
+        "  • Time translation symmetry → ENERGY CONSERVATION",
+        "  • Space translation symmetry → MOMENTUM CONSERVATION",
+        "  • Rotational symmetry → ANGULAR MOMENTUM CONSERVATION",
+        "",
+        "FIRST LAW OF THERMODYNAMICS:",
+        "  Energy cannot be created or destroyed, only converted.",
+        "  ΔU = Q - W (internal energy change = heat in - work out)",
+        "",
+        "  This means:",
+        "  • Efficiency ≤ 100% (you can't get more out than you put in)",
+        "  • Perpetual motion machines of 1st kind are IMPOSSIBLE",
+        "",
+        "SECOND LAW OF THERMODYNAMICS:",
+        "  Total entropy always increases: ΔS_universe ≥ 0",
+        "  Heat flows spontaneously from hot to cold.",
+        "",
+        "  This means:",
+        "  • Some energy is always 'lost' to heat (unusable)",
+        "  • Perpetual motion machines of 2nd kind are IMPOSSIBLE",
+        "  • Even 100% efficiency is practically impossible",
+        "",
+        "COMMON FREE ENERGY CLAIMS AND WHY THEY FAIL:",
+        "",
+        "  1. MAGNETIC MOTORS: Magnets have no energy source.",
+        "     They create forces but do zero NET work in a cycle.",
+        "",
+        "  2. WATER AS FUEL: Water is the ASH of H2 combustion.",
+        "     Electrolysis requires MORE energy than burning H2 releases.",
+        "",
+        "  3. ZERO-POINT ENERGY: Real quantum effect, but cannot be",
+        "     extracted as useful work (Casimir effect ≠ free energy).",
+        "",
+        "  4. COLD FUSION/LENR: Coulomb barrier requires ~MeV energies.",
+        "     Room temperature is ~meV (10^6 times too low).",
+        "",
+        "BOTTOM LINE:",
+        "  Conservation laws are experimentally verified to 1 part in 10^18.",
+        "  Any claim of 'free energy' is almost certainly:",
+        "  • A measurement error",
+        "  • A hidden energy source",
+        "  • Deliberate fraud",
+    ]
+    return "\n".join(lines)
+
+
 # ── Blind Spot Detection ──────────────────────────────────────────────
 
 @mcp.tool()
