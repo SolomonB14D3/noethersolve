@@ -66,6 +66,7 @@ Package layout:
   noethersolve.neoantigen_pipeline — Cancer immunotherapy neoantigen prediction (4-step pipeline)
   noethersolve.noether_symmetry — Bidirectional Noether theorem mapping (symmetry ↔ conservation)
   noethersolve.antibody_developability — Antibody developability (viscosity, aggregation, polyreactivity)
+  noethersolve.autonomy_analysis — Autonomy requirements checker (control theory, autopoiesis, robotics)
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -823,6 +824,25 @@ from noethersolve.behavioral_finance import (  # noqa: F401
     LOSS_AVERSION_LAMBDA,
     VALUE_CURVATURE_ALPHA,
     PROB_WEIGHT_GAMMA_GAINS,
+)
+
+from noethersolve.autonomy_analysis import (  # noqa: F401
+    AutonomyFramework,
+    ComponentStatus,
+    AutonomyComponent,
+    ComponentAssessment,
+    AutonomyReport,
+    AUTONOMY_COMPONENTS,
+    SYSTEM_PROFILES,
+    get_all_components,
+    assess_system,
+    assess_predefined_system,
+    compare_systems,
+    identify_autonomy_gaps,
+    check_autonomy_requirements,
+    analyze_transformer_autonomy,
+    list_frameworks,
+    list_predefined_systems,
 )
 
 from noethersolve.antibody_developability import (  # noqa: F401

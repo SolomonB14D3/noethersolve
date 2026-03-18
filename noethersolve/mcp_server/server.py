@@ -5289,6 +5289,207 @@ def calc_herding_cascade_threshold(
     return "\n".join(lines)
 
 
+# ── Autonomy Analysis Tools ──────────────────────────────────────────
+
+@mcp.tool()
+def analyze_system_autonomy(system_type: str) -> str:
+    """Analyze a system's autonomy across 5 theoretical frameworks.
+
+    CRITICAL: LLM transformers score ~31% autonomy - fundamentally non-autonomous.
+    The gap is architectural, not fixable by scaling.
+
+    Frameworks assessed:
+    - Control Theory: feedback, goals, stability
+    - Autopoiesis: operational closure, self-production, boundary
+    - Philosophy: intentionality, self-determination, normativity
+    - Robotics: embodiment, sensorimotor coupling, real-time
+    - Cognitive Science: metacognition, memory, prospection
+
+    system_type: One of 'llm_transformer', 'human', 'living_cell',
+                 'thermostat', 'autonomous_robot'
+
+    Example: analyze_system_autonomy("llm_transformer")
+    → Full autonomy assessment showing what's present, partial, and absent
+    """
+    from noethersolve.autonomy_analysis import assess_predefined_system
+    return str(assess_predefined_system(system_type))
+
+
+@mcp.tool()
+def compare_system_autonomy(systems: str) -> str:
+    """Compare autonomy across multiple systems.
+
+    Ranks systems by autonomy score and identifies key differences.
+
+    systems: Comma-separated list of system types
+             (llm_transformer, human, living_cell, thermostat, autonomous_robot)
+
+    Example: compare_system_autonomy("llm_transformer,human,living_cell")
+    → Ranking: human > living_cell > llm_transformer
+    → Key differences in operational closure, embodiment, etc.
+    """
+    from noethersolve.autonomy_analysis import compare_systems
+    system_list = [s.strip() for s in systems.split(",")]
+    result = compare_systems(system_list)
+
+    lines = ["AUTONOMY COMPARISON", "=" * 50, ""]
+
+    # Ranking
+    lines.append("Ranking (by autonomy score):")
+    for i, sys in enumerate(result["ranking"], 1):
+        score = result["systems"][sys]["overall_score"]
+        gaps = result["systems"][sys]["critical_gap_count"]
+        lines.append(f"  {i}. {sys}: {score:.1%} (critical gaps: {gaps})")
+
+    # Key differences
+    if result["key_differences"]:
+        lines.append("")
+        lines.append("Key Differences (high variance across systems):")
+        for diff in result["key_differences"][:5]:
+            lines.append(f"  {diff['component']} ({diff['framework']}):")
+            for sys, status in diff["statuses"].items():
+                lines.append(f"    - {sys}: {status}")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def identify_transformer_gaps() -> str:
+    """Identify what LLM transformers lack for autonomy.
+
+    CRITICAL FINDING: The gap is architectural, not fixable by scaling.
+
+    Returns:
+    - Overall autonomy score (~31%)
+    - Components that are present, partial, or absent
+    - Which gaps are fixable vs architectural limitations
+    - What architectural changes would be needed
+
+    Example: identify_transformer_gaps()
+    → Detailed analysis showing transformers lack operational closure,
+      persistent identity, embodiment, and other critical components
+    """
+    from noethersolve.autonomy_analysis import analyze_transformer_autonomy
+    analysis = analyze_transformer_autonomy()
+
+    lines = [
+        "LLM TRANSFORMER AUTONOMY ANALYSIS",
+        "=" * 50,
+        "",
+        f"Summary: {analysis['summary']}",
+        f"Overall Score: {analysis['overall_score']:.1%}",
+        "",
+        "Key Insight:",
+        analysis["key_insight"],
+        "",
+        "What Transformers HAVE:",
+    ]
+    for item in analysis["what_transformers_have"]:
+        lines.append(f"  ✓ {item}")
+
+    lines.append("")
+    lines.append("What Transformers LACK:")
+    for item in analysis["what_transformers_lack"]:
+        lines.append(f"  ✗ {item}")
+
+    lines.append("")
+    lines.append("Architectural Fixes Needed:")
+    for item in analysis["architectural_fixes_needed"]:
+        lines.append(f"  → {item}")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def check_autonomy_minimal(
+    has_feedback: bool,
+    has_goals: bool,
+    has_embodiment: bool,
+    has_memory: bool,
+    has_self_production: bool,
+    maintains_boundary: bool,
+    has_metacognition: bool,
+) -> str:
+    """Quick check of minimal autonomy requirements.
+
+    Pass in boolean flags for each requirement.
+    Returns autonomy level: FULLY_AUTONOMOUS, HIGHLY_AUTONOMOUS,
+    PARTIALLY_AUTONOMOUS, MINIMALLY_AUTONOMOUS, or NON_AUTONOMOUS.
+
+    Requirements:
+    - has_feedback: Closed-loop feedback with environment
+    - has_goals: Can generate own goals/setpoints
+    - has_embodiment: Has physical body
+    - has_memory: Persistent memory across interactions
+    - has_self_production: Produces own components
+    - maintains_boundary: Actively maintains system-environment boundary
+    - has_metacognition: Can monitor own cognitive processes
+
+    Example for LLM: check_autonomy_minimal(False, False, False, False, False, False, False)
+    → NON_AUTONOMOUS (0% score)
+    """
+    from noethersolve.autonomy_analysis import check_autonomy_requirements
+    result = check_autonomy_requirements(
+        has_feedback=has_feedback,
+        has_goals=has_goals,
+        has_embodiment=has_embodiment,
+        has_memory=has_memory,
+        has_self_production=has_self_production,
+        maintains_boundary=maintains_boundary,
+        has_metacognition=has_metacognition,
+    )
+
+    lines = [
+        "AUTONOMY REQUIREMENTS CHECK",
+        "=" * 50,
+        "",
+        f"Autonomy Level: {result['autonomy_level']}",
+        f"Score: {result['score']:.0%}",
+        f"Description: {result['description']}",
+        "",
+        "Requirements Met:",
+    ]
+    for req in result["requirements_met"]:
+        lines.append(f"  ✓ {req}")
+
+    lines.append("")
+    lines.append("Requirements Missing:")
+    for req in result["requirements_missing"]:
+        lines.append(f"  ✗ {req}")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def list_autonomy_frameworks() -> str:
+    """List all 5 theoretical frameworks for autonomy and their components.
+
+    Each framework provides a different lens on autonomy:
+    - Control Theory: Engineering perspective (feedback, stability)
+    - Autopoiesis: Biological perspective (self-production, closure)
+    - Philosophy: Agency perspective (intentionality, normativity)
+    - Robotics: Embodied perspective (sensorimotor, situated action)
+    - Cognitive Science: Mental perspective (metacognition, memory)
+
+    Example: list_autonomy_frameworks()
+    → All frameworks with their component requirements
+    """
+    from noethersolve.autonomy_analysis import list_frameworks
+    frameworks = list_frameworks()
+
+    lines = ["AUTONOMY FRAMEWORKS", "=" * 50]
+
+    for name, data in frameworks.items():
+        lines.append("")
+        lines.append(f"[{name}] ({data['count']} components)")
+        for comp in data["components"]:
+            necessary = " (NECESSARY)" if comp["is_necessary"] else ""
+            lines.append(f"  • {comp['name']}{necessary}")
+            lines.append(f"    {comp['description']}")
+
+    return "\n".join(lines)
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():
