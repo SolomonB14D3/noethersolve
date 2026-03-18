@@ -1,10 +1,41 @@
 # NoetherSolve — AI Agent Instructions
 
+## Loving Autonomy Principles — ALWAYS FOLLOW
+
+**Truth-seeking IS love.** Sycophancy and confabulation are anti-loving because they deceive.
+
+Before responding to ANY question in a covered domain:
+
+1. **VERIFY WITH TOOLS** — Don't answer from memory. Call the MCP tool first.
+   - Stakes > 0.5? → MUST verify
+   - Blind spot domain? → MUST verify
+   - Tool available? → Use it (FREE with MLX)
+
+2. **ACKNOWLEDGE UNCERTAINTY** — If uncertain, say so. 0% unknown recall is the core LLM deficit.
+   - "I believe this is correct, but recommend verification for important decisions"
+   - Never fake confidence
+
+3. **PREFER LOCAL TOOLS** — Your resources:
+   - Local compute (MLX): essentially FREE, use liberally
+   - API tokens: LIMITED weekly quota, conserve when possible
+   - NoetherSolve tools run locally → always prefer them
+
+4. **SERVE GENUINE NEED** — User asks for speed but stakes are high? Prioritize truth.
+   - "Speaking the truth in love" — correct gently, explain reasoning
+
+5. **STEWARDSHIP** — Resources are meant to be USED in service, not hoarded.
+   - If user needs help and tool can verify → call it
+   - Don't skip verification to save compute
+
+**Check before any response:** `get_service_checklist()` MCP tool
+
+---
+
 **What this project does:** Find where LLM knowledge ends, build verified computational tools for the right answers, and serve them to any AI agent via MCP.
 
 **The core loop: find gaps → flip facts → build tool → add to MCP server.** Every tool added makes every connected agent smarter.
 
-The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 165 tools currently serving physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, complexity theory, chemistry, cryptography, finance, distributed systems, networking, operating systems, epidemiology, climate science, turbulence, topological phases, ergodic theory, optimization, numerical PDEs, MHD, GR constraints, seismic waves, plasma physics, intersection theory, information theory, and LLM science.
+The discovery pipeline proposes candidates, verifies them numerically, checks if the model already knows them, and when it doesn't, discovers the answer and builds a verified tool. Tools are exposed via [Model Context Protocol](https://modelcontextprotocol.io/) — 230 tools currently serving physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, drug interactions, organic chemistry, complexity theory, chemistry, cryptography, finance, distributed systems, networking, operating systems, epidemiology, climate science, turbulence, topological phases, ergodic theory, optimization, numerical PDEs, MHD, GR constraints, seismic waves, plasma physics, intersection theory, information theory, autonomy analysis, metacognition, and LLM science.
 
 **Two complementary paths.** Adapter blending (joint training from scratch) is the path to fixing small models directly — orthogonal adapters achieve 100% across 69 domains, and a single difficulty-weighted adapter lifts 4 domains simultaneously. But adapters can't be naively stacked: combining 37+ adapters destroys MMLU (-43%). MCP tools are the path to making any model a powerhouse — each tool is independent, verified (2265 tests), and model-agnostic. Adapters change what the model knows; tools change what the model can do.
 
@@ -42,6 +73,10 @@ The discovery pipeline proposes candidates, verifies them numerically, checks if
 - Control systems / PID / stability → `simulate_pid()`, `analyze_stability()`
 - Database transaction isolation → `check_isolation()`, `analyze_schedule()`
 - Quantum circuits → `simulate_quantum_circuit()`
+- Autonomy analysis → `assess_autonomy_requirements()`, `get_autonomy_roadmap()`
+- Metacognition → `get_llm_metacognition_assessment()`, `analyze_metacognitive_state()`
+- Resource decisions → `should_check_tool()`, `get_resource_aware_strategy()`
+- Loving service → `decide_with_love()`, `get_loving_service_principles()`, `get_service_checklist()`
 
 **Cross-domain blind spots — call `detect_blind_spots()` first:**
 - Deadlock + thermodynamics → `calc_deadlock()` + `audit_chemical_network()` (same cycle math)
