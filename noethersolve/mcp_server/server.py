@@ -1,4 +1,4 @@
-"""NoetherSolve MCP Server — expose 163 verified tools to any AI agent.
+"""NoetherSolve MCP Server — expose 226 verified tools to any AI agent.
 
 The full pipeline: find gaps → flip facts → build tool → add to MCP server.
 Every tool added here makes every connected agent smarter.
@@ -14,10 +14,11 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="163 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
+    instructions="226 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
                  "epidemiology, climate physics, turbulence, topological phases, ergodic theory, optimization, "
                  "numerical PDEs, MHD conservation, GR constraints, seismic waves, plasma adiabatic invariants, "
-                 "intersection theory, and LLM science — verified calculators from first principles, not guesses.",
+                 "intersection theory, autonomy analysis, metacognition, and LLM science — verified calculators "
+                 "from first principles, not guesses.",
 )
 
 
@@ -5920,6 +5921,251 @@ def explain_unknown_recall_deficit() -> str:
         "NOTE: Verbalized confidence ('I am 90% sure') is WORSE than",
         "token probabilities for calibration. Use logprobs, not text.",
     ]
+    return "\n".join(lines)
+
+
+# ── Metacognitive Control Tools ───────────────────────────────────────
+
+@mcp.tool()
+def should_check_tool(
+    domain: str,
+    stakes: float,
+    confidence: float,
+    api_tokens_remaining: float = 0.1
+) -> str:
+    """Decide whether to use a NoetherSolve tool vs acting directly.
+
+    This is the CONTROL side of metacognition: knowing when thinking
+    about thinking (checking tools, verifying answers) is worth the cost.
+
+    Key insight: NoetherSolve tools are LOCAL and FREE.
+    API calls (external LLM queries) are EXPENSIVE.
+
+    domain: What domain is this? (e.g., "pharmacokinetics", "complexity_theory")
+    stakes: How bad is an error? 0=trivial, 1=catastrophic
+    confidence: Your confidence in the answer (0-1)
+    api_tokens_remaining: Fraction of weekly API budget left (0-1)
+
+    Example: should_check_tool("pharmacokinetics", 0.9, 0.7, 0.05)
+    → High stakes + moderate confidence + scarce API → USE LOCAL TOOL
+
+    Returns decision with reasoning about resource trade-offs.
+    """
+    from noethersolve.metacognitive_control import (
+        TaskContext, ResourceBudget, ResourceAwareController,
+        is_blind_spot_domain, get_tools_for_domain, ToolType
+    )
+
+    # Check if domain has local tools
+    local_tools = get_tools_for_domain(domain)
+    is_blind_spot = is_blind_spot_domain(domain)
+
+    # Create resource budget reflecting user's constraints
+    budget = ResourceBudget(
+        local_compute=1.0,       # Free
+        api_tokens=api_tokens_remaining,
+        weights={
+            "local_compute": 0.01,
+            "api_tokens": 10.0 / max(0.01, api_tokens_remaining),  # More expensive when scarce
+            "latency": 0.5,
+        }
+    )
+
+    controller = ResourceAwareController(budget)
+
+    ctx = TaskContext(
+        domain=domain,
+        stakes=stakes,
+        confidence=confidence,
+        is_known_blind_spot=is_blind_spot,
+        has_verified_tool=len(local_tools) > 0,
+        response_latency_budget=5.0,
+        session_energy_remaining=1.0
+    )
+
+    decision = controller.decide(ctx)
+
+    lines = [
+        "METACOGNITIVE DECISION",
+        "=" * 50,
+        "",
+        f"Domain: {domain}",
+        f"Stakes: {stakes:.0%}",
+        f"Confidence: {confidence:.0%}",
+        f"API Budget: {api_tokens_remaining:.0%} remaining",
+        "",
+    ]
+
+    if is_blind_spot:
+        lines.append("⚠️  KNOWN BLIND SPOT - model often wrong here")
+        lines.append("")
+
+    if local_tools:
+        lines.append(f"✓ Local tools available: {', '.join(local_tools[:3])}")
+        if decision.tool_type == ToolType.LOCAL:
+            lines.append("  → Using local tool (FREE)")
+    else:
+        lines.append("✗ No local tools for this domain")
+
+    lines.extend([
+        "",
+        f"DECISION: {decision.action.value.upper()}",
+        f"Reasoning: {decision.reasoning}",
+        "",
+        f"Expected Value: {decision.expected_value:+.3f}",
+        f"API Cost: {decision.resource_cost.api_tokens:.3f}",
+    ])
+
+    if decision.suggested_tool:
+        lines.append(f"\nSuggested Tool: {decision.suggested_tool}")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def get_resource_aware_strategy(
+    local_compute_available: float = 1.0,
+    api_tokens_remaining: float = 0.1,
+    latency_tolerance: float = 1.0
+) -> str:
+    """Get optimal metacognitive strategy given your resource constraints.
+
+    Different users have different resource profiles:
+    - Some have unlimited local GPU but limited API tokens (weekly quota)
+    - Some have time pressure (need fast answers)
+    - Some have both but want to minimize costs
+
+    This tool helps you decide the optimal checking strategy.
+
+    local_compute_available: Fraction of local compute available (0-1)
+    api_tokens_remaining: Fraction of weekly API budget left (0-1)
+    latency_tolerance: How patient? 0=need instant, 1=can wait
+
+    Example: get_resource_aware_strategy(1.0, 0.05, 1.0)
+    → "Unlimited local, scarce API, patient → Use local NoetherSolve tools heavily"
+    """
+    from noethersolve.metacognitive_control import (
+        TOOL_DOMAINS, BLIND_SPOT_DOMAINS, list_metacognitive_actions
+    )
+
+    lines = [
+        "RESOURCE-AWARE METACOGNITIVE STRATEGY",
+        "=" * 50,
+        "",
+        "Your Resources:",
+        f"  Local Compute: {local_compute_available:.0%} available",
+        f"  API Tokens: {api_tokens_remaining:.0%} remaining",
+        f"  Time Budget: {'patient' if latency_tolerance > 0.5 else 'urgent'}",
+        "",
+    ]
+
+    # Determine strategy based on resources
+    if api_tokens_remaining < 0.1:
+        strategy = "MAXIMIZE_LOCAL"
+        explanation = (
+            "API tokens are scarce. Prioritize local NoetherSolve tools.\n"
+            "These are FREE and cover 16+ domains with verified accuracy."
+        )
+    elif api_tokens_remaining > 0.5 and latency_tolerance < 0.3:
+        strategy = "MINIMIZE_LATENCY"
+        explanation = (
+            "Time is critical. Use fastest path to answer.\n"
+            "Local tools are fast. Only defer to API for uncovered domains."
+        )
+    elif local_compute_available < 0.2:
+        strategy = "CONSERVE_LOCAL"
+        explanation = (
+            "Local compute is limited. Be selective about which tools to run.\n"
+            "Prioritize high-stakes domains."
+        )
+    else:
+        strategy = "BALANCED"
+        explanation = (
+            "Resources balanced. Check tools for high-stakes queries.\n"
+            "Skip checking for trivial, high-confidence answers."
+        )
+
+    lines.extend([
+        f"RECOMMENDED STRATEGY: {strategy}",
+        "",
+        explanation,
+        "",
+        "Domain Coverage (LOCAL - FREE):",
+    ])
+
+    for domain, tools in sorted(TOOL_DOMAINS.items()):
+        is_blind = "⚠️ BLIND SPOT" if domain in BLIND_SPOT_DOMAINS else ""
+        lines.append(f"  • {domain}: {len(tools)} tools {is_blind}")
+
+    lines.extend([
+        "",
+        "When to CHECK (use tool):",
+        "  • Stakes > 0.5 (important decisions)",
+        "  • Confidence < 0.7 (uncertainty)",
+        "  • Known blind spot domain",
+        "  • Verified tool available",
+        "",
+        "When to ACT DIRECTLY (skip check):",
+        "  • Stakes < 0.2 AND confidence > 0.9",
+        "  • No tool available AND API budget exhausted",
+    ])
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def list_free_verification_tools() -> str:
+    """List all NoetherSolve tools that provide FREE verification.
+
+    These tools run LOCALLY - no API cost. Use them liberally!
+
+    When you're uncertain about a calculation or fact in a covered
+    domain, calling the tool costs essentially nothing but provides
+    verified accuracy.
+
+    Returns domains and their tools, organized by category.
+    """
+    from noethersolve.metacognitive_control import TOOL_DOMAINS, BLIND_SPOT_DOMAINS
+
+    lines = [
+        "FREE LOCAL VERIFICATION TOOLS",
+        "=" * 50,
+        "",
+        "All these tools run locally - use them without hesitation!",
+        "",
+    ]
+
+    categories = {
+        "Science & Math": ["pharmacokinetics", "enzyme_kinetics", "quantum_mechanics",
+                          "number_theory", "complexity_theory", "conservation_laws"],
+        "Chemistry": ["organic_chemistry", "drug_interactions"],
+        "Earth & Health": ["epidemiology", "climate_science", "genetics"],
+        "Computing": ["distributed_systems", "cryptography", "llm_claims"],
+        "Physics (Blind Spots)": ["dimension_physics", "conjectures"],
+    }
+
+    for category, domains in categories.items():
+        lines.append(f"{category}:")
+        for domain in domains:
+            if domain in TOOL_DOMAINS:
+                tools = TOOL_DOMAINS[domain]
+                is_blind = " ⚠️" if domain in BLIND_SPOT_DOMAINS else ""
+                lines.append(f"  {domain}{is_blind}:")
+                for tool in tools[:3]:
+                    lines.append(f"    • {tool}")
+                if len(tools) > 3:
+                    lines.append(f"    ... and {len(tools) - 3} more")
+        lines.append("")
+
+    lines.extend([
+        "USAGE TIP:",
+        "When stakes are high (medical dosing, security analysis, etc.),",
+        "ALWAYS call the relevant tool. It's free and verified.",
+        "",
+        "Blind spot domains (⚠️) are where models are OFTEN WRONG.",
+        "These especially benefit from tool verification.",
+    ])
+
     return "\n".join(lines)
 
 

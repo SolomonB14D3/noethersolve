@@ -68,6 +68,7 @@ Package layout:
   noethersolve.antibody_developability — Antibody developability (viscosity, aggregation, polyreactivity)
   noethersolve.autonomy_analysis — Autonomy requirements checker (control theory, autopoiesis, robotics)
   noethersolve.metacognition — Metacognition analysis (calibration, resolution, meta-d', unknown recall)
+  noethersolve.metacognitive_control — Metacognitive control (when to think about thinking vs act)
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -873,6 +874,42 @@ from noethersolve.metacognition import (  # noqa: F401
     get_llm_metacognition_baseline,
     list_metacognitive_capabilities,
     LLM_TYPICAL_PROFILE,
+)
+
+from noethersolve.metacognitive_control import (  # noqa: F401
+    # Core decision types
+    MetacognitiveAction,
+    MetacognitiveDecision,
+    TaskContext,
+    CalibrationHistory,
+    MetacognitiveEnergyBudget,
+    MetacognitiveController,
+    # Core functions
+    should_engage_metacognition,
+    compute_error_probability,
+    compute_metacognitive_ev,
+    compute_optimal_check_threshold,
+    get_suggested_tool,
+    get_tools_for_domain,
+    is_blind_spot_domain,
+    list_metacognitive_actions,
+    get_domain_tool_coverage,
+    # Resource-aware types
+    ResourceType,
+    ResourceCost,
+    ResourceBudget,
+    ToolType,
+    ResourceAwareDecision,
+    ResourceAwareController,
+    # Resource-aware functions
+    prefer_local_tools,
+    compute_resource_aware_ev,
+    # Constants
+    ACTION_COSTS,
+    ACTION_RESOURCE_COSTS,
+    TOOL_DOMAINS,
+    TOOL_TYPES,
+    BLIND_SPOT_DOMAINS,
 )
 
 from noethersolve.antibody_developability import (  # noqa: F401
