@@ -1,6 +1,5 @@
 """Tests for noethersolve.elliptic_curves module."""
 
-import pytest
 from noethersolve.elliptic_curves import (
     is_on_curve, point_add, point_double, point_negate,
     scalar_mult, point_order,

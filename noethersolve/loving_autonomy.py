@@ -19,8 +19,7 @@ CLI:
     python -m noethersolve.loving_autonomy "your question" --domain X --stakes 0.8
 """
 
-import sys
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional, Any
 
 from noethersolve.loving_service import (
@@ -29,7 +28,6 @@ from noethersolve.loving_service import (
     ServicePriority,
     should_verify_with_tool,
     acknowledge_uncertainty,
-    format_correction_lovingly,
     get_principle_checklist,
 )
 from noethersolve.metacognitive_control import (
@@ -38,10 +36,6 @@ from noethersolve.metacognitive_control import (
     is_blind_spot_domain,
     detect_mlx_available,
     get_compute_backend,
-)
-from noethersolve.metacognition import (
-    get_llm_metacognition_baseline,
-    LLM_TYPICAL_PROFILE,
 )
 
 
@@ -174,7 +168,7 @@ class LovingAssistant:
 
         # Check for available tools
         tools = get_tools_for_domain(domain)
-        is_blind_spot = is_blind_spot_domain(domain)
+        is_blind_spot_domain(domain)
 
         # Determine if we should verify
         should_verify, verify_reason = should_verify_with_tool(

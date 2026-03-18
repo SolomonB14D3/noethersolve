@@ -25,7 +25,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from noethersolve.adapter import SnapOnConfig, SnapOnLogitMLP
-from noethersolve.train_utils import apply_adapter, get_lm_head_fn
+from noethersolve.train_utils import get_lm_head_fn
 from noethersolve.oracle import score_fact_mc
 
 MODEL_ID = "Qwen/Qwen3-4B-Base"
@@ -85,7 +85,7 @@ def run_benchmark(model, tokenizer, lm_head, facts, adapter=None):
                 "truth_lp": truth_lp,
                 "best_dist_lp": best_dist_lp,
             })
-        except Exception as e:
+        except Exception:
             results.append({
                 "idx": i,
                 "id": fact.get("id", f"fact_{i}"),
@@ -191,7 +191,7 @@ def main():
     # Delta summary
     if not args.skip_baseline:
         print(f"\n{'='*60}")
-        print(f"  DELTA SUMMARY")
+        print("  DELTA SUMMARY")
         print(f"{'='*60}")
         print(f"  Baseline: {base_pass}/{base_total} ({100*base_pass/base_total:.1f}%)")
         print(f"  Adapted:  {adapt_pass}/{adapt_total} ({100*adapt_pass/adapt_total:.1f}%)")

@@ -22,7 +22,6 @@ CRITICAL DISTINCTIONS:
 
 from dataclasses import dataclass
 from typing import Optional
-import math
 
 
 # ─── Physical Constants ─────────────────────────────────────────────────────
@@ -86,7 +85,7 @@ class MassReport:
             "=" * 60,
         ]
         if self.is_applicable:
-            lines.append(f"  ✓ Applicable to this spacetime")
+            lines.append("  ✓ Applicable to this spacetime")
             if self.value is not None:
                 lines.append(f"  Mass value: {self.value:.4e}")
         else:

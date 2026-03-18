@@ -197,14 +197,13 @@ def main():
 
         # Eval after training
         print("\n  After training:")
-        all_pass = True
         for fact_id in cluster_data["facts"]:
             fact = facts_by_id[fact_id]
             win, margin = eval_fact(adapter, lm_head, model, tokenizer, fact)
             marker = "+" if win else "-"
             print(f"    {marker} {fact_id}: margin={margin:+.3f}")
             if not win:
-                all_pass = False
+                pass
 
         # Save adapter
         out_path = os.path.join(OUT_DIR, f"ec_{cluster_name}_adapter.npz")

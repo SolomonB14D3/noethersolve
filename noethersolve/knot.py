@@ -21,8 +21,7 @@ Built-in knots:
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
-from copy import deepcopy
+from typing import Dict, List, Optional
 
 
 # ─── Data structures ─────────────────────────────────────────────────────────
@@ -366,7 +365,7 @@ class KnotReport:
         lines.append(f"  Knot Invariant Validation: {self.verdict}")
         lines.append(f"{'=' * 60}")
         lines.append(f"  Knot: {self.knot_name} ({self.n_crossings} crossings)")
-        lines.append(f"")
+        lines.append("")
 
         failed = [(k, v) for k, v in self.quantities.items()
                   if v["verdict"] == "FAIL"]
@@ -391,8 +390,8 @@ class KnotReport:
                 lines.append(f"    {name:<30s}  move={data.get('move', '?')}")
 
         if self.suggestions:
-            lines.append(f"")
-            lines.append(f"  Suggestions:")
+            lines.append("")
+            lines.append("  Suggestions:")
             for s in self.suggestions:
                 lines.append(f"    - {s}")
 

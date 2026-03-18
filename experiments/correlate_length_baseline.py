@@ -6,7 +6,6 @@ Correlate length ratio with baseline accuracy to test the hypothesis:
 
 import json
 from pathlib import Path
-import re
 
 # Manual baseline data from candidates.tsv
 BASELINES = {
@@ -96,7 +95,7 @@ def main():
             analysis = analyze_domain(f)
             if analysis:
                 domain_ratios[analysis["domain"]] = analysis
-        except Exception as e:
+        except Exception:
             pass
 
     # Match with baselines

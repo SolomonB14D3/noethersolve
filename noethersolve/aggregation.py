@@ -95,24 +95,24 @@ class AggregationReport:
         lines.append(f"  Longest hydrophobic patch: {self.longest_hydrophobic_patch} residues")
         lines.append(f"  Net charge (pH 7): {self.net_charge:+d} "
                      f"(density: {self.charge_density:.4f})")
-        lines.append(f"")
+        lines.append("")
 
         if self.apr_positions:
-            lines.append(f"  APR locations:")
+            lines.append("  APR locations:")
             for start, end, score in self.apr_positions:
                 lines.append(f"    pos {start}-{end}: mean a3v = {score:+.4f}")
-            lines.append(f"")
+            lines.append("")
 
         # Issues sorted by severity
         if self.issues:
-            lines.append(f"  Issues found:")
+            lines.append("  Issues found:")
             for issue in sorted(self.issues,
                                 key=lambda i: {"HIGH": 0, "MODERATE": 1, "LOW": 2}.get(i.severity, 3)):
                 lines.append(str(issue))
-            lines.append(f"")
+            lines.append("")
         else:
-            lines.append(f"  No issues found.")
-            lines.append(f"")
+            lines.append("  No issues found.")
+            lines.append("")
 
         lines.append(f"{'=' * 60}")
         return "\n".join(lines)

@@ -69,7 +69,7 @@ class HerdImmunityReport:
         lines.append(f"  Susceptible at equilibrium: {self.susceptible_at_equilibrium:.4f}")
         lines.append("-" * 60)
         lines.append(f"  Interpretation: {self.threshold_pct:.0f}% of population must be")
-        lines.append(f"  immune to prevent sustained transmission (Rt < 1)")
+        lines.append("  immune to prevent sustained transmission (Rt < 1)")
         for note in self.notes:
             lines.append(f"  Note: {note}")
         lines.append("=" * 60)
@@ -154,7 +154,7 @@ class AttackRateReport:
         lines.append(f"  Final susceptible: {self.final_susceptible:.4f}")
         lines.append("-" * 60)
         lines.append(f"  Interpretation: {self.attack_rate_pct:.0f}% of population will be")
-        lines.append(f"  infected by the end of the epidemic (SIR model)")
+        lines.append("  infected by the end of the epidemic (SIR model)")
         if self.R0 < 1:
             lines.append("  R₀ < 1: Epidemic dies out quickly, low attack rate")
         for note in self.notes:
@@ -210,9 +210,9 @@ class VaccineImpactReport:
         lines.append(f"  Effective immunity from vaccine: {self.coverage * self.vaccine_efficacy * 100:.1f}%")
         lines.append(f"  Rt after vaccination = {self.Rt_post_vaccine:.3f}")
         if self.herd_immunity_reached:
-            lines.append(f"  ✓ Herd immunity ACHIEVED (Rt < 1)")
+            lines.append("  ✓ Herd immunity ACHIEVED (Rt < 1)")
         else:
-            lines.append(f"  ✗ Herd immunity NOT achieved (Rt ≥ 1)")
+            lines.append("  ✗ Herd immunity NOT achieved (Rt ≥ 1)")
             lines.append(f"  Critical coverage needed: {self.critical_coverage * 100:.1f}%")
         for note in self.notes:
             lines.append(f"  Note: {note}")

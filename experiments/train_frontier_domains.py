@@ -30,7 +30,6 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from noethersolve.adapter import SnapOnConfig, SnapOnLogitMLP
 from noethersolve.train_utils import (
-    LOGIT_SOFTCAP,
     apply_adapter,
     get_lm_head_fn,
 )
@@ -86,7 +85,7 @@ def compute_margins(model, tokenizer, lm_head, facts, adapter=None):
                 lm_head=lm_head,
             )
             results.append((fact["id"], result[1]))  # margin
-        except Exception as e:
+        except Exception:
             results.append((fact["id"], -999))
     return results
 
@@ -241,7 +240,7 @@ def main():
 
     # Summary
     print(f"\n{'='*60}")
-    print(f"SUMMARY")
+    print("SUMMARY")
     print(f"{'='*60}")
     print(f"Total: {total_pass}/{total_facts} facts passing ({100*total_pass/total_facts:.1f}%)")
     print(f"Clusters trained: {len(groups)}")

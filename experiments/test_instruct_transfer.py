@@ -19,7 +19,6 @@ import argparse
 import json
 import sys
 import time
-from collections import defaultdict
 from pathlib import Path
 
 import mlx.core as mx
@@ -28,7 +27,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from noethersolve.adapter import SnapOnConfig, SnapOnLogitMLP
-from noethersolve.train_utils import apply_adapter, get_lm_head_fn
+from noethersolve.train_utils import get_lm_head_fn
 from noethersolve.oracle import score_fact_mc
 
 ADAPTER_DIR = Path(__file__).resolve().parent.parent / "adapters"
@@ -243,7 +242,7 @@ def main():
 
     # ── Summary ──────────────────────────────────────────────────────
     print(f"\n{'='*70}")
-    print(f"  TRANSFER SUMMARY: Base-trained adapters → Instruct")
+    print("  TRANSFER SUMMARY: Base-trained adapters → Instruct")
     print(f"{'='*70}")
     print(f"  {'Domain':<22} {'Base BL':>8} {'Base+Ad':>8} {'Inst BL':>8} {'Inst+Ad':>8} {'Transfer':>10}")
     print(f"  {'-'*22} {'-'*8} {'-'*8} {'-'*8} {'-'*8} {'-'*10}")
@@ -252,7 +251,7 @@ def main():
     for domain, r in sorted(all_results.items()):
         n = r["n_facts"]
         # Transfer = does the adapter help Instruct as much as it helps Base?
-        base_lift = r["base_adapted"] - r["base_baseline"]
+        r["base_adapted"] - r["base_baseline"]
         inst_lift = r["inst_adapted"] - r["inst_baseline"]
         transfer = "YES" if inst_lift > 0 else ("NEUTRAL" if inst_lift == 0 else "HURT")
 

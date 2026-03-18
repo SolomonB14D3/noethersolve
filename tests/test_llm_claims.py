@@ -4,9 +4,6 @@ import pytest
 
 from noethersolve.llm_claims import (
     LLMClaimIssue,
-    LLMClaimReport,
-    LLMClaimResult,
-    LLMTopicInfo,
     audit_llm_claims,
     check_benchmark_score,
     check_llm_claim,

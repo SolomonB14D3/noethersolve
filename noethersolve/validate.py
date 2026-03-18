@@ -30,7 +30,7 @@ Usage:
 """
 
 import numpy as np
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional, Callable, Tuple, Any
 from scipy.integrate import solve_ivp
 
@@ -71,7 +71,7 @@ class ValidationReport:
         lines.append(f"  System: {self.system}")
         lines.append(f"  Solver: {self.solver_method}, rtol={self.rtol:.0e}, atol={self.atol:.0e}")
         lines.append(f"  Steps: {self.n_steps}, t=[{self.t_span[0]}, {self.t_span[1]}]")
-        lines.append(f"")
+        lines.append("")
 
         # Group by verdict
         passed = [(k, v) for k, v in self.quantities.items() if v["verdict"] == "PASS"]
@@ -92,8 +92,8 @@ class ValidationReport:
                 lines.append(f"    {name:<25s}  frac_var={data['frac_var']:.2e}")
 
         if self.suggestions:
-            lines.append(f"")
-            lines.append(f"  Suggestions:")
+            lines.append("")
+            lines.append("  Suggestions:")
             for s in self.suggestions:
                 lines.append(f"    - {s}")
 
@@ -347,7 +347,7 @@ def validate_integrator(
             f"Try tighter rtol (current: {rtol:.0e})."
         )
         if rtol > 1e-10:
-            suggestions.append(f"Recommended: rtol=1e-10, atol=1e-12")
+            suggestions.append("Recommended: rtol=1e-10, atol=1e-12")
         else:
             suggestions.append(
                 "Tolerances are already tight. This may indicate wrong equations "

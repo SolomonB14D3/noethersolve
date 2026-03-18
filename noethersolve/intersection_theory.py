@@ -21,7 +21,7 @@ CRITICAL FACTS LLMs GET WRONG:
 """
 
 from dataclasses import dataclass
-from math import comb, factorial
+from math import comb
 from typing import Optional
 
 
@@ -509,8 +509,8 @@ def rational_curves_on_quintic_threefold(d: int = 1) -> EnumerativeReport:
         f"Degree {d} rational curves on general quintic 3-fold in P⁴",
         counts[d],
         "various",
-        f"Foundational in mirror symmetry. d=1: 2875 lines (classical). "
-        f"d=2: 609250 (Katz). d=3: 317206375."
+        "Foundational in mirror symmetry. d=1: 2875 lines (classical). "
+        "d=2: 609250 (Katz). d=3: 317206375."
     )
 
 
@@ -543,14 +543,14 @@ def adjunction_formula(
     if ambient_type == "Pn" and ambient_dim == 2:
         # Plane curve case
         d = divisor_degree
-        K_ambient = f"-3H (K_P² = -(n+1)H = -3H)"
+        K_ambient = "-3H (K_P² = -(n+1)H = -3H)"
         deg_K_C = d * (d - 3)
         K_divisor = f"(d-3)H|_C = {d-3}H|_C, degree {deg_K_C}"
         genus = (d - 1) * (d - 2) // 2
         explanation = (f"For smooth degree {d} curve: K_C = (K_P² + C)|_C = (-3H + {d}H)|_C. "
                        f"By Riemann-Roch, 2g - 2 = deg K_C = {deg_K_C}, giving g = {genus}.")
         return AdjunctionReport(
-            f"P²", f"degree {d} curve", K_ambient, K_divisor, genus, explanation
+            "P²", f"degree {d} curve", K_ambient, K_divisor, genus, explanation
         )
     elif ambient_type == "Pn":
         n = ambient_dim
@@ -803,7 +803,7 @@ def hirzebruch_surface(n: int) -> RuledSurfaceReport:
     elif n >= 2:
         explanation_parts.append(f"Has a section with self-intersection -{n} (negative section).")
 
-    explanation_parts.append(f"K² = 8. Picard rank 2.")
+    explanation_parts.append("K² = 8. Picard rank 2.")
 
     return RuledSurfaceReport(
         base_genus=0, invariant_e=n, K_squared=8,
@@ -834,7 +834,7 @@ def toric_canonical(variety_name: str) -> ToricCanonicalReport:
         # Projective space P^n
         n = int(name_lower[1:])
         K_desc = f"-{n+1}H (H = hyperplane class)"
-        antiK_deg = (n + 1) ** n  # Actually (-K)^n for Fano
+        (n + 1) ** n  # Actually (-K)^n for Fano
         explanation = (f"P^{n} is toric with {n+1} rays. K = -Σ D_ρ = -{n+1}H. "
                        f"Fano variety of index {n+1}. (-K)^{n} = {(n+1)**n} (volume).")
         return ToricCanonicalReport(

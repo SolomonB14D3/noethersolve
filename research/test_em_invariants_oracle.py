@@ -11,8 +11,6 @@ These are exactly conserved but poorly known beyond Poynting's theorem.
 """
 
 import numpy as np
-from numpy.fft import fftn, ifftn, fftfreq
-import json
 
 # Import the Maxwell solver components
 from maxwell_zilch import MaxwellSolver, EMInvariants, gaussian_wave_packet
@@ -21,7 +19,7 @@ from maxwell_zilch import MaxwellSolver, EMInvariants, gaussian_wave_packet
 def generate_em_trajectory(N=32, L=2*np.pi, T=3.0, dt=0.02, polarization='circular+'):
     """Generate an EM field trajectory."""
     solver = MaxwellSolver(N=N, L=L, c=1.0)
-    invariants = EMInvariants(solver)
+    EMInvariants(solver)
 
     E, B = gaussian_wave_packet(solver.X, solver.Y, solver.Z,
                                  L/2, L/2, L/2, sigma=0.5,
@@ -58,7 +56,7 @@ def generate_em_trajectory(N=32, L=2*np.pi, T=3.0, dt=0.02, polarization='circul
 def compute_all_invariants(trajectory, N=32, L=2*np.pi):
     """Compute various candidate invariants for oracle testing."""
     solver = MaxwellSolver(N=N, L=L, c=1.0)
-    invariants = EMInvariants(solver)
+    EMInvariants(solver)
 
     results = {
         "Energy": [],
@@ -80,7 +78,7 @@ def compute_all_invariants(trajectory, N=32, L=2*np.pi):
         # (In real use, we'd work with full resolution)
         # For now, use the downsampled data directly
 
-        stride = max(1, N // 8)
+        max(1, N // 8)
         Ex = np.array(snap["Ex"])
         Ey = np.array(snap["Ey"])
         Ez = np.array(snap["Ez"])
@@ -130,7 +128,6 @@ def create_oracle_test_cases():
 
     print("Generating EM field trajectories...")
 
-    test_cases = []
 
     # Test 1: Right-handed circular polarization
     print("  Generating right-handed circular wave...")

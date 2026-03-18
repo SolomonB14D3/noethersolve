@@ -5,7 +5,7 @@ Tests for cold fusion fact-checking module.
 
 import pytest
 from noethersolve.cold_fusion import (
-    Reaction, ColdFusionClaim, Verdict,
+    Reaction, Verdict,
     fact_check_claim, check_coulomb_barrier,
     NUCLEI, STANDARD_CLAIMS
 )

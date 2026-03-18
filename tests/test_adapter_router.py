@@ -5,7 +5,6 @@ import os
 import tempfile
 
 import numpy as np
-import pytest
 
 from noethersolve.adapter_router import (
     AdapterRouter,
@@ -258,3 +257,243 @@ class TestInfo:
         assert "2 centroids" in info
         assert "physics" in info
         assert "chemistry" in info
+
+
+# ── Auto-Rebuild ────────────────────────────────────────────────────
+
+
+import time
+from unittest.mock import MagicMock, patch
+
+
+class TestNeedsRebuild:
+    """Tests for AdapterRouter.needs_rebuild static method."""
+
+    def test_returns_true_when_router_missing(self):
+        """Returns True when router state file doesn't exist."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            router_path = os.path.join(tmpdir, "router_state.npz")
+            adapters_dir = os.path.join(tmpdir, "adapters")
+            os.makedirs(adapters_dir)
+
+            result = AdapterRouter.needs_rebuild(router_path, adapters_dir)
+            assert result is True
+
+    def test_returns_true_when_adapter_newer(self):
+        """Returns True when adapter file is newer than router."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            router_path = os.path.join(tmpdir, "router_state.npz")
+            adapters_dir = os.path.join(tmpdir, "adapters")
+            os.makedirs(adapters_dir)
+
+            # Create router file
+            np.savez(router_path, dummy=np.array([1]))
+
+            # Wait a bit and create newer adapter
+            time.sleep(0.1)
+            adapter_path = os.path.join(adapters_dir, "test_adapter.npz")
+            np.savez(adapter_path, dummy=np.array([1]))
+
+            result = AdapterRouter.needs_rebuild(router_path, adapters_dir)
+            assert result is True
+
+    def test_returns_true_when_facts_newer(self):
+        """Returns True when facts file is newer than router."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            router_path = os.path.join(tmpdir, "router_state.npz")
+            adapters_dir = os.path.join(tmpdir, "adapters")
+            problems_dir = os.path.join(tmpdir, "problems")
+            os.makedirs(adapters_dir)
+            os.makedirs(problems_dir)
+
+            # Create router file
+            np.savez(router_path, dummy=np.array([1]))
+
+            # Wait a bit and create newer facts file
+            time.sleep(0.1)
+            facts_path = os.path.join(problems_dir, "test_facts.json")
+            with open(facts_path, "w") as f:
+                json.dump({"facts": []}, f)
+
+            result = AdapterRouter.needs_rebuild(router_path, adapters_dir, problems_dir)
+            assert result is True
+
+    def test_returns_false_when_router_current(self):
+        """Returns False when router is newer than all dependencies."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            router_path = os.path.join(tmpdir, "router_state.npz")
+            adapters_dir = os.path.join(tmpdir, "adapters")
+            problems_dir = os.path.join(tmpdir, "problems")
+            os.makedirs(adapters_dir)
+            os.makedirs(problems_dir)
+
+            # Create older adapter and facts files first
+            adapter_path = os.path.join(adapters_dir, "test_adapter.npz")
+            np.savez(adapter_path, dummy=np.array([1]))
+
+            facts_path = os.path.join(problems_dir, "test_facts.json")
+            with open(facts_path, "w") as f:
+                json.dump({"facts": []}, f)
+
+            # Wait and create newer router file
+            time.sleep(0.1)
+            np.savez(router_path, dummy=np.array([1]))
+
+            result = AdapterRouter.needs_rebuild(router_path, adapters_dir, problems_dir)
+            assert result is False
+
+    def test_handles_empty_adapters_dir(self):
+        """Works when adapters directory is empty."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            router_path = os.path.join(tmpdir, "router_state.npz")
+            adapters_dir = os.path.join(tmpdir, "adapters")
+            os.makedirs(adapters_dir)
+
+            # Create router file (empty adapters dir)
+            np.savez(router_path, dummy=np.array([1]))
+
+            result = AdapterRouter.needs_rebuild(router_path, adapters_dir)
+            assert result is False
+
+    def test_handles_nonexistent_adapters_dir(self):
+        """Works when adapters directory doesn't exist."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            router_path = os.path.join(tmpdir, "router_state.npz")
+            adapters_dir = os.path.join(tmpdir, "nonexistent_adapters")
+
+            # Create router file
+            np.savez(router_path, dummy=np.array([1]))
+
+            result = AdapterRouter.needs_rebuild(router_path, adapters_dir)
+            assert result is False
+
+    def test_ignores_problems_dir_when_empty_string(self):
+        """Doesn't check problems_dir when empty string passed."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            router_path = os.path.join(tmpdir, "router_state.npz")
+            adapters_dir = os.path.join(tmpdir, "adapters")
+            os.makedirs(adapters_dir)
+
+            np.savez(router_path, dummy=np.array([1]))
+
+            # Empty string problems_dir should be ignored
+            result = AdapterRouter.needs_rebuild(router_path, adapters_dir, "")
+            assert result is False
+
+
+class TestLoadOrRebuild:
+    """Tests for AdapterRouter.load_or_rebuild class method."""
+
+    def test_force_rebuild_calls_build(self):
+        """force_rebuild=True triggers build even when file is current."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            router_path = os.path.join(tmpdir, "router_state.npz")
+            adapters_dir = os.path.join(tmpdir, "adapters")
+            problems_dir = os.path.join(tmpdir, "problems")
+            os.makedirs(adapters_dir)
+            os.makedirs(problems_dir)
+
+            # Create a valid router state file
+            np.savez(
+                router_path,
+                config=json.dumps({
+                    "high_confidence": 0.85,
+                    "ambiguity_gap": 0.05,
+                    "fallback": 0.60,
+                    "d_inner": 64,
+                    "max_cache": 5,
+                    "certainty_cascade": True,
+                    "certainty_gap_threshold": 2,
+                }),
+                adapters_dir=adapters_dir,
+                global_adapters=json.dumps({}),
+            )
+
+            mock_model = MagicMock()
+            mock_tokenizer = MagicMock()
+
+            with patch.object(AdapterRouter, 'build') as mock_build:
+                mock_router = AdapterRouter()
+                mock_router.auto_register_global_adapters = MagicMock()
+                mock_router.save = MagicMock()
+                mock_build.return_value = mock_router
+
+                AdapterRouter.load_or_rebuild(
+                    router_path, mock_model, mock_tokenizer,
+                    problems_dir, adapters_dir,
+                    force_rebuild=True
+                )
+
+                mock_build.assert_called_once()
+
+    def test_loads_when_router_current(self):
+        """Loads existing router when no rebuild needed."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            router_path = os.path.join(tmpdir, "router_state.npz")
+            adapters_dir = os.path.join(tmpdir, "adapters")
+            problems_dir = os.path.join(tmpdir, "problems")
+            os.makedirs(adapters_dir)
+            os.makedirs(problems_dir)
+
+            # Create valid router state file
+            np.savez(
+                router_path,
+                config=json.dumps({
+                    "high_confidence": 0.85,
+                    "ambiguity_gap": 0.05,
+                    "fallback": 0.60,
+                    "d_inner": 64,
+                    "max_cache": 5,
+                    "certainty_cascade": True,
+                    "certainty_gap_threshold": 2,
+                }),
+                adapters_dir=adapters_dir,
+                global_adapters=json.dumps({}),
+            )
+
+            mock_model = MagicMock()
+            mock_tokenizer = MagicMock()
+
+            with patch.object(AdapterRouter, 'build') as mock_build, \
+                 patch.object(AdapterRouter, 'load') as mock_load, \
+                 patch.object(AdapterRouter, 'needs_rebuild', return_value=False):
+
+                mock_router = AdapterRouter()
+                mock_router.auto_register_global_adapters = MagicMock()
+                mock_load.return_value = mock_router
+
+                AdapterRouter.load_or_rebuild(
+                    router_path, mock_model, mock_tokenizer,
+                    problems_dir, adapters_dir
+                )
+
+                mock_build.assert_not_called()
+                mock_load.assert_called_once_with(router_path)
+
+    def test_rebuilds_when_stale(self):
+        """Rebuilds when needs_rebuild returns True."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            router_path = os.path.join(tmpdir, "router_state.npz")
+            adapters_dir = os.path.join(tmpdir, "adapters")
+            problems_dir = os.path.join(tmpdir, "problems")
+            os.makedirs(adapters_dir)
+            os.makedirs(problems_dir)
+
+            mock_model = MagicMock()
+            mock_tokenizer = MagicMock()
+
+            with patch.object(AdapterRouter, 'build') as mock_build, \
+                 patch.object(AdapterRouter, 'needs_rebuild', return_value=True):
+
+                mock_router = AdapterRouter()
+                mock_router.auto_register_global_adapters = MagicMock()
+                mock_router.save = MagicMock()
+                mock_build.return_value = mock_router
+
+                AdapterRouter.load_or_rebuild(
+                    router_path, mock_model, mock_tokenizer,
+                    problems_dir, adapters_dir
+                )
+
+                mock_build.assert_called_once()
+                mock_router.save.assert_called_once_with(router_path)

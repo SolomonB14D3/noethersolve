@@ -1,6 +1,5 @@
 """Tests for metacognitive_control module."""
 
-import pytest
 from noethersolve.metacognitive_control import (
     MetacognitiveAction,
     MetacognitiveDecision,
@@ -19,17 +18,11 @@ from noethersolve.metacognitive_control import (
     get_domain_tool_coverage,
     ACTION_COSTS,
     TOOL_DOMAINS,
-    BLIND_SPOT_DOMAINS,
-    # New resource-aware classes
-    ResourceType,
     ResourceCost,
     ResourceBudget,
     ToolType,
     ResourceAwareController,
-    ResourceAwareDecision,
     prefer_local_tools,
-    compute_resource_aware_ev,
-    ACTION_RESOURCE_COSTS,
     TOOL_TYPES,
     # MLX detection
     detect_mlx_available,
@@ -411,7 +404,7 @@ class TestMetacognitiveController:
         )
 
         # First decision might exhaust budget
-        decision1 = controller.decide(ctx)
+        controller.decide(ctx)
 
         # Second decision should fall back to acting directly
         ctx2 = TaskContext(

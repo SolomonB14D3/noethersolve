@@ -29,20 +29,20 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, _ROOT)
 
 # ── Imports from noethersolve ────────────────────────────────────────────────
-from noethersolve.complexity import audit_complexity, check_inclusion, check_completeness
+from noethersolve.complexity import audit_complexity, check_inclusion
 from noethersolve.conjecture_status import check_conjecture, list_conjectures, get_conjecture
 from noethersolve.proof_barriers import check_barriers, list_barriers, what_works_for
 from noethersolve.number_theory import (
     verify_goldbach, verify_collatz, verify_twin_primes,
     check_abc_triple, verify_legendre, prime_gap_analysis,
-    is_prime, radical, prime_sieve,
+    is_prime, radical,
 )
 from noethersolve.reductions import validate_chain, check_reduction, strongest_reduction
 from noethersolve.pde_regularity import (
     check_sobolev_embedding, check_pde_regularity, critical_exponent,
     check_blowup, sobolev_conjugate,
 )
-from noethersolve.pharmacokinetics import audit_drug_list, check_drug_interactions, check_hla
+from noethersolve.pharmacokinetics import audit_drug_list
 from noethersolve.pipeline import validate_pipeline, TherapyDesign
 from noethersolve.audit_sequence import audit_sequence, gc_content
 from noethersolve.crispr import score_guide, check_offtarget_pair
@@ -513,7 +513,7 @@ def run_edge_cases(verbose: bool) -> Tuple[int, int, List[str]]:
 
     for desc, fn, expected_exc in cases:
         try:
-            result = fn()
+            fn()
             if expected_exc is not None:
                 surprises.append(f"{desc}: expected {expected_exc} but got result")
                 if verbose:
@@ -583,7 +583,7 @@ def run_discovery_scans(verbose: bool) -> Dict[str, Any]:
     print(f"    Record: n={max_n}, steps={max_steps}")
     # Should be 6171 with 261 steps
     if max_n == 6171 and max_steps == 261:
-        print(f"    Confirmed: matches known record (6171, 261 steps)")
+        print("    Confirmed: matches known record (6171, 261 steps)")
     else:
         print(f"    NOTE: expected (6171, 261), got ({max_n}, {max_steps})")
 
@@ -609,7 +609,7 @@ def run_discovery_scans(verbose: bool) -> Dict[str, Any]:
             print(f"    COUNTEREXAMPLE at n={n}!")
             break
     if all_verified:
-        print(f"    All 500 values verified")
+        print("    All 500 values verified")
     highlights["legendre_500"] = all_verified
 
     # 5. Sobolev embedding table
@@ -690,7 +690,7 @@ def print_summary(summaries: List[ToolSummary], edge_total: int, edge_passed: in
 
     # Discovery highlights
     if discoveries:
-        print(f"\n  DISCOVERY HIGHLIGHTS:")
+        print("\n  DISCOVERY HIGHLIGHTS:")
         if "abc_top10" in discoveries and discoveries["abc_top10"]:
             top = discoveries["abc_top10"][0]
             print(f"    ABC best: ({top[0]}, {top[1]}, {top[2]}) q={top[3]:.4f}")
@@ -759,7 +759,7 @@ def main():
         print(f"  {name}: {summary.correct_count}/{summary.test_count} [{status}]")
 
     # ── Edge case stress tests ────────────────────────────────────────────
-    print(f"\n--- Edge Case Stress Tests ---")
+    print("\n--- Edge Case Stress Tests ---")
     edge_total, edge_passed, edge_surprises = run_edge_cases(args.verbose)
     edge_status = "PASS" if edge_passed == edge_total else "ISSUES"
     print(f"  edge_cases: {edge_passed}/{edge_total} [{edge_status}]")
@@ -767,10 +767,10 @@ def main():
     # ── Discovery scans ──────────────────────────────────────────────────
     discoveries = None
     if not args.quick:
-        print(f"\n--- Discovery Scans ---")
+        print("\n--- Discovery Scans ---")
         discoveries = run_discovery_scans(args.verbose)
     else:
-        print(f"\n  [SKIPPED] Discovery scans (--quick)")
+        print("\n  [SKIPPED] Discovery scans (--quick)")
 
     # ── Summary ──────────────────────────────────────────────────────────
     elapsed = time.time() - t0

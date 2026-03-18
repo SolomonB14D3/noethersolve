@@ -1,12 +1,10 @@
 """Tests for noethersolve.pipeline — therapeutic pipeline consistency validator."""
 
-import pytest
 from noethersolve.pipeline import (
     validate_pipeline,
     validate_pipeline_dict,
     TherapyDesign,
     PipelineReport,
-    PipelineIssue,
 )
 
 

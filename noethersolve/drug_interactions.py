@@ -837,7 +837,7 @@ def check_pharmacogenomics(drug: str) -> PharmacogenomicsReport:
                 recommendations.insert(0, "⚠️ FDA boxed warning: Codeine CONTRAINDICATED in CYP2D6 ultrarapid metabolizers")
         elif enzyme == "CYP2C19":
             phenotype_impacts["CYP2C19"] = {
-                "Poor metabolizer (PM)": f"REDUCED EFFICACY - cannot convert to active form",
+                "Poor metabolizer (PM)": "REDUCED EFFICACY - cannot convert to active form",
                 "Intermediate metabolizer (IM)": "Reduced activation - consider alternative",
                 "Normal metabolizer (NM)": "Normal activation",
                 "Rapid/Ultrarapid metabolizer": "Enhanced activation",

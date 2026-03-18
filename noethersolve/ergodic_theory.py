@@ -17,7 +17,7 @@ CRITICAL DISTINCTIONS LLMs GET WRONG:
 4. Bernoulli is the STRONGEST, not ergodic
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 import math
 
@@ -207,7 +207,7 @@ class ComparisonReport:
         elif self.relationship == "equivalent":
             lines.append(f"  {self.level_1} ⟺ {self.level_2}")
         else:
-            lines.append(f"  No implication either direction")
+            lines.append("  No implication either direction")
         if self.counterexample:
             lines.append("-" * 60)
             lines.append(f"  Counterexample: {self.counterexample}")
@@ -622,7 +622,7 @@ def entropy_analysis(
         notes.append("Zero entropy compatible with ergodic, weak mixing, or mixing")
 
     if topological_entropy is not None:
-        notes.append(f"Variational principle: h_μ ≤ h_top for all μ")
+        notes.append("Variational principle: h_μ ≤ h_top for all μ")
         if ks_entropy > topological_entropy + 1e-10:
             notes.append("WARNING: h_μ > h_top violates variational principle!")
 

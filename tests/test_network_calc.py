@@ -1,6 +1,5 @@
 """Tests for the networking calculator module."""
 
-import math
 import pytest
 from noethersolve.network_calc import (
     bandwidth_delay_product,

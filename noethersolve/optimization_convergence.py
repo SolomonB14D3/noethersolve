@@ -77,7 +77,7 @@ class ComparisonReport:
     def __str__(self) -> str:
         lines = [
             "=" * 60,
-            f"  Algorithm Comparison",
+            "  Algorithm Comparison",
             "=" * 60,
             f"  {self.algorithm_1}: ρ = {self.rate_1:.6f}",
             f"  {self.algorithm_2}: ρ = {self.rate_2:.6f}",
@@ -307,7 +307,7 @@ def nesterov_rate(
 
     gd_rate = 1 - mu / L
     if rate < gd_rate:
-        speedup = math.log(rate) / math.log(gd_rate) if gd_rate < 1 else float('inf')
+        math.log(rate) / math.log(gd_rate) if gd_rate < 1 else float('inf')
         comparison = f"√κ ≈ {math.sqrt(kappa):.1f}× fewer iterations than GD"
     else:
         comparison = "Same as GD (only helps when κ > 1)"
@@ -448,8 +448,8 @@ def analyze_conditioning(
     elif benefit < 1.5:
         notes.append("Acceleration gives minimal benefit — GD may suffice")
 
-    notes.append(f"GD error: ε₀ × (1-1/κ)^k ≈ ε₀ × e^(-k/κ)")
-    notes.append(f"Nesterov error: ε₀ × (1-1/√κ)^k ≈ ε₀ × e^(-k/√κ)")
+    notes.append("GD error: ε₀ × (1-1/κ)^k ≈ ε₀ × e^(-k/κ)")
+    notes.append("Nesterov error: ε₀ × (1-1/√κ)^k ≈ ε₀ × e^(-k/√κ)")
 
     return ConditionReport(
         L=L,
@@ -498,7 +498,7 @@ def oracle_lower_bound(
 
     # Nesterov effectively achieves lower bound
     # (1 - 1/√κ) vs (√κ-1)/(√κ+1) are close but not identical
-    nesterov_rate = 1 - 1 / sqrt_kappa
+    1 - 1 / sqrt_kappa
 
     # Gap: how many times more iterations does GD need?
     if lower_rate < 1 and gd_rate < 1:
@@ -580,7 +580,7 @@ def optimal_step_size(
         f"η > 2/L = {diverges:.4f} causes DIVERGENCE",
     ]
     if mu > 0:
-        notes.append(f"For strongly convex, η = 2/(L+μ) is optimal")
+        notes.append("For strongly convex, η = 2/(L+μ) is optimal")
     notes.append("Common error: using η too large causes oscillation/divergence")
 
     return StepSizeReport(
@@ -656,7 +656,7 @@ def non_convex_rate(
 
     notes = [
         "Non-convex: only converge to stationary point, not global min",
-        f"Rate: min_{{k'≤k}} ||∇f(x_k')||² ≤ 2LΔ/k",
+        "Rate: min_{k'≤k} ||∇f(x_k')||² ≤ 2LΔ/k",
         "Acceleration does NOT help for non-convex (unlike convex)",
     ]
 

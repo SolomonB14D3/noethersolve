@@ -9,7 +9,6 @@ Tests cover:
 - Database consistency
 """
 
-import pytest
 
 from noethersolve.drug_interactions import (
     get_drug_profile,
@@ -187,7 +186,7 @@ class TestInteractions:
     def test_interaction_order_independent(self):
         """Interaction detection works regardless of drug order."""
         r1 = check_interaction("ketoconazole", "midazolam")
-        r2 = check_interaction("midazolam", "ketoconazole")
+        check_interaction("midazolam", "ketoconazole")
         # Both should find the interaction (A inhibits B or B inhibits A)
         assert r1.interaction_found is True
         # r2 might not find interaction if midazolam isn't an inhibitor

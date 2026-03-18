@@ -1,6 +1,5 @@
 """Tests for neoantigen_pipeline module."""
 
-import pytest
 from noethersolve.neoantigen_pipeline import (
     score_cleavage,
     score_tap,
@@ -281,7 +280,7 @@ class TestPhysicsCorrectness:
             report.tap.transport_probability,
             report.mhc.binding_score,
         ]
-        min_score = min(step_scores)
+        min(step_scores)
 
         # Geometric mean <= arithmetic mean <= max
         # So combined should be reasonable

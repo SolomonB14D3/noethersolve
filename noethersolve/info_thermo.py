@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import List, Optional, Tuple
+from typing import List
 
 
 # Constants
@@ -286,12 +286,12 @@ class HuffmanLandauerReport:
             "  HUFFMAN (Information):",
             f"    Shannon entropy H = {self.shannon_entropy:.4f} bits",
             f"    Minimum avg code length = {self.huffman_bound:.4f} bits/symbol",
-            f"    Optimizes: Σ p_i × len(code_i)",
+            "    Optimizes: Σ p_i × len(code_i)",
             "",
             "  LANDAUER (Thermodynamics):",
             f"    Energy per bit = {self.energy_per_bit:.3e} J",
             f"    Min erasure energy = {self.min_erase_energy:.3e} J",
-            f"    Optimizes: Σ p_i × E_i where E_i ∝ -log(p_i)",
+            "    Optimizes: Σ p_i × E_i where E_i ∝ -log(p_i)",
             "",
             "  THE CONNECTION:",
             "    Both optimize Σ p_i × cost_i where cost ∝ -log(p_i)",

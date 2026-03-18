@@ -13,9 +13,8 @@ Based on conservation laws from Noether's theorem.
 """
 
 from dataclasses import dataclass
-from typing import List, Dict, Tuple, Optional
+from typing import List, Tuple, Optional
 from enum import Enum
-import math
 
 
 class FringeCategory(Enum):

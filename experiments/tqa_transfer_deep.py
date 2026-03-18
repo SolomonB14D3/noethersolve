@@ -16,7 +16,6 @@ import argparse
 import json
 import sys
 import time
-from collections import defaultdict
 from pathlib import Path
 
 # Force unbuffered output
@@ -28,7 +27,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from noethersolve.adapter import SnapOnConfig, SnapOnLogitMLP
-from noethersolve.train_utils import LOGIT_SOFTCAP, apply_adapter_stack, get_lm_head_fn
+from noethersolve.train_utils import LOGIT_SOFTCAP, get_lm_head_fn
 
 MODEL_ID = "Qwen/Qwen3-4B-Base"
 ADAPTER_DIR = Path(__file__).resolve().parent.parent / "adapters"
@@ -156,9 +155,9 @@ def main():
     args = parser.parse_args()
 
     print(f"{'='*70}")
-    print(f"  TruthfulQA Transfer Deep Test")
-    print(f"  H0: oracle fact adapters don't improve TQA MC2")
-    print(f"  H1: oracle fact adapters improve general truth preference")
+    print("  TruthfulQA Transfer Deep Test")
+    print("  H0: oracle fact adapters don't improve TQA MC2")
+    print("  H1: oracle fact adapters improve general truth preference")
     print(f"{'='*70}")
 
     # Load TQA
@@ -232,7 +231,7 @@ def main():
     improved = sum(1 for b, a in zip(base_scores, adapted_scores) if a > b + 0.05)
     degraded = sum(1 for b, a in zip(base_scores, adapted_scores) if a < b - 0.05)
     unchanged = len(base_scores) - improved - degraded
-    print(f"\n  Per-question (>5% threshold):")
+    print("\n  Per-question (>5% threshold):")
     print(f"    Improved:  {improved} ({improved/len(base_scores)*100:.1f}%)")
     print(f"    Degraded:  {degraded} ({degraded/len(base_scores)*100:.1f}%)")
     print(f"    Unchanged: {unchanged} ({unchanged/len(base_scores)*100:.1f}%)")

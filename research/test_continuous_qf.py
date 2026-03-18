@@ -10,8 +10,6 @@ We test with a simple vortex merger scenario using a pseudospectral solver.
 
 import numpy as np
 from numpy.fft import fft2, ifft2, fftfreq
-import matplotlib.pyplot as plt
-from scipy.ndimage import gaussian_filter
 
 # ============================================================================
 # 2D Euler Pseudospectral Solver
@@ -52,7 +50,7 @@ class Euler2DSolver:
 
     def rhs(self, omega_hat):
         """Compute -u·∇ω in spectral space."""
-        omega = np.real(ifft2(omega_hat))
+        np.real(ifft2(omega_hat))
         u, v = self.compute_velocity(omega_hat)
 
         # ∇ω in physical space
@@ -100,7 +98,7 @@ def compute_Qf_fft(omega, f_values, dx):
 
     f_values: precomputed f(r) on the distance grid
     """
-    N = omega.shape[0]
+    omega.shape[0]
 
     # Q_f = ∫∫ ω(x) ω(y) f(|x-y|) dx dy
     #     = ∫ ω(x) [∫ ω(y) f(|x-y|) dy] dx
@@ -184,7 +182,7 @@ def main():
     omega0 = (gaussian_vortex(solver.X, solver.Y, L/3, L/2, sigma, gamma) +
               gaussian_vortex(solver.X, solver.Y, 2*L/3, L/2, sigma, gamma))
 
-    print(f"Initial condition: Two co-rotating Gaussian vortices")
+    print("Initial condition: Two co-rotating Gaussian vortices")
     print(f"  Grid: {N}x{N}, Domain: [0, {L:.2f}]²")
     print(f"  Vortex width σ = {sigma:.2f}, circulation Γ = {gamma:.2f}")
     print()

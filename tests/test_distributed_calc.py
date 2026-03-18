@@ -1,6 +1,5 @@
 """Tests for the distributed systems calculator module."""
 
-import math
 import pytest
 from noethersolve.distributed_calc import (
     quorum_calc,

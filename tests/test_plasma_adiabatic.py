@@ -13,10 +13,6 @@ from noethersolve.plasma_adiabatic import (
     cyclotron_frequency,
     larmor_radius,
     get_particle_mass,
-    MagneticMomentReport,
-    BounceInvariantReport,
-    FluxInvariantReport,
-    AdiabaticHierarchyReport,
     ELECTRON_MASS,
     PROTON_MASS,
     ELECTRON_CHARGE,
@@ -413,9 +409,7 @@ class TestPhysicalConsistency:
         # μ = E_perp / B = const
         # So E_perp ∝ B as particle approaches mirror
 
-        E_total = 1000  # eV
         B1 = 1e-5
-        B2 = 4e-5  # 4× stronger at mirror
 
         # At B1: E_perp = 500 eV, E_parallel = 500 eV
         # At B2: E_perp must be 4× larger for μ conservation

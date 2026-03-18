@@ -21,7 +21,7 @@ All formulas from first principles and validated against DFT calculations.
 """
 
 from dataclasses import dataclass
-from typing import Optional, Literal, List, Tuple
+from typing import Optional, List
 import math
 
 
@@ -168,7 +168,7 @@ class BEPReport:
             f"  Reaction class: {self.reaction_class}",
             f"  Reaction energy ΔE: {self.delta_E:.3f} eV",
             "-" * 60,
-            f"  BEP: Ea = α×ΔE + E₀",
+            "  BEP: Ea = α×ΔE + E₀",
             f"       Ea = {self.alpha:.2f}×({self.delta_E:.3f}) + {self.E0:.2f}",
             f"       Ea = {self.Ea:.3f} eV",
             "-" * 60,
@@ -289,23 +289,23 @@ def calc_bep_activation(
     temperature: float = 500.0,
 ) -> BEPReport:
     """Calculate activation energy using BEP correlation.
-    
+
     The Brønsted-Evans-Polanyi relation gives a linear correlation
     between activation energy and reaction energy for a given class
     of reactions:
-    
+
         Ea = α × ΔE + E0
-    
+
     CRITICAL: The slope α is REACTION-CLASS SPECIFIC, not universal!
-    
+
     Args:
         reaction_class: Type of reaction (e.g., "C-H_activation", "H2_dissociation")
         delta_E: Reaction energy in eV (negative = exothermic)
         temperature: Temperature in K for rate constant calculation
-    
+
     Returns:
         BEPReport with activation energy and rate constant
-    
+
     Example:
         >>> report = calc_bep_activation("H2_dissociation", -0.5, 300)
         >>> print(f"Ea = {report.Ea:.2f} eV")
@@ -313,28 +313,28 @@ def calc_bep_activation(
     if reaction_class not in BEP_PARAMS:
         valid = ", ".join(BEP_PARAMS.keys())
         raise ValueError(f"Unknown reaction class: {reaction_class}. Valid: {valid}")
-    
+
     params = BEP_PARAMS[reaction_class]
     alpha = params["alpha"]
     E0 = params["E0"]
-    
+
     # BEP relation
     Ea = alpha * delta_E + E0
-    
+
     # Ensure Ea is non-negative (physical constraint)
     Ea = max(0.0, Ea)
-    
+
     # Rate constant from transition state theory
     # k = (kT/h) × exp(-Ea/kT) ≈ 10^13 × exp(-Ea/kT) s^-1
     prefactor = 1e13  # s^-1 (typical for surface reactions)
     k = prefactor * math.exp(-Ea / (K_B_EV * temperature))
-    
+
     notes = [params["description"]]
     if Ea < 0.1:
         notes.append("Very low barrier - reaction is fast!")
     if Ea > 1.5:
         notes.append("High barrier - may need higher T or better catalyst")
-    
+
     return BEPReport(
         reaction_class=reaction_class,
         delta_E=delta_E,
@@ -352,22 +352,22 @@ def calc_volcano_position(
     adsorption_energy: float,
 ) -> VolcanoReport:
     """Calculate position on the volcano plot for a catalytic reaction.
-    
+
     The Sabatier principle: optimal catalysis occurs at intermediate
     binding strength. The volcano plot shows activity vs adsorption energy.
-    
+
     CRITICAL:
     - Peak position depends on the specific reaction
     - Left slope (weak binding): adsorption-limited
     - Right slope (strong binding): desorption-limited
-    
+
     Args:
         reaction: Reaction type ("HER", "OER", "ORR", "CO2RR", "NH3_synthesis")
         adsorption_energy: Adsorption free energy ΔG in eV
-    
+
     Returns:
         VolcanoReport with position analysis
-    
+
     Example:
         >>> report = calc_volcano_position("HER", -0.1)
         >>> print(f"Relative activity: {report.relative_activity:.1%}")
@@ -375,14 +375,14 @@ def calc_volcano_position(
     if reaction not in VOLCANO_REACTIONS:
         valid = ", ".join(VOLCANO_REACTIONS.keys())
         raise ValueError(f"Unknown reaction: {reaction}. Valid: {valid}")
-    
+
     params = VOLCANO_REACTIONS[reaction]
     optimal = params["optimal_dG"]
     left_slope = params["left_slope"]
     right_slope = params["right_slope"]
-    
+
     distance = adsorption_energy - optimal
-    
+
     # Determine which side of the volcano
     if distance < 0:
         # Weak binding side
@@ -390,14 +390,14 @@ def calc_volcano_position(
         # Activity drops linearly with slope on this side
         log_activity = left_slope * distance  # distance is negative
     else:
-        # Strong binding side  
+        # Strong binding side
         limiting_side = "strong (desorption-limited)"
         log_activity = right_slope * distance  # distance is positive
-    
+
     # Convert to relative activity (peak = 1.0)
     relative_activity = math.exp(log_activity / (K_B_EV * 300))  # at 300K
     relative_activity = min(1.0, relative_activity)
-    
+
     notes = [params["description"]]
     if abs(distance) < 0.1:
         notes.append("Near optimal - excellent catalyst candidate!")
@@ -405,7 +405,7 @@ def calc_volcano_position(
         notes.append("Binding too weak - consider stronger-binding metal")
     elif distance > 0.5:
         notes.append("Binding too strong - consider weaker-binding metal")
-    
+
     return VolcanoReport(
         reaction=reaction,
         adsorption_energy=adsorption_energy,
@@ -422,18 +422,18 @@ def calc_d_band_center(
     reference_metal: Optional[str] = None,
 ) -> DBandReport:
     """Analyze d-band center and predict relative binding strength.
-    
+
     The d-band model (Nørskov, Hammer): adsorbate binding strength
     correlates with the d-band center position. Higher ε_d (closer
     to Fermi level) means stronger binding.
-    
+
     Args:
         metal: Metal symbol (e.g., "Pt", "Pd", "Au")
         reference_metal: Optional metal for comparison
-    
+
     Returns:
         DBandReport with binding strength analysis
-    
+
     Example:
         >>> report = calc_d_band_center("Pt", reference_metal="Au")
         >>> print(report)  # Pt binds stronger than Au
@@ -441,9 +441,9 @@ def calc_d_band_center(
     if metal not in D_BAND_CENTERS:
         valid = ", ".join(D_BAND_CENTERS.keys())
         raise ValueError(f"Unknown metal: {metal}. Valid: {valid}")
-    
+
     eps_d = D_BAND_CENTERS[metal]
-    
+
     # Classify binding strength
     if eps_d > -2.0:
         strength = "strong (reactive metal)"
@@ -451,7 +451,7 @@ def calc_d_band_center(
         strength = "moderate (noble metal)"
     else:
         strength = "weak (inert metal)"
-    
+
     # Compare to reference
     delta_binding = 0.0
     if reference_metal:
@@ -461,13 +461,13 @@ def calc_d_band_center(
         # Higher ε_d → stronger binding → more negative ΔE
         # Approximate: ΔΔE ≈ 0.5 × Δε_d (rough scaling)
         delta_binding = 0.5 * (eps_d - eps_d_ref)
-    
+
     notes = []
     if eps_d > -1.5:
         notes.append("Very reactive - may be poisoned by strong adsorbates")
     if eps_d < -4.0:
         notes.append("Very inert - may not activate reactants")
-    
+
     return DBandReport(
         metal=metal,
         d_band_center=eps_d,
@@ -483,20 +483,20 @@ def get_scaling_relation(
     adsorbate_2: str,
 ) -> ScalingRelationReport:
     """Get scaling relation between two adsorbate binding energies.
-    
+
     Scaling relations show that binding energies of related adsorbates
     are linearly correlated. This CONSTRAINS selectivity because you
     cannot independently tune binding of both.
-    
+
     Common scaling relations (approximate):
     - OH vs O: ΔE_OH ≈ 0.5 × ΔE_O + 0.3
     - OOH vs O: ΔE_OOH ≈ 0.5 × ΔE_O + 3.2
     - CH3 vs C: ΔE_CH3 ≈ 0.75 × ΔE_C + 1.0
-    
+
     Args:
         adsorbate_1: First adsorbate (e.g., "O", "C", "N")
         adsorbate_2: Second adsorbate (e.g., "OH", "CH3", "NH")
-    
+
     Returns:
         ScalingRelationReport with slope and selectivity implications
     """
@@ -509,10 +509,10 @@ def get_scaling_relation(
         ("N", "NH"): (0.67, 0.50, "NH3 synthesis selectivity"),
         ("CO", "C"): (0.90, 2.50, "FT synthesis selectivity"),
     }
-    
+
     key = (adsorbate_1, adsorbate_2)
     reverse_key = (adsorbate_2, adsorbate_1)
-    
+
     if key in SCALING:
         slope, intercept, constraint = SCALING[key]
         corr = "linear"
@@ -528,11 +528,11 @@ def get_scaling_relation(
         intercept = 0.5
         constraint = "Unknown - may be approximately linear"
         corr = "approximate (unknown pair)"
-    
+
     notes = [
         f"ΔE_{adsorbate_2} ≈ {slope:.2f} × ΔE_{adsorbate_1} + {intercept:.2f}",
     ]
-    
+
     return ScalingRelationReport(
         adsorbate_1=adsorbate_1,
         adsorbate_2=adsorbate_2,
@@ -549,27 +549,27 @@ def find_optimal_catalyst(
     metal_list: Optional[List[str]] = None,
 ) -> str:
     """Find optimal catalyst from d-band analysis for a given reaction.
-    
+
     Uses the d-band model and volcano plot to identify the best
     catalyst candidates from a list of metals.
-    
+
     Args:
         reaction: Reaction type ("HER", "OER", etc.)
         metal_list: List of metals to consider (default: all known)
-    
+
     Returns:
         Formatted ranking of metals by predicted activity
     """
     if reaction not in VOLCANO_REACTIONS:
         valid = ", ".join(VOLCANO_REACTIONS.keys())
         raise ValueError(f"Unknown reaction: {reaction}. Valid: {valid}")
-    
+
     if metal_list is None:
         metal_list = list(D_BAND_CENTERS.keys())
-    
+
     params = VOLCANO_REACTIONS[reaction]
     optimal_dG = params["optimal_dG"]
-    
+
     # Estimate ΔG from d-band center (rough correlation)
     # Higher ε_d → more negative ΔG (stronger binding)
     results = []
@@ -581,10 +581,10 @@ def find_optimal_catalyst(
         estimated_dG = -0.3 * eps_d - 1.0
         distance = abs(estimated_dG - optimal_dG)
         results.append((metal, eps_d, estimated_dG, distance))
-    
+
     # Sort by distance from optimal
     results.sort(key=lambda x: x[3])
-    
+
     lines = [
         "=" * 60,
         f"  Catalyst Ranking for {reaction}",
@@ -594,14 +594,14 @@ def find_optimal_catalyst(
         "  Rank | Metal | ε_d (eV) | Est. ΔG | Distance",
         "-" * 60,
     ]
-    
+
     for i, (metal, eps_d, dG, dist) in enumerate(results[:10], 1):
         lines.append(f"  {i:4d} | {metal:5s} | {eps_d:+.2f}   | {dG:+.2f}   | {dist:.2f}")
-    
+
     lines.extend([
         "-" * 60,
         "  Note: ΔG estimated from d-band center (approximate)",
         "        DFT calculations needed for quantitative values",
     ])
-    
+
     return "\n".join(lines)

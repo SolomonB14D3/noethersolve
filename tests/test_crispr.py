@@ -6,7 +6,6 @@ from noethersolve.crispr import (
     score_guides,
     check_offtarget_pair,
     GuideReport,
-    GuideIssue,
 )
 
 

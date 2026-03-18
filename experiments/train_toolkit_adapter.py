@@ -23,7 +23,6 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from noethersolve.adapter import SnapOnConfig, SnapOnLogitMLP
 from noethersolve.train_utils import (
-    LOGIT_SOFTCAP,
     apply_adapter,
     get_lm_head_fn,
 )
@@ -48,7 +47,7 @@ def compute_margins(model, tokenizer, lm_head, facts, adapter=None):
             )
             # result is tuple: (win, margin, truth_lp, best_dist_lp)
             margins.append(result[1])  # margin = truth_lp - best_dist_lp
-        except Exception as e:
+        except Exception:
             margins.append(-999)
     return margins
 
@@ -167,7 +166,7 @@ def main():
         print(f"  Baseline: {n_pass}/{len(facts)} passing")
         print(f"  Mean margin: {np.mean(valid_margins):.2f} (over {len(valid_margins)} valid)")
     else:
-        print(f"  Baseline: no valid margins computed")
+        print("  Baseline: no valid margins computed")
 
     # Training loop
     print(f"\nTraining for {args.steps} steps (lr={args.lr})...")

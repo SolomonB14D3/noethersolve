@@ -1,6 +1,5 @@
 """Tests for loving_autonomy module."""
 
-import pytest
 from noethersolve.loving_autonomy import (
     LovingAssistant,
     AssistantResponse,

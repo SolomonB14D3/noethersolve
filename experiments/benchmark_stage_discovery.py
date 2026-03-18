@@ -12,13 +12,11 @@ Usage:
 
 import argparse
 import json
-import os
 import sys
 import time
 from pathlib import Path
-from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Set, Tuple, Any
+from typing import Dict, List, Optional, Tuple
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -26,10 +24,7 @@ from noethersolve.stage_discovery import (
     StageDiscoverer,
     DiscoveryConfig,
     EvalResult,
-    StageSequence,
 )
-from noethersolve.meta_router import MetaRouter, OutcomeRecord
-from noethersolve.outcome_logger import OutcomeLogger
 
 
 @dataclass

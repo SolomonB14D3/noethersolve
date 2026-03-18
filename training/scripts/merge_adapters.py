@@ -14,7 +14,6 @@ Usage:
 import argparse
 import os
 import mlx.core as mx
-import numpy as np
 
 
 def merge_adapters(adapter_paths: list[str], output_path: str, weights: list[float] = None):

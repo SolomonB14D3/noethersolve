@@ -10,8 +10,6 @@ Simplest case: Two coaxial vortex rings (same circulation direction).
 """
 
 import numpy as np
-from scipy.integrate import solve_ivp
-import matplotlib.pyplot as plt
 
 # ============================================================================
 # Vortex Ring Class
@@ -205,9 +203,9 @@ def main():
     rings = [ring1, ring2]
 
     print("Initial configuration:")
-    print(f"  Ring 1: center=(0,0,0), R=1.0, Γ=1.0")
-    print(f"  Ring 2: center=(0,0,1.5), R=1.0, Γ=1.0")
-    print(f"  Points per ring: 32")
+    print("  Ring 1: center=(0,0,0), R=1.0, Γ=1.0")
+    print("  Ring 2: center=(0,0,1.5), R=1.0, Γ=1.0")
+    print("  Points per ring: 32")
     print()
 
     # Test functions

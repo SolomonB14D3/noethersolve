@@ -437,7 +437,7 @@ def cmd_eval(args):
             model, tokenizer, facts, adapter=None, device=device, label="baseline"
         )
         delta = mean_m - base_mean
-        print(f"\n  Quadrant diagnosis:")
+        print("\n  Quadrant diagnosis:")
         print(f"    baseline mean_margin:  {base_mean:+.3f}")
         print(f"    adapter  mean_margin:  {mean_m:+.3f}")
         print(f"    delta:                 {delta:+.3f}")

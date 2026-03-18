@@ -758,8 +758,8 @@ def check_pde_regularity(
                     check_type="REGULARITY_CHECK",
                     severity="INFO",
                     description=(
-                        f"Claim of inviscid blow-up for Burgers is CORRECT. "
-                        f"Inviscid Burgers develops shocks in finite time."
+                        "Claim of inviscid blow-up for Burgers is CORRECT. "
+                        "Inviscid Burgers develops shocks in finite time."
                     ),
                 ))
             elif eq == "burgers" and "viscous" in claim_lower:
@@ -767,8 +767,8 @@ def check_pde_regularity(
                     check_type="REGULARITY_CHECK",
                     severity="HIGH",
                     description=(
-                        f"Claiming blow-up for VISCOUS Burgers, but viscous "
-                        f"Burgers has global smooth solutions."
+                        "Claiming blow-up for VISCOUS Burgers, but viscous "
+                        "Burgers has global smooth solutions."
                     ),
                 ))
             else:

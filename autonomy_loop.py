@@ -306,7 +306,6 @@ def call_claude_generate(expr: str, domain_desc: str, ic_name: str,
     )
 
     try:
-        import anthropic as _anth
         response = anthropic_client.messages.create(
             model="claude-opus-4-6",
             max_tokens=8192,
@@ -387,7 +386,8 @@ def train_on_examples(model, tokenizer, lm_head,
     examples: list of dicts with keys "context", "truth", "distractors"
     Returns trained adapter object (MLX).
     """
-    import sys, os
+    import sys
+    import os
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), "training", "scripts"))
     from train_vortex_adapter import train_vortex_adapter
 
@@ -462,10 +462,10 @@ def append_tsv_row(expr: str, ic_name: str, fv_by_ic: dict,
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Main
+# Legacy main (dead code - replaced by main() with subcommands at end of file)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def main():
+def _main_legacy():  # noqa: F811
     parser = argparse.ArgumentParser(
         description="NoetherSolve autonomy loop — sweep → oracle → adapter → publish"
     )
@@ -504,7 +504,7 @@ def main():
                     "Unknown physics domain")
 
     print(f"\n{'='*72}")
-    print(f"  NoetherSolve Autonomy Loop")
+    print("  NoetherSolve Autonomy Loop")
     print(f"{'='*72}")
     print(f"  Problem:     {problem.get('name', args.problem)}")
     print(f"  Checker:     {checker_type}")
@@ -572,9 +572,9 @@ def main():
     print(f"  Fails:             {len(all_exprs) - skipped - len(numerical_passes)}")
 
     if args.dry_run or args.skip_oracle:
-        print(f"\n  [dry-run / skip-oracle] Stopping after numerical sweep.")
+        print("\n  [dry-run / skip-oracle] Stopping after numerical sweep.")
         if numerical_passes:
-            print(f"\n  Passes ready for oracle:")
+            print("\n  Passes ready for oracle:")
             for expr, ic, fv_by_ic in numerical_passes:
                 print(f"    {expr_to_label(expr)}")
         return
@@ -585,7 +585,7 @@ def main():
 
     # ── Phase 2: Oracle + training loop ──────────────────────────────────────
     print(f"\n{'─'*72}")
-    print(f"  PHASE 2 — Oracle evaluation + adapter training")
+    print("  PHASE 2 — Oracle evaluation + adapter training")
     print(f"{'─'*72}")
 
     # Load model
@@ -619,7 +619,7 @@ def main():
             try:
                 import anthropic as _anth
                 anthropic_client = _anth.Anthropic(api_key=api_key)
-                print(f"  Anthropic client ready (claude-opus-4-6).")
+                print("  Anthropic client ready (claude-opus-4-6).")
             except ImportError:
                 print("  ⚠  anthropic not installed. pip install anthropic")
                 args.skip_training = True
@@ -645,7 +645,7 @@ def main():
         training_examples = []
 
         if anthropic_client:
-            print(f"  │  Calling claude-opus-4-6 to generate oracle question + training data...")
+            print("  │  Calling claude-opus-4-6 to generate oracle question + training data...")
             generated = call_claude_generate(
                 expr, domain_desc, ic_name, fv_by_ic, threshold, anthropic_client
             )
@@ -666,7 +666,7 @@ def main():
                 oracle_facts = facts_list
                 print(f"  │  Fallback: domain verification set ({len(oracle_facts)} facts)")
             else:
-                print(f"  │  No oracle facts available — skipping this candidate")
+                print("  │  No oracle facts available — skipping this candidate")
                 continue
 
         # ── Step B: Baseline oracle ──────────────────────────────────────────
@@ -678,7 +678,7 @@ def main():
         print(f"  │  Baseline oracle: margin={b_margin:+.3f}  ({pass_rate} pass)")
 
         if b_margin > 0:
-            print(f"  └─ ✓ DUAL-PASS — model already knows this structure!")
+            print("  └─ ✓ DUAL-PASS — model already knows this structure!")
             dual_pass.append((expr, b_margin, fv_by_ic))
             if not args.no_publish:
                 append_tsv_row(expr, ic_name, fv_by_ic, b_margin, None,
@@ -726,11 +726,11 @@ def main():
                                "ORACLE-FAIL+CHECKER-PASS",
                                f"training_failed frac_var={fv_min:.2e}",
                                n_pass_str=pass_rate)
-            print(f"  └─ Training failed — recorded as open gap")
+            print("  └─ Training failed — recorded as open gap")
             continue
 
         # ── Step D: Re-evaluate with adapter ──────────────────────────────
-        print(f"  │  Re-evaluating oracle with adapter...")
+        print("  │  Re-evaluating oracle with adapter...")
         repaired = run_oracle_on_facts(model, tokenizer, oracle_facts,
                                        adapter=adapter, lm_head=lm_head)
         oracle_count += 1
@@ -764,7 +764,7 @@ def main():
 
     # ── Summary ───────────────────────────────────────────────────────────────
     print(f"\n{'='*72}")
-    print(f"  NoetherSolve Autonomy Loop — Complete")
+    print("  NoetherSolve Autonomy Loop — Complete")
     print(f"{'='*72}")
     print(f"  Numerical passes:    {len(numerical_passes)}")
     print(f"  Oracle calls used:   {oracle_count} / {args.budget}")
@@ -773,18 +773,18 @@ def main():
     print(f"  Open gaps:           {len(open_gaps)}")
 
     if dual_pass:
-        print(f"\n  ✓ DUAL-PASS (model already knew):")
+        print("\n  ✓ DUAL-PASS (model already knew):")
         for expr, margin, _ in dual_pass:
             print(f"    margin={margin:+.3f}  {expr_to_label(expr)}")
 
     if flipped:
-        print(f"\n  🎉 FLIPPED (adapter rescued):")
+        print("\n  🎉 FLIPPED (adapter rescued):")
         for expr, b_m, r_m, _, adp in flipped:
             print(f"    {b_m:+.3f}→{r_m:+.3f}  {expr_to_label(expr)}")
             print(f"    adapter: {os.path.basename(adp)}")
 
     if open_gaps:
-        print(f"\n  ⚠  Open gaps (still failing after repair):")
+        print("\n  ⚠  Open gaps (still failing after repair):")
         for expr, margin, fv_by_ic in open_gaps:
             fv_str = ";".join(
                 f"{ic}:{fv:.2e}" for ic, fv in fv_by_ic.items() if not np.isnan(fv)
@@ -937,7 +937,7 @@ def generate_new_problems(
         lines = []
         for item in items[:8]:
             if kind == "expr":
-                expr, margin, fv = item[0], item[1], item[2]
+                expr, _margin, fv = item[0], item[1], item[2]
                 fv_min = min(v for v in fv.values() if not np.isnan(v))
                 lines.append(f"    {expr_to_label(expr)}  frac_var={fv_min:.2e}")
             else:
@@ -1162,22 +1162,22 @@ def cmd_propose_problem(args):
         # Write YAML
         os.makedirs(os.path.join(_HERE, "problems"), exist_ok=True)
         with open(outpath, "w") as f:
-            f.write(f"# Generated by autonomy_loop.py propose-problem\n")
+            f.write("# Generated by autonomy_loop.py propose-problem\n")
             f.write(f"# User question: {user_problem}\n\n")
             f.write(yaml_text)
 
         print(f"\n  Problem YAML written: {outpath}")
-        print(f"\n  Preview:\n")
+        print("\n  Preview:\n")
         for line in yaml_text.splitlines()[:30]:
             print(f"    {line}")
         if len(yaml_text.splitlines()) > 30:
             print(f"    ... ({len(yaml_text.splitlines())} lines total)")
 
-        print(f"\n  Next steps:")
+        print("\n  Next steps:")
         print(f"    1. Review and edit: {outpath}")
         print(f"    2. Create verification facts: problems/{name}_facts.json")
-        print(f"       (run oracle_wrapper.py to check baseline first)")
-        print(f"    3. Run autonomy loop:")
+        print("       (run oracle_wrapper.py to check baseline first)")
+        print("    3. Run autonomy loop:")
         print(f"       python autonomy_loop.py --problem problems/{name}.yaml")
 
         # Also add to open questions queue
@@ -1316,7 +1316,7 @@ def _run_loop(args):
                        _HERE, "router_state.npz")
 
     print(f"\n{'='*72}")
-    print(f"  NoetherSolve Autonomy Loop")
+    print("  NoetherSolve Autonomy Loop")
     print(f"{'='*72}")
     print(f"  Problem:     {problem.get('name', args.problem)}")
     print(f"  Checker:     {checker_type}")
@@ -1395,9 +1395,9 @@ def _run_loop(args):
     print(f"  Fails:             {len(all_exprs) - skipped - len(numerical_passes)}")
 
     if args.dry_run or args.skip_oracle:
-        print(f"\n  [dry-run / skip-oracle] Stopping after numerical sweep.")
+        print("\n  [dry-run / skip-oracle] Stopping after numerical sweep.")
         if numerical_passes:
-            print(f"\n  Passes ready for oracle:")
+            print("\n  Passes ready for oracle:")
             for expr, ic, _ in numerical_passes:
                 print(f"    {expr_to_label(expr)}")
         return
@@ -1408,7 +1408,7 @@ def _run_loop(args):
 
     # ── Phase 2: Oracle + training loop ──────────────────────────────────────
     print(f"\n{'─'*72}")
-    print(f"  PHASE 2 — Oracle evaluation + adapter training")
+    print("  PHASE 2 — Oracle evaluation + adapter training")
     print(f"{'─'*72}")
 
     if args.backend == "mlx":
@@ -1459,7 +1459,7 @@ def _run_loop(args):
             try:
                 import anthropic as _anth
                 anthropic_client = _anth.Anthropic(api_key=api_key)
-                print(f"  Anthropic client ready.")
+                print("  Anthropic client ready.")
             except ImportError:
                 print("  ⚠  pip install anthropic")
                 args.skip_training = True
@@ -1485,7 +1485,7 @@ def _run_loop(args):
         training_examples = []
 
         if anthropic_client:
-            print(f"  │  Generating oracle question + training data...")
+            print("  │  Generating oracle question + training data...")
             generated = call_claude_generate(
                 expr, domain_desc, ic_name, fv_by_ic, threshold, anthropic_client
             )
@@ -1505,7 +1505,7 @@ def _run_loop(args):
                 oracle_facts = facts_list
                 print(f"  │  Fallback: verification set ({len(oracle_facts)} facts)")
             else:
-                print(f"  │  No oracle facts — skipping")
+                print("  │  No oracle facts — skipping")
                 continue
 
         # Step B: Baseline oracle — try router first, then accumulated adapters
@@ -1547,7 +1547,7 @@ def _run_loop(args):
         print(f"  │  Baseline: margin={b_margin:+.3f}  ({pass_rate} pass){route_note}")
 
         if b_margin > 0:
-            print(f"  └─ ✓ DUAL-PASS — model already knows this!")
+            print("  └─ ✓ DUAL-PASS — model already knows this!")
             dual_pass.append((expr, b_margin, fv_by_ic))
             if not args.no_publish:
                 append_tsv_row(expr, ic_name, fv_by_ic, b_margin, None,
@@ -1564,7 +1564,7 @@ def _run_loop(args):
                                "ORACLE-FAIL+CHECKER-PASS",
                                f"margin={b_margin:.2f} frac_var={fv_min:.2e}",
                                n_pass_str=pass_rate)
-            print(f"  └─ Recorded as ORACLE-FAIL+CHECKER-PASS")
+            print("  └─ Recorded as ORACLE-FAIL+CHECKER-PASS")
             continue
 
         # Step C: Train adapter
@@ -1589,11 +1589,11 @@ def _run_loop(args):
                 append_tsv_row(expr, ic_name, fv_by_ic, b_margin, None,
                                "ORACLE-FAIL+CHECKER-PASS",
                                f"training_error frac_var={fv_min:.2e}")
-            print(f"  └─ Training failed — open gap")
+            print("  └─ Training failed — open gap")
             continue
 
         # Step D: Re-evaluate
-        print(f"  │  Re-evaluating with adapter...")
+        print("  │  Re-evaluating with adapter...")
         repaired = run_oracle_on_facts(model, tokenizer, oracle_facts,
                                        adapter=adapter, lm_head=lm_head)
         oracle_count += 1
@@ -1661,14 +1661,14 @@ def _run_loop(args):
 
     if borderline and accumulated_adapters:
         print(f"\n{'─'*72}")
-        print(f"  PHASE 2.5 — Confidence-driven resampling")
+        print("  PHASE 2.5 — Confidence-driven resampling")
         print(f"  {len(borderline)} borderline gaps × {len(accumulated_adapters)} stacked adapters")
         print(f"{'─'*72}")
 
         rescued = 0
         for expr, old_margin, fv_by_ic in borderline:
             if oracle_count >= args.budget:
-                print(f"\n  Budget reached. Stopping resampling.")
+                print("\n  Budget reached. Stopping resampling.")
                 break
 
             label = expr_to_label(expr)
@@ -1744,7 +1744,7 @@ def _run_loop(args):
     generate_flag = getattr(args, "generate_problems", False)
     if generate_flag and anthropic_client:
         print(f"\n{'─'*72}")
-        print(f"  PHASE 3 — Generating new research hypotheses")
+        print("  PHASE 3 — Generating new research hypotheses")
         print(f"{'─'*72}")
 
         new_exprs, new_dirs = generate_new_problems(
@@ -1786,7 +1786,7 @@ def _run_loop(args):
 
     # ── Summary ───────────────────────────────────────────────────────────────
     print(f"\n{'='*72}")
-    print(f"  NoetherSolve Autonomy Loop — Complete")
+    print("  NoetherSolve Autonomy Loop — Complete")
     print(f"{'='*72}")
     print(f"  Numerical passes:    {len(numerical_passes)}")
     print(f"  Oracle calls used:   {oracle_count} / {args.budget}")
@@ -1797,18 +1797,18 @@ def _run_loop(args):
         print(f"  Router centroids:    {len(router.centroids)}")
 
     if dual_pass:
-        print(f"\n  ✓ DUAL-PASS:")
+        print("\n  ✓ DUAL-PASS:")
         for expr, margin, _ in dual_pass:
             print(f"    margin={margin:+.3f}  {expr_to_label(expr)}")
 
     if flipped:
-        print(f"\n  🎉 FLIPPED:")
+        print("\n  🎉 FLIPPED:")
         for expr, b_m, r_m, _, adp in flipped:
             print(f"    {b_m:+.3f}→{r_m:+.3f}  {expr_to_label(expr)}")
             print(f"    adapter: {os.path.basename(adp)}")
 
     if open_gaps:
-        print(f"\n  ⚠  Open gaps:")
+        print("\n  ⚠  Open gaps:")
         for expr, margin, fv_by_ic in open_gaps:
             fv_str = ";".join(
                 f"{ic}:{fv:.2e}" for ic, fv in fv_by_ic.items() if not np.isnan(fv)

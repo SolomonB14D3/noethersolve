@@ -12,7 +12,7 @@ or present exact results as approximations. These tools compute exactly.
 """
 
 from dataclasses import dataclass
-from math import log2, sqrt, log, exp, pi, e
+from math import log2, log
 from typing import Optional, Tuple, List
 import numpy as np
 

@@ -1,7 +1,5 @@
 """Tests for the tool graph and calculator chaining framework."""
 
-import pytest
-import numpy as np
 from pathlib import Path
 import tempfile
 
@@ -10,7 +8,6 @@ from noethersolve.tool_graph import (
     CalculatorMeta,
     calculator,
     get_registry,
-    find_tool_chain,
     execute_chain,
 )
 
@@ -19,7 +16,7 @@ class TestCalculatorDecorator:
     """Test the @calculator decorator."""
 
     def test_decorator_registers_tool(self):
-        registry = ToolRegistry()
+        ToolRegistry()
 
         @calculator(
             domain="test",

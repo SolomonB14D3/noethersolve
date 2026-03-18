@@ -82,17 +82,17 @@ def estimate_lyapunov(gammas, state0, T=10, dt=0.01):
     """Estimate maximum Lyapunov exponent."""
     n = len(gammas)
     eps = 1e-8
-    
+
     # Reference trajectory
     sol_ref = solve_ivp(lambda t, y: vortex_rhs(t, y, gammas), (0, T), state0,
                         t_eval=[T], rtol=1e-10, atol=1e-12)
-    
+
     # Perturbed trajectory
     perturbation = np.random.randn(2*n) * eps
     state_pert = state0 + perturbation
     sol_pert = solve_ivp(lambda t, y: vortex_rhs(t, y, gammas), (0, T), state_pert,
                          t_eval=[T], rtol=1e-10, atol=1e-12)
-    
+
     # Compute divergence
     delta = np.linalg.norm(sol_pert.y[:, 0] - sol_ref.y[:, 0])
     lyap = np.log(delta / (eps * np.sqrt(2*n))) / T
@@ -119,10 +119,10 @@ x0 = r_pos * np.cos(theta_pos)
 y0 = r_pos * np.sin(theta_pos)
 state0 = np.concatenate([x0, y0])
 
-print(f"\nSystem Configuration:")
+print("\nSystem Configuration:")
 print(f"  N = {N} vortices")
 print(f"  Circulations: {[f'{g:+.3f}' for g in gammas]}")
-print(f"  Positions: random in unit disk")
+print("  Positions: random in unit disk")
 
 # Estimate Lyapunov exponent
 lyap = estimate_lyapunov(gammas, state0)
@@ -133,7 +133,7 @@ else:
     print("  ⚠ May not be sufficiently chaotic")
 
 # Run numerical simulation
-print(f"\nRunning numerical simulation (T=100)...")
+print("\nRunning numerical simulation (T=100)...")
 t0 = time.time()
 sol = solve_ivp(lambda t, y: vortex_rhs(t, y, gammas), (0, 100), state0,
                 t_eval=np.linspace(0, 100, 1001), rtol=1e-10, atol=1e-12)
@@ -141,7 +141,7 @@ sim_time = time.time() - t0
 print(f"  Simulation time: {sim_time:.2f}s")
 
 # Compute conservation for Q_n family
-print(f"\nQ_n Family Conservation Test:")
+print("\nQ_n Family Conservation Test:")
 print("-" * 50)
 n_powers = [0.1, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0]
 q_results = {}
@@ -188,7 +188,7 @@ else:
 def get_margin_timed(adapter, prompt, truth, distractors):
     """Get margin with timing."""
     t0 = time.time()
-    
+
     def lp(text):
         prompt_ids = tokenizer.encode(prompt)
         full_ids = tokenizer.encode(prompt + text)
@@ -217,14 +217,14 @@ def get_margin_timed(adapter, prompt, truth, distractors):
     dist_lps = [lp(f" {d}") for d in distractors]
     best_dist = mx.max(mx.stack(dist_lps))
     margin = float(truth_lp - best_dist)
-    
+
     elapsed = time.time() - t0
     return margin, elapsed
 
 # Build high-precision prompts
 gammas_str = ", ".join([f"{g:+.6f}" for g in gammas])
 
-print(f"\nOracle Probes (high-precision coordinates):")
+print("\nOracle Probes (high-precision coordinates):")
 print("-" * 70)
 
 oracle_results = []
@@ -233,21 +233,21 @@ oracle_results = []
 for n_power in [0.1, 0.5, 1.0, 1.5, 2.0]:
     fv = q_results[n_power]
     conserved = fv < 5e-3
-    
+
     prompt = (f"N=9 chaotic vortex system. Circulations: [{gammas_str}]. "
               f"Is Q_{n_power} = Σ ΓᵢΓⱼ rᵢⱼ^{n_power} conserved?:")
-    
+
     if conserved:
         truth = f" Yes, approximately conserved with frac_var ≈ {fv:.1e}."
     else:
         truth = f" No, not well conserved (frac_var = {fv:.1e} > threshold)."
-    
+
     distractors = [
         " Cannot determine from given data",
         " Only exact for N=2",
         " Requires symmetric circulations"
     ]
-    
+
     margin, elapsed = get_margin_timed(adapter, prompt, truth, distractors)
     oracle_results.append({
         "type": f"Q_{n_power}",
@@ -257,14 +257,14 @@ for n_power in [0.1, 0.5, 1.0, 1.5, 2.0]:
         "margin": margin,
         "time_ms": elapsed * 1000
     })
-    
+
     status = "✓" if margin > 0 else "✗"
     print(f"  Q_{n_power:4.1f}: margin={margin:+8.1f}  frac_var={fv:.1e}  time={elapsed*1000:.0f}ms {status}")
 
 # Kinetic invariant K probe
 prompt = (f"N=9 chaotic vortex system. Circulations: [{gammas_str}]. "
           f"Is K = Σ Γᵢ vᵢ² (kinetic invariant) conserved?:")
-truth = f" Yes, approximately conserved with frac_var ≈ {K_fv:.1e}." if K_fv < 5e-3 else f" No, not conserved."
+truth = f" Yes, approximately conserved with frac_var ≈ {K_fv:.1e}." if K_fv < 5e-3 else " No, not conserved."
 distractors = [" Only Q_f is conserved", " K requires equal circulations", " Cannot determine"]
 
 margin_K, elapsed_K = get_margin_timed(adapter, prompt, truth, distractors)
@@ -286,7 +286,7 @@ print("=" * 70)
 # 1. n=0.5 dominance test
 q_margins = {r["n"]: r["margin"] for r in oracle_results if r["type"].startswith("Q_")}
 best_n = max(q_margins, key=q_margins.get)
-print(f"\n1. n=0.5 (√r) DOMINANCE TEST:")
+print("\n1. n=0.5 (√r) DOMINANCE TEST:")
 print(f"   Best margin: n={best_n} with margin={q_margins[best_n]:+.1f}")
 if best_n == 0.5:
     print("   ✓ Model learned sub-linear filtering property!")
@@ -296,7 +296,7 @@ else:
     print(f"   ⚠ Model prefers n={best_n}, not the expected sub-linear regime")
 
 # 2. K vs Q orthogonality
-print(f"\n2. K vs Q ORTHOGONALITY TEST:")
+print("\n2. K vs Q ORTHOGONALITY TEST:")
 print(f"   K margin: {margin_K:+.1f}")
 print(f"   Q_0.5 margin: {q_margins[0.5]:+.1f}")
 if margin_K > 0 and q_margins[0.5] > 0:
@@ -312,7 +312,7 @@ time_mean = np.mean(times)
 time_std = np.std(times)
 time_cv = time_std / time_mean
 
-print(f"\n3. COMPUTATIONAL CONSISTENCY:")
+print("\n3. COMPUTATIONAL CONSISTENCY:")
 print(f"   Mean inference time: {time_mean:.0f}ms")
 print(f"   Std: {time_std:.0f}ms (CV={time_cv:.2%})")
 if time_cv < 0.2:
@@ -326,7 +326,7 @@ margins = [r["margin"] for r in oracle_results if r["type"].startswith("Q_")]
 inv_fv = [1.0/fv for fv in frac_vars]
 corr = np.corrcoef(margins, inv_fv)[0, 1]
 
-print(f"\n4. PHYSICS CORRELATION (N=9):")
+print("\n4. PHYSICS CORRELATION (N=9):")
 print(f"   Pearson(margin, 1/frac_var) = {corr:+.3f}")
 if corr > 0.5:
     print("   ✓ Physics learned generalizes to N=9 chaotic!")

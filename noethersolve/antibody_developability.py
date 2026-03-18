@@ -8,10 +8,9 @@ Models often get antibody developability wrong because they conflate:
 This module provides verified calculators for key developability metrics.
 """
 
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from dataclasses import dataclass
+from typing import List, Tuple
 from enum import Enum
-import math
 
 
 # Physical constants

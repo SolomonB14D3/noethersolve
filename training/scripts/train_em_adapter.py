@@ -23,7 +23,6 @@ import sys
 import time
 
 import mlx.core as mx
-import mlx.nn as nn
 import mlx.optimizers as optim
 import mlx_lm
 import numpy as np
@@ -33,7 +32,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, ROOT)
 
-from noethersolve.oracle import get_completion_logprob, score_fact_mc
 from noethersolve.adapter import SnapOnConfig, create_adapter
 from noethersolve import train_utils as t3
 

@@ -1,11 +1,9 @@
 """Tests for hooks module."""
 
-import json
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-import pytest
 
 from noethersolve.hooks import (
     SessionState,
@@ -14,10 +12,8 @@ from noethersolve.hooks import (
     get_tool_domain,
     pre_tool_use,
     post_tool_use,
-    session_end,
     get_session_stats,
     categorize_tools,
-    STATE_DIR,
 )
 
 

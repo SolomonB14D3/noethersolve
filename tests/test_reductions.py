@@ -11,7 +11,6 @@ from noethersolve.reductions import (
     ChainReport,
     ChainIssue,
     ReductionResult,
-    REDUCTION_TYPES,
     KNOWN_REDUCTIONS,
 )
 

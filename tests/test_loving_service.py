@@ -1,9 +1,7 @@
 """Tests for loving_service module."""
 
-import pytest
 from noethersolve.loving_service import (
     ServicePriority,
-    LovingDecision,
     UserContext,
     LovingServiceController,
     should_verify_with_tool,

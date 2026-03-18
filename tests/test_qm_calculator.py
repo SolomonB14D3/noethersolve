@@ -16,7 +16,7 @@ from noethersolve.qm_calculator import (
     TunnelingReport,
     HarmonicOscillatorReport,
     AngularMomentumReport,
-    HBAR, ME, A0, EV_TO_J,
+    HBAR, A0,
 )
 
 
@@ -299,7 +299,6 @@ class TestIntegration:
     def test_uncertainty_from_box(self):
         """For particle in box, Δx ~ L, Δp ~ nπℏ/L. Check consistency."""
         L = 1e-9
-        n = 1
         delta_x = L / (2 * math.sqrt(3))  # exact for ground state: L/(2√3)
         delta_p = math.pi * HBAR / L  # ~ ℏπ/L
         r = uncertainty_check(delta_x=delta_x, delta_p=delta_p)

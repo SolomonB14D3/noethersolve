@@ -85,7 +85,7 @@ class PipelineReport:
         lines.append(f"  Modality: {self.design.modality}, "
                      f"Target: {self.design.target_tissue}, "
                      f"Route: {self.design.route or 'unspecified'}")
-        lines.append(f"")
+        lines.append("")
 
         # Issues sorted by severity
         if self.issues:
@@ -95,14 +95,14 @@ class PipelineReport:
                 lines.append(str(issue))
                 if issue.suggestion:
                     lines.append(f"    -> {issue.suggestion}")
-            lines.append(f"")
+            lines.append("")
 
         # Required monitoring
         if self.required_monitoring:
-            lines.append(f"  Required monitoring:")
+            lines.append("  Required monitoring:")
             for m in self.required_monitoring:
                 lines.append(f"    - {m}")
-            lines.append(f"")
+            lines.append("")
 
         # Summary counts
         n_high = sum(1 for i in self.issues if i.severity == "HIGH")

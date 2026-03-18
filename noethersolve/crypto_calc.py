@@ -46,7 +46,7 @@ class BirthdayBoundReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Birthday Bound Analysis:",
+            "Birthday Bound Analysis:",
             f"  Output space: 2^{self.output_bits} = {2**self.output_bits:.2e}",
             f"  Trials for 50% collision: ~2^{math.log2(self.trials_for_50pct):.1f} = {self.trials_for_50pct:.2e}",
         ]
@@ -67,7 +67,7 @@ class RSAKeyReport:
 
     def __str__(self) -> str:
         lines = [
-            f"RSA Key Analysis:",
+            "RSA Key Analysis:",
             f"  Modulus size: {self.modulus_bits} bits",
             f"  Security level: ~{self.security_bits} bits (symmetric equivalent)",
             f"  GNFS complexity: ~2^{math.log2(self.gnfs_ops):.1f} operations",

@@ -9,7 +9,6 @@ Provides:
 """
 
 import mlx.core as mx
-import mlx.nn as nn
 
 # Gemma 2 / nanochat-style logit cap: caps TOTAL logits, not adapter shifts.
 # Monotonic (tanh), so does not change argmax rankings — MC accuracy identical

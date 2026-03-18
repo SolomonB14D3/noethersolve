@@ -26,7 +26,6 @@ Usage:
 """
 
 import json
-import os
 from pathlib import Path
 from datetime import datetime
 from typing import List, Optional

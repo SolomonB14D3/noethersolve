@@ -19,7 +19,7 @@ Usage:
         ...
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Callable, Dict, List, Optional, Set, Tuple, Any
 from functools import wraps
 import json

@@ -1,19 +1,12 @@
 """Tests for metacognition module."""
 
 import pytest
-import math
 from noethersolve.metacognition import (
     MetacognitiveProcess,
     KnowledgeType,
     MonitoringJudgment,
     ConfidenceSample,
-    CalibrationResult,
-    ResolutionResult,
-    MetaDPrimeResult,
-    UnknownRecallResult,
-    SelfCorrectionResult,
     MetacognitiveStateVector,
-    MetacognitionReport,
     compute_calibration,
     compute_resolution,
     compute_meta_d_prime,

@@ -12,7 +12,6 @@ This module provides verified thermodynamic calculations for mRNA design.
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 from enum import Enum
-import math
 
 
 # ─── Thermodynamic parameters ───────────────────────────────────────────────
@@ -309,8 +308,8 @@ def calculate_duplex_stability(
     delta_g_unmod = 0.0
     for i in range(len(sequence) - 1):
         # Simple nearest-neighbor approximation
-        bp1 = sequence[i] + complement[i]
-        bp2 = sequence[i+1] + complement[i+1]
+        sequence[i] + complement[i]
+        sequence[i+1] + complement[i+1]
 
         e1 = calculate_base_pair_energy(sequence[i], complement[i], False)
         e2 = calculate_base_pair_energy(sequence[i+1], complement[i+1], False)

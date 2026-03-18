@@ -37,8 +37,8 @@ Usage:
     print(info.formal_statement)
 """
 
-from dataclasses import dataclass, field
-from typing import Dict, FrozenSet, List, Optional, Set, Tuple
+from dataclasses import dataclass
+from typing import Dict, FrozenSet, List, Set, Tuple
 
 
 # ─── Barrier database ────────────────────────────────────────────────────────

@@ -96,13 +96,13 @@ class SpliceSiteReport:
         canonical = "GT" if self.site_type == "donor" else "AG"
         status = "YES" if self.has_canonical_dinucleotide else "NO (non-canonical)"
         lines.append(f"  Canonical {canonical}: {status}")
-        lines.append(f"")
+        lines.append("")
         # Per-position breakdown
         if self.per_position_scores:
-            lines.append(f"  Per-position scores:")
+            lines.append("  Per-position scores:")
             for i, (base, sc) in enumerate(zip(self.sequence, self.per_position_scores)):
                 lines.append(f"    pos {i:>2d}  {base}  {sc:+.3f}")
-            lines.append(f"")
+            lines.append("")
         lines.append(f"{'=' * 50}")
         return "\n".join(lines)
 

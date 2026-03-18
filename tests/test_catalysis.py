@@ -21,7 +21,7 @@ class TestBEPActivation:
         """More exothermic reactions should have lower barriers."""
         report_endo = calc_bep_activation("H2_dissociation", 0.5)
         report_exo = calc_bep_activation("H2_dissociation", -0.5)
-        
+
         assert report_exo.Ea < report_endo.Ea
 
     def test_bep_linear_relation(self):
@@ -41,7 +41,7 @@ class TestBEPActivation:
         """Different reactions should have different BEP slopes."""
         report_ch = calc_bep_activation("C-H_activation", 0.0)
         report_h2 = calc_bep_activation("H2_dissociation", 0.0)
-        
+
         # C-H has higher E0 than H2
         assert report_ch.Ea > report_h2.Ea
 
@@ -49,7 +49,7 @@ class TestBEPActivation:
         """Higher T should give higher rate constant."""
         report_300 = calc_bep_activation("H2_dissociation", 0.0, temperature=300)
         report_500 = calc_bep_activation("H2_dissociation", 0.0, temperature=500)
-        
+
         assert report_500.rate_constant > report_300.rate_constant
 
     def test_ea_non_negative(self):
@@ -94,10 +94,10 @@ class TestVolcanoPosition:
     def test_activity_decreases_away_from_peak(self):
         """Activity should decrease as you move from peak."""
         optimal = VOLCANO_REACTIONS["HER"]["optimal_dG"]
-        
+
         report_peak = calc_volcano_position("HER", optimal)
         report_off = calc_volcano_position("HER", optimal + 0.5)
-        
+
         assert report_off.relative_activity < report_peak.relative_activity
 
     def test_her_thermoneutral_optimal(self):
@@ -124,7 +124,7 @@ class TestDBandCenter:
         """Pt should bind stronger than Au (higher ε_d)."""
         report_pt = calc_d_band_center("Pt")
         report_au = calc_d_band_center("Au")
-        
+
         # Higher (less negative) ε_d = stronger binding
         assert report_pt.d_band_center > report_au.d_band_center
 
@@ -169,7 +169,7 @@ class TestScalingRelations:
         """Inverted pair should work."""
         report_forward = get_scaling_relation("O", "OH")
         report_inverse = get_scaling_relation("OH", "O")
-        
+
         # Inverse relation should have slope ≈ 1/forward_slope
         assert abs(report_inverse.slope - 1/report_forward.slope) < 0.01
 
@@ -231,12 +231,12 @@ class TestPhysicsCorrectness:
         T1, T2 = 300, 600
         report1 = calc_bep_activation("H2_dissociation", 0.0, T1)
         report2 = calc_bep_activation("H2_dissociation", 0.0, T2)
-        
+
         # Ratio should be approximately exp(Ea/k × (1/T1 - 1/T2))
         Ea = report1.Ea
         k_B = 8.617e-5  # eV/K
         expected_ratio = math.exp(Ea / k_B * (1/T1 - 1/T2))
         actual_ratio = report2.rate_constant / report1.rate_constant
-        
+
         # Allow 10% tolerance
         assert abs(actual_ratio / expected_ratio - 1) < 0.1

@@ -34,7 +34,7 @@ Usage:
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple, Union
 
 # Type aliases
@@ -500,7 +500,7 @@ class EllipticCurveReport:
         if self.j_invariant_val is not None:
             lines.append(f"  j-invariant = {self.j_invariant_val:.4f}")
         else:
-            lines.append(f"  j-invariant = undefined (singular)")
+            lines.append("  j-invariant = undefined (singular)")
         lines.append(f"  Singular: {self.is_singular}")
         lines.append(f"  #E(F_p) = {self.point_count}")
         lines.append(f"  Hasse bounds: [{self.hasse_lower}, {self.hasse_upper}]")

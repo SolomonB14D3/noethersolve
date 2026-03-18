@@ -8,8 +8,6 @@ Tests cover:
 - ADM formalism analysis
 """
 
-import math
-import pytest
 
 from noethersolve.gr_constraints import (
     check_hamiltonian_constraint,
@@ -20,10 +18,6 @@ from noethersolve.gr_constraints import (
     compare_mass_definitions,
     analyze_adm_formalism,
     list_gr_concepts,
-    ConstraintReport,
-    MassReport,
-    MassComparisonReport,
-    ADMReport,
 )
 
 

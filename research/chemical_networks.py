@@ -15,7 +15,7 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.linalg import null_space
 from dataclasses import dataclass
-from typing import List, Tuple, Dict, Callable
+from typing import List, Tuple, Dict
 
 @dataclass
 class Reaction:
@@ -269,7 +269,7 @@ def main():
 
         # Compute conservation laws
         null, descriptions = network.conservation_laws()
-        print(f"\nConservation laws (from null space of S^T):")
+        print("\nConservation laws (from null space of S^T):")
         for i, desc in enumerate(descriptions):
             print(f"  {i+1}. {desc}")
 
@@ -277,7 +277,7 @@ def main():
             print("  (no conservation laws)")
 
         # Verify numerically
-        print(f"\nNumerical verification (T=10.0):")
+        print("\nNumerical verification (T=10.0):")
         results = network.check_conservation(c0, T=10.0)
         all_results.append(results)
 

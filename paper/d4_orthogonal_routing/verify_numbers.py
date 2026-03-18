@@ -140,7 +140,7 @@ results_table = [
 for domain, n_facts, bl_c, bl_t, single_c, orth_c in results_table:
     check(f"{domain}: facts = {n_facts}, baseline {bl_c}/{bl_t}",
           bl_t == n_facts,
-          f"Denominator matches total facts")
+          "Denominator matches total facts")
     check(f"{domain}: orthogonal = {orth_c}/{n_facts} = 100%",
           orth_c == n_facts,
           "Every domain reaches 100%")
@@ -198,7 +198,7 @@ check("Henon-Heiles flip: -138.2 -> +7.9",
 
 check("Henon-Heiles was harder than KAM",
       abs(-138.2) > abs(-59.8),
-      f"|-138.2| = 138.2 > |-59.8| = 59.8")
+      "|-138.2| = 138.2 > |-59.8| = 59.8")
 
 
 # ============================================================

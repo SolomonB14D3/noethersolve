@@ -295,7 +295,7 @@ else:
     p_cross_lower = -0.5
 
 check(
-    f"Lower boundary ~-0.67 from log-interpolation",
+    "Lower boundary ~-0.67 from log-interpolation",
     abs(p_cross_lower - P_CRIT_LOW) < 0.3,
     f"log-interpolated crossing at p={p_cross_lower:.2f}, paper says {P_CRIT_LOW}"
 )
@@ -318,7 +318,7 @@ else:
     p_cross_upper = 2.5
 
 check(
-    f"Upper boundary ~2.55 from log-interpolation",
+    "Upper boundary ~2.55 from log-interpolation",
     abs(p_cross_upper - P_CRIT_HIGH) < 0.15,
     f"log-interpolated crossing at p={p_cross_upper:.2f}, paper says {P_CRIT_HIGH}"
 )

@@ -9,7 +9,6 @@ Key improvements over v1:
 4. Gradient accumulation for stable updates
 """
 
-import json
 import time
 import numpy as np
 import mlx.core as mx
@@ -17,7 +16,6 @@ import mlx.nn as nn
 import mlx.optimizers
 import mlx_lm
 from pathlib import Path
-from mlx.utils import tree_flatten, tree_unflatten
 
 from noethersolve.adapter import SnapOnConfig, create_adapter
 from noethersolve import train_utils as t3
@@ -300,7 +298,7 @@ def main():
     sys.stdout.flush()
 
     lm_head = t3.get_lm_head_fn(model)
-    print(f"  lm_head ready")
+    print("  lm_head ready")
     sys.stdout.flush()
 
     # Initialize adapter
@@ -335,9 +333,8 @@ def main():
 
     best_spearman = -1.0
     best_step = 0
-    best_params = None
 
-    loss_and_grad = nn.value_and_grad(adapter, lambda a: ranking_loss_v2(
+    nn.value_and_grad(adapter, lambda a: ranking_loss_v2(
         a, lm_head, model, tokenizer,
         batch_examples=[train_examples[i % len(train_examples)]
                        for i in range(step * batch_size, (step + 1) * batch_size)]

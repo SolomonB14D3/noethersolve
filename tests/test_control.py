@@ -1,8 +1,7 @@
 """Tests for the PID controller simulator and stability analyzer."""
 
-import math
 import pytest
-from noethersolve.control import simulate_pid, analyze_stability, PIDReport, StabilityReport
+from noethersolve.control import simulate_pid, analyze_stability
 
 
 class TestSimulatePID:

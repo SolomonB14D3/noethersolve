@@ -13,7 +13,7 @@ It suggests a richer algebraic structure than currently known.
 
 import numpy as np
 from scipy.integrate import odeint
-from itertools import combinations, permutations
+from itertools import combinations
 import warnings
 warnings.filterwarnings('ignore')
 

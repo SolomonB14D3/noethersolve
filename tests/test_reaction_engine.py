@@ -18,7 +18,6 @@ from noethersolve.reaction_engine import (
     SynthesisReport,
     BaldwinReport,
     WoodwardHoffmannReport,
-    FunctionalGroupHit,
 )
 
 

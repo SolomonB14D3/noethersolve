@@ -14,8 +14,6 @@ The hooks:
 """
 
 import json
-import os
-import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Any
@@ -70,7 +68,7 @@ class SessionState:
             try:
                 with open(STATE_FILE) as f:
                     return cls.from_dict(json.load(f))
-            except:
+            except Exception:
                 pass
         # New session
         return cls(
@@ -307,7 +305,7 @@ def update_tool_registry():
     try:
         from noethersolve.mcp_server.server import mcp
         tools = list(mcp._tool_manager._tools.keys())
-    except:
+    except Exception:
         tools = list(LOCAL_TOOLS)
 
     registry = {
@@ -389,7 +387,7 @@ def get_usage_stats() -> Dict:
                     domain_counts[domain] = domain_counts.get(domain, 0) + 1
                 if entry.get("is_local", False):
                     local_count += 1
-            except:
+            except Exception:
                 continue
 
     return {

@@ -307,10 +307,10 @@ check("Stacking 0/24 matches CLAUDE.md",
 # Instruct transfer numbers from CLAUDE.md: 18/88 = 20.5%, 15/88 = 17.0%
 instruct_base = 18 / 88 * 100
 instruct_inst = 15 / 88 * 100
-check(f"Instruct baseline: 18/88 = 20.5%",
+check("Instruct baseline: 18/88 = 20.5%",
       abs(instruct_base - 20.5) < 0.1,
       f"actual = {instruct_base:.1f}%")
-check(f"Instruct model: 15/88 = 17.0%",
+check("Instruct model: 15/88 = 17.0%",
       abs(instruct_inst - 17.0) < 0.1,
       f"actual = {instruct_inst:.1f}%")
 

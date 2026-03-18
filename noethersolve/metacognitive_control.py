@@ -419,7 +419,7 @@ def should_engage_metacognition(
         else:
             return MetacognitiveDecision(
                 action=MetacognitiveAction.DEFER,
-                reasoning=f"High stakes + blind spot but no verified tool → defer to avoid error",
+                reasoning="High stakes + blind spot but no verified tool → defer to avoid error",
                 expected_value=action_evs[MetacognitiveAction.DEFER],
                 confidence_in_decision=0.9,
                 energy_cost=ACTION_COSTS[MetacognitiveAction.DEFER]
@@ -476,7 +476,7 @@ def should_engage_metacognition(
     if best_ev < 0:
         return MetacognitiveDecision(
             action=MetacognitiveAction.ACT_DIRECTLY,
-            reasoning=f"All metacognitive actions have negative EV → act directly",
+            reasoning="All metacognitive actions have negative EV → act directly",
             expected_value=0.0,
             confidence_in_decision=0.8,
             energy_cost=0.0

@@ -23,9 +23,8 @@ Common claims debunked:
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, Optional
 from enum import Enum
-import math
 
 # Physical constants
 WATER_MOLAR_MASS = 18.015  # g/mol
@@ -251,7 +250,7 @@ def print_analysis(results: Dict):
         print(f"  H₂ produced: {p['h2_produced_mass_g']:.1f} g ({p['h2_produced_volume_L_stp']:.1f} L at STP)")
         print(f"  H₂ energy content: {p['h2_energy_content_kWh']:.4f} kWh")
 
-    print(f"\nCHECKS:")
+    print("\nCHECKS:")
     for check in results["checks"]:
         status = "PASS" if check["passed"] else "FAIL"
         print(f"  [{status}] {check['name']}: {check['message']}")
@@ -259,7 +258,7 @@ def print_analysis(results: Dict):
     print(f"\nVERDICT: {results['verdict'].value.upper()}")
 
     if results["notes"]:
-        print(f"\nNOTES:")
+        print("\nNOTES:")
         for note in results["notes"]:
             print(f"  - {note}")
 

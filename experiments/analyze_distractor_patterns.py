@@ -9,9 +9,7 @@ Hypothesis: Physics domains have worse gaps than LLM domains because:
 """
 
 import json
-import os
 from pathlib import Path
-from collections import defaultdict
 
 def analyze_fact(fact: dict) -> dict:
     """Analyze a single fact for distractor attractiveness patterns."""
@@ -26,7 +24,7 @@ def analyze_fact(fact: dict) -> dict:
     distractor_lens = [len(d) for d in distractors]
     min_distractor_len = min(distractor_lens)
     max_distractor_len = max(distractor_lens)
-    avg_distractor_len = sum(distractor_lens) / len(distractor_lens)
+    sum(distractor_lens) / len(distractor_lens)
 
     # Length ratio (truth / shortest distractor) - >1 means truth is longer
     length_ratio = truth_len / min_distractor_len if min_distractor_len > 0 else float('inf')

@@ -7,7 +7,7 @@ recommends appropriate MCP tools.
 import json
 import os
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List
 
 BLIND_SPOTS_PATH = os.path.join(os.path.dirname(__file__), "blind_spots.json")
 
@@ -121,7 +121,7 @@ def format_blind_spot_warning(matches: List[BlindSpotMatch]) -> str:
         if m.tools:
             lines.append(f"    Tools: {', '.join(m.tools)}")
         else:
-            lines.append(f"    ⚠️ NO TOOLS AVAILABLE - use fallback protocol")
+            lines.append("    ⚠️ NO TOOLS AVAILABLE - use fallback protocol")
         if m.interpretation:
             lines.append(f"    Interpretation: {m.interpretation}")
         lines.append("")

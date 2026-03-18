@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Verify all numbers in the certainty contamination bias paper against source data."""
 
-import json
 import sys
 from pathlib import Path
 
@@ -96,7 +95,7 @@ def main():
 
     print("\nCERTAINTY MARKERS:")
     # Count markers in source
-    definitive_markers = text.split("definitively,")[0].count(",") if "definitively," in text else 0
+    text.split("definitively,")[0].count(",") if "definitively," in text else 0
     print("  Definitive markers listed: 26 (verify manually)")
     print("  Hedging markers listed: 28 (verify manually)")
 

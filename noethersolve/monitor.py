@@ -19,8 +19,8 @@ Usage:
 """
 
 import numpy as np
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Callable
+from dataclasses import dataclass
+from typing import Dict, List
 
 
 # ─── frac_var (shared) ───────────────────────────────────────────────────────
@@ -324,11 +324,13 @@ class VortexMonitor:
         else:
             quality = "poor"
 
+        weight_desc = "near-zero: good cancellation" if np.abs(sum_w) < rms_w * 0.3 else "significant: less cancellation"
+        coherence_desc = "high: pairs move together" if coherence > 1 else "low: independent motion"
         explanation = (
             f"Cancellation: {C:.1f}x ({quality}). "
             f"Weights: {n_pos} positive, {n_neg} negative pairs. "
-            f"Weight sum = {sum_w:.3f} ({"near-zero: good cancellation" if np.abs(sum_w) < rms_w * 0.3 else "significant: less cancellation"}). "
-            f"dr/dt coherence = {coherence:.2f} ({"high: pairs move together" if coherence > 1 else "low: independent motion"})."
+            f"Weight sum = {sum_w:.3f} ({weight_desc}). "
+            f"dr/dt coherence = {coherence:.2f} ({coherence_desc})."
         )
 
         return {

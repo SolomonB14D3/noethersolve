@@ -9,7 +9,6 @@ Tests cover:
 - General invariant checks
 """
 
-import math
 import pytest
 
 from noethersolve.mhd_conservation import (
@@ -20,11 +19,6 @@ from noethersolve.mhd_conservation import (
     check_div_B,
     check_mhd_invariant,
     list_mhd_invariants,
-    HelicityReport,
-    MHDEnergyReport,
-    FrozenFluxReport,
-    DivBReport,
-    InvariantReport,
 )
 
 

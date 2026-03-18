@@ -1,6 +1,5 @@
 """Tests for dimension-dependent physics formulas."""
 
-import pytest
 from noethersolve.dimension_physics import (
     check_dimension_dependence,
     get_formula,

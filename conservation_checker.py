@@ -392,7 +392,7 @@ def main():
             results, passed = run_check(name, threshold=args.threshold, t_end=args.t_end)
             summary.append((name, passed))
         print(f"\n{'='*65}")
-        print(f"  Summary:")
+        print("  Summary:")
         for name, passed in summary:
             print(f"    {'PASS ✓' if passed else 'FAIL ✗'}  {name}")
         return

@@ -12,8 +12,7 @@ from noethersolve.magnetic_motors import (
     check_energy_storage,
     check_force_symmetry,
     check_thermodynamic_limits,
-    MAGNETIC_MOTOR_CLAIMS,
-    NEODYMIUM_BH_MAX
+    MAGNETIC_MOTOR_CLAIMS
 )
 
 

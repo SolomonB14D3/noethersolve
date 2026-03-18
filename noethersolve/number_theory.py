@@ -43,7 +43,7 @@ Usage:
 """
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
 
@@ -447,9 +447,9 @@ class PrimeGapReport:
             f"  Cramer ratio (max_gap / (log p)^2): {self.cramer_ratio:.6f}",
         ]
         if self.cramer_ratio < 1.0:
-            lines.append(f"  Cramer's conjecture: consistent (ratio < 1)")
+            lines.append("  Cramer's conjecture: consistent (ratio < 1)")
         else:
-            lines.append(f"  Cramer's conjecture: EXCEEDED (ratio >= 1)")
+            lines.append("  Cramer's conjecture: EXCEEDED (ratio >= 1)")
         lines.append(f"  Severity: {self.severity}")
         lines.append(f"{'=' * 60}")
         return "\n".join(lines)

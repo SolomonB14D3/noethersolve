@@ -14,8 +14,8 @@ is insufficient — this is a common LLM error.
 This module provides scoring for each step and a combined pipeline score.
 """
 
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from dataclasses import dataclass
+from typing import Dict, List, Optional
 from enum import Enum
 import math
 

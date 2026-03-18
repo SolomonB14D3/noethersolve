@@ -35,7 +35,7 @@ Usage:
 
 import re
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 
 # ─── Conjecture database ─────────────────────────────────────────────────────
@@ -1249,7 +1249,7 @@ class ConjectureReport:
         else:
             lines.append(f"  Conjecture Status Check: {self.verdict}")
             lines.append(f"{'=' * 60}")
-            lines.append(f"  Conjecture not found in database")
+            lines.append("  Conjecture not found in database")
         lines.append("")
 
         if self.issues:

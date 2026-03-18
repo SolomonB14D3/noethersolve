@@ -22,7 +22,6 @@ from noethersolve.radiative_transfer import (
     list_feedbacks,
     RF_COEFFICIENT,
     STEFAN_BOLTZMANN,
-    CO2_PREINDUSTRIAL,
 )
 
 

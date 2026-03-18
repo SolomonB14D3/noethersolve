@@ -223,7 +223,7 @@ def chart_frac_var_scatter(rows: list[dict]) -> str:
     ax.tick_params(colors="white")
     ax.spines[:].set_color("#30363d")
 
-    sc = ax.scatter(fv, mg, c=colors, s=80, zorder=3, edgecolors="#30363d", linewidths=0.5)
+    ax.scatter(fv, mg, c=colors, s=80, zorder=3, edgecolors="#30363d", linewidths=0.5)
 
     # Annotate each point
     for i, (x, y_val, lbl) in enumerate(zip(fv, mg, labels)):
@@ -576,7 +576,7 @@ def main():
     if args.open:
         import webbrowser
         webbrowser.open(f"file://{os.path.abspath(args.out)}")
-        print(f"  Opened in browser.")
+        print("  Opened in browser.")
 
 
 if __name__ == "__main__":

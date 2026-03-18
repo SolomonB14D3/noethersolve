@@ -20,7 +20,7 @@ This is NOT free energy - it comes from the global thunderstorm circuit.
 """
 
 from dataclasses import dataclass
-from typing import Dict, Tuple, Optional
+from typing import Dict, Optional
 import math
 
 # Physical constants for atmospheric electricity
@@ -187,7 +187,7 @@ def print_analysis(results: Dict):
     print("=" * 70)
 
     physics = results["physics"]
-    print(f"\nPHYSICS CALCULATION:")
+    print("\nPHYSICS CALCULATION:")
     print(f"  Collector area: {physics['collector_area_m2']:.1f} m²")
     print(f"  Collector height: {physics['collector_height_m']:.1f} m")
     print(f"  Fair-weather current: {physics['fair_weather_current_A']:.2e} A")
@@ -195,7 +195,7 @@ def print_analysis(results: Dict):
     print(f"  Theoretical power: {physics['theoretical_power_W']:.2e} W")
     print(f"  Realistic power: {physics['realistic_power_W']:.2e} W")
 
-    print(f"\nCHECKS:")
+    print("\nCHECKS:")
     for check in results["checks"]:
         status = "PASS" if check["passed"] else "FAIL"
         print(f"  [{status}] {check['name']}: {check['message']}")
@@ -203,7 +203,7 @@ def print_analysis(results: Dict):
     print(f"\nVERDICT: {results['verdict']}")
 
     if results["notes"]:
-        print(f"\nNOTES:")
+        print("\nNOTES:")
         for note in results["notes"]:
             print(f"  - {note}")
 

@@ -98,7 +98,7 @@ def generate_complexity_facts():
             "truth": f"{lo} ⊊ {hi} (proven strict separation)",
             "distractors": [
                 f"{lo} = {hi} (they are equal)",
-                f"separation is still unknown",
+                "separation is still unknown",
                 f"{hi} ⊊ {lo} (reverse)",
             ],
             "cluster": "complexity_separations",
@@ -303,8 +303,8 @@ def generate_llm_claims_facts():
                 "truth": f"'{misconception}' is FALSE — {info.truth[:80]}",
                 "distractors": [
                     f"'{misconception}' is well-established and proven",
-                    f"this is not a misconception, it's standard knowledge",
-                    f"experts unanimously agree with this statement",
+                    "this is not a misconception, it's standard knowledge",
+                    "experts unanimously agree with this statement",
                 ],
                 "cluster": f"llm_{info.domain}",
                 "source_tool": "llm_claims",

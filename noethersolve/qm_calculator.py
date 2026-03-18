@@ -37,7 +37,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional
 
 # ─── Physical Constants ──────────────────────────────────────────────────────
 
@@ -74,8 +74,8 @@ class ParticleInBoxReport:
         lines.append(f"  de Broglie wavelength = 2L/n = {self.wavelength:.4g} m")
         lines.append(f"  Interior nodes: {self.nodes}")
         lines.append("-" * 60)
-        lines.append(f"  ψ_n(x) = √(2/L) sin(nπx/L)")
-        lines.append(f"  Energy scales as n² — quadratic spacing")
+        lines.append("  ψ_n(x) = √(2/L) sin(nπx/L)")
+        lines.append("  Energy scales as n² — quadratic spacing")
         if self.notes:
             for note in self.notes:
                 lines.append(f"  Note: {note}")
@@ -109,7 +109,7 @@ class HydrogenEnergyReport:
             lines.append(f"  Transition n→1 wavelength = {self.wavelength_nm:.2f} nm")
         lines.append("-" * 60)
         lines.append(f"  Fine structure correction: ΔE/E ~ α² ≈ {ALPHA**2:.2e}")
-        lines.append(f"  Lamb shift (2S-2P): ~1057 MHz (QED effect)")
+        lines.append("  Lamb shift (2S-2P): ~1057 MHz (QED effect)")
         if self.notes:
             for note in self.notes:
                 lines.append(f"  Note: {note}")
@@ -207,7 +207,7 @@ class HarmonicOscillatorReport:
         lines.append(f"  Classical turning point = {self.classical_amplitude:.4g} m")
         lines.append("-" * 60)
         lines.append(f"  Energy spacing = ℏω = {HBAR * self.omega / EV_TO_J:.4g} eV (equally spaced)")
-        lines.append(f"  ψ_n(x) = H_n(αx) × exp(-α²x²/2), α = √(mω/ℏ)")
+        lines.append("  ψ_n(x) = H_n(αx) × exp(-α²x²/2), α = √(mω/ℏ)")
         if self.notes:
             for note in self.notes:
                 lines.append(f"  Note: {note}")
@@ -229,7 +229,7 @@ class AngularMomentumReport:
     def __str__(self) -> str:
         lines = ["=" * 60, "  Angular Momentum Addition", "=" * 60]
         lines.append(f"  j₁ = {self.j1}    j₂ = {self.j2}")
-        lines.append(f"  |j₁ - j₂| ≤ J ≤ j₁ + j₂")
+        lines.append("  |j₁ - j₂| ≤ J ≤ j₁ + j₂")
         lines.append(f"  J_min = {self.j_min}    J_max = {self.j_max}")
         lines.append(f"  Allowed J values: {self.allowed_j}")
         lines.append(f"  Total states: (2j₁+1)(2j₂+1) = {self.total_states}")
@@ -333,7 +333,7 @@ def hydrogen_energy(
     if n == 2:
         notes.append("First excited state — Balmer series starts from here (visible light)")
     if Z > 1:
-        notes.append(f"Hydrogen-like ion: energy scales as Z², radius scales as 1/Z")
+        notes.append("Hydrogen-like ion: energy scales as Z², radius scales as 1/Z")
 
     return HydrogenEnergyReport(
         n=n, E_n_eV=E_eV, E_n_J=E_J, radius_m=radius_m,

@@ -18,7 +18,6 @@ import json
 import numpy as np
 import mlx.core as mx
 import mlx_lm
-from mlx.utils import tree_flatten
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)

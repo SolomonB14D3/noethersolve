@@ -1,6 +1,5 @@
 """Tests for noethersolve.enzyme_kinetics — enzyme kinetics computational engine."""
 
-import math
 import pytest
 
 from noethersolve.enzyme_kinetics import (
@@ -13,10 +12,8 @@ from noethersolve.enzyme_kinetics import (
     MMReport,
     InhibitionReport,
     EfficiencyReport,
-    LineweaverBurkReport,
     PHProfileReport,
     CooperativityReport,
-    DIFFUSION_LIMIT,
 )
 
 

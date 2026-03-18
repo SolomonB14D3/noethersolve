@@ -7,7 +7,6 @@ This tool provides verified dimension-aware formulas.
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 from enum import Enum
-import math
 
 
 class Dimension(Enum):

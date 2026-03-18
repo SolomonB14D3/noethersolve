@@ -16,7 +16,6 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from dataclasses import dataclass
 from typing import Callable, List, Tuple, Dict
-import json
 
 
 @dataclass
@@ -30,7 +29,7 @@ class HamiltonianSystem:
     def equations_of_motion(self, t: float, z: np.ndarray) -> np.ndarray:
         """Hamilton's equations: dq/dt = dH/dp, dp/dt = -dH/dq."""
         n = self.n_dof
-        q, p = z[:n], z[n:]
+        _q, _p = z[:n], z[n:]
         grad_H = self.dH(z)
         dH_dq = grad_H[:n]
         dH_dp = grad_H[n:]
@@ -372,7 +371,7 @@ def check_action_variable(system: HamiltonianSystem, z0: np.ndarray,
     # Use running sum of p * dq
     action = 0.0
     for i in range(len(t) - 1):
-        dt = t[i+1] - t[i]
+        t[i+1] - t[i]
         p_avg = 0.5 * (z_history[i, n] + z_history[i+1, n])
         dq = z_history[i+1, 0] - z_history[i, 0]
         action += p_avg * dq

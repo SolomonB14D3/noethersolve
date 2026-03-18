@@ -11,11 +11,10 @@ Usage:
 
 import argparse
 import json
-import os
 import sys
 import time
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import List, Optional
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -148,7 +147,7 @@ class MLXOracle:
             weights = mx.load(str(adapter_path))
             adapter.load_weights(list(weights.items()))
             mx.eval(adapter.parameters())
-        except ValueError as e:
+        except ValueError:
             # Incompatible architecture (e.g., different weight names)
             self._adapter_cache[key] = None
             return None
@@ -268,7 +267,7 @@ def run_domain_benchmark(
         print(f"  Evaluating {adapter_path.stem}...")
         result = oracle.evaluate(adapter_path, facts)
         if result is None:
-            print(f"    → SKIPPED (incompatible architecture)")
+            print("    → SKIPPED (incompatible architecture)")
             continue
         adapter_results[adapter_path.stem] = result
         compatible_adapters.append(adapter_path)
@@ -334,7 +333,7 @@ def run_domain_benchmark(
                 score=baseline.n_passed / baseline.n_total,
             )
 
-    print(f"\nResults:")
+    print("\nResults:")
     print(f"  Discovered sequence: {result.adapters}")
     print(f"  Final accuracy: {len(result.passed_ids)}/{len(facts)} ({100*result.score:.1f}%)")
     print(f"  Discovery time: {elapsed:.2f}s")

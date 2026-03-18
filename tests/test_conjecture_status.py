@@ -1,15 +1,12 @@
 """Tests for noethersolve.conjecture_status — Mathematical conjecture status checker."""
 
-import pytest
 
 from noethersolve.conjecture_status import (
     check_conjecture,
     check_claim,
     list_conjectures,
     get_conjecture,
-    ConjectureReport,
     ConjectureIssue,
-    ConjectureInfo,
 )
 
 

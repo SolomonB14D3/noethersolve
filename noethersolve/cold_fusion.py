@@ -15,7 +15,6 @@ Based on Noether's theorem: every symmetry implies a conservation law.
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional
 from enum import Enum
-import math
 
 # Physical constants
 C = 2.998e8  # m/s
@@ -324,7 +323,7 @@ def fact_check_claim(claim: ColdFusionClaim) -> Dict:
 def print_fact_check(results: Dict):
     """Pretty-print fact-check results."""
     print("=" * 70)
-    print(f"COLD FUSION CLAIM FACT-CHECK")
+    print("COLD FUSION CLAIM FACT-CHECK")
     print("=" * 70)
     print(f"Claim: {results['description']}")
     print()

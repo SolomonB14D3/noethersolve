@@ -1,6 +1,5 @@
 """Tests for gauge_equivalence module — type inference / gauge theory parallel."""
 
-import pytest
 from noethersolve.gauge_equivalence import (
     check_gauge_equivalence,
     explain_parallel,

@@ -234,7 +234,7 @@ def main():
         best_p = powers[np.argmin(row)]
         wins[best_p] += 1
 
-    print(f"Number of wins per alignment power:")
+    print("Number of wins per alignment power:")
     for p in powers:
         label = "standard" if p == 0 else f"p={p}"
         print(f"  {label}: {wins[p]}/{len(test_functions)}")

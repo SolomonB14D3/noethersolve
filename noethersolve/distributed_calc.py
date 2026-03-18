@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional
 
 
 @dataclass
@@ -47,7 +47,7 @@ class ByzantineReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Byzantine Fault Tolerance Analysis:",
+            "Byzantine Fault Tolerance Analysis:",
             f"  Total nodes: {self.total_nodes}",
             f"  Max Byzantine faults tolerated: {self.max_byzantine_faults}",
             f"  Minimum nodes for f={self.max_byzantine_faults}: {self.min_nodes_for_f_faults} (3f+1)",
@@ -70,7 +70,7 @@ class VectorClockReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Vector Clock Comparison:",
+            "Vector Clock Comparison:",
             f"  A = {self.clock_a}",
             f"  B = {self.clock_b}",
             f"  Relationship: {self.relationship}",
@@ -230,10 +230,10 @@ def byzantine_threshold(
         msg_complexity = f"O(n²) per round, O(n²) total = ~{n*n} messages"
     elif algo in ("SYNC", "SYNCHRONOUS"):
         rounds = f + 1
-        msg_complexity = f"O(n^(f+1)) exponential in fault count"
+        msg_complexity = "O(n^(f+1)) exponential in fault count"
     elif algo in ("TENDERMINT", "COSMOS"):
         rounds = 2  # propose + prevote + precommit
-        msg_complexity = f"O(n²) per round via gossip"
+        msg_complexity = "O(n²) per round via gossip"
     else:
         rounds = f + 1
         msg_complexity = "unknown"

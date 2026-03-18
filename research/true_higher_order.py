@@ -85,12 +85,13 @@ def test_products_of_invariants():
     trajectory = odeint(vortex_rhs, positions.flatten(), t, args=(gammas,))
 
     # Known conserved
-    f_ln = lambda r: -np.log(r + 1e-10)
+    def f_ln(r):
+        return -np.log(r + 1e-10)
     Q_ln = np.array([compute_Q_f(trajectory[i], gammas, f_ln) for i in range(len(t))])
 
     print(f"  Q_ln: frac_var = {frac_var(Q_ln):.2e}")
     print(f"  Q_ln²: frac_var = {frac_var(Q_ln**2):.2e}")
-    print(f"  (Products of conserved quantities are trivially conserved)")
+    print("  (Products of conserved quantities are trivially conserved)")
 
 
 # ============================================================================
@@ -224,7 +225,8 @@ def test_triplet_distance_functions():
 
     # Compare to pairwise
     print("\n  Pairwise Q_ln for comparison:")
-    f_ln = lambda r: -np.log(r + 1e-10)
+    def f_ln(r):
+        return -np.log(r + 1e-10)
     Q_ln = np.array([compute_Q_f(trajectory[i], gammas, f_ln) for i in range(len(t))])
     print(f"  Q_ln: frac_var = {frac_var(Q_ln):.2e}")
 
@@ -274,7 +276,8 @@ def test_mixed_order():
         return X, Y
 
     # Compute time series
-    f_ln = lambda r: -np.log(r + 1e-10)
+    def f_ln(r):
+        return -np.log(r + 1e-10)
     Q_ln = np.array([compute_Q_f(trajectory[i], gammas, f_ln) for i in range(len(t))])
     L = np.array([compute_angular_momentum(trajectory[i], gammas) for i in range(len(t))])
 
@@ -446,7 +449,8 @@ def neural_search():
     print(f"  Achieved frac_var: {result.fun:.2e}")
 
     # Compare to pairwise Q_ln
-    f_ln = lambda r: -np.log(r + 1e-10)
+    def f_ln(r):
+        return -np.log(r + 1e-10)
     Q_ln = np.array([compute_Q_f(trajectory[i], gammas, f_ln) for i in range(len(t))])
     print(f"  Q_ln frac_var: {frac_var(Q_ln):.2e} (for comparison)")
 

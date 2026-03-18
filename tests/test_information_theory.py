@@ -1,6 +1,5 @@
 """Tests for information theory module."""
 
-import pytest
 import math
 from noethersolve.information_theory import (
     binary_entropy,
@@ -197,9 +196,7 @@ class TestSourceCoding:
     def test_invalid_code(self):
         """Invalid code violates Kraft."""
         probs = [0.5, 0.5]
-        lengths = [1, 1]  # Kraft sum = 1, but let's try [0, 0]
         # Actually [1,1] is valid (sum = 1). Let's use impossible lengths
-        lengths = [1, 0]  # 0.5 + 1 = 1.5 > 1 — wait, 2^0 = 1
         report = source_coding_bound(probs, [0, 0])  # 2^0 + 2^0 = 2 > 1
         assert not report.passed
 

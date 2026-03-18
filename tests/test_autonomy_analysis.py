@@ -5,8 +5,6 @@ from noethersolve.autonomy_analysis import (
     AutonomyFramework,
     ComponentStatus,
     AutonomyComponent,
-    ComponentAssessment,
-    AutonomyReport,
     AUTONOMY_COMPONENTS,
     SYSTEM_PROFILES,
     IMPLEMENTATION_APPROACHES,

@@ -30,8 +30,7 @@ References:
 
 import numpy as np
 from numpy.fft import fftn, ifftn, fftfreq
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Tuple
 
 from noethersolve.monitor import frac_var, MonitorReport
 

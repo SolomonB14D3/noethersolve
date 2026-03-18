@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Generic adapter training on any fact domain."""
 
-import argparse, json, os, sys, time
+import argparse
+import json
+import os
+import time
 import mlx.core as mx
-import mlx.nn as nn
 import mlx.optimizers as optim
 import mlx_lm
 import numpy as np
@@ -101,7 +103,7 @@ def eval_adapter(adapter, lm_head, model, facts, tokenizer, label=""):
         margins.append(margin)
         if margin > 0:
             correct += 1
-    
+
     print(f"  {label}: {correct}/{len(facts)} ({100*correct/len(facts):.1f}%)  mean_margin={np.mean(margins):.2f}")
     return correct, margins
 
@@ -115,12 +117,12 @@ def main():
     parser.add_argument("--d-inner", type=int, default=64)
     parser.add_argument("--margin", type=float, default=1.5)
     args = parser.parse_args()
-    
+
     # Load data
     examples = load_training_data(args.data)
     facts = load_eval_facts(args.facts)
     print(f"Loaded {len(examples)} training examples, {len(facts)} eval facts")
-    
+
     # Load model
     print("\nLoading Qwen/Qwen3-4B-Base...")
     model, tokenizer = mlx_lm.load("Qwen/Qwen3-4B-Base")
@@ -129,47 +131,47 @@ def main():
     vocab_size = model.model.embed_tokens.weight.shape[0]
     d_model = model.model.layers[0].self_attn.q_proj.weight.shape[0]
     print(f"  d_model={d_model}  vocab={vocab_size}")
-    
+
     # Create adapter
     cfg = SnapOnConfig(d_model=d_model, d_inner=args.d_inner, n_layers=0,
                        n_heads=8, mode="logit", vocab_size=vocab_size)
     adapter = create_adapter(cfg)
-    
+
     # Baseline
     print("\n=== BASELINE ===")
     eval_adapter(None, lm_head, model, facts, tokenizer, "baseline")
-    
+
     # Training
     optimizer = optim.AdamW(learning_rate=args.lr, weight_decay=0.01)
     loss_and_grad = mx.value_and_grad(mc_hinge_loss, argnums=0)
-    
+
     print(f"\n=== TRAINING ({args.steps} steps) ===")
     t0 = time.time()
     recent_margins = []
     for step in range(args.steps):
         ctx, truth, distractors = examples[step % len(examples)]
         prompt = ctx if ctx.endswith(":") else ctx + ":"
-        
+
         (loss_val, margin_val), grads = loss_and_grad(
             adapter, lm_head, model, prompt, truth, distractors, tokenizer, args.margin
         )
         grads = clip_grads(grads)
         optimizer.update(adapter, grads)
         mx.eval(adapter.parameters(), optimizer.state)
-        
+
         recent_margins.append(margin_val)
         if len(recent_margins) > 50:
             recent_margins.pop(0)
-        
+
         if (step + 1) % 100 == 0:
             elapsed = time.time() - t0
             avg = np.mean(recent_margins)
             print(f"  step {step+1:4d}  loss={float(loss_val):.3f}  margin={margin_val:.2f}  avg={avg:.2f}  {elapsed:.0f}s")
-    
+
     # Final eval
     print("\n=== FINAL ===")
     eval_adapter(adapter, lm_head, model, facts, tokenizer, "adapted")
-    
+
     # Save
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
     flat = tree_flatten(adapter.parameters())

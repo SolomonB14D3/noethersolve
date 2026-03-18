@@ -48,7 +48,7 @@ def compute_margins(model, tokenizer, lm_head, facts, adapter=None):
                 lm_head=lm_head,
             )
             results.append((fact["id"], result[1]))
-        except Exception as e:
+        except Exception:
             results.append((fact["id"], -999))
     return results
 

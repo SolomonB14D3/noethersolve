@@ -9,7 +9,6 @@ Tests cover:
 - Step size analysis
 """
 
-import math
 import pytest
 
 from noethersolve.optimization_convergence import (
@@ -216,7 +215,7 @@ class TestNonConvexRate:
 
     def test_iterations_formula(self):
         """Iterations scale as O(LΔ/ε²)."""
-        L, delta = 10.0, 100.0
+        L, _delta = 10.0, 100.0
         epsilon = 0.1
         r = non_convex_rate(L, f_init=100.0, f_star=0.0, epsilon=epsilon)
         # k = 2LΔ/ε² = 2 × 10 × 100 / 0.01 = 200000

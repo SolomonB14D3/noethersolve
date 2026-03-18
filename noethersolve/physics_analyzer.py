@@ -29,9 +29,8 @@ Based on Noether's theorem (1918):
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Tuple, Optional, Any
+from typing import Dict, List, Optional, Any
 from enum import Enum
-import numpy as np
 
 # Import domain-specific modules where available
 try:

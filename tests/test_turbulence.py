@@ -8,7 +8,6 @@ Tests cover:
 - Intermittency models
 """
 
-import math
 import pytest
 
 from noethersolve.turbulence import (

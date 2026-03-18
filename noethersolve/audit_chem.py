@@ -27,7 +27,7 @@ Usage:
 """
 
 import numpy as np
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple
 from scipy.linalg import null_space
 
@@ -84,7 +84,7 @@ class AuditReport:
         lines.append(f"{'=' * 60}")
         lines.append(f"  Species: {self.n_species}, Reactions: {self.n_reactions}, "
                      f"Reversible pairs: {self.n_reversible_pairs}")
-        lines.append(f"")
+        lines.append("")
 
         # Conservation laws
         lines.append(f"  Conservation laws ({len(self.conservation_laws)}):")
@@ -93,8 +93,8 @@ class AuditReport:
 
         # Wegscheider
         if self.cycle_checks:
-            lines.append(f"")
-            lines.append(f"  Wegscheider cyclicity:")
+            lines.append("")
+            lines.append("  Wegscheider cyclicity:")
             for cc in self.cycle_checks:
                 status = "OK" if cc.consistent else "VIOLATED"
                 lines.append(f"    Cycle {cc.cycle}: product={cc.product:.6f}, "
@@ -102,8 +102,8 @@ class AuditReport:
 
         # Detailed balance
         if self.detailed_balance_at_ref is not None:
-            lines.append(f"")
-            lines.append(f"  Detailed balance ratios (at reference concentration):")
+            lines.append("")
+            lines.append("  Detailed balance ratios (at reference concentration):")
             for pair, ratio in self.detailed_balance_at_ref.items():
                 status = "near equilibrium" if abs(ratio - 1.0) < 0.1 else "away from eq."
                 lines.append(f"    {pair}: {ratio:.4f} ({status})")
@@ -111,13 +111,13 @@ class AuditReport:
         # Entropy production
         if self.entropy_production_at_ref is not None:
             status = "OK (non-negative)" if self.entropy_production_at_ref >= 0 else "VIOLATED"
-            lines.append(f"")
+            lines.append("")
             lines.append(f"  Entropy production at ref: {self.entropy_production_at_ref:.6f} [{status}]")
 
         # Warnings
         if self.warnings:
-            lines.append(f"")
-            lines.append(f"  Warnings:")
+            lines.append("")
+            lines.append("  Warnings:")
             for w in self.warnings:
                 lines.append(f"    - {w}")
 

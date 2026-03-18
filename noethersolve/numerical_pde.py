@@ -799,25 +799,25 @@ def analyze_accuracy(scheme: str) -> AccuracyReport:
     # Determine leading error type
     if scheme_lower in ["upwind", "lax_friedrichs"]:
         leading_error = "dissipative (numerical viscosity)"
-        truncation = f"O(Δx) + O(Δt)"
+        truncation = "O(Δx) + O(Δt)"
         notes.append("First-order schemes have numerical diffusion")
         notes.append("Smears sharp gradients and discontinuities")
         richardson = True
     elif scheme_lower in ["lax_wendroff", "leapfrog_hyperbolic"]:
         leading_error = "dispersive (phase errors)"
-        truncation = f"O(Δx²) + O(Δt²)"
+        truncation = "O(Δx²) + O(Δt²)"
         notes.append("Second-order schemes have dispersion errors")
         notes.append("Causes oscillations near discontinuities")
         richardson = True
     elif scheme_lower == "crank_nicolson":
         leading_error = "neither dominant (balanced)"
-        truncation = f"O(Δx²) + O(Δt²)"
+        truncation = "O(Δx²) + O(Δt²)"
         notes.append("Crank-Nicolson is optimally balanced")
         notes.append("Gold standard for parabolic PDEs")
         richardson = True
     elif scheme_lower == "ftcs":
         leading_error = "dissipative"
-        truncation = f"O(Δx²) + O(Δt)"
+        truncation = "O(Δx²) + O(Δt)"
         notes.append("First-order in time, second in space")
         notes.append("Time step dominates error")
         richardson = True

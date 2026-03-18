@@ -12,7 +12,7 @@ domains separate.
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Set, Tuple, Any
+from typing import Dict, List, Optional, Tuple
 from enum import Enum
 
 
@@ -379,7 +379,6 @@ def simple_unify(type1: str, type2: str) -> UnificationResult:
     # This is a simplified unification for demonstration
     # Real HM inference is more complex
 
-    substitution: Dict[str, str] = {}
 
     # Check if types are identical
     if type1 == type2:

@@ -3,12 +3,11 @@ Benchmark Haiku on unsaturated domains with/without tool context.
 Compares accuracy against verified ground truth.
 """
 
-import json
 
 # Ground truth answers (verified with NoetherSolve tools)
 GROUND_TRUTH = {
     "sat_npc": "yes",
-    "p_vs_np": "no",  
+    "p_vs_np": "no",
     "nernst": "1.16",
     "buffer": "4.94",
     "kepler": "yes",
@@ -38,7 +37,7 @@ print("\nWith Tool Context (mention available tools):")
 print("""
 "I have access to computational verification tools including:
 - check_completeness (for complexity theory)
-- calc_nernst (for electrochemistry) 
+- calc_nernst (for electrochemistry)
 - calc_buffer_ph (for buffer calculations)
 - check_hamiltonian_system (for physics)
 - calc_bandwidth_delay (for networking)

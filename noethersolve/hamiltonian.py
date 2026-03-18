@@ -27,8 +27,8 @@ Built-in systems:
 """
 
 import numpy as np
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Callable, Tuple
+from dataclasses import dataclass
+from typing import Dict, List, Optional, Callable
 from scipy.integrate import solve_ivp
 
 from noethersolve.monitor import frac_var
@@ -58,7 +58,7 @@ class HamiltonianReport:
         lines.append(f"  System: {self.system_name} ({self.n_dof} DOF)")
         lines.append(f"  Solver: {self.solver_method}, rtol={self.rtol:.0e}, atol={self.atol:.0e}")
         lines.append(f"  T = {self.T}")
-        lines.append(f"")
+        lines.append("")
 
         failed = [(k, v) for k, v in self.quantities.items() if v["verdict"] == "FAIL"]
         warned = [(k, v) for k, v in self.quantities.items() if v["verdict"] == "WARN"]
@@ -78,8 +78,8 @@ class HamiltonianReport:
                 lines.append(f"    {name:<30s}  frac_var={data['frac_var']:.2e}")
 
         if self.suggestions:
-            lines.append(f"")
-            lines.append(f"  Suggestions:")
+            lines.append("")
+            lines.append("  Suggestions:")
             for s in self.suggestions:
                 lines.append(f"    - {s}")
 

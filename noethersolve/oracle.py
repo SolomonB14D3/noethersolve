@@ -77,10 +77,12 @@ def score_fact_mc(model, tokenizer, context: str, truth: str, distractors: list,
         # Determine whether we have a stack of adapters or a single one
         if isinstance(adapter, list):
             from noethersolve.train_utils import apply_adapter_stack
-            _apply = lambda bl: apply_adapter_stack(adapter, bl)
+            def _apply(bl):
+                return apply_adapter_stack(adapter, bl)
         else:
             from noethersolve.train_utils import apply_adapter
-            _apply = lambda bl: apply_adapter(adapter, bl)
+            def _apply(bl):
+                return apply_adapter(adapter, bl)
 
         def _lp(completion: str) -> float:
             prompt_ids = tokenizer.encode(prompt)

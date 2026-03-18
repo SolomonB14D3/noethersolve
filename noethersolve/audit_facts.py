@@ -46,7 +46,7 @@ CLI:
 
 import json
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Union
 
 
 # ─── Technical Simplification Bias markers ───────────────────────────────────
@@ -318,7 +318,7 @@ def audit_facts(
 
         for idx, (d, d_tok) in enumerate(zip(distractors, distractor_tokens)):
             if truth_tokens > 0 and d_tok < truth_tokens:
-                diff = truth_tokens - d_tok
+                truth_tokens - d_tok
                 ratio = d_tok / truth_tokens
                 if ratio < length_ratio_high:
                     severity = "HIGH"
@@ -418,7 +418,7 @@ def audit_facts(
 
             # Technical gap: truth is technical, distractor is simple
             # Positive gap = high failure risk
-            tech_gap = (truth_tech - dist_tech) + (dist_simple - truth_simple)
+            (truth_tech - dist_tech) + (dist_simple - truth_simple)
             ratio = technical_ratio(truth, d)
 
             if ratio > max_tech_ratio:
@@ -721,7 +721,7 @@ def main():
         if args.predict_difficulty:
             prediction = predict_difficulty(str(args.file))
             print(f"File: {args.file}")
-            print(f"  Zero-shot difficulty prediction (72% accurate on mean scoring)")
+            print("  Zero-shot difficulty prediction (72% accurate on mean scoring)")
             print()
             print(f"  Predicted sum pass rate:  {prediction['sum_pct']:.0f}%")
             print(f"  Predicted mean pass rate: {prediction['mean_pct']:.0f}%")

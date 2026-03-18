@@ -8,7 +8,6 @@ Output: results/meta_router_outcomes.jsonl
 """
 
 import json
-import os
 from pathlib import Path
 from collections import defaultdict
 import sys
@@ -16,7 +15,6 @@ import sys
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from noethersolve.meta_router import OutcomeRecord, MetaRouter
 
 
 def load_facts_text(facts_dir: Path) -> dict:
@@ -98,7 +96,7 @@ def scan_benchmark_results(results_dir: Path, facts_text: dict) -> list:
                     "source_file": str(json_file),
                 })
 
-        except (json.JSONDecodeError, KeyError) as e:
+        except (json.JSONDecodeError, KeyError):
             continue
 
     return outcomes
@@ -195,7 +193,7 @@ def main():
         for o in valid_outcomes:
             f.write(json.dumps(o) + "\n")
 
-    print(f"   Done!\n")
+    print("   Done!\n")
 
     # Stats
     by_adapter = defaultdict(int)
@@ -209,7 +207,7 @@ def main():
     print(f"Total outcomes: {len(valid_outcomes)}")
     print(f"Unique adapters: {len(by_adapter)}")
     print(f"Flip rate: {flipped_count}/{len(valid_outcomes)} = {flipped_count/max(1,len(valid_outcomes)):.1%}")
-    print(f"\nTop adapters by outcome count:")
+    print("\nTop adapters by outcome count:")
     for adapter, count in sorted(by_adapter.items(), key=lambda x: -x[1])[:10]:
         print(f"  {adapter}: {count}")
 

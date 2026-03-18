@@ -375,13 +375,13 @@ def calc_bounce_invariant(
         BounceInvariantReport with J, bounce frequency, mirror geometry
     """
     if B_min <= 0 or B_max <= 0:
-        raise ValueError(f"Magnetic fields must be positive")
+        raise ValueError("Magnetic fields must be positive")
     if B_max <= B_min:
         raise ValueError(f"B_max ({B_max}) must be greater than B_min ({B_min})")
     if bounce_length <= 0:
-        raise ValueError(f"Bounce length must be positive")
+        raise ValueError("Bounce length must be positive")
     if v_parallel < 0:
-        raise ValueError(f"Velocity must be non-negative")
+        raise ValueError("Velocity must be non-negative")
 
     # Mirror ratio
     R = B_max / B_min
@@ -466,11 +466,11 @@ def calc_flux_invariant(
         FluxInvariantReport with Φ, drift frequency, conservation status
     """
     if drift_radius <= 0:
-        raise ValueError(f"Drift radius must be positive")
+        raise ValueError("Drift radius must be positive")
     if B_average <= 0:
-        raise ValueError(f"Magnetic field must be positive")
+        raise ValueError("Magnetic field must be positive")
     if energy < 0:
-        raise ValueError(f"Energy must be non-negative")
+        raise ValueError("Energy must be non-negative")
 
     # Flux enclosed by circular drift orbit
     # Φ ≈ π * r² * B for circular orbit
@@ -503,7 +503,7 @@ def calc_flux_invariant(
         breaking_condition = "N/A"
 
     notes.append("Third invariant is most fragile - breaks for rapid field changes")
-    notes.append(f"Typical breaking: magnetic storms, substorms (τ ~ minutes)")
+    notes.append("Typical breaking: magnetic storms, substorms (τ ~ minutes)")
 
     return FluxInvariantReport(
         Phi=Phi,
@@ -558,7 +558,7 @@ def check_adiabatic_hierarchy(
 
     # Decompose velocity
     alpha_rad = math.radians(pitch_angle_deg)
-    v_perp = v_total * math.sin(alpha_rad)
+    v_total * math.sin(alpha_rad)
     v_parallel = v_total * math.cos(alpha_rad)
 
     # Cyclotron frequency and period

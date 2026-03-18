@@ -39,7 +39,7 @@ class Euler2DSolver:
 
     def step_rk4(self, omega_hat, dt):
         def rhs(w_hat):
-            omega = np.real(ifft2(w_hat))
+            np.real(ifft2(w_hat))
             psi_hat = -w_hat / self.K2
             u = np.real(ifft2(1j * self.KY * psi_hat))
             v = np.real(ifft2(-1j * self.KX * psi_hat))

@@ -3,7 +3,7 @@
 import math
 import pytest
 from noethersolve.quantum_circuit import (
-    simulate_circuit, measure_state, CircuitReport,
+    simulate_circuit, measure_state,
 )
 
 

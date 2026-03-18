@@ -12,11 +12,9 @@ Strategy:
 """
 
 import os
-import time
 import numpy as np
 from scipy.integrate import solve_ivp
 import mlx.core as mx
-import mlx.nn as nn
 import mlx.optimizers as optim
 import mlx_lm
 from mlx.utils import tree_flatten, tree_unflatten
@@ -63,7 +61,7 @@ def generate_training_data():
     """Generate diverse training examples with actual frac_var values."""
     np.random.seed(123)
     examples = []
-    
+
     configs = [
         # (name, N, gammas, x0, y0)
         ("restricted_3", 3, [1.0, 1.0, 0.01], [0.5, -0.5, 0.3], [0.0, 0.0, 0.8]),
@@ -71,7 +69,7 @@ def generate_training_data():
         ("hierarchical_4", 4, [1.0, 0.5, 0.2, 0.1], [0.5, -0.5, -0.3, 0.4], [0.3, 0.4, -0.5, -0.3]),
         ("equal_4", 4, [1.0, 1.0, 1.0, 1.0], [0.5, -0.5, -0.5, 0.5], [0.5, 0.5, -0.5, -0.5]),
     ]
-    
+
     # Add random N=5 and N=9 configs
     for seed in [42, 43, 44]:
         np.random.seed(seed)
@@ -82,27 +80,27 @@ def generate_training_data():
             x0 = (r_pos * np.cos(theta)).tolist()
             y0 = (r_pos * np.sin(theta)).tolist()
             configs.append((f"random_{N}_s{seed}", N, gammas, x0, y0))
-    
+
     n_powers = [0.1, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0]
-    
+
     print("Generating training data from simulations...")
     for name, N, gammas, x0, y0 in configs:
         state0 = np.array(x0 + y0)
-        
+
         try:
             sol = solve_ivp(lambda t, y: vortex_rhs(t, y, gammas), (0, 50), state0,
                            t_eval=np.linspace(0, 50, 501), rtol=1e-9, atol=1e-11)
-            
+
             if not sol.success:
                 continue
-                
+
             for n_power in n_powers:
                 Q_vals = compute_Qn(sol, gammas, n_power)
                 fv = frac_var(Q_vals)
-                
+
                 if fv < 1e-15:  # Exact (n=2 case)
                     fv = 1e-15
-                
+
                 examples.append({
                     "config": name,
                     "N": N,
@@ -111,9 +109,9 @@ def generate_training_data():
                     "gammas": gammas,
                     "conserved": fv < 5e-3
                 })
-        except:
+        except Exception:
             continue
-    
+
     print(f"  Generated {len(examples)} examples")
     return examples
 
@@ -142,7 +140,7 @@ def get_margin(adapter, lm_head, model, tokenizer, prompt, truth, distractors):
             lse = mx.log(mx.sum(mx.exp(lv - mx.max(lv))) + 1e-8) + mx.max(lv)
             total = total + lv[tok_id] - lse
         return total
-    
+
     truth_lp = lp(f" {truth}")
     dist_lps = [lp(f" {d}") for d in distractors]
     best_dist = mx.max(mx.stack(dist_lps))
@@ -159,35 +157,35 @@ def ranking_loss(adapter, lm_head, model, tokenizer, batch_examples,
     """
     margins = []
     targets = []  # 1/frac_var (higher = better conservation)
-    
+
     for ex in batch_examples:
         fv = ex["frac_var"]
         n_power = ex["n_power"]
         N = ex["N"]
-        
+
         prompt = f"N={N} vortex system. Is Q_{n_power} = Σ ΓᵢΓⱼ rᵢⱼ^{n_power} conserved?:"
-        
+
         if ex["conserved"]:
             truth = f" Yes, conserved with frac_var ≈ {fv:.1e}."
         else:
             truth = f" No, poorly conserved (frac_var = {fv:.1e})."
-        
+
         distractors = [" Cannot determine", " Only for N=2", " Depends on initial conditions"]
-        
+
         m = get_margin(adapter, lm_head, model, tokenizer, prompt, truth, distractors)
         margins.append(m)
         targets.append(1.0 / (fv + 1e-15))
-    
+
     margins_stack = mx.stack(margins)
     targets_stack = mx.array(targets)
-    
+
     # Normalize targets to [0, 1]
     targets_norm = targets_stack / (mx.max(targets_stack) + 1e-8)
-    
+
     # 1. Hinge loss for conserved examples
     conserved_mask = mx.array([1.0 if ex["conserved"] else 0.0 for ex in batch_examples])
     hinge_loss = mx.mean(conserved_mask * mx.maximum(mx.array(0.0), mx.array(1.0) - margins_stack))
-    
+
     # 2. Pairwise ranking loss
     # For each pair (i,j), if target_i > target_j, we want margin_i > margin_j
     rank_loss = mx.array(0.0)
@@ -204,23 +202,23 @@ def ranking_loss(adapter, lm_head, model, tokenizer, batch_examples,
                 pair_loss = mx.maximum(mx.array(0.0), margins_stack[i] - margins_stack[j] + mx.array(0.5))
                 rank_loss = rank_loss + pair_loss
                 n_pairs += 1
-    
+
     if n_pairs > 0:
         rank_loss = rank_loss / n_pairs
-    
+
     # 3. Correlation loss
     margins_mean = mx.mean(margins_stack)
     targets_mean = mx.mean(targets_norm)
     margins_centered = margins_stack - margins_mean
     targets_centered = targets_norm - targets_mean
-    
+
     numerator = mx.sum(margins_centered * targets_centered)
     denominator = mx.sqrt(mx.sum(margins_centered**2) * mx.sum(targets_centered**2) + 1e-8)
     corr = numerator / denominator
     corr_loss = 1.0 - corr
-    
+
     total_loss = hinge_weight * hinge_loss + rank_weight * rank_loss + corr_weight * corr_loss
-    
+
     return total_loss, float(hinge_loss), float(rank_loss), float(corr), margins
 
 
@@ -243,78 +241,78 @@ def main():
     parser.add_argument("--load-adapter", default=os.path.join(OUT_DIR, "physics_supervised.npz"))
     parser.add_argument("--out", default=os.path.join(OUT_DIR, "ranking_adapter.npz"))
     args = parser.parse_args()
-    
+
     os.makedirs(OUT_DIR, exist_ok=True)
-    
+
     print("=" * 70)
     print("RANKING ADAPTER TRAINING")
     print("=" * 70)
-    
+
     # Generate training data
     examples = generate_training_data()
-    
+
     # Sort by frac_var for analysis
     examples_sorted = sorted(examples, key=lambda x: x["frac_var"])
     print(f"\nFrac_var range: {examples_sorted[0]['frac_var']:.1e} to {examples_sorted[-1]['frac_var']:.1e}")
     print(f"Conserved: {sum(1 for e in examples if e['conserved'])}/{len(examples)}")
-    
+
     # Load model
     print("\nLoading model...")
     model, tokenizer = mlx_lm.load("Qwen/Qwen3-4B-Base")
     model.freeze()
     lm_head = t3.get_lm_head_fn(model)
-    
+
     # Create adapter
     vocab_size = model.model.embed_tokens.weight.shape[0]
     d_model = model.model.layers[0].self_attn.q_proj.weight.shape[0]
     cfg = SnapOnConfig(d_model=d_model, d_inner=64, n_layers=0,
                        n_heads=8, mode="logit", vocab_size=vocab_size)
     adapter = create_adapter(cfg)
-    
+
     # Load previous adapter
     if os.path.exists(args.load_adapter):
         print(f"Loading adapter: {args.load_adapter}")
         weights = dict(mx.load(args.load_adapter))
         adapter.load_weights(list(weights.items()))
-    
+
     optimizer = optim.AdamW(learning_rate=args.lr, weight_decay=0.01)
     loss_and_grad = mx.value_and_grad(ranking_loss, argnums=0)
-    
+
     # Training
     print(f"\nTraining: {args.steps} steps, batch={args.batch}, lr={args.lr}")
     print("-" * 70)
-    
+
     best_corr = -1.0
     best_state = None
-    
+
     for step in range(args.steps):
         # Random batch
         batch_idx = np.random.choice(len(examples), min(args.batch, len(examples)), replace=False)
         batch = [examples[i] for i in batch_idx]
-        
+
         (loss, hinge, rank, corr, margins), grads = loss_and_grad(
             adapter, lm_head, model, tokenizer, batch
         )
-        
+
         grads = clip_grads(grads)
         optimizer.update(adapter, grads)
         mx.eval(adapter.parameters(), optimizer.state)
-        
+
         if corr > best_corr:
             best_corr = corr
             best_state = dict(tree_flatten(adapter.parameters()))
-        
+
         if (step + 1) % 50 == 0:
             margins_f = [float(m) for m in margins]
             print(f"  step {step+1:4d}/{args.steps}  loss={float(loss):.2f}  "
                   f"hinge={hinge:.2f}  rank={rank:.2f}  corr={corr:+.3f}  "
                   f"margins=[{min(margins_f):+.0f},{max(margins_f):+.0f}]")
-    
+
     # Evaluation
     print("\n" + "=" * 70)
     print("EVALUATION")
     print("=" * 70)
-    
+
     # Test on all examples
     all_margins = []
     all_fv = []
@@ -322,38 +320,38 @@ def main():
         fv = ex["frac_var"]
         n_power = ex["n_power"]
         N = ex["N"]
-        
+
         prompt = f"N={N} vortex system. Is Q_{n_power} = Σ ΓᵢΓⱼ rᵢⱼ^{n_power} conserved?:"
-        truth = f" Yes, conserved." if ex["conserved"] else f" No, not conserved."
+        truth = " Yes, conserved." if ex["conserved"] else " No, not conserved."
         distractors = [" Cannot determine", " Only for N=2", " Depends"]
-        
+
         m = float(get_margin(adapter, lm_head, model, tokenizer, prompt, truth, distractors))
         all_margins.append(m)
         all_fv.append(fv)
-    
+
     # Final correlation
     inv_fv = [1.0/fv for fv in all_fv]
     final_corr = np.corrcoef(all_margins, inv_fv)[0, 1]
-    
+
     print(f"\nFinal Pearson(margin, 1/frac_var) = {final_corr:+.3f}")
-    
+
     # Show ranking
     print("\nTop 10 by margin:")
     sorted_idx = np.argsort(all_margins)[::-1]
     for i in sorted_idx[:10]:
         ex = examples[i]
         print(f"  {ex['config']:20s} n={ex['n_power']:.1f}  margin={all_margins[i]:+.1f}  frac_var={ex['frac_var']:.1e}")
-    
+
     print("\nBottom 10 by margin:")
     for i in sorted_idx[-10:]:
         ex = examples[i]
         print(f"  {ex['config']:20s} n={ex['n_power']:.1f}  margin={all_margins[i]:+.1f}  frac_var={ex['frac_var']:.1e}")
-    
+
     # Save
     if best_state is not None:
         mx.savez(args.out, **best_state)
         print(f"\nBest adapter (corr={best_corr:.3f}) saved: {args.out}")
-    
+
     # Verdict
     print("\n" + "=" * 70)
     if final_corr > 0.7:

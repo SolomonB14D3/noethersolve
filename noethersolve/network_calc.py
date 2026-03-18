@@ -7,8 +7,8 @@ MTU fragmentation, and congestion window dynamics.
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
-from typing import List, Optional, Tuple
+from dataclasses import dataclass
+from typing import List, Optional
 
 
 @dataclass
@@ -24,7 +24,7 @@ class BandwidthDelayReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Bandwidth-Delay Product:",
+            "Bandwidth-Delay Product:",
             f"  Bandwidth: {_fmt_bps(self.bandwidth_bps)}",
             f"  RTT: {self.rtt_seconds*1000:.2f} ms",
             f"  BDP: {self.bdp_bits:.0f} bits = {self.bdp_bytes:.0f} bytes",
@@ -53,7 +53,7 @@ class TCPThroughputReport:
 
     def __str__(self) -> str:
         lines = [
-            f"TCP Throughput Estimation:",
+            "TCP Throughput Estimation:",
             f"  Window-limited: {_fmt_bps(self.max_throughput_bps)}",
             f"  Window size: {self.window_size_bytes} bytes",
             f"  RTT: {self.rtt_seconds*1000:.2f} ms",
@@ -107,7 +107,7 @@ class FragmentationReport:
 
     def __str__(self) -> str:
         lines = [
-            f"IP Fragmentation Analysis:",
+            "IP Fragmentation Analysis:",
             f"  Original packet: {self.original_size} bytes",
             f"  Path MTU: {self.mtu} bytes",
             f"  Needs fragmentation: {self.needs_fragmentation}",
@@ -132,7 +132,7 @@ class CongestionWindowReport:
 
     def __str__(self) -> str:
         lines = [
-            f"TCP Congestion Window:",
+            "TCP Congestion Window:",
             f"  Phase: {self.phase}",
             f"  cwnd: {self.cwnd_segments} segments ({self.window_bytes} bytes)",
             f"  ssthresh: {self.ssthresh_segments} segments",
@@ -223,9 +223,7 @@ def tcp_throughput(
             # where C ≈ 1.22 (from Mathis et al.)
             mathis_tp = (mss_bytes * 8 * 1.22) / (rtt_seconds * math.sqrt(loss_rate))
 
-    effective = max_tp
     if mathis_tp is not None and mathis_tp < max_tp:
-        effective = mathis_tp
         explanation = f"Loss-limited: Mathis model gives {_fmt_bps(mathis_tp)}, below window limit."
     else:
         explanation = f"Window-limited at {_fmt_bps(max_tp)}."

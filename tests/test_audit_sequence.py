@@ -3,8 +3,6 @@
 import pytest
 from noethersolve.audit_sequence import (
     audit_sequence,
-    SequenceReport,
-    SequenceIssue,
     gc_content,
     cpg_observed_expected,
 )

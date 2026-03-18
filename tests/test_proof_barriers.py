@@ -8,9 +8,6 @@ from noethersolve.proof_barriers import (
     list_techniques,
     get_barrier,
     what_works_for,
-    BarrierReport,
-    BarrierIssue,
-    BarrierInfo,
 )
 
 

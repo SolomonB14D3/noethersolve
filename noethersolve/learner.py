@@ -35,8 +35,8 @@ Basis functions (12):
 """
 
 import numpy as np
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Callable, Tuple
+from dataclasses import dataclass
+from typing import Dict, List, Optional
 from scipy.optimize import minimize
 
 from noethersolve.monitor import frac_var
@@ -115,15 +115,15 @@ class LearnerReport:
         lines.append(f"  Initial loss (starting guess): {self.initial_loss:.6f}")
         lines.append(f"  Final loss (optimized):        {self.final_loss:.6f}")
         lines.append(f"  Improvement:                   {self.improvement_pct:.1f}%")
-        lines.append(f"")
+        lines.append("")
         lines.append(f"  Optimal f(r) = {self.formula}")
-        lines.append(f"")
-        lines.append(f"  Dominant terms:")
+        lines.append("")
+        lines.append("  Dominant terms:")
         for name in self.dominant_terms:
             coef = self.coefficients[name]
             lines.append(f"    {coef:+.4f} × {name}")
-        lines.append(f"")
-        lines.append(f"  Individual basis losses (lower = better):")
+        lines.append("")
+        lines.append("  Individual basis losses (lower = better):")
         sorted_bases = sorted(self.individual_losses.items(), key=lambda x: x[1])
         for name, loss in sorted_bases[:5]:
             marker = " ← best single" if name == self.best_single_basis else ""

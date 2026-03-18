@@ -1,20 +1,11 @@
 """Tests for noethersolve.complexity — Computational complexity class relationship auditor."""
 
-import pytest
 
 from noethersolve.complexity import (
     audit_complexity,
     check_inclusion,
     check_completeness,
     get_class_info,
-    ComplexityReport,
-    ComplexityIssue,
-    InclusionResult,
-    CompletenessResult,
-    ALL_CLASSES,
-    KNOWN_INCLUSIONS,
-    KNOWN_SEPARATIONS,
-    KNOWN_EQUALITIES,
 )
 
 

@@ -21,7 +21,6 @@ from noethersolve.topological_invariants import (
     topological_classification,
     list_symmetry_classes,
     VON_KLITZING,
-    CONDUCTANCE_QUANTUM,
 )
 
 

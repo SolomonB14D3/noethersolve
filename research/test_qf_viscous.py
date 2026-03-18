@@ -14,7 +14,6 @@ where ν is the kinematic viscosity.
 
 import numpy as np
 from numpy.fft import fft2, ifft2, fftfreq
-import sys
 
 # ============================================================================
 # 2D Navier-Stokes Pseudospectral Solver
@@ -56,7 +55,7 @@ class NavierStokes2DSolver:
 
     def rhs(self, omega_hat):
         """Compute -u·∇ω + ν∇²ω in spectral space."""
-        omega = np.real(ifft2(omega_hat))
+        np.real(ifft2(omega_hat))
         u, v = self.compute_velocity(omega_hat)
 
         # ∇ω in physical space
@@ -211,7 +210,7 @@ def main():
     omega0 = (gaussian_vortex(temp_solver.X, temp_solver.Y, L/3, L/2, sigma, gamma) +
               gaussian_vortex(temp_solver.X, temp_solver.Y, 2*L/3, L/2, sigma, gamma))
 
-    print(f"Initial condition: Two co-rotating Gaussian vortices")
+    print("Initial condition: Two co-rotating Gaussian vortices")
     print(f"  Grid: {N}x{N}, T = {T}, dt = {dt}")
     print()
 

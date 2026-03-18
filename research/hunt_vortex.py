@@ -16,7 +16,6 @@ Usage:
 import argparse
 import json
 import os
-import sys
 import time
 import yaml
 import itertools
@@ -135,7 +134,7 @@ def check_oracle(expr: str, model, tokenizer, adapter, lm_head, ic_name: str = "
     from noethersolve.oracle import score_fact_mc
 
     # Build a fact from the expression
-    context = f"Restricted 3-vortex system with Γ₃=0.01. Which quantity is approximately conserved?"
+    context = "Restricted 3-vortex system with Γ₃=0.01. Which quantity is approximately conserved?"
     truth = f"Q = {expr} ≈ const"
     distractors = [
         "No such quantity exists",
@@ -156,7 +155,6 @@ def check_oracle(expr: str, model, tokenizer, adapter, lm_head, ic_name: str = "
 
 def run_hunt(problem_path: str, max_candidates: int = 200, skip_oracle: bool = False):
     """Run the hunt for new conserved quantities."""
-    import mlx.core as mx
     import mlx_lm
 
     # Load problem
@@ -251,14 +249,14 @@ def run_hunt(problem_path: str, max_candidates: int = 200, skip_oracle: bool = F
 
     # Summary
     print(f"\n  {'='*66}")
-    print(f"  HUNT SUMMARY")
+    print("  HUNT SUMMARY")
     print(f"  {'='*66}")
     print(f"  Candidates tested:     {len(candidates)}")
     print(f"  Numerical passes:      {len(numerical_passes)}")
     print(f"  Discoveries:           {len(discoveries)}")
 
     if discoveries:
-        print(f"\n  DISCOVERIES:")
+        print("\n  DISCOVERIES:")
         for d in discoveries:
             print(f"    Q = {d['expr']}")
             print(f"      margin = {d['oracle']['margin']:+.3f}")

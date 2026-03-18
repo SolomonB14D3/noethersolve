@@ -4,7 +4,6 @@ Verify every number claimed in D1 paper draft against source data.
 Stage 3 of paper pipeline: zero discrepancies required.
 """
 
-import os
 import sys
 
 # Source numbers from discovery files (manually transcribed from verified results)
@@ -127,11 +126,11 @@ def verify():
     print()
     print("=" * 70)
     print(f"RESULT: {n_pass}/{n_pass + n_fail} claims verified")
-    print(f"Source: results/discoveries/novel_findings/")
-    print(f"        q_f_universal.md, qf_3d_green_function.md,")
-    print(f"        viscous_qf_decay.md, viscous_decay_linear_scaling.md,")
-    print(f"        qf_concentration_regularity.md, qf_dichotomy_regularity.md,")
-    print(f"        optimal_qf_combination.md, triplet_false_alarm.md")
+    print("Source: results/discoveries/novel_findings/")
+    print("        q_f_universal.md, qf_3d_green_function.md,")
+    print("        viscous_qf_decay.md, viscous_decay_linear_scaling.md,")
+    print("        qf_concentration_regularity.md, qf_dichotomy_regularity.md,")
+    print("        optimal_qf_combination.md, triplet_false_alarm.md")
     print("=" * 70)
 
     return n_fail == 0

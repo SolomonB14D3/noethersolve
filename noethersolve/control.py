@@ -217,7 +217,7 @@ def simulate_pid(
     ts = [pt[0] for pt in time_series]
     final_val = ys[-1] if ys else 0.0
     peak_val = max(ys) if ys else 0.0
-    peak_idx = ys.index(peak_val)
+    ys.index(peak_val)
 
     # Overshoot
     if abs(setpoint) > 1e-12:
@@ -294,7 +294,7 @@ def analyze_stability(coefficients: List[float]) -> StabilityReport:
     if not coefficients or coefficients[0] == 0:
         raise ValueError("Leading coefficient must be non-zero")
 
-    n = len(coefficients) - 1  # polynomial degree
+    len(coefficients) - 1  # polynomial degree
 
     # Normalize
     a0 = coefficients[0]

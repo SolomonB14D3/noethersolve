@@ -194,7 +194,6 @@ def main():
 
     tube1 = VortexFilament(tube1_points, circulation=1.0)
     tube2 = VortexFilament(tube2_points, circulation=1.0)
-    filaments = [tube1, tube2]
 
     stretch_factors = [1.0, 1.5, 2.0, 3.0, 4.0, 5.0]
     powers = [0, 0.5, 1.0, 1.5, 2.0]

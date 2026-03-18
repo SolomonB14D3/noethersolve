@@ -375,7 +375,6 @@ def main():
 
     tube1 = VortexFilament(tube1_points, circulation=1.0)
     tube2 = VortexFilament(tube2_points, circulation=1.0)
-    filaments = [tube1, tube2]
 
     # Compute variants for different stretch factors
     stretch_factors = [1.0, 1.5, 2.0, 3.0, 4.0]
@@ -540,7 +539,7 @@ def main():
     if best_stretch == best_evolution:
         print(f"FINDING: '{best_stretch}' is best for both stretching AND evolution!")
     else:
-        print(f"FINDING: Different variants optimal for different tests:")
+        print("FINDING: Different variants optimal for different tests:")
         print(f"  Stretching resistance: {best_stretch}")
         print(f"  Evolution conservation: {best_evolution}")
 

@@ -15,7 +15,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import List
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -224,7 +224,6 @@ def train_adapter(
     print(f"  Training for {steps} steps...")
     recent_margins = []
 
-    import random
     for step in range(steps):
         prompt, truth, distractors = examples[step % len(examples)]
 

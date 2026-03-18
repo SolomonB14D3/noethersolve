@@ -12,10 +12,6 @@ from noethersolve.seismic_waves import (
     critical_angle,
     snells_law,
     vp_vs_ratio_bounds,
-    SeismicVelocityReport,
-    PoissonRatioReport,
-    ElasticModuliReport,
-    ReflectionReport,
 )
 
 

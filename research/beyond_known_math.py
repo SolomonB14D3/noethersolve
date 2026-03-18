@@ -16,8 +16,7 @@ Instead of asking "which Q_f is conserved?", we ask:
 
 import numpy as np
 from scipy.integrate import odeint
-from scipy.linalg import svd, eig
-from scipy.spatial.distance import pdist, squareform
+from scipy.spatial.distance import pdist
 from itertools import combinations
 import warnings
 warnings.filterwarnings('ignore')
@@ -188,7 +187,7 @@ def discover_algebraic_relations(trajectory, gammas):
     quantities that we don't have a name for.
     """
     n_times, n_coords = trajectory.shape
-    N = n_coords // 2
+    n_coords // 2
 
     print("\nSearching for algebraic relations...")
 
@@ -330,7 +329,7 @@ def information_geometry(trajectory, gammas):
     euclidean_speeds = np.linalg.norm(velocities, axis=1)
 
     # 2. Circulation-weighted metric
-    pos = trajectory[:-1].reshape(-1, N, 2)
+    trajectory[:-1].reshape(-1, N, 2)
     vel = velocities.reshape(-1, N, 2)
     weighted_speeds = np.zeros(len(velocities))
     for t in range(len(velocities)):
@@ -444,7 +443,7 @@ def conservation_field(trajectory, gammas):
     look like?
     """
     n_times, n_coords = trajectory.shape
-    N = n_coords // 2
+    n_coords // 2
 
     print("\nComputing conservation field...")
 
@@ -460,7 +459,8 @@ def conservation_field(trajectory, gammas):
         return Q
 
     # Compute gradient of Q_ln at each time
-    f = lambda r: -np.log(r + 1e-10)
+    def f(r):
+        return -np.log(r + 1e-10)
     epsilon = 1e-6
 
     gradients = np.zeros((n_times, n_coords))
@@ -487,7 +487,7 @@ def conservation_field(trajectory, gammas):
     dots = np.array([np.dot(gradients[t], velocities[t]) for t in range(n_times)])
 
     print(f"  Mean |∇Q · v|: {np.mean(np.abs(dots)):.2e}")
-    print(f"  This should be ~0 if Q is conserved along trajectories")
+    print("  This should be ~0 if Q is conserved along trajectories")
 
     # The direction of ∇Q tells us "how to break conservation"
     # What if we looked at ∇Q × v (2D cross product)?
@@ -615,7 +615,7 @@ def main():
     print("\n" + "="*70)
     print("EXPLORATION 4: Emergent Operators")
     print("="*70)
-    operators = discover_operators(trajectory, gammas)
+    discover_operators(trajectory, gammas)
 
     print("\n" + "="*70)
     print("EXPLORATION 5: Conservation Field")

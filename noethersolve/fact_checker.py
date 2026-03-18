@@ -25,9 +25,8 @@ Usage:
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Any
+from typing import List, Optional
 from enum import Enum
-import re
 
 # Import all specialized modules
 from noethersolve.cold_fusion import (
@@ -36,22 +35,19 @@ from noethersolve.cold_fusion import (
 )
 from noethersolve.fringe_physics import (
     fact_check_fringe_claim,
-    FringeClaim, FringeCategory,
+    FringeCategory,
     FRINGE_CLAIMS
 )
 from noethersolve.atmospheric_electricity import (
     analyze_atmospheric_claim,
-    AtmosphericEnergyDevice,
     ATMOSPHERIC_DEVICES
 )
 from noethersolve.water_fuel import (
     analyze_water_fuel_claim,
-    WaterFuelClaim,
     WATER_FUEL_CLAIMS
 )
 from noethersolve.magnetic_motors import (
     analyze_magnetic_motor_claim,
-    MagneticMotorClaim,
     MAGNETIC_MOTOR_CLAIMS
 )
 
@@ -317,7 +313,7 @@ def _handle_fringe_physics(claim_text: str, category: ClaimCategory) -> UnifiedR
         ClaimCategory.ANTI_GRAVITY: FringeCategory.ANTI_GRAVITY,
     }
 
-    fringe_cat = category_map.get(category, FringeCategory.FREE_ENERGY)
+    category_map.get(category, FringeCategory.FREE_ENERGY)
 
     # Check known claims
     for name, claim in FRINGE_CLAIMS.items():
@@ -415,12 +411,12 @@ def print_result(result: UnifiedResult):
     print(f"Verdict: {result.verdict} (confidence: {result.confidence:.0%})")
 
     if result.violations:
-        print(f"\nViolations:")
+        print("\nViolations:")
         for v in result.violations:
             print(f"  - {v}")
 
     if result.explanations:
-        print(f"\nExplanations:")
+        print("\nExplanations:")
         for e in result.explanations:
             print(f"  - {e}")
 

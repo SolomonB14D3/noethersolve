@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import List
 
 
 # Constants
@@ -32,7 +32,7 @@ class NernstReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Nernst Equation Result:",
+            "Nernst Equation Result:",
             f"  E° = {self.E_standard:.4f} V",
             f"  E  = {self.E_cell:.4f} V",
             f"  n  = {self.n_electrons} electrons transferred",
@@ -56,7 +56,7 @@ class BufferReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Henderson-Hasselbalch Buffer Calculation:",
+            "Henderson-Hasselbalch Buffer Calculation:",
             f"  pH  = {self.pH:.3f}",
             f"  pKa = {self.pKa:.3f}",
             f"  [HA] = {self.acid_conc:.4f} M",
@@ -80,7 +80,7 @@ class CrystalFieldReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Crystal Field Theory Result:",
+            "Crystal Field Theory Result:",
             f"  Geometry: {self.geometry}",
             f"  d-electrons: {self.d_electrons}",
             f"  Δ = {self.delta_o:.1f} Dq",
@@ -104,7 +104,7 @@ class BandGapReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Semiconductor Band Gap Analysis:",
+            "Semiconductor Band Gap Analysis:",
             f"  Band gap = {self.band_gap_eV:.3f} eV ({self.band_gap_J:.3e} J)",
             f"  Absorption edge = {self.wavelength_nm:.1f} nm",
             f"  Type: {self.conductor_type}",
@@ -304,7 +304,6 @@ def crystal_field_splitting(
         # Energy ordering (low to high): dxy, dxz/dyz, dz2, dx2-y2
         # Square planar strongly favors low spin for d8
         # Simplified: fill from bottom
-        orbitals = [1, 2, 1, 1]  # capacities: dxy(2), dxz+dyz(4), dz2(2), dx2-y2(2)
         capacities = [2, 4, 2, 2]
         energies_dq = [-5.14, -2.28, -0.86, 12.28]  # approximate in Dq
 

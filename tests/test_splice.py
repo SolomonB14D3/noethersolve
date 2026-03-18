@@ -6,7 +6,6 @@ from noethersolve.splice import (
     score_acceptor,
     scan_splice_sites,
     pyrimidine_tract_score,
-    SpliceSiteReport,
 )
 
 
@@ -144,7 +143,7 @@ class TestScanSpliceSites:
         # Long sequence with both GT and AG
         seq = "AAACAGGTAAGTTTTTTTTTTTTTTTTAGGAAAAAA"
         sites = scan_splice_sites(seq, site_type="both")
-        types = {s.site_type for s in sites}
+        {s.site_type for s in sites}
         # May find both depending on context windows
         assert len(sites) > 0
 

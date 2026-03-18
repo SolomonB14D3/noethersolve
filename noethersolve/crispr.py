@@ -32,9 +32,8 @@ Usage:
     #  'risk_level': 'HIGH'}
 """
 
-import re
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from dataclasses import dataclass
+from typing import Dict, List
 
 
 # ─── Constants ───────────────────────────────────────────────────────────────
@@ -87,18 +86,18 @@ class GuideReport:
         lines.append(f"  Seed GC:  {self.seed_gc:.1%} (positions 1-{_SEED_END})")
         lines.append(f"  Homopoly: {self.longest_homopolymer}nt longest run")
         lines.append(f"  Self-comp: {self.longest_self_comp}bp longest match")
-        lines.append(f"")
+        lines.append("")
         lines.append(f"  Activity score: {self.activity_score:.0f}/100")
         lines.append(f"  Off-target risk: {self.offtarget_risk}")
-        lines.append(f"")
+        lines.append("")
 
         if self.issues:
-            lines.append(f"  Issues found:")
+            lines.append("  Issues found:")
             for issue in sorted(self.issues,
                                 key=lambda i: {"HIGH": 0, "MODERATE": 1, "LOW": 2}.get(i.severity, 3)):
                 lines.append(str(issue))
         else:
-            lines.append(f"  No issues found.")
+            lines.append("  No issues found.")
 
         lines.append(f"{'=' * 60}")
         return "\n".join(lines)

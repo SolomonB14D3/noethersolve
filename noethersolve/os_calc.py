@@ -7,7 +7,7 @@ and deadlock detection via resource allocation graphs.
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional, Set, Tuple
 
 
@@ -27,7 +27,7 @@ class PageTableReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Page Table Analysis:",
+            "Page Table Analysis:",
             f"  Virtual address: {self.virtual_bits} bits",
             f"  Physical address: {self.physical_bits} bits",
             f"  Page size: {self.page_size_bytes} bytes ({self.page_size_bytes//1024} KB)",
@@ -61,7 +61,7 @@ class SchedulingReport:
             f"  Avg turnaround time: {self.avg_turnaround:.2f}",
             f"  Avg waiting time: {self.avg_waiting:.2f}",
             f"  Timeline: {self.timeline}",
-            f"  Details:",
+            "  Details:",
         ]
         for p in self.order:
             if p in self.completion_times:
@@ -84,7 +84,7 @@ class DeadlockReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Deadlock Detection:",
+            "Deadlock Detection:",
             f"  Deadlock detected: {self.has_deadlock}",
         ]
         if self.has_deadlock:
@@ -109,7 +109,7 @@ class TLBReport:
 
     def __str__(self) -> str:
         lines = [
-            f"TLB Analysis:",
+            "TLB Analysis:",
             f"  Entries: {self.tlb_entries}",
             f"  Page size: {self.page_size_bytes // 1024} KB",
             f"  TLB coverage: {self.coverage_bytes} bytes ({self.coverage_mb:.2f} MB)",
@@ -132,7 +132,7 @@ class ContextSwitchReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Context Switch Cost Analysis:",
+            "Context Switch Cost Analysis:",
             f"  Direct cost: {self.direct_cost_us:.1f} µs (register save/restore + TLB flush)",
             f"  Indirect cost: {self.indirect_cost_us:.1f} µs (cache/TLB warmup)",
             f"  Total per switch: {self.total_cost_us:.1f} µs",

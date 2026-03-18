@@ -18,7 +18,7 @@ class TestCalendarAging:
         """Calendar aging should scale as sqrt(t), NOT linear."""
         report_1y = calc_calendar_aging("NMC", 365, temperature_C=25)
         report_4y = calc_calendar_aging("NMC", 365*4, temperature_C=25)
-        
+
         # 4 years should give ~2x loss (sqrt(4) = 2), not 4x
         ratio = report_4y.capacity_loss_percent / report_1y.capacity_loss_percent
         assert 1.8 < ratio < 2.2, f"Expected ~2x loss, got {ratio}x (sqrt(t) law)"
@@ -27,7 +27,7 @@ class TestCalendarAging:
         """Higher temperature should accelerate aging (Arrhenius)."""
         report_25C = calc_calendar_aging("NMC", 365, temperature_C=25)
         report_45C = calc_calendar_aging("NMC", 365, temperature_C=45)
-        
+
         assert report_45C.capacity_loss_percent > report_25C.capacity_loss_percent
         # Rule of thumb: ~2x per 10°C
         ratio = report_45C.capacity_loss_percent / report_25C.capacity_loss_percent
@@ -37,7 +37,7 @@ class TestCalendarAging:
         """Higher storage SOC should accelerate aging."""
         report_50 = calc_calendar_aging("NMC", 365, soc_storage=0.5)
         report_100 = calc_calendar_aging("NMC", 365, soc_storage=1.0)
-        
+
         assert report_100.capacity_loss_percent > report_50.capacity_loss_percent
 
     def test_zero_time(self):
@@ -49,7 +49,7 @@ class TestCalendarAging:
         """Different chemistries should have different aging rates."""
         report_nmc = calc_calendar_aging("NMC", 365)
         report_lfp = calc_calendar_aging("LFP", 365)
-        
+
         # LFP typically has lower calendar aging than NMC
         assert report_lfp.capacity_loss_percent < report_nmc.capacity_loss_percent
 
@@ -74,7 +74,7 @@ class TestCycleAging:
         """Higher DOD should cause more degradation."""
         report_50 = calc_cycle_aging("NMC", 500, dod=0.5)
         report_100 = calc_cycle_aging("NMC", 500, dod=1.0)
-        
+
         # 100% DOD should be significantly worse than 50%
         ratio = report_100.capacity_loss_percent / report_50.capacity_loss_percent
         assert ratio > 2, f"Expected DOD^n scaling, got {ratio}x"
@@ -83,7 +83,7 @@ class TestCycleAging:
         """Cycle aging should scale roughly linearly with cycles."""
         report_500 = calc_cycle_aging("NMC", 500)
         report_1000 = calc_cycle_aging("NMC", 1000)
-        
+
         ratio = report_1000.capacity_loss_percent / report_500.capacity_loss_percent
         assert 1.8 < ratio < 2.2, f"Expected linear scaling, got {ratio}x"
 
@@ -94,15 +94,15 @@ class TestCycleAging:
 
     def test_lfp_cycle_tolerance(self):
         """LFP should handle cycles better at high DOD."""
-        report_nmc = calc_cycle_aging("NMC", 1000, dod=0.9)
-        report_lfp = calc_cycle_aging("LFP", 1000, dod=0.9)
-        
+        calc_cycle_aging("NMC", 1000, dod=0.9)
+        calc_cycle_aging("LFP", 1000, dod=0.9)
+
         # LFP has lower DOD exponent, so less sensitive to deep cycles
         nmc_ratio = calc_cycle_aging("NMC", 1000, dod=0.9).capacity_loss_percent / \
                     calc_cycle_aging("NMC", 1000, dod=0.5).capacity_loss_percent
         lfp_ratio = calc_cycle_aging("LFP", 1000, dod=0.9).capacity_loss_percent / \
                     calc_cycle_aging("LFP", 1000, dod=0.5).capacity_loss_percent
-        
+
         assert lfp_ratio < nmc_ratio, "LFP should be less DOD-sensitive"
 
     def test_report_str(self):
@@ -121,7 +121,7 @@ class TestCombinedAging:
         cal_report = calc_calendar_aging("NMC", 365)
         cyc_report = calc_cycle_aging("NMC", 500)
         combined = calc_combined_aging("NMC", 365, 500)
-        
+
         # Total should equal sum of individual components
         expected_sum = cal_report.capacity_loss_percent + cyc_report.capacity_loss_percent
         assert abs(combined.total_loss_percent - expected_sum) < 0.01

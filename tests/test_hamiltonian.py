@@ -1,7 +1,6 @@
 """Tests for noethersolve.hamiltonian — Hamiltonian system validation."""
 
 import numpy as np
-import pytest
 
 from noethersolve.hamiltonian import (
     HamiltonianMonitor,

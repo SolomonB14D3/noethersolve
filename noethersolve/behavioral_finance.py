@@ -12,7 +12,7 @@ These aren't "irrational quirks" - prospect theory structure IMPROVES alignment
 """
 
 from dataclasses import dataclass, field
-from typing import List, Tuple, Optional, Dict
+from typing import List, Tuple, Dict
 from enum import Enum
 import math
 

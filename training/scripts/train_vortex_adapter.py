@@ -16,19 +16,20 @@ Usage:
     python train_vortex_adapter.py --data vortex_synthetic_25.json --steps 1500 --lr 1e-5
 """
 
-import argparse, json, os, sys, time
+import argparse
+import json
+import os
+import time
 
 # Resolve knowledge-fidelity root relative to this file's location
 # (works regardless of where the repo is cloned)
 
 import mlx.core as mx
-import mlx.nn as nn
 import mlx.optimizers as optim
 import mlx_lm
 import numpy as np
 from mlx.utils import tree_flatten, tree_unflatten
 
-from noethersolve.oracle import get_completion_logprob, score_fact_mc
 from noethersolve.adapter import SnapOnConfig, create_adapter
 from noethersolve import train_utils as t3
 

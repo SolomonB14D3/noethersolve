@@ -1,6 +1,5 @@
 """Tests for the chemistry calculator module."""
 
-import math
 import pytest
 from noethersolve.chemistry_calc import (
     nernst_equation,

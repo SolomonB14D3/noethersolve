@@ -30,8 +30,7 @@ Usage:
 import json
 import os
 from collections import OrderedDict
-from typing import List
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Optional
 
@@ -364,7 +363,7 @@ class AdapterRouter:
         Returns: (win, margin, truth_lp, best_dist_lp, route_decision, cascade_used)
         """
         from noethersolve.oracle import score_fact_mc
-        from noethersolve.audit_facts import CERTAINTY_MARKERS, HEDGING_MARKERS, _count_markers
+        from noethersolve.audit_facts import CERTAINTY_MARKERS, _count_markers
 
         # Step 1: Baseline (no adapter)
         baseline = score_fact_mc(model, tokenizer, context, truth, distractors)
@@ -527,6 +526,84 @@ class AdapterRouter:
             global_adapters_json=json.dumps(self.global_adapters),
         )
         print(f"  Router saved: {len(keys)} centroids, {len(self.global_adapters)} global -> {path}")
+
+    @staticmethod
+    def needs_rebuild(router_path: str, adapters_dir: str,
+                      problems_dir: str = "") -> bool:
+        """Check if router state is stale and needs rebuilding.
+
+        Returns True if:
+          - Router file doesn't exist
+          - Any adapter .npz file in adapters_dir is newer than router file
+          - Any *_facts.json file in problems_dir is newer than router file
+
+        This enables auto-rebuild when adapters are trained or facts are updated.
+        """
+        if not os.path.exists(router_path):
+            return True
+
+        router_mtime = os.path.getmtime(router_path)
+
+        # Check adapter files
+        adapters_path = Path(adapters_dir)
+        if adapters_path.exists():
+            for adapter_file in adapters_path.glob("*.npz"):
+                if os.path.getmtime(adapter_file) > router_mtime:
+                    return True
+
+        # Check facts files (optional)
+        if problems_dir:
+            problems_path = Path(problems_dir)
+            if problems_path.exists():
+                for facts_file in problems_path.glob("*_facts.json"):
+                    if os.path.getmtime(facts_file) > router_mtime:
+                        return True
+
+        return False
+
+    @classmethod
+    def load_or_rebuild(cls, router_path: str, model, tokenizer,
+                        problems_dir: str, adapters_dir: str,
+                        config: Optional[RouterConfig] = None,
+                        force_rebuild: bool = False) -> "AdapterRouter":
+        """Load router if valid, otherwise rebuild automatically.
+
+        This is the recommended entry point for using the router. It ensures
+        the router is always up-to-date with the latest adapters and facts.
+
+        Args:
+            router_path: Path to router_state.npz
+            model: Base model for embedding (needed for rebuild)
+            tokenizer: Tokenizer (needed for rebuild)
+            problems_dir: Directory containing *_facts.json files
+            adapters_dir: Directory containing *.npz adapter files
+            config: Optional RouterConfig (uses defaults if None)
+            force_rebuild: If True, always rebuild regardless of timestamps
+
+        Returns:
+            AdapterRouter: Loaded or freshly built router
+
+        Example:
+            router = AdapterRouter.load_or_rebuild(
+                "router_state.npz", model, tokenizer,
+                "problems/", "adapters/"
+            )
+        """
+        if force_rebuild or cls.needs_rebuild(router_path, adapters_dir, problems_dir):
+            if force_rebuild:
+                print("  Router: force rebuild requested")
+            else:
+                print("  Router: stale state detected, rebuilding...")
+
+            router = cls.build(model, tokenizer, problems_dir, adapters_dir, config)
+            router.auto_register_global_adapters(adapters_dir)
+            router.save(router_path)
+            return router
+
+        router = cls.load(router_path)
+        # Re-check global adapters in case new ones were added
+        router.auto_register_global_adapters(adapters_dir)
+        return router
 
     @classmethod
     def load(cls, path: str) -> "AdapterRouter":

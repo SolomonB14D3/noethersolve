@@ -24,7 +24,7 @@ Usage:
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple
 
 
@@ -82,7 +82,7 @@ class CircuitReport:
     gates_applied: List[str]
 
     def __str__(self) -> str:
-        dim = len(self.state_vector)
+        len(self.state_vector)
         lines = [
             "=" * 60,
             f"  Quantum Circuit Simulation: {self.n_qubits} qubits, {self.n_gates} gates",
@@ -167,7 +167,7 @@ def simulate_circuit(
         elif len(gate_spec) == 3:
             name, qubits, param = gate_spec
         else:
-            raise ValueError(f"Gate spec must be (name, qubits) or (name, qubits, param)")
+            raise ValueError("Gate spec must be (name, qubits) or (name, qubits, param)")
 
         name = name.upper()
         qubits = list(qubits)
@@ -383,7 +383,6 @@ def _von_neumann_entropy_qubit0(state: List[complex], n_qubits: int) -> float:
     for k in range(half):
         # indices where qubit 0 = 0 and qubit 0 = 1, same other bits
         # Construct index with qubit 0 = 0
-        i0 = k  # need to insert 0 at the q0_bit position
         # Actually, simpler: iterate over all states with q0=0
         pass
 

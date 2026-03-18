@@ -20,7 +20,7 @@ Usage:
     # Returns: [("ns_conservation", 0.92), ("ns_blowup", 0.71), ("physics_general", 0.34)]
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple, Any
 from pathlib import Path
 import json

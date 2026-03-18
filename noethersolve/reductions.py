@@ -345,7 +345,7 @@ class ChainReport:
         lines.append(f"{'=' * 60}")
         lines.append(f"  Steps: {self.chain_length}")
         lines.append(f"  Effective type: {self.effective_type}")
-        lines.append(f"")
+        lines.append("")
 
         # Chain visualization
         if self.steps:
@@ -356,7 +356,7 @@ class ChainReport:
                     f"    {i}: {step.problem_a} <={step.reduction_type} "
                     f"{step.problem_b} [{status}]"
                 )
-            lines.append(f"")
+            lines.append("")
 
         # Issues sorted by severity
         high = [i for i in self.issues if i.severity == "HIGH"]
@@ -382,8 +382,8 @@ class ChainReport:
                 lines.append(str(issue))
 
         if self.warnings:
-            lines.append(f"")
-            lines.append(f"  Suggestions:")
+            lines.append("")
+            lines.append("  Suggestions:")
             for w in self.warnings:
                 lines.append(f"    - {w}")
 
@@ -733,7 +733,7 @@ def validate_chain(chain: List[Tuple[str, str, str]]) -> ChainReport:
     # ── HARDNESS PRESERVATION CHECK ──────────────────────────────────────
     # Check if the reduction chain actually preserves claimed hardness
     if effective_type in REDUCTION_TYPES:
-        preserves = set(REDUCTION_TYPES[effective_type].get("preserves", []))
+        set(REDUCTION_TYPES[effective_type].get("preserves", []))
         does_not_preserve = set(
             REDUCTION_TYPES[effective_type].get("does_not_preserve", [])
         )

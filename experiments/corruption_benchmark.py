@@ -18,7 +18,7 @@ import json
 from scipy.integrate import solve_ivp
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from noether_monitor import VortexMonitor, ChemicalMonitor, frac_var
+from noether_monitor import VortexMonitor, ChemicalMonitor
 
 
 # ─── Vortex ODE (correct) ────────────────────────────────────────────────────
@@ -442,7 +442,7 @@ def exp4_chemical_violation():
                   f"init={data['initial']:.4f}  final={data['final']:.4f}{flag}")
 
     # Wegscheider comparison
-    print(f"\n  Wegscheider cycle product (should be constant if thermodynamically consistent):")
+    print("\n  Wegscheider cycle product (should be constant if thermodynamically consistent):")
     for label, rates in scenarios:
         # Product of k_fwd/k_rev around the cycle
         product = 1.0
@@ -520,7 +520,7 @@ def exp5_rf_sensitivity():
         print()
 
     # Find detection threshold for each monitor (first noise where frac_var > 1e-6)
-    print(f"\nDetection threshold (frac_var > 1e-6):")
+    print("\nDetection threshold (frac_var > 1e-6):")
     print(f"  {'Standard monitors':}")
     for name in standard:
         for idx, fv in enumerate(results[name]):

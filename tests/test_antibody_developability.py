@@ -1,6 +1,5 @@
 """Tests for antibody_developability module."""
 
-import pytest
 from noethersolve.antibody_developability import (
     analyze_charge,
     analyze_aggregation,

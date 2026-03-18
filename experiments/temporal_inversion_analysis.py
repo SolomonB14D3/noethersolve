@@ -17,8 +17,6 @@ Methodology:
 """
 
 import json
-import os
-import sys
 from collections import defaultdict
 from pathlib import Path
 from dataclasses import dataclass
@@ -190,7 +188,7 @@ def compute_statistics(results: list[FactResult]):
         # Show worst failures
         failures = sorted([f for f in facts if not f.passed], key=lambda x: x.margin)[:5]
         if failures:
-            print(f"  Worst failures:")
+            print("  Worst failures:")
             for f in failures:
                 print(f"    {f.fact_id}: margin={f.margin:.2f}")
 
@@ -202,7 +200,7 @@ def compute_statistics(results: list[FactResult]):
         margins = [r.margin for r in confirmed]
         if np.std(years) > 0:
             corr = np.corrcoef(years, margins)[0, 1]
-            print(f"\nCorrelation (year vs margin) for RECENT_CONFIRMATION:")
+            print("\nCorrelation (year vs margin) for RECENT_CONFIRMATION:")
             print(f"  r = {corr:.3f} (n={len(confirmed)})")
             if corr < -0.3:
                 print("  → More recent confirmations have LOWER margins (temporal inversion!)")
@@ -236,7 +234,7 @@ def main():
 
     model, tokenizer, lm_head = load_model()
     results = analyze_domains(model, tokenizer, lm_head, args.domains)
-    by_cat = compute_statistics(results)
+    compute_statistics(results)
 
     # Save results
     output_path = Path(__file__).resolve().parent.parent / "results" / "temporal_inversion_analysis.json"

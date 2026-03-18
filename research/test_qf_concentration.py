@@ -10,7 +10,7 @@ circulation, then measure Q_f.
 """
 
 import numpy as np
-from numpy.fft import fft2, ifft2, fftfreq
+from numpy.fft import fft2, ifft2
 
 def make_distance_kernel(N, L):
     """Create distance matrix |x - y| for periodic domain."""
@@ -142,7 +142,7 @@ def main():
     print()
 
     # Compute scaling exponents
-    log_sigmas = np.log(sigmas)
+    np.log(sigmas)
 
     for name, _, description in test_functions:
         Qf_values = np.array(results[name])

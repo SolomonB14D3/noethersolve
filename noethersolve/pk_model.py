@@ -39,7 +39,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional
 
 
 # ─── Constants ────────────────────────────────────────────────────────────────
@@ -135,9 +135,9 @@ class HalfLifeReport:
             lines.append(f"  Vd = {self.Vd:.4g} L")
         lines.append(f"  Method: {self.method}")
         lines.append("-" * 60)
-        lines.append(f"  After 1 t½: 50% remaining")
-        lines.append(f"  After 3 t½: 12.5% remaining")
-        lines.append(f"  After 5 t½: 3.1% remaining (effectively eliminated)")
+        lines.append("  After 1 t½: 50% remaining")
+        lines.append("  After 3 t½: 12.5% remaining")
+        lines.append("  After 5 t½: 3.1% remaining (effectively eliminated)")
         lines.append(f"  Time to 97% elimination: {5 * self.half_life:.4g} h")
         if self.notes:
             for n in self.notes:

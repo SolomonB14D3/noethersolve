@@ -1,6 +1,5 @@
 """Tests for the operating systems calculator module."""
 
-import math
 import pytest
 from noethersolve.os_calc import (
     page_table_calc,

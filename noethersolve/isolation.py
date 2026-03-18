@@ -28,7 +28,7 @@ Usage:
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional, Set, Tuple
 
 
@@ -188,7 +188,7 @@ class IsolationReport:
             lines.append("    (none — full serializability)")
 
         if self.misconceptions:
-            lines.append(f"\n  Common misconceptions:")
+            lines.append("\n  Common misconceptions:")
             for m in self.misconceptions:
                 lines.append(f"    ⚠ {m}")
 

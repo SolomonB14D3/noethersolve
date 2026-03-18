@@ -1,6 +1,5 @@
 """Tests for the outcome logger module."""
 
-import pytest
 import tempfile
 import json
 from pathlib import Path

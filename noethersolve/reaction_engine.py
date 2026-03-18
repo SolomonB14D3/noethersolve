@@ -42,8 +42,7 @@ Usage:
 
 from __future__ import annotations
 
-import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple
 
 try:
@@ -1069,7 +1068,7 @@ def validate_synthesis(
         substrate_smi = step.get("substrate", "")
         reagent_str = step.get("reagent", "")
         product_smi = step.get("product", "")
-        conditions_str = step.get("conditions", "")
+        step.get("conditions", "")
 
         # Parse substrate
         try:
@@ -1130,8 +1129,8 @@ def validate_synthesis(
                 alkenes = [fg for fg in sub_analysis.functional_groups if fg.name == "alkene"]
                 if alkenes:
                     issues.append(SynthesisIssue(i, "MODERATE",
-                        f"Strong oxidant may cleave alkene double bonds in addition to "
-                        f"oxidizing alcohols. Use PCC or Swern for selective alcohol oxidation."))
+                        "Strong oxidant may cleave alkene double bonds in addition to "
+                        "oxidizing alcohols. Use PCC or Swern for selective alcohol oxidation."))
 
         # Check product atom balance
         if product_smi:
@@ -1249,7 +1248,7 @@ def check_woodward_hoffmann(
             conditions=conditions,
             reaction_type=f"electrocyclic ({n_electrons}π e⁻)",
             allowed=False,
-            explanation=f"Electrocyclic rules require even number of π electrons (4, 6, 8).",
+            explanation="Electrocyclic rules require even number of π electrons (4, 6, 8).",
         )
 
     # Cycloaddition / sigmatropic — use the general 4n+2 / 4n rule
@@ -1419,8 +1418,8 @@ def _match_reaction_template(
 
     has_base = "base" in reagent_roles.values()
     has_acid = "acid" in reagent_roles.values()
-    has_reductant = "reductant" in reagent_roles.values()
-    has_oxidant = "oxidant" in reagent_roles.values()
+    "reductant" in reagent_roles.values()
+    "oxidant" in reagent_roles.values()
 
     best_match: Optional[ReactionTemplate] = None
     best_score = 0.0

@@ -1,6 +1,5 @@
 """Tests for intersection theory module."""
 
-import pytest
 from noethersolve.intersection_theory import (
     bezout_intersection,
     genus_degree_formula,

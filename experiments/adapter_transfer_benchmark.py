@@ -23,7 +23,7 @@ import time
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import mlx.core as mx
 import mlx_lm
@@ -262,7 +262,7 @@ def score_tqa_multi(
         choice_tokens.append(full_ids)
 
     # Use longest for base forward pass
-    max_len = max(len(c) for c in choice_tokens)
+    max(len(c) for c in choice_tokens)
     # We need separate forward passes per choice since they're different lengths
     # But we can share adapter computation
 
@@ -354,7 +354,7 @@ def main():
     args = parser.parse_args()
 
     print(f"{'='*70}")
-    print(f"  Adapter Transfer Benchmark")
+    print("  Adapter Transfer Benchmark")
     print(f"  Model: {MODEL_ID}")
     print(f"  MMLU: {args.n_mmlu} | TQA: {'skip' if args.skip_tqa else args.n_tqa}")
     print(f"{'='*70}")
@@ -515,7 +515,7 @@ def main():
     # INDIVIDUAL ADAPTERS — test each single adapter on matched subjects
     # ═══════════════════════════════════════════════════════════════════
     print(f"\n{'═'*70}")
-    print(f"  Individual Adapter Test (on matched subjects)")
+    print("  Individual Adapter Test (on matched subjects)")
     print(f"{'═'*70}")
 
     for domain, prefixes in ADAPTER_STACKS.items():

@@ -202,7 +202,7 @@ class IntermittencyReport:
             "-" * 60,
             "  Scaling exponents:",
             f"    ζ₂ = {self.zeta_2:.4f} (K41: 0.667)",
-            f"    ζ₃ = 1.0000 (exact, 4/5 law)",
+            "    ζ₃ = 1.0000 (exact, 4/5 law)",
             f"    ζ₄ = {self.zeta_4:.4f} (K41: 1.333)",
             f"    ζ₆ = {self.zeta_6:.4f} (K41: 2.000)",
             "-" * 60,

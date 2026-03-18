@@ -2265,7 +2265,6 @@ def predict_ddi_auc_change(perpetrator: str, victim: str) -> str:
     → AUC 0.05-0.2× (80-95% decrease due to strong CYP3A4 induction)
     """
     from noethersolve.drug_interactions import predict_auc_change
-    import json
     result = predict_auc_change(perpetrator, victim)
     # Format nicely
     if result["auc_low"] == 1.0 and result["auc_high"] == 1.0:
@@ -4308,14 +4307,14 @@ def check_water_fuel_claim(
     # Check if claim violates thermodynamics
     max_output = h2_energy_mj
     if claimed_energy_output_mj > max_output:
-        lines.append(f"VERDICT: IMPOSSIBLE - claim exceeds H2 combustion energy")
+        lines.append("VERDICT: IMPOSSIBLE - claim exceeds H2 combustion energy")
         lines.append(f"  Claimed: {claimed_energy_output_mj:.2f} MJ")
         lines.append(f"  Maximum possible: {max_output:.2f} MJ")
         lines.append("")
         lines.append("Water is the ASH of hydrogen combustion, not a fuel.")
         lines.append("You cannot get more energy out than the chemical bonds contain.")
     else:
-        lines.append(f"Claim is within theoretical bounds, but requires")
+        lines.append("Claim is within theoretical bounds, but requires")
         lines.append(f"electrolysis input of {results['electrolysis_energy_mj']:.2f} MJ")
         lines.append("(Net energy is NEGATIVE - this is not 'free energy')")
 
@@ -6045,7 +6044,7 @@ def get_resource_aware_strategy(
     → "Unlimited local, scarce API, patient → Use local NoetherSolve tools heavily"
     """
     from noethersolve.metacognitive_control import (
-        TOOL_DOMAINS, BLIND_SPOT_DOMAINS, list_metacognitive_actions
+        TOOL_DOMAINS, BLIND_SPOT_DOMAINS
     )
 
     lines = [
@@ -6263,7 +6262,7 @@ def decide_with_love(
     Returns: Recommended approach with reasoning
     """
     from noethersolve.loving_service import (
-        UserContext, LovingServiceController, ServicePriority
+        UserContext, LovingServiceController
     )
     from noethersolve.metacognitive_control import (
         get_tools_for_domain, is_blind_spot_domain

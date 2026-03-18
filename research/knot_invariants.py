@@ -18,10 +18,8 @@ Key invariants:
 This module provides numerical verification of these properties.
 """
 
-import numpy as np
 from dataclasses import dataclass
-from typing import List, Tuple, Dict, Optional
-import itertools
+from typing import List, Tuple, Dict
 
 
 @dataclass
@@ -32,16 +30,16 @@ class Crossing:
     sign: int  # +1 for right-handed, -1 for left-handed
 
 
-@dataclass 
+@dataclass
 class KnotDiagram:
     """Planar diagram of a knot via Gauss code."""
     crossings: List[Crossing]
     gauss_code: List[int]  # Signed sequence of crossings encountered
-    
+
     @property
     def n_crossings(self) -> int:
         return len(self.crossings)
-    
+
     @property
     def writhe(self) -> int:
         """Sum of crossing signs. Changes under R1."""
@@ -123,18 +121,18 @@ def verify_writhe_changes_under_r1():
     """Verify that writhe is NOT preserved under R1."""
     trefoil = make_trefoil()
     w_before = trefoil.writhe
-    
+
     # Add positive kink
     after_r1 = apply_r1_add(trefoil, sign=+1)
     w_after = after_r1.writhe
-    
+
     changed = (w_before != w_after)
     delta = w_after - w_before
-    
+
     print(f"Trefoil writhe before R1: {w_before}")
     print(f"Trefoil writhe after R1+: {w_after}")
     print(f"Writhe changed: {changed} (Δ = {delta})")
-    
+
     return changed, delta
 
 
@@ -142,23 +140,23 @@ def verify_bracket_not_invariant_under_r1():
     """
     The Kauffman bracket is NOT invariant under R1.
     <K with kink> = -A^{±3} <K>
-    
+
     This is why we need normalization to get Jones polynomial.
     """
     # Bracket of unknot
     unknot_bracket = bracket_polynomial_unknot()  # {0: 1}
-    
+
     # After R1+ (add positive kink), bracket multiplies by -A^{-3}
     # <unknot with +kink> = -A^{-3} * <unknot> = -A^{-3}
     after_r1_bracket = {-3: -1}
-    
+
     # These are different polynomials
     changed = (unknot_bracket != after_r1_bracket)
-    
+
     print(f"Unknot bracket: {unknot_bracket}")
     print(f"After R1+ bracket: {after_r1_bracket}")
     print(f"Bracket changed under R1: {changed}")
-    
+
     return changed
 
 
@@ -166,22 +164,22 @@ def verify_jones_invariant():
     """
     Jones polynomial IS invariant under all Reidemeister moves.
     This is the key property that makes it a knot invariant.
-    
+
     The normalization factor (-A^3)^{-writhe} compensates for R1 changes.
     """
     # Jones polynomial of trefoil doesn't change under R1, R2, R3
     # (We'd need to implement the full skein relation to verify this numerically)
-    
+
     # The key fact: Jones polynomial distinguishes trefoil from unknot
     jones_unknot = {0: 1}  # V(t) = 1 for unknot
     jones_trefoil = {-4: 1, -12: 1, -16: -1}  # Different!
-    
+
     distinguished = (jones_unknot != jones_trefoil)
-    
+
     print(f"Jones(unknot) = {jones_unknot}")
     print(f"Jones(trefoil) = {jones_trefoil}")
     print(f"Jones distinguishes trefoil from unknot: {distinguished}")
-    
+
     return distinguished
 
 
@@ -189,7 +187,7 @@ def verify_crossing_number_invariant():
     """
     Crossing number is the MINIMUM number of crossings over all diagrams.
     It's an invariant because it's defined as a minimum.
-    
+
     A diagram may have more crossings than the crossing number
     (e.g., unknot can be drawn with many crossings).
     """
@@ -200,20 +198,20 @@ def verify_crossing_number_invariant():
         'figure_eight': 4,
         'cinquefoil': 5,
     }
-    
+
     print("Crossing numbers (invariant - minimum over all diagrams):")
     for name, c in crossing_numbers.items():
         print(f"  {name}: {c}")
-    
+
     return crossing_numbers
 
 
 def compute_linking_number(link_diagram) -> int:
     """
     Linking number of a two-component link.
-    
+
     lk(L1, L2) = (1/2) * sum of signs of crossings between components.
-    
+
     Invariant under all Reidemeister moves.
     """
     # Hopf link has linking number ±1
@@ -226,23 +224,23 @@ def main():
     print("=" * 60)
     print("KNOT INVARIANTS UNDER REIDEMEISTER MOVES")
     print("=" * 60)
-    
+
     print("\n1. Writhe (NOT an invariant - changes under R1):")
     print("-" * 40)
     verify_writhe_changes_under_r1()
-    
+
     print("\n2. Kauffman bracket (NOT invariant under R1):")
     print("-" * 40)
     verify_bracket_not_invariant_under_r1()
-    
+
     print("\n3. Jones polynomial (IS an invariant):")
     print("-" * 40)
     verify_jones_invariant()
-    
+
     print("\n4. Crossing number (IS an invariant):")
     print("-" * 40)
     verify_crossing_number_invariant()
-    
+
     print("\n" + "=" * 60)
     print("KEY FACTS:")
     print("=" * 60)
@@ -253,10 +251,10 @@ def main():
     - HOMFLY-PT: Generalization of Jones. IS invariant.
     - Crossing number: Minimum crossings. IS invariant (defined as minimum).
     - Unknotting number: IS invariant.
-    
+
     The normalization trick:
       V(K) = (-A^3)^{-writhe(K)} × <K>
-    
+
     When R1 changes writhe by ±1 and bracket by -A^{∓3},
     these cancel, making Jones polynomial invariant.
     """)

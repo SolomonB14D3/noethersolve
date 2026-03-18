@@ -182,8 +182,8 @@ class TestTemporalDiscounting:
 
     def test_present_bias(self):
         """CRITICAL: Hyperbolic > Exponential for near-term."""
-        exp_pv = exponential_discount(100, periods=1, rate=0.1)
-        hyp_pv = hyperbolic_discount(100, periods=1, k=0.1)
+        exponential_discount(100, periods=1, rate=0.1)
+        hyperbolic_discount(100, periods=1, k=0.1)
 
         # Hyperbolic typically values near-term more
         # (depends on parameters, but generally true)
@@ -249,8 +249,8 @@ class TestLossAversion:
 
         assert report.expected_value == 0.0
         assert report.prospect_value < 0
-        assert report.should_take_gamble_ev == False
-        assert report.should_take_gamble_pt == False
+        assert not report.should_take_gamble_ev
+        assert not report.should_take_gamble_pt
 
     def test_breakeven_gain(self):
         """CRITICAL: Need ~2.25x gain to offset loss."""
@@ -288,7 +288,7 @@ class TestMentalAccounting:
             integrated_value=0,     # Net is zero
         )
 
-        assert result["mental_accounting_present"] == True
+        assert result["mental_accounting_present"]
         assert result["violation_magnitude"] == 20
 
     def test_fungibility_holds(self):
@@ -300,7 +300,7 @@ class TestMentalAccounting:
             integrated_value=0,
         )
 
-        assert result["fungibility_holds"] == True
+        assert result["fungibility_holds"]
 
 
 class TestFramingEffect:
@@ -340,7 +340,7 @@ class TestHerdingCascade:
         )
 
         # With only 1 predecessor, agent should use own signal
-        assert result["cascade_triggered"] == False
+        assert not result["cascade_triggered"]
 
     def test_invalid_signal_precision(self):
         """Signal precision ≤ 0.5 should error."""

@@ -10,7 +10,7 @@ What's the difference?
 
 import numpy as np
 from scipy.integrate import odeint
-from itertools import combinations, permutations
+from itertools import combinations
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -393,7 +393,7 @@ def main():
     print("TEST 2: Random configs (like triplet_invariant.py)")
     print("="*60)
     for seed in [300, 400, 500]:
-        test_configuration(seed, 5, 30.0, f"Random config")
+        test_configuration(seed, 5, 30.0, "Random config")
 
     # Symmetric configs
     test_symmetric_configs()

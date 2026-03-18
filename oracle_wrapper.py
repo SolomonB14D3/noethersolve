@@ -30,7 +30,6 @@ Usage:
 
 import argparse
 import json
-import sys
 import os
 import time
 import yaml
@@ -42,7 +41,7 @@ import numpy as np
 # Reuse oracle machinery from Operation Destroyer
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-from noethersolve.oracle import score_fact_mc, get_completion_logprob
+from noethersolve.oracle import score_fact_mc
 
 
 # --------------------------------------------------------------------------
@@ -172,13 +171,13 @@ def run_oracle_with_ranking(model, tokenizer, facts: list,
 def print_ranking_report(summary: dict):
     """Print ranking-based report showing quality scores."""
     print(f"\n{'='*60}")
-    print(f"  Ranking Report (quality scores)")
+    print("  Ranking Report (quality scores)")
     print(f"{'='*60}")
     print(f"  Total facts: {summary['n_total']}")
     print(f"  Pass rate:   {summary['n_pass']}/{summary['n_total']} ({summary['frac_pass']:.1%})")
     print(f"  Mean margin: {summary['mean_margin']:+.3f}")
 
-    print(f"\n  Ranked by quality (highest first):")
+    print("\n  Ranked by quality (highest first):")
     for i, r in enumerate(summary["ranked"][:10]):
         status = "✓" if r["win"] else "✗"
         print(f"    {i+1:2d}. [{status}] margin={r['margin']:+7.2f}  {r['truth'][:50]}")
@@ -267,7 +266,7 @@ def print_quadrant_diagnosis(baseline: dict, repaired: dict | None,
     print(f"  Diagnostic Quadrant: {quadrant.upper()}")
     r_margin_str = f"{r_margin:+.3f}" if r_margin is not None else "n/a"
     print(f"  Margin baseline → repaired: {b_margin:+.3f} → {r_margin_str}  (Δ={delta_str})")
-    print(f"\n  Recommended action:")
+    print("\n  Recommended action:")
     for line in QUADRANT_ACTIONS[quadrant].splitlines():
         print(f"    {line}")
     print(f"{'─'*60}")
@@ -336,7 +335,7 @@ def main():
             print(f"\n  [ranking] Adapter not found: {RANKING_ADAPTER_PATH}")
             print("  Run train_ranking_quick.py to create it.")
         else:
-            print(f"\nRunning ranking oracle (quality-based scoring)...")
+            print("\nRunning ranking oracle (quality-based scoring)...")
             adapter, lm_head = load_adapter_for_model(model, RANKING_ADAPTER_PATH, args.d_inner)
             ranking_summary = run_oracle_with_ranking(
                 model, tokenizer, facts, adapter=adapter, lm_head=lm_head

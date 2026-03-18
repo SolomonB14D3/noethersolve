@@ -15,8 +15,7 @@ APPROACHES:
 
 import numpy as np
 from scipy.integrate import odeint
-from scipy.linalg import eig, svd
-from itertools import combinations
+from scipy.linalg import svd
 import warnings
 warnings.filterwarnings('ignore')
 

@@ -11,10 +11,9 @@ Usage:
 
 import argparse
 import json
-import os
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import List
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -233,7 +232,7 @@ def main():
             f.write(json.dumps(record) + "\n")
 
     print(f"\n{'='*60}")
-    print(f"SUMMARY")
+    print("SUMMARY")
     print(f"{'='*60}")
     print(f"Total records: {len(all_records)}")
     print(f"Flipped: {sum(1 for r in all_records if r['flipped'])}")

@@ -28,7 +28,7 @@ def verify_qr2_identity():
     print(f"Direct:   {Q_r2_direct:.10f}")
     print(f"Identity: {Q_r2_identity:.10f}")
     print(f"Difference: {diff:.2e}")
-    print(f"Paper claims: Direct=0.3822000000, Identity=0.3822000000, Diff=8.33e-16")
+    print("Paper claims: Direct=0.3822000000, Identity=0.3822000000, Diff=8.33e-16")
     print(f"MATCH: {abs(Q_r2_direct - 0.3822) < 1e-4}")
     assert diff < 1e-14, f"Identity mismatch: {diff}"
     print("PASS\n")
@@ -42,7 +42,7 @@ def verify_k5_laplacian():
 
     print("=== K5 Laplacian Verification ===")
     print(f"Eigenvalues: {[round(e, 1) for e in eigenvalues]}")
-    print(f"Paper claims: {{0, 5, 5, 5, 5}}")
+    print("Paper claims: {0, 5, 5, 5, 5}")
     assert abs(eigenvalues[0]) < 1e-10, "First eigenvalue should be 0"
     for i in range(1, 5):
         assert abs(eigenvalues[i] - 5.0) < 1e-10, f"Eigenvalue {i} should be 5"
@@ -54,14 +54,14 @@ def verify_k5_laplacian():
 
     print(f"Pseudoinverse diagonal: {diag:.2f}")
     print(f"Pseudoinverse off-diagonal: {offdiag:.2f}")
-    print(f"Paper claims: diagonal=0.16, off-diagonal=-0.04")
+    print("Paper claims: diagonal=0.16, off-diagonal=-0.04")
     assert abs(diag - 0.16) < 0.01, f"Diagonal mismatch: {diag}"
     assert abs(offdiag - (-0.04)) < 0.01, f"Off-diagonal mismatch: {offdiag}"
 
     # Effective resistance
     R_ij = diag + diag - 2 * offdiag
     print(f"Effective resistance R_ij: {R_ij:.2f}")
-    print(f"Paper claims: R_ij = 0.40 = 2/n = 2/5")
+    print("Paper claims: R_ij = 0.40 = 2/n = 2/5")
     assert abs(R_ij - 0.40) < 0.01, f"Resistance mismatch: {R_ij}"
 
     # Spectral gap
@@ -69,7 +69,7 @@ def verify_k5_laplacian():
     tau = 1.0 / spectral_gap
     print(f"Spectral gap: {spectral_gap}")
     print(f"Relaxation timescale: {tau}")
-    print(f"Paper claims: gap=5, tau=0.2")
+    print("Paper claims: gap=5, tau=0.2")
     assert abs(tau - 0.2) < 0.01
     print("PASS\n")
 

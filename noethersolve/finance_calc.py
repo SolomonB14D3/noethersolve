@@ -7,7 +7,7 @@ and 2x2 game theory (Nash equilibrium).
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
 
@@ -33,7 +33,7 @@ class BlackScholesReport:
         lines = [
             f"Black-Scholes {self.option_type.upper()} Option:",
             f"  Price = {self.price:.4f}",
-            f"  Greeks:",
+            "  Greeks:",
             f"    Delta = {self.delta:.4f}",
             f"    Gamma = {self.gamma:.6f}",
             f"    Theta = {self.theta:.4f} /day",
@@ -62,7 +62,7 @@ class PutCallParityReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Put-Call Parity Check:",
+            "Put-Call Parity Check:",
             f"  C - P = {self.lhs:.4f}",
             f"  S - PV(K) = {self.rhs:.4f}",
             f"  Difference = {abs(self.lhs - self.rhs):.4f}",
@@ -108,7 +108,7 @@ class PresentValueReport:
 
     def __str__(self) -> str:
         lines = [
-            f"Time Value of Money:",
+            "Time Value of Money:",
             f"  Present Value = {self.present_value:.2f}",
             f"  Future Value  = {self.future_value:.2f}",
             f"  Rate = {self.rate*100:.2f}% per period",

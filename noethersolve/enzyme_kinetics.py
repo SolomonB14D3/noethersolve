@@ -32,7 +32,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional, Tuple
 
 
 # ─── Constants ───────────────────────────────────────────────────────────────
@@ -102,18 +102,18 @@ class InhibitionReport:
         if self.mode == "competitive":
             lines.append("  Competitive: Km↑ (harder to bind), Vmax unchanged")
             lines.append("  Can be overcome by increasing [S]")
-            lines.append(f"  Lineweaver-Burk: same y-intercept (1/Vmax), different x-intercept (-1/Km_app)")
+            lines.append("  Lineweaver-Burk: same y-intercept (1/Vmax), different x-intercept (-1/Km_app)")
         elif self.mode == "noncompetitive":
             lines.append("  Noncompetitive: Vmax↓ (fewer active enzyme), Km unchanged")
             lines.append("  CANNOT be overcome by increasing [S]")
-            lines.append(f"  Lineweaver-Burk: different y-intercept (1/Vmax_app), same x-intercept (-1/Km)")
+            lines.append("  Lineweaver-Burk: different y-intercept (1/Vmax_app), same x-intercept (-1/Km)")
         elif self.mode == "uncompetitive":
             lines.append("  Uncompetitive: both Vmax↓ and Km↓ (ratio Vmax/Km unchanged)")
             lines.append("  Inhibitor binds ES complex only")
-            lines.append(f"  Lineweaver-Burk: parallel lines (same slope, different intercepts)")
+            lines.append("  Lineweaver-Burk: parallel lines (same slope, different intercepts)")
         elif self.mode == "mixed":
             lines.append("  Mixed: both Vmax↓ and Km changes")
-            lines.append(f"  Lineweaver-Burk: lines intersect left of y-axis")
+            lines.append("  Lineweaver-Burk: lines intersect left of y-axis")
 
         if self.notes:
             for n in self.notes:
@@ -139,7 +139,7 @@ class EfficiencyReport:
         lines.append(f"  kcat/Km = {self.kcat_over_Km:.4g} M⁻¹s⁻¹")
         lines.append(f"  Class: {self.efficiency_class}")
         if self.is_diffusion_limited:
-            lines.append(f"  ⚡ Near diffusion limit (~10⁸–10⁹ M⁻¹s⁻¹) — catalytically perfect!")
+            lines.append("  ⚡ Near diffusion limit (~10⁸–10⁹ M⁻¹s⁻¹) — catalytically perfect!")
         lines.append("-" * 60)
         # Reference enzymes
         lines.append("  Reference enzymes:")
@@ -167,7 +167,7 @@ class LineweaverBurkReport:
 
     def __str__(self) -> str:
         lines = ["=" * 60, "  Lineweaver-Burk (Double Reciprocal) Plot", "=" * 60]
-        lines.append(f"  1/V0 = (Km/Vmax) × (1/[S]) + 1/Vmax")
+        lines.append("  1/V0 = (Km/Vmax) × (1/[S]) + 1/Vmax")
         lines.append(f"  Slope = Km/Vmax = {self.slope:.4g}")
         lines.append(f"  y-intercept = 1/Vmax = {self.y_intercept:.4g}  →  Vmax = {self.Vmax:.4g}")
         lines.append(f"  x-intercept = -1/Km = {self.x_intercept:.4g}  →  Km = {self.Km:.4g}")

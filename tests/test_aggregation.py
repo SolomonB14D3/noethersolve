@@ -3,8 +3,6 @@
 import pytest
 from noethersolve.aggregation import (
     predict_aggregation,
-    AggregationReport,
-    AggregationIssue,
     KYTE_DOOLITTLE,
     AGGRESCAN,
 )

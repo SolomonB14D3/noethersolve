@@ -226,8 +226,8 @@ def integrate_em(solver, E0, B0, t_end=4.0, dt=0.02, n_points=100):
 
     for step in range(n_steps + 1):
         if step % save_every == 0:
-            E = solver.to_physical(E_hat)
-            B = solver.to_physical(B_hat)
+            solver.to_physical(E_hat)
+            solver.to_physical(B_hat)
             t_history.append(step * dt)
             E_history.append(E_hat)  # Keep spectral for curl computations
             B_history.append(B_hat)

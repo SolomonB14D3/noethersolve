@@ -7,7 +7,6 @@ with vortex mergers, filament stretching, and cascade behavior.
 """
 
 import numpy as np
-from numpy.fft import fft2, ifft2, fftfreq
 from test_continuous_qf import Euler2DSolver, compute_Qf_fft, make_distance_kernel
 
 def random_vorticity_field(N, L, n_modes=20, amplitude=1.0, seed=42):
@@ -81,7 +80,7 @@ def run_turbulence_test(omega0, name, T=10.0, dt=0.01):
     print(f"  Initial enstrophy: {np.sum(omega0**2) * dx**2:.4f}")
 
     # Integrate
-    print(f"  Integrating...")
+    print("  Integrating...")
     history = solver.integrate(omega0, T, dt)
     print(f"  Collected {len(history)} snapshots")
 
@@ -123,7 +122,7 @@ def run_turbulence_test(omega0, name, T=10.0, dt=0.01):
     # Verify standard invariants
     circs = [np.sum(omega) * dx**2 for _, omega in history]
     ensts = [np.sum(omega**2) * dx**2 for _, omega in history]
-    print(f"\n  Control invariants:")
+    print("\n  Control invariants:")
     print(f"    Circulation: frac_var = {np.std(circs)/abs(np.mean(circs)):.2e}")
     print(f"    Enstrophy:   frac_var = {np.std(ensts)/abs(np.mean(ensts)):.2e}")
 

@@ -22,8 +22,7 @@ from pathlib import Path
 import mlx_lm
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from noethersolve.adapter_router import AdapterRouter, RouterConfig
-from noethersolve.train_utils import get_lm_head_fn
+from noethersolve.adapter_router import AdapterRouter
 
 MODEL_ID = "Qwen/Qwen3-4B-Base"
 PROBLEMS_DIR = Path(__file__).resolve().parent.parent / "problems"

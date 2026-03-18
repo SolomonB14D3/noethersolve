@@ -15,7 +15,7 @@ def make_plane_wave(N=32, L=2*np.pi, k_z=2.0):
     E = (cos(kz), sin(kz), 0), B = (-sin(kz), cos(kz), 0)
     This is an exact solution of Maxwell's equations.
     """
-    dx = L / N
+    L / N
     x = np.linspace(0, L, N, endpoint=False)
     X, Y, Z = np.meshgrid(x, x, x, indexing='ij')
     phase = k_z * Z
@@ -32,7 +32,7 @@ def make_plane_wave(N=32, L=2*np.pi, k_z=2.0):
 
 def make_gaussian_packet(N=32, L=2*np.pi, sigma=0.6, k_z=4.0):
     """Gaussian wave packet with circular polarization."""
-    dx = L / N
+    L / N
     x = np.linspace(0, L, N, endpoint=False)
     X, Y, Z = np.meshgrid(x, x, x, indexing='ij')
 

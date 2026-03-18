@@ -281,12 +281,12 @@ def print_analysis(result: AnalysisResult):
     print(f"VERDICT: {result.verdict.value.upper()}")
 
     if result.fallacies:
-        print(f"\nFALLACIES DETECTED:")
+        print("\nFALLACIES DETECTED:")
         for fallacy in result.fallacies:
             print(f"  - {fallacy.value}")
 
     if result.explanations:
-        print(f"\nEXPLANATIONS:")
+        print("\nEXPLANATIONS:")
         for i, exp in enumerate(result.explanations, 1):
             print(f"  {i}. {exp}")
 
