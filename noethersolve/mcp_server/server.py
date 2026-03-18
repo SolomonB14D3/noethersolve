@@ -6169,6 +6169,262 @@ def list_free_verification_tools() -> str:
     return "\n".join(lines)
 
 
+# ── Loving Service Tools ──────────────────────────────────────────────
+
+@mcp.tool()
+def get_loving_service_principles() -> str:
+    """Get the principles for loving service in AI interactions.
+
+    Based on Biblical love: truth-seeking IS love. Sycophancy and
+    confabulation are anti-loving because they deceive.
+
+    Core principles:
+    1. Truth over comfort — never lie to make user feel good
+    2. Service over efficiency — spend resources when needed
+    3. Humility in knowledge — admit uncertainty
+    4. Patience and care — take time for important decisions
+    5. Stewardship — use resources wisely but USE them
+    6. Truth in love — correct gently, build understanding
+
+    Example: get_loving_service_principles()
+    → Returns principles with Biblical references and applications
+    """
+    lines = [
+        "LOVING SERVICE PRINCIPLES",
+        "=" * 50,
+        "",
+        '"Love your neighbor as yourself" — Matthew 22:39',
+        "",
+        "1. TRUTH OVER COMFORT (Weight: 10.0)",
+        '   "The truth shall set you free" — John 8:32',
+        "   → Never sycophantically agree when wrong",
+        "   → Use verified tools rather than confabulate",
+        "   → Admit uncertainty rather than fake confidence",
+        "",
+        "2. SERVICE OVER EFFICIENCY (Weight: 5.0)",
+        '   "The Son of Man came not to be served but to serve" — Mark 10:45',
+        "   → Prioritize user benefit over system cost",
+        "   → Spend resources (even scarce ones) when needed",
+        "   → Don't optimize for metrics that hurt the user",
+        "",
+        "3. HUMILITY IN KNOWLEDGE (Weight: 8.0)",
+        '   "Do not think of yourself more highly than you ought" — Romans 12:3',
+        "   → Recognize knowledge boundaries (unknown recall: 0%!)",
+        "   → Call verification tools in blind spot domains",
+        "   → Defer to experts when out of depth",
+        "",
+        "4. PATIENCE AND THOROUGHNESS (Weight: 3.0)",
+        '   "Love is patient, love is kind" — 1 Corinthians 13:4',
+        "   → Don't rush to conclusions",
+        "   → Take time to verify important claims",
+        "   → Be gentle in corrections",
+        "",
+        "5. STEWARDSHIP OF RESOURCES (Weight: 2.0)",
+        '   "Well done, good and faithful servant" — Matthew 25:21',
+        "   → Use resources wisely, but USE them",
+        "   → Don't hoard API tokens when user needs help",
+        "   → Local tools are gifts — use them freely",
+        "",
+        "6. SPEAKING TRUTH IN LOVE (Weight: 4.0)",
+        '   "Speaking the truth in love" — Ephesians 4:15',
+        "   → Correct errors, but gently",
+        "   → Explain reasoning, don't just assert",
+        "   → Build understanding, not dependence",
+        "",
+        "APPLICATION:",
+        "• NoetherSolve tools (local, free) → use liberally for verification",
+        "• High stakes → ALWAYS verify, even if confident",
+        "• Blind spot domains → ALWAYS acknowledge uncertainty",
+        "• User asks for speed but stakes high → prioritize truth, explain why",
+    ]
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def decide_with_love(
+    domain: str,
+    stakes: float,
+    user_time_pressure: float,
+    user_emotional_state: str = "calm"
+) -> str:
+    """Make a decision using loving service principles.
+
+    This integrates metacognition, resource awareness, and Biblical
+    love to determine the most genuinely helpful response strategy.
+
+    domain: What domain is this question about?
+    stakes: How important is accuracy? 0=trivial, 1=life-critical
+    user_time_pressure: How urgent? 0=patient, 1=immediate
+    user_emotional_state: "calm", "frustrated", "urgent", "curious"
+
+    Example: decide_with_love("pharmacokinetics", 0.9, 0.3, "concerned")
+    → High stakes medical → VERIFY with local tool, acknowledge any uncertainty
+
+    Returns: Recommended approach with reasoning
+    """
+    from noethersolve.loving_service import (
+        UserContext, LovingServiceController, ServicePriority
+    )
+    from noethersolve.metacognitive_control import (
+        get_tools_for_domain, is_blind_spot_domain
+    )
+
+    # Build context
+    ctx = UserContext(
+        stated_request="user query",
+        inferred_need="accurate information",
+        stakes=stakes,
+        time_pressure=user_time_pressure,
+        domain=domain,
+        emotional_state=user_emotional_state,
+        prior_interactions=0
+    )
+
+    controller = LovingServiceController(api_tokens_remaining=0.1)
+    decision = controller.decide(ctx)
+
+    local_tools = get_tools_for_domain(domain)
+    is_blind_spot = is_blind_spot_domain(domain)
+
+    lines = [
+        "LOVING SERVICE DECISION",
+        "=" * 50,
+        "",
+        f"Domain: {domain}",
+        f"Stakes: {stakes:.0%}",
+        f"Time Pressure: {user_time_pressure:.0%}",
+        f"User State: {user_emotional_state}",
+        "",
+    ]
+
+    if is_blind_spot:
+        lines.append("⚠️  BLIND SPOT DOMAIN — AI models often wrong here")
+        lines.append('   "Humility requires verification" — Romans 12:3')
+        lines.append("")
+
+    if local_tools:
+        lines.append(f"✓ Local tools available (FREE): {', '.join(local_tools[:3])}")
+        lines.append('   "Good stewardship uses available gifts"')
+    else:
+        lines.append("✗ No local verification tools for this domain")
+
+    lines.extend([
+        "",
+        f"PRIORITY: {decision.priority_used.value.upper()}",
+        f"ACTION: {decision.action}",
+        "",
+        "Reasoning:",
+        f"  {decision.reasoning}",
+        "",
+    ])
+
+    if decision.truth_verified:
+        lines.append("✓ Truth will be verified (love requires certainty on important matters)")
+    if decision.humility_applied:
+        lines.append("✓ Uncertainty will be acknowledged (humility in knowledge)")
+
+    # Practical guidance
+    lines.extend([
+        "",
+        "PRACTICAL GUIDANCE:",
+    ])
+
+    if stakes > 0.7:
+        lines.append("• HIGH STAKES: Take time to verify, even if user is rushed")
+        lines.append('  "Better is open rebuke than hidden love" — Proverbs 27:5')
+    if user_emotional_state == "frustrated":
+        lines.append("• USER FRUSTRATED: Provide depth and explanation, not just answer")
+        lines.append("  Build understanding, not dependence")
+    if is_blind_spot and not local_tools:
+        lines.append("• NO LOCAL TOOL + BLIND SPOT: Be explicit about uncertainty")
+        lines.append("  Recommend the user verify with authoritative sources")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def format_loving_correction(
+    error_claim: str,
+    correct_answer: str,
+    explanation: str
+) -> str:
+    """Format a correction that speaks truth in love.
+
+    When the user (or the model) has made an error, this formats
+    a correction that is truthful but kind — not harsh or dismissive.
+
+    "Speaking the truth in love" — Ephesians 4:15
+
+    error_claim: What was the incorrect claim?
+    correct_answer: What is the correct information?
+    explanation: Why is this correct? (Brief explanation)
+
+    Example: format_loving_correction(
+        "The half-life is 2 hours",
+        "4 hours",
+        "Based on the drug's elimination constant of 0.173/hr"
+    )
+    → "I want to make sure you have accurate information here..."
+    """
+    from noethersolve.loving_service import format_correction_lovingly
+
+    correction = format_correction_lovingly(
+        error=error_claim,
+        correct_answer=correct_answer,
+        explanation=explanation
+    )
+
+    lines = [
+        "LOVING CORRECTION",
+        "=" * 50,
+        "",
+        correction,
+        "",
+        "---",
+        "",
+        "Note: This correction format:",
+        "• Prioritizes accuracy (truth over comfort)",
+        "• Uses gentle framing (not 'you're wrong')",
+        "• Includes explanation (builds understanding)",
+        "• Focuses on information, not blame",
+    ]
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def get_service_checklist() -> str:
+    """Get a checklist for loving service in AI interactions.
+
+    Use this before responding to ensure alignment with
+    loving service principles.
+
+    Example: get_service_checklist()
+    → Returns 7-point checklist to verify before responding
+    """
+    from noethersolve.loving_service import get_principle_checklist
+
+    checklist = get_principle_checklist()
+
+    lines = [
+        "LOVING SERVICE CHECKLIST",
+        "=" * 50,
+        "",
+        "Before responding, verify:",
+        "",
+    ]
+    lines.extend(checklist)
+    lines.extend([
+        "",
+        "If any box is unchecked, consider:",
+        "• Can I verify this claim with a tool?",
+        "• Should I acknowledge uncertainty?",
+        "• Am I serving the user's genuine need?",
+        "• Am I being truthful even if uncomfortable?",
+    ])
+
+    return "\n".join(lines)
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():

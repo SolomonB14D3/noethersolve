@@ -69,6 +69,7 @@ Package layout:
   noethersolve.autonomy_analysis — Autonomy requirements checker (control theory, autopoiesis, robotics)
   noethersolve.metacognition — Metacognition analysis (calibration, resolution, meta-d', unknown recall)
   noethersolve.metacognitive_control — Metacognitive control (when to think about thinking vs act)
+  noethersolve.loving_service — Biblical love principles for AI decision-making (truth, humility, service)
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -874,6 +875,21 @@ from noethersolve.metacognition import (  # noqa: F401
     get_llm_metacognition_baseline,
     list_metacognitive_capabilities,
     LLM_TYPICAL_PROFILE,
+)
+
+from noethersolve.loving_service import (  # noqa: F401
+    ServicePriority,
+    LovingDecision,
+    UserContext,
+    LovingServiceController,
+    should_verify_with_tool,
+    compute_loving_response_priority,
+    should_spend_scarce_resources,
+    format_correction_lovingly,
+    acknowledge_uncertainty,
+    get_principle_checklist,
+    integrate_with_autonomy_loop,
+    PRINCIPLE_WEIGHTS,
 )
 
 from noethersolve.metacognitive_control import (  # noqa: F401
