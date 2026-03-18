@@ -39,6 +39,40 @@ class ResourceType(Enum):
     MEMORY = "memory"                  # RAM/context window
 
 
+def detect_mlx_available() -> bool:
+    """Check if MLX is available (Apple Silicon Mac)."""
+    try:
+        import mlx.core  # noqa: F401
+        return True
+    except ImportError:
+        return False
+
+
+def get_compute_backend() -> str:
+    """Detect the best available compute backend."""
+    if detect_mlx_available():
+        return "mlx"  # Apple Silicon - fast local inference
+    try:
+        import torch
+        if torch.cuda.is_available():
+            return "cuda"  # NVIDIA GPU
+        elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            return "mps"  # Apple Silicon via PyTorch (slower than MLX)
+        return "cpu"
+    except ImportError:
+        return "cpu"
+
+
+# MLX gives ~10x speedup on Apple Silicon vs PyTorch MPS
+# This affects the "cost" of local inference
+BACKEND_EFFICIENCY = {
+    "mlx": 1.0,     # Baseline - fastest on Apple Silicon
+    "cuda": 1.0,    # NVIDIA - fast
+    "mps": 0.3,     # PyTorch MPS - slower, can deadlock on training
+    "cpu": 0.1,     # CPU only - slow but works everywhere
+}
+
+
 @dataclass
 class ResourceCost:
     """Cost of an action in different resource types."""
@@ -59,19 +93,37 @@ class ResourceCost:
 
 @dataclass
 class ResourceBudget:
-    """Available resources for a session."""
+    """Available resources for a session.
+
+    On Mac with MLX: local_compute is essentially FREE and FAST.
+    MLX loads 7B models in 1.5s vs 20s for PyTorch, with native Metal.
+
+    Default weights strongly favor local compute (especially with MLX)
+    over API tokens (limited weekly Claude quota).
+    """
     local_compute: float = 1.0     # Basically unlimited
     api_tokens: float = 0.1        # Very limited (e.g., weekly quota)
     latency: float = 1.0           # 1.0 = user is patient
     memory: float = 0.5            # Context window constraint
 
+    # Compute backend info (auto-detected)
+    compute_backend: str = field(default_factory=get_compute_backend)
+    has_mlx: bool = field(default_factory=detect_mlx_available)
+
     # Weights for cost-benefit: higher = more expensive to use
     weights: Dict[str, float] = field(default_factory=lambda: {
-        "local_compute": 0.01,  # Almost free
+        "local_compute": 0.01,  # Almost free (even cheaper with MLX)
         "api_tokens": 10.0,     # Very expensive - limited weekly
         "latency": 0.5,         # Moderate cost
         "memory": 0.3,          # Some cost
     })
+
+    def __post_init__(self):
+        """Adjust weights based on available compute backend."""
+        if self.has_mlx:
+            # MLX makes local compute even cheaper
+            self.weights["local_compute"] = 0.001  # Essentially free
+            self.weights["latency"] = 0.2  # MLX is fast, latency less of a concern
 
     def can_afford(self, cost: ResourceCost) -> bool:
         """Check if we have budget for this action."""

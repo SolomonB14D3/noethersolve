@@ -31,6 +31,10 @@ from noethersolve.metacognitive_control import (
     compute_resource_aware_ev,
     ACTION_RESOURCE_COSTS,
     TOOL_TYPES,
+    # MLX detection
+    detect_mlx_available,
+    get_compute_backend,
+    BACKEND_EFFICIENCY,
 )
 
 
@@ -688,6 +692,38 @@ class TestToolTypes:
 
     def test_external_tools_are_api(self):
         assert TOOL_TYPES.get("web_search", ToolType.API) == ToolType.API
+
+
+class TestMLXDetection:
+    """Tests for MLX and compute backend detection."""
+
+    def test_detect_mlx_returns_bool(self):
+        result = detect_mlx_available()
+        assert isinstance(result, bool)
+
+    def test_get_compute_backend_returns_valid(self):
+        backend = get_compute_backend()
+        assert backend in ["mlx", "cuda", "mps", "cpu"]
+
+    def test_backend_efficiency_all_present(self):
+        assert "mlx" in BACKEND_EFFICIENCY
+        assert "cuda" in BACKEND_EFFICIENCY
+        assert "mps" in BACKEND_EFFICIENCY
+        assert "cpu" in BACKEND_EFFICIENCY
+
+    def test_mlx_is_efficient(self):
+        """MLX should be as efficient as CUDA."""
+        assert BACKEND_EFFICIENCY["mlx"] == BACKEND_EFFICIENCY["cuda"]
+
+    def test_budget_adjusts_for_mlx(self):
+        """ResourceBudget should adjust weights when MLX available."""
+        budget = ResourceBudget()
+        if budget.has_mlx:
+            # MLX makes local compute even cheaper
+            assert budget.weights["local_compute"] <= 0.01
+        else:
+            # Without MLX, still cheap but not as extreme
+            assert budget.weights["local_compute"] <= 0.1
 
 
 class TestIntegration:

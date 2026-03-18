@@ -920,6 +920,10 @@ from noethersolve.metacognitive_control import (  # noqa: F401
     # Resource-aware functions
     prefer_local_tools,
     compute_resource_aware_ev,
+    # MLX/compute backend detection
+    detect_mlx_available,
+    get_compute_backend,
+    BACKEND_EFFICIENCY,
     # Constants
     ACTION_COSTS,
     ACTION_RESOURCE_COSTS,
