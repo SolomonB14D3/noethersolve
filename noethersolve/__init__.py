@@ -877,6 +877,11 @@ from noethersolve.metacognition import (  # noqa: F401
     LLM_TYPICAL_PROFILE,
 )
 
+from noethersolve.loving_autonomy import (  # noqa: F401
+    LovingAssistant,
+    AssistantResponse,
+)
+
 from noethersolve.loving_service import (  # noqa: F401
     ServicePriority,
     LovingDecision,
