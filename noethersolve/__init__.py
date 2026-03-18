@@ -739,6 +739,21 @@ from noethersolve.battery_degradation import (  # noqa: F401
     CHEMISTRY_PARAMS,
 )
 
+from noethersolve.catalysis import (  # noqa: F401
+    calc_bep_activation,
+    calc_volcano_position,
+    calc_d_band_center,
+    get_scaling_relation,
+    find_optimal_catalyst,
+    BEPReport,
+    VolcanoReport,
+    DBandReport,
+    ScalingRelationReport,
+    BEP_PARAMS,
+    VOLCANO_REACTIONS,
+    D_BAND_CENTERS,
+)
+
 from noethersolve.tool_graph import (  # noqa: F401
     calculator,
     get_registry,

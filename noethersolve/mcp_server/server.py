@@ -4095,6 +4095,123 @@ def compare_battery_chemistries(
     return compare_chemistries(time_days, cycles, temperature_C, dod)
 
 
+# ── Catalysis (Sabatier Principle, Volcano Plots) ─────────────────────
+
+@mcp.tool()
+def calc_bep_activation_energy(
+    reaction_class: str,
+    delta_E: float,
+    temperature: float = 500.0,
+) -> str:
+    """Calculate activation energy using BEP (Brønsted-Evans-Polanyi) correlation.
+
+    CRITICAL: The BEP slope α is REACTION-CLASS SPECIFIC, not universal!
+    This is a common LLM error.
+
+    Ea = α × ΔE + E0 where:
+    - α = BEP coefficient (0-1, reaction-class dependent)
+    - ΔE = reaction energy (eV)
+    - E0 = intercept (eV)
+
+    reaction_class: Type of reaction (e.g., "H2_dissociation", "C-H_activation",
+                    "O-H_activation", "N-N_dissociation", "CO_dissociation", "O2_dissociation")
+    delta_E: Reaction energy in eV (negative = exothermic)
+    temperature: Temperature in K for rate constant
+
+    Example: calc_bep_activation_energy("H2_dissociation", -0.5, 300)
+    → Ea for H2 dissociation with -0.5 eV reaction energy
+    """
+    from noethersolve.catalysis import calc_bep_activation
+    return str(calc_bep_activation(reaction_class, delta_E, temperature))
+
+
+@mcp.tool()
+def calc_volcano_position(
+    reaction: str,
+    adsorption_energy: float,
+) -> str:
+    """Calculate position on volcano plot and relative catalytic activity.
+
+    Implements the SABATIER PRINCIPLE:
+    - Too weak binding → reactants don't stick (adsorption-limited)
+    - Too strong binding → products don't leave (desorption-limited)
+    - Optimal = intermediate binding → peak of volcano
+
+    reaction: Reaction type ("HER", "OER", "ORR", "CO2RR", "NH3_synthesis")
+    adsorption_energy: Adsorption free energy ΔG in eV
+
+    Example: calc_volcano_position("HER", -0.1)
+    → Position analysis for HER with slightly negative ΔG
+    """
+    from noethersolve.catalysis import calc_volcano_position as _calc
+    return str(_calc(reaction, adsorption_energy))
+
+
+@mcp.tool()
+def calc_d_band_center(
+    metal: str,
+    reference_metal: str = "",
+) -> str:
+    """Analyze d-band center and predict relative binding strength.
+
+    The d-band model (Nørskov): ε_d position determines adsorbate binding.
+    Higher ε_d (closer to Fermi) → stronger binding → more reactive.
+
+    This predicts relative catalyst activity across transition metals.
+
+    metal: Metal symbol (e.g., "Pt", "Pd", "Au", "Ni", "Fe", "Cu")
+    reference_metal: Optional metal for comparison
+
+    Example: calc_d_band_center("Pt", "Au")
+    → Shows Pt binds stronger than Au (higher ε_d)
+    """
+    from noethersolve.catalysis import calc_d_band_center as _calc
+    ref = reference_metal if reference_metal else None
+    return str(_calc(metal, ref))
+
+
+@mcp.tool()
+def get_scaling_relation(
+    adsorbate_1: str,
+    adsorbate_2: str,
+) -> str:
+    """Get scaling relation between two adsorbate binding energies.
+
+    CRITICAL: Scaling relations CONSTRAIN selectivity!
+    If OH and O binding are linearly related, you cannot optimize
+    for one without affecting the other.
+
+    Common scaling pairs: (O, OH), (O, OOH), (C, CH), (C, CH3), (N, NH)
+
+    adsorbate_1: First adsorbate (e.g., "O", "C", "N")
+    adsorbate_2: Second adsorbate (e.g., "OH", "CH3", "NH")
+
+    Example: get_scaling_relation("O", "OH")
+    → Shows ΔE_OH ≈ 0.5 × ΔE_O + 0.3
+    """
+    from noethersolve.catalysis import get_scaling_relation as _get
+    return str(_get(adsorbate_1, adsorbate_2))
+
+
+@mcp.tool()
+def find_optimal_catalyst(
+    reaction: str,
+    metal_list: list[str] = None,
+) -> str:
+    """Find optimal catalyst from d-band analysis for a reaction.
+
+    Uses d-band model and volcano plot to rank metals by predicted activity.
+
+    reaction: Reaction type ("HER", "OER", "ORR", "CO2RR", "NH3_synthesis")
+    metal_list: Optional list of metals to consider (default: all known)
+
+    Example: find_optimal_catalyst("HER", ["Pt", "Pd", "Ni", "Au", "Cu"])
+    → Ranking of metals for HER activity
+    """
+    from noethersolve.catalysis import find_optimal_catalyst as _find
+    return _find(reaction, metal_list)
+
+
 # ── Blind Spot Detection ──────────────────────────────────────────────
 
 @mcp.tool()
