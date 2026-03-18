@@ -63,6 +63,7 @@ Package layout:
   noethersolve.seismic_waves       — P/S-wave velocities, elastic moduli, reflection coefficients, Snell's law
   noethersolve.plasma_adiabatic    — Adiabatic invariants (μ, J, Φ), magnetic mirrors, loss cone, cyclotron motion
   noethersolve.gauge_equivalence   — Type inference ↔ gauge fixing parallel (MGU, Gribov, redundant DOF)
+  noethersolve.antibody_developability — Antibody developability (viscosity, aggregation, polyreactivity)
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -755,6 +756,23 @@ from noethersolve.catalysis import (  # noqa: F401
     D_BAND_CENTERS,
 )
 
+from noethersolve.antibody_developability import (  # noqa: F401
+    analyze_charge,
+    analyze_aggregation,
+    analyze_polyreactivity,
+    analyze_liabilities,
+    assess_developability,
+    calc_charge_at_ph,
+    estimate_pI,
+    find_glycosylation_sites,
+    ChargeReport,
+    AggregationReport as AbAggregationReport,
+    PolyreactivityReport,
+    LiabilityReport,
+    DevelopabilityReport,
+    RiskLevel as AbRiskLevel,
+)
+
 from noethersolve.gauge_equivalence import (  # noqa: F401
     check_gauge_equivalence,
     explain_parallel,
@@ -797,4 +815,4 @@ from noethersolve.outcome_logger import (  # noqa: F401
     log_batch,
 )
 
-__version__ = "1.19.0"
+__version__ = "1.20.0"

@@ -4444,6 +4444,130 @@ def explain_why_free_energy_is_impossible() -> str:
     return "\n".join(lines)
 
 
+# ── Antibody Developability ───────────────────────────────────────────
+
+@mcp.tool()
+def analyze_antibody_charge(sequence: str) -> str:
+    """Analyze antibody charge properties and viscosity risk.
+
+    CRITICAL INSIGHT: Net charge (not hydrophobicity!) predicts viscosity.
+    This is a common LLM error — models often cite hydrophobicity as the
+    key determinant, but electrostatic interactions dominate:
+
+    High positive charge → electrostatic repulsion → LOW viscosity
+    Near-neutral charge → aggregation → HIGH viscosity
+
+    sequence: Amino acid sequence (single letter code)
+
+    Returns:
+    - Net charge at pH 7.4 and 5.0 (formulation pH)
+    - Isoelectric point (pI)
+    - Charged patches (clusters of K/R or D/E)
+    - Viscosity risk assessment
+
+    Example: analyze_antibody_charge("DIQMTQSPSSLSASVGDRVTITC...")
+    """
+    from noethersolve.antibody_developability import analyze_charge
+    return str(analyze_charge(sequence))
+
+
+@mcp.tool()
+def analyze_antibody_aggregation(sequence: str) -> str:
+    """Analyze antibody aggregation propensity.
+
+    Aggregation is driven by exposed hydrophobic patches, not overall
+    hydrophobicity. CDR loops often contain aggregation hotspots.
+
+    sequence: Amino acid sequence
+
+    Returns:
+    - Aggregation score (higher = more prone)
+    - Hydrophobicity score (Kyte-Doolittle mean)
+    - Hotspot regions (residue ranges with high propensity)
+    - Risk level assessment
+
+    Example: analyze_antibody_aggregation("EVQLVESGGGLVQPGG...")
+    """
+    from noethersolve.antibody_developability import analyze_aggregation
+    return str(analyze_aggregation(sequence))
+
+
+@mcp.tool()
+def analyze_antibody_polyreactivity(sequence: str) -> str:
+    """Analyze antibody polyreactivity (promiscuous binding) risk.
+
+    Polyreactivity correlates with:
+    - High positive charge density (K, R)
+    - High aromatic content (F, W, Y)
+    - Surface-exposed hydrophobic patches
+
+    Polyreactivity ≠ poor specificity. It measures binding to multiple
+    unrelated targets, often driven by charged/aromatic surfaces.
+
+    sequence: Amino acid sequence
+
+    Returns:
+    - Positive charge density (K+R per 100 residues)
+    - Aromatic density (F+W+Y per 100 residues)
+    - Hydrophobic cluster count
+    - Risk level and suggestions
+
+    Example: analyze_antibody_polyreactivity("QVQLQQSGAELARPGA...")
+    """
+    from noethersolve.antibody_developability import analyze_polyreactivity
+    return str(analyze_polyreactivity(sequence))
+
+
+@mcp.tool()
+def analyze_antibody_liabilities(sequence: str) -> str:
+    """Analyze chemical liabilities in antibody sequence.
+
+    Critical for stability during manufacturing and storage.
+
+    Detects:
+    - Deamidation hotspots (NG, NS, NT, DG, DS motifs)
+    - Oxidation-sensitive residues (M, W, C)
+    - N-linked glycosylation sites (N-X-S/T where X ≠ P)
+    - Asp isomerization sites (DG motif)
+
+    sequence: Amino acid sequence
+
+    Returns:
+    - List of liability sites with positions
+    - Total liability count
+    - Risk summary
+
+    Example: analyze_antibody_liabilities("EVQLVESGGGLVQPGG...")
+    """
+    from noethersolve.antibody_developability import analyze_liabilities
+    return str(analyze_liabilities(sequence))
+
+
+@mcp.tool()
+def assess_antibody_developability(sequence: str) -> str:
+    """Comprehensive antibody developability assessment.
+
+    Evaluates ALL key developability parameters:
+    1. Viscosity risk (via net charge analysis)
+    2. Aggregation propensity (hydrophobic hotspots)
+    3. Polyreactivity (charge/aromatic content)
+    4. Chemical liabilities (deamidation, oxidation, glycosylation)
+
+    CRITICAL: Net charge predicts viscosity, NOT hydrophobicity!
+
+    sequence: Amino acid sequence (Fv or full antibody)
+
+    Returns:
+    - Comprehensive report with all sub-analyses
+    - Overall risk level (worst of components)
+    - Development recommendation
+
+    Example: assess_antibody_developability("EVQLVESGGGLVQPGG...")
+    """
+    from noethersolve.antibody_developability import assess_developability
+    return str(assess_developability(sequence))
+
+
 # ── Gauge Equivalence (Type Inference ↔ Gauge Fixing) ─────────────────
 
 @mcp.tool()
