@@ -9,6 +9,7 @@ from noethersolve.autonomy_analysis import (
     AutonomyReport,
     AUTONOMY_COMPONENTS,
     SYSTEM_PROFILES,
+    IMPLEMENTATION_APPROACHES,
     get_all_components,
     assess_system,
     assess_predefined_system,
@@ -18,6 +19,10 @@ from noethersolve.autonomy_analysis import (
     analyze_transformer_autonomy,
     list_frameworks,
     list_predefined_systems,
+    get_implementation_roadmap,
+    design_autonomous_system,
+    get_minimum_viable_autonomy,
+    get_full_autonomy_blueprint,
 )
 
 
@@ -546,3 +551,258 @@ class TestReportFormatting:
 
         assert "test_component" in s
         assert "control_theory" in s
+
+
+# ── Design Guidance Tests ────────────────────────────────────────────
+
+class TestImplementationApproaches:
+    """Tests for implementation approach definitions."""
+
+    def test_all_components_have_approaches(self):
+        """Most components should have implementation approaches."""
+        # At least the major ones
+        critical_components = [
+            "feedback_loop",
+            "setpoint_generation",
+            "operational_closure",
+            "persistent_identity",
+            "embodiment",
+            "metacognition"
+        ]
+        for comp in critical_components:
+            assert comp in IMPLEMENTATION_APPROACHES
+            assert len(IMPLEMENTATION_APPROACHES[comp]) >= 1
+
+    def test_approach_structure(self):
+        """Each approach should have required fields."""
+        for component, approaches in IMPLEMENTATION_APPROACHES.items():
+            for approach in approaches:
+                assert approach.name
+                assert approach.description
+                assert approach.difficulty in ["low", "medium", "high", "research"]
+                assert isinstance(approach.existing_examples, list)
+                assert approach.integration_notes
+
+    def test_difficulty_distribution(self):
+        """Should have approaches at different difficulty levels."""
+        difficulties = {"low": 0, "medium": 0, "high": 0, "research": 0}
+        for approaches in IMPLEMENTATION_APPROACHES.values():
+            for approach in approaches:
+                difficulties[approach.difficulty] += 1
+
+        assert difficulties["low"] >= 3  # Some quick wins
+        assert difficulties["medium"] >= 5  # Medium-term goals
+        assert difficulties["high"] + difficulties["research"] >= 3  # Frontier
+
+
+class TestImplementationRoadmap:
+    """Tests for get_implementation_roadmap function."""
+
+    def test_roadmap_structure(self):
+        """Roadmap should have required sections."""
+        roadmap = get_implementation_roadmap("llm_transformer")
+
+        assert "system" in roadmap
+        assert "current_score" in roadmap
+        assert "quick_wins" in roadmap
+        assert "medium_term" in roadmap
+        assert "research_frontier" in roadmap
+        assert "implementation_details" in roadmap
+
+    def test_roadmap_has_quick_wins(self):
+        """LLM transformer should have quick wins available."""
+        roadmap = get_implementation_roadmap("llm_transformer")
+
+        assert len(roadmap["quick_wins"]) >= 2
+        # Quick wins should be low difficulty
+        for win in roadmap["quick_wins"]:
+            assert win["difficulty"] == "low"
+
+    def test_roadmap_has_research_items(self):
+        """LLM transformer should have research frontier items."""
+        roadmap = get_implementation_roadmap("llm_transformer")
+
+        assert len(roadmap["research_frontier"]) >= 1
+        # Research items should be high or research difficulty
+        for item in roadmap["research_frontier"]:
+            assert item["difficulty"] in ["high", "research"]
+
+    def test_roadmap_includes_examples(self):
+        """Approaches should include existing examples."""
+        roadmap = get_implementation_roadmap("llm_transformer")
+
+        # At least some approaches should have examples
+        has_examples = False
+        for items in [roadmap["quick_wins"], roadmap["medium_term"]]:
+            for item in items:
+                if item.get("examples"):
+                    has_examples = True
+                    break
+        assert has_examples
+
+
+class TestDesignAutonomousSystem:
+    """Tests for design_autonomous_system function."""
+
+    def test_basic_design(self):
+        """Basic design should work."""
+        design = design_autonomous_system(
+            base_system="llm_transformer",
+            max_difficulty="medium"
+        )
+
+        assert "base_system" in design
+        assert "current_autonomy_score" in design
+        assert "estimated_final_score" in design
+        assert "selected_approaches" in design
+        assert "integration_checklist" in design
+
+    def test_design_improves_score(self):
+        """Design should estimate score improvement."""
+        design = design_autonomous_system(
+            base_system="llm_transformer",
+            max_difficulty="medium"
+        )
+
+        assert design["estimated_final_score"] >= design["current_autonomy_score"]
+
+    def test_design_respects_difficulty(self):
+        """Design should respect max difficulty constraint."""
+        design = design_autonomous_system(
+            base_system="llm_transformer",
+            max_difficulty="low"
+        )
+
+        for approach in design["selected_approaches"]:
+            assert approach["difficulty"] == "low"
+
+    def test_design_with_target_capabilities(self):
+        """Design should filter by target capabilities."""
+        design = design_autonomous_system(
+            base_system="llm_transformer",
+            target_capabilities=["feedback_loop", "persistent_identity"],
+            max_difficulty="high"
+        )
+
+        components = [a["component"] for a in design["selected_approaches"]]
+        for comp in components:
+            assert comp in ["feedback_loop", "persistent_identity"]
+
+    def test_integration_checklist_generated(self):
+        """Integration checklist should be generated."""
+        design = design_autonomous_system(
+            base_system="llm_transformer",
+            max_difficulty="medium"
+        )
+
+        checklist = design["integration_checklist"]
+        assert len(checklist) >= 3
+        checklist_text = "\n".join(checklist)
+        assert "VERIFICATION" in checklist_text
+
+
+class TestMinimumViableAutonomy:
+    """Tests for get_minimum_viable_autonomy function."""
+
+    def test_mva_returns_design(self):
+        """MVA should return a complete design."""
+        mva = get_minimum_viable_autonomy()
+
+        assert "base_system" in mva
+        assert "selected_approaches" in mva
+        assert "note" in mva
+
+    def test_mva_includes_core_components(self):
+        """MVA should include core autonomy components."""
+        mva = get_minimum_viable_autonomy()
+
+        components = [a["component"] for a in mva["selected_approaches"]]
+        # Should include at least some core components
+        core_found = 0
+        for core in ["feedback_loop", "setpoint_generation", "persistent_identity"]:
+            if core in components:
+                core_found += 1
+        assert core_found >= 2
+
+    def test_mva_is_achievable(self):
+        """MVA should be achievable with medium difficulty max."""
+        mva = get_minimum_viable_autonomy()
+
+        for approach in mva["selected_approaches"]:
+            assert approach["difficulty"] in ["low", "medium"]
+
+
+class TestFullAutonomyBlueprint:
+    """Tests for get_full_autonomy_blueprint function."""
+
+    def test_blueprint_returns_design(self):
+        """Blueprint should return a complete design."""
+        blueprint = get_full_autonomy_blueprint()
+
+        assert "base_system" in blueprint
+        assert "selected_approaches" in blueprint
+        assert "note" in blueprint
+
+    def test_blueprint_is_comprehensive(self):
+        """Blueprint should cover many components."""
+        blueprint = get_full_autonomy_blueprint()
+
+        # Should have more components than MVA
+        mva = get_minimum_viable_autonomy()
+        assert len(blueprint["selected_approaches"]) >= len(mva["selected_approaches"])
+
+    def test_blueprint_includes_research(self):
+        """Blueprint should include research-level items."""
+        blueprint = get_full_autonomy_blueprint()
+
+        difficulties = [a["difficulty"] for a in blueprint["selected_approaches"]]
+        assert "research" in difficulties or "high" in difficulties
+
+    def test_blueprint_acknowledges_challenges(self):
+        """Blueprint note should mention open problems."""
+        blueprint = get_full_autonomy_blueprint()
+
+        note = blueprint["note"].lower()
+        assert "research" in note or "challenge" in note or "open" in note
+
+
+class TestDesignGuidancePractical:
+    """Practical tests for design guidance usability."""
+
+    def test_human_has_no_gaps(self):
+        """Human should have minimal implementation needs."""
+        roadmap = get_implementation_roadmap("human")
+
+        # Human is reference - shouldn't need many fixes
+        assert len(roadmap["quick_wins"]) < 3
+        assert len(roadmap["research_frontier"]) < 3
+
+    def test_thermostat_needs_cognition(self):
+        """Thermostat should need cognitive components."""
+        roadmap = get_implementation_roadmap("thermostat")
+
+        all_components = []
+        for category in ["quick_wins", "medium_term", "research_frontier"]:
+            for item in roadmap[category]:
+                all_components.append(item["component"])
+
+        # Thermostat should need cognitive components
+        cognitive_needed = [c for c in all_components if c in [
+            "metacognition", "persistent_identity", "episodic_memory", "prospection"
+        ]]
+        assert len(cognitive_needed) >= 2
+
+    def test_design_for_robot_vs_llm(self):
+        """Robot should need different components than LLM."""
+        robot_roadmap = get_implementation_roadmap("autonomous_robot")
+        llm_roadmap = get_implementation_roadmap("llm_transformer")
+
+        robot_gaps = set(c["component"] for cat in ["quick_wins", "medium_term", "research_frontier"]
+                         for c in robot_roadmap[cat])
+        llm_gaps = set(c["component"] for cat in ["quick_wins", "medium_term", "research_frontier"]
+                       for c in llm_roadmap[cat])
+
+        # LLM needs embodiment, robot already has it
+        assert "embodiment" in llm_gaps
+        # There should be some difference
+        assert robot_gaps != llm_gaps

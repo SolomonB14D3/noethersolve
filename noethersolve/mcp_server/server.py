@@ -5490,6 +5490,224 @@ def list_autonomy_frameworks() -> str:
     return "\n".join(lines)
 
 
+# ── Autonomy Design Guidance Tools ───────────────────────────────────
+
+@mcp.tool()
+def get_autonomy_roadmap(system_type: str = "llm_transformer") -> str:
+    """Get implementation roadmap for making a system more autonomous.
+
+    Maps each missing autonomy component to concrete implementation
+    approaches with difficulty levels, existing examples, and dependencies.
+
+    Categories:
+    - Quick wins: Low difficulty, immediately actionable
+    - Medium term: Moderate effort, proven approaches
+    - Research frontier: High difficulty, open problems
+
+    system_type: System to analyze (default: llm_transformer)
+                 Options: llm_transformer, thermostat, autonomous_robot
+
+    Example: get_autonomy_roadmap("llm_transformer")
+    → Prioritized list of what to implement and how
+    """
+    from noethersolve.autonomy_analysis import get_implementation_roadmap
+    roadmap = get_implementation_roadmap(system_type)
+
+    lines = [
+        "AUTONOMY IMPLEMENTATION ROADMAP",
+        "=" * 60,
+        f"System: {roadmap['system']}",
+        f"Current Score: {roadmap['current_score']:.1%}",
+        "",
+    ]
+
+    if roadmap["quick_wins"]:
+        lines.append("QUICK WINS (Low Difficulty):")
+        for item in roadmap["quick_wins"][:5]:
+            lines.append(f"  • {item['component']}: {item['approach']}")
+            lines.append(f"    {item['description']}")
+            if item.get("examples"):
+                lines.append(f"    Examples: {', '.join(item['examples'][:2])}")
+            lines.append("")
+
+    if roadmap["medium_term"]:
+        lines.append("MEDIUM TERM:")
+        for item in roadmap["medium_term"][:5]:
+            lines.append(f"  • {item['component']}: {item['approach']}")
+            lines.append(f"    Difficulty: {item['difficulty']}")
+            lines.append("")
+
+    if roadmap["research_frontier"]:
+        lines.append("RESEARCH FRONTIER:")
+        for item in roadmap["research_frontier"][:3]:
+            lines.append(f"  • {item['component']}: {item['approach']}")
+            lines.append(f"    {item['notes']}")
+            lines.append("")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def design_autonomous_agent(
+    max_difficulty: str = "medium",
+    target_components: str = ""
+) -> str:
+    """Design an autonomous system by selecting components to add.
+
+    Given a difficulty budget, recommends which autonomy components
+    to implement and generates an integration checklist.
+
+    max_difficulty: Maximum difficulty to consider
+                    "low" = quick wins only
+                    "medium" = achievable with effort
+                    "high" = includes challenging implementations
+                    "research" = includes open problems
+
+    target_components: Comma-separated list of specific components to target
+                       (empty = all feasible components)
+                       Options: feedback_loop, setpoint_generation, embodiment,
+                                persistent_identity, metacognition, etc.
+
+    Example: design_autonomous_agent("medium", "feedback_loop,persistent_identity")
+    → Design spec with selected approaches and integration checklist
+    """
+    from noethersolve.autonomy_analysis import design_autonomous_system
+
+    target = None
+    if target_components:
+        target = [c.strip() for c in target_components.split(",")]
+
+    design = design_autonomous_system(
+        base_system="llm_transformer",
+        target_capabilities=target,
+        max_difficulty=max_difficulty
+    )
+
+    lines = [
+        "AUTONOMOUS SYSTEM DESIGN",
+        "=" * 60,
+        "",
+        f"Current Autonomy Score: {design['current_autonomy_score']:.1%}",
+        f"Estimated Final Score: {design['estimated_final_score']:.1%}",
+        f"Components to Add: {design['components_to_add']}",
+        f"Max Difficulty: {design['max_difficulty']}",
+        "",
+    ]
+
+    if design["required_dependencies"]:
+        lines.append("Required Infrastructure:")
+        for dep in design["required_dependencies"][:5]:
+            lines.append(f"  • {dep}")
+        lines.append("")
+
+    lines.append("Selected Approaches:")
+    for approach in design["selected_approaches"][:8]:
+        lines.append(f"  [{approach['difficulty'].upper()}] {approach['component']}")
+        lines.append(f"    → {approach['approach']}")
+        if approach.get("examples"):
+            lines.append(f"    Reference: {approach['examples'][0]}")
+        lines.append("")
+
+    lines.append("Integration Checklist:")
+    for item in design["integration_checklist"][:10]:
+        lines.append(f"  {item}")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def get_minimum_viable_autonomy() -> str:
+    """Get the minimum set of components for basic autonomy.
+
+    Returns the simplest path to a minimally autonomous LLM agent,
+    prioritizing low/medium difficulty implementations.
+
+    Core requirements for minimal autonomy:
+    1. Environment feedback loop (observe → act → observe)
+    2. Some form of goal generation (not just instruction-following)
+    3. Persistent identity/memory (cross-session continuity)
+    4. Error correction capability (learn from mistakes)
+
+    Example: get_minimum_viable_autonomy()
+    → Minimal design achievable with current technology
+    """
+    from noethersolve.autonomy_analysis import get_minimum_viable_autonomy as get_mva
+    mva = get_mva()
+
+    lines = [
+        "MINIMUM VIABLE AUTONOMY",
+        "=" * 60,
+        "",
+        f"Current Score: {mva['current_autonomy_score']:.1%}",
+        f"Target Score: {mva['estimated_final_score']:.1%}",
+        "",
+        "Core Components to Implement:",
+    ]
+
+    for approach in mva["selected_approaches"]:
+        lines.append(f"  [{approach['difficulty'].upper()}] {approach['component']}")
+        lines.append(f"    → {approach['approach']}")
+        lines.append(f"    {approach['description']}")
+        lines.append("")
+
+    lines.append("Required Infrastructure:")
+    for dep in mva["required_dependencies"]:
+        lines.append(f"  • {dep}")
+
+    lines.append("")
+    lines.append("NOTE:")
+    lines.append(mva["note"])
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def get_full_autonomy_blueprint() -> str:
+    """Get a complete blueprint for full autonomy.
+
+    Includes all components at all difficulty levels.
+    This is aspirational - includes research-level challenges.
+
+    Use this to understand the full scope of what would be needed
+    to create a truly autonomous system.
+
+    Example: get_full_autonomy_blueprint()
+    → Complete design including open research problems
+    """
+    from noethersolve.autonomy_analysis import get_full_autonomy_blueprint as get_blueprint
+    blueprint = get_blueprint()
+
+    lines = [
+        "FULL AUTONOMY BLUEPRINT",
+        "=" * 60,
+        "",
+        f"Current Score: {blueprint['current_autonomy_score']:.1%}",
+        f"Target Score: {blueprint['estimated_final_score']:.1%}",
+        f"Total Components: {blueprint['components_to_add']}",
+        "",
+    ]
+
+    # Group by difficulty
+    by_difficulty = {"low": [], "medium": [], "high": [], "research": []}
+    for approach in blueprint["selected_approaches"]:
+        by_difficulty[approach["difficulty"]].append(approach)
+
+    for diff in ["low", "medium", "high", "research"]:
+        items = by_difficulty[diff]
+        if items:
+            lines.append(f"{diff.upper()} DIFFICULTY ({len(items)} components):")
+            for item in items[:5]:
+                lines.append(f"  • {item['component']}: {item['approach']}")
+            if len(items) > 5:
+                lines.append(f"  ... and {len(items) - 5} more")
+            lines.append("")
+
+    lines.append("NOTE:")
+    lines.append(blueprint["note"])
+
+    return "\n".join(lines)
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():

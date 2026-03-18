@@ -832,8 +832,10 @@ from noethersolve.autonomy_analysis import (  # noqa: F401
     AutonomyComponent,
     ComponentAssessment,
     AutonomyReport,
+    ImplementationApproach,
     AUTONOMY_COMPONENTS,
     SYSTEM_PROFILES,
+    IMPLEMENTATION_APPROACHES,
     get_all_components,
     assess_system,
     assess_predefined_system,
@@ -843,6 +845,10 @@ from noethersolve.autonomy_analysis import (  # noqa: F401
     analyze_transformer_autonomy,
     list_frameworks,
     list_predefined_systems,
+    get_implementation_roadmap,
+    design_autonomous_system,
+    get_minimum_viable_autonomy,
+    get_full_autonomy_blueprint,
 )
 
 from noethersolve.antibody_developability import (  # noqa: F401

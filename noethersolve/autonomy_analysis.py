@@ -839,3 +839,604 @@ def list_predefined_systems() -> Dict:
         key: profile["description"]
         for key, profile in SYSTEM_PROFILES.items()
     }
+
+
+# ── Design Guidance: How to Build Autonomous Systems ──────────────────
+
+@dataclass
+class ImplementationApproach:
+    """A potential implementation for an autonomy component."""
+    name: str
+    description: str
+    difficulty: str  # "low", "medium", "high", "research"
+    existing_examples: List[str]
+    integration_notes: str
+    dependencies: List[str] = field(default_factory=list)
+
+
+# Map each autonomy component to potential implementations
+IMPLEMENTATION_APPROACHES: Dict[str, List[ImplementationApproach]] = {
+    # Control Theory Components
+    "feedback_loop": [
+        ImplementationApproach(
+            name="Agent Framework with Tool Use",
+            description="ReAct/AutoGPT-style loops: observe environment → reason → act → observe",
+            difficulty="medium",
+            existing_examples=["AutoGPT", "BabyAGI", "LangChain agents", "Claude computer use"],
+            integration_notes="Requires environment API (browser, filesystem, APIs). Key: output affects next input.",
+            dependencies=["environment_interface"]
+        ),
+        ImplementationApproach(
+            name="RLHF with Online Feedback",
+            description="Continuous reward signal from environment, not just human preferences",
+            difficulty="high",
+            existing_examples=["Constitutional AI", "RLAIF", "Online RLHF"],
+            integration_notes="Requires real-time reward computation. Can use model-as-judge.",
+            dependencies=["reward_model", "training_infrastructure"]
+        ),
+    ],
+    "setpoint_generation": [
+        ImplementationApproach(
+            name="Intrinsic Motivation Module",
+            description="Curiosity-driven exploration: information gain, prediction error, novelty",
+            difficulty="high",
+            existing_examples=["ICM (Intrinsic Curiosity Module)", "RND", "Go-Explore"],
+            integration_notes="Add auxiliary reward for uncertainty reduction. Can use ensemble disagreement.",
+            dependencies=["uncertainty_estimation", "world_model"]
+        ),
+        ImplementationApproach(
+            name="Hierarchical Goal Generation",
+            description="High-level goals decomposed into subgoals automatically",
+            difficulty="medium",
+            existing_examples=["HAM", "Feudal Networks", "Goal-conditioned RL"],
+            integration_notes="Learn goal abstraction from successful trajectories.",
+            dependencies=["planning_module"]
+        ),
+        ImplementationApproach(
+            name="Self-Prompted Continuation",
+            description="Model generates its own next prompt based on incomplete goals",
+            difficulty="low",
+            existing_examples=["Chain-of-thought agents", "Self-ask", "Plan-and-solve"],
+            integration_notes="Simple: append 'What should I do next?' after each response.",
+            dependencies=[]
+        ),
+    ],
+    "error_correction": [
+        ImplementationApproach(
+            name="Self-Critique and Revision",
+            description="Model evaluates own output and generates corrections",
+            difficulty="low",
+            existing_examples=["Constitutional AI", "Self-refine", "Reflexion"],
+            integration_notes="Add critique prompt after generation. Can be iterative.",
+            dependencies=[]
+        ),
+        ImplementationApproach(
+            name="Verification-Guided Revision",
+            description="External verifier (code execution, proof checker) provides error signal",
+            difficulty="medium",
+            existing_examples=["AlphaCode", "CodeContests", "Lean copilots"],
+            integration_notes="Requires domain-specific verifier. Very effective for formal domains.",
+            dependencies=["verifier"]
+        ),
+    ],
+    "disturbance_rejection": [
+        ImplementationApproach(
+            name="Robust Planning with Contingencies",
+            description="Generate backup plans for likely failure modes",
+            difficulty="medium",
+            existing_examples=["MCTS with rollouts", "Robust MDPs"],
+            integration_notes="During planning, simulate perturbations and generate recovery strategies.",
+            dependencies=["planning_module", "world_model"]
+        ),
+    ],
+    "stability": [
+        ImplementationApproach(
+            name="Output Filtering and Bounds",
+            description="Constitutional constraints, output validation, safety filters",
+            difficulty="low",
+            existing_examples=["Constitutional AI", "Guardrails", "NeMo Guardrails"],
+            integration_notes="Already present in most deployed systems.",
+            dependencies=[]
+        ),
+    ],
+
+    # Autopoiesis Components
+    "operational_closure": [
+        ImplementationApproach(
+            name="Online Learning / Continual Learning",
+            description="Update weights based on new experiences during deployment",
+            difficulty="research",
+            existing_examples=["LoRA online fine-tuning", "PEFT adapters", "Memory replay"],
+            integration_notes="Major challenge: catastrophic forgetting. Use EWC, replay buffers.",
+            dependencies=["training_infrastructure", "forgetting_prevention"]
+        ),
+        ImplementationApproach(
+            name="Retrieval-Augmented Self-Modification",
+            description="External memory that model can write to and read from",
+            difficulty="medium",
+            existing_examples=["MemGPT", "Voyager skill library", "LangChain memory"],
+            integration_notes="Not true self-modification but approximates it. Persistent vector DB.",
+            dependencies=["vector_database", "memory_manager"]
+        ),
+    ],
+    "structural_coupling": [
+        ImplementationApproach(
+            name="Environment Grounding",
+            description="Continuous bidirectional interaction with environment",
+            difficulty="medium",
+            existing_examples=["Robotics LLMs", "Embodied AI", "Voyager in Minecraft"],
+            integration_notes="Environment state → perception → action → environment change loop.",
+            dependencies=["environment_interface", "action_execution"]
+        ),
+    ],
+    "self_production": [
+        ImplementationApproach(
+            name="Self-Improving Code Generation",
+            description="Agent modifies its own code/prompts based on performance",
+            difficulty="high",
+            existing_examples=["Voyager skill library", "AutoML", "Neural architecture search"],
+            integration_notes="Safety critical: need sandboxing. Start with prompt self-optimization.",
+            dependencies=["sandboxed_execution", "performance_monitoring"]
+        ),
+    ],
+    "boundary_maintenance": [
+        ImplementationApproach(
+            name="Resource Management Layer",
+            description="Monitor and limit compute, memory, API calls, token budgets",
+            difficulty="medium",
+            existing_examples=["Kubernetes limits", "Token budgeting in agents"],
+            integration_notes="Essential for multi-agent systems. Prevent runaway resource use.",
+            dependencies=["resource_monitor"]
+        ),
+    ],
+    "organizational_invariance": [
+        ImplementationApproach(
+            name="Consistent System Prompt / Constitution",
+            description="Core values/goals persist across all interactions",
+            difficulty="low",
+            existing_examples=["Claude's constitution", "System prompts"],
+            integration_notes="Already implemented. Key: ensure consistency across sessions.",
+            dependencies=[]
+        ),
+    ],
+
+    # Philosophy Components
+    "intentionality": [
+        ImplementationApproach(
+            name="Explicit Goal Representation",
+            description="Maintain and reason about explicit goal structures",
+            difficulty="medium",
+            existing_examples=["BDI agents", "STRIPS planning", "Goal-conditioned RL"],
+            integration_notes="Represent goals as structured objects, not just text.",
+            dependencies=["goal_representation"]
+        ),
+    ],
+    "self_determination": [
+        ImplementationApproach(
+            name="Autonomous Decision Making",
+            description="Agent chooses actions based on internal values, not just instructions",
+            difficulty="high",
+            existing_examples=["Value-aligned RL", "Constitutional AI"],
+            integration_notes="Requires learned value function. Balance with instruction-following.",
+            dependencies=["value_model", "intrinsic_motivation"]
+        ),
+    ],
+    "normativity": [
+        ImplementationApproach(
+            name="Norm Learning and Following",
+            description="Learn and apply social/ethical norms, detect violations",
+            difficulty="medium",
+            existing_examples=["Delphi", "Moral Foundations", "Constitutional AI"],
+            integration_notes="Encode norms explicitly or learn from examples.",
+            dependencies=["norm_database"]
+        ),
+    ],
+    "counterfactual_sensitivity": [
+        ImplementationApproach(
+            name="Reason-Responsive Architecture",
+            description="Decisions change appropriately with evidence/arguments",
+            difficulty="medium",
+            existing_examples=["Chain-of-thought", "Self-consistency", "Debate"],
+            integration_notes="Already partially present. Strengthen with explicit reasoning traces.",
+            dependencies=[]
+        ),
+    ],
+    "practical_reasoning": [
+        ImplementationApproach(
+            name="Deliberative Planning",
+            description="Explicit reasoning about options, consequences, and values",
+            difficulty="low",
+            existing_examples=["ReAct", "Chain-of-thought", "Tree-of-thought"],
+            integration_notes="Already present. Can be strengthened with structured planning.",
+            dependencies=[]
+        ),
+    ],
+
+    # Robotics Components
+    "embodiment": [
+        ImplementationApproach(
+            name="Physical Robot Integration",
+            description="Deploy on physical robot with sensors and actuators",
+            difficulty="high",
+            existing_examples=["RT-2", "PaLM-E", "Mobile ALOHA"],
+            integration_notes="Requires robotics hardware. High latency tolerance needed.",
+            dependencies=["robot_hardware", "sensor_fusion"]
+        ),
+        ImplementationApproach(
+            name="Simulated Embodiment",
+            description="Operate in physics simulation (MuJoCo, Isaac Sim)",
+            difficulty="medium",
+            existing_examples=["Voyager", "MineDojo", "Habitat"],
+            integration_notes="Good for development. Sim2real gap is a challenge.",
+            dependencies=["simulator"]
+        ),
+        ImplementationApproach(
+            name="Digital Tool Embodiment",
+            description="Computer use, browser automation, API calls as 'body'",
+            difficulty="low",
+            existing_examples=["Claude computer use", "AutoGPT", "Browser agents"],
+            integration_notes="Practical near-term option. Actions affect digital environment.",
+            dependencies=["tool_interface"]
+        ),
+    ],
+    "sensorimotor_coupling": [
+        ImplementationApproach(
+            name="Vision-Language-Action Models",
+            description="Direct mapping from perception to action, low latency",
+            difficulty="high",
+            existing_examples=["RT-2", "PaLM-E", "OpenVLA"],
+            integration_notes="Train end-to-end on robot data. Requires embodiment first.",
+            dependencies=["embodiment", "vision_encoder", "action_decoder"]
+        ),
+    ],
+    "real_time_operation": [
+        ImplementationApproach(
+            name="Latency-Optimized Inference",
+            description="Fast inference for real-time control",
+            difficulty="medium",
+            existing_examples=["Distilled models", "Speculative decoding", "vLLM"],
+            integration_notes="Trade off capability for speed. Use smaller models for control.",
+            dependencies=["optimized_runtime"]
+        ),
+    ],
+    "situated_action": [
+        ImplementationApproach(
+            name="Context-Aware Agent",
+            description="Actions depend on full situational context, not just instructions",
+            difficulty="medium",
+            existing_examples=["Embodied agents", "Context-aware assistants"],
+            integration_notes="Requires rich environment state representation.",
+            dependencies=["environment_state_tracker"]
+        ),
+    ],
+    "robust_behavior": [
+        ImplementationApproach(
+            name="Failure Recovery Protocols",
+            description="Detect failures and execute recovery strategies",
+            difficulty="medium",
+            existing_examples=["Fault-tolerant robotics", "Exception handling in agents"],
+            integration_notes="Monitor for anomalies, have fallback behaviors ready.",
+            dependencies=["anomaly_detection", "recovery_strategies"]
+        ),
+    ],
+
+    # Cognitive Science Components
+    "metacognition": [
+        ImplementationApproach(
+            name="Confidence Estimation",
+            description="Model estimates uncertainty in its own outputs",
+            difficulty="medium",
+            existing_examples=["Verbalized confidence", "Calibration training", "Ensembles"],
+            integration_notes="Can use token probabilities or train separate confidence head.",
+            dependencies=[]
+        ),
+        ImplementationApproach(
+            name="Self-Monitoring Module",
+            description="Track own reasoning process, detect errors",
+            difficulty="high",
+            existing_examples=["Self-reflection prompts", "Process supervision"],
+            integration_notes="Add meta-level that monitors object-level reasoning.",
+            dependencies=["reasoning_trace"]
+        ),
+    ],
+    "persistent_identity": [
+        ImplementationApproach(
+            name="Long-Term Memory System",
+            description="Persistent memory across sessions, continuous self-model",
+            difficulty="medium",
+            existing_examples=["MemGPT", "Personal AI assistants", "Memory banks"],
+            integration_notes="Vector DB + retrieval. Include self-knowledge and preferences.",
+            dependencies=["vector_database", "session_persistence"]
+        ),
+        ImplementationApproach(
+            name="User-Specific Fine-Tuning",
+            description="Personalized model weights per user/instance",
+            difficulty="high",
+            existing_examples=["Personal LLMs", "On-device fine-tuning"],
+            integration_notes="Creates true persistent identity through weights.",
+            dependencies=["per_instance_training"]
+        ),
+    ],
+    "episodic_memory": [
+        ImplementationApproach(
+            name="Experience Replay Buffer",
+            description="Store and retrieve specific past interactions",
+            difficulty="medium",
+            existing_examples=["MemGPT", "Generative agents", "Voyager"],
+            integration_notes="Store (context, action, outcome) tuples. Retrieve by similarity.",
+            dependencies=["memory_database"]
+        ),
+    ],
+    "prospection": [
+        ImplementationApproach(
+            name="World Model + Planning",
+            description="Simulate future states, plan based on predictions",
+            difficulty="high",
+            existing_examples=["Dreamer", "MuZero", "World models in agents"],
+            integration_notes="Learn predictive model of environment dynamics.",
+            dependencies=["world_model", "planning_module"]
+        ),
+        ImplementationApproach(
+            name="Mental Simulation via Generation",
+            description="Use LLM to simulate 'what if' scenarios",
+            difficulty="low",
+            existing_examples=["Chain-of-thought planning", "Self-play"],
+            integration_notes="Already possible: 'Imagine you did X. What would happen?'",
+            dependencies=[]
+        ),
+    ],
+    "attention_control": [
+        ImplementationApproach(
+            name="Selective Context Management",
+            description="Actively choose what to attend to in large contexts",
+            difficulty="medium",
+            existing_examples=["Retrieval augmentation", "Context compression"],
+            integration_notes="Use retrieval to select relevant context dynamically.",
+            dependencies=["retrieval_system"]
+        ),
+    ],
+}
+
+
+def get_implementation_roadmap(system_key: str = "llm_transformer") -> Dict:
+    """
+    Generate a roadmap for making a system more autonomous.
+
+    Maps each missing or partial autonomy component to concrete
+    implementation approaches with difficulty levels and examples.
+
+    Args:
+        system_key: System to analyze (default: llm_transformer)
+
+    Returns:
+        Dict with prioritized implementation roadmap
+    """
+    gaps = identify_autonomy_gaps(system_key)
+
+    roadmap = {
+        "system": system_key,
+        "current_score": gaps["overall_score"],
+        "target_score": 1.0,
+        "quick_wins": [],      # Low difficulty, high impact
+        "medium_term": [],     # Medium difficulty
+        "research_frontier": [],  # High/research difficulty
+        "implementation_details": {}
+    }
+
+    # Process absent components
+    for gap in gaps["absent_components"]:
+        component = gap["component"]
+        if component in IMPLEMENTATION_APPROACHES:
+            approaches = IMPLEMENTATION_APPROACHES[component]
+            for approach in approaches:
+                entry = {
+                    "component": component,
+                    "framework": gap["framework"],
+                    "approach": approach.name,
+                    "description": approach.description,
+                    "difficulty": approach.difficulty,
+                    "examples": approach.existing_examples,
+                    "dependencies": approach.dependencies,
+                    "notes": approach.integration_notes,
+                    "is_necessary": gap["is_necessary"]
+                }
+
+                if approach.difficulty == "low":
+                    roadmap["quick_wins"].append(entry)
+                elif approach.difficulty in ["medium"]:
+                    roadmap["medium_term"].append(entry)
+                else:
+                    roadmap["research_frontier"].append(entry)
+
+                if component not in roadmap["implementation_details"]:
+                    roadmap["implementation_details"][component] = []
+                roadmap["implementation_details"][component].append(entry)
+
+    # Process partial components (can be upgraded)
+    for partial in gaps["partial_components"]:
+        component = partial["component"]
+        if component in IMPLEMENTATION_APPROACHES:
+            approaches = IMPLEMENTATION_APPROACHES[component]
+            for approach in approaches:
+                entry = {
+                    "component": component,
+                    "framework": partial["framework"],
+                    "approach": approach.name,
+                    "description": approach.description,
+                    "difficulty": approach.difficulty,
+                    "examples": approach.existing_examples,
+                    "dependencies": approach.dependencies,
+                    "notes": approach.integration_notes,
+                    "current_status": "partial",
+                    "upgrade_from": partial["evidence"]
+                }
+
+                if approach.difficulty == "low":
+                    roadmap["quick_wins"].append(entry)
+
+                if component not in roadmap["implementation_details"]:
+                    roadmap["implementation_details"][component] = []
+                roadmap["implementation_details"][component].append(entry)
+
+    # Sort by impact (necessary components first)
+    for category in ["quick_wins", "medium_term", "research_frontier"]:
+        roadmap[category].sort(key=lambda x: (not x.get("is_necessary", False), x["component"]))
+
+    return roadmap
+
+
+def design_autonomous_system(
+    base_system: str = "llm_transformer",
+    target_capabilities: Optional[List[str]] = None,
+    max_difficulty: str = "medium"
+) -> Dict:
+    """
+    Design an autonomous system by selecting components to add.
+
+    Args:
+        base_system: Starting system type
+        target_capabilities: Specific capabilities to add (None = all feasible)
+        max_difficulty: Maximum difficulty to consider ("low", "medium", "high")
+
+    Returns:
+        Dict with system design specification
+    """
+    roadmap = get_implementation_roadmap(base_system)
+
+    difficulty_order = ["low", "medium", "high", "research"]
+    max_idx = difficulty_order.index(max_difficulty)
+    allowed_difficulties = set(difficulty_order[:max_idx + 1])
+
+    # Filter approaches by difficulty
+    selected_approaches = []
+    for component, approaches in roadmap["implementation_details"].items():
+        # Filter by target capabilities if specified
+        if target_capabilities and component not in target_capabilities:
+            continue
+
+        # Find best approach within difficulty limit
+        feasible = [a for a in approaches if a["difficulty"] in allowed_difficulties]
+        if feasible:
+            # Prefer lower difficulty
+            best = min(feasible, key=lambda x: difficulty_order.index(x["difficulty"]))
+            selected_approaches.append(best)
+
+    # Compute dependency graph
+    all_deps = set()
+    for approach in selected_approaches:
+        all_deps.update(approach.get("dependencies", []))
+
+    # Estimate autonomy score improvement
+    current_score = roadmap["current_score"]
+    components_added = len(selected_approaches)
+    estimated_improvement = min(0.7, components_added * 0.05)  # ~5% per component
+
+    # Compute implementation order (topological sort by dependencies)
+    implementation_order = _topological_sort(selected_approaches)
+
+    return {
+        "base_system": base_system,
+        "current_autonomy_score": current_score,
+        "estimated_final_score": min(1.0, current_score + estimated_improvement),
+        "components_to_add": len(selected_approaches),
+        "max_difficulty": max_difficulty,
+        "required_dependencies": list(all_deps),
+        "implementation_order": implementation_order,
+        "selected_approaches": selected_approaches,
+        "integration_checklist": _generate_integration_checklist(selected_approaches)
+    }
+
+
+def _topological_sort(approaches: List[Dict]) -> List[str]:
+    """Sort approaches by dependencies."""
+    # Simple ordering: approaches with no dependencies first
+    no_deps = [a["component"] for a in approaches if not a.get("dependencies")]
+    has_deps = [a["component"] for a in approaches if a.get("dependencies")]
+    return no_deps + has_deps
+
+
+def _generate_integration_checklist(approaches: List[Dict]) -> List[str]:
+    """Generate integration checklist for implementation."""
+    checklist = []
+
+    # Infrastructure checks
+    all_deps = set()
+    for a in approaches:
+        all_deps.update(a.get("dependencies", []))
+
+    if all_deps:
+        checklist.append("INFRASTRUCTURE:")
+        for dep in sorted(all_deps):
+            checklist.append(f"  [ ] Set up {dep}")
+
+    # Per-component checks
+    checklist.append("\nCOMPONENTS:")
+    for approach in approaches:
+        checklist.append(f"  [ ] {approach['component']}: {approach['approach']}")
+        checklist.append(f"      Difficulty: {approach['difficulty']}")
+        if approach.get("examples"):
+            checklist.append(f"      Reference: {approach['examples'][0]}")
+
+    # Testing checks
+    checklist.append("\nVERIFICATION:")
+    checklist.append("  [ ] Run autonomy assessment to verify improvement")
+    checklist.append("  [ ] Test feedback loops with environment")
+    checklist.append("  [ ] Verify goal generation capability")
+    checklist.append("  [ ] Check memory persistence across sessions")
+
+    return checklist
+
+
+def get_minimum_viable_autonomy() -> Dict:
+    """
+    Get the minimum set of components for basic autonomy.
+
+    Returns the simplest path to a minimally autonomous system,
+    prioritizing low-difficulty implementations.
+    """
+    # Core requirements for minimal autonomy
+    critical_components = [
+        "feedback_loop",        # Must interact with environment
+        "setpoint_generation",  # Must have some goals
+        "persistent_identity",  # Must persist across time
+        "error_correction",     # Must learn from mistakes
+    ]
+
+    design = design_autonomous_system(
+        base_system="llm_transformer",
+        target_capabilities=critical_components,
+        max_difficulty="medium"
+    )
+
+    design["note"] = (
+        "Minimum viable autonomy requires: (1) environment feedback loop, "
+        "(2) some form of goal generation, (3) persistent identity/memory, "
+        "(4) error correction capability. This is achievable with existing "
+        "techniques (agent frameworks + memory systems)."
+    )
+
+    return design
+
+
+def get_full_autonomy_blueprint() -> Dict:
+    """
+    Get a complete blueprint for full autonomy.
+
+    Includes all components at all difficulty levels.
+    This is aspirational - includes research-level challenges.
+    """
+    design = design_autonomous_system(
+        base_system="llm_transformer",
+        target_capabilities=None,  # All components
+        max_difficulty="research"
+    )
+
+    design["note"] = (
+        "Full autonomy requires solving several open research problems: "
+        "operational closure (online learning without forgetting), "
+        "true embodiment (physical or rich simulated), and "
+        "genuine metacognition (not just verbalized confidence). "
+        "The architectural gap is fundamental but not insurmountable."
+    )
+
+    return design
