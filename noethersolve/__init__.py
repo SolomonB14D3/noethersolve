@@ -63,6 +63,7 @@ Package layout:
   noethersolve.seismic_waves       — P/S-wave velocities, elastic moduli, reflection coefficients, Snell's law
   noethersolve.plasma_adiabatic    — Adiabatic invariants (μ, J, Φ), magnetic mirrors, loss cone, cyclotron motion
   noethersolve.gauge_equivalence   — Type inference ↔ gauge fixing parallel (MGU, Gribov, redundant DOF)
+  noethersolve.neoantigen_pipeline — Cancer immunotherapy neoantigen prediction (4-step pipeline)
   noethersolve.noether_symmetry — Bidirectional Noether theorem mapping (symmetry ↔ conservation)
   noethersolve.antibody_developability — Antibody developability (viscosity, aggregation, polyreactivity)
 """
@@ -757,6 +758,21 @@ from noethersolve.catalysis import (  # noqa: F401
     D_BAND_CENTERS,
 )
 
+from noethersolve.neoantigen_pipeline import (  # noqa: F401
+    score_cleavage,
+    score_tap,
+    score_mhc_binding,
+    score_tcr_recognition,
+    evaluate_neoantigen,
+    compare_candidates as compare_neoantigens,
+    CleavageReport,
+    TAPReport,
+    MHCBindingReport,
+    TCRReport,
+    PipelineReport as NeoantigenPipelineReport,
+    MHCClass,
+)
+
 from noethersolve.noether_symmetry import (  # noqa: F401
     symmetry_to_conservation,
     conservation_to_symmetry,
@@ -829,4 +845,4 @@ from noethersolve.outcome_logger import (  # noqa: F401
     log_batch,
 )
 
-__version__ = "1.21.0"
+__version__ = "1.22.0"

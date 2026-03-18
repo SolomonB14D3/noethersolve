@@ -4845,6 +4845,153 @@ def list_blind_spots(needs_tool_only: bool = False) -> str:
     return list_all_blind_spots(needs_tool_only)
 
 
+# ── Neoantigen Pipeline (Cancer Immunotherapy) ────────────────────────
+
+@mcp.tool()
+def evaluate_neoantigen_candidate(
+    peptide: str,
+    allele: str = "HLA-A*02:01",
+    wildtype: str = "",
+    n_flank: str = "",
+    c_flank: str = "",
+) -> str:
+    """Evaluate a neoantigen candidate through the complete 4-step pipeline.
+
+    CRITICAL: LLMs typically only check MHC binding (step 3). This is WRONG!
+    Neoantigen immunogenicity requires ALL 4 steps to succeed:
+
+    1. CLEAVAGE: Proteasome must cut the peptide from the source protein
+    2. TAP TRANSPORT: Peptide must be transported into ER by TAP
+    3. MHC BINDING: Peptide must bind MHC-I with sufficient affinity
+    4. TCR RECOGNITION: pMHC complex must be recognized by T cells
+
+    A peptide that excels at MHC binding but fails cleavage is USELESS.
+    This is a $400M mistake in cancer immunotherapy drug development.
+
+    peptide: Candidate neoantigen sequence (8-11 amino acids)
+    allele: HLA allele (default HLA-A*02:01, most common)
+    wildtype: Optional wildtype sequence for foreignness scoring
+    n_flank: N-terminal flanking residues (for cleavage context)
+    c_flank: C-terminal flanking residues (for cleavage context)
+
+    Example: evaluate_neoantigen_candidate("YLQLVFGIEV", "HLA-A*02:01")
+    → Complete pipeline analysis with limiting step identification
+    """
+    from noethersolve.neoantigen_pipeline import evaluate_neoantigen
+    wt = wildtype if wildtype else None
+    n_f = n_flank if n_flank else ""
+    c_f = c_flank if c_flank else ""
+    report = evaluate_neoantigen(peptide, allele, wt, n_f, c_f)
+    return str(report)
+
+
+@mcp.tool()
+def score_neoantigen_cleavage(peptide: str) -> str:
+    """Score proteasomal cleavage potential (Step 1 of pipeline).
+
+    Immunoproteasome cleaves preferentially after hydrophobic/basic residues.
+    Proline at C-terminus blocks cleavage almost completely.
+
+    Preferred C-terminal residues: L, Y, F, K, R (score > 0.5)
+    Disfavored: P, D, E (score < 0.3)
+
+    peptide: Peptide sequence (8-15 amino acids)
+
+    Example: score_neoantigen_cleavage("YLQLVFGIEV")
+    → C-terminal V cleavage probability, P1' context
+    """
+    from noethersolve.neoantigen_pipeline import score_cleavage
+    return str(score_cleavage(peptide))
+
+
+@mcp.tool()
+def score_neoantigen_tap(peptide: str) -> str:
+    """Score TAP transport efficiency (Step 2 of pipeline).
+
+    TAP (Transporter associated with Antigen Processing) requires:
+    - Minimum length: 8-9 amino acids
+    - Basic residue at position 1 preferred (R, K)
+    - Hydrophobic residue at position 2 preferred (L, I, M)
+    - Favorable C-terminus (hydrophobic/basic)
+
+    Peptides < 8 aa have very low TAP affinity.
+
+    peptide: Peptide sequence
+
+    Example: score_neoantigen_tap("RLKAAAAAAY")
+    → TAP binding score and limiting positions
+    """
+    from noethersolve.neoantigen_pipeline import score_tap
+    return str(score_tap(peptide))
+
+
+@mcp.tool()
+def score_neoantigen_mhc(
+    peptide: str,
+    allele: str = "HLA-A*02:01",
+) -> str:
+    """Score MHC-I binding affinity (Step 3 of pipeline).
+
+    IMPORTANT: This is the step LLMs focus on — but it's only 1 of 4!
+    Strong MHC binding alone does NOT guarantee immunogenicity.
+
+    MHC-I binding is anchor-driven:
+    - HLA-A*02:01: Position 2 prefers L/M, C-terminus prefers V/L
+    - HLA-A*03:01: Position 2 prefers L/V, C-terminus prefers K/R
+    - HLA-B*07:02: Position 2 prefers P, C-terminus prefers L/M
+
+    peptide: Peptide sequence (8-11 amino acids optimal)
+    allele: HLA allele (default HLA-A*02:01)
+
+    Example: score_neoantigen_mhc("YLQLVFGIEV", "HLA-A*02:01")
+    → Binding affinity category (strong/weak/non) and anchor analysis
+    """
+    from noethersolve.neoantigen_pipeline import score_mhc_binding
+    return str(score_mhc_binding(peptide, allele))
+
+
+@mcp.tool()
+def score_neoantigen_tcr(
+    peptide: str,
+    wildtype: str = "",
+) -> str:
+    """Score TCR recognition potential (Step 4 of pipeline).
+
+    For a neoantigen to trigger immune response, the pMHC must be:
+    - Recognized by T cell receptors (TCR)
+    - Sufficiently "foreign" from self
+
+    TCR contacts central residues (positions 4-7 for 9-mers).
+    Charged and aromatic residues enhance recognition.
+
+    peptide: Mutant peptide sequence
+    wildtype: Optional wildtype sequence for foreignness calculation
+
+    Example: score_neoantigen_tcr("YLQLVFGIEV", "YLQLVFGIEA")
+    → TCR-facing residue analysis and foreignness score
+    """
+    from noethersolve.neoantigen_pipeline import score_tcr_recognition
+    wt = wildtype if wildtype else None
+    return str(score_tcr_recognition(peptide, wt))
+
+
+@mcp.tool()
+def compare_neoantigen_candidates(peptides: list[str]) -> str:
+    """Compare multiple neoantigen candidates and rank by overall quality.
+
+    Uses geometric mean of all 4 pipeline steps to penalize weak links.
+    A peptide with 90% on 3 steps but 10% on 1 step will rank LOWER
+    than a peptide with 70% on all 4 steps.
+
+    peptides: List of peptide sequences to compare
+
+    Example: compare_neoantigen_candidates(["YLQLVFGIEV", "AAAAAAAAAA", "RLKAAAAAAY"])
+    → Ranked comparison with limiting step for each
+    """
+    from noethersolve.neoantigen_pipeline import compare_candidates
+    return compare_candidates(peptides)
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():
