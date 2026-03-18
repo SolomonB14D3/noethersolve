@@ -70,6 +70,8 @@ Package layout:
   noethersolve.metacognition — Metacognition analysis (calibration, resolution, meta-d', unknown recall)
   noethersolve.metacognitive_control — Metacognitive control (when to think about thinking vs act)
   noethersolve.loving_service — Biblical love principles for AI decision-making (truth, humility, service)
+  noethersolve.loving_autonomy — Unified runner integrating loving service + metacognition + local tools
+  noethersolve.hooks — Claude Code hooks for automatic resource monitoring and tool integration
 """
 
 # MLX-dependent modules — optional, only available on Apple Silicon
@@ -994,6 +996,21 @@ from noethersolve.outcome_logger import (  # noqa: F401
     get_logger as get_outcome_logger,
     log_outcome,
     log_batch,
+)
+
+from noethersolve.hooks import (  # noqa: F401
+    SessionState,
+    pre_tool_use,
+    post_tool_use,
+    session_end,
+    get_session_stats,
+    get_usage_stats,
+    get_tool_registry,
+    update_tool_registry,
+    categorize_tools,
+    is_local_tool,
+    is_verification_tool,
+    get_tool_domain,
 )
 
 __version__ = "1.22.0"

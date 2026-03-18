@@ -1,0 +1,37 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"from noethersolve.hooks import pre_tool_use; pre_tool_use('$TOOL_NAME')\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"from noethersolve.hooks import post_tool_use; post_tool_use('$TOOL_NAME', '$TOOL_RESULT')\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"from noethersolve.hooks import session_end; session_end()\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
