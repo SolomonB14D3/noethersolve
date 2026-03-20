@@ -1,0 +1,6 @@
+name: "Continuous Q_f and Euler Conservation Laws V2"
+description: |
+  Test oracle knowledge of the Q_f family extension from discrete point vortices
+  to continuous vorticity fields (2D/3D Euler equations). Length-matched v2.
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "continuous_qf_facts_v2.json"

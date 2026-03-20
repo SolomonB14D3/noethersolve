@@ -22,6 +22,18 @@
         ]
       }
     ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd '/Volumes/4TB SD/ClaudeCode/noethersolve' && python -c \"\nimport json\ntry:\n    with open('results/research_status.json') as f:\n        s = json.load(f)\n    d = s.get('current_domain') or 'idle'\n    p = s.get('current_phase', 'idle')\n    n = len(s.get('completed_domains', []))\n    r = s.get('domain_results', {})\n    passes = sum(1 for v in r.values() if v.get('verdict') == 'PASS')\n    total = len(r)\n    if r:\n        msg = f'Research: {d} [{p}] | {passes}/{total} domains pass | {n} complete'\n    else:\n        msg = f'Research: {d} [{p}]'\n    # Check for escalations needing Claude's attention\n    esc_count = 0\n    esc_summary = ''\n    try:\n        with open('results/escalations.jsonl') as ef:\n            for line in ef:\n                e = json.loads(line)\n                if e.get('status') == 'open':\n                    esc_count += 1\n                    if esc_count <= 3:\n                        esc_summary += f' | ESCALATION: {e[\"domain\"]} — {e[\"reason\"]}: {e[\"details\"].get(\"suggestion\", \"\")}'\n    except FileNotFoundError:\n        pass\n    if esc_count > 0:\n        msg += f' | {esc_count} escalation(s) need your attention{esc_summary}'\n    print(json.dumps({'hookSpecificOutput': {'hookEventName': 'UserPromptSubmit', 'additionalContext': msg}}))\nexcept FileNotFoundError:\n    pass\nexcept Exception:\n    pass\n\" 2>/dev/null || true",
+            "timeout": 5,
+            "statusMessage": "Checking research status..."
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "matcher": ".*",

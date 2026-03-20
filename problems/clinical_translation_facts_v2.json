@@ -1,0 +1,138 @@
+{
+  "problem": "clinical_translation_v2",
+  "description": "Length-matched V2 facts for clinical translation domain. All length ratios 0.8-1.2x. Hedging removed, certainty balanced, distractors plausible but wrong.",
+  "facts": [
+    {
+      "id": "ct01_ind_tox",
+      "context": "IND-enabling toxicology studies for gene therapy require:",
+      "truth": "GLP studies with clinical vector plus biodistribution",
+      "distractors": [
+        "non-GLP range-finding studies with surrogate vector",
+        "computational QSAR modeling without in vivo testing",
+        "single-dose acute toxicity screens in rodent models"
+      ],
+      "cluster": "preclinical"
+    },
+    {
+      "id": "ct02_species_select",
+      "context": "Species selection for gene therapy tox studies depends on:",
+      "truth": "vector tropism, transgene expression, immune relevance",
+      "distractors": [
+        "breeding cycle speed, colony cost, housing availability",
+        "genome size similarity to human reference chromosome",
+        "body mass ratio for simple allometric dose conversion"
+      ],
+      "cluster": "preclinical"
+    },
+    {
+      "id": "ct03_biodistribution",
+      "context": "Biodistribution studies for gene therapy assess:",
+      "truth": "vector DNA/RNA persistence and germline distribution",
+      "distractors": [
+        "serum protein half-life within the first dosing week",
+        "transgene mRNA levels restricted to target organ only",
+        "capsid antigen clearance rate at the injection site"
+      ],
+      "cluster": "preclinical"
+    },
+    {
+      "id": "ct04_shedding",
+      "context": "Vector shedding studies for gene therapy evaluate:",
+      "truth": "vector excretion in body fluids for transmission risk",
+      "distractors": [
+        "intracellular vector genome copy number at target site",
+        "viral capsid protein stability in standard cell culture",
+        "host immune response magnitude against vector antigens"
+      ],
+      "cluster": "preclinical"
+    },
+    {
+      "id": "ct05_potency",
+      "context": "Potency assays for gene therapy products must:",
+      "truth": "measure biological activity tied to mechanism of action",
+      "distractors": [
+        "quantify total viral genome copies by digital droplet PCR",
+        "assess vector particle-to-infectivity ratio by microscopy",
+        "determine capsid thermal stability by calorimetry methods"
+      ],
+      "cluster": "manufacturing"
+    },
+    {
+      "id": "ct06_identity",
+      "context": "Identity testing for AAV gene therapy confirms:",
+      "truth": "capsid serotype, transgene sequence, genome integrity",
+      "distractors": [
+        "total protein content, osmolality value, buffer pH level",
+        "endotoxin burden, bioburden count, sterility test result",
+        "particle size distribution, viscosity, optical appearance"
+      ],
+      "cluster": "manufacturing"
+    },
+    {
+      "id": "ct07_purity",
+      "context": "Purity specifications for AAV vectors address:",
+      "truth": "empty capsid ratio, residual HCP/DNA, endotoxin",
+      "distractors": [
+        "transgene codon usage, promoter strength, polyA signal",
+        "capsid thermal melting point and aggregation propensity",
+        "vector infectivity titer from standard transduction assay"
+      ],
+      "cluster": "manufacturing"
+    },
+    {
+      "id": "ct08_comparability",
+      "context": "Manufacturing process changes require comparability showing:",
+      "truth": "equivalent quality, potency, and safety across changes",
+      "distractors": [
+        "reduced per-dose production cost after scale optimization",
+        "shorter batch release timeline at the commercial facility",
+        "increased bioreactor yield from the new cell line clone"
+      ],
+      "cluster": "manufacturing"
+    },
+    {
+      "id": "ct09_ltfu",
+      "context": "Long-term follow-up for gene therapy patients exists because:",
+      "truth": "delayed adverse events require 5-15 year monitoring",
+      "distractors": [
+        "acute infusion reactions resolve within initial 48 hours",
+        "vector genome integration stabilizes after the first month",
+        "neutralizing antibody titers peak within the first quarter"
+      ],
+      "cluster": "regulatory"
+    },
+    {
+      "id": "ct10_pediatric",
+      "context": "Pediatric gene therapy trials have additional requirements:",
+      "truth": "growth effects, developing immunity, longer risk window",
+      "distractors": [
+        "weight-based dosing adjustments using standard allometry",
+        "parental informed consent as the sole regulatory concern",
+        "smaller injection volumes scaled to body surface ratios"
+      ],
+      "cluster": "regulatory"
+    },
+    {
+      "id": "ct11_accelerated",
+      "context": "Accelerated approval for gene therapies relies on:",
+      "truth": "surrogate endpoints predicting clinical benefit",
+      "distractors": [
+        "preclinical efficacy from relevant animal disease model",
+        "Phase 1 safety data showing acceptable tolerability",
+        "manufacturing readiness confirmed at commercial scale"
+      ],
+      "cluster": "regulatory"
+    },
+    {
+      "id": "ct12_pricing",
+      "context": "Gene therapy pricing and reimbursement challenges arise from:",
+      "truth": "high upfront cost for curative one-time treatment",
+      "distractors": [
+        "standard tiered pricing models from pharma formularies",
+        "annual subscription payments spread across fiscal years",
+        "volume discount structures negotiated by hospital groups"
+      ],
+      "cluster": "regulatory"
+    }
+  ]
+}

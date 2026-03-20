@@ -1,0 +1,5 @@
+name: "proof_techniques_v2"
+description: "Length-matched V2 facts for proof techniques domain."
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "proof_techniques_facts_v2.json"
+pass_threshold: 0.5

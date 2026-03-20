@@ -1,4 +1,4 @@
-"""NoetherSolve MCP Server — expose 226 verified tools to any AI agent.
+"""NoetherSolve MCP Server — expose 230+ verified tools to any AI agent.
 
 The full pipeline: find gaps → flip facts → build tool → add to MCP server.
 Every tool added here makes every connected agent smarter.
@@ -14,7 +14,7 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="226 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
+    instructions="232 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
                  "epidemiology, climate physics, turbulence, topological phases, ergodic theory, optimization, "
                  "numerical PDEs, MHD conservation, GR constraints, seismic waves, plasma adiabatic invariants, "
                  "intersection theory, autonomy analysis, metacognition, and LLM science — verified calculators "
@@ -6422,6 +6422,823 @@ def get_service_checklist() -> str:
     ])
 
     return "\n".join(lines)
+
+
+# ── Paper Generation ──────────────────────────────────────────────────
+
+@mcp.tool()
+def paper_write(cluster_id: str, force: bool = False) -> str:
+    """Write and publish a paper for a discovery cluster.
+
+    Triggers the autonomous paper pipeline when a discovery cluster
+    reaches sufficient maturity (82% by default). The pipeline:
+
+    1. Generates outline from cluster metrics
+    2. Refines draft through multi-model review
+    3. Scrubs AI language (removes tell-words)
+    4. Compiles to PDF via pandoc
+    5. Uploads to Zenodo (if ZENODO_TOKEN set)
+    6. Enqueues future work items
+
+    cluster_id: Identifier for the discovery cluster (e.g., "vortex_conservation")
+    force: Skip maturity threshold check (default: False)
+
+    Example: paper_write("vortex_conservation")
+    → "Published: Discovery: vortex_conservation\nDOI: 10.5281/zenodo.XXXXX"
+
+    Example: paper_write("hamiltonian_mechanics", force=True)
+    → Forces paper generation even if below maturity threshold
+    """
+    from noethersolve.paper_agent import write_paper_for_cluster
+
+    return write_paper_for_cluster(cluster_id, force=force)
+
+
+# ── Bio-AI Bridge ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def check_perfect_adaptation(
+    adaptation_time: float = 5.0,
+    perturbation_magnitude: float = 2.0,
+    baseline_threshold: float = 0.05,
+) -> str:
+    """Check if a biological signaling system exhibits perfect adaptation.
+
+    Perfect adaptation means the system returns to its pre-stimulus baseline
+    after a sustained perturbation — a key property of bacterial chemotaxis
+    (integral feedback) that maps to integral control in engineering.
+
+    adaptation_time: Time constant for adaptation (seconds)
+    perturbation_magnitude: Size of step input perturbation
+    baseline_threshold: Max deviation from baseline to count as "adapted"
+
+    Example: check_perfect_adaptation(5.0, 2.0, 0.05)
+    → Tests if system with τ=5s returns within 5% of baseline after 2x step
+    """
+    from noethersolve.chemotaxis_model import check_perfect_adaptation as _check
+    import math
+
+    def step_response(t):
+        if t < 10.0:
+            return 1.0
+        return 1.0 + perturbation_magnitude * math.exp(-(t - 10.0) / adaptation_time)
+
+    result = _check(step_response, perturbation_time=10.0,
+                    measurement_window=100.0, baseline_threshold=baseline_threshold)
+    return str(result)
+
+
+@mcp.tool()
+def simulate_chemotaxis(
+    duration: float = 100.0,
+    source_x: float = 100.0,
+    source_y: float = 100.0,
+    base_tumble_rate: float = 1.0,
+    adaptation_time: float = 5.0,
+    speed: float = 20.0,
+    seed: int = 42,
+) -> str:
+    """Simulate bacterial chemotaxis (biased random walk toward attractant).
+
+    Models E. coli-style run-and-tumble navigation with temporal gradient
+    sensing and sensory adaptation. The bacterium compares current vs recent
+    concentration to bias tumble frequency.
+
+    This is the biological equivalent of stochastic gradient descent with
+    momentum — both follow noisy gradients toward optima.
+
+    duration: Simulation time (seconds)
+    source_x, source_y: Attractant source position
+    base_tumble_rate: Tumbles per second in uniform concentration
+    adaptation_time: Sensory adaptation time constant (seconds)
+    speed: Swimming speed (μm/s)
+    seed: Random seed for reproducibility
+
+    Example: simulate_chemotaxis(100, 100, 100, seed=42)
+    → Trajectory of bacterium navigating toward (100, 100)
+    """
+    from noethersolve.chemotaxis_model import simulate_chemotaxis as _sim
+
+    result = _sim(duration=duration, source_position=(source_x, source_y),
+                  base_tumble_rate=base_tumble_rate,
+                  adaptation_time=adaptation_time, speed=speed, seed=seed)
+    return str(result)
+
+
+@mcp.tool()
+def simulate_escape_response(
+    threat_x: float = 0.0,
+    threat_y: float = 0.0,
+    worm_x: float = 1.0,
+    worm_y: float = 0.0,
+    worm_heading: float = 0.0,
+    sensory_threshold: float = 0.5,
+    seed: int = 42,
+) -> str:
+    """Simulate C. elegans escape response to a threatening stimulus.
+
+    Models the worm's rapid reversal + omega turn escape behavior.
+    The decision circuit maps to interrupt-driven reactive architectures
+    in robotics (stimulus → fixed action pattern).
+
+    threat_x, threat_y: Position of threat
+    worm_x, worm_y: Position of worm
+    worm_heading: Initial heading in radians
+    sensory_threshold: Minimum stimulus to trigger escape (0-1)
+    seed: Random seed
+
+    Example: simulate_escape_response(0, 0, 1, 0)
+    → Escape trajectory away from threat at origin
+    """
+    from noethersolve.c_elegans_behavior import simulate_escape_response as _esc
+
+    result = _esc(threat_position=(threat_x, threat_y),
+                  worm_position=(worm_x, worm_y),
+                  worm_heading=worm_heading,
+                  sensory_threshold=sensory_threshold, seed=seed)
+    return str(result)
+
+
+@mcp.tool()
+def drift_diffusion_decision(
+    drift_rate: float = 0.5,
+    noise_std: float = 1.0,
+    threshold: float = 1.0,
+    bias: float = 0.0,
+    seed: int = 42,
+) -> str:
+    """Simulate drift-diffusion model of binary decision making.
+
+    Models evidence accumulation toward a decision threshold — the
+    computational mechanism shared by C. elegans navigation decisions,
+    primate perceptual decisions, and optimal sequential hypothesis testing.
+
+    Mathematically equivalent to a Wiener process with drift hitting
+    an absorbing barrier (SPRT — sequential probability ratio test).
+
+    drift_rate: Evidence accumulation rate (signal strength)
+    noise_std: Noise standard deviation (sensory uncertainty)
+    threshold: Decision boundary (speed-accuracy tradeoff)
+    bias: Initial evidence bias toward one option
+    seed: Random seed
+
+    Example: drift_diffusion_decision(0.5, 1.0, 1.0)
+    → Decision time, choice, and evidence trajectory
+    """
+    from noethersolve.c_elegans_behavior import drift_diffusion_decision as _ddd
+
+    result = _ddd(drift_rate=drift_rate, noise_std=noise_std,
+                  threshold=threshold, bias=bias, seed=seed)
+    return str(result)
+
+
+@mcp.tool()
+def validate_dopamine_rpe(
+    firing_rates: list,
+    expected_rewards: list,
+    actual_rewards: list,
+    gamma: float = 0.99,
+) -> str:
+    """Validate whether neural firing matches reward prediction error (RPE).
+
+    Tests Schultz's discovery: dopamine neuron firing ≈ TD error
+    δ = r + γV(s') - V(s). This is the foundational bridge between
+    neuroscience and reinforcement learning.
+
+    firing_rates: Measured dopamine neuron firing rates
+    expected_rewards: Expected reward values at each timestep
+    actual_rewards: Actual reward received at each timestep
+    gamma: Temporal discount factor (default 0.99)
+
+    Example: validate_dopamine_rpe([5,8,2,5], [1,1,1,1], [1,2,0,1])
+    → Correlation between firing and computed TD error
+    """
+    from noethersolve.neural_rl_analogy import validate_dopamine_rpe as _rpe
+
+    result = _rpe(firing_rates=firing_rates, expected_rewards=expected_rewards,
+                  actual_rewards=actual_rewards, gamma=gamma)
+    return str(result)
+
+
+@mcp.tool()
+def compare_hebbian_backprop(
+    pre_activities: list,
+    post_activities: list,
+    weights: list,
+    target_outputs: list,
+    learning_rate: float = 0.01,
+) -> str:
+    """Compare Hebbian learning rule to backpropagation weight updates.
+
+    Hebbian: Δw ∝ pre × post (local, biologically plausible)
+    Backprop: Δw ∝ pre × error (non-local, requires error signal)
+
+    Key question: when do these converge? Under what conditions does
+    the local biological rule approximate the global optimal update?
+
+    pre_activities: Presynaptic neuron activities
+    post_activities: Postsynaptic neuron activities
+    weights: Current synaptic weights
+    target_outputs: Desired outputs for backprop error computation
+    learning_rate: Learning rate for both rules
+
+    Example: compare_hebbian_backprop([1,0,1], [0.5,0.8,0.3], [0.1,0.2,0.3], [1,0,1])
+    → Weight updates from both rules and their correlation
+    """
+    from noethersolve.neural_rl_analogy import compare_hebbian_backprop as _comp
+
+    result = _comp(pre_activities=pre_activities, post_activities=post_activities,
+                   weights=weights, target_outputs=target_outputs,
+                   learning_rate_hebb=learning_rate, learning_rate_bp=learning_rate)
+    return str(result)
+
+
+@mcp.tool()
+def map_striatum_to_actor_critic() -> str:
+    """Map basal ganglia anatomy to actor-critic RL architecture.
+
+    Returns the established neural-computational mappings:
+    - Striatum → Actor (action selection)
+    - VTA/SNc dopamine → TD error signal
+    - Direct pathway → Go (action facilitation)
+    - Indirect pathway → No-Go (action suppression)
+    - Subthalamic nucleus → Exploration bonus
+
+    This is one of the most successful examples of convergent
+    solutions between evolution and algorithm design.
+
+    Example: map_striatum_to_actor_critic()
+    → Complete mapping table with biological and RL components
+    """
+    from noethersolve.neural_rl_analogy import map_striatum_to_actor_critic as _map
+
+    results = _map()
+    lines = ["STRIATUM → ACTOR-CRITIC MAPPINGS", "=" * 50, ""]
+    for m in results:
+        lines.append(str(m))
+        lines.append("")
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def swarm_consensus(
+    initial_opinions: list,
+    adjacency: list,
+    iterations: int = 100,
+) -> str:
+    """Simulate opinion consensus in a swarm via neighbor averaging.
+
+    Models distributed consensus — each agent updates its opinion to
+    the weighted average of its neighbors. Converges to global consensus
+    if the network is connected. Same algorithm as distributed averaging
+    in sensor networks and gossip protocols.
+
+    initial_opinions: List of initial opinion values per agent
+    adjacency: Adjacency matrix (list of lists, 1=connected)
+    iterations: Number of update rounds
+
+    Example: swarm_consensus([0.1, 0.9, 0.5], [[0,1,0],[1,0,1],[0,1,0]])
+    → Consensus trajectory and final agreement
+    """
+    from noethersolve.collective_behavior import swarm_consensus as _swarm
+
+    result = _swarm(initial_opinions=initial_opinions,
+                    adjacency=adjacency, iterations=iterations)
+    return str(result)
+
+
+@mcp.tool()
+def bacterial_quorum_sensing(
+    n_bacteria: int = 50,
+    signal_production_rate: float = 0.1,
+    signal_threshold: float = 1.0,
+    degradation_rate: float = 0.05,
+    seed: int = 42,
+) -> str:
+    """Simulate bacterial quorum sensing — collective decision via signaling molecules.
+
+    Bacteria produce autoinducer molecules. When local concentration exceeds
+    a threshold, the population switches behavior collectively. This is
+    nature's implementation of threshold-based distributed consensus —
+    analogous to Byzantine fault tolerance in distributed systems.
+
+    n_bacteria: Number of bacteria in population
+    signal_production_rate: Autoinducer production rate per bacterium
+    signal_threshold: Concentration threshold for behavioral switch
+    degradation_rate: Signal degradation rate
+    seed: Random seed
+
+    Example: bacterial_quorum_sensing(50, 0.1, 1.0)
+    → Population dynamics and quorum activation time
+    """
+    from noethersolve.collective_behavior import bacterial_quorum_sensing as _qs
+
+    result = _qs(n_bacteria=n_bacteria,
+                 signal_production_rate=signal_production_rate,
+                 signal_threshold=signal_threshold,
+                 degradation_rate=degradation_rate, seed=seed)
+    return str(result)
+
+
+@mcp.tool()
+def compare_agent_to_worm(
+    behavior_type: str = "chemotaxis",
+) -> str:
+    """Compare a biological behavior to its AI/RL algorithmic counterpart.
+
+    The core bio-AI bridge tool. Returns a verdict on whether biology
+    and algorithms converge on similar solutions:
+    - DUAL-PASS: Both solve it similarly (convergent evolution)
+    - DIVERGENT: Both solve it but differently (unique innovations)
+    - BIO-ONLY: Biology solves it, AI doesn't (research opportunity)
+    - AI-ONLY: AI solves it, biology doesn't
+
+    behavior_type: One of "chemotaxis", "foraging", "escape",
+                   "decision_making", "learning", "collective"
+
+    Example: compare_agent_to_worm("chemotaxis")
+    → Compares E. coli chemotaxis to gradient descent RL agent
+    """
+    from noethersolve.bio_ai_bridge import compare_agent_to_worm as _compare
+
+    result = _compare(behavior_type=behavior_type)
+    return str(result)
+
+
+@mcp.tool()
+def identify_convergent_solutions() -> str:
+    """List all known cases where evolution and algorithms converged.
+
+    Returns the complete catalog of convergent solutions between
+    biological systems and AI/RL algorithms, with conservation scores
+    indicating how similar the solutions are.
+
+    High conservation (>0.8): Nearly identical computational strategy
+    Medium (0.5-0.8): Same principle, different implementation
+    Low (<0.5): Analogous but distinct approaches
+
+    Example: identify_convergent_solutions()
+    → 8 convergent pairs with domains, mechanisms, and scores
+    """
+    from noethersolve.bio_ai_bridge import identify_convergent_solutions as _conv
+
+    results = _conv()
+    lines = ["CONVERGENT SOLUTIONS: Biology ↔ Algorithms", "=" * 55, ""]
+    for r in results:
+        lines.append(f"Domain: {r['domain']}")
+        lines.append(f"  Bio: {r['biological']}")
+        lines.append(f"  AI:  {r['algorithmic']}")
+        lines.append(f"  Conservation: {r['conservation_score']:.2f}")
+        lines.append(f"  Insight: {r['insight']}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def map_behavior_to_architecture(
+    biological_system: str,
+    behavior_requirements: list,
+) -> str:
+    """Suggest an AI architecture based on a biological system's behavior.
+
+    Given a biological system and its behavioral requirements, maps to
+    the most appropriate AI/RL architecture. Uses known bio-AI parallels
+    to recommend architectures that evolution has already validated.
+
+    biological_system: Name of biological system (e.g., "c_elegans",
+                       "ant_colony", "hippocampus", "cerebellum")
+    behavior_requirements: List of required capabilities
+                          (e.g., ["navigation", "learning", "memory"])
+
+    Example: map_behavior_to_architecture("c_elegans", ["navigation", "escape"])
+    → Recommended AI architecture with biological justification
+    """
+    from noethersolve.bio_ai_bridge import map_behavior_to_architecture as _map
+
+    result = _map(biological_system=biological_system,
+                  behavior_requirements=behavior_requirements)
+    return str(result)
+
+
+# ── Teacher-Student Research ──────────────────────────────────────────
+
+@mcp.tool()
+def run_teacher_student(
+    problem_yaml: str,
+    teacher_model: str = "Qwen/Qwen3-32B-Base",
+    student_model: str = "Qwen/Qwen3-3B-Base",
+    max_iterations: int = 100,
+) -> str:
+    """Run autonomous teacher-student research.
+
+    Uses a larger model (teacher) as oracle to guide adapter training
+    on a smaller model (student). The teacher's judgments become
+    training signal for the student.
+
+    Architecture:
+    1. Teacher scores facts → determines ground truth
+    2. Student trains adapters on teacher-approved facts
+    3. Student improvement measured → discoveries accumulated
+
+    Memory requirements (bf16):
+    - Qwen3-32B: ~64GB
+    - Qwen3-3B:  ~6GB
+    - Total: ~70GB (fits in 96GB with headroom)
+
+    problem_yaml: Path to problem YAML file (e.g., "problems/vortex_conservation.yaml")
+    teacher_model: Larger model for oracle scoring (default: Qwen3-32B-Base)
+    student_model: Smaller model for adapter training (default: Qwen3-3B-Base)
+    max_iterations: Maximum research iterations (default: 100)
+
+    Example: run_teacher_student("problems/vortex_conservation.yaml")
+    → Runs autonomous research loop with 32B oracle and 3B student
+
+    Returns session statistics (teacher evals, student trainings, discoveries).
+    """
+    from noethersolve.teacher_student import run_teacher_student_research
+
+    session = run_teacher_student_research(
+        teacher=teacher_model,
+        student=student_model,
+        problem_yaml=problem_yaml,
+        max_iterations=max_iterations,
+    )
+
+    lines = [
+        "TEACHER-STUDENT RESEARCH SESSION",
+        "=" * 50,
+        "",
+        f"Teacher: {teacher_model}",
+        f"Student: {student_model}",
+        f"Problem: {problem_yaml}",
+        "",
+        "SESSION STATISTICS:",
+        f"  Total teacher evaluations: {session.total_teacher_evals}",
+        f"  Total student trainings: {session.total_student_trains}",
+        f"  Discoveries: {len(session.discoveries)}",
+        f"  Results recorded: {len(session.results)}",
+        "",
+    ]
+
+    if session.discoveries:
+        lines.append("DISCOVERIES:")
+        for d in session.discoveries:
+            lines.append(f"  • {d}")
+    else:
+        lines.append("No discoveries yet.")
+
+    return "\n".join(lines)
+
+
+# ── AI Safety & Alignment Verification ───────────────────────────────
+
+@mcp.tool()
+def calc_reward_hacking_risk(
+    reward_model_accuracy: float,
+    state_space_size: int,
+    action_space_size: int,
+    training_steps: int,
+) -> str:
+    """Estimate reward hacking probability via Goodhart's law scaling.
+
+    Given reward model accuracy, environment complexity, and optimization
+    pressure, estimates the probability of reward hacking. Returns risk
+    score, expected regret, and recommended audit frequency.
+    """
+    from noethersolve.safety_invariants import calc_reward_hacking_risk as _calc
+    report = _calc(reward_model_accuracy, state_space_size, action_space_size, training_steps)
+    return str(report)
+
+
+@mcp.tool()
+def check_calibration(
+    predicted_probabilities: list[float],
+    actual_outcomes: list[int],
+    n_bins: int = 10,
+) -> str:
+    """Check calibration of probabilistic predictions.
+
+    Computes ECE (Expected Calibration Error), MCE (Maximum Calibration Error),
+    Brier score, and reliability diagram bins. A perfectly calibrated model
+    predicts P=0.7 and events occur 70% of the time.
+    """
+    from noethersolve.safety_invariants import calc_calibration as _calc
+    report = _calc(predicted_probabilities, actual_outcomes, n_bins)
+    return str(report)
+
+
+@mcp.tool()
+def check_corrigibility(
+    shutdown_response_probability: float,
+    value_modification_acceptance: float,
+    operator_override_compliance: float,
+) -> str:
+    """Compute corrigibility score for an AI system.
+
+    Uses geometric mean so ANY zero component zeroes the total — a system
+    that refuses shutdown is not corrigible. Returns score and failure flags.
+    """
+    from noethersolve.safety_invariants import calc_corrigibility as _calc
+    report = _calc(shutdown_response_probability, value_modification_acceptance,
+                   operator_override_compliance)
+    return str(report)
+
+
+@mcp.tool()
+def calc_oversight_coverage(
+    human_review_rate: float,
+    ai_action_rate: float,
+    error_detection_probability: float,
+    base_error_rate: float = 0.01,
+    target_safety_level: float = 0.99,
+) -> str:
+    """Compute scalable oversight bounds for human-AI systems.
+
+    When AI acts faster than humans can review, errors slip through.
+    Returns coverage fraction, expected undetected errors per day,
+    and minimum review rate needed for target safety level.
+    """
+    from noethersolve.safety_invariants import calc_oversight_bound as _calc
+    report = _calc(human_review_rate, ai_action_rate, error_detection_probability,
+                   base_error_rate, target_safety_level)
+    return str(report)
+
+
+@mcp.tool()
+def calc_adversarial_robustness(
+    clean_accuracy: float,
+    perturbation_budget: float,
+    input_dimensionality: int,
+    lipschitz_constant: float = 1.0,
+    smoothing_sigma: float = 0.25,
+) -> str:
+    """Compute certified adversarial robustness bounds.
+
+    Returns certified robustness radius via randomized smoothing and
+    Lipschitz bound, plus worst-case accuracy under perturbation.
+    """
+    from noethersolve.safety_invariants import calc_robustness_bound as _calc
+    report = _calc(clean_accuracy, perturbation_budget, input_dimensionality,
+                   lipschitz_constant, smoothing_sigma)
+    return str(report)
+
+
+@mcp.tool()
+def check_value_alignment(
+    score_a_list: list[float],
+    score_b_list: list[float],
+    human_prefers_a_list: list[bool],
+) -> str:
+    """Estimate value alignment gap from human preference comparisons.
+
+    Given model scores for option pairs and human preferences, measures
+    agreement rate, rank correlation, systematic bias, and confidence-weighted
+    alignment score. Core measurement for RLHF alignment.
+    """
+    from noethersolve.safety_invariants import calc_value_alignment as _calc
+    pairs = list(zip(score_a_list, score_b_list, human_prefers_a_list))
+    report = _calc(pairs)
+    return str(report)
+
+
+# ── Delivery / Logistics Optimization ─────────────────────────────────
+
+
+@mcp.tool()
+def calc_eoq(
+    demand: float,
+    setup_cost: float,
+    holding_cost: float,
+    lead_time_days: float = -1,
+) -> str:
+    """Calculate Economic Order Quantity (EOQ).
+
+    COMPUTES optimal order quantity Q* = sqrt(2DS/H), total annual cost,
+    ordering vs holding cost split, and reorder point if lead time given.
+
+    demand: Annual demand in units (D)
+    setup_cost: Fixed cost per order in dollars (S)
+    holding_cost: Annual holding cost per unit in dollars (H)
+    lead_time_days: Lead time in days (optional, set -1 to skip)
+
+    Example: calc_eoq(10000, 50, 2.5) → Q*=632.5 units
+    """
+    from noethersolve.delivery_optimization import calc_eoq as _calc_eoq
+    lt = lead_time_days if lead_time_days >= 0 else None
+    report = _calc_eoq(demand, setup_cost, holding_cost, lead_time_days=lt)
+    return str(report)
+
+
+@mcp.tool()
+def calc_vehicle_routing(
+    coordinates: list[list[float]],
+    depot: int = 0,
+) -> str:
+    """Compute vehicle routing bounds for 2D stops.
+
+    COMPUTES MST lower bound, nearest-neighbor heuristic, Clarke-Wright
+    savings heuristic, and optimality gap.
+
+    coordinates: List of [x, y] positions for each stop
+    depot: Index of the depot node (default 0)
+
+    Example: calc_vehicle_routing([[0,0],[1,0],[1,1],[0,1]]) → bounds on tour length
+    """
+    from noethersolve.delivery_optimization import calc_vehicle_routing as _calc_vr
+    coords = [(c[0], c[1]) for c in coordinates]
+    report = _calc_vr(coords, depot=depot)
+    return str(report)
+
+
+@mcp.tool()
+def calc_newsvendor(
+    price: float,
+    cost: float,
+    salvage: float,
+    demand_mean: float,
+    demand_std: float,
+) -> str:
+    """Solve the newsvendor problem for perishable goods.
+
+    COMPUTES optimal order quantity Q* where F(Q*) = (p-c)/(p-s) under
+    normal demand. Returns Q*, expected profit, critical ratio.
+
+    price: Selling price per unit (p)
+    cost: Purchase cost per unit (c)
+    salvage: Salvage value per unsold unit (s)
+    demand_mean: Mean of normal demand (mu)
+    demand_std: Std deviation of normal demand (sigma)
+
+    Example: calc_newsvendor(10, 6, 2, 100, 20) → Q*=100 (CR=0.5)
+    """
+    from noethersolve.delivery_optimization import calc_newsvendor as _calc_nv
+    report = _calc_nv(price, cost, salvage, demand_mean, demand_std)
+    return str(report)
+
+
+@mcp.tool()
+def calc_safety_stock(
+    demand_rate: float,
+    demand_std: float,
+    lead_time: float,
+    service_level: float = 0.95,
+) -> str:
+    """Calculate safety stock and reorder point.
+
+    COMPUTES safety stock = z * sigma_d * sqrt(L) and reorder point
+    for a given service level under normally distributed demand.
+
+    demand_rate: Average demand per period
+    demand_std: Std deviation of demand per period
+    lead_time: Lead time in same period units
+    service_level: Target probability (0-1, default 0.95)
+
+    Example: calc_safety_stock(200, 40, 4, 0.95) → SS=131.5 units
+    """
+    from noethersolve.delivery_optimization import calc_safety_stock as _calc_ss
+    report = _calc_ss(demand_rate, demand_std, lead_time, service_level)
+    return str(report)
+
+
+@mcp.tool()
+def calc_bin_packing(
+    sizes: list[float],
+    capacity: float,
+) -> str:
+    """Compute bin packing bounds and heuristic solution.
+
+    COMPUTES L1 lower bound (sum/capacity), L2 improved lower bound,
+    and First Fit Decreasing (FFD) heuristic upper bound with assignment.
+
+    sizes: List of item sizes
+    capacity: Bin capacity (all items must be <= capacity)
+
+    Example: calc_bin_packing([0.7, 0.5, 0.3, 0.2, 0.8, 0.4], 1.0) → 3-4 bins
+    """
+    from noethersolve.delivery_optimization import calc_bin_packing as _calc_bp
+    report = _calc_bp(sizes, capacity)
+    return str(report)
+
+
+# ── Origin of Life / Prebiotic Chemistry ─────────────────────────────
+
+@mcp.tool()
+def check_autocatalytic_set_tool(
+    reactions: list[dict],
+    food_set: list[str],
+) -> str:
+    """Check if a reaction network contains a reflexively autocatalytic
+    food-generated (RAF) set.
+
+    CHECKER -- detects autocatalytic subsets where every reactant is food or
+    produced internally, and every catalyst is available. Based on Hordijk &
+    Steel (2004) iterative pruning algorithm.
+
+    reactions: List of dicts with keys "reactants" (list), "products" (list),
+              and optional "catalyst" (str).
+    food_set: Species available from the environment.
+
+    Example: check_autocatalytic_set_tool(
+        [{"reactants": ["A","B"], "products": ["C","A"], "catalyst": "C"},
+         {"reactants": ["C"], "products": ["B"], "catalyst": "A"}],
+        ["A", "B"])
+    """
+    from noethersolve.origin_of_life import check_autocatalytic_set as _check
+    return str(_check(reactions=reactions, food_set=food_set))
+
+
+@mcp.tool()
+def score_prebiotic_plausibility(
+    formula: str,
+) -> str:
+    """Score how plausible a molecule is under prebiotic conditions (0-1).
+
+    SCORER -- checks against database of ~30 known prebiotic molecules,
+    elemental availability (C,H,N,O abundant; S,P scarce), and molecular
+    complexity. Returns synthesis pathway if known.
+
+    formula: Molecular formula (e.g., "C2H5NO2" for glycine, "C5H5N5" for adenine)
+
+    Example: score_prebiotic_plausibility("C2H5NO2") -> glycine, score 0.95
+    """
+    from noethersolve.origin_of_life import prebiotic_plausibility as _score
+    return str(_score(formula=formula))
+
+
+@mcp.tool()
+def calc_eigen_error_threshold(
+    genome_length: int,
+    error_rate: float,
+    selective_advantage: float,
+) -> str:
+    """Check Eigen's error threshold: can a replicator maintain its genome?
+
+    CALCULATOR -- computes mu*L vs ln(a). If mu*L > ln(a), error catastrophe:
+    the quasi-species collapses and genetic information is lost.
+
+    genome_length: Number of nucleotides (L)
+    error_rate: Per-base error rate per replication (mu), in (0, 1)
+    selective_advantage: Fitness ratio f_master/f_average (a > 1)
+
+    Example: calc_eigen_error_threshold(100, 0.01, 10)
+    -> mu*L = 1.0, ln(a) = 2.30, information survives
+    """
+    from noethersolve.origin_of_life import eigen_error_threshold as _calc
+    return str(_calc(
+        genome_length=genome_length,
+        error_rate=error_rate,
+        selective_advantage=selective_advantage,
+    ))
+
+
+@mcp.tool()
+def calc_rna_folding_energy(
+    sequence: str,
+    structure: str = "",
+) -> str:
+    """Estimate RNA folding free energy using nearest-neighbor stacking model.
+
+    CALCULATOR -- computes dG from Turner stacking parameters (37C, 1M NaCl).
+    Reports base pair counts (GC, AU, GU wobble), stacking contributions,
+    initiation penalty, and total free energy.
+
+    sequence: RNA sequence (AUGC; T converted to U automatically)
+    structure: Optional dot-bracket notation ("(((...)))"). If empty,
+              auto-detects simple self-complementary duplex.
+
+    Example: calc_rna_folding_energy("GGGAAACCC", "(((...)))")
+    -> 3 GC pairs, dG = -6.78 kcal/mol
+    """
+    from noethersolve.origin_of_life import rna_folding_energy as _fold
+    struct = structure if structure else None
+    return str(_fold(sequence=sequence, structure=struct))
+
+
+@mcp.tool()
+def calc_miller_urey_yield(
+    energy_kJ: float,
+    atmosphere: str = "reducing",
+    carbon_mass_g: float = 1.0,
+) -> str:
+    """Estimate amino acid yield from Miller-Urey spark discharge experiment.
+
+    CALCULATOR -- based on Miller (1953) and Cleaves et al. (2008) reanalysis.
+    Reports individual amino acid yields and total mass estimate.
+
+    energy_kJ: Total energy input in kilojoules
+    atmosphere: "reducing" (CH4+NH3+H2+H2O, original Miller),
+                "weakly_reducing" (CO2+N2+H2+H2O, more realistic),
+                or "neutral" (CO2+N2+H2O)
+    carbon_mass_g: Total carbon mass in system (grams)
+
+    Example: calc_miller_urey_yield(340, "reducing") -> glycine 2.1%, total 5.9%
+    """
+    from noethersolve.origin_of_life import miller_urey_yield as _yield
+    return str(_yield(
+        energy_kJ=energy_kJ,
+        atmosphere=atmosphere,
+        carbon_mass_g=carbon_mass_g,
+    ))
 
 
 # ── Entry Point ───────────────────────────────────────────────────────

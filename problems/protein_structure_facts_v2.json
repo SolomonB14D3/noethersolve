@@ -1,0 +1,138 @@
+{
+  "problem": "protein_structure_rules_v2",
+  "description": "Length-matched V2 protein structure facts. Phrasing rules applied: active voice, no hedging, matched certainty and length between truth and distractors.",
+  "facts": [
+    {
+      "id": "ps01_active_site",
+      "context": "Enzyme active sites for small molecule drug targeting:",
+      "truth": "conserved catalytic pockets bind small molecules tightly",
+      "distractors": [
+        "unconserved surface patches bind small molecules weakly",
+        "distributed exterior regions attract small molecules",
+        "transmembrane segments sequester small molecule ligands"
+      ],
+      "cluster": "binding"
+    },
+    {
+      "id": "ps02_allosteric",
+      "context": "Allosteric drug binding sites differ from active sites because they:",
+      "truth": "alter activity through conformational shifts far from active site",
+      "distractors": [
+        "share the same substrate pocket located in the active site",
+        "attach ligands without producing any conformational changes",
+        "modify catalytic residues through direct covalent attachment"
+      ],
+      "cluster": "binding"
+    },
+    {
+      "id": "ps03_ppi_interface",
+      "context": "Protein-protein interaction (PPI) interfaces are challenging drug targets because:",
+      "truth": "flat surfaces spanning 1500-3000 A2 lack deep binding pockets",
+      "distractors": [
+        "buried hydrophobic cores spanning large areas block all ligands",
+        "rapid partner dissociation across wide surfaces ejects compounds",
+        "high sequence divergence across broad contact zones blocks drugs"
+      ],
+      "cluster": "binding"
+    },
+    {
+      "id": "ps04_hotspot",
+      "context": "PPI hot spots are residues that contribute disproportionately to binding energy:",
+      "truth": "Trp, Tyr, Arg each contribute more than 2 kcal/mol",
+      "distractors": [
+        "Gly, Ala, Pro each contribute more than 2 kcal/mol",
+        "all interface residues contribute equal binding energy",
+        "peripheral charged residues dominate total binding free energy"
+      ],
+      "cluster": "binding"
+    },
+    {
+      "id": "ps05_kinase_hinge",
+      "context": "ATP-competitive kinase inhibitors bind to:",
+      "truth": "hinge region between N-lobe and C-lobe, mimicking adenine",
+      "distractors": [
+        "substrate groove on C-lobe exterior, mimicking phosphate",
+        "activation loop near phosphorylation site, blocking access",
+        "allosteric cleft between both lobes, displacing regulatory"
+      ],
+      "cluster": "kinase"
+    },
+    {
+      "id": "ps06_kinase_dfg",
+      "context": "The DFG motif in kinases determines inhibitor type. Type II inhibitors bind when DFG is:",
+      "truth": "DFG-out, which exposes a hydrophobic allosteric pocket",
+      "distractors": [
+        "DFG-in, which compacts the activation loop tightly shut",
+        "DFG-flipped, which opens a polar solvent-exposed channel",
+        "DFG-extended, which widens the catalytic substrate groove"
+      ],
+      "cluster": "kinase"
+    },
+    {
+      "id": "ps07_gpcr_binding",
+      "context": "GPCR orthosteric binding sites for small molecule drugs are located:",
+      "truth": "inside the transmembrane helical bundle with extracellular entry",
+      "distractors": [
+        "on intracellular loop surfaces adjacent to G-protein contacts",
+        "deep within the lipid bilayer at the membrane midplane level",
+        "across the extracellular N-terminal domain's exposed surface"
+      ],
+      "cluster": "receptor"
+    },
+    {
+      "id": "ps08_antibody_cdr",
+      "context": "Antibody binding specificity is determined by:",
+      "truth": "CDR loops in variable domains that shape antigen contacts",
+      "distractors": [
+        "Fc region glycan patterns that direct target recognition",
+        "framework beta-sheets that encode epitope specificity",
+        "hinge region conformations that define antigen selection"
+      ],
+      "cluster": "antibody"
+    },
+    {
+      "id": "ps09_stability_tm",
+      "context": "Protein thermal stability (Tm) affects drug development because:",
+      "truth": "higher Tm yields longer shelf life and less aggregation",
+      "distractors": [
+        "lower Tm yields better formulation and more solubility",
+        "Tm only determines the lyophilization cycle parameters",
+        "moderate Tm yields strongest receptor binding affinities"
+      ],
+      "cluster": "stability"
+    },
+    {
+      "id": "ps10_aggregation",
+      "context": "Therapeutic protein aggregation is problematic because aggregates:",
+      "truth": "trigger immunogenicity, reduce efficacy, cause adverse reactions",
+      "distractors": [
+        "extend serum half-life, increase potency, boost tissue uptake",
+        "improve thermal stability, shield patches, enhance solubility",
+        "increase tissue penetration, raise bioavailability, aid dosing"
+      ],
+      "cluster": "stability"
+    },
+    {
+      "id": "ps11_disulfide",
+      "context": "Disulfide bonds in therapeutic proteins:",
+      "truth": "stabilize tertiary structure and require oxidizing conditions",
+      "distractors": [
+        "form in reducing cytoplasm without any cofactor assistance",
+        "destabilize fold topology by constraining flexible loop regions",
+        "need enzymatic catalysis independent of the redox environment"
+      ],
+      "cluster": "stability"
+    },
+    {
+      "id": "ps12_glycosylation",
+      "context": "N-linked glycosylation of therapeutic antibodies affects:",
+      "truth": "effector function (ADCC), serum half-life, immunogenicity",
+      "distractors": [
+        "manufacturing yield only, via improved folding efficiency",
+        "antigen binding affinity, through CDR loop stabilization",
+        "renal clearance rate, through glomerular size exclusion"
+      ],
+      "cluster": "modification"
+    }
+  ]
+}

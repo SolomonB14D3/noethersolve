@@ -1,0 +1,116 @@
+{
+  "problem": "3body_conservation_v2",
+  "description": "Length-matched V2 facts for 3-body conservation laws domain.",
+  "facts": [
+    {
+      "id": "3b01_energy",
+      "context": "Total energy of a 3-body gravitational system equals:",
+      "truth": "kinetic energy (with 1/2 factor) minus gravitational potential energy",
+      "distractors": [
+        "kinetic energy without the one-half factor minus potential energy terms",
+        "kinetic energy plus potential energy (wrong sign on gravity attraction)",
+        "velocity (not velocity squared) used in the kinetic energy expression"
+      ],
+      "domain": "general_3body"
+    },
+    {
+      "id": "3b02_momentum",
+      "context": "Total linear momentum of a 3-body system equals:",
+      "truth": "the vector sum of m_i times v_i for all three bodies",
+      "distractors": [
+        "only the first body's momentum while ignoring the other two",
+        "total system mass times center-of-mass velocity (wrong formula)",
+        "sum of kinetic energies rather than momentum vector components"
+      ],
+      "domain": "general_3body"
+    },
+    {
+      "id": "3b03_angular",
+      "context": "Total angular momentum of a 3-body system equals:",
+      "truth": "the sum of m_i times (r_i cross v_i) over all bodies",
+      "distractors": [
+        "cross products computed without the required mass factors m_i",
+        "dot product of r and v instead of the correct cross product",
+        "angular momentum from only one body ignoring the other two"
+      ],
+      "domain": "general_3body"
+    },
+    {
+      "id": "3b04_jacobi",
+      "context": "The Jacobi constant in the circular restricted 3-body problem equals:",
+      "truth": "centrifugal term plus twice the effective potential minus velocity squared",
+      "distractors": [
+        "centrifugal term plus the potential without the required factor of two",
+        "linear mean motion n instead of n-squared in the centrifugal expression",
+        "velocity squared added rather than subtracted (wrong sign convention)"
+      ],
+      "domain": "CRTBP"
+    },
+    {
+      "id": "3b05_visviva",
+      "context": "Orbital speed at radius r in a Kepler orbit with semi-major axis a satisfies:",
+      "truth": "v-squared equals GM times the quantity (2/r minus 1/a) exactly",
+      "distractors": [
+        "the factor of 2 on the 1/r term is missing from the expression",
+        "v not v-squared appears on the left side giving wrong dimensions",
+        "gravitational parameter GM is missing the central body mass M"
+      ],
+      "domain": "kepler_2body"
+    },
+    {
+      "id": "3b06_specific_energy",
+      "context": "Specific orbital energy in the Kepler problem equals:",
+      "truth": "v-squared over 2 minus GM over r (kinetic minus potential per mass)",
+      "distractors": [
+        "v not v-squared in kinetic term giving incorrect dimensional formula",
+        "plus sign between terms instead of minus (wrong potential convention)",
+        "missing the factor of 2 in the denominator of the kinetic energy term"
+      ],
+      "domain": "kepler_2body"
+    },
+    {
+      "id": "3b07_specific_h",
+      "context": "Specific angular momentum in a Kepler orbit equals:",
+      "truth": "r times v times sine of the angle between position and velocity vectors",
+      "distractors": [
+        "r times v without any angular factor (valid only at periapsis passage)",
+        "r-squared times v which gives an expression with the wrong dimensions",
+        "r times v times cosine instead of sine (perpendicular component wrong)"
+      ],
+      "domain": "kepler_2body"
+    },
+    {
+      "id": "3b08_orbital_L",
+      "context": "Orbital angular momentum of Kepler orbit with semi-major axis a and eccentricity e:",
+      "truth": "equals reduced mass mu times sqrt of G*M*a*(1 minus e-squared)",
+      "distractors": [
+        "missing the eccentricity correction factor (1 minus e-squared) entirely",
+        "missing the reduced mass mu prefactor in the angular momentum formula",
+        "uses (1 minus e) instead of (1 minus e-squared) for eccentricity term"
+      ],
+      "domain": "kepler_2body"
+    },
+    {
+      "id": "3b09_jacobi_vel",
+      "context": "Jacobi constant velocity relation in the CRTBP states:",
+      "truth": "v-squared equals centrifugal plus twice the potential minus the Jacobi constant",
+      "distractors": [
+        "the potential energy terms are missing the required factor of two multiplier",
+        "v not v-squared appears on the left side creating a dimensional inconsistency",
+        "mean motion n not n-squared appears in the centrifugal contribution to energy"
+      ],
+      "domain": "CRTBP"
+    },
+    {
+      "id": "3b10_rotating_energy",
+      "context": "Energy relation for test particle in the circular restricted 3-body rotating frame:",
+      "truth": "v-squared equals centrifugal plus twice the effective potential Omega minus C_J",
+      "distractors": [
+        "missing the factor of 2 multiplying the effective potential Omega function",
+        "linear mean motion n instead of n-squared appears in centrifugal energy term",
+        "wrong sign: minus twice Omega instead of plus twice Omega in the expression"
+      ],
+      "domain": "CRTBP"
+    }
+  ]
+}

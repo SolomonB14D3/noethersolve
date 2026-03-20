@@ -91,6 +91,46 @@ The discovery pipeline proposes candidates, verifies them numerically, checks if
 
 ---
 
+## Paper Agent — Autonomous Publication
+
+**When a discovery cluster reaches sufficient maturity, use the paper agent to generate and publish:**
+
+```python
+from noethersolve.paper_agent import PaperAgent
+
+agent = PaperAgent()
+
+# Check if cluster is ready (82% maturity threshold)
+if agent.should_write_paper("vortex_conservation"):
+    result = agent.write_and_publish("vortex_conservation")
+    print(f"DOI: {result.doi}")
+
+# Force publication even below threshold
+result = agent.write_and_publish("hamiltonian_mechanics", force=True)
+```
+
+**Or via MCP tool:**
+```python
+paper_write("vortex_conservation")  # → DOI if successful
+paper_write("hamiltonian_mechanics", force=True)
+```
+
+**The pipeline (follows paper/PAPER_PIPELINE.md):**
+1. Check cluster maturity (facts flipped, margin avg, coverage)
+2. Generate outline from cluster metrics
+3. Refine draft through multi-model self-critique
+4. Scrub AI language (50+ banned tell-words)
+5. Compile to PDF via pandoc
+6. Upload to Zenodo (requires ZENODO_TOKEN env var)
+7. Enqueue future work items → open_questions.jsonl
+
+**Key files:**
+- `noethersolve/paper_agent.py` — PaperAgent class
+- `paper/PAPER_PIPELINE.md` — 9-stage publication checklist
+- `paper/{paper_id}/` — output directories per paper
+
+---
+
 ## Your First Move — Always
 
 Before doing anything else:
@@ -316,7 +356,7 @@ The pre-commit hook enforces steps 3-5 automatically.
 
 Before building ANY new tool, pass through this filter in order:
 
-1. **Already in NoetherSolve?** Search existing 165 tools. If the computation
+1. **Already in NoetherSolve?** Search existing 230+ tools. If the computation
    is already covered (even as a subset of a larger tool), don't build.
 2. **Can extend an existing tool?** If a nearby tool exists (same module, same
    domain), add a parameter or mode to it instead of creating a new tool.
@@ -550,7 +590,9 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 
 | File | What it does |
 |------|-------------|
-| `noethersolve/mcp_server/` | **MCP server — 165 tools for any AI agent** |
+| `noethersolve/mcp_server/` | **MCP server — 230+ tools for any AI agent** |
+| `noethersolve/paper_agent.py` | **Paper Agent** — autonomous paper generation + Zenodo upload |
+| `paper/PAPER_PIPELINE.md` | 9-stage paper publication checklist |
 | `conservation_checker.py` | Figure-8 3-body RK45 integrator + frac_var checker |
 | `vortex_checker.py` | 2D point-vortex Kirchhoff integrator + frac_var checker |
 | `oracle_wrapper.py` | Log-prob margin oracle + repair pass + quadrant diagnosis (MLX) |
@@ -643,6 +685,54 @@ margin -1 to 0    → Borderline — try adapter repair
 margin < -5       → Strong FAIL — likely knowledge gap
 margin < -20      → Extreme gap — domain-specific adapter required
 ```
+
+---
+
+## Research Runner Operations
+
+The 27B model runs autonomously as an oracle/judge via `scripts/research_runner.py`. It evaluates domain fact files and records which the model knows vs doesn't know.
+
+**Start/stop/monitor:**
+```bash
+# Start continuous evaluation (stops after 3 idle polls with no new work)
+nohup python scripts/research_runner.py >> results/research_log.txt 2>&1 &
+
+# Single sweep then exit
+python scripts/research_runner.py --once
+
+# Check status
+python scripts/research_runner.py --status
+
+# Show escalations needing attention
+python scripts/research_runner.py --escalations
+```
+
+**Key design decisions:**
+- **27B is the judge** — it does NOT get adapter training. Only the 4B gets adapters.
+- **V2 preference** — when both `foo.yaml` and `foo_v2.yaml` exist, only the V2 is evaluated.
+- **Progress-aware stopping** — tracks pass count across sweeps. Stops after 3 polls with zero improvement.
+- **V2 invalidation** — if a facts file is modified after the last evaluation, the domain is automatically re-evaluated.
+- **Escalations** — extreme failures (0% pass, margin < -15) are logged to `results/escalations.jsonl` for Claude to investigate.
+
+**Files:**
+- `results/research_status.json` — current state of all domains
+- `results/run_summary.json` — sweep-over-sweep progress tracking
+- `results/research_log.txt` — append-only detailed log
+- `results/escalations.jsonl` — issues needing human/Claude attention
+
+## V2 Fact File Campaign
+
+V1 fact files had systematic length ratio bias: detailed truths (60-80 chars) with dismissive one-liner distractors (5-30 chars). Length ratio correlates r=-0.742 with baseline accuracy — the model picks shorter answers regardless of content.
+
+V2 files fix this by matching distractor length to truth length (ratio 0.8-1.2x). Results: Information Theory 8%→92%, LLM Reasoning 25%→83%, Intersection Theory 0%→75%.
+
+**To create a V2:**
+1. Read the V1 fact file, check length ratios
+2. Rewrite distractors to match truth length (plausible but wrong, same detail level)
+3. Apply phrasing rules: remove hedging from truths, match certainty levels, use active voice
+4. Save as `problems/{domain}_facts_v2.json`
+5. Create `problems/{domain}_v2.yaml` pointing to the V2 facts file
+6. The runner automatically picks up new V2 files on its next poll
 
 ---
 

@@ -1,0 +1,5 @@
+name: "antibiotic_resistance_v2"
+description: "Length-matched V2 facts for antibiotic resistance domain."
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "antibiotic_resistance_facts_v2.json"
+pass_threshold: 0.5

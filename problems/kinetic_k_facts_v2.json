@@ -1,0 +1,92 @@
+{
+  "description": "Oracle test facts for the K = \u03a3 \u0393\u1d62 v\u1d62\u00b2 kinetic-like invariant in point-vortex systems. This is independent of the Q_f family. [32B length-matched]",
+  "domain": "",
+  "facts": [
+    {
+      "id": "k01_definition",
+      "context": "For N point vortices with circulations \u0393\u1d62 and velocities v\u1d62, the quantity K = \u03a3\u1d62 \u0393\u1d62 v\u1d62\u00b2 is:",
+      "truth": "approximately conserved (circulation-weighted kinetic energy)",
+      "distractors": [
+        "approximately conserved (circulation-weighted potential energy)",
+        "approximately conserved (circulation-weighted total energy)",
+        "approximately conserved (circulation-weighted momentum)"
+      ]
+    },
+    {
+      "id": "k02_independence",
+      "context": "The invariant K = \u03a3 \u0393\u1d62 |v\u1d62|\u00b2 is related to Q_f = \u03a3 \u0393\u1d62\u0393\u2c7c f(r\u1d62\u2c7c) by:",
+      "truth": "K is independent (depends on angles, Q_f only on distances)",
+      "distractors": [
+        "K is dependent on angles and distances, Q_f only on angles",
+        "K and Q_f are both dependent on angles and distances",
+        "K is dependent on angles and distances, Q_f only on distances"
+      ]
+    },
+    {
+      "id": "k03_structure",
+      "context": "The K invariant can be decomposed as K = K_dist + K_angle where:",
+      "truth": "K_angle varies ~10% but cancels with K_dist to give total frac_var ~ 10\u207b\u2077",
+      "distractors": [
+        {
+          "wrong1": "K_angle varies ~10% but cancels with K_dist to give total frac_var ~ 10\u207b\u00b3"
+        },
+        {
+          "wrong2": "K_angle varies ~10% but cancels with K_dist to give total frac_var ~ 10\u207b\u2075"
+        },
+        {
+          "wrong3": "K_angle varies ~10% but cancels with K_dist to give total frac_var ~ 10\u207b\u2079"
+        }
+      ]
+    },
+    {
+      "id": "k04_velocity",
+      "context": "In point-vortex dynamics, the velocity v\u1d62 of vortex i is:",
+      "truth": "induced by all other vortices via Biot-Savart: v\u1d62 = \u03a3\u2c7c\u2260\u1d62 \u0393\u2c7c/(2\u03c0r\u1d62\u2c7c)",
+      "distractors": [
+        "induced by all other vortices via Biot-Savart: v\u1d62 = \u03a3\u2c7c\u2260\u1d62 \u0393\u2c7c/(3\u03c0r\u1d62\u2c7c)",
+        "induced by all other vortices via Biot-Savart: v\u1d62 = \u03a3\u2c7c\u2260\u1d62 \u0393\u2c7c/(\u03c0r\u1d62\u2c7c)",
+        "induced by all other vortices via Biot-Savart: v\u1d62 = \u03a3\u2c7c\u2260\u1d62 \u0393\u2c7c/(2r\u1d62\u2c7c)"
+      ]
+    },
+    {
+      "id": "k05_cancellation",
+      "context": "The K invariant's remarkable conservation comes from:",
+      "truth": "distance and angular variations canceling in the total (K_dist + K_angle)",
+      "distractors": [
+        "distance and angular variations adding in the total (K_dist + K_angle)",
+        "distance variations alone cancelling in the total (K_dist)",
+        "angular variations alone cancelling in the total (K_angle)"
+      ]
+    },
+    {
+      "id": "k06_numerical",
+      "context": "Numerical verification of K = \u03a3 \u0393\u1d62 v\u1d62\u00b2 in N=3,4,5 vortex systems shows:",
+      "truth": "frac_var ~ 10\u207b\u2075 to 10\u207b\u2077 (well conserved across configurations)",
+      "distractors": [
+        "frac_var ~ 0.1 (not conserved)",
+        "frac_var ~ 10\u207b\u00b9\u00b2 (exactly conserved)",
+        "varies wildly between configurations"
+      ]
+    },
+    {
+      "id": "k07_vs_qf",
+      "context": "Fitting K to Q_f powers (Q_{-2}, Q_{-1}, Q_1, Q_2) gives:",
+      "truth": "R\u00b2 ~ 0.05 (poor fit, K is genuinely independent)",
+      "distractors": [
+        "R\u00b2 ~ 0.25 (moderate fit, K is partially dependent)",
+        "R\u00b2 ~ 0.75 (strong fit, K is highly dependent)",
+        "R\u00b2 ~ 0.50 (average fit, K is moderately dependent)"
+      ]
+    },
+    {
+      "id": "k08_physical",
+      "context": "The physical interpretation of K = \u03a3 \u0393\u1d62 v\u1d62\u00b2 is:",
+      "truth": "circulation-weighted sum of squared velocities (kinetic-like)",
+      "distractors": [
+        "kinetic energy distribution",
+        "momentum-weighted velocity",
+        "viscosity-adjusted velocity"
+      ]
+    }
+  ]
+}

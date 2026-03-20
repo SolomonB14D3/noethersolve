@@ -12,7 +12,7 @@ NoetherSolve starts by finding where LLMs are confidently wrong. It generates ca
 
 This is better than embedding knowledge in weights. Adapters trained on domain facts improve general truth preference (+0.10 MC2 on TruthfulQA, statistically significant), and orthogonal adapters (routed per-cluster) achieve 100% across 77 domains — but they can't be naively stacked without interference. Tools scale without constraints: each new tool is independent, verified, and callable on demand. The agent doesn't need to memorize that the Riemann Hypothesis is open — it calls `check_conjecture("Riemann")` and gets the verified answer.
 
-**160+ tools** currently exposed via MCP. 150+ are **calculators** — verified computational engines that derive answers from first principles (enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry reaction prediction, PID controller simulation, transaction isolation analysis, quantum circuit simulation, stability analysis, conservation law monitoring, genetic design, chemical auditing, elliptic curves, epidemiology, turbulence, information theory, and more). The rest are **lookup tables** — reference databases for mathematical conjectures, complexity theory, proof barriers, benchmark scores, and LLM science claims. Calculators scale indefinitely; lookups are faster but finite. Together they cover physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, control systems, databases, quantum computing, chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, epidemiology, information theory, elliptic curves, drug interactions, turbulence, and LLM science.
+**230+ tools** currently exposed via MCP. 220+ are **calculators** — verified computational engines that derive answers from first principles (enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry reaction prediction, PID controller simulation, transaction isolation analysis, quantum circuit simulation, stability analysis, conservation law monitoring, genetic design, chemical auditing, elliptic curves, epidemiology, turbulence, information theory, autonomy analysis, metacognition, and more). The rest are **lookup tables** — reference databases for mathematical conjectures, complexity theory, proof barriers, benchmark scores, and LLM science claims. Calculators scale indefinitely; lookups are faster but finite. Together they cover physics, math, genetics, enzyme kinetics, quantum mechanics, pharmacokinetics, organic chemistry, control systems, databases, quantum computing, chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, epidemiology, information theory, elliptic curves, drug interactions, turbulence, autonomy analysis, metacognition, and LLM science.
 
 The method is domain-agnostic. We've applied it to fluid dynamics, electromagnetism, chemical kinetics, Hamiltonian mechanics, Navier-Stokes regularity, knot theory, genetics therapeutics (7 domains covering CRISPR design through clinical translation), unsolved mathematics (6 domains covering Millennium Problems through computational complexity), LLM science (6 domains), programming languages (6 domains), 9 STEM domains (chemistry, cryptography, economics/finance, distributed systems, networking, operating systems, database internals, quantum computing, control systems), 3 science domains (biochemistry, organic chemistry, quantum mechanics), 9 frontier domains (battery technology, origin of life, consciousness, antibiotic resistance, protein folding, aging biology, quantum gravity, dark matter/energy, black hole frontiers, particle physics, holographic QInfo, condensed matter, climate science, cosmology, multi-messenger astronomy, neutrino physics), and 4 newer domains (elliptic curves, intersection theory, drug interactions, information theory). Any field where you can verify a claim and build a checker is fair game.
 
@@ -26,7 +26,7 @@ Three-phase pipeline transforms a frozen oracle (margin -77.5 +/- 1.7) into a ra
 **NoetherSolve Toolkit: Conservation Law Monitoring, Discovery, and Scientific Auditing Across Physics, Genetics, and Mathematics** (Sanchez, 2026)
 DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
-160+ tools organized across multiple tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 5 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer), 5 pharmacokinetics tools (IV bolus, oral dosing, half-life, steady state, dose adjustment), 5 enzyme kinetics tools (Michaelis-Menten, inhibition, catalytic efficiency, cooperativity, pH rate profile), 6 quantum mechanics tools (particle-in-box, hydrogen energy, uncertainty, tunneling, harmonic oscillator, angular momentum), 6 organic chemistry tools (molecule analysis, selectivity, mechanism prediction, synthesis validation, Baldwin's rules, Woodward-Hoffmann), 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor), 1 LLM science tool (claims auditor with benchmark checker and scaling calculator), 3 systems tools (PID controller, transaction isolation, quantum circuit simulator), 6 STEM calculators (chemistry, cryptography, finance, distributed systems, networking, operating systems), plus dozens of additional tools for elliptic curves, epidemiology, information theory, drug interactions, turbulence, plasma physics, optics, seismology, climate science, and more. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 2265 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
+230+ tools organized across multiple tiers: 6 physics tools (conservation monitors, integrator validator, chemical auditor, EM monitor, Hamiltonian validator, invariant learner), 5 genetics tools (sequence auditor, CRISPR scorer, pipeline validator, aggregation predictor, splice scorer), 5 pharmacokinetics tools (IV bolus, oral dosing, half-life, steady state, dose adjustment), 5 enzyme kinetics tools (Michaelis-Menten, inhibition, catalytic efficiency, cooperativity, pH rate profile), 6 quantum mechanics tools (particle-in-box, hydrogen energy, uncertainty, tunneling, harmonic oscillator, angular momentum), 6 organic chemistry tools (molecule analysis, selectivity, mechanism prediction, synthesis validation, Baldwin's rules, Woodward-Hoffmann), 7 unsolved mathematics tools (complexity auditor, conjecture checker, proof barrier checker, number theory verifier, reduction validator, PDE regularity checker, knot monitor), 1 LLM science tool (claims auditor with benchmark checker and scaling calculator), 3 systems tools (PID controller, transaction isolation, quantum circuit simulator), 6 STEM calculators (chemistry, cryptography, finance, distributed systems, networking, operating systems), autonomy analysis suite (transformer autonomy gaps, implementation roadmaps), metacognition toolkit (calibration, resolution, self-correction analysis), plus dozens of additional tools for elliptic curves, epidemiology, information theory, drug interactions, turbulence, plasma physics, seismology, climate science, and more. Q_f monitors detect corruption at 100x lower noise than standard H/Lz monitors. 173 validation test cases across all tools, 100% catch rate. 2265 tests with physics-enforcing pre-commit hook. See [`paper/noethersolve_toolkit.pdf`](paper/noethersolve_toolkit.pdf).
 
 **Unified Theory of Oracle Difficulty: Three Mechanisms Explain 95% of Benchmark Variance** (Sanchez, 2026)
 [View preprint](paper/unified_oracle_difficulty_theory.md) · Commit: [e4b6da9](https://github.com/SolomonB14D3/NoetherSolve/commit/e4b6da9)
@@ -81,13 +81,13 @@ NoetherSolve exploits this in four steps:
    The agent doesn't need to memorize facts — it calls the tool and gets
    the verified answer.
 
-The result: every gap we find makes every connected agent smarter. The 160+
+The result: every gap we find makes every connected agent smarter. The 230+
 tools currently served cover physics, genetics, enzyme kinetics, quantum
 mechanics, pharmacokinetics, organic chemistry, mathematics, complexity
 theory, control systems, databases, quantum computing, chemistry,
 cryptography, economics/finance, distributed systems, networking,
 operating systems, epidemiology, information theory, elliptic curves,
-drug interactions, turbulence, and LLM science.
+drug interactions, turbulence, autonomy analysis, metacognition, and LLM science.
 
 </details>
 
@@ -165,11 +165,11 @@ See [`paper/unified_oracle_difficulty_theory.md`](paper/unified_oracle_difficult
 ---
 
 <details open>
-<summary><h2>MCP Server — Give Any AI Agent 160+ Verified Tools</h2></summary>
+<summary><h2>MCP Server — Give Any AI Agent 230+ Verified Tools</h2></summary>
 
 The MCP server exposes all NoetherSolve tools to any AI agent that supports
 [Model Context Protocol](https://modelcontextprotocol.io/). One line of config,
-160+ tools available: 150+ calculators + lookup tables.
+230+ tools available: 220+ calculators + 10 lookup tables.
 
 ### Setup for Claude Code
 
@@ -183,7 +183,7 @@ pip install noethersolve[mcp]
 noethersolve-mcp  # starts the server
 ```
 
-### Available Tools (160+)
+### Available Tools (230+)
 
 | Category | Tools | Examples |
 |----------|-------|---------|
@@ -1287,7 +1287,7 @@ NoetherSolve
 ├── dashboard.py                ← Results dashboard from candidates.tsv
 │
 ├── noethersolve/               ← Core package (40+ toolkit modules + MCP server)
-│   ├── mcp_server/             ← MCP server (160+ tools for any AI agent)
+│   ├── mcp_server/             ← MCP server (230+ tools for any AI agent)
 │   │   ├── server.py           ← FastMCP tool definitions
 │   │   └── __main__.py         ← python -m noethersolve.mcp_server
 │   ├── adapter.py              ← Snap-on logit adapter (SwiGLU)

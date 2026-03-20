@@ -1,0 +1,26 @@
+name: "Bio-AI Computational Parallels"
+description: |
+  Test oracle knowledge of convergent solutions between biological systems
+  and AI/RL algorithms.
+
+  Key domains:
+  - Chemotaxis ↔ gradient descent (bacterial navigation = SGD with momentum)
+  - Foraging ↔ explore/exploit (C. elegans area-restricted search = epsilon-greedy)
+  - Dopamine RPE ↔ TD learning (Schultz 1997 = temporal difference error)
+  - Escape response ↔ interrupt-driven architectures
+  - Swarm consensus ↔ distributed averaging protocols
+  - Grid cells ↔ SLAM (hippocampal navigation = simultaneous localization)
+  - Ant pheromone trails ↔ ant colony optimization (stigmergy)
+  - Cerebellum forward models ↔ model predictive control
+
+  This tests whether the oracle knows the deep computational parallels
+  between neuroscience/biology and machine learning — not surface analogies,
+  but genuine algorithmic equivalences.
+
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "bio_ai_parallels_facts.json"
+pass_threshold: 0.5
+
+# No expression_templates — this domain uses oracle-only evaluation
+# (no numerical conservation checker). Run via:
+#   python experiments/run_full_oracle_benchmark.py --domain bio_ai_parallels

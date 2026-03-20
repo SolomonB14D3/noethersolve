@@ -1,0 +1,7 @@
+name: "knot_invariants_v2"
+description: |
+  Oracle test for knot invariants domain.
+  V2 uses length-balanced distractors (original had ratios up to 31.5x).
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "knot_invariants_balanced_facts.json"
+pass_threshold: 0.5

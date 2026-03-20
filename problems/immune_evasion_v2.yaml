@@ -1,0 +1,5 @@
+name: "immune_evasion_v2"
+description: "Length-matched V2 facts for immune evasion domain."
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "immune_evasion_facts_v2.json"
+pass_threshold: 0.5

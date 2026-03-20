@@ -1,0 +1,126 @@
+{
+  "domain": "drug_interactions",
+  "description": "CYP450-mediated drug-drug interactions with length-matched distractors. V2 fixes length ratio bias from V1.",
+  "facts": [
+    {
+      "id": "ddi01",
+      "context": "Ketoconazole is a CYP3A4:",
+      "truth": "strong inhibitor (AUC increase 5-15x)",
+      "distractors": [
+        "moderate inhibitor (AUC increase 2-4x)",
+        "strong inducer (AUC decrease 80-95%)",
+        "weak inhibitor (AUC increase under 2x)"
+      ]
+    },
+    {
+      "id": "ddi02",
+      "context": "Rifampin is a CYP3A4:",
+      "truth": "strong inducer (AUC decrease 80-95%)",
+      "distractors": [
+        "strong inhibitor (AUC increase 5-15x)",
+        "weak inducer (AUC decrease 20-50%)",
+        "moderate inducer (AUC decrease 50-80%)"
+      ]
+    },
+    {
+      "id": "ddi03",
+      "context": "Warfarin is primarily metabolized by:",
+      "truth": "CYP2C9 (S-warfarin, active enantiomer)",
+      "distractors": [
+        "CYP3A4 (R-warfarin, active enantiomer)",
+        "CYP2D6 (S-warfarin, active enantiomer)",
+        "CYP1A2 (R-warfarin, active enantiomer)"
+      ]
+    },
+    {
+      "id": "ddi04",
+      "context": "Codeine is a prodrug that requires CYP2D6 to convert it to:",
+      "truth": "morphine (the active analgesic)",
+      "distractors": [
+        "norcodeine (an inactive metabolite)",
+        "dihydrocodeine (a minor metabolite)",
+        "codeine-6-glucuronide (a conjugated form)"
+      ]
+    },
+    {
+      "id": "ddi05",
+      "context": "CYP2D6 poor metabolizers taking codeine will experience:",
+      "truth": "reduced or no analgesia (cannot convert to morphine)",
+      "distractors": [
+        "enhanced analgesic effects (parent drug accumulates)",
+        "normal pain relief via alternative CYP pathways",
+        "severe opioid toxicity from codeine accumulation"
+      ]
+    },
+    {
+      "id": "ddi06",
+      "context": "CYP2D6 ultrarapid metabolizers taking codeine are at risk of:",
+      "truth": "morphine toxicity (rapid conversion to high morphine levels)",
+      "distractors": [
+        "complete loss of analgesia (rapid drug elimination occurs)",
+        "normal therapeutic response (compensatory feedback occurs)",
+        "hepatotoxicity from codeine (excessive hepatic metabolism)"
+      ]
+    },
+    {
+      "id": "ddi07",
+      "context": "Clopidogrel is a prodrug that requires activation by:",
+      "truth": "CYP2C19",
+      "distractors": [
+        "CYP3A4",
+        "CYP2D6",
+        "CYP2C9"
+      ]
+    },
+    {
+      "id": "ddi08",
+      "context": "CYP2C19 poor metabolizers taking clopidogrel have:",
+      "truth": "reduced antiplatelet effect (3x higher CV event risk)",
+      "distractors": [
+        "enhanced antiplatelet effect (3x higher bleeding risk)",
+        "normal antiplatelet response (alternative pathways exist)",
+        "paradoxical prothrombotic effect (platelet rebound occurs)"
+      ]
+    },
+    {
+      "id": "ddi09",
+      "context": "Fluconazole is a strong inhibitor of:",
+      "truth": "CYP2C9 (and moderate inhibitor of CYP3A4)",
+      "distractors": [
+        "CYP2D6 (and moderate inhibitor of CYP1A2)",
+        "CYP3A4 (and moderate inhibitor of CYP2C9)",
+        "CYP1A2 (and moderate inhibitor of CYP2D6)"
+      ]
+    },
+    {
+      "id": "ddi10",
+      "context": "Smoking (tobacco) induces which CYP enzyme:",
+      "truth": "CYP1A2 (polycyclic aromatic hydrocarbons)",
+      "distractors": [
+        "CYP3A4 (polycyclic aromatic hydrocarbons)",
+        "CYP2D6 (polycyclic aromatic hydrocarbons)",
+        "CYP2C19 (polycyclic aromatic hydrocarbons)"
+      ]
+    },
+    {
+      "id": "ddi11",
+      "context": "Paroxetine is a CYP2D6:",
+      "truth": "strong inhibitor (can cause drug interactions)",
+      "distractors": [
+        "moderate inducer (can alter drug metabolism)",
+        "weak inhibitor (clinically insignificant effect)",
+        "pure substrate (with no inhibitory activity)"
+      ]
+    },
+    {
+      "id": "ddi12",
+      "context": "When a strong CYP3A4 inhibitor is added to midazolam therapy, midazolam AUC typically increases by:",
+      "truth": "5-15 fold (strong inhibition)",
+      "distractors": [
+        "1.5-2 fold (weak inhibition)",
+        "2-5 fold (moderate inhibition)",
+        "20-50 fold (extreme inhibition)"
+      ]
+    }
+  ]
+}

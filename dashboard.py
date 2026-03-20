@@ -15,6 +15,7 @@ Usage:
 import argparse
 import base64
 import io
+import json
 import os
 import sys
 import csv
@@ -35,6 +36,8 @@ except ImportError:
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CANDIDATES_TSV = os.path.join(HERE, "results", "candidates.tsv")
+MCP_SERVER_PY = os.path.join(HERE, "noethersolve", "mcp_server", "server.py")
+RESEARCH_STATUS = os.path.join(HERE, "results", "research_status.json")
 
 # ── Colour palette ────────────────────────────────────────────────────────────
 COLOURS = {
@@ -130,7 +133,7 @@ def chart_quadrant_donut(rows: list[dict]) -> str:
     colors = [COLOURS.get(l, "#bdc3c7") for l in labels]
     display_labels = [QUADRANT_LABEL.get(l, l) for l in labels]
 
-    fig, ax = plt.subplots(figsize=(5, 4.5), facecolor="#0d1117")
+    fig, ax = plt.subplots(figsize=(7, 5), facecolor="#0d1117")
     ax.set_facecolor("#0d1117")
 
     wedges, _ = ax.pie(
@@ -154,21 +157,36 @@ def chart_quadrant_donut(rows: list[dict]) -> str:
 
 
 def chart_margin_bar(rows: list[dict]) -> str:
-    """Horizontal bar chart — baseline margin (and final margin) per candidate."""
-    # Only rows with numeric margin_start
+    """Horizontal bar chart — top failures and top wins (not all candidates)."""
     valid = [r for r in rows if r["margin_start"] is not None]
     if not valid:
         return ""
 
-    labels   = [textwrap.shorten(r["hypothesis"], 55) for r in valid]
-    m_start  = [r["margin_start"] for r in valid]
+    # Sort by final margin; show top 15 worst + top 10 best to keep chart readable
+    sorted_rows = sorted(valid, key=lambda r: r["margin_end"] if r["margin_end"] is not None else r["margin_start"])
+    worst = sorted_rows[:15]
+    best = sorted_rows[-10:]
+    # Deduplicate in case overlap
+    seen = set()
+    display = []
+    for r in worst + best:
+        key = r["hypothesis"]
+        if key not in seen:
+            seen.add(key)
+            display.append(r)
+    # Re-sort for display
+    display.sort(key=lambda r: r["margin_end"] if r["margin_end"] is not None else r["margin_start"])
+
+    labels   = [textwrap.shorten(r["hypothesis"], 50) for r in display]
+    m_start  = [r["margin_start"] for r in display]
     m_end    = [r["margin_end"]   if r["margin_end"] is not None else r["margin_start"]
-                for r in valid]
-    verdicts = [r["verdict"] for r in valid]
+                for r in display]
+    verdicts = [r["verdict"] for r in display]
     colors   = [COLOURS.get(v, "#95a5a6") for v in verdicts]
 
-    n = len(valid)
-    fig, ax = plt.subplots(figsize=(8, max(3, 0.55 * n + 1.5)), facecolor="#0d1117")
+    n = len(display)
+    omitted = len(valid) - n
+    fig, ax = plt.subplots(figsize=(9, 5), facecolor="#0d1117")
     ax.set_facecolor("#161b22")
     ax.tick_params(colors="white")
     ax.spines[:].set_color("#30363d")
@@ -176,12 +194,10 @@ def chart_margin_bar(rows: list[dict]) -> str:
     y = np.arange(n)
     bar_h = 0.35
 
-    # Baseline bars (translucent)
     ax.barh(y + bar_h/2, m_start, height=bar_h,
             color=[c + "66" for c in colors], label="baseline")
 
-    # Final bars (solid, shown only when different from baseline)
-    has_repair = any(r["margin_end"] != r["margin_start"] for r in valid
+    has_repair = any(r["margin_end"] != r["margin_start"] for r in display
                      if r["margin_end"] is not None)
     if has_repair:
         ax.barh(y - bar_h/2, m_end, height=bar_h,
@@ -189,14 +205,15 @@ def chart_margin_bar(rows: list[dict]) -> str:
 
     ax.axvline(0, color="#586069", linewidth=1, linestyle="--")
     ax.set_yticks(y)
-    ax.set_yticklabels(labels, fontsize=8, color="#c9d1d9")
+    ax.set_yticklabels(labels, fontsize=7.5, color="#c9d1d9")
     ax.set_xlabel("Oracle margin  (log P(truth) − log P(best distractor))",
                   color="#8b949e", fontsize=9)
-    ax.set_title("Oracle Margins per Candidate", color="white", fontsize=13)
+    title = "Oracle Margins — Top Failures & Wins"
+    if omitted > 0:
+        title += f"  ({omitted} middle candidates omitted)"
+    ax.set_title(title, color="white", fontsize=12)
     fig.tight_layout()
     if has_repair:
-        # Figure-level legend anchored above the axes, below the figure top edge —
-        # uses figure coordinates so it can never overlap axes content or labels.
         baseline_patch = mpatches.Patch(color="#2ecc7166", label="baseline")
         adapted_patch  = mpatches.Patch(color="#2ecc71",   label="after adapter")
         fig.legend(handles=[baseline_patch, adapted_patch],
@@ -218,17 +235,26 @@ def chart_frac_var_scatter(rows: list[dict]) -> str:
     colors  = [COLOURS.get(r["verdict"], "#95a5a6") for r in valid]
     labels  = [textwrap.shorten(r["hypothesis"], 40) for r in valid]
 
-    fig, ax = plt.subplots(figsize=(6.5, 5), facecolor="#0d1117")
+    fig, ax = plt.subplots(figsize=(7, 5), facecolor="#0d1117")
     ax.set_facecolor("#161b22")
     ax.tick_params(colors="white")
     ax.spines[:].set_color("#30363d")
 
-    ax.scatter(fv, mg, c=colors, s=80, zorder=3, edgecolors="#30363d", linewidths=0.5)
+    ax.scatter(fv, mg, c=colors, s=60, zorder=3, edgecolors="#30363d", linewidths=0.5, alpha=0.8)
 
-    # Annotate each point
-    for i, (x, y_val, lbl) in enumerate(zip(fv, mg, labels)):
-        ax.annotate(lbl, (x, y_val), textcoords="offset points",
-                    xytext=(5, 2), fontsize=6.5, color="#8b949e")
+    # Only annotate outliers (extreme margins) to avoid clutter
+    if len(valid) > 20:
+        mg_sorted = sorted(mg)
+        threshold_lo = mg_sorted[min(5, len(mg_sorted)-1)]
+        threshold_hi = mg_sorted[max(-5, -len(mg_sorted))]
+        for i, (x, y_val, lbl) in enumerate(zip(fv, mg, labels)):
+            if y_val <= threshold_lo or y_val >= threshold_hi:
+                ax.annotate(lbl, (x, y_val), textcoords="offset points",
+                            xytext=(5, 2), fontsize=6, color="#8b949e")
+    else:
+        for i, (x, y_val, lbl) in enumerate(zip(fv, mg, labels)):
+            ax.annotate(lbl, (x, y_val), textcoords="offset points",
+                        xytext=(5, 2), fontsize=6.5, color="#8b949e")
 
     # Target zone shading: frac_var < 5e-3 AND margin > 0
     ax.axhline(0,    color="#586069", linewidth=1, linestyle="--")
@@ -255,31 +281,33 @@ def chart_frac_var_scatter(rows: list[dict]) -> str:
 
 
 def chart_discovery_timeline(rows: list[dict]) -> str:
-    """Timeline of discoveries (DUAL-PASS + FLIPPED)."""
+    """Timeline of discoveries (DUAL-PASS + FLIPPED) — last 30 max."""
     wins = [r for r in rows if r["verdict"] in ("DUAL-PASS", "QUADRANT3→FLIPPED")]
     if not wins:
         return ""
 
-    fig, ax = plt.subplots(figsize=(8, max(2, 0.6 * len(wins) + 1.2)), facecolor="#0d1117")
+    # Show last 30 to avoid crowding
+    if len(wins) > 30:
+        wins = wins[-30:]
+
+    fig, ax = plt.subplots(figsize=(7, 5), facecolor="#0d1117")
     ax.set_facecolor("#161b22")
     ax.tick_params(colors="white")
     ax.spines[:].set_color("#30363d")
 
-    for i, r in enumerate(wins):
-        c = COLOURS.get(r["verdict"], "#2ecc71")
-        ax.scatter(i, r["margin_end"] or 0, color=c, s=120, zorder=4,
-                   edgecolors="white", linewidths=0.8)
-        ax.annotate(textwrap.shorten(r["hypothesis"], 50),
-                    (i, r["margin_end"] or 0),
-                    textcoords="offset points", xytext=(8, 0),
-                    fontsize=8, color="#c9d1d9", va="center")
+    margins = [r["margin_end"] or 0 for r in wins]
+    bar_colors = [COLOURS.get(r["verdict"], "#2ecc71") for r in wins]
 
+    ax.bar(range(len(wins)), margins, color=bar_colors, edgecolor="#0d1117", width=0.7)
     ax.axhline(0, color="#586069", linewidth=1, linestyle="--")
-    ax.set_xticks(range(len(wins)))
-    ax.set_xticklabels([r["timestamp"] for r in wins], rotation=30, ha="right",
-                       fontsize=8, color="#8b949e")
+
+    # Only show x-tick labels for every Nth to avoid overlap
+    step = max(1, len(wins) // 10)
+    ax.set_xticks(range(0, len(wins), step))
+    ax.set_xticklabels([wins[i]["timestamp"] for i in range(0, len(wins), step)],
+                       rotation=30, ha="right", fontsize=8, color="#8b949e")
     ax.set_ylabel("Final oracle margin", color="#8b949e", fontsize=9)
-    ax.set_title("Discovery Timeline (DUAL-PASS + FLIPPED)", color="white", fontsize=13)
+    ax.set_title(f"Discovery Timeline — {len(wins)} Discoveries", color="white", fontsize=13)
     fig.tight_layout()
     return _fig_to_b64(fig)
 
@@ -308,9 +336,12 @@ HTML_TEMPLATE = """\
   .subtitle {{ color: #8b949e; margin-bottom: 32px; font-size: 0.9em; }}
   .grid {{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
     margin-bottom: 32px;
+  }}
+  @media (max-width: 900px) {{
+    .grid {{ grid-template-columns: 1fr; }}
   }}
   .card {{
     background: #161b22;
@@ -387,21 +418,45 @@ HTML_TEMPLATE = """\
   <div class="stat"><div class="val" style="color:#2ecc71">{n_wins}</div><div class="lbl">Discoveries (PASS or FLIPPED)</div></div>
   <div class="stat"><div class="val" style="color:#e67e22">{n_open}</div><div class="lbl">Open gaps (checker PASS)</div></div>
   <div class="stat"><div class="val" style="color:#e74c3c">{n_fail}</div><div class="lbl">Checker failures</div></div>
+  <div class="stat"><div class="val" style="color:#58a6ff">{n_tools}</div><div class="lbl">MCP Tools</div></div>
   <div class="stat"><div class="val">{n_domains}</div><div class="lbl">Domains active</div></div>
 </div>
+
+{research_status}
 
 <div class="grid">
   {chart_donut}
   {chart_scatter}
-  <div class="card wide">
-    <h2>Oracle Margins per Candidate</h2>
-    {chart_margin}
-  </div>
   {chart_timeline}
+  {chart_tools}
+</div>
+
+<div class="card" style="margin-bottom:24px">
+  <h2>4B Oracle Margins — Top Failures &amp; Wins (Qwen3-4B-Base + adapters)</h2>
+  {chart_margin}
+</div>
+
+<div class="card" style="margin-bottom:24px">
+  <h2>MCP Tools ({n_tools} total)</h2>
+  <div style="max-height:400px;overflow-y:auto">
+  <table>
+    <thead>
+      <tr>
+        <th>Tool Name</th>
+        <th>Description</th>
+        <th>Date Built</th>
+      </tr>
+    </thead>
+    <tbody>
+      {tool_rows}
+    </tbody>
+  </table>
+  </div>
 </div>
 
 <div class="card">
-  <h2>All Candidates</h2>
+  <h2>All Candidates ({n_total})</h2>
+  <div style="max-height:500px;overflow-y:auto">
   <table>
     <thead>
       <tr>
@@ -417,6 +472,7 @@ HTML_TEMPLATE = """\
       {table_rows}
     </tbody>
   </table>
+  </div>
 </div>
 
 <p class="footer">NoetherSolve · Built on the STEM Truth Oracle (Paper 9, DOI: 10.5281/zenodo.19005729) and Snap-On Communication Modules (Paper 8, DOI: 10.5281/zenodo.18902616)</p>
@@ -503,6 +559,177 @@ def build_stats(rows: list[dict]) -> dict:
                 n_fail=n_fail, n_domains=len(domains))
 
 
+def load_research_status() -> dict | None:
+    """Load the 27B research runner's current status."""
+    if not os.path.exists(RESEARCH_STATUS):
+        return None
+    try:
+        with open(RESEARCH_STATUS, encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
+def build_research_status_html(status: dict | None) -> str:
+    """Build HTML for the 27B research runner status section."""
+    if not status:
+        return '<div class="card"><h2>27B Research Runner</h2><p style="color:#586069">Not running — no research_status.json</p></div>'
+
+    domain = status.get("current_domain", "idle")
+    phase = status.get("current_phase", "—")
+    completed = status.get("completed_domains", [])
+    results = status.get("domain_results", {})
+    last_update = status.get("last_update", "unknown")
+
+    # Count verdicts
+    pass_count = sum(1 for v in results.values() if v.get("verdict") == "PASS")
+    fail_count = sum(1 for v in results.values() if v.get("verdict") == "FAIL")
+    total = len(results)
+
+    # Build domain results table (compact)
+    domain_rows = []
+    for dom_name, info in sorted(results.items()):
+        verdict = info.get("verdict", "?")
+        margin = info.get("margin_avg")
+        margin_str = f"{margin:.1f}" if margin is not None else "—"
+        color = "#2ecc71" if verdict == "PASS" else "#e74c3c"
+        domain_rows.append(
+            f'<tr>'
+            f'<td>{dom_name}</td>'
+            f'<td style="color:{color};font-weight:600">{verdict}</td>'
+            f'<td>{margin_str}</td>'
+            f'</tr>'
+        )
+
+    domain_table = "\n".join(domain_rows) if domain_rows else (
+        '<tr><td colspan="3" style="color:#586069">No domain results yet</td></tr>'
+    )
+
+    return f'''<div class="card">
+  <h2>27B Research Runner (Qwen3.5-27B-4bit)</h2>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+    <div class="stat" style="padding:10px 14px"><div class="val" style="font-size:1.2em">{domain}</div><div class="lbl">Current Domain</div></div>
+    <div class="stat" style="padding:10px 14px"><div class="val" style="font-size:1.2em">{phase}</div><div class="lbl">Phase</div></div>
+    <div class="stat" style="padding:10px 14px"><div class="val" style="font-size:1.2em">{total}</div><div class="lbl">Domains Scanned</div></div>
+    <div class="stat" style="padding:10px 14px"><div class="val" style="font-size:1.2em;color:#2ecc71">{pass_count}</div><div class="lbl">Passing</div></div>
+    <div class="stat" style="padding:10px 14px"><div class="val" style="font-size:1.2em;color:#e74c3c">{fail_count}</div><div class="lbl">Failing</div></div>
+  </div>
+  <p style="color:#8b949e;font-size:0.82em;margin-bottom:8px">Last update: {last_update}</p>
+  <div style="max-height:300px;overflow-y:auto">
+  <table>
+    <thead><tr><th>Domain</th><th>Verdict</th><th>Margin</th></tr></thead>
+    <tbody>{domain_table}</tbody>
+  </table>
+  </div>
+</div>'''
+
+
+def load_mcp_tools() -> list[dict]:
+    """Extract MCP tool names, descriptions, and creation dates from server.py + git."""
+    import re
+    import subprocess
+
+    if not os.path.exists(MCP_SERVER_PY):
+        return []
+
+    with open(MCP_SERVER_PY, encoding="utf-8") as f:
+        content = f.read()
+
+    # Extract tool name and first line of docstring
+    pattern = r'@mcp\.tool\(\)\ndef (\w+)\([^)]*\)[^:]*:\s*"""([^\n]*)'
+    matches = list(re.finditer(pattern, content))
+
+    tools = []
+    for m in matches:
+        name = m.group(1)
+        doc = m.group(2).strip()
+        line_num = content[:m.start()].count('\n') + 2
+        tools.append({"name": name, "doc": doc, "line": line_num, "date": ""})
+
+    # Try to get dates from git blame
+    try:
+        result = subprocess.run(
+            ["git", "blame", "--line-porcelain", "noethersolve/mcp_server/server.py"],
+            capture_output=True, text=True, cwd=HERE, timeout=30,
+        )
+        if result.returncode == 0:
+            line_dates = {}
+            current_line = None
+            for bl in result.stdout.split('\n'):
+                if bl.startswith('author-time '):
+                    ts = int(bl.split()[1])
+                    dt = datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+                    if current_line:
+                        line_dates[current_line] = dt
+                parts = bl.split()
+                if len(parts) >= 3 and len(parts[0]) == 40:
+                    try:
+                        current_line = int(parts[2])
+                    except ValueError:
+                        pass
+
+            for t in tools:
+                t["date"] = line_dates.get(t["line"], "")
+    except (subprocess.TimeoutExpired, FileNotFoundError):
+        pass
+
+    return tools
+
+
+def build_tool_table(tools: list[dict]) -> str:
+    """Build HTML table rows for MCP tools."""
+    if not tools:
+        return '<tr><td colspan="3" style="color:#586069">No tools found</td></tr>'
+
+    # Group by date
+    parts = []
+    for t in tools:
+        name = t["name"]
+        doc = t["doc"][:80] + ("..." if len(t["doc"]) > 80 else "")
+        date = t["date"] or "unknown"
+        parts.append(
+            f'<tr>'
+            f'<td style="font-family:monospace;font-size:0.82em;color:#58a6ff">{name}</td>'
+            f'<td>{doc}</td>'
+            f'<td style="color:#8b949e;white-space:nowrap">{date}</td>'
+            f'</tr>'
+        )
+    return "\n      ".join(parts)
+
+
+def chart_tools_by_date(tools: list[dict]) -> str:
+    """Bar chart of tools added per date."""
+    if not HAS_MPL or not tools:
+        return ""
+
+    from collections import Counter
+    dates = Counter(t["date"] for t in tools if t["date"])
+    if not dates:
+        return ""
+
+    sorted_dates = sorted(dates.keys())
+    counts = [dates[d] for d in sorted_dates]
+
+    fig, ax = plt.subplots(figsize=(7, 5), facecolor="#0d1117")
+    ax.set_facecolor("#161b22")
+    ax.tick_params(colors="white")
+    ax.spines[:].set_color("#30363d")
+
+    bars = ax.bar(range(len(sorted_dates)), counts, color="#58a6ff", edgecolor="#0d1117")
+
+    # Add count labels on bars
+    for bar, count in zip(bars, counts):
+        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 1,
+                str(count), ha="center", va="bottom", color="white", fontsize=9)
+
+    ax.set_xticks(range(len(sorted_dates)))
+    ax.set_xticklabels(sorted_dates, rotation=30, ha="right", fontsize=8, color="#8b949e")
+    ax.set_ylabel("Tools added", color="#8b949e", fontsize=9)
+    ax.set_title("MCP Tools Built by Date", color="white", fontsize=13)
+    fig.tight_layout()
+    return _fig_to_b64(fig)
+
+
 def generate_dashboard(out_path: str, png_dir: str | None = None) -> None:
     rows = load_candidates(CANDIDATES_TSV)
     if not rows:
@@ -512,18 +739,27 @@ def generate_dashboard(out_path: str, png_dir: str | None = None) -> None:
     stats = build_stats(rows)
     generated_at = datetime.now().strftime("%Y-%m-%d %H:%M")
 
+    # Load MCP tools
+    tools = load_mcp_tools()
+    stats["n_tools"] = len(tools)
+
+    # Load 27B research runner status
+    research = load_research_status()
+
     if HAS_MPL:
         b64_donut    = chart_quadrant_donut(rows)
         b64_margin   = chart_margin_bar(rows)
         b64_scatter  = chart_frac_var_scatter(rows)
         b64_timeline = chart_discovery_timeline(rows)
+        b64_tools    = chart_tools_by_date(tools)
 
         if png_dir:
             os.makedirs(png_dir, exist_ok=True)
             for name, b64 in [("quadrant_donut.png", b64_donut),
                                ("margin_bar.png",     b64_margin),
                                ("frac_var_scatter.png", b64_scatter),
-                               ("discovery_timeline.png", b64_timeline)]:
+                               ("discovery_timeline.png", b64_timeline),
+                               ("tools_by_date.png", b64_tools)]:
                 if b64:
                     with open(os.path.join(png_dir, name), "wb") as f:
                         f.write(base64.b64decode(b64))
@@ -533,19 +769,24 @@ def generate_dashboard(out_path: str, png_dir: str | None = None) -> None:
         chart_scatter  = _img_card("Quality Space", b64_scatter)
         chart_margin   = f'<img src="data:image/png;base64,{b64_margin}" alt="margins" style="width:100%;height:auto;border-radius:4px">' if b64_margin else "<p style='color:#586069'>No margin data</p>"
         chart_timeline = _img_card("Discovery Timeline", b64_timeline)
+        chart_tools    = _img_card("Tools Built by Date", b64_tools) if b64_tools else ""
     else:
         chart_donut    = '<div class="card"><p style="color:#586069">Install matplotlib for charts.</p></div>'
         chart_scatter  = ""
         chart_margin   = "<p style='color:#586069'>Install matplotlib for charts.</p>"
         chart_timeline = ""
+        chart_tools    = ""
 
     html = HTML_TEMPLATE.format(
-        generated_at  = generated_at,
-        chart_donut   = chart_donut,
-        chart_scatter = chart_scatter,
-        chart_margin  = chart_margin,
-        chart_timeline = chart_timeline,
-        table_rows    = build_table_rows(rows),
+        generated_at    = generated_at,
+        research_status = build_research_status_html(research),
+        chart_donut     = chart_donut,
+        chart_scatter   = chart_scatter,
+        chart_margin    = chart_margin,
+        chart_timeline  = chart_timeline,
+        chart_tools     = chart_tools,
+        table_rows      = build_table_rows(rows),
+        tool_rows       = build_tool_table(tools),
         **stats,
     )
 

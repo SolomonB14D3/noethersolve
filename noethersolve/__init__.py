@@ -18,7 +18,7 @@ theory, optimization convergence, numerical PDEs, MHD conservation, GR constrain
 This module uses lazy loading for fast startup. Imports happen on first access.
 """
 
-__version__ = "1.22.0"
+__version__ = "1.23.0"
 
 # ---------------------------------------------------------------------------
 # Lazy Loading Infrastructure
@@ -889,6 +889,111 @@ _LAZY_IMPORTS: dict[str, tuple[str, str | None]] = {
     "is_local_tool": ("noethersolve.hooks", None),
     "is_verification_tool": ("noethersolve.hooks", None),
     "get_tool_domain": ("noethersolve.hooks", None),
+
+    # paper_agent.py
+    "PaperAgent": ("noethersolve.paper_agent", None),
+    "PaperResult": ("noethersolve.paper_agent", None),
+    "ClusterMetrics": ("noethersolve.paper_agent", None),
+    "write_paper_for_cluster": ("noethersolve.paper_agent", None),
+    "BANNED_PHRASES": ("noethersolve.paper_agent", None),
+
+    # teacher_student.py
+    "TeacherStudentResearch": ("noethersolve.teacher_student", None),
+    "TeacherStudentConfig": ("noethersolve.teacher_student", None),
+    "ResearchResult": ("noethersolve.teacher_student", None),
+    "ResearchSession": ("noethersolve.teacher_student", None),
+    "run_teacher_student_research": ("noethersolve.teacher_student", None),
+
+    # chemotaxis_model.py
+    "check_perfect_adaptation": ("noethersolve.chemotaxis_model", None),
+    "optimize_tumble_bias": ("noethersolve.chemotaxis_model", None),
+    "simulate_chemotaxis": ("noethersolve.chemotaxis_model", None),
+    "ChemotaxisResult": ("noethersolve.chemotaxis_model", None),
+    "AdaptationResult": ("noethersolve.chemotaxis_model", None),
+    "TumbleBiasResult": ("noethersolve.chemotaxis_model", None),
+    "ChemotaxisConfig": ("noethersolve.chemotaxis_model", None),
+
+    # c_elegans_behavior.py
+    "detect_foraging_phase": ("noethersolve.c_elegans_behavior", None),
+    "simulate_escape_response": ("noethersolve.c_elegans_behavior", None),
+    "drift_diffusion_decision": ("noethersolve.c_elegans_behavior", None),
+    "ForagingResult": ("noethersolve.c_elegans_behavior", None),
+    "EscapeResult": ("noethersolve.c_elegans_behavior", None),
+    "DriftDiffusionResult": ("noethersolve.c_elegans_behavior", None),
+    "ForagingPhase": ("noethersolve.c_elegans_behavior", None),
+    "EscapeType": ("noethersolve.c_elegans_behavior", None),
+
+    # neural_rl_analogy.py
+    "validate_dopamine_rpe": ("noethersolve.neural_rl_analogy", None),
+    "compare_hebbian_backprop": ("noethersolve.neural_rl_analogy", None),
+    "validate_td_learning": ("noethersolve.neural_rl_analogy", None),
+    "map_striatum_to_actor_critic": ("noethersolve.neural_rl_analogy", None),
+    "validate_eligibility_trace": ("noethersolve.neural_rl_analogy", None),
+    "RPEValidationResult": ("noethersolve.neural_rl_analogy", None),
+    "LearningRuleComparison": ("noethersolve.neural_rl_analogy", None),
+    "ActorCriticMapping": ("noethersolve.neural_rl_analogy", None),
+    "SignalType": ("noethersolve.neural_rl_analogy", None),
+    "LearningRule": ("noethersolve.neural_rl_analogy", None),
+
+    # collective_behavior.py
+    "slime_mold_optimization": ("noethersolve.collective_behavior", None),
+    "ant_pheromone_routing": ("noethersolve.collective_behavior", None),
+    "swarm_consensus": ("noethersolve.collective_behavior", None),
+    "flock_formation": ("noethersolve.collective_behavior", None),
+    "bacterial_quorum_sensing": ("noethersolve.collective_behavior", None),
+    "SlimeMoldResult": ("noethersolve.collective_behavior", None),
+    "AntColonyResult": ("noethersolve.collective_behavior", None),
+    "NetworkEdge": ("noethersolve.collective_behavior", None),
+    "SwarmState": ("noethersolve.collective_behavior", None),
+
+    # delivery_optimization.py
+    "calc_eoq": ("noethersolve.delivery_optimization", None),
+    "EOQReport": ("noethersolve.delivery_optimization", None),
+    "calc_vehicle_routing": ("noethersolve.delivery_optimization", None),
+    "VehicleRoutingReport": ("noethersolve.delivery_optimization", None),
+    "calc_newsvendor": ("noethersolve.delivery_optimization", None),
+    "NewsvendorReport": ("noethersolve.delivery_optimization", None),
+    "calc_safety_stock": ("noethersolve.delivery_optimization", None),
+    "SafetyStockReport": ("noethersolve.delivery_optimization", None),
+    "calc_bin_packing": ("noethersolve.delivery_optimization", None),
+    "BinPackingReport": ("noethersolve.delivery_optimization", None),
+
+    # bio_ai_bridge.py
+    "compare_agent_to_worm": ("noethersolve.bio_ai_bridge", None),
+    "behavior_conservation_score": ("noethersolve.bio_ai_bridge", None),
+    "map_behavior_to_architecture": ("noethersolve.bio_ai_bridge", None),
+    "identify_convergent_solutions": ("noethersolve.bio_ai_bridge", None),
+    "BioAIComparison": ("noethersolve.bio_ai_bridge", None),
+    "ArchitectureMapping": ("noethersolve.bio_ai_bridge", None),
+    "Verdict": ("noethersolve.bio_ai_bridge", None),
+    "BehaviorType": ("noethersolve.bio_ai_bridge", None),
+
+    # safety_invariants.py
+    "calc_reward_hacking_risk": ("noethersolve.safety_invariants", None),
+    "RewardHackingReport": ("noethersolve.safety_invariants", None),
+    "calc_calibration": ("noethersolve.safety_invariants", None),
+    "CalibrationReport": ("noethersolve.safety_invariants", None),
+    "CalibrationBin": ("noethersolve.safety_invariants", None),
+    "calc_corrigibility": ("noethersolve.safety_invariants", None),
+    "CorrigibilityReport": ("noethersolve.safety_invariants", None),
+    "calc_oversight_bound": ("noethersolve.safety_invariants", None),
+    "OversightReport": ("noethersolve.safety_invariants", None),
+    "calc_robustness_bound": ("noethersolve.safety_invariants", None),
+    "RobustnessReport": ("noethersolve.safety_invariants", None),
+    "calc_value_alignment": ("noethersolve.safety_invariants", None),
+    "AlignmentReport": ("noethersolve.safety_invariants", None),
+
+    # origin_of_life.py
+    "check_autocatalytic_set": ("noethersolve.origin_of_life", None),
+    "AutocatalyticSetReport": ("noethersolve.origin_of_life", None),
+    "prebiotic_plausibility": ("noethersolve.origin_of_life", None),
+    "PrebioticPlausibilityReport": ("noethersolve.origin_of_life", None),
+    "eigen_error_threshold": ("noethersolve.origin_of_life", None),
+    "EigenThresholdReport": ("noethersolve.origin_of_life", None),
+    "rna_folding_energy": ("noethersolve.origin_of_life", None),
+    "RNAFoldingReport": ("noethersolve.origin_of_life", None),
+    "miller_urey_yield": ("noethersolve.origin_of_life", None),
+    "MillerUreyReport": ("noethersolve.origin_of_life", None),
 }
 
 # Cache for loaded modules and attributes

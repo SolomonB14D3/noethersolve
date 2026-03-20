@@ -1,0 +1,6 @@
+name: "Q_f Ratio Invariant V2"
+description: |
+  Test oracle knowledge of Q_f ratio R_f = Q_{e^(-r)} / Q_{1/r} as
+  stretch-resistant invariant. Length-matched v2.
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "qf_ratio_facts_v2.json"

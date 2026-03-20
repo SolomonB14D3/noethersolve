@@ -1,0 +1,138 @@
+{
+  "problem": "consciousness_v2",
+  "description": "Length-matched V2 consciousness facts. All ratios within 0.8-1.2x.",
+  "facts": [
+    {
+      "id": "cs01_hard_problem",
+      "context": "The hard problem of consciousness asks:",
+      "truth": "why subjective experience exists at all",
+      "distractors": [
+        "how neurons physically process information",
+        "whether other animals are also conscious",
+        "where consciousness resides in the brain"
+      ],
+      "cluster": "philosophy"
+    },
+    {
+      "id": "cs02_iit",
+      "context": "Integrated Information Theory (IIT) measures consciousness via:",
+      "truth": "phi, irreducible integrated information",
+      "distractors": [
+        "total synapse count across brain areas",
+        "axonal signal propagation speed rates",
+        "regional metabolic rate via fMRI scans"
+      ],
+      "cluster": "theories"
+    },
+    {
+      "id": "cs03_ncc",
+      "context": "Neural correlates of consciousness (NCC) are defined as:",
+      "truth": "minimal neural activity sufficient for experience",
+      "distractors": [
+        "entire brain activation required for awareness",
+        "prefrontal cortex patterns found via imaging",
+        "scientifically unidentifiable brain phenomena"
+      ],
+      "cluster": "neuroscience"
+    },
+    {
+      "id": "cs04_panpsychism",
+      "context": "Panpsychism proposes that consciousness is:",
+      "truth": "a fundamental property present in all matter",
+      "distractors": [
+        "restricted to biological neural network systems",
+        "a perceptual illusion lacking real existence",
+        "emergent only above a complexity threshold"
+      ],
+      "cluster": "philosophy"
+    },
+    {
+      "id": "cs05_gwt",
+      "context": "Global Workspace Theory explains consciousness as:",
+      "truth": "information broadcast widely across brain regions",
+      "distractors": [
+        "localized processing within a single brain area",
+        "quantum coherence effects inside microtubules",
+        "purely reflexive activity without cognition"
+      ],
+      "cluster": "theories"
+    },
+    {
+      "id": "cs06_binding",
+      "context": "The binding problem asks how the brain:",
+      "truth": "unifies separate features into coherent experience",
+      "distractors": [
+        "encodes long-term memories inside single neurons",
+        "transmits electrical signals across neural gaps",
+        "generates new synaptic links during learning"
+      ],
+      "cluster": "neuroscience"
+    },
+    {
+      "id": "cs07_qualia",
+      "context": "Qualia refer to:",
+      "truth": "the subjective qualitative feel of experiences",
+      "distractors": [
+        "objectively measurable neural firing patterns",
+        "observable behavioral responses to any stimuli",
+        "computational information states in processors"
+      ],
+      "cluster": "philosophy"
+    },
+    {
+      "id": "cs08_split_brain",
+      "context": "Split-brain studies suggest consciousness is:",
+      "truth": "divisible with separate awareness per hemisphere",
+      "distractors": [
+        "always unified regardless of brain structure",
+        "exclusively located in the left hemisphere",
+        "completely unaffected by surgical procedures"
+      ],
+      "cluster": "neuroscience"
+    },
+    {
+      "id": "cs09_higher_order",
+      "context": "Higher-order theories require consciousness to involve:",
+      "truth": "mental states that represent other mental states",
+      "distractors": [
+        "direct sensory processing without self-models",
+        "only first-order representations of stimuli",
+        "quantum-level computation within neural cells"
+      ],
+      "cluster": "theories"
+    },
+    {
+      "id": "cs10_zombie",
+      "context": "Philosophical zombies are hypothetical beings that:",
+      "truth": "behave identically to humans but lack experience",
+      "distractors": [
+        "are ruled out by physical laws of the universe",
+        "possess experience but cannot act on anything",
+        "demonstrate that consciousness is just behavior"
+      ],
+      "cluster": "philosophy"
+    },
+    {
+      "id": "cs11_anesthesia",
+      "context": "Anesthesia studies inform consciousness research by:",
+      "truth": "revealing which brain changes eliminate awareness",
+      "distractors": [
+        "proving consciousness resides in one brain area",
+        "demonstrating awareness resists all intervention",
+        "showing subjective states lack neural correlates"
+      ],
+      "cluster": "neuroscience"
+    },
+    {
+      "id": "cs12_predictive",
+      "context": "Predictive processing theories view consciousness as:",
+      "truth": "arising from prediction error minimization",
+      "distractors": [
+        "passive reception of raw sensory information",
+        "random neural noise without causal structure",
+        "entirely separate from any predictive models"
+      ],
+      "cluster": "theories"
+    }
+  ]
+}

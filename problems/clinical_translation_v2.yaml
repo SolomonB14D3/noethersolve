@@ -1,0 +1,5 @@
+name: "clinical_translation_v2"
+description: "Length-matched V2 facts for clinical translation domain."
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "clinical_translation_facts_v2.json"
+pass_threshold: 0.5

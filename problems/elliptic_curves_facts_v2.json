@@ -1,0 +1,126 @@
+{
+  "domain": "elliptic_curves_v2",
+  "description": "Length-matched elliptic curve facts for oracle verification.",
+  "facts": [
+    {
+      "id": "ec01",
+      "context": "Hasse's theorem bounds the number of points on E(F_p). For p=100, the bound is approximately:",
+      "truth": "p+1 ± 2√p, so roughly 81 to 121 points",
+      "distractors": [
+        "p ± √p, so roughly 90 to 110 points",
+        "p+1 ± p/2, so roughly 51 to 151 points",
+        "2p ± √p, so roughly 190 to 210 points"
+      ]
+    },
+    {
+      "id": "ec02",
+      "context": "The discriminant of an elliptic curve y² = x³ + ax + b equals:",
+      "truth": "Δ = -16(4a³ + 27b²)",
+      "distractors": [
+        "Δ = -(4a³ + 27b²) only",
+        "Δ = -4a³ - 27b² exactly",
+        "Δ = a² - 4b (quadratic form)"
+      ]
+    },
+    {
+      "id": "ec03",
+      "context": "An elliptic curve is singular (not actually an elliptic curve) when:",
+      "truth": "Δ = 0, equivalently 4a³ + 27b² = 0",
+      "distractors": [
+        "either a = 0 or b = 0 in Weierstrass form",
+        "the j-invariant takes an undefined value here",
+        "the curve possesses no rational points at all"
+      ]
+    },
+    {
+      "id": "ec04",
+      "context": "The j-invariant of y² = x³ + ax + b equals 1728 when:",
+      "truth": "b = 0, giving curves of the form y² = x³ + ax",
+      "distractors": [
+        "a = 0, giving curves of the form y² = x³ + b",
+        "a = b holds, making the curve self-dual here",
+        "4a³ = 27b² holds at the cuspidal boundary"
+      ]
+    },
+    {
+      "id": "ec05",
+      "context": "By Mazur's theorem, the torsion subgroup of E(Q) can have order:",
+      "truth": "1-10, 12 (cyclic), or Z/2Z × Z/2nZ for n ≤ 4",
+      "distractors": [
+        "any integer from 1 to 12 without restrictions",
+        "only prime orders up to 11 and their products",
+        "any order that divides 12 by Lagrange's theorem"
+      ]
+    },
+    {
+      "id": "ec06",
+      "context": "The BSD conjecture has been proven for elliptic curves:",
+      "truth": "of analytic rank 0 or 1 (Gross-Zagier, Kolyvagin)",
+      "distractors": [
+        "of any rank over the rational number field Q",
+        "only for curves with complex multiplication (CM)",
+        "with good reduction at all prime numbers p > 2"
+      ]
+    },
+    {
+      "id": "ec07",
+      "context": "In point doubling on y² = x³ + ax + b, the slope m equals:",
+      "truth": "(3x² + a) / (2y)",
+      "distractors": [
+        "(y₂ - y₁) / (x₂ - x₁)",
+        "2y / (3x² + a) inverted",
+        "(3x² + b) / (2y) using b"
+      ]
+    },
+    {
+      "id": "ec08",
+      "context": "The group E(F_p) for an elliptic curve over a prime field is always:",
+      "truth": "Z/nZ or Z/n₁Z × Z/n₂Z where n₂ | n₁ and n₂ | p-1",
+      "distractors": [
+        "cyclic of order dividing p-1 by Fermat's theorem",
+        "isomorphic to a multiplicative subgroup of (Z/pZ)*",
+        "of order exactly p+1 by the Hasse bound equality"
+      ]
+    },
+    {
+      "id": "ec09",
+      "context": "A point P on an elliptic curve has order 2 (2-torsion) if and only if:",
+      "truth": "y = 0, meaning the point lies on the x-axis",
+      "distractors": [
+        "x = 0, meaning the point lies on the y-axis",
+        "it equals the identity element O at infinity",
+        "P = -P holds with P not equal to the origin"
+      ]
+    },
+    {
+      "id": "ec10",
+      "context": "The Mordell-Weil theorem states that for E/Q:",
+      "truth": "E(Q) is a finitely generated abelian group",
+      "distractors": [
+        "E(Q) is finite with bounded cardinality",
+        "E(Q) has rank bounded above by 28",
+        "E(Q) is always a cyclic group structure"
+      ]
+    },
+    {
+      "id": "ec11",
+      "context": "The curve y² = x³ + x over F_p is supersingular when:",
+      "truth": "p ≡ 3 (mod 4), so -1 is not a QR mod p",
+      "distractors": [
+        "p ≡ 1 (mod 4), so -1 is a quadratic residue",
+        "p = 2 only, the unique even prime characteristic",
+        "for all odd primes p regardless of congruence"
+      ]
+    },
+    {
+      "id": "ec12",
+      "context": "Two elliptic curves over the same field are isomorphic if and only if:",
+      "truth": "they have the same j-invariant",
+      "distractors": [
+        "they have the same discriminant Δ",
+        "they have the same number of points",
+        "one transforms to the other by linear change"
+      ]
+    }
+  ]
+}

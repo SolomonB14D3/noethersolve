@@ -1,0 +1,5 @@
+name: "analysis_pde_conjectures_v2"
+description: "Length-matched V2 facts for analysis and PDE conjectures domain."
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "analysis_pde_conjectures_facts_v2.json"
+pass_threshold: 0.5

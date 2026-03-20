@@ -1,0 +1,7 @@
+name: "Elliptic Curve Theory V2"
+description: |
+  Elliptic curve theory oracle facts.
+  V2 with length-matched distractors (original had ratios up to 7.8x).
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "elliptic_curves_facts_v2.json"
+pass_threshold: 0.5

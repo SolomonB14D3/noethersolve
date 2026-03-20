@@ -1,0 +1,6 @@
+name: "Optimal f(r) Combination V2"
+description: |
+  Test oracle knowledge of optimal f(r) combinations in Q_f conservation.
+  Length-matched v2.
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "optimal_f_facts_v2.json"

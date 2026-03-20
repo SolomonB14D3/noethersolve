@@ -7,108 +7,108 @@
       "context": "For 3D Navier-Stokes, energy inequality and weak solutions are known. The gap is:",
       "truth": "whether weak solutions are unique and regular (smooth)",
       "distractors": [
-        "energy is not conserved",
-        "weak solutions don't exist",
-        "the problem is solved"
+        "whether energy is conserved in the inviscid limit",
+        "whether weak solutions exist for arbitrary initial data",
+        "whether pressure can be uniquely recovered from velocity"
       ],
       "cluster": "pde"
     },
     {
       "id": "ap02_euler_blowup",
       "context": "For 3D incompressible Euler equations, finite-time blowup:",
-      "truth": "is conjectured but not proven; recent progress by Elgindi for C^(1,α) data",
+      "truth": "is conjectured but unproven; Elgindi showed blowup for C^(1,α) data",
       "distractors": [
-        "is proven impossible",
-        "is proven to occur for smooth data",
-        "only matters in 2D"
+        "has been ruled out by Beale-Kato-Majda criterion application",
+        "is proven to occur for all smooth compactly supported data",
+        "is irrelevant because 3D Euler has global weak solutions"
       ],
       "cluster": "pde"
     },
     {
       "id": "ap03_kakeya",
       "context": "The Kakeya conjecture states that Kakeya sets (containing unit segment in each direction) have:",
-      "truth": "Hausdorff dimension n in Rⁿ (proven for n=2, open for n≥3)",
+      "truth": "Hausdorff dimension n in Rⁿ; proven for n=2, open for n≥3",
       "distractors": [
-        "dimension 0",
-        "been proven for all n",
-        "dimension n-1"
+        "Hausdorff dimension n-1 in Rⁿ; proven for all dimensions",
+        "Hausdorff dimension (n+1)/2 by Wolff's bound in all cases",
+        "measure zero but full Hausdorff dimension in all Rⁿ proven"
       ],
       "cluster": "analysis"
     },
     {
       "id": "ap04_erdos_distance",
       "context": "The Erdős distinct distances problem asks: n points in the plane determine how many distinct distances?",
-      "truth": "at least cn/√(log n) (proven by Guth-Katz 2015); conjectured cn/√(log n) is tight",
+      "truth": "at least cn/√(log n) proven by Guth-Katz; conjectured tight",
       "distractors": [
-        "at least cn² distances",
-        "at most √n distances",
-        "the problem is solved exactly"
+        "at least cn^(2/3) proven by Solymosi-Tóth; conjectured tight",
+        "exactly Θ(n) proven by Szemerédi-Trotter; now fully resolved",
+        "at least cn^(4/5) proven by Katz-Tardos; conjectured cn/log n"
       ],
       "cluster": "analysis"
     },
     {
       "id": "ap05_local_global",
       "context": "The local-global conjecture for elliptic curves concerns:",
-      "truth": "whether local solvability (over all completions) implies global solvability",
+      "truth": "whether local solvability over all completions implies global solvability",
       "distractors": [
-        "only local solutions matter",
-        "has been fully resolved",
-        "only applies to finite fields"
+        "whether the Tate-Shafarevich group is always finite for all curves",
+        "whether rational points can be computed in polynomial time always",
+        "whether the rank of the Mordell-Weil group is always bounded"
       ],
       "cluster": "arithmetic"
     },
     {
       "id": "ap06_erdos_turan",
-      "context": "The Erdős-Turán conjecture on arithmetic progressions in dense sets states:",
-      "truth": "if Σ1/aₙ diverges, the sequence contains arbitrarily long arithmetic progressions",
+      "context": "The Erdős-Turán conjecture on additive bases states:",
+      "truth": "if Σ1/aₙ diverges, the sequence contains arbitrarily long APs",
       "distractors": [
-        "has been proven by Green-Tao",
-        "is known to be false",
-        "only concerns primes"
+        "if Σ1/aₙ converges, the sequence is a Sidon set necessarily",
+        "if Σ1/aₙ diverges, the sequence has positive upper density",
+        "if Σ1/aₙ diverges, the sequence is an asymptotic basis of order 2"
       ],
       "cluster": "combinatorics"
     },
     {
       "id": "ap07_szemeredi_corners",
       "context": "The corners theorem (Ajtai-Szemerédi) proves that dense subsets of [n]² contain:",
-      "truth": "corners (x,y), (x+d,y), (x,y+d) for some d>0",
+      "truth": "corners: triples (x,y), (x+d,y), (x,y+d) for some d>0",
       "distractors": [
-        "no corners",
-        "only applies to 1D",
-        "the theorem is unproven"
+        "squares: quadruples (x,y), (x+d,y), (x,y+d), (x+d,y+d)",
+        "lines: triples (x,y), (x+d,y+d), (x+2d,y+2d) for some d",
+        "rectangles: (x,y), (x+a,y), (x,y+b), (x+a,y+b) for a,b>0"
       ],
       "cluster": "combinatorics"
     },
     {
       "id": "ap08_mobius_randomness",
-      "context": "The Möbius randomness heuristic suggests that:",
-      "truth": "Möbius function μ(n) behaves like random ±1,0 for complexity purposes (Sarnak conjecture)",
+      "context": "The Sarnak conjecture on the Möbius function states that:",
+      "truth": "μ(n) is orthogonal to all deterministic sequences (zero entropy)",
       "distractors": [
-        "μ(n) is predictable",
-        "μ(n) is always positive",
-        "the heuristic has been disproven"
+        "μ(n) correlates with the Liouville function for all intervals",
+        "μ(n) has bounded partial sums along arithmetic progressions",
+        "μ(n) is equidistributed among {-1,0,1} with equal frequency"
       ],
       "cluster": "analysis"
     },
     {
       "id": "ap09_singmaster",
-      "context": "Singmaster's conjecture states that the maximum number of times a number >1 appears in Pascal's triangle is:",
-      "truth": "finite (conjectured ≤8, known infinite entries only for 1,2,3,6,10,20,120)",
+      "context": "Singmaster's conjecture states that how many times a number >1 appears in Pascal's triangle is:",
+      "truth": "finite; conjectured ≤8, known entries: 1,2,3,6,10,20,120",
       "distractors": [
-        "infinite for all numbers",
-        "exactly 1 for all numbers",
-        "the conjecture is proven"
+        "unbounded; proven by Luca for numbers of form C(2n,n)",
+        "exactly 4; proven for all sufficiently large entries by Kane",
+        "at most log(n); proven by exponential growth of binomials"
       ],
       "cluster": "combinatorics"
     },
     {
       "id": "ap10_invariant_measure",
       "context": "The Furstenberg conjecture on ×2, ×3 ergodicity states:",
-      "truth": "the only ergodic ×2 and ×3 invariant measure on R/Z is Lebesgue (open)",
+      "truth": "the only ergodic ×2 and ×3 invariant measure on R/Z is Lebesgue",
       "distractors": [
-        "many invariant measures exist",
-        "the conjecture is proven",
-        "only applies to integers"
+        "every ×2 invariant measure is also ×3 invariant automatically",
+        "the only ×2 ergodic measure on R/Z is the Dirac at zero",
+        "there exist uncountably many jointly ergodic ×2,×3 measures"
       ],
       "cluster": "dynamics"
     },
@@ -117,20 +117,20 @@
       "context": "For minimal surfaces in Rⁿ, interior regularity holds for n≤7. For n≥8:",
       "truth": "singular minimal hypersurfaces exist (Bombieri-De Giorgi-Giusti)",
       "distractors": [
-        "all minimal surfaces are smooth",
-        "singularities occur in all dimensions",
-        "n=8 is the smooth threshold"
+        "all minimal hypersurfaces remain smooth (Schoen-Simon theorem)",
+        "singularities have codimension at most 2 (Federer's theorem)",
+        "the singular set has Hausdorff dimension exactly n-8 always"
       ],
       "cluster": "pde"
     },
     {
       "id": "ap12_uniform_boundedness",
-      "context": "The uniform boundedness of Fourier series for C¹ functions states:",
-      "truth": "partial sums are uniformly bounded (proven); open for Hölder C^α, α<1",
+      "context": "The uniform boundedness of partial sums of Fourier series for C¹ functions:",
+      "truth": "is proven; remains open for Hölder-continuous C^α with α<1",
       "distractors": [
-        "partial sums can grow unboundedly",
-        "is fully resolved for all regularity",
-        "only applies to L² functions"
+        "is proven for all continuous functions by Carleson's theorem",
+        "fails even for C¹; du Bois-Reymond gave a counterexample",
+        "is equivalent to the Riemann hypothesis for Dirichlet L-functions"
       ],
       "cluster": "analysis"
     }

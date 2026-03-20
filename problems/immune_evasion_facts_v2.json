@@ -1,0 +1,116 @@
+{
+  "problem": "immune_evasion_v2",
+  "description": "Length-matched V2: Reducing immunogenicity of gene therapies and biologics - vector immunity, protein engineering, and immune modulation.",
+  "facts": [
+    {
+      "id": "ie01_aav_nab",
+      "context": "Pre-existing neutralizing antibodies (NAbs) against AAV vectors affect therapy by:",
+      "truth": "preventing vector transduction, requiring NAb screening before dosing",
+      "distractors": [
+        "enhancing receptor-mediated endocytosis, improving nuclear entry of transgenes",
+        "opsonizing capsids for macrophage uptake, boosting antigen presentation",
+        "only affecting second or later doses, with first administration fully unimpaired"
+      ],
+      "cluster": "vector"
+    },
+    {
+      "id": "ie02_aav_capsid",
+      "context": "Engineered AAV capsids can evade immunity by:",
+      "truth": "modifying surface epitopes while preserving transduction (directed evolution)",
+      "distractors": [
+        "saturating the immune system with decoy capsids before therapeutic dosing",
+        "inserting self-peptides from MHC class I to disguise as host proteins",
+        "increasing capsid dose tenfold to overwhelm neutralizing antibody titers"
+      ],
+      "cluster": "vector"
+    },
+    {
+      "id": "ie03_lnp_peg",
+      "context": "PEGylation of lipid nanoparticles (LNPs) for mRNA delivery:",
+      "truth": "extends circulation time but can induce anti-PEG antibodies affecting repeat dosing",
+      "distractors": [
+        "directly enhances endosomal escape by destabilizing the lipid bilayer membrane",
+        "prevents all innate immune recognition by masking toll-like receptor ligands",
+        "increases cellular uptake through improved electrostatic binding to cell membranes"
+      ],
+      "cluster": "vector"
+    },
+    {
+      "id": "ie04_humanization",
+      "context": "Antibody humanization reduces immunogenicity by:",
+      "truth": "replacing murine framework regions with human sequences while preserving CDRs",
+      "distractors": [
+        "removing all variable region domains and relying solely on constant region binding",
+        "adding additional murine sequences to increase overall binding affinity to targets",
+        "modifying only the Fc region glycosylation pattern to match human IgG1 profiles"
+      ],
+      "cluster": "protein"
+    },
+    {
+      "id": "ie05_deimmunization",
+      "context": "T-cell epitope deimmunization of therapeutic proteins involves:",
+      "truth": "identifying and mutating MHC-II binding peptides to reduce CD4+ T cell responses",
+      "distractors": [
+        "adding highly immunogenic epitopes to redirect immune attention away from the drug",
+        "systematically removing all lysine residues to prevent ubiquitin-mediated degradation",
+        "only affecting B cell receptor recognition without altering T cell epitope presentation"
+      ],
+      "cluster": "protein"
+    },
+    {
+      "id": "ie06_tolerance",
+      "context": "Immune tolerance to gene therapy transgenes can be induced by:",
+      "truth": "hepatocyte-specific expression which promotes regulatory T cell induction",
+      "distractors": [
+        "maximizing transgene expression across all tissues using ubiquitous viral promoters",
+        "using the strongest available viral promoters to overwhelm the immune checkpoint system",
+        "systemic high-dose corticosteroid therapy maintained indefinitely throughout treatment"
+      ],
+      "cluster": "tolerance"
+    },
+    {
+      "id": "ie07_immunosuppression",
+      "context": "Transient immunosuppression during AAV gene therapy:",
+      "truth": "can prevent capsid-directed T cell responses that eliminate transduced cells",
+      "distractors": [
+        "is never used in clinical gene therapy trials due to unacceptable safety concerns",
+        "paradoxically enhances cytotoxic immune responses against vector-transduced hepatocytes",
+        "only suppresses humoral antibody responses without affecting cellular T cell immunity"
+      ],
+      "cluster": "tolerance"
+    },
+    {
+      "id": "ie08_cpg_depletion",
+      "context": "CpG depletion in therapeutic DNA/mRNA sequences reduces:",
+      "truth": "TLR9-mediated innate immune activation and inflammatory responses",
+      "distractors": [
+        "overall protein expression levels by disrupting ribosomal translation efficiency",
+        "only bacterial contamination signals without any effect on mammalian immune sensing",
+        "transgene mRNA stability through altered secondary structure and codon optimization"
+      ],
+      "cluster": "innate"
+    },
+    {
+      "id": "ie09_nucleoside_mod",
+      "context": "Modified nucleosides (pseudouridine, m1\u03a8) in therapeutic mRNA:",
+      "truth": "reduce innate immune sensing by TLR7/8 and RIG-I while maintaining translation",
+      "distractors": [
+        "dramatically increase inflammatory cytokine production through enhanced TLR3 activation",
+        "completely prevent ribosomal translation and require separate deprotection before dosing",
+        "are used exclusively in vaccine formulations and provide no benefit for protein therapies"
+      ],
+      "cluster": "innate"
+    },
+    {
+      "id": "ie10_complement",
+      "context": "Complement activation by therapeutic nanoparticles can cause:",
+      "truth": "CARPA (complement activation-related pseudoallergy) requiring slow infusion",
+      "distractors": [
+        "enhanced nanoparticle delivery to target tissues through opsonin-mediated endocytosis",
+        "no clinically significant effects because complement proteins are rapidly neutralized",
+        "reactions that only occur with recombinant protein therapeutics, never with nanoparticles"
+      ],
+      "cluster": "innate"
+    }
+  ]
+}

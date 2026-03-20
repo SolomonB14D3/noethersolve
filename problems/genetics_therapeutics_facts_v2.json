@@ -1,0 +1,198 @@
+{
+  "problem": "genetics_therapeutics_v2",
+  "description": "Length-matched V2 facts for genetic therapeutics - gene editing, mRNA drugs, viral vectors, and pharmacogenomics. Distractors lengthened to match truth length, eliminating length ratio bias.",
+  "facts": [
+    {
+      "id": "gt01_crispr_pam",
+      "context": "For SpCas9 (Streptococcus pyogenes Cas9) gene editing, the PAM sequence requirement is:",
+      "truth": "NGG on the 3' end of target (PAM is on non-target strand)",
+      "distractors": [
+        "NGG on the 5' end of target (PAM is on the target strand itself)",
+        "any trinucleotide sequence works equally well regardless of position",
+        "PAM is not required for SpCas9 cutting activity at any locus"
+      ],
+      "cluster": "crispr",
+      "therapeutic_relevance": "PAM constrains where edits can be made; guides target site selection"
+    },
+    {
+      "id": "gt02_grna_length",
+      "context": "The optimal guide RNA spacer length for SpCas9 specificity and efficiency is:",
+      "truth": "20 nucleotides (shorter reduces activity, longer increases off-targets)",
+      "distractors": [
+        "exactly 23 nucleotides for maximum cutting efficiency and specificity",
+        "10-15 nucleotides is sufficient for both on-target and off-target control",
+        "length does not affect editing efficiency or specificity in any context"
+      ],
+      "cluster": "crispr",
+      "therapeutic_relevance": "Guide design is critical for on-target efficacy and avoiding off-target edits"
+    },
+    {
+      "id": "gt03_codon_optimization",
+      "context": "For maximizing protein expression from therapeutic mRNA, codon optimization should:",
+      "truth": "match host tRNA abundance (codon adaptation index) while avoiding rare codons",
+      "distractors": [
+        "use only the single most common codon for each amino acid in every position",
+        "maximize GC content regardless of the host cell tRNA pool composition",
+        "use rare codons to deliberately slow translation and improve protein folding"
+      ],
+      "cluster": "mrna",
+      "therapeutic_relevance": "Codon choice determines expression level and protein folding"
+    },
+    {
+      "id": "gt04_mrna_cap",
+      "context": "Therapeutic mRNA requires a 5' cap structure for stability and translation. The cap analog used is:",
+      "truth": "Cap1 (m7GpppNm) with 2'-O-methylation to avoid innate immune detection",
+      "distractors": [
+        "uncapped mRNA works equally well in vivo since ribosomes bind without caps",
+        "Cap0 without any methylation is preferred for maximum translational output",
+        "5' triphosphate alone is sufficient to recruit ribosomes and initiate translation"
+      ],
+      "cluster": "mrna",
+      "therapeutic_relevance": "Cap structure determines mRNA half-life and immunogenicity"
+    },
+    {
+      "id": "gt05_utr_stability",
+      "context": "The 3' UTR elements that maximize therapeutic mRNA half-life include:",
+      "truth": "poly(A) tail of 100-150nt plus stabilizing elements (alpha/beta-globin UTRs)",
+      "distractors": [
+        "shorter poly(A) tail of 20-30nt combined with random downstream sequences",
+        "AU-rich elements (AREs) which increase mRNA stability and prevent degradation",
+        "the 3' UTR has no measurable effect on mRNA half-life or protein expression"
+      ],
+      "cluster": "mrna",
+      "therapeutic_relevance": "UTR engineering extends duration of protein expression"
+    },
+    {
+      "id": "gt06_aav_packaging",
+      "context": "Adeno-associated virus (AAV) vectors have a packaging limit of:",
+      "truth": "approximately 4.7 kb for the transgene cassette",
+      "distractors": [
+        "up to 20 kb similar to lentiviral vector capacity",
+        "no practical size limit exists for AAV vector cargo",
+        "only 1-2 kb can be packaged into AAV capsids"
+      ],
+      "cluster": "delivery",
+      "therapeutic_relevance": "Size limit constrains which genes can be delivered; requires dual-vector strategies for large genes"
+    },
+    {
+      "id": "gt07_aav_tropism",
+      "context": "AAV9 serotype has natural tropism for:",
+      "truth": "CNS and cardiac tissue (crosses blood-brain barrier)",
+      "distractors": [
+        "exclusively liver tissue with no transduction of other organs",
+        "only skeletal muscle with minimal systemic biodistribution",
+        "no tissue specificity exists and all organs are transduced equally"
+      ],
+      "cluster": "delivery",
+      "therapeutic_relevance": "Serotype choice determines which tissues are transduced"
+    },
+    {
+      "id": "gt08_lnp_ionizable",
+      "context": "Lipid nanoparticles (LNPs) for mRNA delivery use ionizable lipids that:",
+      "truth": "are neutral at pH 7.4 but positive at endosomal pH ~6 for escape",
+      "distractors": [
+        "remain permanently positively charged at all physiological pH values",
+        "are permanently neutral at all pH values and rely on fusion for entry",
+        "become negatively charged in endosomes to disrupt membrane integrity"
+      ],
+      "cluster": "delivery",
+      "therapeutic_relevance": "Ionizable lipid chemistry enables endosomal escape and cytoplasmic delivery"
+    },
+    {
+      "id": "gt09_splice_donor",
+      "context": "The consensus splice donor site sequence in human genes is:",
+      "truth": "GT at the 5' end of the intron (GU in RNA)",
+      "distractors": [
+        "AG at the 5' end of the intron (AU in RNA)",
+        "any dinucleotide can serve as donor site equally",
+        "AT at the 5' end of the intron (AU in RNA)"
+      ],
+      "cluster": "splicing",
+      "therapeutic_relevance": "Splice site rules govern antisense oligonucleotide design for exon skipping"
+    },
+    {
+      "id": "gt10_splice_acceptor",
+      "context": "The consensus splice acceptor site sequence in human genes is:",
+      "truth": "AG at the 3' end of the intron preceded by pyrimidine tract",
+      "distractors": [
+        "GT at the 3' end of the intron preceded by a purine-rich tract",
+        "any dinucleotide works as acceptor regardless of flanking context",
+        "GG at the 3' end of the intron preceded by pyrimidine tract"
+      ],
+      "cluster": "splicing",
+      "therapeutic_relevance": "Understanding acceptor sites enables splice-modifying therapeutics"
+    },
+    {
+      "id": "gt11_cyp2d6_metabolism",
+      "context": "CYP2D6 poor metabolizers (PM phenotype) require dose adjustments because:",
+      "truth": "drugs metabolized by CYP2D6 accumulate to higher levels (reduced clearance)",
+      "distractors": [
+        "drugs are cleared faster through alternative pathways requiring higher doses",
+        "CYP2D6 metabolizer status has no clinically significant effect on drug levels",
+        "only prodrugs are affected by CYP2D6 status while active drugs are unaffected"
+      ],
+      "cluster": "pharmacogenomics",
+      "therapeutic_relevance": "Pharmacogenomic testing guides dosing for ~25% of drugs"
+    },
+    {
+      "id": "gt12_hla_association",
+      "context": "HLA-B*57:01 genetic testing before abacavir (HIV drug) is required because:",
+      "truth": "carriers have high risk of severe hypersensitivity reaction",
+      "distractors": [
+        "carriers have significantly enhanced drug efficacy and viral suppression",
+        "HLA type affects gastrointestinal drug absorption rate but not safety",
+        "testing is entirely optional with no measurable clinical safety impact"
+      ],
+      "cluster": "pharmacogenomics",
+      "therapeutic_relevance": "HLA testing prevents severe adverse drug reactions"
+    },
+    {
+      "id": "gt13_antisense_chemistry",
+      "context": "Phosphorothioate (PS) backbone modification in antisense oligonucleotides provides:",
+      "truth": "nuclease resistance plus plasma protein binding for distribution",
+      "distractors": [
+        "increased RNase H recruitment only without affecting pharmacokinetics",
+        "no measurable advantage over natural phosphodiester backbone in vivo",
+        "faster renal clearance enabling more rapid systemic drug elimination"
+      ],
+      "cluster": "antisense",
+      "therapeutic_relevance": "Backbone chemistry determines ASO pharmacokinetics and stability"
+    },
+    {
+      "id": "gt14_sirna_overhang",
+      "context": "Effective siRNA duplexes require:",
+      "truth": "2-nucleotide 3' overhangs on each strand for RISC loading",
+      "distractors": [
+        "blunt ends on both sides of the duplex for optimal Dicer processing",
+        "5' overhangs of 2-3 nucleotides for efficient Dicer recognition step",
+        "single-stranded RNA without any duplex structure for direct RISC entry"
+      ],
+      "cluster": "antisense",
+      "therapeutic_relevance": "siRNA design rules determine gene silencing efficiency"
+    },
+    {
+      "id": "gt15_promoter_tissue",
+      "context": "For liver-specific transgene expression in gene therapy, the promoter used is:",
+      "truth": "hepatocyte-specific promoters like ApoE/hAAT or TBG",
+      "distractors": [
+        "CMV promoter for maximum expression in all cell types including liver",
+        "no promoter is needed because liver cells constitutively express transgenes",
+        "muscle-specific CK8 promoter which also drives expression in hepatocytes"
+      ],
+      "cluster": "expression",
+      "therapeutic_relevance": "Tissue-specific promoters limit off-target expression and toxicity"
+    },
+    {
+      "id": "gt16_base_editing",
+      "context": "Cytosine base editors (CBEs) convert C to T by:",
+      "truth": "deaminating C to U, which is read as T after replication",
+      "distractors": [
+        "direct nucleotide substitution without any deamination intermediate step",
+        "creating double-strand breaks then using HDR to install the T nucleotide",
+        "methylating cytosine to alter its base pairing properties during replication"
+      ],
+      "cluster": "crispr",
+      "therapeutic_relevance": "Base editing enables precise corrections without double-strand breaks"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+name: "llm_training_v2"
+description: "Length-matched V2 facts for llm_training domain."
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "llm_training_facts_v2.json"
+pass_threshold: 0.5

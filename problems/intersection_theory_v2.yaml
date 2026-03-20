@@ -1,0 +1,4 @@
+name: "intersection_theory_v2"
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "intersection_theory_facts_v2.json"
+pass_threshold: 0.5

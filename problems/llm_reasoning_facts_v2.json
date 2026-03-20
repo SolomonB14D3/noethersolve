@@ -1,0 +1,126 @@
+{
+  "problem": "llm_reasoning_v2",
+  "description": "Length-matched reasoning limitation facts for LLMs.",
+  "facts": [
+    {
+      "id": "lr01_cot",
+      "context": "Chain-of-thought prompting improves reasoning by:",
+      "truth": "eliciting intermediate steps that guide the model toward correct answers",
+      "distractors": [
+        "activating a dedicated reasoning module built into transformer architecture",
+        "guaranteeing logical correctness via embedded formal verification procedures",
+        "working only for arithmetic while failing on multi-step complex reasoning"
+      ]
+    },
+    {
+      "id": "lr02_cot_faithful",
+      "context": "Chain-of-thought explanations may not be faithful because:",
+      "truth": "stated reasoning steps may not reflect the model's actual internal computation",
+      "distractors": [
+        "CoT traces always faithfully mirror the model's true underlying computations",
+        "built-in verification mechanisms automatically ensure explanation faithfulness",
+        "unfaithful explanations are architecturally impossible in autoregressive models"
+      ]
+    },
+    {
+      "id": "lr03_reversal_curse",
+      "context": "The reversal curse in LLMs refers to:",
+      "truth": "learning 'A is B' without learning 'B is A' (asymmetric storage)",
+      "distractors": [
+        "knowledge being stored symmetrically by default in transformer weights",
+        "a limitation that only affects older bidirectional encoder-based models",
+        "a problem fully resolved in current-generation large language models"
+      ]
+    },
+    {
+      "id": "lr04_compositionality",
+      "context": "Compositional generalization failures in LLMs occur when:",
+      "truth": "models fail to combine known primitives in novel unseen arrangements",
+      "distractors": [
+        "composing known concepts is a core reliable strength of modern LLMs",
+        "only out-of-vocabulary tokens cause failures in compositional reasoning",
+        "scaling model parameters fully resolves all compositional generalization"
+      ]
+    },
+    {
+      "id": "lr05_multi_hop",
+      "context": "Multi-hop reasoning (A→B, B→C, therefore A→C) is challenging because:",
+      "truth": "accuracy degrades exponentially with reasoning chain length",
+      "distractors": [
+        "LLMs excel reliably at arbitrarily long inference chains",
+        "accuracy degrades linearly and predictably with chain length",
+        "multi-hop tasks are consistently easier than single-hop ones"
+      ]
+    },
+    {
+      "id": "lr06_negation",
+      "context": "LLMs struggle with negation because:",
+      "truth": "they often ignore or misprocess 'not' and negative constructions",
+      "distractors": [
+        "negation is handled correctly and reliably across all model scales",
+        "only complex double negatives cause failures in trained LLM systems",
+        "specialized attention heads evolve that focus on negation processing"
+      ]
+    },
+    {
+      "id": "lr07_counterfactual",
+      "context": "Counterfactual reasoning ('what if X were different') is limited because:",
+      "truth": "models blend counterfactual scenarios with memorized actual facts",
+      "distractors": [
+        "counterfactual and factual knowledge are perfectly isolated internally",
+        "hypothetical premises reliably override learned training data patterns",
+        "dedicated counterfactual reasoning modules exist within LLM architecture"
+      ]
+    },
+    {
+      "id": "lr08_planning",
+      "context": "Long-horizon planning in LLMs is weak because:",
+      "truth": "models lack persistent state and struggle to maintain goal consistency",
+      "distractors": [
+        "multi-step planning is a core demonstrated strength of transformer models",
+        "autoregressive left-to-right generation naturally supports long-range plans",
+        "context window size is the only factor determining planning ability limits"
+      ]
+    },
+    {
+      "id": "lr09_math",
+      "context": "Mathematical reasoning errors in LLMs often stem from:",
+      "truth": "pattern matching on surface forms rather than true symbolic manipulation",
+      "distractors": [
+        "exact arithmetic computation happening internally within attention layers",
+        "purely random errors distributed uniformly across all mathematical tasks",
+        "external calculator tools being unnecessary for reliable numeric reasoning"
+      ]
+    },
+    {
+      "id": "lr10_distraction",
+      "context": "Irrelevant context (distractor information) hurts LLM reasoning because:",
+      "truth": "models struggle to identify which information is relevant to the task",
+      "distractors": [
+        "providing more context always improves accuracy regardless of relevance",
+        "irrelevant information is automatically filtered by the attention mechanism",
+        "relevance detection is a solved problem in current transformer architectures"
+      ]
+    },
+    {
+      "id": "lr11_shortcut",
+      "context": "Shortcut learning in LLMs refers to:",
+      "truth": "exploiting spurious correlations in training data instead of robust features",
+      "distractors": [
+        "learning efficient correct heuristics that generalize well to new domains",
+        "a phenomenon limited exclusively to small parameter count language models",
+        "a training strategy that consistently and reliably improves generalization"
+      ]
+    },
+    {
+      "id": "lr12_symbolic",
+      "context": "Neuro-symbolic approaches combine LLMs with symbolic reasoning to:",
+      "truth": "offload formal logic to symbolic systems while using LLMs for language",
+      "distractors": [
+        "replace all symbolic computation systems entirely with neural approaches",
+        "increase computational cost with no measurable benefit over pure LLMs alone",
+        "function only for natural language tasks and not formal reasoning problems"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+name: "LLM Hallucination Grounded V2"
+description: |
+  LLM hallucination facts with tool-grounding context.
+  Length-matched, certainty-balanced v2.
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "llm_hallucination_grounded_facts_v2.json"

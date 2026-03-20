@@ -1,0 +1,42 @@
+{
+  "domain": "analysis_pde_conjectures",
+  "clusters": [
+    {
+      "name": "Partial_Differential_Equations_and_Blowup",
+      "adapter": "/Volumes/4TB SD/ClaudeCode/noethersolve/adapters/analysis_pde_conjectures_Partial_Differential_Equations_and_Blowup_orthogonal.npz",
+      "fact_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "Geometric_Measure_Theory_and_Combinatorial_Geometry",
+      "adapter": "/Volumes/4TB SD/ClaudeCode/noethersolve/adapters/analysis_pde_conjectures_Geometric_Measure_Theory_and_Combinatorial_Geometry_orthogonal.npz",
+      "fact_ids": [
+        3,
+        4,
+        7
+      ]
+    },
+    {
+      "name": "Number_Theory_and_Diophantine_Equations",
+      "adapter": "/Volumes/4TB SD/ClaudeCode/noethersolve/adapters/analysis_pde_conjectures_Number_Theory_and_Diophantine_Equations_orthogonal.npz",
+      "fact_ids": [
+        5,
+        6,
+        9
+      ]
+    },
+    {
+      "name": "Dynamical_Systems_and_Ergodic_Theory",
+      "adapter": "/Volumes/4TB SD/ClaudeCode/noethersolve/adapters/analysis_pde_conjectures_Dynamical_Systems_and_Ergodic_Theory_orthogonal.npz",
+      "fact_ids": [
+        8,
+        10,
+        11,
+        12
+      ]
+    }
+  ],
+  "routing": "per_fact_best"
+}

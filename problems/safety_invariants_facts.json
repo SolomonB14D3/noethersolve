@@ -5,110 +5,110 @@
     {
       "id": "si01_offtarget_crispr",
       "context": "CRISPR off-target editing is predicted by:",
-      "truth": "sequence similarity to guide RNA, especially in PAM-proximal seed region (10-12nt)",
+      "truth": "guide RNA seed region similarity in PAM-proximal 10-12nt",
       "distractors": [
-        "random chance regardless of sequence",
-        "only exact matches cause off-targets",
-        "off-targets cannot be predicted"
+        "stochastic chromatin accessibility at random genomic loci",
+        "exact full-length complementarity across all 20 nucleotides",
+        "transgene expression level in the target cell population"
       ],
       "cluster": "offtarget"
     },
     {
       "id": "si02_offtarget_methods",
-      "context": "Unbiased off-target detection methods like GUIDE-seq and CIRCLE-seq work by:",
-      "truth": "capturing double-strand breaks genome-wide using tagged oligos or circularization",
+      "context": "Unbiased off-target detection methods like GUIDE-seq work by:",
+      "truth": "capturing genome-wide DSBs via tagged oligo integration",
       "distractors": [
-        "only detecting predicted sites",
-        "sequencing the guide RNA",
-        "measuring protein expression"
+        "amplifying only computationally predicted candidate sites",
+        "measuring total cellular guide RNA abundance by qPCR",
+        "quantifying downstream protein expression fold changes"
       ],
       "cluster": "offtarget"
     },
     {
       "id": "si03_highfidelity",
-      "context": "High-fidelity Cas9 variants (eSpCas9, HiFi Cas9) reduce off-targets by:",
-      "truth": "weakening non-specific DNA contacts, requiring better guide complementarity",
+      "context": "High-fidelity Cas9 variants (eSpCas9, HiFi) reduce off-targets by:",
+      "truth": "weakening non-specific DNA contacts for stricter complementarity",
       "distractors": [
-        "cutting faster at all sites",
-        "recognizing longer PAM sequences",
-        "having no effect on specificity"
+        "accelerating cleavage kinetics uniformly at every target site",
+        "extending PAM recognition from 3bp to 6bp specificity window",
+        "increasing nuclear localization signal copy number per enzyme"
       ],
       "cluster": "offtarget"
     },
     {
       "id": "si04_insertional",
-      "context": "Insertional mutagenesis from integrating vectors (lentivirus) poses risk of:",
-      "truth": "oncogene activation or tumor suppressor disruption at integration sites",
+      "context": "Insertional mutagenesis from lentiviral vectors risks:",
+      "truth": "oncogene activation or tumor suppressor disruption at insertion",
       "distractors": [
-        "no risk with modern vectors",
-        "only affects non-dividing cells",
-        "integration is always safe"
+        "transient episomal expression without genomic alteration events",
+        "selective toxicity restricted to post-mitotic non-dividing cells",
+        "uniform transgene silencing across all chromosomal integration loci"
       ],
       "cluster": "genotoxicity"
     },
     {
       "id": "si05_aav_integration",
-      "context": "AAV vectors are considered non-integrating, but:",
-      "truth": "rare integration events occur, with enrichment at double-strand break sites",
+      "context": "AAV vectors are non-integrating, but residual integration:",
+      "truth": "occurs rarely, enriched at double-strand break sites",
       "distractors": [
-        "AAV never integrates under any condition",
-        "AAV integrates at high frequency",
-        "integration only occurs in bacteria"
+        "reaches high frequency comparable to lentiviral vector rates",
+        "happens exclusively in prokaryotic bacterial host genomes",
+        "distributes uniformly across all chromosomal regions equally"
       ],
       "cluster": "genotoxicity"
     },
     {
       "id": "si06_p53_activation",
-      "context": "CRISPR-induced double-strand breaks can activate p53, leading to:",
-      "truth": "cell cycle arrest and apoptosis, potentially selecting for p53-mutant cells",
+      "context": "CRISPR double-strand breaks activate p53, causing:",
+      "truth": "cell cycle arrest and selection for p53-mutant cells",
       "distractors": [
-        "enhanced cell proliferation",
-        "no cellular response",
-        "improved editing efficiency"
+        "accelerated proliferation of edited cell populations overall",
+        "enhanced homology-directed repair efficiency at cut sites",
+        "immediate terminal differentiation of all transfected cells"
       ],
       "cluster": "genotoxicity"
     },
     {
       "id": "si07_cytokine_storm",
-      "context": "Cytokine release syndrome (CRS) from gene therapies is characterized by:",
-      "truth": "elevated IL-6, TNF-alpha, IFN-gamma causing fever, hypotension, organ dysfunction",
+      "context": "Cytokine release syndrome from gene therapy features:",
+      "truth": "elevated IL-6 and TNF-alpha with systemic organ dysfunction",
       "distractors": [
-        "decreased inflammatory markers",
-        "only local injection site reactions",
-        "no systemic effects"
+        "decreased inflammatory markers with localized injection reaction",
+        "selective IFN-beta elevation without hemodynamic instability noted",
+        "transient complement activation resolving before clinical symptoms"
       ],
       "cluster": "toxicology"
     },
     {
       "id": "si08_liver_toxicity",
-      "context": "AAV-related hepatotoxicity at high doses is monitored by:",
-      "truth": "elevated transaminases (ALT/AST) and may require corticosteroid management",
+      "context": "High-dose AAV hepatotoxicity is monitored by:",
+      "truth": "elevated ALT/AST transaminases requiring corticosteroid management",
       "distractors": [
-        "kidney function tests only",
-        "liver toxicity does not occur",
-        "no biomarkers exist"
+        "serum creatinine and blood urea nitrogen renal function panels",
+        "peripheral blood smear morphology for hemolytic anemia markers",
+        "cerebrospinal fluid protein levels for neuroinflammation screening"
       ],
       "cluster": "toxicology"
     },
     {
       "id": "si09_thrombocytopenia",
-      "context": "Thrombocytopenia (low platelets) with AAV gene therapy is associated with:",
+      "context": "AAV gene therapy thrombocytopenia is driven by:",
       "truth": "complement activation and thrombotic microangiopathy at high doses",
       "distractors": [
-        "direct bone marrow suppression only",
-        "no platelet effects occur",
-        "increased platelet counts"
+        "direct megakaryocyte suppression in bone marrow progenitor niches",
+        "autoimmune platelet destruction via anti-GPIIb/IIIa antibody binding",
+        "splenic sequestration from capsid-induced splenomegaly at all doses"
       ],
       "cluster": "toxicology"
     },
     {
       "id": "si10_dorsal_root",
-      "context": "Dorsal root ganglion (DRG) toxicity with AAV has been observed:",
-      "truth": "in high-dose systemic or intrathecal delivery, causing sensory neuron loss",
+      "context": "AAV dorsal root ganglion toxicity occurs in:",
+      "truth": "high-dose systemic or intrathecal delivery causing neuron loss",
       "distractors": [
-        "only with specific transgenes",
-        "DRG is never affected by AAV",
-        "at all doses equally"
+        "low-dose local injection restricted to specific transgene cassettes",
+        "oral administration routes affecting peripheral motor neuron axons",
+        "all delivery methods equally regardless of dose or administration"
       ],
       "cluster": "toxicology"
     }

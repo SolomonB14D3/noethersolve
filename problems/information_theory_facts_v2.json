@@ -1,0 +1,126 @@
+{
+  "description": "Information theory facts with length-matched distractors (32B generated)",
+  "domain": "information_theory",
+  "facts": [
+    {
+      "id": "info01",
+      "context": "The capacity of a Binary Symmetric Channel with crossover probability p is:",
+      "truth": "C = 1 - H(p), where H is binary entropy",
+      "distractors": [
+        "C = p - H(p), where H is binary entropy",
+        "C = 1 + H(p), where H is binary entropy",
+        "C = H(p) - 1, where H is binary entropy"
+      ]
+    },
+    {
+      "id": "info02",
+      "context": "The capacity of an AWGN channel with bandwidth B and SNR ratio is:",
+      "truth": "C = B \u00d7 log\u2082(1 + SNR) \u2014 Shannon's exact formula",
+      "distractors": [
+        "C = B \u00d7 log\u2082(1 - SNR) \u2014 Shannon's modified formula",
+        "C = B \u00d7 sqrt(1 + SNR) \u2014 Shannon's approximate formula",
+        "C = B \u00d7 ln(1 + SNR) \u2014 Shannon's incorrect formula"
+      ]
+    },
+    {
+      "id": "info03",
+      "context": "The capacity of a Binary Erasure Channel with erasure probability \u03b5 is:",
+      "truth": "C = 1 - \u03b5 (exactly linear, simpler than BSC)",
+      "distractors": [
+        "C = \u03b5 - 1 (exactly linear, simpler than BSC)",
+        "C = 1 + \u03b5 (exactly linear, simpler than BSC)",
+        "C = \u03b5 / 1 (exactly linear, simpler than BSC)"
+      ]
+    },
+    {
+      "id": "info04",
+      "context": "The capacity-achieving input distribution for the BSC is:",
+      "truth": "Uniform: P(X=0) = P(X=1) = 0.5",
+      "distractors": [
+        "Skewed: P(X=0) = 0.1, P(X=1) = 0.9",
+        "Biased: P(X=0) = 0.7, P(X=1) = 0.3",
+        "Gaussian: P(X=0) = 0.2, P(X=1) = 0.8"
+      ]
+    },
+    {
+      "id": "info05",
+      "context": "The capacity-achieving input distribution for the AWGN channel is:",
+      "truth": "Gaussian: X ~ N(0, P) where P is power constraint",
+      "distractors": [
+        "Gaussian: X ~ N(0, P) where P is power constraint and P > 1",
+        "Gaussian: X ~ N(1, P) where P is power constraint and P > 1",
+        "Gaussian: X ~ N(0, P) where P is power constraint and P < 1"
+      ]
+    },
+    {
+      "id": "info06",
+      "context": "The rate-distortion function for a Gaussian source with MSE is:",
+      "truth": "R(D) = (1/2) \u00d7 log\u2082(\u03c3\u00b2/D) for D \u2264 \u03c3\u00b2",
+      "distractors": [
+        "R(D) = (1/2) \u00d7 log\u2082(\u03c3\u00b2/D) for D \u2265 \u03c3\u00b2",
+        "R(D) = (1/2) \u00d7 log\u2082(\u03c3\u00b2+D) for D \u2264 \u03c3\u00b2",
+        "R(D) = (1/2) \u00d7 log\u2082(\u03c3\u00b2-D) for D \u2264 \u03c3\u00b2"
+      ]
+    },
+    {
+      "id": "info07",
+      "context": "The 2-user MAC capacity region shape is:",
+      "truth": "A PENTAGON bounded by R\u2081 \u2264 I(X\u2081;Y|X\u2082), R\u2082 \u2264 I(X\u2082;Y|X\u2081), R\u2081+R\u2082 \u2264 I(X\u2081,X\u2082;Y)",
+      "distractors": [
+        "A PENTAGON bounded by R\u2081 \u2264 I(X\u2081;Y|X\u2082), R\u2082 \u2264 I(X\u2082;Y), R\u2081+R\u2082 \u2264 I(X\u2081,X\u2082;Y)",
+        "A PENTAGON bounded by R\u2081 \u2264 I(X\u2081;Y|X\u2082), R\u2082 \u2264 I(X\u2082;Y), R\u2081 \u2264 R\u2082",
+        "A PENTAGON bounded by R\u2081 \u2264 I(X\u2081;Y|X\u2082), R\u2082 \u2264 I(X\u2082;Y|X\u2081), R\u2081+R\u2082 \u2264 I(X\u2081;Y)"
+      ]
+    },
+    {
+      "id": "info08",
+      "context": "Data processing inequality states that for X \u2192 Y \u2192 Z:",
+      "truth": "I(X; Z) \u2264 I(X; Y) \u2014 processing cannot increase information",
+      "distractors": [
+        "I(X; Z) \u2265 I(X; Y) \u2014 processing can increase information",
+        "I(X; Z) = I(X; Y) \u2014 processing does not change information",
+        "I(X; Z) \u2248 I(X; Y) \u2014 processing approximates information"
+      ]
+    },
+    {
+      "id": "info09",
+      "context": "The source coding theorem says the minimum average code length L satisfies:",
+      "truth": "L \u2265 H(X) with equality achievable in the limit",
+      "distractors": [
+        "L \u2264 H(X) with equality achievable in the limit",
+        "L \u2265 H(X) with equality unachievable in the limit",
+        "L \u2265 H(X) with inequality achievable in the limit"
+      ]
+    },
+    {
+      "id": "info10",
+      "context": "For a Z-channel (0\u21920 always, 1\u21920 with prob p), the capacity-achieving input is:",
+      "truth": "NOT uniform \u2014 biased toward 0 (the reliable input)",
+      "distractors": [
+        "Uniform \u2014 biased toward 0",
+        "Uniform \u2014 biased toward 1",
+        "NOT uniform \u2014 biased toward 1"
+      ]
+    },
+    {
+      "id": "info11",
+      "context": "The typical set A_\u03b5^n for an i.i.d. source has size approximately:",
+      "truth": "2^(nH) where H is the source entropy",
+      "distractors": [
+        "2^(nH) where H is the source energy",
+        "2^(nH) where H is the source entropy in joules",
+        "2^(nH) where H is the source entropy in bits per symbol"
+      ]
+    },
+    {
+      "id": "info12",
+      "context": "Fano's inequality relates error probability P_e to conditional entropy by:",
+      "truth": "H(X|Y) \u2264 H(P_e) + P_e \u00d7 log(|X| - 1)",
+      "distractors": [
+        "H(X|Y) \u2264 H(P_e) + P_e \u00d7 log(|X| + 1)",
+        "H(X|Y) \u2265 H(P_e) + P_e \u00d7 log(|X| - 1)",
+        "H(X|Y) = H(P_e) + P_e \u00d7 log(|X|)"
+      ]
+    }
+  ]
+}

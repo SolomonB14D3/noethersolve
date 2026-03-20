@@ -1,0 +1,46 @@
+{
+  "problem": "optimal_f_qf_v2",
+  "description": "Length-matched oracle test facts for optimal f(r) combinations in Q_f conservation.",
+  "facts": [
+    {
+      "id": "opt01_single_vs_combo",
+      "context": "For Q_f conservation, using a single f(r) vs an optimized linear combination gives:",
+      "truth": "99.6% improvement with combination (loss 5e-6 vs 1e-3)",
+      "distractors": [
+        "no measurable improvement over any single kernel choice",
+        "single-kernel functions are provably the global optimum",
+        "roughly 10% improvement with diminishing marginal returns"
+      ]
+    },
+    {
+      "id": "opt02_dominant_terms",
+      "context": "The dominant terms in the optimal f(r) = Sigma a_i phi_i(r) for Q_f conservation are:",
+      "truth": "e^(-r/2), tanh(r), sin(r) with alternating sign coefficients",
+      "distractors": [
+        "-ln(r) alone with no additional basis function contributions",
+        "1/r alone which recovers standard Biot-Savart interactions",
+        "r^2 alone corresponding to pure moment of inertia scaling"
+      ]
+    },
+    {
+      "id": "opt03_structure",
+      "context": "The space of near-conserved Q_f quantities forms:",
+      "truth": "a vector space where linear combinations preserve conservation",
+      "distractors": [
+        "a discrete isolated set with no continuous interpolation",
+        "no algebraic structure connecting different Q_f variants",
+        "a nonlinear manifold requiring Riemannian optimization tools"
+      ]
+    },
+    {
+      "id": "opt04_learned_vs_energy",
+      "context": "Comparing the learned optimal f(r) to the energy kernel f(r) = -ln(r):",
+      "truth": "optimal is 2700x better (loss 5e-6 vs 1.4e-2 for energy)",
+      "distractors": [
+        "the energy kernel is already optimal and cannot be improved",
+        "both perform the same within numerical integration tolerance",
+        "optimal performs slightly worse due to overfitting artifacts"
+      ]
+    }
+  ]
+}

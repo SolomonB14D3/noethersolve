@@ -1,0 +1,138 @@
+{
+  "problem": "quantum_mechanics_v2",
+  "description": "Length-matched V2 facts for quantum mechanics domain.",
+  "facts": [
+    {
+      "id": "qm01_uncertainty",
+      "context": "Heisenberg's uncertainty principle states:",
+      "truth": "position and momentum cannot both be precisely known simultaneously",
+      "distractors": [
+        "uncertainty arises solely from imprecision of measurement apparatus",
+        "energy is fundamentally uncertain regardless of time interval used",
+        "the principle applies only to massless photons not massive matter"
+      ],
+      "cluster": "foundations"
+    },
+    {
+      "id": "qm02_collapse",
+      "context": "Wave function collapse occurs:",
+      "truth": "upon measurement, yielding one definite outcome from superposition",
+      "distractors": [
+        "during unitary time evolution governed by Schrodinger equation",
+        "from particle-particle interactions without any external observation",
+        "spontaneously without any external triggering process or interaction"
+      ],
+      "cluster": "foundations"
+    },
+    {
+      "id": "qm03_pauli",
+      "context": "The Pauli exclusion principle applies to:",
+      "truth": "all fermions, which cannot occupy the same quantum state simultaneously",
+      "distractors": [
+        "all bosons, which are forbidden from sharing identical quantum states",
+        "every particle regardless of its spin statistics or quantum numbers",
+        "only electrons in atomic orbitals, not other fermionic particle types"
+      ],
+      "cluster": "foundations"
+    },
+    {
+      "id": "qm04_tunneling",
+      "context": "Quantum tunneling allows particles to:",
+      "truth": "penetrate through classically forbidden energy barriers with nonzero probability",
+      "distractors": [
+        "exceed the speed of light by borrowing energy from the vacuum temporarily",
+        "spontaneously gain energy from quantum vacuum fluctuation processes nearby",
+        "violate conservation of energy by passing through any arbitrary potential"
+      ],
+      "cluster": "phenomena"
+    },
+    {
+      "id": "qm05_spin",
+      "context": "Spin-1/2 particles return to their original state after:",
+      "truth": "720 degree (4-pi) rotation, requiring two full turns for identity",
+      "distractors": [
+        "360 degree (2-pi) rotation, identical to classical rigid body objects",
+        "180 degree (pi) rotation, as expected from the half-integer spin value",
+        "any arbitrary rotation angle, since spin state is rotationally invariant"
+      ],
+      "cluster": "phenomena"
+    },
+    {
+      "id": "qm06_born",
+      "context": "The Born rule states that measurement probability equals:",
+      "truth": "the squared modulus of the wave function amplitude at that point",
+      "distractors": [
+        "the wave function value itself without taking the modulus squared",
+        "the energy eigenvalue of the quantum state being measured directly",
+        "the expectation value of the position operator for that given state"
+      ],
+      "cluster": "foundations"
+    },
+    {
+      "id": "qm07_degeneracy",
+      "context": "Degenerate energy levels are split by:",
+      "truth": "perturbations that reduce the system symmetry, lifting the degeneracy",
+      "distractors": [
+        "uniformly increasing the particle mass without changing the potential",
+        "cooling the system toward absolute zero temperature and ground state",
+        "adding more identical particles into the same quantum energy level"
+      ],
+      "cluster": "phenomena"
+    },
+    {
+      "id": "qm08_entanglement",
+      "context": "Quantum entanglement produces correlations that:",
+      "truth": "violate Bell inequalities, ruling out all local hidden variable models",
+      "distractors": [
+        "can be fully explained by classical shared information at preparation",
+        "enable faster-than-light communication of usable information signals",
+        "require the entangled particles to remain in physical contact always"
+      ],
+      "cluster": "phenomena"
+    },
+    {
+      "id": "qm09_superposition",
+      "context": "Quantum superposition means a system:",
+      "truth": "exists in a linear combination of multiple states until measurement occurs",
+      "distractors": [
+        "rapidly switches between definite states too fast for detection methods",
+        "occupies one definite state that is simply unknown to the observer here",
+        "simultaneously exists in all possible states with exactly equal weights"
+      ],
+      "cluster": "foundations"
+    },
+    {
+      "id": "qm10_harmonic",
+      "context": "Quantum harmonic oscillator ground state energy is:",
+      "truth": "nonzero at half hbar omega, the irreducible zero-point energy",
+      "distractors": [
+        "exactly zero at the lowest energy state as in classical mechanics",
+        "negative due to the attractive nature of the restoring potential well",
+        "undefined because position uncertainty prevents energy determination"
+      ],
+      "cluster": "systems"
+    },
+    {
+      "id": "qm11_hydrogen",
+      "context": "Hydrogen atom energy levels depend primarily on:",
+      "truth": "principal quantum number n with E proportional to negative 1/n-squared",
+      "distractors": [
+        "orbital angular momentum quantum number l as the dominant parameter",
+        "spin quantum number s which determines splitting of all energy levels",
+        "magnetic quantum number m which sets the energy in zero external field"
+      ],
+      "cluster": "systems"
+    },
+    {
+      "id": "qm12_commutator",
+      "context": "Non-commuting observables (nonzero commutator) imply:",
+      "truth": "incompatible measurements connected by a fundamental uncertainty relation",
+      "distractors": [
+        "the two observables can still be measured simultaneously with precision",
+        "one observable must always vanish whenever the other one is measured",
+        "the mathematical operators are undefined when applied in any sequence"
+      ],
+      "cluster": "systems"
+    }
+  ]
+}

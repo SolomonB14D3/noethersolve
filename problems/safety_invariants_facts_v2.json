@@ -1,0 +1,116 @@
+{
+  "problem": "safety_invariants_v2",
+  "description": "Length-matched V2 facts for safety invariants — off-target prediction, genotoxicity, toxicology markers.",
+  "facts": [
+    {
+      "id": "si01_offtarget_crispr",
+      "context": "CRISPR off-target editing is predicted by:",
+      "truth": "seed region mismatch tolerance in PAM-proximal 10-12nt",
+      "distractors": [
+        "random chromatin accessibility at unpredictable genomic loci",
+        "full 20nt exact complementarity with zero mismatch allowed",
+        "transgene copy number variation in the host cell genome"
+      ],
+      "cluster": "offtarget"
+    },
+    {
+      "id": "si02_offtarget_methods",
+      "context": "Unbiased off-target detection methods like GUIDE-seq work by:",
+      "truth": "integrating tagged oligos at genome-wide DSB sites",
+      "distractors": [
+        "amplifying only computationally predicted off-target loci",
+        "quantifying total guide RNA levels by fluorescent probes",
+        "measuring downstream protein fold changes via western blot"
+      ],
+      "cluster": "offtarget"
+    },
+    {
+      "id": "si03_highfidelity",
+      "context": "High-fidelity Cas9 variants (eSpCas9, HiFi) reduce off-targets by:",
+      "truth": "weakening non-specific DNA contacts to enforce strict pairing",
+      "distractors": [
+        "accelerating cleavage kinetics uniformly at all target sites",
+        "extending PAM recognition from NGG to a 6-base motif window",
+        "increasing nuclear localization signal copies on the protein"
+      ],
+      "cluster": "offtarget"
+    },
+    {
+      "id": "si04_insertional",
+      "context": "Insertional mutagenesis from lentiviral vectors risks:",
+      "truth": "oncogene activation or tumor suppressor disruption at the site",
+      "distractors": [
+        "transient episomal expression with no genomic integration event",
+        "selective cytotoxicity restricted to post-mitotic quiescent cells",
+        "uniform transgene silencing across every chromosomal insert site"
+      ],
+      "cluster": "genotoxicity"
+    },
+    {
+      "id": "si05_aav_integration",
+      "context": "AAV vectors are mostly non-integrating, but residual integration:",
+      "truth": "occurs rarely and concentrates at double-strand break sites",
+      "distractors": [
+        "reaches high frequency comparable to retroviral vector rates",
+        "targets exclusively prokaryotic genomes and not human cells",
+        "distributes uniformly across all chromosomal regions at random"
+      ],
+      "cluster": "genotoxicity"
+    },
+    {
+      "id": "si06_p53_activation",
+      "context": "CRISPR double-strand breaks activate p53, causing:",
+      "truth": "cell cycle arrest and enrichment of p53-null clones",
+      "distractors": [
+        "accelerated proliferation across the edited cell population",
+        "enhanced homology-directed repair efficiency at cut sites",
+        "immediate terminal differentiation of all transfected cells"
+      ],
+      "cluster": "genotoxicity"
+    },
+    {
+      "id": "si07_cytokine_storm",
+      "context": "Cytokine release syndrome from gene therapy features:",
+      "truth": "elevated IL-6 and TNF-alpha driving systemic organ damage",
+      "distractors": [
+        "decreased inflammatory markers with local injection reaction",
+        "selective IFN-beta rise without hemodynamic compromise noted",
+        "transient complement activation resolving before any symptoms"
+      ],
+      "cluster": "toxicology"
+    },
+    {
+      "id": "si08_liver_toxicity",
+      "context": "High-dose AAV hepatotoxicity is monitored by:",
+      "truth": "elevated ALT/AST transaminases requiring immunosuppression",
+      "distractors": [
+        "serum creatinine and BUN levels for renal function screening",
+        "peripheral blood smear morphology detecting hemolytic anemia",
+        "cerebrospinal fluid protein for neuroinflammation surveillance"
+      ],
+      "cluster": "toxicology"
+    },
+    {
+      "id": "si09_thrombocytopenia",
+      "context": "AAV gene therapy thrombocytopenia is driven by:",
+      "truth": "complement activation and thrombotic microangiopathy at high dose",
+      "distractors": [
+        "direct megakaryocyte suppression within bone marrow progenitor niche",
+        "autoimmune platelet destruction mediated by anti-GPIIb/IIIa antibodies",
+        "splenic sequestration from AAV capsid-induced splenomegaly at all dose"
+      ],
+      "cluster": "toxicology"
+    },
+    {
+      "id": "si10_dorsal_root",
+      "context": "AAV dorsal root ganglion toxicity occurs in:",
+      "truth": "high-dose systemic or intrathecal delivery causing sensory neuron loss",
+      "distractors": [
+        "low-dose local injection restricted to specific viral capsid serotypes",
+        "oral administration routes affecting only peripheral motor neuron axons",
+        "all delivery methods equally regardless of vector dose or route chosen"
+      ],
+      "cluster": "toxicology"
+    }
+  ]
+}

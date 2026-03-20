@@ -1,0 +1,138 @@
+{
+  "problem": "analysis_pde_conjectures_v2",
+  "description": "Length-matched V2 facts for analysis and PDE conjectures domain.",
+  "facts": [
+    {
+      "id": "ap01_navier_stokes_energy",
+      "context": "For 3D Navier-Stokes, energy inequality and weak solutions are known. The open gap is:",
+      "truth": "whether weak solutions are unique and remain smooth for all time",
+      "distractors": [
+        "whether energy is exactly conserved in the zero viscosity limit",
+        "whether weak solutions exist at all for arbitrary initial velocity data",
+        "whether the pressure field can be uniquely recovered from velocity alone"
+      ],
+      "cluster": "pde"
+    },
+    {
+      "id": "ap02_euler_blowup",
+      "context": "For 3D incompressible Euler equations, finite-time blowup:",
+      "truth": "is conjectured but unproven for smooth data; Elgindi showed blowup for C^(1,alpha)",
+      "distractors": [
+        "has been completely ruled out by applying the Beale-Kato-Majda criterion",
+        "is proven to occur for all smooth compactly supported initial velocity data",
+        "is irrelevant since 3D Euler possesses global weak solutions for all data"
+      ],
+      "cluster": "pde"
+    },
+    {
+      "id": "ap03_kakeya",
+      "context": "The Kakeya conjecture states that Kakeya sets (containing unit segment in each direction) have:",
+      "truth": "Hausdorff dimension n in R^n; proven for n=2, open for n>=3",
+      "distractors": [
+        "Hausdorff dimension n-1 in R^n; fully proven in all dimensions",
+        "Hausdorff dimension (n+1)/2 achieved by Wolff bound in every case",
+        "measure zero with full Hausdorff dimension proven in all R^n spaces"
+      ],
+      "cluster": "analysis"
+    },
+    {
+      "id": "ap04_erdos_distance",
+      "context": "The Erdos distinct distances problem: n points in the plane determine at least:",
+      "truth": "cn/sqrt(log n) distinct distances, proven by Guth-Katz in 2015",
+      "distractors": [
+        "cn^(2/3) distinct distances, proven by Solymosi-Toth and now settled",
+        "exactly Theta(n) distances, established by Szemeredi-Trotter completely",
+        "cn^(4/5) distinct distances, proven by Katz-Tardos as the sharp bound"
+      ],
+      "cluster": "analysis"
+    },
+    {
+      "id": "ap05_local_global",
+      "context": "The local-global conjecture for elliptic curves concerns:",
+      "truth": "whether local solvability over all completions implies rational solvability",
+      "distractors": [
+        "whether the Tate-Shafarevich group is always finite for every curve",
+        "whether finding rational points is always possible in polynomial time",
+        "whether the Mordell-Weil rank is bounded by an absolute constant"
+      ],
+      "cluster": "arithmetic"
+    },
+    {
+      "id": "ap06_erdos_turan",
+      "context": "The Erdos-Turan conjecture on additive bases states:",
+      "truth": "if the sum of reciprocals 1/a_n diverges, the sequence contains arbitrarily long APs",
+      "distractors": [
+        "if the sum of reciprocals 1/a_n converges, the sequence must be a Sidon set",
+        "if the sum of reciprocals 1/a_n diverges, it has positive upper Banach density",
+        "if the sum of reciprocals 1/a_n diverges, it forms asymptotic basis of order 2"
+      ],
+      "cluster": "combinatorics"
+    },
+    {
+      "id": "ap07_szemeredi_corners",
+      "context": "The corners theorem (Ajtai-Szemeredi) proves that dense subsets of [n]^2 contain:",
+      "truth": "corners: triples (x,y), (x+d,y), (x,y+d) for some positive integer d",
+      "distractors": [
+        "squares: quadruples (x,y), (x+d,y), (x,y+d), (x+d,y+d) for some d",
+        "diagonal lines: triples (x,y), (x+d,y+d), (x+2d,y+2d) for some d",
+        "rectangles: quadruples with sides a,b>0 at position (x,y) in the grid"
+      ],
+      "cluster": "combinatorics"
+    },
+    {
+      "id": "ap08_mobius_randomness",
+      "context": "The Sarnak conjecture on the Mobius function states that:",
+      "truth": "mu(n) is orthogonal to all deterministic (zero topological entropy) sequences",
+      "distractors": [
+        "mu(n) correlates strongly with the Liouville function over all intervals",
+        "mu(n) has uniformly bounded partial sums along arithmetic progressions",
+        "mu(n) is equidistributed among its three values with equal frequency"
+      ],
+      "cluster": "analysis"
+    },
+    {
+      "id": "ap09_singmaster",
+      "context": "Singmaster's conjecture states that how many times a number >1 appears in Pascal's triangle is:",
+      "truth": "bounded; conjectured at most 8, with known repeated entries including 120",
+      "distractors": [
+        "unbounded; proven by Luca that C(2n,n) entries appear arbitrarily often",
+        "exactly 4 for all sufficiently large entries, as proven by Kane in 2007",
+        "at most logarithmic in n, following from exponential binomial coefficient growth"
+      ],
+      "cluster": "combinatorics"
+    },
+    {
+      "id": "ap10_invariant_measure",
+      "context": "The Furstenberg conjecture on x2, x3 ergodicity states:",
+      "truth": "the only jointly ergodic x2 and x3 invariant measure on R/Z is Lebesgue measure",
+      "distractors": [
+        "every x2-invariant probability measure is automatically also x3-invariant on R/Z",
+        "the only ergodic measure for x2 alone on the circle R/Z is the Dirac mass at 0",
+        "there exist uncountably many distinct jointly ergodic x2 and x3 invariant measures"
+      ],
+      "cluster": "dynamics"
+    },
+    {
+      "id": "ap11_regularity_minimal",
+      "context": "For minimal surfaces in R^n, interior regularity holds for n<=7. For n>=8:",
+      "truth": "singular minimal hypersurfaces exist, shown by Bombieri-De Giorgi-Giusti in 1969",
+      "distractors": [
+        "all minimal hypersurfaces remain smooth everywhere by Schoen-Simon regularity",
+        "the singular set has codimension at most 2 in all dimensions by Federer theorem",
+        "the singular set has Hausdorff dimension exactly n-8 for every minimal surface"
+      ],
+      "cluster": "pde"
+    },
+    {
+      "id": "ap12_uniform_boundedness",
+      "context": "Uniform boundedness of partial sums of Fourier series for C^1 functions:",
+      "truth": "is proven; the question remains open for Holder-continuous C^alpha with alpha<1",
+      "distractors": [
+        "is proven for all continuous functions as a consequence of Carleson's theorem",
+        "fails even for C^1 functions, with du Bois-Reymond counterexample applying",
+        "is equivalent to the Riemann hypothesis for general Dirichlet L-function series"
+      ],
+      "cluster": "analysis"
+    }
+  ]
+}

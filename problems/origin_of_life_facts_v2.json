@@ -1,0 +1,138 @@
+{
+  "problem": "origin_of_life_v2",
+  "description": "Length-matched V2 facts for origin of life domain.",
+  "facts": [
+    {
+      "id": "ol01_rna_world",
+      "context": "The RNA World hypothesis proposes that early life used:",
+      "truth": "RNA as both genetic material and catalyst",
+      "distractors": [
+        "DNA as the first genetic polymer on Earth",
+        "proteins as primary replicators before RNA",
+        "clay minerals as the main replicating system"
+      ],
+      "cluster": "hypotheses"
+    },
+    {
+      "id": "ol02_abiogenesis",
+      "context": "The key challenge in abiogenesis research is explaining the:",
+      "truth": "transition from prebiotic chemistry to replication",
+      "distractors": [
+        "direct evolution of DNA from simple amino acids",
+        "preference of carbon chemistry over silicon-based",
+        "geological dating of first cellular organisms"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ol03_miller_urey",
+      "context": "The Miller-Urey experiment demonstrated that:",
+      "truth": "amino acids form from simple gases under electric discharge",
+      "distractors": [
+        "complete cells assemble from inorganic precursor chemicals",
+        "nucleic acid polymers arise from volcanic mineral catalysis",
+        "biological life requires pre-existing living cellular matter"
+      ],
+      "cluster": "experiments"
+    },
+    {
+      "id": "ol04_luca",
+      "context": "LUCA (Last Universal Common Ancestor) was likely:",
+      "truth": "already complex with hundreds of protein-coding genes",
+      "distractors": [
+        "a minimal self-replicating strand of naked RNA alone",
+        "a membrane-free aggregate with no genetic information",
+        "encoding proteins with a radically different codon table"
+      ],
+      "cluster": "hypotheses"
+    },
+    {
+      "id": "ol05_hydrothermal",
+      "context": "Hydrothermal vent origin hypotheses propose vents provide:",
+      "truth": "chemical gradients and mineral catalysts for synthesis",
+      "distractors": [
+        "thermal energy only, with no relevant chemical inputs",
+        "environments far too extreme for organic bond formation",
+        "fully assembled protocells expelled from vent chimneys"
+      ],
+      "cluster": "hypotheses"
+    },
+    {
+      "id": "ol06_homochirality",
+      "context": "Life's homochirality (single-handedness) is unexplained because:",
+      "truth": "prebiotic synthesis yields equal left- and right-handed forms",
+      "distractors": [
+        "biological organisms incorporate both chiralities in equal ratio",
+        "fundamental physics mandates one mirror form over the opposite",
+        "researchers have identified the definitive amplification pathway"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ol07_metabolism",
+      "context": "The metabolism-first vs genetics-first debate concerns:",
+      "truth": "whether autocatalytic energy cycles preceded information storage",
+      "distractors": [
+        "which of the known metabolic pathways evolved most recently",
+        "whether contemporary cells require metabolic enzyme networks",
+        "the geological era when oxidative phosphorylation first arose"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ol08_phosphorus",
+      "context": "The phosphorus problem in prebiotic chemistry is that:",
+      "truth": "phosphate minerals dissolve poorly, limiting bioavailable phosphorus",
+      "distractors": [
+        "phosphorus compounds were abundant in early ocean water globally",
+        "early biochemistry operated entirely without phosphorus backbone",
+        "phosphorus became biologically relevant only in recent geological time"
+      ],
+      "cluster": "experiments"
+    },
+    {
+      "id": "ol09_compartment",
+      "context": "Protocell membranes likely formed from:",
+      "truth": "fatty acid amphiphiles self-assembling into vesicles",
+      "distractors": [
+        "protein-based cell walls erected by early ribosomes",
+        "mineral surfaces providing rigid permanent compartments",
+        "freely diffusing molecules without any compartment boundary"
+      ],
+      "cluster": "experiments"
+    },
+    {
+      "id": "ol10_ribozymes",
+      "context": "Ribozymes support the RNA World hypothesis by showing RNA can:",
+      "truth": "catalyze chemical reactions including self-cleavage",
+      "distractors": [
+        "store genetic sequences but perform no catalysis",
+        "fold into structures without any enzymatic function",
+        "accelerate only ribosomal peptide bond formation"
+      ],
+      "cluster": "hypotheses"
+    },
+    {
+      "id": "ol11_panspermia",
+      "context": "The panspermia hypothesis proposes that:",
+      "truth": "life seeded Earth from space but origin remains unexplained",
+      "distractors": [
+        "terrestrial abiogenesis produced all life independently",
+        "extraterrestrial delivery resolves how life first originated",
+        "meteorite analysis has conclusively falsified the hypothesis"
+      ],
+      "cluster": "challenges"
+    },
+    {
+      "id": "ol12_autocatalysis",
+      "context": "Autocatalytic sets are important because they demonstrate:",
+      "truth": "self-sustaining chemical networks without genetic templates",
+      "distractors": [
+        "genetic polymers necessarily preceded all metabolic cycles",
+        "catalytic acceleration requires folded protein-based enzymes",
+        "sustained chemical cycling demands an external genetic program"
+      ],
+      "cluster": "experiments"
+    }
+  ]
+}

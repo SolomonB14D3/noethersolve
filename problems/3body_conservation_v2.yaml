@@ -1,0 +1,5 @@
+name: "3body_conservation_v2"
+description: "Length-matched V2 facts for 3-body conservation laws domain."
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "3body_conservation_facts_v2.json"
+pass_threshold: 0.5

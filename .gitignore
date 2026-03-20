@@ -23,18 +23,12 @@ results/hunt_results.json
 results/charts/
 results/dashboard.html
 
-# Paper drafts and figures (publish PDFs via Zenodo, not git)
+# Paper drafts, submissions, and figures — NEVER track while under review
 paper/*.pdf
-paper/d*/draft.md
-paper/d*/final.md
-paper/d*/*.pdf
-paper/d*/*.tex
-paper/d*/figures/*.png
-paper/d*/figures/*.pdf
-paper/d*/references.bib
-paper/d*/cover_letter*.md
-paper/d*/zenodo_metadata.json
-# paper/prior_work/ PDFs are tracked (reference papers 8-9)
+paper/*.md
+paper/d*/
+paper/p*/
+paper/prior_work/
 figures/
 
 # Secrets
@@ -87,3 +81,33 @@ results/train_missing_adapters_v2.log
 claim.py
 claims.json
 CONTRIBUTING.md
+
+# Research runner outputs (regenerated locally)
+results/research_status.json
+results/research_log.txt
+results/run_summary.json
+results/escalations.jsonl
+results/coordinator_log.txt
+results/orchestrator_*.json
+results/orchestrator_*.txt
+results/*.log
+results/*.pid
+results/lab_registry.json
+results/lab_watchdog.log
+results/paper_watchdog.*
+results/paper_routing_tracker.json
+results/paper_briefs/
+results/labs/
+results/prospector_log.txt
+results/training_scan_*.log
+results/training_scan_*.md
+nohup.out
+
+# Hardware profile cache
+scripts/hardware_profile.json
+
+# Training data (generated from facts)
+training/data/
+
+# Archived scripts
+scripts/archive/

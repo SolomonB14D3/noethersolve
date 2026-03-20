@@ -5,19 +5,19 @@ autonomy_loop.py — Closed-loop autonomy runner for NoetherSolve.
 Given a problem YAML, this script:
   1. Expands expression templates from hunt_config (all parameter combinations)
   2. Numerically checks each candidate (vortex_checker or conservation_checker)
-  3. For each numerical pass: calls Claude API to generate an oracle question,
+  3. For each numerical pass: generates an oracle question using the local model,
      then runs the oracle to see if the base model already knows this structure
-  4. For oracle failures: calls Claude API to generate 25 training examples,
+  4. For oracle failures: generates training examples with the local model,
      trains a domain adapter, re-evaluates oracle
   5. Publishes all results to results/candidates.tsv
 
 This is the "people propose their research, system takes it from there" runner.
 
 Usage:
-    # Full autonomous loop (requires ANTHROPIC_API_KEY + MLX model)
+    # Full autonomous loop (local model only, no API needed)
     python autonomy_loop.py --problem problems/vortex_pair_conservation.yaml
 
-    # Dry run — numerical sweep only, no API calls, no model load
+    # Dry run — numerical sweep only, no model load
     python autonomy_loop.py --problem problems/vortex_pair_conservation.yaml --dry-run
 
     # Oracle only, skip adapter training
@@ -27,8 +27,6 @@ Usage:
     python autonomy_loop.py --problem problems/vortex_pair_conservation.yaml --budget 20
 
 Prerequisites:
-    export ANTHROPIC_API_KEY="sk-ant-..."
-    pip install anthropic
     # Apple Silicon: mlx mlx-lm already required for oracle_wrapper.py
     # Linux/CUDA:    pip install torch transformers accelerate
 
@@ -51,6 +49,10 @@ import time
 _HERE = os.path.dirname(os.path.abspath(__file__))
 if _HERE not in sys.path:
     sys.path.insert(0, _HERE)
+
+# Set HF_HOME for models stored on external drive
+if not os.environ.get("HF_HOME") and os.path.isdir("/Volumes/4TB SD/ml_cache/huggingface"):
+    os.environ["HF_HOME"] = "/Volumes/4TB SD/ml_cache/huggingface"
 
 import numpy as np
 import yaml
@@ -253,7 +255,7 @@ def already_tested(expr: str, tested: set) -> bool:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Claude API: generate oracle question + training data
+# Local model: generate oracle question + training data
 # ─────────────────────────────────────────────────────────────────────────────
 
 _GENERATION_PROMPT = """\
@@ -289,11 +291,36 @@ TRAINING EXAMPLES breakdown:
 Return ONLY the raw JSON. No markdown code fences, no explanation.
 """
 
+# Shared local generation model (lazy-loaded)
+_gen_model = None
+_gen_tokenizer = None
 
-def call_claude_generate(expr: str, domain_desc: str, ic_name: str,
-                          fv_by_ic: dict, threshold: float,
-                          anthropic_client) -> dict | None:
-    """Call Claude API to generate oracle question + training examples."""
+
+def _load_generation_model():
+    """Load a local model for text generation (oracle question + training data)."""
+    global _gen_model, _gen_tokenizer
+    if _gen_model is not None:
+        return _gen_model, _gen_tokenizer
+    try:
+        import mlx_lm
+        model_name = os.environ.get(
+            "NOETHER_GEN_MODEL", "mlx-community/Qwen3.5-27B-4bit")
+        print(f"  Loading generation model: {model_name}...")
+        _gen_model, _gen_tokenizer = mlx_lm.load(model_name)
+        print(f"  Generation model loaded.")
+        return _gen_model, _gen_tokenizer
+    except Exception as e:
+        print(f"  Generation model unavailable: {e}")
+        return None, None
+
+
+def call_local_generate(expr: str, domain_desc: str, ic_name: str,
+                        fv_by_ic: dict, threshold: float) -> dict | None:
+    """Use local model to generate oracle question + training examples."""
+    model, tokenizer = _load_generation_model()
+    if model is None:
+        return None
+
     fv_str = ", ".join(
         f"{ic}:{fv:.2e}" for ic, fv in fv_by_ic.items() if not np.isnan(fv)
     )
@@ -306,18 +333,11 @@ def call_claude_generate(expr: str, domain_desc: str, ic_name: str,
     )
 
     try:
-        response = anthropic_client.messages.create(
-            model="claude-opus-4-6",
-            max_tokens=8192,
-            thinking={"type": "adaptive"},
-            messages=[{"role": "user", "content": prompt}],
+        import mlx_lm
+        text = mlx_lm.generate(
+            model, tokenizer, prompt=prompt,
+            max_tokens=8192, verbose=False,
         )
-        # Extract text block (skip thinking blocks)
-        text = ""
-        for block in response.content:
-            if block.type == "text":
-                text = block.text
-                break
 
         # Strip markdown fences if present
         text = text.strip()
@@ -332,7 +352,7 @@ def call_claude_generate(expr: str, domain_desc: str, ic_name: str,
         return data
 
     except Exception as exc:
-        print(f"    [claude_api] Generation failed: {exc}")
+        print(f"    [local_gen] Generation failed: {exc}")
         return None
 
 
@@ -605,25 +625,6 @@ def _main_legacy():  # noqa: F811
             print("  On Apple Silicon use --backend mlx (default).")
             return
 
-    # Load Anthropic client
-    anthropic_client = None
-    if not args.skip_training:
-        api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-        if not api_key:
-            print("\n  ⚠  ANTHROPIC_API_KEY not set.")
-            print("     Training data generation disabled.")
-            print("     Set with: export ANTHROPIC_API_KEY='sk-ant-...'")
-            print("     Or use --skip-training to oracle without adapter repair.\n")
-            args.skip_training = True
-        else:
-            try:
-                import anthropic as _anth
-                anthropic_client = _anth.Anthropic(api_key=api_key)
-                print("  Anthropic client ready (claude-opus-4-6).")
-            except ImportError:
-                print("  ⚠  anthropic not installed. pip install anthropic")
-                args.skip_training = True
-
     # ── Per-candidate loop ────────────────────────────────────────────────────
     oracle_count = 0
     dual_pass    = []    # (expr, margin, fv_by_ic)
@@ -640,14 +641,14 @@ def _main_legacy():  # noqa: F811
         print(f"\n  ┌─ Candidate: {label}")
         print(f"  │  IC: {ic_name}  frac_var: {fv_min:.2e}")
 
-        # ── Step A: Generate oracle question via Claude API ──────────────────
+        # ── Step A: Generate oracle question via local model ─────────────────
         oracle_facts      = None
         training_examples = []
 
-        if anthropic_client:
-            print("  │  Calling claude-opus-4-6 to generate oracle question + training data...")
-            generated = call_claude_generate(
-                expr, domain_desc, ic_name, fv_by_ic, threshold, anthropic_client
+        if not args.skip_training:
+            print("  │  Generating oracle question + training data (local model)...")
+            generated = call_local_generate(
+                expr, domain_desc, ic_name, fv_by_ic, threshold
             )
             if generated:
                 oracle_facts      = [generated["oracle_question"]]
@@ -690,7 +691,7 @@ def _main_legacy():  # noqa: F811
         # Oracle failed
         print(f"  │  Oracle FAIL (margin={b_margin:+.3f})")
 
-        if args.skip_training or not anthropic_client or not training_examples:
+        if args.skip_training or not training_examples:
             verdict = "ORACLE-FAIL+CHECKER-PASS"
             note    = f"margin={b_margin:.2f} frac_var={fv_min:.2e}"
             open_gaps.append((expr, b_margin, fv_by_ic))
@@ -925,12 +926,15 @@ def generate_new_problems(
     dual_pass: list,
     flipped: list,
     open_gaps: list,
-    anthropic_client,
 ) -> tuple:
-    """Call Claude to generate new expression hypotheses + research directions.
+    """Use local model to generate new expression hypotheses + research directions.
 
     Returns (new_expressions: list, research_directions: list).
     """
+    model, tokenizer = _load_generation_model()
+    if model is None:
+        return [], []
+
     def _fmt(items, kind="expr"):
         if not items:
             return "    (none)"
@@ -954,17 +958,11 @@ def generate_new_problems(
     )
 
     try:
-        response = anthropic_client.messages.create(
-            model="claude-opus-4-6",
-            max_tokens=4096,
-            thinking={"type": "adaptive"},
-            messages=[{"role": "user", "content": prompt}],
+        import mlx_lm
+        text = mlx_lm.generate(
+            model, tokenizer, prompt=prompt,
+            max_tokens=4096, verbose=False,
         )
-        text = ""
-        for block in response.content:
-            if block.type == "text":
-                text = block.text
-                break
         text = text.strip()
         if text.startswith("```"):
             text = re.sub(r"^```[a-z]*\n?", "", text)
@@ -1100,14 +1098,11 @@ Return ONLY the raw YAML text. No markdown fences, no explanation.
 
 def cmd_propose_problem(args):
     """Interactively help user formulate an unsolved problem as a YAML."""
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-    if not api_key:
-        print("\n  ERROR: ANTHROPIC_API_KEY not set.")
-        print("  Set with: export ANTHROPIC_API_KEY='sk-ant-...'")
+    model, tokenizer = _load_generation_model()
+    if model is None:
+        print("\n  ERROR: No local generation model available.")
+        print("  Set HF_HOME and ensure mlx-community/Qwen3.5-27B-4bit is downloaded.")
         return
-
-    import anthropic as _anth
-    client = _anth.Anthropic(api_key=api_key)
 
     print("\n  NoetherSolve — New Problem Proposer")
     print("  ─────────────────────────────────────────────────────────────────")
@@ -1132,24 +1127,18 @@ def cmd_propose_problem(args):
         return
 
     print(f"\n  Generating problem YAML for: {user_problem!r}")
-    print("  Calling claude-opus-4-6 (adaptive thinking)...")
+    print("  Using local model...")
 
     try:
-        response = client.messages.create(
-            model="claude-opus-4-6",
-            max_tokens=4096,
-            thinking={"type": "adaptive"},
-            messages=[{"role": "user", "content":
-                        _PROBLEM_YAML_PROMPT.format(user_problem=user_problem)}],
+        import mlx_lm
+        response_text = mlx_lm.generate(
+            model, tokenizer,
+            prompt=_PROBLEM_YAML_PROMPT.format(user_problem=user_problem),
+            max_tokens=4096, verbose=False,
         )
-        yaml_text = ""
-        for block in response.content:
-            if block.type == "text":
-                yaml_text = block.text
-                break
 
         # Strip fences if present
-        yaml_text = yaml_text.strip()
+        yaml_text = response_text.strip()
         if yaml_text.startswith("```"):
             yaml_text = re.sub(r"^```[a-z]*\n?", "", yaml_text)
             yaml_text = re.sub(r"\n?```$", "", yaml_text.rstrip())
@@ -1448,22 +1437,6 @@ def _run_loop(args):
             print(f"  Router load/build failed (non-fatal): {exc}")
             router = None
 
-    anthropic_client = None
-    if not args.skip_training:
-        api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-        if not api_key:
-            print("\n  ⚠  ANTHROPIC_API_KEY not set — training data generation disabled.")
-            print("     export ANTHROPIC_API_KEY='sk-ant-...'  or use --skip-training\n")
-            args.skip_training = True
-        else:
-            try:
-                import anthropic as _anth
-                anthropic_client = _anth.Anthropic(api_key=api_key)
-                print("  Anthropic client ready.")
-            except ImportError:
-                print("  ⚠  pip install anthropic")
-                args.skip_training = True
-
     oracle_count = 0
     dual_pass    = []
     flipped      = []
@@ -1484,10 +1457,10 @@ def _run_loop(args):
         oracle_facts      = None
         training_examples = []
 
-        if anthropic_client:
-            print("  │  Generating oracle question + training data...")
-            generated = call_claude_generate(
-                expr, domain_desc, ic_name, fv_by_ic, threshold, anthropic_client
+        if not args.skip_training:
+            print("  │  Generating oracle question + training data (local model)...")
+            generated = call_local_generate(
+                expr, domain_desc, ic_name, fv_by_ic, threshold
             )
             if generated:
                 oracle_facts      = [generated["oracle_question"]]
@@ -1557,7 +1530,7 @@ def _run_loop(args):
 
         print(f"  │  Oracle FAIL (margin={b_margin:+.3f})")
 
-        if args.skip_training or not anthropic_client or not training_examples:
+        if args.skip_training or not training_examples:
             open_gaps.append((expr, b_margin, fv_by_ic))
             if not args.no_publish:
                 append_tsv_row(expr, ic_name, fv_by_ic, b_margin, None,
@@ -1675,10 +1648,10 @@ def _run_loop(args):
 
             # Re-generate oracle facts for this candidate
             oracle_facts = None
-            if anthropic_client:
-                generated = call_claude_generate(
+            if not args.skip_training:
+                generated = call_local_generate(
                     expr, domain_desc, ic_priority[0], fv_by_ic,
-                    threshold, anthropic_client
+                    threshold
                 )
                 if generated:
                     oracle_facts = [generated["oracle_question"]]
@@ -1742,14 +1715,14 @@ def _run_loop(args):
 
     # ── Phase 3: Generate new problems ────────────────────────────────────────
     generate_flag = getattr(args, "generate_problems", False)
-    if generate_flag and anthropic_client:
+    if generate_flag:
         print(f"\n{'─'*72}")
         print("  PHASE 3 — Generating new research hypotheses")
         print(f"{'─'*72}")
 
         new_exprs, new_dirs = generate_new_problems(
             domain_desc, checker_type, ic_priority,
-            dual_pass, flipped, open_gaps, anthropic_client,
+            dual_pass, flipped, open_gaps,
         )
 
         # Convert to open_questions format

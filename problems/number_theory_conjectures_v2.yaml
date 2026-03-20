@@ -1,0 +1,5 @@
+name: "number_theory_conjectures_v2"
+description: "Length-matched V2 facts for number theory conjectures domain."
+model: "mlx-community/Qwen3.5-27B-4bit"
+verification_set: "number_theory_conjectures_facts_v2.json"
+pass_threshold: 0.5

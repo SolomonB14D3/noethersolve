@@ -1,0 +1,2928 @@
+{
+  "results": [
+    {
+      "domain": "3body_conservation",
+      "n_facts": 10,
+      "n_adapters": 13,
+      "baseline_pass": 4,
+      "baseline_pct": 40.0,
+      "discovered_sequence": [
+        "3body_kepler_2body_adapter"
+      ],
+      "discovered_pass": 4,
+      "discovered_pct": 40.0,
+      "discovery_time_sec": 3.814697265625e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "3body_CRTBP_adapter": {
+          "n_passed": 4,
+          "pct": 40.0
+        },
+        "3body_fact3_adapter": {
+          "n_passed": 1,
+          "pct": 10.0
+        },
+        "3body_fact6_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        },
+        "3body_fact5_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        },
+        "3body_general_3body_adapter": {
+          "n_passed": 4,
+          "pct": 40.0
+        },
+        "3body_fact0_adapter": {
+          "n_passed": 1,
+          "pct": 10.0
+        },
+        "3body_fact9_adapter": {
+          "n_passed": 1,
+          "pct": 10.0
+        },
+        "3body_fact7_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        },
+        "3body_fact2_adapter": {
+          "n_passed": 1,
+          "pct": 10.0
+        },
+        "3body_fact8_adapter": {
+          "n_passed": 1,
+          "pct": 10.0
+        },
+        "3body_fact1_adapter": {
+          "n_passed": 1,
+          "pct": 10.0
+        },
+        "3body_fact4_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "3body_kepler_2body_adapter": {
+          "n_passed": 4,
+          "pct": 40.0
+        }
+      }
+    },
+    {
+      "domain": "aging_biology",
+      "n_facts": 12,
+      "n_adapters": 3,
+      "baseline_pass": 9,
+      "baseline_pct": 75.0,
+      "discovered_sequence": [],
+      "discovered_pass": 9,
+      "discovered_pct": 75.0,
+      "discovery_time_sec": 1.9073486328125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "aging_biology_mechanisms_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "aging_biology_interventions_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "aging_biology_biomarkers_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        }
+      }
+    },
+    {
+      "domain": "algebra_topology_conjectures",
+      "n_facts": 10,
+      "n_adapters": 4,
+      "baseline_pass": 1,
+      "baseline_pct": 10.0,
+      "discovered_sequence": [
+        "algebra_topology_conjectures_topology_adapter"
+      ],
+      "discovered_pass": 5,
+      "discovered_pct": 50.0,
+      "discovery_time_sec": 1.7881393432617188e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "algebra_topology_conjectures_algebra_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "algebra_topology_conjectures_analysis_adapter": {
+          "n_passed": 1,
+          "pct": 10.0
+        },
+        "algebra_topology_conjectures_topology_adapter": {
+          "n_passed": 5,
+          "pct": 50.0
+        },
+        "algebra_topology_conjectures_combinatorics_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        }
+      }
+    },
+    {
+      "domain": "analysis_pde_conjectures",
+      "n_facts": 12,
+      "n_adapters": 6,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "analysis_pde_conjectures_analysis_adapter"
+      ],
+      "discovered_pass": 4,
+      "discovered_pct": 33.33333333333333,
+      "discovery_time_sec": 1.5974044799804688e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "analysis_pde_conjectures_analysis_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "algebra_topology_conjectures_analysis_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "analysis_pde_conjectures_dynamics_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "analysis_pde_conjectures_pde_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "analysis_pde_conjectures_combinatorics_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "analysis_pde_conjectures_arithmetic_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        }
+      }
+    },
+    {
+      "domain": "antibiotic_resistance",
+      "n_facts": 12,
+      "n_adapters": 3,
+      "baseline_pass": 5,
+      "baseline_pct": 41.666666666666664,
+      "discovered_sequence": [
+        "antibiotic_resistance_mechanisms_adapter"
+      ],
+      "discovered_pass": 8,
+      "discovered_pct": 66.66666666666666,
+      "discovery_time_sec": 1.71661376953125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "antibiotic_resistance_challenges_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "antibiotic_resistance_mechanisms_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        },
+        "antibiotic_resistance_alternatives_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        }
+      }
+    },
+    {
+      "domain": "battery_technology",
+      "n_facts": 12,
+      "n_adapters": 4,
+      "baseline_pass": 8,
+      "baseline_pct": 66.66666666666667,
+      "discovered_sequence": [],
+      "discovered_pass": 8,
+      "discovered_pct": 66.66666666666666,
+      "discovery_time_sec": 1.71661376953125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "battery_technology_degradation_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "battery_technology_alternatives_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "battery_technology_materials_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "battery_technology_solid_state_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        }
+      }
+    },
+    {
+      "domain": "biochemistry",
+      "n_facts": 12,
+      "n_adapters": 6,
+      "baseline_pass": 10,
+      "baseline_pct": 83.33333333333333,
+      "discovered_sequence": [
+        "biochemistry_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.0967254638671875e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "biochemistry_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "black_hole_frontiers",
+      "n_facts": 12,
+      "n_adapters": 3,
+      "baseline_pass": 9,
+      "baseline_pct": 75.0,
+      "discovered_sequence": [
+        "black_hole_frontiers_observations_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.4066696166992188e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "black_hole_frontiers_quantum_info_adapter": {
+          "n_passed": 11,
+          "pct": 91.66666666666667
+        },
+        "quantum_gravity_black_holes_adapter": {
+          "n_passed": 11,
+          "pct": 91.66666666666667
+        },
+        "black_hole_frontiers_observations_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "chemical_conservation",
+      "n_facts": 16,
+      "n_adapters": 21,
+      "baseline_pass": 1,
+      "baseline_pct": 6.25,
+      "discovered_sequence": [
+        "chemical_adapter"
+      ],
+      "discovered_pass": 15,
+      "discovered_pct": 93.75,
+      "discovery_time_sec": 1.5020370483398438e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "chem_enzyme_focused": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "organic_chemistry_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "biochemistry_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "chemistry_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "chemical_adapter": {
+          "n_passed": 15,
+          "pct": 93.75
+        }
+      }
+    },
+    {
+      "domain": "chemistry",
+      "n_facts": 12,
+      "n_adapters": 18,
+      "baseline_pass": 9,
+      "baseline_pct": 75.0,
+      "discovered_sequence": [
+        "chemistry_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.2874603271484375e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "organic_chemistry_4b_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        },
+        "biochemistry_4b_adapter": {
+          "n_passed": 9,
+          "pct": 75.0
+        },
+        "chemistry_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "clinical_translation",
+      "n_facts": 12,
+      "n_adapters": 3,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "clinical_translation_regulatory_adapter"
+      ],
+      "discovered_pass": 4,
+      "discovered_pct": 33.33333333333333,
+      "discovery_time_sec": 1.2874603271484375e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "clinical_translation_regulatory_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "clinical_translation_manufacturing_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "clinical_translation_preclinical_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        }
+      }
+    },
+    {
+      "domain": "computational_conjectures",
+      "n_facts": 12,
+      "n_adapters": 2,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "computational_conjectures_complexity_adapter"
+      ],
+      "discovered_pass": 8,
+      "discovered_pct": 66.66666666666666,
+      "discovery_time_sec": 1.5020370483398438e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "computational_conjectures_complexity_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        },
+        "computational_conjectures_algorithms_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        }
+      }
+    },
+    {
+      "domain": "consciousness",
+      "n_facts": 12,
+      "n_adapters": 3,
+      "baseline_pass": 4,
+      "baseline_pct": 33.333333333333336,
+      "discovered_sequence": [
+        "consciousness_philosophy_adapter"
+      ],
+      "discovered_pass": 6,
+      "discovered_pct": 50.0,
+      "discovery_time_sec": 1.5020370483398438e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "consciousness_philosophy_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "consciousness_theories_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "consciousness_neuroscience_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        }
+      }
+    },
+    {
+      "domain": "continuous_qf",
+      "n_facts": 12,
+      "n_adapters": 6,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "qf_continuous_adapter"
+      ],
+      "discovered_pass": 7,
+      "discovered_pct": 58.333333333333336,
+      "discovery_time_sec": 1.9311904907226562e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "continuous_qf_2d_conservation_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "continuous_qf_qf06_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "continuous_qf_extension_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "continuous_qf_3d_stretching_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "qf_continuous_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "continuous_qf_theory_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        }
+      }
+    },
+    {
+      "domain": "control_systems",
+      "n_facts": 12,
+      "n_adapters": 5,
+      "baseline_pass": 8,
+      "baseline_pct": 66.66666666666667,
+      "discovered_sequence": [
+        "control_systems_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.1920928955078125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "control_systems_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "cross_domain",
+      "n_facts": 12,
+      "n_adapters": 1,
+      "baseline_pass": 12,
+      "baseline_pct": 100.0,
+      "discovered_sequence": [
+        "cross_domain_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.1920928955078125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "cross_domain_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "cryptography",
+      "n_facts": 12,
+      "n_adapters": 6,
+      "baseline_pass": 9,
+      "baseline_pct": 75.0,
+      "discovered_sequence": [
+        "cryptography_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 9.775161743164062e-06,
+      "method": "greedy",
+      "adapter_results": {
+        "cryptography_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "dark_matter_energy",
+      "n_facts": 12,
+      "n_adapters": 4,
+      "baseline_pass": 7,
+      "baseline_pct": 58.333333333333336,
+      "discovered_sequence": [
+        "dark_matter_energy_candidates_adapter"
+      ],
+      "discovered_pass": 8,
+      "discovered_pct": 66.66666666666666,
+      "discovery_time_sec": 1.5735626220703125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "dark_matter_energy_alternatives_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "dark_matter_energy_dark_matter_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "dark_matter_energy_dark_energy_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "dark_matter_energy_candidates_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        }
+      }
+    },
+    {
+      "domain": "database_internals",
+      "n_facts": 12,
+      "n_adapters": 5,
+      "baseline_pass": 8,
+      "baseline_pct": 66.66666666666667,
+      "discovered_sequence": [
+        "database_internals_4b_adapter"
+      ],
+      "discovered_pass": 11,
+      "discovered_pct": 91.66666666666666,
+      "discovery_time_sec": 1.1920928955078125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "database_internals_4b_adapter": {
+          "n_passed": 11,
+          "pct": 91.66666666666667
+        }
+      }
+    },
+    {
+      "domain": "delivery_optimization",
+      "n_facts": 10,
+      "n_adapters": 5,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "delivery_optimization_biodistribution_adapter"
+      ],
+      "discovered_pass": 3,
+      "discovered_pct": 30.0,
+      "discovery_time_sec": 1.52587890625e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "delivery_optimization_formulation_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        },
+        "delivery_optimization_biodistribution_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "genetics_delivery_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "delivery_optimization_ligand_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "delivery_optimization_route_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        }
+      }
+    },
+    {
+      "domain": "dimensional_physics",
+      "n_facts": 6,
+      "n_adapters": 2,
+      "baseline_pass": 2,
+      "baseline_pct": 33.333333333333336,
+      "discovered_sequence": [],
+      "discovered_pass": 2,
+      "discovered_pct": 33.33333333333333,
+      "discovery_time_sec": 7.152557373046875e-06,
+      "method": "greedy",
+      "adapter_results": {
+        "dimensional_physics_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "dimensional_all_stages_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    {
+      "domain": "disease_targets",
+      "n_facts": 12,
+      "n_adapters": 4,
+      "baseline_pass": 1,
+      "baseline_pct": 8.333333333333334,
+      "discovered_sequence": [
+        "disease_targets_monogenic_adapter"
+      ],
+      "discovered_pass": 5,
+      "discovered_pct": 41.66666666666667,
+      "discovery_time_sec": 1.6927719116210938e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "disease_targets_tumor_suppressor_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "disease_targets_monogenic_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "disease_targets_oncogene_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "protein_folding_disease_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    {
+      "domain": "distributed_systems",
+      "n_facts": 12,
+      "n_adapters": 4,
+      "baseline_pass": 9,
+      "baseline_pct": 75.0,
+      "discovered_sequence": [
+        "distributed_systems_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.1205673217773438e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "distributed_systems_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "drug_interactions",
+      "n_facts": 12,
+      "n_adapters": 1,
+      "baseline_pass": 1,
+      "baseline_pct": 8.333333333333334,
+      "discovered_sequence": [
+        "drug_interactions_adapter"
+      ],
+      "discovered_pass": 6,
+      "discovered_pct": 50.0,
+      "discovery_time_sec": 1.1920928955078125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "drug_interactions_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        }
+      }
+    },
+    {
+      "domain": "economics_finance",
+      "n_facts": 12,
+      "n_adapters": 5,
+      "baseline_pass": 7,
+      "baseline_pct": 58.333333333333336,
+      "discovered_sequence": [
+        "economics_finance_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.2159347534179688e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "economics_finance_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "elliptic_curves",
+      "n_facts": 12,
+      "n_adapters": 1,
+      "baseline_pass": 2,
+      "baseline_pct": 16.666666666666668,
+      "discovered_sequence": [
+        "elliptic_curves_adapter"
+      ],
+      "discovered_pass": 8,
+      "discovered_pct": 66.66666666666666,
+      "discovery_time_sec": 1.2874603271484375e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "elliptic_curves_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        }
+      }
+    },
+    {
+      "domain": "em_zilch",
+      "n_facts": 12,
+      "n_adapters": 59,
+      "baseline_pass": 1,
+      "baseline_pct": 8.333333333333334,
+      "discovered_sequence": [
+        "em_adapter_v4"
+      ],
+      "discovered_pass": 6,
+      "discovered_pct": 50.0,
+      "discovery_time_sec": 3.0040740966796875e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "millennium_problems_pnp_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "millennium_problems_other_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "pl_memory_4b_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "holographic_qinfo_emergence_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "chem_enzyme_focused": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "organic_chemistry_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "operating_systems_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "distributed_systems_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "biochemistry_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "pl_type_systems_4b_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "chemistry_4b_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "em_adapter_v3": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "em_adapter_v2": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "millennium_problems_riemann_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "em_adapter_v4": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "millennium_problems_navier_stokes_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "em_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "llm_context_memory_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "control_systems_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "chemical_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        }
+      }
+    },
+    {
+      "domain": "genetics_therapeutics",
+      "n_facts": 16,
+      "n_adapters": 7,
+      "baseline_pass": 3,
+      "baseline_pct": 18.75,
+      "discovered_sequence": [
+        "genetics_crispr_adapter"
+      ],
+      "discovered_pass": 3,
+      "discovered_pct": 18.75,
+      "discovery_time_sec": 1.9073486328125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "genetics_splicing_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "genetics_expression_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "genetics_pharmacogenomics_adapter": {
+          "n_passed": 2,
+          "pct": 12.5
+        },
+        "genetics_mrna_adapter": {
+          "n_passed": 3,
+          "pct": 18.75
+        },
+        "genetics_delivery_adapter": {
+          "n_passed": 3,
+          "pct": 18.75
+        },
+        "genetics_antisense_adapter": {
+          "n_passed": 2,
+          "pct": 12.5
+        },
+        "genetics_crispr_adapter": {
+          "n_passed": 3,
+          "pct": 18.75
+        }
+      }
+    },
+    {
+      "domain": "hamiltonian",
+      "n_facts": 16,
+      "n_adapters": 9,
+      "baseline_pass": 1,
+      "baseline_pct": 6.25,
+      "discovered_sequence": [
+        "hamiltonian_stage5"
+      ],
+      "discovered_pass": 16,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.7881393432617188e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "hamiltonian_stage3_anchored": {
+          "n_passed": 10,
+          "pct": 62.5
+        },
+        "hamiltonian_adapter": {
+          "n_passed": 2,
+          "pct": 12.5
+        },
+        "hamiltonian_stage2": {
+          "n_passed": 7,
+          "pct": 43.75
+        },
+        "hamiltonian_stage3": {
+          "n_passed": 8,
+          "pct": 50.0
+        },
+        "hamiltonian_stage1": {
+          "n_passed": 5,
+          "pct": 31.25
+        },
+        "hamiltonian_symplectic": {
+          "n_passed": 5,
+          "pct": 31.25
+        },
+        "hamiltonian_stage4_progressive": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "hamiltonian_stage4": {
+          "n_passed": 13,
+          "pct": 81.25
+        },
+        "hamiltonian_stage5": {
+          "n_passed": 16,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "holographic_qinfo",
+      "n_facts": 12,
+      "n_adapters": 5,
+      "baseline_pass": 8,
+      "baseline_pct": 66.66666666666667,
+      "discovered_sequence": [
+        "holographic_qinfo_entropy_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.5020370483398438e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "holographic_qinfo_models_adapter": {
+          "n_passed": 9,
+          "pct": 75.0
+        },
+        "holographic_qinfo_complexity_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "holographic_qinfo_emergence_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        },
+        "holographic_qinfo_entropy_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "holographic_qinfo_reconstruction_adapter": {
+          "n_passed": 10,
+          "pct": 83.33333333333333
+        }
+      }
+    },
+    {
+      "domain": "immune_evasion",
+      "n_facts": 10,
+      "n_adapters": 4,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "immune_evasion_vector_adapter"
+      ],
+      "discovered_pass": 3,
+      "discovered_pct": 30.0,
+      "discovery_time_sec": 1.4066696166992188e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "immune_evasion_tolerance_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        },
+        "immune_evasion_innate_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "immune_evasion_protein_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        },
+        "immune_evasion_vector_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        }
+      }
+    },
+    {
+      "domain": "information_theory",
+      "n_facts": 12,
+      "n_adapters": 1,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "information_theory_adapter"
+      ],
+      "discovered_pass": 1,
+      "discovered_pct": 8.333333333333332,
+      "discovery_time_sec": 1.0013580322265625e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "information_theory_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        }
+      }
+    },
+    {
+      "domain": "intersection_theory",
+      "n_facts": 12,
+      "n_adapters": 1,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "intersection_theory_adapter"
+      ],
+      "discovered_pass": 8,
+      "discovered_pct": 66.66666666666666,
+      "discovery_time_sec": 1.2159347534179688e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "intersection_theory_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        }
+      }
+    },
+    {
+      "domain": "kinetic_k",
+      "n_facts": 8,
+      "n_adapters": 4,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "kinetic_k_structure_adapter"
+      ],
+      "discovered_pass": 2,
+      "discovered_pct": 25.0,
+      "discovery_time_sec": 1.71661376953125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "kinetic_k_independence_adapter": {
+          "n_passed": 2,
+          "pct": 25.0
+        },
+        "kinetic_k_definition_adapter": {
+          "n_passed": 2,
+          "pct": 25.0
+        },
+        "kinetic_k_technical_adapter": {
+          "n_passed": 2,
+          "pct": 25.0
+        },
+        "kinetic_k_structure_adapter": {
+          "n_passed": 2,
+          "pct": 25.0
+        }
+      }
+    },
+    {
+      "domain": "llm_alignment",
+      "n_facts": 12,
+      "n_adapters": 33,
+      "baseline_pass": 1,
+      "baseline_pct": 8.333333333333334,
+      "discovered_sequence": [
+        "llm_alignment_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.430511474609375e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "llm_evaluation_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_hallucination_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_trust_tool": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_single": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_alignment_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "llm_reasoning_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_training_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_context_memory_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        }
+      }
+    },
+    {
+      "domain": "llm_context_memory",
+      "n_facts": 10,
+      "n_adapters": 33,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "llm_context_memory_4b_adapter"
+      ],
+      "discovered_pass": 10,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.621246337890625e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "llm_evaluation_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_hallucination_4b_adapter": {
+          "n_passed": 1,
+          "pct": 10.0
+        },
+        "llm_trust_tool": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_single": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_alignment_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_reasoning_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_training_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_context_memory_4b_adapter": {
+          "n_passed": 10,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "llm_evaluation",
+      "n_facts": 12,
+      "n_adapters": 33,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "llm_evaluation_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.71661376953125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "llm_evaluation_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "llm_hallucination_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_trust_tool": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_single": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_alignment_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_reasoning_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_training_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_context_memory_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    {
+      "domain": "llm_hallucination",
+      "n_facts": 12,
+      "n_adapters": 33,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "llm_hallucination_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.5020370483398438e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "llm_evaluation_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_hallucination_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "llm_trust_tool": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_single": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_alignment_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_reasoning_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_training_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_context_memory_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        }
+      }
+    },
+    {
+      "domain": "llm_hallucination_grounded",
+      "n_facts": 6,
+      "n_adapters": 33,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "llm_hallucination_4b_adapter"
+      ],
+      "discovered_pass": 5,
+      "discovered_pct": 83.33333333333334,
+      "discovery_time_sec": 2.09808349609375e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "llm_evaluation_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_hallucination_4b_adapter": {
+          "n_passed": 5,
+          "pct": 83.33333333333333
+        },
+        "llm_trust_tool": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_single": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_alignment_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_reasoning_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_training_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "llm_context_memory_4b_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    {
+      "domain": "llm_hallucination_incoherent",
+      "n_facts": 12,
+      "n_adapters": 33,
+      "baseline_pass": 10,
+      "baseline_pct": 83.33333333333333,
+      "discovered_sequence": [
+        "llm_hallucination_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.8358230590820312e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "llm_evaluation_4b_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "llm_hallucination_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "llm_trust_tool": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_single": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_alignment_4b_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "llm_reasoning_4b_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "llm_training_4b_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "llm_context_memory_4b_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        }
+      }
+    },
+    {
+      "domain": "llm_reasoning",
+      "n_facts": 12,
+      "n_adapters": 33,
+      "baseline_pass": 2,
+      "baseline_pct": 16.666666666666668,
+      "discovered_sequence": [
+        "llm_reasoning_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.5974044799804688e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "llm_evaluation_4b_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "llm_hallucination_4b_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "llm_trust_tool": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "llm_single": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "llm_alignment_4b_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "llm_reasoning_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "llm_training_4b_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "llm_context_memory_4b_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        }
+      }
+    },
+    {
+      "domain": "llm_training",
+      "n_facts": 12,
+      "n_adapters": 33,
+      "baseline_pass": 1,
+      "baseline_pct": 8.333333333333334,
+      "discovered_sequence": [
+        "llm_training_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.5020370483398438e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "llm_evaluation_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_hallucination_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_trust_tool": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_single": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_alignment_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_reasoning_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "llm_training_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "llm_context_memory_4b_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        }
+      }
+    },
+    {
+      "domain": "millennium_problems",
+      "n_facts": 12,
+      "n_adapters": 4,
+      "baseline_pass": 3,
+      "baseline_pct": 25.0,
+      "discovered_sequence": [
+        "millennium_problems_other_adapter"
+      ],
+      "discovered_pass": 4,
+      "discovered_pct": 33.33333333333333,
+      "discovery_time_sec": 1.4781951904296875e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "millennium_problems_pnp_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "millennium_problems_other_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "millennium_problems_riemann_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "millennium_problems_navier_stokes_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        }
+      }
+    },
+    {
+      "domain": "multi_messenger_astro",
+      "n_facts": 12,
+      "n_adapters": 6,
+      "baseline_pass": 11,
+      "baseline_pct": 91.66666666666667,
+      "discovered_sequence": [
+        "multi_messenger_astro_techniques_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.4781951904296875e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "multi_messenger_astro_kilonova_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "info_theory_multiuser_adapter": {
+          "n_passed": 9,
+          "pct": 75.0
+        },
+        "multi_messenger_astro_techniques_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "multi_messenger_astro_frb_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        },
+        "multi_messenger_astro_neutrinos_adapter": {
+          "n_passed": 10,
+          "pct": 83.33333333333333
+        },
+        "multi_messenger_astro_cosmic_rays_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        }
+      }
+    },
+    {
+      "domain": "networking",
+      "n_facts": 12,
+      "n_adapters": 4,
+      "baseline_pass": 8,
+      "baseline_pct": 66.66666666666667,
+      "discovered_sequence": [
+        "networking_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.0013580322265625e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "networking_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "neutrino_frontiers",
+      "n_facts": 12,
+      "n_adapters": 5,
+      "baseline_pass": 9,
+      "baseline_pct": 75.0,
+      "discovered_sequence": [
+        "neutrino_frontiers_mass_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.4781951904296875e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "neutrino_frontiers_detection_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        },
+        "neutrino_frontiers_mass_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "multi_messenger_astro_neutrinos_adapter": {
+          "n_passed": 11,
+          "pct": 91.66666666666667
+        },
+        "particle_physics_frontiers_neutrinos_adapter": {
+          "n_passed": 10,
+          "pct": 83.33333333333333
+        },
+        "neutrino_frontiers_sterile_adapter": {
+          "n_passed": 11,
+          "pct": 91.66666666666667
+        }
+      }
+    },
+    {
+      "domain": "ns_regularity",
+      "n_facts": 16,
+      "n_adapters": 37,
+      "baseline_pass": 1,
+      "baseline_pct": 6.25,
+      "discovered_sequence": [
+        "ns_stage3",
+        "ns_stage3_final"
+      ],
+      "discovered_pass": 7,
+      "discovered_pct": 43.75,
+      "discovery_time_sec": 4.38690185546875e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "dimensional_physics_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_stage4": {
+          "n_passed": 4,
+          "pct": 25.0
+        },
+        "aging_biology_interventions_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_stage3": {
+          "n_passed": 6,
+          "pct": 37.5
+        },
+        "ns_stage2": {
+          "n_passed": 5,
+          "pct": 31.25
+        },
+        "clinical_translation_regulatory_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_adapter": {
+          "n_passed": 3,
+          "pct": 18.75
+        },
+        "consciousness_philosophy_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "consciousness_theories_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_stage1": {
+          "n_passed": 4,
+          "pct": 25.0
+        },
+        "physics_fundamentals_greens_function_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "physics_fundamentals_fluid_equations_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "clinical_translation_manufacturing_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "continuous_qf_2d_conservation_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "drug_interactions_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_stage3_protected": {
+          "n_passed": 5,
+          "pct": 31.25
+        },
+        "black_hole_frontiers_observations_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "continuous_qf_extension_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "ns_pb_stage1": {
+          "n_passed": 6,
+          "pct": 37.5
+        },
+        "clinical_translation_preclinical_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "consciousness_neuroscience_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "dimensional_all_stages_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "ns_adapter_v2": {
+          "n_passed": 4,
+          "pct": 25.0
+        },
+        "ns_stage3_final": {
+          "n_passed": 6,
+          "pct": 37.5
+        },
+        "ns_regularity_prior_broken": {
+          "n_passed": 3,
+          "pct": 18.75
+        },
+        "millennium_problems_navier_stokes_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "holographic_qinfo_reconstruction_adapter": {
+          "n_passed": 1,
+          "pct": 6.25
+        },
+        "genetics_antisense_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "ns_micro_s4": {
+          "n_passed": 4,
+          "pct": 25.0
+        }
+      }
+    },
+    {
+      "domain": "number_theory_conjectures",
+      "n_facts": 12,
+      "n_adapters": 4,
+      "baseline_pass": 4,
+      "baseline_pct": 33.333333333333336,
+      "discovered_sequence": [
+        "number_theory_conjectures_primes_adapter"
+      ],
+      "discovered_pass": 6,
+      "discovered_pct": 50.0,
+      "discovery_time_sec": 1.621246337890625e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "number_theory_conjectures_additive_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "number_theory_conjectures_diophantine_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "number_theory_conjectures_dynamics_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "number_theory_conjectures_primes_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        }
+      }
+    },
+    {
+      "domain": "operating_systems",
+      "n_facts": 12,
+      "n_adapters": 5,
+      "baseline_pass": 10,
+      "baseline_pct": 83.33333333333333,
+      "discovered_sequence": [
+        "operating_systems_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.1682510375976562e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "operating_systems_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "optimal_f",
+      "n_facts": 4,
+      "n_adapters": 3,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "optimal_f_performance_adapter",
+        "optimal_f_adapter"
+      ],
+      "discovered_pass": 3,
+      "discovered_pct": 75.0,
+      "discovery_time_sec": 1.7881393432617188e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "optimal_f_adapter": {
+          "n_passed": 2,
+          "pct": 50.0
+        },
+        "optimal_f_performance_adapter": {
+          "n_passed": 2,
+          "pct": 50.0
+        },
+        "optimal_f_theory_adapter": {
+          "n_passed": 2,
+          "pct": 50.0
+        }
+      }
+    },
+    {
+      "domain": "organic_chemistry",
+      "n_facts": 12,
+      "n_adapters": 8,
+      "baseline_pass": 8,
+      "baseline_pct": 66.66666666666667,
+      "discovered_sequence": [
+        "organic_chemistry_4b_adapter"
+      ],
+      "discovered_pass": 11,
+      "discovered_pct": 91.66666666666666,
+      "discovery_time_sec": 1.2159347534179688e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "organic_chemistry_4b_adapter": {
+          "n_passed": 11,
+          "pct": 91.66666666666667
+        }
+      }
+    },
+    {
+      "domain": "origin_of_life",
+      "n_facts": 12,
+      "n_adapters": 3,
+      "baseline_pass": 3,
+      "baseline_pct": 25.0,
+      "discovered_sequence": [
+        "origin_of_life_hypotheses_adapter"
+      ],
+      "discovered_pass": 7,
+      "discovered_pct": 58.333333333333336,
+      "discovery_time_sec": 2.002716064453125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "origin_of_life_hypotheses_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "origin_of_life_challenges_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "origin_of_life_experiments_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        }
+      }
+    },
+    {
+      "domain": "particle_physics_frontiers",
+      "n_facts": 12,
+      "n_adapters": 4,
+      "baseline_pass": 8,
+      "baseline_pct": 66.66666666666667,
+      "discovered_sequence": [
+        "particle_physics_frontiers_neutrinos_adapter"
+      ],
+      "discovered_pass": 11,
+      "discovered_pct": 91.66666666666666,
+      "discovery_time_sec": 1.7881393432617188e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "particle_physics_frontiers_anomalies_adapter": {
+          "n_passed": 11,
+          "pct": 91.66666666666667
+        },
+        "particle_physics_frontiers_higgs_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "particle_physics_frontiers_bsm_adapter": {
+          "n_passed": 10,
+          "pct": 83.33333333333333
+        },
+        "particle_physics_frontiers_neutrinos_adapter": {
+          "n_passed": 11,
+          "pct": 91.66666666666667
+        }
+      }
+    },
+    {
+      "domain": "physics_fundamentals",
+      "n_facts": 12,
+      "n_adapters": 11,
+      "baseline_pass": 5,
+      "baseline_pct": 41.666666666666664,
+      "discovered_sequence": [],
+      "discovered_pass": 5,
+      "discovered_pct": 41.66666666666667,
+      "discovery_time_sec": 1.9788742065429688e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "dimensional_physics_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "physics_supervised": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "physics_fundamentals_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_greens_function_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "physics_fundamentals_fluid_equations_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "particle_physics_frontiers_anomalies_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "physics_fundamentals_2d_turbulence_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_higgs_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_noether_symmetry_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_bsm_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_neutrinos_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        }
+      }
+    },
+    {
+      "domain": "physics_fundamentals_2d_turbulence",
+      "n_facts": 3,
+      "n_adapters": 11,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "physics_fundamentals_fluid_equations_adapter"
+      ],
+      "discovered_pass": 1,
+      "discovered_pct": 33.33333333333333,
+      "discovery_time_sec": 1.811981201171875e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "dimensional_physics_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_supervised": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_greens_function_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_fluid_equations_adapter": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        },
+        "particle_physics_frontiers_anomalies_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_2d_turbulence_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_higgs_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_noether_symmetry_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_bsm_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_neutrinos_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    {
+      "domain": "physics_fundamentals_fluid_equations",
+      "n_facts": 3,
+      "n_adapters": 11,
+      "baseline_pass": 2,
+      "baseline_pct": 66.66666666666667,
+      "discovered_sequence": [],
+      "discovered_pass": 2,
+      "discovered_pct": 66.66666666666666,
+      "discovery_time_sec": 1.7881393432617188e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "dimensional_physics_adapter": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        },
+        "physics_supervised": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_greens_function_adapter": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        },
+        "physics_fundamentals_fluid_equations_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_anomalies_adapter": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        },
+        "physics_fundamentals_2d_turbulence_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_higgs_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_noether_symmetry_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_bsm_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_neutrinos_adapter": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        }
+      }
+    },
+    {
+      "domain": "physics_fundamentals_greens_function",
+      "n_facts": 3,
+      "n_adapters": 11,
+      "baseline_pass": 1,
+      "baseline_pct": 33.333333333333336,
+      "discovered_sequence": [
+        "particle_physics_frontiers_neutrinos_adapter"
+      ],
+      "discovered_pass": 1,
+      "discovered_pct": 33.33333333333333,
+      "discovery_time_sec": 2.09808349609375e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "dimensional_physics_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_supervised": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_greens_function_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_fluid_equations_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_anomalies_adapter": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        },
+        "physics_fundamentals_2d_turbulence_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_higgs_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_noether_symmetry_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_bsm_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_neutrinos_adapter": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        }
+      }
+    },
+    {
+      "domain": "physics_fundamentals_noether_symmetry",
+      "n_facts": 3,
+      "n_adapters": 11,
+      "baseline_pass": 2,
+      "baseline_pct": 66.66666666666667,
+      "discovered_sequence": [
+        "particle_physics_frontiers_neutrinos_adapter"
+      ],
+      "discovered_pass": 2,
+      "discovered_pct": 66.66666666666666,
+      "discovery_time_sec": 2.002716064453125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "dimensional_physics_adapter": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        },
+        "physics_supervised": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        },
+        "physics_fundamentals_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_greens_function_adapter": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        },
+        "physics_fundamentals_fluid_equations_adapter": {
+          "n_passed": 1,
+          "pct": 33.333333333333336
+        },
+        "particle_physics_frontiers_anomalies_adapter": {
+          "n_passed": 2,
+          "pct": 66.66666666666667
+        },
+        "physics_fundamentals_2d_turbulence_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_higgs_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "physics_fundamentals_noether_symmetry_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_bsm_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "particle_physics_frontiers_neutrinos_adapter": {
+          "n_passed": 2,
+          "pct": 66.66666666666667
+        }
+      }
+    },
+    {
+      "domain": "pl_compilers",
+      "n_facts": 12,
+      "n_adapters": 34,
+      "baseline_pass": 6,
+      "baseline_pct": 50.0,
+      "discovered_sequence": [
+        "pl_compilers_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.8835067749023438e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "genetics_splicing_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "pl_memory_4b_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "pl_pitfalls_4b_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "holographic_qinfo_complexity_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "pl_paradigms_4b_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "pl_type_systems_4b_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "computational_conjectures_complexity_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "pl_concurrency_4b_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "pl_compilers_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        },
+        "hamiltonian_symplectic": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "3body_kepler_2body_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        }
+      }
+    },
+    {
+      "domain": "pl_concurrency",
+      "n_facts": 10,
+      "n_adapters": 34,
+      "baseline_pass": 8,
+      "baseline_pct": 80.0,
+      "discovered_sequence": [
+        "pl_concurrency_4b_adapter"
+      ],
+      "discovered_pass": 10,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.7881393432617188e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "genetics_splicing_adapter": {
+          "n_passed": 4,
+          "pct": 40.0
+        },
+        "pl_memory_4b_adapter": {
+          "n_passed": 7,
+          "pct": 70.0
+        },
+        "pl_pitfalls_4b_adapter": {
+          "n_passed": 7,
+          "pct": 70.0
+        },
+        "holographic_qinfo_complexity_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        },
+        "pl_paradigms_4b_adapter": {
+          "n_passed": 6,
+          "pct": 60.0
+        },
+        "pl_type_systems_4b_adapter": {
+          "n_passed": 8,
+          "pct": 80.0
+        },
+        "computational_conjectures_complexity_adapter": {
+          "n_passed": 5,
+          "pct": 50.0
+        },
+        "pl_concurrency_4b_adapter": {
+          "n_passed": 10,
+          "pct": 100.0
+        },
+        "pl_compilers_4b_adapter": {
+          "n_passed": 6,
+          "pct": 60.0
+        },
+        "hamiltonian_symplectic": {
+          "n_passed": 6,
+          "pct": 60.0
+        },
+        "3body_kepler_2body_adapter": {
+          "n_passed": 5,
+          "pct": 50.0
+        }
+      }
+    },
+    {
+      "domain": "pl_memory",
+      "n_facts": 10,
+      "n_adapters": 34,
+      "baseline_pass": 5,
+      "baseline_pct": 50.0,
+      "discovered_sequence": [
+        "pl_memory_4b_adapter"
+      ],
+      "discovered_pass": 10,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.6927719116210938e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "genetics_splicing_adapter": {
+          "n_passed": 1,
+          "pct": 10.0
+        },
+        "pl_memory_4b_adapter": {
+          "n_passed": 10,
+          "pct": 100.0
+        },
+        "pl_pitfalls_4b_adapter": {
+          "n_passed": 4,
+          "pct": 40.0
+        },
+        "holographic_qinfo_complexity_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        },
+        "pl_paradigms_4b_adapter": {
+          "n_passed": 6,
+          "pct": 60.0
+        },
+        "pl_type_systems_4b_adapter": {
+          "n_passed": 6,
+          "pct": 60.0
+        },
+        "computational_conjectures_complexity_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "pl_concurrency_4b_adapter": {
+          "n_passed": 4,
+          "pct": 40.0
+        },
+        "pl_compilers_4b_adapter": {
+          "n_passed": 5,
+          "pct": 50.0
+        },
+        "hamiltonian_symplectic": {
+          "n_passed": 1,
+          "pct": 10.0
+        },
+        "3body_kepler_2body_adapter": {
+          "n_passed": 2,
+          "pct": 20.0
+        }
+      }
+    },
+    {
+      "domain": "pl_paradigms",
+      "n_facts": 12,
+      "n_adapters": 34,
+      "baseline_pass": 9,
+      "baseline_pct": 75.0,
+      "discovered_sequence": [
+        "pl_paradigms_4b_adapter"
+      ],
+      "discovered_pass": 11,
+      "discovered_pct": 91.66666666666666,
+      "discovery_time_sec": 2.3126602172851562e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "genetics_splicing_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "pl_memory_4b_adapter": {
+          "n_passed": 9,
+          "pct": 75.0
+        },
+        "pl_pitfalls_4b_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "holographic_qinfo_complexity_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "pl_paradigms_4b_adapter": {
+          "n_passed": 11,
+          "pct": 91.66666666666667
+        },
+        "pl_type_systems_4b_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "computational_conjectures_complexity_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "pl_concurrency_4b_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "pl_compilers_4b_adapter": {
+          "n_passed": 9,
+          "pct": 75.0
+        },
+        "hamiltonian_symplectic": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "3body_kepler_2body_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        }
+      }
+    },
+    {
+      "domain": "pl_pitfalls",
+      "n_facts": 10,
+      "n_adapters": 34,
+      "baseline_pass": 5,
+      "baseline_pct": 50.0,
+      "discovered_sequence": [
+        "pl_pitfalls_4b_adapter"
+      ],
+      "discovered_pass": 10,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 2.002716064453125e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "genetics_splicing_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "pl_memory_4b_adapter": {
+          "n_passed": 6,
+          "pct": 60.0
+        },
+        "pl_pitfalls_4b_adapter": {
+          "n_passed": 10,
+          "pct": 100.0
+        },
+        "holographic_qinfo_complexity_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "pl_paradigms_4b_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "pl_type_systems_4b_adapter": {
+          "n_passed": 4,
+          "pct": 40.0
+        },
+        "computational_conjectures_complexity_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "pl_concurrency_4b_adapter": {
+          "n_passed": 4,
+          "pct": 40.0
+        },
+        "pl_compilers_4b_adapter": {
+          "n_passed": 5,
+          "pct": 50.0
+        },
+        "hamiltonian_symplectic": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "3body_kepler_2body_adapter": {
+          "n_passed": 5,
+          "pct": 50.0
+        }
+      }
+    },
+    {
+      "domain": "pl_type_systems",
+      "n_facts": 12,
+      "n_adapters": 34,
+      "baseline_pass": 7,
+      "baseline_pct": 58.333333333333336,
+      "discovered_sequence": [
+        "pl_type_systems_4b_adapter"
+      ],
+      "discovered_pass": 11,
+      "discovered_pct": 91.66666666666666,
+      "discovery_time_sec": 2.47955322265625e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "genetics_splicing_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "pl_memory_4b_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "pl_pitfalls_4b_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "holographic_qinfo_complexity_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "pl_paradigms_4b_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "pl_type_systems_4b_adapter": {
+          "n_passed": 11,
+          "pct": 91.66666666666667
+        },
+        "computational_conjectures_complexity_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "pl_concurrency_4b_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "pl_compilers_4b_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "hamiltonian_symplectic": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "3body_kepler_2body_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        }
+      }
+    },
+    {
+      "domain": "proof_techniques",
+      "n_facts": 12,
+      "n_adapters": 3,
+      "baseline_pass": 3,
+      "baseline_pct": 25.0,
+      "discovered_sequence": [
+        "proof_techniques_techniques_adapter"
+      ],
+      "discovered_pass": 8,
+      "discovered_pct": 66.66666666666666,
+      "discovery_time_sec": 1.52587890625e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "proof_techniques_logic_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "proof_techniques_techniques_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        },
+        "proof_techniques_barriers_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        }
+      }
+    },
+    {
+      "domain": "protein_folding",
+      "n_facts": 12,
+      "n_adapters": 13,
+      "baseline_pass": 7,
+      "baseline_pct": 58.333333333333336,
+      "discovered_sequence": [],
+      "discovered_pass": 7,
+      "discovered_pct": 58.333333333333336,
+      "discovery_time_sec": 2.288818359375e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "protein_folding_dynamics_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "immune_evasion_protein_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "protein_structure_binding_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "protein_structure_stability_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "protein_folding_theory_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "protein_folding_cellular_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "protein_structure_antibody_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "protein_structure_kinase_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "protein_folding_prediction_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "protein_folding_disease_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "protein_structure_modification_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "protein_structure_receptor_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        }
+      }
+    },
+    {
+      "domain": "protein_structure",
+      "n_facts": 12,
+      "n_adapters": 13,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "protein_structure_binding_adapter"
+      ],
+      "discovered_pass": 4,
+      "discovered_pct": 33.33333333333333,
+      "discovery_time_sec": 2.3126602172851562e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "protein_folding_dynamics_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "immune_evasion_protein_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "protein_structure_binding_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "protein_structure_stability_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "protein_folding_theory_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "protein_folding_cellular_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "protein_structure_antibody_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "protein_structure_kinase_adapter": {
+          "n_passed": 2,
+          "pct": 16.666666666666668
+        },
+        "protein_folding_prediction_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "protein_folding_disease_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "protein_structure_modification_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "protein_structure_receptor_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        }
+      }
+    },
+    {
+      "domain": "qf_ratio",
+      "n_facts": 8,
+      "n_adapters": 7,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "qf_ratio_adapter"
+      ],
+      "discovered_pass": 8,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.7881393432617188e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "continuous_qf_2d_conservation_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "qf_ratio_adapter": {
+          "n_passed": 8,
+          "pct": 100.0
+        },
+        "continuous_qf_qf06_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "continuous_qf_extension_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "continuous_qf_3d_stretching_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "qf_continuous_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        },
+        "continuous_qf_theory_adapter": {
+          "n_passed": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    {
+      "domain": "quantum_computing",
+      "n_facts": 12,
+      "n_adapters": 11,
+      "baseline_pass": 9,
+      "baseline_pct": 75.0,
+      "discovered_sequence": [
+        "quantum_computing_4b_adapter"
+      ],
+      "discovered_pass": 12,
+      "discovered_pct": 100.0,
+      "discovery_time_sec": 1.8835067749023438e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "black_hole_frontiers_quantum_info_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        },
+        "quantum_gravity_fundamentals_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "quantum_gravity_black_holes_adapter": {
+          "n_passed": 3,
+          "pct": 25.0
+        },
+        "quantum_gravity_theories_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        },
+        "quantum_computing_4b_adapter": {
+          "n_passed": 12,
+          "pct": 100.0
+        }
+      }
+    },
+    {
+      "domain": "quantum_gravity",
+      "n_facts": 12,
+      "n_adapters": 11,
+      "baseline_pass": 5,
+      "baseline_pct": 41.666666666666664,
+      "discovered_sequence": [
+        "quantum_gravity_fundamentals_adapter"
+      ],
+      "discovered_pass": 9,
+      "discovered_pct": 75.0,
+      "discovery_time_sec": 1.7881393432617188e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "black_hole_frontiers_quantum_info_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "quantum_gravity_fundamentals_adapter": {
+          "n_passed": 9,
+          "pct": 75.0
+        },
+        "quantum_gravity_black_holes_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        },
+        "quantum_gravity_theories_adapter": {
+          "n_passed": 8,
+          "pct": 66.66666666666667
+        },
+        "quantum_computing_4b_adapter": {
+          "n_passed": 6,
+          "pct": 50.0
+        }
+      }
+    },
+    {
+      "domain": "quantum_mechanics",
+      "n_facts": 12,
+      "n_adapters": 11,
+      "baseline_pass": 6,
+      "baseline_pct": 50.0,
+      "discovered_sequence": [
+        "black_hole_frontiers_quantum_info_adapter"
+      ],
+      "discovered_pass": 7,
+      "discovered_pct": 58.333333333333336,
+      "discovery_time_sec": 1.811981201171875e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "black_hole_frontiers_quantum_info_adapter": {
+          "n_passed": 7,
+          "pct": 58.333333333333336
+        },
+        "quantum_gravity_fundamentals_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "quantum_gravity_black_holes_adapter": {
+          "n_passed": 4,
+          "pct": 33.333333333333336
+        },
+        "quantum_gravity_theories_adapter": {
+          "n_passed": 1,
+          "pct": 8.333333333333334
+        },
+        "quantum_computing_4b_adapter": {
+          "n_passed": 5,
+          "pct": 41.666666666666664
+        }
+      }
+    },
+    {
+      "domain": "safety_invariants",
+      "n_facts": 10,
+      "n_adapters": 6,
+      "baseline_pass": 0,
+      "baseline_pct": 0.0,
+      "discovered_sequence": [
+        "safety_invariants_toxicology_adapter"
+      ],
+      "discovered_pass": 4,
+      "discovered_pct": 40.0,
+      "discovery_time_sec": 1.3113021850585938e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "safety_invariants_genotoxicity_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "safety_invariants_offtarget_adapter": {
+          "n_passed": 3,
+          "pct": 30.0
+        },
+        "safety_invariants_toxicology_adapter": {
+          "n_passed": 4,
+          "pct": 40.0
+        }
+      }
+    },
+    {
+      "domain": "toolkit",
+      "n_facts": 244,
+      "n_adapters": 1,
+      "baseline_pass": 25,
+      "baseline_pct": 10.245901639344263,
+      "discovered_sequence": [],
+      "discovered_pass": 25,
+      "discovered_pct": 10.245901639344263,
+      "discovery_time_sec": 1.4781951904296875e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "toolkit_unified_adapter": {
+          "n_passed": 19,
+          "pct": 7.786885245901639
+        }
+      }
+    },
+    {
+      "domain": "vortex_pair",
+      "n_facts": 13,
+      "n_adapters": 6,
+      "baseline_pass": 3,
+      "baseline_pct": 23.076923076923077,
+      "discovered_sequence": [
+        "vortex_pair_theory_adapter"
+      ],
+      "discovered_pass": 4,
+      "discovered_pct": 30.76923076923077,
+      "discovery_time_sec": 2.09808349609375e-05,
+      "method": "greedy",
+      "adapter_results": {
+        "vortex_pair_theory_adapter": {
+          "n_passed": 4,
+          "pct": 30.76923076923077
+        },
+        "vortex_pair_discoveries_adapter": {
+          "n_passed": 4,
+          "pct": 30.76923076923077
+        },
+        "vortex_q_adapter": {
+          "n_passed": 3,
+          "pct": 23.076923076923077
+        },
+        "vortex_pair_vp01_adapter": {
+          "n_passed": 2,
+          "pct": 15.384615384615385
+        },
+        "vortex_pair_classical_adapter": {
+          "n_passed": 3,
+          "pct": 23.076923076923077
+        },
+        "vortex_pair_pair_adapter": {
+          "n_passed": 3,
+          "pct": 23.076923076923077
+        }
+      }
+    }
+  ]
+}

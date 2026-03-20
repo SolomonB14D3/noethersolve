@@ -34,6 +34,10 @@ import os
 import time
 import yaml
 
+# Set HF_HOME for models stored on external drive
+if not os.environ.get("HF_HOME") and os.path.isdir("/Volumes/4TB SD/ml_cache/huggingface"):
+    os.environ["HF_HOME"] = "/Volumes/4TB SD/ml_cache/huggingface"
+
 import mlx.core as mx
 import mlx_lm
 import numpy as np
@@ -300,12 +304,14 @@ def main():
     parser.add_argument("--ranking", action="store_true",
                         help="Use ranking adapter for quality-based scoring (Spearman ρ=0.89)")
     parser.add_argument("--d-inner", type=int, default=64)
+    parser.add_argument("--model", default=None,
+                        help="Model to use (overrides problem.yaml, e.g. meta-llama/Llama-3.1-8B)")
     args = parser.parse_args()
 
     problem_dir = os.path.dirname(os.path.abspath(args.problem))
     problem = load_problem(args.problem)
     facts = load_verification_set(problem, problem_dir)
-    model_name = problem.get("model", "Qwen/Qwen3-4B-Base")
+    model_name = args.model or problem.get("model", "Qwen/Qwen3-4B-Base")
     threshold = float(problem.get("pass_threshold", 1.0))
 
     # Reward config from problem yaml (optional)

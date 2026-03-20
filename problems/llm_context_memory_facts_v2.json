@@ -1,0 +1,106 @@
+{
+  "problem": "llm_context_memory_v2",
+  "description": "Length-matched context and memory limitation facts for LLMs.",
+  "facts": [
+    {
+      "id": "lc01_lost_middle",
+      "context": "The 'lost in the middle' phenomenon refers to:",
+      "truth": "LLMs attending poorly to information placed in the middle of long contexts",
+      "distractors": [
+        "uniform attention distribution across all positions in the context window",
+        "degraded performance affecting only the very start of the input sequence",
+        "a problem fully solved by simply increasing the model's context window size"
+      ]
+    },
+    {
+      "id": "lc02_context_scaling",
+      "context": "Extending context windows via position interpolation has the limitation that:",
+      "truth": "effective utilization of extended context degrades even if technically supported",
+      "distractors": [
+        "position interpolation enables perfect utilization of all extended positions",
+        "longer context windows always proportionally improve model output performance",
+        "no quality degradation occurs when extending context beyond training length"
+      ]
+    },
+    {
+      "id": "lc03_kv_cache",
+      "context": "KV cache memory requirements for long contexts grow:",
+      "truth": "linearly with sequence length, becoming a major deployment bottleneck",
+      "distractors": [
+        "remaining constant regardless of the input or generated sequence length",
+        "logarithmically with sequence length making long contexts very efficient",
+        "negligibly compared to static model weight memory during inference time"
+      ]
+    },
+    {
+      "id": "lc04_stateless",
+      "context": "LLMs are fundamentally stateless between API calls, meaning:",
+      "truth": "all context must be re-provided each call with no persistent memory",
+      "distractors": [
+        "models retain and recall all information from every past conversation",
+        "conversational state persists automatically across separate API sessions",
+        "memory between calls is unlimited and requires no external infrastructure"
+      ]
+    },
+    {
+      "id": "lc05_episodic",
+      "context": "Episodic memory (remembering specific past interactions) in LLMs requires:",
+      "truth": "external storage and retrieval since parametric memory cannot be updated",
+      "distractors": [
+        "built-in episodic memory modules that are standard in transformer design",
+        "no additional infrastructure beyond the existing model weight parameters",
+        "real-time weight updates that modify parameters during inference directly"
+      ]
+    },
+    {
+      "id": "lc06_working_memory",
+      "context": "Effective working memory in transformers is limited by:",
+      "truth": "attention capacity and ability to use context positions strategically",
+      "distractors": [
+        "only the total number of transformer layers in the model architecture",
+        "vocabulary size being the sole bottleneck on working memory capacity",
+        "nothing at all since transformer working memory is effectively unlimited"
+      ]
+    },
+    {
+      "id": "lc07_needle_haystack",
+      "context": "Needle-in-a-haystack evaluations test:",
+      "truth": "ability to retrieve specific information placed anywhere in long context",
+      "distractors": [
+        "only open-ended generation quality without regard to retrieval accuracy",
+        "whether model has memorized specific training data documents verbatim",
+        "exclusively how model parameter count affects performance on basic tasks"
+      ]
+    },
+    {
+      "id": "lc08_recurrence",
+      "context": "Adding recurrence or state to transformers (like Mamba, RWKV) trades off:",
+      "truth": "constant memory for potentially reduced ability to access arbitrary past tokens",
+      "distractors": [
+        "nothing at all since recurrence is strictly superior to pure attention models",
+        "only training speed for no benefit to final model quality or capability set",
+        "only training compute efficiency without affecting inference-time performance"
+      ]
+    },
+    {
+      "id": "lc09_compression",
+      "context": "Context compression techniques (summarization, distillation) risk:",
+      "truth": "losing fine-grained details that may be critical for downstream tasks",
+      "distractors": [
+        "no information loss since compression preserves all semantically relevant content",
+        "always improving output quality by removing noise from the input context window",
+        "automatically preserving all important details through learned selection criteria"
+      ]
+    },
+    {
+      "id": "lc10_knowledge_update",
+      "context": "Updating factual knowledge in LLMs without full retraining is difficult because:",
+      "truth": "knowledge is distributed across many parameters without localized storage",
+      "distractors": [
+        "individual parameters each store exactly one fact enabling surgical editing",
+        "knowledge editing techniques are reliable and fully production-ready today",
+        "factual knowledge updates require zero additional computational resources"
+      ]
+    }
+  ]
+}

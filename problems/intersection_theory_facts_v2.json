@@ -1,0 +1,127 @@
+{
+  "description": "Intersection theory facts for oracle verification - algebraic geometry [length-matched]",
+  "domain": "intersection_theory",
+  "facts": [
+    {
+      "id": "it01",
+      "context": "The number of lines on a smooth cubic surface in P\u00b3 is exactly:",
+      "truth": "27 (twenty-seven lines, a famous classical result)",
+      "distractors": [
+        "37 (thirty-seven lines, a famous classical result)",
+        "42 (forty-two lines, a famous classical result)",
+        "53 (fifty-three lines, a famous classical result)"
+      ]
+    },
+    {
+      "id": "it02",
+      "context": "The 27 lines on a cubic surface form a configuration related to:",
+      "truth": "the E6 root system and the Weyl group W(E6)",
+      "distractors": [
+        "the F4 root system and the Weyl group W(F4)",
+        "the A5 root system and the Weyl group W(A5)",
+        "the E7 root system and the Weyl group W(E7)"
+      ]
+    },
+    {
+      "id": "it03",
+      "context": "Bezout's theorem states that two plane curves of degrees d and e, with no common component, intersect in:",
+      "truth": "exactly d\u00b7e points, counted with multiplicity",
+      "distractors": [
+        "exactly d\u00b7e points, counted without multiplicity",
+        "at least d + e points, counted with multiplicity",
+        "at most d - e points, counted with multiplicity"
+      ]
+    },
+    {
+      "id": "it04",
+      "context": "A line and a conic (degree 2 curve) in the plane intersect in:",
+      "truth": "exactly 2 points counted with multiplicity (by Bezout: 1 \u00d7 2 = 2)",
+      "distractors": [
+        "exactly 1 point counted with multiplicity (by Bezout: 1 \u00d7 2 = 1)",
+        "exactly 3 points counted with multiplicity (by Bezout: 1 \u00d7 3 = 3)",
+        "exactly 4 points counted with multiplicity (by Bezout: 2 \u00d7 2 = 4)"
+      ]
+    },
+    {
+      "id": "it05",
+      "context": "The intersection number of two curves on a surface is computed using:",
+      "truth": "the formula C\u00b7D = deg(O_X(C)|_D) = \u03c7(O_X) - \u03c7(O_X(-C)) - \u03c7(O_X(-D)) + \u03c7(O_X(-C-D))",
+      "distractors": [
+        "simply counting geometric intersection points",
+        "the area of overlap",
+        "the minimum number of transverse intersections"
+      ],
+      "note": "Intersection theory uses Euler characteristics, not naive counting."
+    },
+    {
+      "id": "it06",
+      "context": "On P\u00b2, the self-intersection number of a line is:",
+      "truth": "1 (a line in P\u00b2 has self-intersection L\u00b7L = 1)",
+      "distractors": [
+        "0 (a line in P\u00b2 has self-intersection L\u00b7L = 0)",
+        "-1 (a line in P\u00b2 has self-intersection L\u00b7L = -1)",
+        "2 (a line in P\u00b2 has self-intersection L\u00b7L = 2)"
+      ]
+    },
+    {
+      "id": "it07",
+      "context": "On the blow-up of P\u00b2 at a point, the exceptional divisor E has self-intersection:",
+      "truth": "-1 (the exceptional divisor E satisfies E\u00b7E = -1)",
+      "distractors": [
+        "E has self-intersection -2 (the exceptional divisor E satisfies E\u00b7E = -2)",
+        "E has self-intersection 1 (the exceptional divisor E satisfies E\u00b7E = 1)",
+        "E has self-intersection 0 (the exceptional divisor E satisfies E\u00b7E = 0)"
+      ]
+    },
+    {
+      "id": "it08",
+      "context": "The degree of the canonical divisor K on P\u00b2 is:",
+      "truth": "-3 (K_P\u00b2 has degree -3, equivalently K = -3H where H is a line)",
+      "distractors": [
+        "The canonical divisor K has a degree of 3",
+        "The canonical divisor K has a degree of 0",
+        "The canonical divisor K has a degree of 6"
+      ]
+    },
+    {
+      "id": "it09",
+      "context": "A smooth cubic surface in P\u00b3 has canonical divisor K with K\u00b2 equal to:",
+      "truth": "3 (the self-intersection K\u00b7K = 3 for a del Pezzo surface of degree 3)",
+      "distractors": [
+        "A smooth cubic surface in P\u00b3 has canonical divisor K with K\u00b2 equal to 3 (the self-intersection K\u00b7K = 3 for a del Pezzo surface of degree 3)",
+        "A smooth cubic surface in P\u00b3 has canonical divisor K with K\u00b2 equal to 2 (the self-intersection K\u00b7K = 2 for a del Pezzo surface of degree 3)",
+        "A smooth cubic surface in P\u00b3 has canonical divisor K with K\u00b2 equal to 4 (the self-intersection K\u00b7K = 4 for a del Pezzo surface of degree 3)"
+      ]
+    },
+    {
+      "id": "it10",
+      "context": "The number of bitangent lines to a smooth plane quartic curve is exactly:",
+      "truth": "28 (twenty-eight bitangent lines, related to the 27 lines story)",
+      "distractors": [
+        "25 (twenty-five bitangent lines, related to the 25 lines story)",
+        "30 (thirty bitangent lines, related to the 30 lines story)",
+        "32 (thirty-two bitangent lines, related to the 32 lines story)"
+      ]
+    },
+    {
+      "id": "it11",
+      "context": "The Chern numbers of a smooth surface satisfy the Noether inequality:",
+      "truth": "c\u2081\u00b2 \u2265 2\u03c7 - 6 for surfaces of general type",
+      "distractors": [
+        "c\u2081\u00b2 \u2264 2\u03c7 - 6 for surfaces of general type",
+        "c\u2081\u00b2 = 2\u03c7 + 6 for surfaces of general type",
+        "c\u2081\u00b2 \u2265 3\u03c7 - 9 for surfaces of general type"
+      ]
+    },
+    {
+      "id": "it12",
+      "context": "For a smooth complex surface, c\u2081\u00b2 + c\u2082 equals:",
+      "truth": "12\u03c7(O_S) (the Noether formula, where \u03c7 is the holomorphic Euler characteristic)",
+      "distractors": [
+        "c\u2081\u00b2 - c\u2082 equals:",
+        "c\u2081\u00b2 + c\u2082 equals to:",
+        "c\u2081\u00b2 + c\u2082 equals:"
+      ]
+    }
+  ]
+}

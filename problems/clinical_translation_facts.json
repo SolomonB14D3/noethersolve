@@ -5,132 +5,132 @@
     {
       "id": "ct01_ind_tox",
       "context": "IND-enabling toxicology studies for gene therapy typically require:",
-      "truth": "GLP studies in relevant species with the clinical vector, including biodistribution",
+      "truth": "GLP studies with clinical vector plus biodistribution",
       "distractors": [
-        "only in vitro studies",
-        "no toxicology for gene therapies",
-        "human clinical data only"
+        "in vitro cytotoxicity screens with surrogate vectors",
+        "retrospective analysis of prior clinical trial data",
+        "computational toxicity modeling without animal studies"
       ],
       "cluster": "preclinical"
     },
     {
       "id": "ct02_species_select",
       "context": "Species selection for gene therapy tox studies considers:",
-      "truth": "vector tropism, transgene expression, and immunological relevance to humans",
+      "truth": "vector tropism, transgene expression, immune relevance",
       "distractors": [
-        "only cost and availability",
-        "mice are always sufficient",
-        "species does not matter"
+        "breeding cycle length and colony maintenance cost",
+        "genome size similarity to human reference sequence",
+        "body mass scaling for allometric dose conversion"
       ],
       "cluster": "preclinical"
     },
     {
       "id": "ct03_biodistribution",
       "context": "Biodistribution studies for gene therapy must assess:",
-      "truth": "vector DNA/RNA in tissues, persistence over time, and germline distribution",
+      "truth": "vector DNA/RNA persistence and germline distribution",
       "distractors": [
-        "only target tissue expression",
-        "protein levels in blood only",
-        "distribution is not required"
+        "transgene mRNA expression in target tissue alone",
+        "serum protein pharmacokinetics over 24-hour window",
+        "capsid antibody titers measured at single timepoint"
       ],
       "cluster": "preclinical"
     },
     {
       "id": "ct04_shedding",
       "context": "Vector shedding studies evaluate:",
-      "truth": "excretion of vector in body fluids (urine, stool, saliva) for transmission risk",
+      "truth": "vector excretion in body fluids for transmission risk",
       "distractors": [
-        "only internal biodistribution",
-        "shedding is not regulated",
-        "only for replicating vectors"
+        "internal tissue biodistribution at injection site region",
+        "viral genome replication rate within transduced cells",
+        "capsid protein degradation kinetics in cell culture"
       ],
       "cluster": "preclinical"
     },
     {
       "id": "ct05_potency",
       "context": "Potency assays for gene therapy products must:",
-      "truth": "measure biological activity relevant to mechanism, not just vector quantity",
+      "truth": "measure biological activity tied to mechanism of action",
       "distractors": [
-        "only measure viral particles",
-        "use any convenient assay",
-        "potency testing is optional"
+        "quantify total viral particle concentration by qPCR",
+        "assess vector genome packaging by electron microscopy",
+        "determine capsid protein ratio using mass spectrometry"
       ],
       "cluster": "manufacturing"
     },
     {
       "id": "ct06_identity",
       "context": "Identity testing for AAV gene therapy includes:",
-      "truth": "capsid serotype confirmation, transgene sequence, and vector genome integrity",
+      "truth": "capsid serotype, transgene sequence, genome integrity",
       "distractors": [
-        "only protein concentration",
-        "visual inspection only",
-        "identity testing not required"
+        "total protein concentration measured by Bradford assay",
+        "endotoxin quantification using limulus amebocyte lysate",
+        "osmolality and pH measurement of formulation buffer"
       ],
       "cluster": "manufacturing"
     },
     {
       "id": "ct07_purity",
       "context": "Purity specifications for AAV vectors address:",
-      "truth": "empty capsid ratio, residual host cell protein/DNA, and endotoxin levels",
+      "truth": "empty capsid ratio, residual HCP/DNA, endotoxin",
       "distractors": [
-        "only the transgene sequence",
-        "purity is not specified",
-        "100% purity is always achieved"
+        "transgene coding sequence fidelity and codon usage",
+        "capsid thermal stability measured by differential scanning",
+        "vector infectivity titer determined by transduction assay"
       ],
       "cluster": "manufacturing"
     },
     {
       "id": "ct08_comparability",
       "context": "Manufacturing process changes require comparability studies demonstrating:",
-      "truth": "equivalent quality attributes, potency, and safety profile before and after change",
+      "truth": "equivalent quality, potency, and safety across changes",
       "distractors": [
-        "only cost savings",
-        "no studies needed for changes",
-        "only scale changes matter"
+        "reduced production cost per dose after optimization",
+        "increased manufacturing throughput at commercial scale",
+        "faster turnaround time for batch release testing"
       ],
       "cluster": "manufacturing"
     },
     {
       "id": "ct09_ltfu",
       "context": "Long-term follow-up (LTFU) for gene therapy patients is required because:",
-      "truth": "delayed adverse events including malignancy must be monitored for 5-15 years",
+      "truth": "delayed adverse events require 5-15 year monitoring",
       "distractors": [
-        "only for 30 days post-treatment",
-        "LTFU is optional",
-        "gene therapies have no long-term risks"
+        "acute infusion reactions resolve within 30 days post-dose",
+        "vector genome integration patterns stabilize after one month",
+        "immune memory responses peak within initial treatment period"
       ],
       "cluster": "regulatory"
     },
     {
       "id": "ct10_pediatric",
       "context": "Pediatric gene therapy trials have additional considerations including:",
-      "truth": "growth effects, developing immune system, and longer risk exposure period",
+      "truth": "growth effects, developing immunity, longer risk window",
       "distractors": [
-        "identical to adult trials",
-        "children are always excluded",
-        "only dosing adjustments needed"
+        "weight-based dosing adjustments using standard allometry",
+        "parental consent requirements for enrollment eligibility",
+        "formulation palatability testing for oral administration"
       ],
       "cluster": "regulatory"
     },
     {
       "id": "ct11_accelerated",
       "context": "Accelerated approval for gene therapies may be granted based on:",
-      "truth": "surrogate endpoints reasonably likely to predict clinical benefit",
+      "truth": "surrogate endpoints predicting clinical benefit",
       "distractors": [
-        "preclinical data alone",
-        "only Phase 1 safety data",
-        "accelerated approval not available"
+        "preclinical efficacy data from relevant animal models",
+        "Phase 1 dose-escalation safety and tolerability results",
+        "manufacturing readiness assessment at commercial scale"
       ],
       "cluster": "regulatory"
     },
     {
       "id": "ct12_pricing",
       "context": "Gene therapy pricing and reimbursement challenges include:",
-      "truth": "high upfront cost for potentially curative one-time treatment vs chronic therapy economics",
+      "truth": "high upfront cost for curative one-time treatment",
       "distractors": [
-        "gene therapies are always inexpensive",
-        "standard drug pricing applies",
-        "payers always cover gene therapy"
+        "standard pharmaceutical tiered pricing models apply",
+        "annual subscription reimbursement from commercial payers",
+        "volume-based discount structures for hospital purchasing"
       ],
       "cluster": "regulatory"
     }
