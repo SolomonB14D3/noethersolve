@@ -250,11 +250,25 @@ def escalate_training(domain_name, facts_file, current_status):
     elif not current_status["has_staged"]:
         # Level 2: Staged training
         print(f"  Escalation level 2: staged training (via train_with_proven_methods)")
-        base = domain_name.replace("_v2", "").replace(" V2", "").replace(" ", "_").lower()
-        yaml_candidates = list(PROBLEMS_DIR.glob(f"{base}*.yaml"))
+        base = normalize_domain_name(domain_name)
+        # Try explicit mapping first, then glob
+        yaml_candidates = []
+        if base in DOMAIN_TO_FACTS:
+            mapped = DOMAIN_TO_FACTS[base]
+            for suffix in ["_v2.yaml", ".yaml"]:
+                candidate = PROBLEMS_DIR / f"{mapped}{suffix}"
+                if candidate.exists():
+                    yaml_candidates.append(candidate)
+                    break
         if not yaml_candidates:
-            print(f"  No YAML found for {domain_name}, falling back to single-pass")
-            return train_single_adapter(domain_name, facts_file)
+            yaml_candidates = list(PROBLEMS_DIR.glob(f"{base}*.yaml"))
+        if not yaml_candidates:
+            # No YAML → can't do staged, escalate to L3 instead of retraining L1
+            print(f"  No YAML found for {domain_name}, escalating to orthogonal")
+            log_escalation(domain_name, "needs_orthogonal",
+                           f"No YAML for staged training and single-pass adapter already exists. "
+                           f"Needs orthogonal cluster adapters.")
+            return False, None, None
 
         cmd = [
             PYTHON, str(PROJECT / "scripts" / "train_with_proven_methods.py"),
