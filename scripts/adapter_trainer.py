@@ -139,16 +139,19 @@ def get_failing_domains():
         if base in facts_map:
             facts_file, yaml_file = facts_map[base]
         elif base in DOMAIN_TO_FACTS:
-            # Use explicit mapping
+            # Use explicit mapping — try V2 in facts_map first
             mapped = DOMAIN_TO_FACTS[base]
-            if mapped in facts_map:
+            mapped_v2 = mapped + "_v2" if not mapped.endswith("_v2") else mapped
+            if mapped_v2 in facts_map:
+                facts_file, yaml_file = facts_map[mapped_v2]
+            elif mapped in facts_map:
                 facts_file, yaml_file = facts_map[mapped]
             else:
-                # Try finding the facts file directly
+                # Try finding the facts file directly (V2 preferred)
                 for suffix in ["_facts_v2.json", "_facts.json"]:
                     candidate = PROBLEMS_DIR / f"{mapped}{suffix}"
                     if candidate.exists():
-                        # Find yaml too
+                        # Find yaml too (V2 preferred)
                         yaml_candidates = [
                             PROBLEMS_DIR / f"{mapped}_v2.yaml",
                             PROBLEMS_DIR / f"{mapped}.yaml",
