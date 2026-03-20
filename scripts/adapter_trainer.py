@@ -217,10 +217,12 @@ def train_single_adapter(domain_name, facts_file, output_path=None):
         "--model", TRAIN_MODEL,
         "--output", str(output_path),
         "--steps", "500",
+        "--lr", "2e-4",
+        "--margin", "1.5",
     ]
 
     print(f"  Training single-pass adapter: {output_path.name}")
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=600, cwd=str(PROJECT))
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=1800, cwd=str(PROJECT))
 
     if result.returncode != 0:
         print(f"  FAILED: {result.stderr[:300]}")
