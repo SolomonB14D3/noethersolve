@@ -248,41 +248,36 @@ def escalate_training(domain_name, facts_file, current_status):
         return train_single_adapter(domain_name, facts_file)
 
     elif not current_status["has_staged"]:
-        # Level 2: Staged training
-        print(f"  Escalation level 2: staged training (via train_with_proven_methods)")
-        base = normalize_domain_name(domain_name)
-        # Try explicit mapping first, then glob
-        yaml_candidates = []
-        if base in DOMAIN_TO_FACTS:
-            mapped = DOMAIN_TO_FACTS[base]
-            for suffix in ["_v2.yaml", ".yaml"]:
-                candidate = PROBLEMS_DIR / f"{mapped}{suffix}"
-                if candidate.exists():
-                    yaml_candidates.append(candidate)
-                    break
-        if not yaml_candidates:
-            yaml_candidates = list(PROBLEMS_DIR.glob(f"{base}*.yaml"))
-        if not yaml_candidates:
-            # No YAML → can't do staged, escalate to L3 instead of retraining L1
-            print(f"  No YAML found for {domain_name}, escalating to orthogonal")
-            log_escalation(domain_name, "needs_orthogonal",
-                           f"No YAML for staged training and single-pass adapter already exists. "
-                           f"Needs orthogonal cluster adapters.")
-            return False, None, None
+        # Level 2: More intensive single-pass (more steps, higher margin)
+        # True staged training requires Claude Code to design cluster sequences
+        print(f"  Escalation level 2: intensive training (800 steps, margin=2.0)")
+        base = domain_name.replace("_v2", "").replace(" V2", "").replace(" ", "_").lower()
+        base = "".join(c for c in base if c.isalnum() or c == "_")
+        output_path = ADAPTERS_DIR / f"{base}_intensive_adapter.npz"
 
         cmd = [
-            PYTHON, str(PROJECT / "scripts" / "train_with_proven_methods.py"),
-            "--domain", base,
+            PYTHON, str(PROJECT / "scripts" / "train_from_facts.py"),
             "--facts", str(facts_file),
-            "--yaml", str(yaml_candidates[0]),
+            "--model", TRAIN_MODEL,
+            "--output", str(output_path),
+            "--steps", "800",
+            "--lr", "1e-4",
+            "--margin", "2.0",
         ]
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=1200, cwd=str(PROJECT))
+
+        print(f"  Training intensive adapter: {output_path.name}")
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=2400, cwd=str(PROJECT))
 
         if result.returncode != 0:
-            print(f"  Staged training failed: {result.stderr[:300]}")
+            print(f"  Intensive training failed: {result.stderr[:300]}")
             return False, None, None
-        print(f"  Staged training complete")
-        return True, None, None
+
+        output = result.stdout + result.stderr
+        baseline, adapted = parse_training_output(output)
+        print(f"  Done: {output_path.name}")
+        if baseline is not None and adapted is not None:
+            print(f"  4B scores: baseline={baseline:.0%} → adapted={adapted:.0%}")
+        return True, baseline, adapted
 
     elif not current_status["has_orthogonal"]:
         # Level 3: Orthogonal adapters
