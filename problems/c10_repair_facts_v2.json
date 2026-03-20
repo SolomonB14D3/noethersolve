@@ -1,0 +1,61 @@
+{
+  "problem": "c10_repair_v2",
+  "description": "V2 length-matched repair verification set for C10 (e2 second symmetric polynomial). Distractors matched to truth length (ratio 0.8-1.2x).",
+  "facts": [
+    {
+      "id": "c10_01_sigma2",
+      "context": "second elementary symmetric polynomial of pairwise distances in equal-mass 3-body figure-8",
+      "truth": "Sigma2 = r12*r13 + r12*r23 + r13*r23",
+      "distractors": [
+        "Sigma2 = r12^2 + r13^2 + r23^2 + r12*r13",
+        "Sigma2 = r12*r13*r23 + r13^2 + r23^2",
+        "Sigma2 = (r12 + r13)*(r13 + r23) - r13^2",
+        "Sigma2 = r12*r13 + r23^2 + r12*r23/sqrt(3)"
+      ]
+    },
+    {
+      "id": "c10_02_sum_distances",
+      "context": "sum of pairwise distances in equal-mass 3-body figure-8 orbit",
+      "truth": "S = r12 + r13 + r23",
+      "distractors": [
+        "S = r12 + r13 + r23/2",
+        "S = r12 + r13 - r23/3",
+        "S = r12^2 + r13^2 + r23",
+        "S = (r12 + r13 + r23)*2/3"
+      ]
+    },
+    {
+      "id": "c10_03_e1_algebra",
+      "context": "first elementary symmetric polynomial of three variables a, b, c",
+      "truth": "e1 = a + b + c",
+      "distractors": [
+        "e1 = a + b - c",
+        "e1 = a*b + b*c",
+        "e1 = a^2 + b + c",
+        "e1 = (a+b+c)/2"
+      ]
+    },
+    {
+      "id": "c10_04_e2_algebra",
+      "context": "second elementary symmetric polynomial of three variables a, b, c",
+      "truth": "e2 = ab + ac + bc",
+      "distractors": [
+        "e2 = a^2 + b^2 + c^2",
+        "e2 = ab + c^2 + ac",
+        "e2 = ab + (a+c)*b/2",
+        "e2 = (ab+ac+bc)/3"
+      ]
+    },
+    {
+      "id": "c10_05_newton_identity",
+      "context": "Newton's identity relating power sum p2 to elementary symmetric polynomials e1, e2",
+      "truth": "p2 = e1^2 - 2*e2",
+      "distractors": [
+        "p2 = e1^2 - 1*e2",
+        "p2 = e1^2 + 2*e2",
+        "p2 = 2*e1 - 1*e2",
+        "p2 = e1^2 - 2*e1"
+      ]
+    }
+  ]
+}

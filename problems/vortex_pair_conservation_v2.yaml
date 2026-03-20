@@ -1,0 +1,9 @@
+name: "vortex_pair_conservation_v2"
+description: "V2 length-matched conservation laws for 2D point-vortex system"
+model: "Qwen/Qwen3-4B-Base"
+oracle: "stem_margin"
+verification_set: "vortex_pair_facts_v2.json"
+pass_threshold: 0.5
+monitors:
+  - margin_sign
+adapter: null
