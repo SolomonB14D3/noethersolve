@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
-Simple adapter training from facts file.
-Used by adapter_trainer.py to train 4B adapters on failing domains.
+Train a Snap-On logit adapter from a facts file.
+
+Called by adapter_trainer.py (the 27B's work script).
+Trains adapters FOR the 4B student model — forward/backward passes go through
+the 4B, so adapter dimensions match 4B's logit space (vocab=151936).
+
+The 27B provides COMPUTE (runs this on Apple Silicon). The adapter targets 4B.
 
 Usage:
     python scripts/train_from_facts.py --facts problems/chemical_conservation_facts.json \

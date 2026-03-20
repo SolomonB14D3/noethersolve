@@ -2,8 +2,16 @@
 """
 Adapter Trainer — Trains 4B adapters on failing domains.
 
-This is the 27B's MAIN JOB after evaluation is complete.
-Uses the escalation ladder: single-pass → staged → orthogonal → joint.
+WHO RUNS THIS: The 27B machine (Apple Silicon local compute workhorse).
+WHAT IT DOES:  Trains Snap-On logit adapters for the 4B student model.
+WHY:           4B needs adapters to learn surprising truths it gets wrong.
+               27B evaluation is DONE (111 domains). This is the 27B's job now.
+
+The 27B provides COMPUTE (runs this script on MLX). The ADAPTER targets the 4B
+(dimensions must match 4B's vocab=151936, d_model=2560). The training forward/
+backward passes go through the 4B model.
+
+Escalation ladder: single-pass → intensive → orthogonal → joint.
 
 Usage:
     python scripts/adapter_trainer.py           # Train all failing domains
@@ -26,11 +34,19 @@ PROBLEMS_DIR = PROJECT / "problems"
 RESULTS_DIR = PROJECT / "results"
 PYTHON = sys.executable
 
-# 4B is the student — always train on this model
-TRAIN_MODEL = "Qwen/Qwen3-4B-Base"
-
-# 27B is for oracle evaluation only (post-training verification)
-EVAL_MODEL = "mlx-community/Qwen3.5-27B-4bit"
+# ── Role Separation ──────────────────────────────────────────────────
+# 27B = LOCAL COMPUTE WORKHORSE. Runs this script, does the training.
+#       Also used as oracle evaluator (already completed 111-domain eval).
+# 4B  = THE STUDENT. Gets adapter training to learn surprising truths.
+#       Adapters must match 4B dimensions (d_model=2560, vocab=151936).
+# Claude Code = writes papers, V2 fact files, code. Not involved in training.
+#
+# The adapter is trained ON the 4B model (forward+backward passes through 4B)
+# because the adapter dimensions must match the 4B's logit space.
+# The 27B provides compute power by running this script on Apple Silicon.
+# ─────────────────────────────────────────────────────────────────────
+TRAIN_MODEL = "Qwen/Qwen3-4B-Base"  # Adapter matches 4B dimensions (vocab=151936)
+EVAL_MODEL = "mlx-community/Qwen3.5-27B-4bit"  # Oracle judge (already done, kept for reference)
 
 
 def load_run_summary():
