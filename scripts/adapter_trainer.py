@@ -312,6 +312,136 @@ def print_status():
         print()
 
 
+def save_training_log(entry):
+    """Append a training result to the log."""
+    log_path = RESULTS_DIR / "adapter_training_log.jsonl"
+    with open(log_path, "a") as f:
+        f.write(json.dumps(entry) + "\n")
+
+
+def run_work_loop(domain_filter=None):
+    """Continuous work loop: train → verify → escalate → next domain → repeat.
+
+    Keeps working until:
+    - All domains have been attempted at their current escalation level
+    - No more trainable domains remain (all escalated to Claude Code level)
+    """
+    print(f"{'='*70}")
+    print(f"  Adapter Trainer — Continuous Work Loop")
+    print(f"  Training model: {TRAIN_MODEL} (4B student)")
+    print(f"  Eval model: {EVAL_MODEL} (27B judge)")
+    print(f"  Started: {datetime.now().isoformat()}")
+    print(f"{'='*70}")
+    print()
+
+    total_trained = 0
+    total_improved = 0
+    total_escalated = 0
+    total_skipped = 0
+    loop_count = 0
+
+    while True:
+        loop_count += 1
+        print(f"\n--- Sweep {loop_count} ---")
+
+        failing = get_failing_domains()
+
+        if domain_filter:
+            failing = [(n, r, f, y) for n, r, f, y in failing
+                        if domain_filter.lower() in n.lower()]
+
+        # Filter to only domains we can actually work on (have facts files)
+        trainable = [(n, r, f, y) for n, r, f, y in failing if f is not None]
+        no_facts = [(n, r, f, y) for n, r, f, y in failing if f is None]
+
+        if no_facts:
+            print(f"  {len(no_facts)} domains without facts files (need Claude Code):")
+            for name, rate, _, _ in no_facts[:5]:
+                print(f"    {rate:5.0%}  {name}")
+
+        if not trainable:
+            print(f"\n  No trainable domains remaining.")
+            if no_facts:
+                print(f"  {len(no_facts)} domains need facts files created by Claude Code.")
+            print(f"  Work loop complete.")
+            break
+
+        print(f"  {len(trainable)} trainable domains this sweep")
+        print()
+
+        sweep_trained = 0
+        sweep_improved = 0
+
+        for i, (name, rate, facts_file, yaml_file) in enumerate(trainable, 1):
+            print(f"[{i}/{len(trainable)}] {name} (current: {rate:.0%})")
+
+            status = get_adapter_status(name)
+
+            # Train / escalate
+            t0 = time.time()
+            success = escalate_training(name, facts_file, status)
+            duration = time.time() - t0
+
+            if success:
+                sweep_trained += 1
+                total_trained += 1
+
+                # Re-evaluate on 27B to measure improvement
+                if yaml_file is not None:
+                    print(f"  Verifying improvement on 27B...")
+                    new_rate = evaluate_after_training(yaml_file)
+                    if new_rate is not None:
+                        delta = new_rate - rate
+                        improved = delta > 0
+                        print(f"  Result: {rate:.0%} → {new_rate:.0%} ({'+' if delta >= 0 else ''}{delta:.0%})")
+                        if improved:
+                            sweep_improved += 1
+                            total_improved += 1
+
+                        save_training_log({
+                            "domain": name,
+                            "old_rate": rate,
+                            "new_rate": new_rate,
+                            "delta": delta,
+                            "level": "staged" if status["has_single"] else "single",
+                            "duration_seconds": duration,
+                            "timestamp": datetime.now().isoformat(),
+                        })
+                    else:
+                        print(f"  Evaluation failed — cannot verify improvement")
+            else:
+                total_escalated += 1
+
+            print()
+
+        # Sweep summary
+        print(f"--- Sweep {loop_count} Summary ---")
+        print(f"  Trained: {sweep_trained}, Improved: {sweep_improved}")
+        print(f"  Total so far: {total_trained} trained, {total_improved} improved, {total_escalated} escalated")
+
+        # Stop if nothing was trained this sweep (everything escalated or failed)
+        if sweep_trained == 0:
+            print(f"\n  No successful training this sweep. Stopping.")
+            break
+
+        # After a full sweep, check if improvement happened
+        # If yes, loop again — improved adapters may help other domains
+        if sweep_improved > 0:
+            print(f"\n  {sweep_improved} domains improved — running another sweep...")
+        else:
+            print(f"\n  No improvement this sweep despite training. Stopping.")
+            break
+
+    print(f"\n{'='*70}")
+    print(f"  Work Loop Complete")
+    print(f"  Sweeps: {loop_count}")
+    print(f"  Trained: {total_trained}, Improved: {total_improved}")
+    print(f"  Escalated to Claude Code: {total_escalated}")
+    print(f"  Skipped (no facts): {total_skipped}")
+    print(f"  Finished: {datetime.now().isoformat()}")
+    print(f"{'='*70}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Train 4B adapters on failing domains")
     parser.add_argument("--status", action="store_true", help="Show training status only")
@@ -325,60 +455,32 @@ def main():
         print_status()
         return
 
-    failing = get_failing_domains()
+    if args.once:
+        # Single domain mode — train one and exit
+        failing = get_failing_domains()
+        if args.domain:
+            failing = [(n, r, f, y) for n, r, f, y in failing
+                        if args.domain.lower() in n.lower()]
+        trainable = [(n, r, f, y) for n, r, f, y in failing if f is not None]
 
-    if args.domain:
-        failing = [(n, r, f, y) for n, r, f, y in failing if args.domain.lower() in n.lower()]
-        if not failing:
-            print(f"Domain '{args.domain}' not found in failing domains")
+        if not trainable:
+            print("No trainable domains found.")
             return
 
-    if not failing:
-        print("No failing domains to train. All done!")
-        return
-
-    print(f"{'='*70}")
-    print(f"  Adapter Trainer — {len(failing)} domains to process")
-    print(f"  Model: {TRAIN_MODEL} (4B student)")
-    print(f"  Started: {datetime.now().isoformat()}")
-    print(f"{'='*70}")
-    print()
-
-    trained = 0
-    skipped = 0
-
-    for i, (name, rate, facts_file, yaml_file) in enumerate(failing, 1):
-        print(f"[{i}/{len(failing)}] {name} (current: {rate:.0%})")
-
-        if facts_file is None:
-            print(f"  No facts file found — skipping")
-            skipped += 1
-            print()
-            if args.once:
-                break
-            continue
-
+        name, rate, facts_file, yaml_file = trainable[0]
+        print(f"Training: {name} (current: {rate:.0%})")
         status = get_adapter_status(name)
         success = escalate_training(name, facts_file, status)
 
-        if success:
-            trained += 1
-            # Optionally re-evaluate
-            # new_rate = evaluate_after_training(yaml_file)
-            # if new_rate is not None:
-            #     print(f"  Post-training: {new_rate:.0%}")
-        else:
-            skipped += 1
+        if success and yaml_file:
+            print(f"Verifying on 27B...")
+            new_rate = evaluate_after_training(yaml_file)
+            if new_rate is not None:
+                print(f"Result: {rate:.0%} → {new_rate:.0%}")
+        return
 
-        print()
-
-        if args.once:
-            break
-
-    print(f"{'='*70}")
-    print(f"  Complete: {trained} trained, {skipped} skipped/escalated")
-    print(f"  Finished: {datetime.now().isoformat()}")
-    print(f"{'='*70}")
+    # Default: continuous work loop
+    run_work_loop(domain_filter=args.domain)
 
 
 if __name__ == "__main__":
