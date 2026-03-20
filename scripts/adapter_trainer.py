@@ -62,6 +62,25 @@ def normalize_domain_name(name):
     return base
 
 
+# Explicit mappings for domain names that can't be fuzzy-matched
+# Keys: normalized domain names from run_summary.json
+# Values: facts file stems (without _facts.json suffix)
+DOMAIN_TO_FACTS = {
+    "q_f_ratio_invariant": "qf_ratio",
+    "qf_ratio_invariant": "qf_ratio",
+    "electromagnetic_zilch_and_optical_chirality": "em_zilch",
+    "continuous_q_f_and_euler_conservation_laws": "continuous_qf",
+    "continuous_qf_and_euler_conservation_laws": "continuous_qf",
+    "bioai_computational_parallels": "bio_ai_parallels",
+    "bio_ai_computational_parallels": "bio_ai_parallels",
+    "bio-ai_computational_parallels": "bio_ai_parallels",
+    "reduced_navier_stokes_vortex_conservation": "vortex_pair",
+    "reduced_navier_stokes_vortex_conservation_unsolved": "vortex_pair",
+    "optimal_fr_combination": "optimal_f",
+    "optimal_f_r_combination": "optimal_f",
+}
+
+
 def get_failing_domains():
     """Get domains that are failing (pass_rate < 0.5).
 
@@ -119,6 +138,28 @@ def get_failing_domains():
         # Try direct match in facts_map
         if base in facts_map:
             facts_file, yaml_file = facts_map[base]
+        elif base in DOMAIN_TO_FACTS:
+            # Use explicit mapping
+            mapped = DOMAIN_TO_FACTS[base]
+            if mapped in facts_map:
+                facts_file, yaml_file = facts_map[mapped]
+            else:
+                # Try finding the facts file directly
+                for suffix in ["_facts_v2.json", "_facts.json"]:
+                    candidate = PROBLEMS_DIR / f"{mapped}{suffix}"
+                    if candidate.exists():
+                        # Find yaml too
+                        yaml_candidates = [
+                            PROBLEMS_DIR / f"{mapped}_v2.yaml",
+                            PROBLEMS_DIR / f"{mapped}.yaml",
+                        ]
+                        yf = None
+                        for yc in yaml_candidates:
+                            if yc.exists():
+                                yf = yc
+                                break
+                        facts_file, yaml_file = candidate, yf
+                        break
         else:
             # Try fuzzy match — find closest key
             for key in facts_map:
