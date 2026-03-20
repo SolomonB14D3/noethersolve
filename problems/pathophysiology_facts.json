@@ -1,0 +1,138 @@
+{
+  "problem": "pathophysiology",
+  "description": "Disease mechanisms across cardiovascular, pulmonary, renal, and hematologic systems.",
+  "facts": [
+    {
+      "id": "path01_cardiogenic_shock",
+      "context": "The hemodynamic profile of cardiogenic shock shows:",
+      "truth": "low CO, high SVR, elevated CVP and elevated PCWP",
+      "distractors": [
+        "high CO, low SVR, elevated CVP and elevated PCWP",
+        "low CO, low SVR, decreased CVP and decreased PCWP",
+        "normal CO, high SVR, decreased CVP and normal PCWP"
+      ],
+      "cluster": "shock"
+    },
+    {
+      "id": "path02_distributive_shock",
+      "context": "Distributive shock from sepsis presents with:",
+      "truth": "low SVR, high or normal CO, and elevated serum lactate",
+      "distractors": [
+        "high SVR, low CO, and markedly decreased serum lactate",
+        "normal SVR, normal CO, and undetectable serum lactate",
+        "low SVR, absent cardiac output, and normal serum lactate"
+      ],
+      "cluster": "shock"
+    },
+    {
+      "id": "path03_type1_resp_failure",
+      "context": "Type I respiratory failure is characterized by:",
+      "truth": "hypoxemia with normal or low PaCO2 from V/Q mismatch",
+      "distractors": [
+        "hypoxemia with elevated PaCO2 from airway obstruction",
+        "normal PaO2 with elevated PaCO2 from pump failure",
+        "isolated hypercapnia with preserved oxygenation status"
+      ],
+      "cluster": "pulmonary"
+    },
+    {
+      "id": "path04_type2_resp_failure",
+      "context": "Type II respiratory failure is characterized by:",
+      "truth": "hypoxemia with hypercapnia from ventilatory failure",
+      "distractors": [
+        "isolated hypoxemia with low PaCO2 from shunt",
+        "normal PaO2 with isolated metabolic acidosis only",
+        "hypercapnia with normal PaO2 from diffusion block"
+      ],
+      "cluster": "pulmonary"
+    },
+    {
+      "id": "path05_dic",
+      "context": "Disseminated intravascular coagulation (DIC) produces:",
+      "truth": "simultaneous consumption of fibrinogen and platelets, elevating D-dimer",
+      "distractors": [
+        "isolated platelet destruction with normal fibrinogen and low D-dimer",
+        "selective fibrinogen elevation with preserved platelet count",
+        "increased clotting factor production with decreased D-dimer levels"
+      ],
+      "cluster": "hematologic"
+    },
+    {
+      "id": "path06_raas",
+      "context": "RAAS activation in heart failure produces:",
+      "truth": "angiotensin II causing vasoconstriction and aldosterone-mediated sodium retention",
+      "distractors": [
+        "angiotensin II causing vasodilation and aldosterone-mediated potassium retention",
+        "renin directly causing vasodilation independent of angiotensin production",
+        "aldosterone suppression with angiotensin-mediated sodium excretion in kidneys"
+      ],
+      "cluster": "cardiovascular"
+    },
+    {
+      "id": "path07_hepatorenal",
+      "context": "Hepatorenal syndrome develops from:",
+      "truth": "renal vasoconstriction driven by splanchnic vasodilation in cirrhosis",
+      "distractors": [
+        "direct hepatotoxin damage to renal tubular epithelial cells",
+        "renal vasodilation from portal hypertension in liver disease",
+        "autoimmune attack on glomeruli triggered by hepatic fibrosis"
+      ],
+      "cluster": "renal"
+    },
+    {
+      "id": "path08_anion_gap_acidosis",
+      "context": "Elevated anion gap metabolic acidosis causes include:",
+      "truth": "methanol, uremia, DKA, propylene glycol, INH, lactate, ethylene glycol, salicylates",
+      "distractors": [
+        "normal saline infusion, diarrhea, renal tubular acidosis, acetazolamide use",
+        "hyperchloremia, pancreatic fistula, ureteral diversion, and cholestyramine",
+        "aldosterone excess, Cushing syndrome, licorice ingestion, and amphotericin B"
+      ],
+      "cluster": "renal"
+    },
+    {
+      "id": "path09_prerenal_aki",
+      "context": "Pre-renal AKI is identified by laboratory findings of:",
+      "truth": "BUN/Cr ratio > 20:1, FeNa < 1%, and urine osmolality > 500",
+      "distractors": [
+        "BUN/Cr ratio < 10:1, FeNa > 3%, and urine osmolality < 300",
+        "BUN/Cr ratio > 20:1, FeNa > 2%, and urine osmolality < 350",
+        "BUN/Cr ratio < 15:1, FeNa < 1%, and urine osmolality < 250"
+      ],
+      "cluster": "renal"
+    },
+    {
+      "id": "path10_atn",
+      "context": "Acute tubular necrosis (ATN) is diagnosed by:",
+      "truth": "muddy brown casts on urinalysis, FeNa > 2%, urine osmolality < 350",
+      "distractors": [
+        "hyaline casts on urinalysis, FeNa < 1%, urine osmolality > 500",
+        "red blood cell casts, FeNa > 2%, and urine osmolality > 600",
+        "waxy casts on urinalysis, FeNa < 0.5%, urine osmolality = 300"
+      ],
+      "cluster": "renal"
+    },
+    {
+      "id": "path11_pe",
+      "context": "Pulmonary embolism causes right heart strain with:",
+      "truth": "elevated RV pressure and interventricular septal bowing (D-shaped septum)",
+      "distractors": [
+        "decreased RV pressure and leftward interventricular septal shift",
+        "bilateral ventricular dilation with normal septal position on echo",
+        "isolated left ventricular failure with decreased pulmonary pressures"
+      ],
+      "cluster": "cardiovascular"
+    },
+    {
+      "id": "path12_tamponade",
+      "context": "Cardiac tamponade presents with:",
+      "truth": "Beck's triad (hypotension, JVD, muffled sounds) and pulsus paradoxus > 10 mmHg",
+      "distractors": [
+        "Virchow's triad (stasis, injury, hypercoagulability) and pulsus alternans",
+        "Beck's triad (hypertension, JVD, loud sounds) and pulsus paradoxus < 5 mmHg",
+        "Cushing's triad (hypertension, bradycardia, irregular respirations) plus JVD"
+      ],
+      "cluster": "cardiovascular"
+    }
+  ]
+}

@@ -40,6 +40,9 @@ OPEN_QUESTIONS = RESULTS / "open_questions.jsonl"
 ESCALATION_FILE = RESULTS / "escalations.jsonl"
 HTML_OUTPUT = RESULTS / "dashboard.html"
 GRADES_FILE = RESULTS / "discovery_grades.json"
+ADAPTER_LOG = RESULTS / "adapter_training_log.jsonl"
+ADAPTERS_DIR = _HERE / "adapters"
+ADAPTER_TRAINER_LOG = _HERE / "logs" / "adapter_trainer_v2.log"
 
 
 def is_pid_running(pid: int) -> bool:
@@ -149,16 +152,67 @@ def count_tests() -> int:
     return count
 
 
+def load_adapter_training_log() -> list[dict]:
+    """Load per-domain adapter training results from adapter_training_log.jsonl."""
+    if not ADAPTER_LOG.exists():
+        return []
+    entries = []
+    with open(ADAPTER_LOG) as f:
+        for line in f:
+            try:
+                entries.append(json.loads(line))
+            except json.JSONDecodeError:
+                pass
+    # Deduplicate: keep last entry per domain
+    by_domain = {}
+    for e in entries:
+        domain = e.get("domain", "?")
+        by_domain[domain] = e
+    return list(by_domain.values())
+
+
+def count_adapters_for_failing_domains(fail_domains: list[str]) -> dict:
+    """Count how many failing domains have at least one adapter trained."""
+    if not ADAPTERS_DIR.exists():
+        return {"trained": 0, "total": len(fail_domains), "by_domain": {}}
+    adapter_files = list(ADAPTERS_DIR.glob("*.npz"))
+    by_domain = {}
+    for d in fail_domains:
+        base = d.lower().replace(" ", "_").replace("-", "_").replace("/", "_")
+        # Check if any adapter file starts with (or contains) the domain base name
+        found = [f.name for f in adapter_files if base[:12] in f.name.lower()]
+        by_domain[d] = found
+    trained = sum(1 for v in by_domain.values() if v)
+    return {"trained": trained, "total": len(fail_domains), "by_domain": by_domain}
+
+
+def recent_adapter_log(n: int = 20) -> list[str]:
+    """Read recent lines from the adapter trainer log."""
+    log = ADAPTER_TRAINER_LOG
+    if not log.exists():
+        # Try fallback log names
+        for name in ["adapter_trainer.log", "adapter_train.log"]:
+            candidate = _HERE / "logs" / name
+            if candidate.exists():
+                log = candidate
+                break
+        else:
+            return []
+    with open(log) as f:
+        lines = f.readlines()
+    return [l.rstrip() for l in lines[-n:]]
+
+
 def check_agents() -> list[dict]:
     agents = []
     agent_defs = [
-        ("27B Oracle Runner", "research_run.pid", "research_run.log"),
-        ("Resource Orchestrator", "orchestrator.pid", "orchestrator_log.txt"),
+        ("4B Adapter Trainer (primary)", "adapter_train.pid", "adapter_trainer_v2.log"),
         ("Autonomy Loop", "autonomy_run.pid", "autonomy_run.log"),
-        ("Teacher-Student", "teacher_student.pid", "teacher_student_run.log"),
         ("Benchmark Runner", "benchmark_run.pid", "benchmark_run.log"),
-        ("Adapter Trainer", "adapter_train.pid", "adapter_train.log"),
-        ("27B Download", "27b_download.pid", "27b_download.log"),
+        ("Resource Orchestrator", "orchestrator.pid", "orchestrator_log.txt"),
+        ("Teacher-Student", "teacher_student.pid", "teacher_student_run.log"),
+        # Eval is DONE (111 domains, Mar 2026) — only show if somehow restarted
+        ("27B Oracle Runner (eval DONE)", "research_run.pid", "research_run.log"),
     ]
     for name, pid_fname, log_fname in agent_defs:
         pid_file = RESULTS / pid_fname
@@ -590,44 +644,29 @@ def _load_lab_results(lab: dict) -> str:
 def _build_lab_rows(labs: list) -> list[str]:
     """Build HTML blocks for lab projects (expandable details per lab)."""
     blocks = []
-    status_colors = {
-        "idea": ("#d29922", "💡"),
-        "design": ("#58a6ff", "📐"),
-        "prototyping": ("#f0883e", "🔧"),
-        "running": ("#3fb950", "🔬"),
-        "producing": ("#a371f7", "📊"),
-        "paper_feed": ("#f778ba", "📝"),
+    # Stage names for display (clearer than internal names)
+    stage_display = {
+        "idea": ("Concept", "#d29922", "💡"),
+        "design": ("Designing", "#58a6ff", "📐"),
+        "prototyping": ("Building", "#f0883e", "🔧"),
+        "running": ("Active", "#3fb950", "🔬"),
+        "producing": ("Results", "#a371f7", "📊"),
+        "paper_feed": ("Publishing", "#f778ba", "📝"),
     }
 
     for lab in labs:
         status = lab.get("status", "idea")
-        color, emoji = status_colors.get(status, ("#8b949e", "?"))
-
-        # Build stage pipeline
-        all_stages = ["idea", "design", "prototyping", "running", "producing", "paper_feed"]
-        stage_labels = ["Idea", "Design", "Proto", "Run", "Prod", "Paper"]
-        stages_complete = lab.get("stages_complete", [])
-        current = lab.get("current_stage", "")
-
-        stage_dots = []
-        for s, label in zip(all_stages, stage_labels):
-            if s in stages_complete:
-                stage_dots.append(
-                    f'<span title="{s}" style="color:#3fb950;font-size:10px">'
-                    f'&#9679; {label}</span>')
-            elif s == current:
-                stage_dots.append(
-                    f'<span title="{s}" style="color:#d29922;font-size:10px">'
-                    f'&#9679; {label}</span>')
-            else:
-                stage_dots.append(
-                    f'<span title="{s}" style="color:#30363d;font-size:10px">'
-                    f'&#9675; {label}</span>')
-        pipeline = ' '.join(stage_dots)
+        display_name, color, emoji = stage_display.get(status, ("Unknown", "#8b949e", "?"))
 
         n_screened = lab.get("n_candidates_screened", 0)
         n_viable = lab.get("n_candidates_viable", 0)
-        results_str = f"{n_viable}/{n_screened}" if n_screened else "—"
+
+        # Clear results display
+        if n_screened > 0:
+            pass_rate = n_viable / n_screened * 100
+            results_str = f'<span title="{n_viable} viable of {n_screened} screened">{n_viable} passed ({pass_rate:.0f}%)</span>'
+        else:
+            results_str = '<span style="color:#8b949e">No results yet</span>'
 
         n_tools = lab.get("n_tools", 0)
         title = lab.get("title", "?")
@@ -637,8 +676,8 @@ def _build_lab_rows(labs: list) -> list[str]:
         blocks.append(
             f'<details style="margin-bottom:8px">'
             f'<summary style="cursor:pointer">'
-            f'<span style="color:{color};font-weight:600">{emoji} {status.upper()}</span> '
-            f'{title} — {n_tools} tools — {pipeline} — {results_str}'
+            f'<span style="color:{color};font-weight:600">{emoji} {display_name}</span> '
+            f'<strong>{title}</strong> — {n_tools} tools — {results_str}'
             f'</summary>'
             f'<div style="padding:8px 16px;font-size:12px;color:#c9d1d9">'
             f'{results_html}'
@@ -646,6 +685,74 @@ def _build_lab_rows(labs: list) -> list[str]:
             f'</details>'
         )
     return blocks
+
+
+def _build_adapter_section(adapter_log: list, adapter_coverage: dict, fail_domains: list) -> str:
+    """Build HTML table for 4B adapter training status per failing domain."""
+    # Index log entries by domain
+    log_by_domain = {e.get("domain", ""): e for e in adapter_log}
+    by_domain = adapter_coverage.get("by_domain", {})
+
+    if not fail_domains:
+        return '<div style="color:#3fb950;padding:8px">All domains passing — no adapter training needed.</div>'
+
+    rows = []
+    for domain in sorted(fail_domains):
+        log = log_by_domain.get(domain, {})
+        adapters = by_domain.get(domain, [])
+        has_adapter = bool(adapters)
+
+        # Determine best level achieved from log
+        levels = log.get("levels", [])
+        best_level = "—"
+        best_rate = 0.0
+        for lv in levels:
+            rate = lv.get("rate", 0)
+            if rate > best_rate:
+                best_rate = rate
+                best_level = lv.get("level", "?").replace("_", " ")
+
+        status = log.get("status", "")
+        if status in ("success_L1", "success_L2", "success_L3", "success_L4"):
+            status_badge = f'<span class="badge badge-pass">{status}</span>'
+        elif status == "already_passing":
+            status_badge = '<span class="badge badge-pass">already pass</span>'
+        elif status in ("in_progress", "") and has_adapter:
+            status_badge = '<span class="badge badge-phase">has adapter</span>'
+        elif status in ("in_progress", ""):
+            status_badge = '<span class="badge" style="background:#21262d;color:#8b949e">not started</span>'
+        else:
+            status_badge = f'<span class="badge badge-phase">{status}</span>'
+
+        final_rate = log.get("final_rate", best_rate)
+        rate_str = f"{final_rate:.0%}" if final_rate else "—"
+        rate_color = "#3fb950" if final_rate >= 0.5 else ("#d29922" if final_rate > 0 else "#8b949e")
+
+        # List adapter files (just names, no path)
+        adapter_names = ", ".join(a.split("/")[-1].replace(".npz", "") for a in adapters[:2])
+        if len(adapters) > 2:
+            adapter_names += f" +{len(adapters)-2}"
+
+        rows.append(f"""<tr>
+            <td>{domain}</td>
+            <td>{status_badge}</td>
+            <td style="color:#8b949e">{best_level}</td>
+            <td style="color:{rate_color}">{rate_str}</td>
+            <td style="font-size:11px;color:#8b949e">{adapter_names or '—'}</td>
+        </tr>""")
+
+    trained = adapter_coverage.get("trained", 0)
+    total = adapter_coverage.get("total", len(fail_domains))
+
+    return f"""
+    <div style="margin-bottom:8px;font-size:12px;color:#8b949e">
+        {trained}/{total} failing domains have adapter files &nbsp;|&nbsp;
+        Training with: lr=3e-6 to 4e-6, steps=3000-5000, mc_hinge_loss
+    </div>
+    <table>
+        <tr><th>Domain</th><th>Status</th><th>Best Level</th><th>Pass Rate</th><th>Adapters</th></tr>
+        {"".join(rows)}
+    </table>"""
 
 
 def generate_html() -> str:
@@ -664,20 +771,46 @@ def generate_html() -> str:
 
     graded_list, grade_defs = load_grades()
     labs = load_labs()
+    adapter_log = load_adapter_training_log()
 
     running_count = sum(1 for a in agents if a.get("alive"))
     passing = sum(1 for r in results.values() if r.get("verdict") == "PASS")
     failing = len(results) - passing
     n_published = sum(1 for g in graded_list if g.get("status") == "on_zenodo")
 
-    # 27B model status
-    model_running = any(a.get("alive") and "27B" in a.get("name", "") for a in agents)
-    # Also check by process name
+    # Failing domains from oracle results
+    fail_domain_names = [n for n, r in results.items() if r.get("verdict") != "PASS"]
+    adapter_coverage = count_adapters_for_failing_domains(fail_domain_names)
+    n_adapters_trained = adapter_coverage["trained"]
+    adapter_log_lines = recent_adapter_log(20)
+
+    # Model status — check for 27B oracle OR 4B adapter training
+    model_running = False
+    model_label = "Local Model"
+    for a in agents:
+        if a.get("alive"):
+            if "27B" in a.get("name", ""):
+                model_running = True
+                model_label = "Qwen3.5-27B-4bit (oracle)"
+                break
+            elif "Adapter" in a.get("name", ""):
+                model_running = True
+                model_label = "Qwen3-4B-Base (adapter training)"
+                break
+    # Also check by process name (27B or 4B)
     if not model_running:
         import subprocess
         try:
             r = subprocess.run(["pgrep", "-f", "Qwen3.5-27B"], capture_output=True)
             model_running = r.returncode == 0
+        except Exception:
+            pass
+    if not model_running:
+        try:
+            r = subprocess.run(["pgrep", "-f", "adapter_trainer"], capture_output=True)
+            if r.returncode == 0:
+                model_running = True
+                model_label = "Qwen3-4B-Base (adapter training)"
         except Exception:
             pass
     current_domain = status.get("current_domain", "idle")
@@ -742,9 +875,12 @@ def generate_html() -> str:
     for e in escalations:
         reason = e.get("reason", "")
         reason_class = "badge-deep" if "deep" in reason else "badge-total" if "total" in reason else "badge-regression"
-        suggestion = e.get("details", {}).get("suggestion", "")
-        margin = e.get("details", {}).get("mean_margin", "?")
-        pr = e.get("details", {}).get("pass_rate", "?")
+        details = e.get("details", {})
+        if isinstance(details, str):
+            details = {"suggestion": details}
+        suggestion = details.get("suggestion", "")
+        margin = details.get("mean_margin", "?")
+        pr = details.get("pass_rate", "?")
         if isinstance(pr, float):
             pr = f"{pr:.0%}"
         if isinstance(margin, float):
@@ -758,13 +894,13 @@ def generate_html() -> str:
             <td class="suggestion">{suggestion}</td>
         </tr>""")
 
-    # GPU allocation bars
+    # GPU allocation bars — eval DONE, adapter training is primary now
     gpu_bars = []
     agent_configs = {
-        "research_runner": ("27B Research", "#4CAF50", 0.5),
-        "adapter_trainer": ("4B Adapters", "#2196F3", 0.3),
+        "adapter_trainer": ("4B Adapter Training", "#2196F3", 0.7),
         "teacher_student": ("Teacher-Student", "#FF9800", 0.2),
-        "escalation_handler": ("Claude Code", "#9C27B0", 0.0),
+        "escalation_handler": ("Claude Code", "#9C27B0", 0.1),
+        "research_runner": ("27B Oracle (DONE)", "#4CAF5055", 0.0),
     }
     for key, (label, color, target) in agent_configs.items():
         actual = gpu_minutes.get(key, 0) / gpu_total * 100 if gpu_total > 1 else 0
@@ -918,18 +1054,18 @@ def generate_html() -> str:
     <div class="time">Last refresh: {now} &nbsp; (auto-refresh 10s)</div>
 </div>
 
-<!-- 27B Model Status Banner -->
+<!-- Local Model Status Banner -->
 <div style="background:{'#0f291a' if model_running else '#2a1215'};border:1px solid {'#238636' if model_running else '#da3633'};border-radius:8px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
     <div style="display:flex;align-items:center;gap:10px">
         <div style="width:12px;height:12px;border-radius:50%;background:{'#3fb950' if model_running else '#f85149'};{'animation:pulse 2s infinite' if model_running else ''}"></div>
         <span style="font-size:15px;font-weight:700;color:{'#3fb950' if model_running else '#f85149'}">
-            Qwen3.5-27B-4bit {'RUNNING' if model_running else 'STOPPED'}
+            {model_label} {'RUNNING' if model_running else 'STOPPED'}
         </span>
     </div>
     <div style="display:flex;gap:24px;flex-wrap:wrap">
-        <div><span style="color:#8b949e;font-size:11px">DOMAIN</span><br><span style="color:#e6edf3;font-size:14px;font-weight:600">{current_domain}</span></div>
-        <div><span style="color:#8b949e;font-size:11px">PHASE</span><br><span style="color:#e6edf3;font-size:14px;font-weight:600">{current_phase}</span></div>
-        <div><span style="color:#8b949e;font-size:11px">PROGRESS</span><br><span style="color:#e6edf3;font-size:14px;font-weight:600">{passing + failing} domains ({passing} pass, {failing} fail)</span></div>
+        <div><span style="color:#8b949e;font-size:11px">ADAPTERS TRAINED</span><br><span style="color:#e6edf3;font-size:14px;font-weight:600">{n_adapters_trained}/{failing} failing domains</span></div>
+        <div><span style="color:#8b949e;font-size:11px">ORACLE EVAL</span><br><span style="color:#3fb950;font-size:14px;font-weight:600">DONE ({passing}/{passing+failing})</span></div>
+        <div><span style="color:#8b949e;font-size:11px">PAPERS</span><br><span style="color:#e6edf3;font-size:14px;font-weight:600">{n_published} on Zenodo</span></div>
         <div><span style="color:#8b949e;font-size:11px">UPDATED</span><br><span style="color:#8b949e;font-size:14px">{age_str}</span></div>
     </div>
 </div>
@@ -969,6 +1105,10 @@ def generate_html() -> str:
             <div class="stat">
                 <div class="value" style="color:#a371f7">{len(labs)}</div>
                 <div class="label">Lab Projects</div>
+            </div>
+            <div class="stat">
+                <div class="value" style="color:#f0883e">{n_adapters_trained}/{max(failing, 1)}</div>
+                <div class="label">4B Adapters Trained</div>
             </div>
         </div>
         <div class="summary-bar">
@@ -1034,7 +1174,7 @@ def generate_html() -> str:
 <div class="grid">
     <div class="card grid-full">
         <details open>
-            <summary>Lab Projects ({len(labs)} labs, {sum(1 for l in labs if l.get('status') in ('running', 'producing'))} active)</summary>
+            <summary>Lab Projects ({len(labs)} labs, {sum(1 for l in labs if l.get('status') in ('running', 'producing'))} with results)</summary>
             <div style="padding:8px 0">
                 {"".join(_build_lab_rows(labs)) if labs else '<div style="color:#8b949e;padding:8px">No labs configured</div>'}
             </div>
@@ -1042,11 +1182,21 @@ def generate_html() -> str:
     </div>
 </div>
 
-<!-- Domain Results -->
+<!-- 4B Adapter Training Status -->
+<div class="grid">
+    <div class="card grid-full">
+        <details open>
+            <summary>4B Adapter Training &mdash; {n_adapters_trained}/{failing} failing domains trained</summary>
+            {_build_adapter_section(adapter_log, adapter_coverage, fail_domain_names)}
+        </details>
+    </div>
+</div>
+
+<!-- Domain Results — oracle eval is complete, this is historical reference -->
 <div class="grid">
     <div class="card grid-full">
         <details>
-            <summary>Domain Results &mdash; 27B Oracle ({len(results)} domains)</summary>
+            <summary>27B Oracle Eval Results &mdash; COMPLETE Mar 2026 ({passing} pass, {failing} fail of {len(results)} domains)</summary>
             <table>
                 <tr><th>Domain</th><th>Verdict</th><th>Pass Rate</th><th>Margin</th><th>Phase</th></tr>
                 {"".join(pass_rows)}
@@ -1056,11 +1206,21 @@ def generate_html() -> str:
     </div>
 </div>
 
-<!-- Log -->
+<!-- Adapter Trainer Log -->
 <div class="grid">
     <div class="card grid-full">
         <details>
-            <summary>Recent Log</summary>
+            <summary>Adapter Trainer Log (live)</summary>
+            {"".join(f'<div class="log-line">{l[:140]}</div>' for l in adapter_log_lines) if adapter_log_lines else '<div class="log-line" style="color:#8b949e">No adapter trainer log — start with: python scripts/adapter_trainer.py</div>'}
+        </details>
+    </div>
+</div>
+
+<!-- Oracle Log (legacy) -->
+<div class="grid">
+    <div class="card grid-full">
+        <details>
+            <summary>Oracle Log (historical)</summary>
             {log_lines if log_lines else '<div class="log-line">No log entries</div>'}
         </details>
     </div>

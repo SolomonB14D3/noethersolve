@@ -1,0 +1,138 @@
+{
+  "problem": "geophysics_seismic",
+  "description": "Geophysics and seismology - seismic wave propagation, reflection, Earth structure.",
+  "facts": [
+    {
+      "id": "gs01_vp_vs_ratio",
+      "context": "For a Poisson solid with Poisson ratio nu=0.25, the P-wave to S-wave velocity ratio Vp/Vs equals:",
+      "truth": "sqrt(3) which is approximately 1.732",
+      "distractors": [
+        "sqrt(2) which is approximately 1.414",
+        "2.0 exactly for all elastic solids",
+        "sqrt(5) which is approximately 2.236"
+      ],
+      "cluster": "wave_velocities"
+    },
+    {
+      "id": "gs02_rayleigh_speed",
+      "context": "The Rayleigh wave speed in a Poisson solid (nu=0.25) relative to the shear wave speed Vs is approximately:",
+      "truth": "0.92 times Vs for a Poisson solid",
+      "distractors": [
+        "0.70 times Vs for a Poisson solid",
+        "1.05 times Vs for a Poisson solid",
+        "0.50 times Vs for a Poisson solid"
+      ],
+      "cluster": "surface_waves"
+    },
+    {
+      "id": "gs03_love_wave_condition",
+      "context": "Love waves propagate in a layered medium only when:",
+      "truth": "a low-velocity surface layer overlies a higher-velocity half-space",
+      "distractors": [
+        "a high-velocity surface layer overlies a lower-velocity half-space",
+        "both layers have identical shear wave velocities throughout",
+        "the surface layer is a liquid overlying a solid half-space"
+      ],
+      "cluster": "surface_waves"
+    },
+    {
+      "id": "gs04_reflection_coefficient",
+      "context": "The reflection coefficient R at normal incidence on a planar interface between two media with acoustic impedances Z1 and Z2 is:",
+      "truth": "R = (Z2 - Z1) / (Z2 + Z1) where Z = density times velocity",
+      "distractors": [
+        "R = (Z2 + Z1) / (Z2 - Z1) where Z = density times velocity",
+        "R = (Z1 * Z2) / (Z1 + Z2) where Z = density times velocity",
+        "R = (Z2 - Z1) / (Z2 * Z1) where Z = density times velocity"
+      ],
+      "cluster": "reflection"
+    },
+    {
+      "id": "gs05_prem_moho",
+      "context": "In the PREM reference Earth model, the P-wave velocity just below the Mohorovicic discontinuity in the upper mantle is approximately:",
+      "truth": "8.1 km/s at the base of the crust-mantle boundary",
+      "distractors": [
+        "6.2 km/s at the base of the crust-mantle boundary",
+        "11.0 km/s at the base of the crust-mantle boundary",
+        "4.5 km/s at the base of the crust-mantle boundary"
+      ],
+      "cluster": "earth_structure"
+    },
+    {
+      "id": "gs06_snell_law",
+      "context": "Snell's law for seismic wave refraction across a velocity interface states:",
+      "truth": "sin(i)/V1 = sin(r)/V2 where i and r are incidence and refraction angles",
+      "distractors": [
+        "sin(i)*V1 = sin(r)*V2 where i and r are incidence and refraction angles",
+        "cos(i)/V1 = cos(r)/V2 where i and r are incidence and refraction angles",
+        "tan(i)/V1 = tan(r)/V2 where i and r are incidence and refraction angles"
+      ],
+      "cluster": "reflection"
+    },
+    {
+      "id": "gs07_critical_angle",
+      "context": "Total internal reflection of seismic waves occurs at the critical angle ic given by:",
+      "truth": "sin(ic) = V1/V2 when V1 is less than V2 across the interface",
+      "distractors": [
+        "sin(ic) = V2/V1 when V1 is less than V2 across the interface",
+        "cos(ic) = V1/V2 when V1 is less than V2 across the interface",
+        "sin(ic) = V1/V2 when V1 is greater than V2 across the interface"
+      ],
+      "cluster": "reflection"
+    },
+    {
+      "id": "gs08_swave_liquid",
+      "context": "Shear waves (S-waves) encountering Earth's outer core are:",
+      "truth": "completely blocked because liquids have zero shear modulus",
+      "distractors": [
+        "transmitted with reduced amplitude through the liquid core",
+        "converted entirely into compressional P-waves at the boundary",
+        "reflected and amplified by the liquid-solid impedance contrast"
+      ],
+      "cluster": "earth_structure"
+    },
+    {
+      "id": "gs09_geometric_spreading",
+      "context": "Geometric spreading causes seismic wave amplitude to decay with distance r as:",
+      "truth": "1/sqrt(r) for surface waves and 1/r for body waves in 3D",
+      "distractors": [
+        "1/r for surface waves and 1/r^2 for body waves in 3D media",
+        "1/r^2 for surface waves and 1/r^3 for body waves in 3D",
+        "1/sqrt(r) for body waves and 1/r for surface waves in 3D"
+      ],
+      "cluster": "wave_propagation"
+    },
+    {
+      "id": "gs10_group_phase_velocity",
+      "context": "In a dispersive seismic medium, the group velocity and phase velocity are related by:",
+      "truth": "group velocity equals d(omega)/dk and differs from phase velocity omega/k",
+      "distractors": [
+        "group velocity always equals phase velocity in all seismic media",
+        "group velocity equals omega/k while phase velocity is d(omega)/dk",
+        "group velocity equals twice the phase velocity in dispersive media"
+      ],
+      "cluster": "wave_propagation"
+    },
+    {
+      "id": "gs11_magnitude_energy",
+      "context": "The Gutenberg-Richter energy-magnitude relation for earthquakes states:",
+      "truth": "log10(E) = 1.5*M + 4.8 where E is energy in joules and M is magnitude",
+      "distractors": [
+        "log10(E) = 1.0*M + 4.8 where E is energy in joules and M is magnitude",
+        "log10(E) = 2.0*M + 4.8 where E is energy in joules and M is magnitude",
+        "log10(E) = 1.5*M + 11.8 where E is energy in ergs and M is magnitude"
+      ],
+      "cluster": "seismicity"
+    },
+    {
+      "id": "gs12_q_attenuation",
+      "context": "Seismic wave attenuation described by the quality factor Q causes amplitude to decay as:",
+      "truth": "exp(-pi*f*t/Q) where f is frequency and t is travel time",
+      "distractors": [
+        "exp(-pi*Q*t/f) where f is frequency and t is travel time",
+        "exp(-2*pi*f/Q) where f is frequency independent of travel time",
+        "exp(-f*t/2*pi*Q) where f is frequency and t is travel time"
+      ],
+      "cluster": "attenuation"
+    }
+  ]
+}

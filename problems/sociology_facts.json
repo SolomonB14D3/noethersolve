@@ -1,0 +1,138 @@
+{
+  "problem": "sociology",
+  "description": "Quantitative sociology covering inequality metrics, network theory, and demographics.",
+  "facts": [
+    {
+      "id": "soc01_gini",
+      "context": "The Gini coefficient measures income inequality on a scale of:",
+      "truth": "0 (perfect equality) to 1 (perfect inequality) from Lorenz curve area",
+      "distractors": [
+        "0 (perfect inequality) to 1 (perfect equality) from Lorenz curve area",
+        "-1 (perfect inequality) to +1 (perfect equality) from income ratios",
+        "0 (median income) to 100 (maximum income) from population percentiles"
+      ],
+      "cluster": "inequality"
+    },
+    {
+      "id": "soc02_dunbar",
+      "context": "Dunbar's number estimates that humans maintain:",
+      "truth": "approximately 150 stable social relationships based on neocortex size",
+      "distractors": [
+        "approximately 500 stable social relationships based on neocortex size",
+        "approximately 50 stable social relationships based on hippocampal volume",
+        "approximately 1000 stable relationships based on prefrontal cortex size"
+      ],
+      "cluster": "networks"
+    },
+    {
+      "id": "soc03_weak_ties",
+      "context": "Granovetter's weak ties theory demonstrates that:",
+      "truth": "weak ties bridge otherwise disconnected social clusters enabling information flow",
+      "distractors": [
+        "strong ties bridge disconnected clusters more effectively than weak ties",
+        "weak ties reduce information flow by creating redundant network connections",
+        "tie strength has no measurable effect on information diffusion in networks"
+      ],
+      "cluster": "networks"
+    },
+    {
+      "id": "soc04_dissimilarity",
+      "context": "The index of dissimilarity measures residential segregation where:",
+      "truth": "D > 0.60 indicates high segregation between two population groups",
+      "distractors": [
+        "D > 0.60 indicates low segregation between two population groups",
+        "D > 0.90 indicates high segregation between two population groups",
+        "D > 0.30 indicates high segregation between two population groups"
+      ],
+      "cluster": "inequality"
+    },
+    {
+      "id": "soc05_income_elasticity",
+      "context": "US intergenerational income elasticity on the Great Gatsby curve is:",
+      "truth": "approximately 0.47, indicating moderate persistence of economic status",
+      "distractors": [
+        "approximately 0.10, indicating very high intergenerational income mobility",
+        "approximately 0.85, indicating near-complete economic status inheritance",
+        "approximately 0.47, indicating very high intergenerational income mobility"
+      ],
+      "cluster": "inequality"
+    },
+    {
+      "id": "soc06_demographic_transition",
+      "context": "Stage 4 of the demographic transition model shows:",
+      "truth": "both birth and death rates are low, and total population stabilizes",
+      "distractors": [
+        "high birth rates with low death rates, causing rapid population growth",
+        "both birth and death rates are high, and population remains constant",
+        "low birth rates with high death rates, causing population decline"
+      ],
+      "cluster": "demographics"
+    },
+    {
+      "id": "soc07_dependency_ratio",
+      "context": "The total dependency ratio is calculated as:",
+      "truth": "(population under 15 + over 64) divided by working-age population times 100",
+      "distractors": [
+        "(population under 18 + over 70) divided by total population times 100",
+        "working-age population divided by (under 15 + over 64) times 100",
+        "(population under 15 only) divided by working-age population times 100"
+      ],
+      "cluster": "demographics"
+    },
+    {
+      "id": "soc08_homophily",
+      "context": "Coleman's homophily index measures within-group social preference where:",
+      "truth": "H > 0 indicates within-group preference exceeding chance in social ties",
+      "distractors": [
+        "H < 0 indicates within-group preference exceeding chance in social ties",
+        "H > 0 indicates between-group preference exceeding chance in social ties",
+        "H = 1 indicates completely random tie formation without any group bias"
+      ],
+      "cluster": "networks"
+    },
+    {
+      "id": "soc09_polarization",
+      "context": "Opinion polarization is detected when the bimodality coefficient:",
+      "truth": "exceeds 0.555, indicating the distribution has become bimodal",
+      "distractors": [
+        "drops below 0.555, indicating the distribution has become bimodal",
+        "exceeds 0.555, indicating the distribution is strongly unimodal",
+        "exceeds 0.900, indicating the distribution has become bimodal"
+      ],
+      "cluster": "demographics"
+    },
+    {
+      "id": "soc10_small_world",
+      "context": "Small-world networks are defined by the combination of:",
+      "truth": "high clustering coefficient and short average path length between nodes",
+      "distractors": [
+        "low clustering coefficient and long average path length between nodes",
+        "high clustering coefficient and long average path length between nodes",
+        "low clustering coefficient and short average path length between nodes"
+      ],
+      "cluster": "networks"
+    },
+    {
+      "id": "soc11_preferential_attachment",
+      "context": "Preferential attachment in network growth produces:",
+      "truth": "scale-free networks with power-law degree distributions (rich-get-richer)",
+      "distractors": [
+        "random networks with Poisson degree distributions (equal-chance growth)",
+        "regular lattice networks with uniform degree distributions for all",
+        "scale-free networks with exponential degree distributions (bounded growth)"
+      ],
+      "cluster": "networks"
+    },
+    {
+      "id": "soc12_social_capital",
+      "context": "Putnam's social capital research demonstrates that:",
+      "truth": "network density and civic participation correlate with community health outcomes",
+      "distractors": [
+        "economic capital alone determines community health independent of networks",
+        "network density has no measurable relationship with community health metrics",
+        "social isolation correlates positively with improved individual health outcomes"
+      ],
+      "cluster": "demographics"
+    }
+  ]
+}

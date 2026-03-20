@@ -7241,6 +7241,457 @@ def calc_miller_urey_yield(
     ))
 
 
+# ── Symmetric Polynomials ─────────────────────────────────────────────
+
+@mcp.tool()
+def calc_symmetric_polynomials(values: list[float]) -> str:
+    """Compute elementary symmetric polynomials, power sums, and verify Newton's identities.
+
+    Returns e1..en, p1..pn, Sigma_2, and checks Newton's identities
+    (p_k = e1*p_{k-1} - e2*p_{k-2} + ... + (-1)^{k-1}*k*e_k).
+    """
+    from noethersolve.symmetric_poly import calc_all_symmetric
+    return str(calc_all_symmetric(values))
+
+
+@mcp.tool()
+def verify_newton_identities(values: list[float], max_k: int = 5) -> str:
+    """Verify Newton's identities connecting elementary symmetric polynomials and power sums.
+
+    Newton's identities: p_k = sum_{i=1}^{k-1} (-1)^{i-1} e_i p_{k-i} + (-1)^{k-1} k e_k
+    Returns per-order residuals and pass/fail for each.
+    """
+    from noethersolve.symmetric_poly import verify_newton_identities as _verify
+    return str(_verify(values, max_k=max_k))
+
+
+# ── Human Physiology ─────────────────────────────────────────────────
+
+@mcp.tool()
+def calc_cardiac_output(heart_rate: float, stroke_volume_ml: float, bsa: float = 1.73) -> str:
+    """Calculate cardiac output (CO = HR × SV) and cardiac index.
+
+    Normal CO: 4-8 L/min. Normal CI: 2.5-4.0 L/min/m².
+    """
+    from noethersolve.physiology import calc_cardiac_output as _calc
+    return str(_calc(heart_rate, stroke_volume_ml, bsa=bsa))
+
+
+@mcp.tool()
+def calc_map(systolic: float, diastolic: float) -> str:
+    """Calculate mean arterial pressure: MAP = DBP + 1/3(SBP - DBP).
+
+    Normal MAP: 70-105 mmHg. Also returns pulse pressure.
+    """
+    from noethersolve.physiology import calc_map as _calc
+    return str(_calc(systolic, diastolic))
+
+
+@mcp.tool()
+def calc_gfr(creatinine_mgdl: float, age: int, is_female: bool = False) -> str:
+    """Estimate GFR using the CKD-EPI 2021 race-free equation.
+
+    Returns eGFR in mL/min/1.73m² and CKD stage (G1-G5).
+    """
+    from noethersolve.physiology import calc_gfr_ckd_epi
+    return str(calc_gfr_ckd_epi(creatinine_mgdl, age, is_female=is_female))
+
+
+@mcp.tool()
+def calc_alveolar_gas_equation(
+    fio2: float, paco2: float, pao2: float = 95.0,
+    patm: float = 760.0, rq: float = 0.8
+) -> str:
+    """Alveolar gas equation: PAO2 = FiO2(Patm-47) - PaCO2/RQ.
+
+    Returns PAO2, A-a gradient. Normal A-a gradient < 15 on room air.
+    """
+    from noethersolve.physiology import calc_alveolar_gas
+    return str(calc_alveolar_gas(fio2, paco2, pao2=pao2, patm=patm, rq=rq))
+
+
+@mcp.tool()
+def calc_oxygen_delivery(
+    hgb: float, sao2: float, pao2: float, cardiac_output: float
+) -> str:
+    """Calculate arterial O2 content and delivery.
+
+    CaO2 = (Hgb × 1.34 × SaO2/100) + (0.003 × PaO2).
+    DO2 = CO × CaO2 × 10. Normal DO2 ~1000 mL/min.
+    """
+    from noethersolve.physiology import calc_oxygen_delivery as _calc
+    return str(_calc(hgb, sao2, pao2, cardiac_output))
+
+
+@mcp.tool()
+def calc_anion_gap(na: float, cl: float, hco3: float, albumin: float = 4.0) -> str:
+    """Calculate anion gap and albumin-corrected AG.
+
+    AG = Na - (Cl + HCO3). Corrected AG = AG + 2.5×(4.0 - albumin).
+    Also computes delta-delta ratio for mixed acid-base disorders.
+    """
+    from noethersolve.physiology import calc_anion_gap as _calc
+    return str(_calc(na, cl, hco3, albumin=albumin))
+
+
+@mcp.tool()
+def calc_serum_osmolality(
+    na: float, glucose: float, bun: float,
+    ethanol: float = 0.0, measured_osm: float = None
+) -> str:
+    """Calculate serum osmolality and osmolal gap.
+
+    Calculated = 2×Na + glucose/18 + BUN/2.8 + ethanol/4.6.
+    Osmolal gap > 10 suggests unmeasured osmoles (toxic alcohols).
+    """
+    from noethersolve.physiology import calc_osmolality
+    return str(calc_osmolality(na, glucose, bun, ethanol=ethanol, measured_osm=measured_osm))
+
+
+@mcp.tool()
+def calc_winters_formula(hco3: float) -> str:
+    """Winter's formula for expected respiratory compensation in metabolic acidosis.
+
+    Expected PaCO2 = 1.5 × HCO3 + 8 ± 2. If actual PaCO2 outside range,
+    there is a concurrent respiratory disorder.
+    """
+    from noethersolve.physiology import calc_winters_formula as _calc
+    return str(_calc(hco3))
+
+
+@mcp.tool()
+def calc_vascular_resistance(
+    map_mmhg: float, cvp_mmhg: float, cardiac_output_lpm: float
+) -> str:
+    """Calculate systemic vascular resistance.
+
+    SVR = (MAP - CVP) × 80 / CO (dynes·s/cm⁵). Normal 800-1200.
+    """
+    from noethersolve.physiology import calc_vascular_resistance as _calc
+    return str(_calc(map_mmhg, cvp_mmhg, cardiac_output_lpm))
+
+
+@mcp.tool()
+def calc_creatinine_clearance(
+    creatinine_mgdl: float, age: int, weight_kg: float, is_female: bool = False
+) -> str:
+    """Cockcroft-Gault creatinine clearance estimation.
+
+    CrCl = [(140-age) × weight] / (72 × Scr) × 0.85 if female.
+    Used for drug dose adjustment (different from eGFR).
+    """
+    from noethersolve.physiology import calc_creatinine_clearance as _calc
+    return str(_calc(creatinine_mgdl, age, weight_kg, is_female=is_female))
+
+
+# ── Perinatology (Fetal/Neonatal Medicine) ────────────────────────────
+
+@mcp.tool()
+def calc_bishop_score(
+    dilation: int, effacement: int, station: int,
+    consistency: str, position: str
+) -> str:
+    """Bishop score for labor induction favorability.
+
+    Score ≥8: favorable cervix. Score <6: unfavorable.
+    Parameters: dilation (cm), effacement (%), station (-3 to +2),
+    consistency (firm/medium/soft), position (posterior/mid/anterior).
+    """
+    from noethersolve.perinatology import calc_bishop_score as _calc
+    return str(_calc(dilation, effacement, station, consistency, position))
+
+
+@mcp.tool()
+def calc_apgar_score(
+    heart_rate: int, respiratory: str, muscle_tone: str,
+    reflex: str, color: str
+) -> str:
+    """APGAR score for neonatal assessment (0-10).
+
+    7-10: normal. 4-6: moderate depression. 0-3: severe.
+    """
+    from noethersolve.perinatology import calc_apgar
+    return str(calc_apgar(heart_rate, respiratory, muscle_tone, reflex, color))
+
+
+@mcp.tool()
+def calc_fetal_weight(
+    bpd_cm: float, hc_cm: float, ac_cm: float, fl_cm: float
+) -> str:
+    """Estimate fetal weight using the Hadlock formula.
+
+    Uses biparietal diameter, head circumference, abdominal circumference,
+    and femur length (all in cm). Returns estimated weight in grams.
+    """
+    from noethersolve.perinatology import calc_fetal_weight_hadlock
+    return str(calc_fetal_weight_hadlock(bpd_cm, hc_cm, ac_cm, fl_cm))
+
+
+@mcp.tool()
+def calc_ls_ratio(lecithin: float, sphingomyelin: float) -> str:
+    """Lecithin/sphingomyelin ratio for fetal lung maturity.
+
+    L/S ≥ 2.0: mature. 1.5-1.9: transitional. <1.5: immature (RDS risk).
+    Diabetic mothers need ≥ 3.0.
+    """
+    from noethersolve.perinatology import calc_ls_ratio as _calc
+    return str(_calc(lecithin, sphingomyelin))
+
+
+@mcp.tool()
+def calc_neonatal_bilirubin_risk(
+    total_bilirubin: float, age_hours: int, gestational_age_weeks: float = 40.0
+) -> str:
+    """Assess neonatal bilirubin risk using Bhutani nomogram zones.
+
+    Returns risk zone, phototherapy threshold, and exchange transfusion threshold.
+    """
+    from noethersolve.perinatology import calc_neonatal_bilirubin_risk as _calc
+    return str(_calc(total_bilirubin, age_hours, gestational_age_weeks=gestational_age_weeks))
+
+
+@mcp.tool()
+def calc_preeclampsia_risk(
+    sflt1: float, plgf: float,
+    systolic: float = None, proteinuria_mg: float = None
+) -> str:
+    """Assess preeclampsia risk using sFlt-1/PlGF ratio.
+
+    Ratio <38: rules out within 1 week. Ratio >85: rules in.
+    Also checks BP and proteinuria criteria.
+    """
+    from noethersolve.perinatology import calc_preeclampsia_risk as _calc
+    return str(_calc(sflt1, plgf, systolic=systolic, proteinuria_mg=proteinuria_mg))
+
+
+@mcp.tool()
+def calc_amniotic_fluid_index(
+    q1: float, q2: float, q3: float, q4: float
+) -> str:
+    """Calculate amniotic fluid index (sum of 4 quadrant depths in cm).
+
+    Normal: 5-25 cm. <5: oligohydramnios. >25: polyhydramnios.
+    """
+    from noethersolve.perinatology import calc_amniotic_fluid_index as _calc
+    return str(_calc(q1, q2, q3, q4))
+
+
+# ── Hematology & Pathophysiology ──────────────────────────────────────
+
+@mcp.tool()
+def calc_oxygen_hemoglobin_curve(
+    po2: float, ph: float = 7.4, pco2: float = 40.0,
+    temp_c: float = 37.0
+) -> str:
+    """Calculate O2-hemoglobin saturation with Bohr effect shifts.
+
+    Hill equation with P50 adjusted for pH, PCO2, temperature.
+    Normal P50 = 26.6 mmHg. Right shift (fever, acidosis) reduces affinity.
+    """
+    from noethersolve.hematology import calc_oxygen_hemoglobin
+    return str(calc_oxygen_hemoglobin(po2, ph=ph, pco2=pco2, temp_c=temp_c))
+
+
+@mcp.tool()
+def classify_anemia(
+    hgb: float, mcv: float, reticulocyte_pct: float, is_female: bool = False
+) -> str:
+    """Classify anemia by MCV and reticulocyte index.
+
+    Microcytic (<80), normocytic (80-100), macrocytic (>100).
+    RI > 2%: adequate response (hemolysis/bleeding). RI < 2%: production problem.
+    """
+    from noethersolve.hematology import classify_anemia as _classify
+    return str(_classify(hgb, mcv, reticulocyte_pct, is_female=is_female))
+
+
+@mcp.tool()
+def check_coagulation_panel(
+    pt_sec: float, inr: float, aptt_sec: float,
+    fibrinogen: float = None, d_dimer: float = None
+) -> str:
+    """Interpret coagulation panel (PT/INR, aPTT, fibrinogen, D-dimer).
+
+    Pattern analysis: isolated PT↑ (extrinsic), isolated aPTT↑ (intrinsic),
+    both↑ (common pathway/DIC/liver). Low fibrinogen + high D-dimer = DIC.
+    """
+    from noethersolve.hematology import check_coagulation
+    return str(check_coagulation(pt_sec, inr, aptt_sec, fibrinogen=fibrinogen, d_dimer=d_dimer))
+
+
+@mcp.tool()
+def classify_shock_type(
+    map_val: float, heart_rate: float, cvp: float = None,
+    cardiac_output: float = None, svr: float = None, lactate: float = None
+) -> str:
+    """Classify shock type from hemodynamic parameters.
+
+    Distributive: low SVR, high CO (sepsis). Cardiogenic: high SVR, low CO, high CVP.
+    Hypovolemic: high SVR, low CO, low CVP. Obstructive: high SVR, low CO, high CVP.
+    """
+    from noethersolve.hematology import classify_shock
+    return str(classify_shock(map_val, heart_rate, cvp=cvp, cardiac_output=cardiac_output, svr=svr, lactate=lactate))
+
+
+@mcp.tool()
+def calc_dic_score(
+    platelets: int, d_dimer: str, pt_prolongation: float, fibrinogen: float
+) -> str:
+    """ISTH DIC scoring system. Score ≥5: compatible with overt DIC.
+
+    d_dimer: 'no_increase', 'moderate', or 'strong'.
+    """
+    from noethersolve.hematology import calc_dic_score as _calc
+    return str(_calc(platelets, d_dimer, pt_prolongation, fibrinogen))
+
+
+# ── Sociology (Quantitative Social Science) ──────────────────────────
+
+@mcp.tool()
+def calc_gini_coefficient(incomes: list[float]) -> str:
+    """Calculate Gini coefficient of inequality (0=equal, 1=max inequality).
+
+    Also returns income shares by quintile and median/mean ratio.
+    """
+    from noethersolve.sociology import calc_gini_coefficient as _calc
+    return str(_calc(incomes))
+
+
+@mcp.tool()
+def calc_segregation_index(group_a: list[float], group_b: list[float]) -> str:
+    """Calculate dissimilarity index of residential segregation.
+
+    D = 0.5 × Σ|ai/A - bi/B|. Range 0 (integrated) to 1 (complete segregation).
+    """
+    from noethersolve.sociology import calc_segregation_index as _calc
+    return str(_calc(group_a, group_b))
+
+
+@mcp.tool()
+def calc_demographic_transition(
+    birth_rate: float, death_rate: float, migration_rate: float = 0.0
+) -> str:
+    """Analyze demographic transition stage from vital rates.
+
+    Returns growth rate, doubling time, and DTM stage (1-5).
+    """
+    from noethersolve.sociology import calc_demographic_transition as _calc
+    return str(_calc(birth_rate, death_rate, migration_rate=migration_rate))
+
+
+@mcp.tool()
+def calc_network_centrality(adjacency: dict[str, list[str]]) -> str:
+    """Calculate degree, betweenness, and closeness centrality for a social network.
+
+    Identifies most central node, most peripheral, and potential bridges.
+    """
+    from noethersolve.sociology import calc_network_centrality as _calc
+    return str(_calc(adjacency))
+
+
+@mcp.tool()
+def calc_granovetters_threshold(thresholds: list[float]) -> str:
+    """Simulate Granovetter's threshold model of collective action.
+
+    Each agent joins when fraction of others exceeds their threshold.
+    Returns cascade dynamics, tipping point, and final adoption fraction.
+    """
+    from noethersolve.sociology import calc_granovetters_threshold as _calc
+    return str(_calc(thresholds))
+
+
+@mcp.tool()
+def calc_dunbar_layers(group_size: int) -> str:
+    """Map group size to Dunbar's social brain layers.
+
+    Layers: 5 (intimate), 15 (sympathy), 50 (close), 150 (Dunbar's number),
+    500 (known), 1500 (recognized). Each ~3× the previous.
+    """
+    from noethersolve.sociology import calc_dunbar_layers as _calc
+    return str(_calc(group_size))
+
+
+@mcp.tool()
+def calc_dependency_ratio(
+    pop_under_15: int, pop_15_64: int, pop_over_64: int
+) -> str:
+    """Calculate youth, old-age, and total dependency ratios.
+
+    Total DR = (pop<15 + pop>64) / pop_15-64 × 100.
+    """
+    from noethersolve.sociology import calc_dependency_ratio as _calc
+    return str(_calc(pop_under_15, pop_15_64, pop_over_64))
+
+
+@mcp.tool()
+def calc_polarization_index(opinions: list[float]) -> str:
+    """Measure opinion polarization using bimodality coefficient.
+
+    BC > 0.555 suggests bimodal (polarized) distribution.
+    Also returns variance and clustering metrics.
+    """
+    from noethersolve.sociology import calc_polarization_index as _calc
+    return str(_calc(opinions))
+
+
+# ── Catalysis Hub API (Live DFT Data) ────────────────────────────────
+
+@mcp.tool()
+def fetch_catalyst_adsorption_energy(surface: str, adsorbate: str = "H") -> str:
+    """Fetch DFT-calculated adsorption energy from Catalysis-Hub database.
+
+    Queries the Catalysis-Hub GraphQL API for surface+adsorbate binding energy.
+    Falls back to reference cache for common metals if API unavailable.
+    """
+    from noethersolve.catalysis_hub_api import fetch_adsorption_energy
+    result = fetch_adsorption_energy(surface, adsorbate)
+    if result is None:
+        return f"No data found for {adsorbate} on {surface}"
+    return str(result)
+
+
+@mcp.tool()
+def fetch_volcano_plot_data(adsorbate: str = "H") -> str:
+    """Fetch adsorption energies for standard HER catalyst surfaces.
+
+    Returns delta_G values for Pt, Pd, Ni, Cu, Au, Ru, Ir, Rh from
+    Catalysis-Hub API or reference cache.
+    """
+    from noethersolve.catalysis_hub_api import fetch_volcano_data
+    data = fetch_volcano_data(adsorbate)
+    lines = [f"  {s}: ΔG = {e:.3f} eV" for s, e in sorted(data.items(), key=lambda x: abs(x[1]))]
+    return f"Volcano plot data ({adsorbate} adsorption):\n" + "\n".join(lines)
+
+
+# ── ChEMBL Drug Database API ─────────────────────────────────────────
+
+@mcp.tool()
+def fetch_drug_info_chembl(drug_name: str) -> str:
+    """Fetch drug molecular properties from ChEMBL database.
+
+    Returns molecular weight, logP, PSA, max clinical phase, and ChEMBL ID.
+    """
+    from noethersolve.chembl_api import fetch_drug_info
+    result = fetch_drug_info(drug_name)
+    if result is None:
+        return f"Drug '{drug_name}' not found in ChEMBL"
+    return str(result)
+
+
+@mcp.tool()
+def fetch_cyp_inhibition_chembl(drug_name: str, cyp_enzyme: str = None) -> str:
+    """Fetch CYP enzyme inhibition data (Ki/IC50) from ChEMBL.
+
+    Used for drug-drug interaction prediction. Filter by specific
+    CYP enzyme (e.g., 'CYP3A4', 'CYP2D6') or get all.
+    """
+    from noethersolve.chembl_api import fetch_cyp_inhibition
+    results = fetch_cyp_inhibition(drug_name, cyp_enzyme=cyp_enzyme)
+    if not results:
+        return f"No CYP inhibition data found for '{drug_name}'"
+    return "\n".join(str(r) for r in results)
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():
