@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-20T11:19:39.876268",
+  "timestamp": "2026-03-20T17:48:12.355176",
   "grades": [
     {
       "cluster_id": "d1_vortex_conservation",
@@ -551,12 +551,21 @@
         "origin_of_life_v2",
         "bio_ai_parallels_v2",
         "quantum_mechanics_v2",
-        "protein_folding_v2"
+        "protein_folding_v2",
+        "analysis_pde_conjectures_v2",
+        "3body_conservation_v2",
+        "physiology",
+        "pathophysiology",
+        "perinatology",
+        "clinical_biochemistry",
+        "biology",
+        "sociology",
+        "geophysics_seismic"
       ],
-      "n_domains_passing": 68,
+      "n_domains_passing": 77,
       "n_domains_failing": 41,
       "n_facts_flipped": 1,
-      "mean_margin": -10.948779816513762,
+      "mean_margin": -9.964246198417102,
       "has_doi": false,
       "status": "ore",
       "paper_readiness": 10,

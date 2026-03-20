@@ -14,10 +14,11 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="232 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
+    instructions="296 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
                  "epidemiology, climate physics, turbulence, topological phases, ergodic theory, optimization, "
                  "numerical PDEs, MHD conservation, GR constraints, seismic waves, plasma adiabatic invariants, "
-                 "intersection theory, autonomy analysis, metacognition, and LLM science — verified calculators "
+                 "intersection theory, physiology, perinatology, hematology, sociology, catalysis, drug databases, "
+                 "autonomy analysis, metacognition, and LLM science — verified calculators "
                  "from first principles, not guesses.",
 )
 
