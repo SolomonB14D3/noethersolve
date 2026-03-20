@@ -2,7 +2,7 @@
 
 **https://github.com/SolomonB14D3/noethersolve** · **https://solomonb14d3.github.io/noethersolve**
 
-[![Paper: Breaking Frozen Priors](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290) [![Paper: NoetherSolve Toolkit](https://zenodo.org/badge/DOI/10.5281/zenodo.19029880.svg)](https://doi.org/10.5281/zenodo.19029880) [![Paper: Unified Theory of Oracle Difficulty](https://img.shields.io/badge/preprint-paper%2012-blue)](paper/unified_oracle_difficulty_theory.md) [![D1: Q_f Conservation](https://zenodo.org/badge/DOI/10.5281/zenodo.19055338.svg)](https://doi.org/10.5281/zenodo.19055338) [![D2: Z₃ Phase Cancellation](https://zenodo.org/badge/DOI/10.5281/zenodo.19055580.svg)](https://doi.org/10.5281/zenodo.19055580) [![D3: LLM Knowledge Gaps](https://zenodo.org/badge/DOI/10.5281/zenodo.19055582.svg)](https://doi.org/10.5281/zenodo.19055582) [![D4: Orthogonal Adapters](https://zenodo.org/badge/DOI/10.5281/zenodo.19055588.svg)](https://doi.org/10.5281/zenodo.19055588) [![D5: Certainty Contamination](https://zenodo.org/badge/DOI/10.5281/zenodo.19068373.svg)](https://doi.org/10.5281/zenodo.19068373) [![D6: Resolvent Unification](https://zenodo.org/badge/DOI/10.5281/zenodo.19071198.svg)](https://doi.org/10.5281/zenodo.19071198)
+[![Paper: Breaking Frozen Priors](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290) [![Paper: NoetherSolve Toolkit](https://zenodo.org/badge/DOI/10.5281/zenodo.19029880.svg)](https://doi.org/10.5281/zenodo.19029880) [![Paper: Unified Theory of Oracle Difficulty](https://img.shields.io/badge/preprint-paper%2012-blue)](paper/unified_oracle_difficulty_theory.md) [![D1: Q_f Conservation](https://zenodo.org/badge/DOI/10.5281/zenodo.19055338.svg)](https://doi.org/10.5281/zenodo.19055338) [![D2: Z₃ Phase Cancellation](https://zenodo.org/badge/DOI/10.5281/zenodo.19055580.svg)](https://doi.org/10.5281/zenodo.19055580) [![D3: LLM Knowledge Gaps](https://zenodo.org/badge/DOI/10.5281/zenodo.19055582.svg)](https://doi.org/10.5281/zenodo.19055582) [![D4: Orthogonal Adapters](https://zenodo.org/badge/DOI/10.5281/zenodo.19055588.svg)](https://doi.org/10.5281/zenodo.19055588) [![D5: Certainty Contamination](https://zenodo.org/badge/DOI/10.5281/zenodo.19068373.svg)](https://doi.org/10.5281/zenodo.19068373) [![D6: Resolvent Unification](https://zenodo.org/badge/DOI/10.5281/zenodo.19071198.svg)](https://doi.org/10.5281/zenodo.19071198) [![D7: Oracle Biases](https://zenodo.org/badge/DOI/10.5281/zenodo.19124851.svg)](https://doi.org/10.5281/zenodo.19124851) [![D8: Cycle Theory](https://zenodo.org/badge/DOI/10.5281/zenodo.19124858.svg)](https://doi.org/10.5281/zenodo.19124858)
 
 **Automated scientific discovery: find where models are wrong, build tools that give the right answer, and serve them to any AI agent.**
 
@@ -33,21 +33,207 @@ DOI: [10.5281/zenodo.19029880](https://doi.org/10.5281/zenodo.19029880)
 
 Discovers that oracle baseline accuracy across 77 domains is determined by three independent mechanisms: (1) **Length ratio** (r = −0.742): truth length / shortest distractor length predicts baseline perfectly — domains with ratio < 1.2 average 64% baseline; ratio > 2.5 averages 7%. (2) **Distractor semantic coherence** (5.5 LP gap): coherent distractors score 33% pass; incoherent distractors score 75% pass despite identical lengths. (3) **Scoring method sensitivity**: sum normalization favors hedged truths; mean normalization favors verbose truths. Unified theory shows how all three mechanisms interact combinatorially. Applying all three fixes simultaneously improves baseline from 0% to 75–100% on hardest domains without requiring any model retraining. Resolves the "LLM self-knowledge gap" (0% on 6 LLM domains) as a measurement artifact, not an actual knowledge gap. Provides practical decision tree for oracle fact construction and benchmark methodology. Peer-ready for TMLR, JMLR, or NeurIPS evaluation workshops.
 
-### Discovery Papers (Novel Scientific Findings)
+### Discovery Papers
 
-Papers arising from novel findings discovered by the NoetherSolve pipeline, targeting domain scientists (physicists, mathematicians):
+Novel scientific findings discovered by the NoetherSolve pipeline. These target domain scientists (physicists, mathematicians, ML researchers) rather than the toolkit audience above.
 
-**D1: Approximate Conservation Laws in Point Vortex Dynamics** DOI: [10.5281/zenodo.19055338](https://doi.org/10.5281/zenodo.19055338) -- Q_f = Sigma Gamma_i Gamma_j f(r_ij) approximately conserved for ANY smooth f. Green's function principle: optimal f = G_d(r). Optimal combination 300x better.
+<details>
+<summary><b>D1: Approximate Conservation Laws in Point Vortex Dynamics</b></summary>
 
-**D2: Z3 Phase Cancellation in Choreographic Orbits** DOI: [10.5281/zenodo.19055580](https://doi.org/10.5281/zenodo.19055580) -- Figure-8 Z3 symmetry enables Fourier phase cancellation. Critical range: -0.67 < p < 2.55.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19055338.svg)](https://doi.org/10.5281/zenodo.19055338) | Venue: Journal of Fluid Mechanics / Physica D
 
-**D3: Where LLMs Are Confidently Wrong: 1038 Facts Across 67 Domains** DOI: [10.5281/zenodo.19055582](https://doi.org/10.5281/zenodo.19055582) -- Systematic mapping of model knowledge gaps. Intersection theory deepest gap ever measured (margin -27.6).
+The quantity Q_f = &Sigma; &Gamma;<sub>i</sub>&Gamma;<sub>j</sub> f(r<sub>ij</sub>) is approximately conserved for **any** smooth function f, not just the classical choices (energy, angular impulse). This is an infinite family of approximate invariants.
 
-**D4: Orthogonal Adapter Routing for Interference-Free Knowledge Injection** DOI: [10.5281/zenodo.19055588](https://doi.org/10.5281/zenodo.19055588) -- Representational see-saws require orthogonal adapters with routing. 1038/1038 facts flipped.
+**Key results:**
+- **Green's function principle:** Optimal f = G<sub>d</sub>(r) in any dimension (2D: &minus;ln(r), 3D: 1/r) because Q<sub>G</sub> = kinetic energy
+- **Dichotomy:** Stretch-resistant invariants (positive powers of r) vs concentration-detecting invariants (negative powers)
+- Optimal linear combination of Q_f family is **300&times;** better than any single invariant
+- Curvature-weighted Q<sub>&kappa;</sub> is **15&times;** better than unweighted
+- Viscous decay: Q<sub>&radic;r</sub> &prop; &nu;<sup>0.99</sup> (near-exact scaling with viscosity)
+- Triplet invariants (three-body Q) don't exist &mdash; closes the hierarchy question
 
-**D5: Certainty Contamination: How Definitive Language Biases LLM Factual Judgments** DOI: [10.5281/zenodo.19068373](https://doi.org/10.5281/zenodo.19068373) -- LLMs prefer definitive claims over hedged scientific language (r = -0.402, p < 0.01). Pass rate: 55% (balanced) to 25% (high asymmetry).
+</details>
 
-**D6: Resolvent-Conservation Unification: Spectral Theory of Approximate Invariants** DOI: [10.5281/zenodo.19071198](https://doi.org/10.5281/zenodo.19071198) -- Green's function optimality arises from zero-frequency limit of the resolvent. Unifies potential theory, spectral theory, and Noether's theorem.
+<details>
+<summary><b>D2: Z&#8323; Phase Cancellation in Choreographic Orbits</b></summary>
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19055580.svg)](https://doi.org/10.5281/zenodo.19055580) | Venue: Celestial Mechanics and Dynamical Astronomy / Nonlinearity
+
+The figure-8 three-body orbit's Z&#8323; symmetry causes systematic Fourier phase cancellation in dQ/dt, explaining why certain invariants are better preserved in choreographic orbits.
+
+**Key results:**
+- Critical power-law range for near-conservation: &minus;0.67 < p < 2.55
+- Derivative weight ratio (r<sub>max</sub>/r<sub>min</sub>)<sup>(p&minus;1)</sup> must be O(1) for cancellation
+- Geometric near-invariance, not dynamical &mdash; the symmetry does the work
+- Explains why gravity (p = &minus;1) is harder than vortex dynamics (effective p near 0)
+
+</details>
+
+<details>
+<summary><b>D3: Where LLMs Are Confidently Wrong: 1038 Facts Across 67 Domains</b></summary>
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19055582.svg)](https://doi.org/10.5281/zenodo.19055582) | Venue: Nature Machine Intelligence / TMLR
+
+Systematic mapping of LLM knowledge gaps using log-probability oracle scoring. The model doesn't just not know &mdash; it's *confidently wrong* in specific, predictable patterns.
+
+**Key results:**
+- **1038-fact verified dataset** across 67 domains (artifact available)
+- Intersection theory is the deepest gap: oracle margin **&minus;27.6**
+- Model inverts 2016&ndash;2022 GR confirmations (recency inversion)
+- Swaps j = 0 and j = 1728 invariants in elliptic curves (sign errors)
+- Thinks E(F<sub>p</sub>) is always cyclic (magnitude errors)
+- Failure patterns are systematic: sign errors, recency inversion, magnitude confusion
+
+</details>
+
+<details>
+<summary><b>D4: Orthogonal Adapter Routing for Interference-Free Knowledge Injection</b></summary>
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19055588.svg)](https://doi.org/10.5281/zenodo.19055588) | Venue: EMNLP / ACL
+
+When correcting LLM knowledge, some facts are representational see-saws &mdash; training on one destroys another. Orthogonal adapters with routing solve this completely.
+
+**Key results:**
+- **1038/1038 facts flipped** (100%) across 69 domains using orthogonal cluster adapters
+- Hybrid routing achieves **82.1%** on physics frontier (vs 70.2% orthogonal-only, 44.0% joint-only)
+- Joint training from scratch works; stacking pre-trained adapters fails
+- Escalation ladder: single &rarr; staged &rarr; orthogonal &rarr; joint &rarr; hybrid &rarr; persistent cascade
+- Base &rarr; Instruct transfer is null (negative result: RLHF damages adapter target space)
+
+</details>
+
+<details>
+<summary><b>D5: Certainty Contamination: How Definitive Language Biases LLM Factual Judgments</b></summary>
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19068373.svg)](https://doi.org/10.5281/zenodo.19068373) | Venue: EMNLP / ACL
+
+LLMs systematically prefer definitive claims over hedged scientific language, regardless of truth value. This is not a length bias &mdash; definitive distractors are actually *longer*.
+
+**Key results:**
+- Correlation between certainty asymmetry and oracle failure: r = &minus;0.402, p < 0.01
+- Pass rate drops from **55%** (balanced certainty) to **25%** (high asymmetry)
+- Not length bias: definitive distractors are longer (r = +0.277 with length)
+- Concentrates in frontier science domains (67% have certainty gap &ge; 2)
+- Cascade routing with certainty-decontamination adapters: **+21 pts** on gap &ge; 3 facts, zero regressions
+
+</details>
+
+<details>
+<summary><b>D6: Resolvent-Conservation Unification: Spectral Theory of Approximate Invariants</b></summary>
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19071198.svg)](https://doi.org/10.5281/zenodo.19071198) | Venue: Journal of Mathematical Physics / Nonlinearity
+
+The Green's function optimality discovered in D1 arises from the zero-frequency limit of the resolvent operator, unifying three previously separate mathematical frameworks.
+
+**Key results:**
+- G = lim<sub>z&rarr;0</sub> (L &minus; zI)<sup>&minus;1</sup> connects: kernel (conservation laws), resolvent (optimal invariant), spectral gap (relaxation rate), spectral measure (fluctuation structure)
+- Q<sub>r&sup2;</sub> = &Gamma;<sub>total</sub> &middot; L &minus; |P|&sup2; &mdash; dependent on known invariants
+- Q<sub>&minus;ln(r)</sub> is the unique independent pairwise invariant
+- Extends to discrete systems via pseudoinverse of graph Laplacian (effective resistance connection)
+
+</details>
+
+<details>
+<summary><b>D7: Nine Systematic Biases in Log-Probability LLM Evaluation</b></summary>
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19124851.svg)](https://doi.org/10.5281/zenodo.19124851) | Venue: EMNLP
+
+Documents 9 distinct systematic biases where log-probability oracle evaluation fails due to phrasing, not knowledge gaps: (1) length ratio, (2) distractor coherence, (3) scoring method, (4) anti-fluency artifacts, (5) round number preference, (6) certainty contamination, (7) technical simplification, (8) term familiarity preference, (9) mathematical status blindness. Provides a decision tree and audit checklist that eliminates false negatives from all 9 mechanisms.
+
+</details>
+
+<details>
+<summary><b>D8: Unified Cycle Theory: Conservation Laws Across Physical Domains</b></summary>
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19124858.svg)](https://doi.org/10.5281/zenodo.19124858) | Venue: Journal of Mathematical Physics
+
+Cross-domain conservation law analysis connecting cycle structures in vortex dynamics, chemical networks, Hamiltonian mechanics, and graph theory through a unified mathematical framework.
+
+</details>
+
+<details>
+<summary><b>D9: Five Cross-Domain Mathematical Equivalences</b></summary>
+
+Five mathematical equivalences between domains that share identical structure but different vocabulary. Confirmed as true LLM blind spots: oracle 0/12 PASS, avg margin &minus;21.99. Adapters make margins **worse** (9&ndash;28&times;), distinguishing true blind spots from calibration failures. Solution: external MCP tools, not weight changes.
+
+| Equivalence | Oracle Margin | Key Insight |
+|-------------|---------------|-------------|
+| Deadlock &harr; Detailed Balance Violation | &minus;32.75 | Deadlock = infinite-imbalance limit of cycle flux |
+| Database Isolation &harr; Quantum Decoherence | &minus;27.15 | COMMIT &equiv; MEASUREMENT |
+| Type Inference &harr; Gauge Fixing | &minus;19.58 | Both find canonical representatives in equivalence classes |
+| Huffman Coding &harr; Landauer's Principle | &minus;18.42 | Both minimize &Sigma; p<sub>i</sub> &times; cost<sub>i</sub> |
+| PageRank &harr; Thermodynamic Equilibrium | &minus;17.81 | E<sub>i</sub> = &minus;log(PageRank<sub>i</sub>) defines energy landscape |
+
+See [Cross-Domain Equivalences](#cross-domain-equivalences-llm-blind-spots) in the MCP tools section for usage examples and API details.
+
+</details>
+
+<details>
+<summary><b>D10: Convergent Computation: Bio-AI Parallels</b></summary>
+
+Numerically verified evidence that biological neural circuits and AI algorithms converge on identical computational solutions. Mean convergence score 0.885 &plusmn; 0.069 across 8 parallels (chemotaxis &asymp; gradient descent, dopamine = TD error, swarm = stigmergy). Convergence reflects fundamental optimization constraints, not analogy. Target venue: PLOS Computational Biology.
+
+</details>
+
+#### Applied Science Papers
+
+Papers demonstrating NoetherSolve tools applied to domain-specific screening and discovery problems. Each paper validates the pipeline's MCP tools against published experimental benchmarks.
+
+<details>
+<summary><b>Automated Catalyst Prescreening for HER</b></summary>
+
+Pipeline chaining d-band center analysis, volcano plot positioning, BEP activation energy estimation, and cost-weighted scoring to rank transition-metal HER catalysts without DFT. Correctly recovers the experimental volcano plot; ranks Ni first overall (score 92.5/100) when abundance and cost are included. Pt-group metals placed at intrinsic activity apex.
+
+</details>
+
+<details>
+<summary><b>Verified Epidemic Dynamics Calculations</b></summary>
+
+Benchmark suite for SIR model analysis across 10 diseases (R<sub>0</sub> = 1.5&ndash;15.0). All outputs match published epidemiological estimates within uncertainty ranges. Implements 7 MCP tools: `calc_sir_model`, `calc_reproduction_number`, `calc_herd_immunity`, `calc_doubling_time`, `calc_vaccine_impact`, `calc_attack_rate`, `get_disease_r0`.
+
+</details>
+
+<details>
+<summary><b>Quantitative Abiogenesis</b></summary>
+
+Computational framework for prebiotic plausibility. RAF set detection finds 2/3 networks autocatalytic. Amino acid yields 295&times; higher in reducing vs neutral atmospheres. Eigen threshold admits 2/4 replicators. RNA folding: 1/4 stable. Among 5 prebiotic molecules, 4 score &gt; 0.85 plausibility (glycine, alanine, adenine, urea); ribose scores 0.40.
+
+</details>
+
+<details>
+<summary><b>Topological Materials Classification</b></summary>
+
+Automated pipeline using Chern/Z<sub>2</sub> invariants, Berry phase, and bulk-boundary correspondence. Correctly classifies 6/7 systems as topological. Hall conductances reproduced to 6 significant figures: &sigma;<sub>xy</sub> = 1.000000 e&sup2;/h (&nu; = 1), 0.333333 e&sup2;/h (&nu; = 1/3). Berry phases verified to 1.1 &times; 10<sup>&minus;9</sup> relative error.
+
+</details>
+
+<details>
+<summary><b>Climate Sensitivity Across Emission Scenarios</b></summary>
+
+ECS calculations span 2.06&ndash;9.27 K across feedback profiles (central: 3.37 K, within IPCC AR6 2.5&ndash;4.0 K range). Radiative forcing follows Myhre et al. logarithmic formula: 2.182 W m<sup>&minus;2</sup> at present-day CO<sub>2</sub> (421 ppm), 3.708 W m<sup>&minus;2</sup> at doubled CO<sub>2</sub>. Secondary: Kolmogorov turbulence microscale lengths 0.33&ndash;1.28 mm.
+
+</details>
+
+<details>
+<summary><b>Genetic Therapeutic Design Pipeline</b></summary>
+
+Integrated CRISPR/mRNA/neoantigen/antibody screening. 3 CRISPR guides pass (scores 66.5&ndash;100.0). 3 mRNA constructs achieve CAI = 1.000 after optimization. 0/3 neoantigens pass full qualification (TCR/MHC bottlenecks identified). 0/4 antibody VH domains pass without engineering (viscosity/polyreactivity flagged). Pipeline identifies limiting step for each failure.
+
+</details>
+
+<details>
+<summary><b>Pharmacokinetic Screening &amp; DDI Assessment</b></summary>
+
+One-compartment model screening of 42 drugs: 4 PASS (&ge; 70 composite), 35 CAUTION, 3 FAIL. Half-lives match published references (sertraline 23.1 h, azithromycin 69.3 h, warfarin 38.5 h). DDI engine identifies 50+ CYP-mediated interactions with 1.25&ndash;15&times; AUC fold-changes.
+
+</details>
+
+<details>
+<summary><b>Battery Materials Screening (LFP/NCA/NMC)</b></summary>
+
+Coupled cycle + calendar aging models across 10 use cases. LFP wins all 10 on combined lifetime: 27.8 yr EV cycle life vs 13.7 NCA / 10.8 NMC. Cycle aging dominates (&lt; 1% calendar contribution in cycling scenarios). Model predictions within 15% of experimental cycle life data for all three chemistries.
+
+</details>
 
 ---
 
@@ -859,6 +1045,186 @@ print(f"Optimal: {opt['tokens_B']}B tokens for 7B params")
 </details>
 
 <details>
+<summary><h3>Cross-Domain Equivalences (LLM Blind Spots)</h3></summary>
+
+Five mathematical equivalences between seemingly unrelated domains that LLMs
+consistently fail on. Each pair shares identical mathematical structure but is
+taught in different courses with different vocabulary — no textbook connects them.
+
+Call `detect_blind_spots()` to identify which equivalence applies to your problem.
+
+#### Deadlock ↔ Detailed Balance Violation (oracle margin: −32.75)
+
+Deadlock (circular wait in process-resource graphs) and detailed balance violation
+(net flux around reaction cycles) are mathematically identical statements about
+cycles in directed graphs. Deadlock is the infinite-imbalance limit:
+
+| Δ(C) = log[Π(k_fwd)/Π(k_rev)] | Regime |
+|---------------------------------|--------|
+| Δ = 0 | Detailed balance (equilibrium) |
+| 0 < Δ < ∞ | Nonequilibrium steady state |
+| Δ → ∞ | Deadlock (irreversible cycle) |
+
+```python
+from noethersolve.deadlock_detailed_balance import (
+    check_deadlock, check_detailed_balance, find_cycles_in_graph
+)
+
+# OS deadlock detection
+result = check_deadlock(
+    processes=["P1", "P2", "P3"],
+    resources=["R1", "R2", "R3"],
+    holds={"P1": ["R1"], "P2": ["R2"], "P3": ["R3"]},
+    waits_for={"P1": "R2", "P2": "R3", "P3": "R1"}
+)
+print(result)  # → DEADLOCK DETECTED: P1 → P2 → P3 → P1
+
+# Chemical reaction network detailed balance
+result = check_detailed_balance(
+    species=["A", "B", "C"],
+    reactions=[("A", "B", 2.0, 1.0), ("B", "C", 2.0, 1.0), ("C", "A", 2.0, 1.0)]
+)
+print(result)  # → Detailed balance VIOLATED: Δ=2.08
+```
+
+**MCP tools:** `calc_deadlock()`, `audit_chemical_network()`
+
+#### Database Isolation ↔ Quantum Decoherence (oracle margin: −27.15)
+
+SQL isolation levels and quantum decoherence describe the same phenomenon: how
+much "quantum weirdness" (superposition/uncommitted states) is visible externally.
+Central insight: **COMMIT ≡ MEASUREMENT** — both collapse internal state into
+definite values observable by external parties.
+
+| SQL Isolation | Quantum Analog | Decoherence Rate |
+|--------------|----------------|------------------|
+| READ_UNCOMMITTED | Coherent superposition | 0.0 |
+| READ_COMMITTED | Partial decoherence | 0.5 |
+| REPEATABLE_READ | Pointer states | 0.85 |
+| SERIALIZABLE | Classical limit | 1.0 |
+
+```python
+from noethersolve.isolation_decoherence import (
+    check_isolation_level, analyze_decoherence_from_isolation,
+    IsolationLevel
+)
+
+# Analyze isolation level through quantum lens
+result = check_isolation_level(IsolationLevel.REPEATABLE_READ)
+print(result.quantum_analog)      # → QuantumState.POINTER_STATES
+print(result.decoherence_rate)    # → 0.85
+print(result.phenomena_prevented) # → ['dirty reads', 'non-repeatable reads']
+
+# Density matrix decomposition
+analysis = analyze_decoherence_from_isolation(IsolationLevel.SERIALIZABLE)
+print(analysis.density_matrix_diagonal)  # → 1.0 (pure classical)
+print(analysis.density_matrix_offdiag)   # → 0.0 (no superposition)
+```
+
+**MCP tools:** `check_isolation()`, `explain_type_gauge_parallel()`
+
+#### Type Inference ↔ Gauge Fixing (oracle margin: −19.58)
+
+Type inference (finding the most general unifier) and gauge fixing (removing
+redundant degrees of freedom) solve the same problem: find a canonical
+representative within an equivalence class.
+
+| Type Inference | Gauge Fixing |
+|---------------|-------------|
+| Type variable | Gauge parameter |
+| Unification constraint | Gauge constraint |
+| Most general unifier (MGU) | Gauge orbit representative |
+| Occurs check failure | Gribov copy ambiguity |
+| Principal type | Residual gauge freedom |
+
+```python
+from noethersolve.type_gauge import (
+    simple_type_unify, analyze_gauge_fixing
+)
+
+# Type unification (find MGU)
+result = simple_type_unify("List[α]", "List[Int]")
+print(result.principal_type)  # → List[Int]
+print(result.substitutions)   # → [α ↦ Int]
+
+result = simple_type_unify("Pair[α, β]", "Pair[Int, String]")
+print(result.principal_type)  # → Pair[Int, String]
+
+# Gauge fixing analysis (same math, different domain)
+gauge = analyze_gauge_fixing("U(1)")
+print(gauge.gauge_redundancy_count)    # → 1
+print(gauge.physical_degrees_freedom)  # → 2 (transverse polarizations)
+```
+
+**MCP tools:** `simple_type_unify()`, `check_gauge_equivalence()`, `explain_type_gauge_parallel()`
+
+#### Huffman Coding ↔ Landauer's Principle (oracle margin: −18.42)
+
+Both solve the same optimization: minimize Σ p_i × cost_i. Huffman minimizes
+average code length (bits); Landauer minimizes erasure energy (kT·ln(2) per bit).
+The achievable cost is bounded by Shannon entropy in both domains.
+
+```python
+from noethersolve.huffman_landauer import (
+    calculate_huffman_codes, calculate_landauer_cost
+)
+
+# Huffman coding (information theory side)
+result = calculate_huffman_codes(
+    symbols=["A", "T", "G", "C"],
+    probabilities=[0.30, 0.30, 0.20, 0.20]
+)
+print(result.shannon_entropy)   # → 1.971 bits
+print(result.avg_code_length)   # → 2.0 bits
+print(result.efficiency)        # → 98.5%
+
+# Landauer erasure cost (thermodynamics side)
+# How much energy to erase the human genome?
+cost = calculate_landauer_cost(
+    information_bits=3e9 * 2,         # 6 billion bits
+    temperature_kelvin=310.15          # 37°C body temperature
+)
+print(cost.energy_per_bit)       # → 2.97e-21 J
+print(cost.total_energy_joules)  # → 1.78e-11 J
+print(cost.comparison)           # → relative to ATP hydrolysis
+```
+
+**MCP tools:** `calc_huffman_landauer()`, `calc_landauer_bound()`, `calc_shannon_entropy()`
+
+#### PageRank ↔ Thermodynamic Equilibrium (oracle margin: −17.81)
+
+PageRank and Boltzmann distributions are both stationary distributions of Markov
+chains. Define energy E_i = −log(PageRank_i): high PageRank = low energy (ground
+state). The damping factor α is thermal driving that breaks detailed balance.
+
+```python
+from noethersolve.pagerank_equilibrium import (
+    compute_pagerank, pagerank_as_energy,
+    check_detailed_balance_pagerank
+)
+
+# Compute PageRank
+graph = {
+    "Hub": ["Spoke1", "Spoke2", "Spoke3"],
+    "Spoke1": ["Hub"], "Spoke2": ["Hub"], "Spoke3": ["Hub"],
+}
+pr = compute_pagerank(graph, damping_factor=0.85)
+energy = pagerank_as_energy(pr)
+print(f"Hub: PR={pr['Hub']:.4f}, E={energy['Hub']:.3f}")
+# → Hub: PR=0.3721, E=0.988 (ground state)
+
+# Check if system satisfies detailed balance
+result = check_detailed_balance_pagerank(graph, damping_factor=0.85)
+print(result.is_detailed_balanced)    # → False (damping breaks it)
+print(result.has_transient_driving)   # → True (teleportation term)
+print(result.average_energy)          # → energy landscape statistics
+```
+
+**MCP tools:** `detect_blind_spots()`, `calc_deadlock()`
+
+</details>
+
+<details>
 <summary><h3>Benchmark Results</h3></summary>
 
 The corruption benchmark (`experiments/corruption_benchmark.py`) validates
@@ -1391,7 +1757,7 @@ NoetherSolve
   that close knowledge gaps without touching base model weights.
   DOI: [10.5281/zenodo.18902616](https://doi.org/10.5281/zenodo.18902616)
 
-- **Discovery Papers D1-D6** -- Novel scientific findings discovered by the pipeline, from conservation laws in fluid dynamics to certainty contamination in LLM evaluation. See badges above for DOIs.
+- **Discovery Papers D1-D10** -- Novel scientific findings discovered by the pipeline: conservation laws in fluid dynamics (D1), choreographic orbit symmetry (D2), systematic LLM knowledge mapping (D3), orthogonal adapter routing (D4), certainty contamination bias (D5), resolvent-conservation unification (D6), oracle evaluation biases (D7), cross-domain cycle theory (D8), cross-domain mathematical equivalences (D9), and bio-AI convergence (D10). Plus 7 applied science papers (catalyst screening, epidemiology, abiogenesis, topological materials, climate sensitivity, genetic therapeutics, pharmacokinetics, battery materials). See badges above for DOIs.
 
 - **Noether's theorem** (Emmy Noether, 1915) — the reason any of this works.
 
