@@ -1,0 +1,18 @@
+name: "Hamiltonian Mechanics Invariants V2"
+description: |
+  V2 oracle test facts for conservation laws in Hamiltonian mechanics.
+  Length-balanced distractors (ratio 0.8-1.2x) to eliminate length bias.
+
+  Key concepts:
+  - Energy conservation (trivial)
+  - Liouville's theorem (phase space volume)
+  - Symplectic structure and Poincare invariants
+  - Laplace-Runge-Lenz vector (Kepler problem)
+  - KAM theory (nearly integrable systems)
+
+  This tests whether the oracle knows the deep structure of classical mechanics
+  beyond basic energy conservation.
+
+model: "Qwen/Qwen3-4B-Base"
+verification_set: "hamiltonian_facts_v2.json"
+pass_threshold: 0.5

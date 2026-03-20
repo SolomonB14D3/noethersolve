@@ -1,0 +1,126 @@
+{
+  "problem": "em_zilch_conservation_v2",
+  "description": "V2 with length-matched distractors. Known conservation laws for source-free Maxwell equations. Tests oracle knowledge of standard (Poynting) and obscure (Lipkin zilch, Chevreton super-energy) invariants.",
+  "facts": [
+    {
+      "id": "em01_energy",
+      "context": "Source-free Maxwell equations in vacuum. Which quantity is exactly conserved?",
+      "truth": "U = (1/2) ∫ (E² + B²) d³x (electromagnetic energy)",
+      "distractors": [
+        "U = (1/2) ∫ (E² - B²) d³x (Lagrangian field density)",
+        "U = (1/2) ∫ (E·B) d³x (mixed field invariant energy)",
+        "U = (1/4) ∫ (E² + 2B²) d³x (weighted magnetic energy)"
+      ]
+    },
+    {
+      "id": "em02_momentum",
+      "context": "Source-free Maxwell equations. The Poynting vector S = E × B relates to which conserved quantity?",
+      "truth": "P = ∫ (E × B) d³x (electromagnetic momentum)",
+      "distractors": [
+        "P = ∫ (E · B) d³x (scalar helicity momentum)",
+        "P = ∫ (E × B)² d³x (squared Poynting flux)",
+        "P = ∫ (E²·B) d³x (field-weighted E² momentum)"
+      ]
+    },
+    {
+      "id": "em03_chirality",
+      "context": "Source-free Maxwell fields. Lipkin (1964) discovered the 'zilch' conservation law. The time component Z⁰ is now called optical chirality C. Its formula is:",
+      "truth": "C = (1/2) ∫ [E·(∇×E) + B·(∇×B)] d³x",
+      "distractors": [
+        "C = (1/2) ∫ [E·(∇×B) + B·(∇×E)] d³x",
+        "C = (1/2) ∫ [E·(∇×B) - B·(∇×E)] d³x",
+        "C = (1/2) ∫ [E·(∇·E) + B·(∇·B)] d³x"
+      ]
+    },
+    {
+      "id": "em04_helicity",
+      "context": "Source-free Maxwell fields. The electromagnetic helicity is defined using the vector potential A (where B = ∇×A). Which is exactly conserved?",
+      "truth": "H = ∫ A·B d³x (magnetic helicity)",
+      "distractors": [
+        "H = ∫ A·E d³x (electric helicity)",
+        "H = ∫ A²·B d³x (weighted helicity)",
+        "H = ∫ (∇×A)·E d³x (cross helicity)"
+      ]
+    },
+    {
+      "id": "em05_super_energy",
+      "context": "Source-free Maxwell equations. The Chevreton super-energy tensor (1964) has a conserved trace. Which quantity is exactly conserved?",
+      "truth": "S = ∫ [(∇×E)² + (∇×B)²] d³x",
+      "distractors": [
+        "S = ∫ [(∇·E)² + (∇·B)²] d³x",
+        "S = ∫ [(∇×E)·E + (∇×B)·B] d³x",
+        "S = ∫ |∇(E·B)|² + |∇(E²)|² d³x"
+      ]
+    },
+    {
+      "id": "em06_not_conserved_Esq",
+      "context": "Source-free Maxwell equations. Is ∫ E² d³x (electric field energy alone) a conserved quantity?",
+      "truth": "No: ∫ E² d³x is NOT conserved; only the sum ∫ (E² + B²) d³x is conserved",
+      "distractors": [
+        "Yes: ∫ E² d³x is exactly conserved because electric energy is gauge-invariant",
+        "Yes: ∫ E² d³x is conserved in vacuum since sources are absent from Maxwell",
+        "Approximately: ∫ E² d³x is conserved to leading order for low-frequency fields"
+      ]
+    },
+    {
+      "id": "em07_lipkin_year",
+      "context": "The zilch conservation laws for electromagnetic fields were discovered by D.M. Lipkin in which year?",
+      "truth": "1964 (Journal of Mathematical Physics)",
+      "distractors": [
+        "1905 (Annalen der Physik, relativity)",
+        "1873 (Maxwell's Treatise on EM)",
+        "2010 (Physical Review Letters Tang)"
+      ]
+    },
+    {
+      "id": "em08_zilch_tensor",
+      "context": "Lipkin's zilch tensor Z^μνρ for source-free electromagnetic fields satisfies which equation?",
+      "truth": "∂_ρ Z^μνρ = 0 (divergence-free, giving 10 conserved charges)",
+      "distractors": [
+        "∂_μ Z^μνρ = J^νρ (sourced by electromagnetic current terms)",
+        "∂_ρ Z^μνρ ≈ 0 (approximately conserved for weak EM fields)",
+        "Z^μνρ = F^μν A^ρ (reduces to Poynting energy-momentum)"
+      ]
+    },
+    {
+      "id": "em09_circular_chirality",
+      "context": "For circularly polarized electromagnetic waves, the optical chirality C = (1/2) [E·(∇×E) + B·(∇×B)] is:",
+      "truth": "Nonzero and exactly conserved (proportional to wave handedness)",
+      "distractors": [
+        "Zero for all polarizations (chirality vanishes identically)",
+        "Nonzero but decays with propagation distance traveled",
+        "Nonzero only in the near field of the radiating source"
+      ]
+    },
+    {
+      "id": "em10_chevreton_year",
+      "context": "The electromagnetic super-energy tensor was introduced by M. Chevreton in which year?",
+      "truth": "1964 (Nuovo Cimento)",
+      "distractors": [
+        "1905 (Einstein relativity)",
+        "1873 (Maxwell Treatise)",
+        "1915 (general relativity)"
+      ]
+    },
+    {
+      "id": "em11_poynting_conserved",
+      "context": "Source-free Maxwell equations. Poynting's theorem states that the energy density u = (1/2)(E² + B²) satisfies:",
+      "truth": "∂u/∂t + ∇·S = 0 where S = E × B (local energy conservation)",
+      "distractors": [
+        "∂u/∂t = ∇²u where u = (1/2)(E² + B²) (diffusion of energy)",
+        "∂u/∂t + ∇·S = J·E where S = E × B (always has a source)",
+        "∇·S = 0 everywhere, with S = E × B (Poynting is solenoidal)"
+      ]
+    },
+    {
+      "id": "em12_helicity_gauge",
+      "context": "The electromagnetic helicity H = ∫ A·B d³x depends on the choice of gauge for A. For source-free fields, H is:",
+      "truth": "Gauge-invariant and exactly conserved (for fields vanishing at infinity)",
+      "distractors": [
+        "Gauge-dependent and therefore physically meaningless in all contexts",
+        "Gauge-invariant but only approximately conserved for weak EM fields",
+        "Only conserved in Coulomb gauge and undefined in other gauge choices"
+      ]
+    }
+  ]
+}

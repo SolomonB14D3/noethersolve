@@ -1,51 +1,45 @@
 {
-  "description": "Oracle test facts for the K = \u03a3 \u0393\u1d62 v\u1d62\u00b2 kinetic-like invariant in point-vortex systems. This is independent of the Q_f family. [32B length-matched]",
-  "domain": "",
+  "problem": "kinetic_invariant_k_v2",
+  "description": "V2 oracle facts for K = Σ Γᵢ vᵢ² kinetic invariant. Length-matched distractors with proper format.",
   "facts": [
     {
       "id": "k01_definition",
-      "context": "For N point vortices with circulations \u0393\u1d62 and velocities v\u1d62, the quantity K = \u03a3\u1d62 \u0393\u1d62 v\u1d62\u00b2 is:",
+      "context": "For N point vortices with circulations Γᵢ and velocities vᵢ, the quantity K = Σᵢ Γᵢ vᵢ² is:",
       "truth": "approximately conserved (circulation-weighted kinetic energy)",
       "distractors": [
-        "approximately conserved (circulation-weighted potential energy)",
-        "approximately conserved (circulation-weighted total energy)",
-        "approximately conserved (circulation-weighted momentum)"
+        "exactly conserved as a Casimir invariant of the Euler equations",
+        "monotonically increasing due to irreversible energy dissipation",
+        "oscillatory with period set by the largest circulation magnitude"
       ]
     },
     {
       "id": "k02_independence",
-      "context": "The invariant K = \u03a3 \u0393\u1d62 |v\u1d62|\u00b2 is related to Q_f = \u03a3 \u0393\u1d62\u0393\u2c7c f(r\u1d62\u2c7c) by:",
-      "truth": "K is independent (depends on angles, Q_f only on distances)",
+      "context": "The invariant K = Σ Γᵢ |vᵢ|² is related to Q_f = Σ ΓᵢΓⱼ f(rᵢⱼ) by:",
+      "truth": "K is independent of Q_f (K depends on angles, Q_f only on distances)",
       "distractors": [
-        "K is dependent on angles and distances, Q_f only on angles",
-        "K and Q_f are both dependent on angles and distances",
-        "K is dependent on angles and distances, Q_f only on distances"
+        "K equals Q_{-2} evaluated at f(r) = r⁻² within the Q_f family",
+        "K is a linear combination of the Q_f basis spanning all powers",
+        "K converges to Q_f in the asymptotic limit of large separations"
       ]
     },
     {
       "id": "k03_structure",
       "context": "The K invariant can be decomposed as K = K_dist + K_angle where:",
-      "truth": "K_angle varies ~10% but cancels with K_dist to give total frac_var ~ 10\u207b\u2077",
+      "truth": "K_angle varies ~10% but cancels with K_dist giving total frac_var ~ 10⁻⁷",
       "distractors": [
-        {
-          "wrong1": "K_angle varies ~10% but cancels with K_dist to give total frac_var ~ 10\u207b\u00b3"
-        },
-        {
-          "wrong2": "K_angle varies ~10% but cancels with K_dist to give total frac_var ~ 10\u207b\u2075"
-        },
-        {
-          "wrong3": "K_angle varies ~10% but cancels with K_dist to give total frac_var ~ 10\u207b\u2079"
-        }
+        "K_dist varies ~10% but cancels with K_angle giving total frac_var ~ 10⁻³",
+        "both K_dist and K_angle are individually conserved to machine precision",
+        "neither component has meaningful conservation and the total K drifts upward"
       ]
     },
     {
       "id": "k04_velocity",
-      "context": "In point-vortex dynamics, the velocity v\u1d62 of vortex i is:",
-      "truth": "induced by all other vortices via Biot-Savart: v\u1d62 = \u03a3\u2c7c\u2260\u1d62 \u0393\u2c7c/(2\u03c0r\u1d62\u2c7c)",
+      "context": "In point-vortex dynamics, the velocity vᵢ of vortex i is:",
+      "truth": "induced by all other vortices via Biot-Savart: vᵢ = Σⱼ≠ᵢ Γⱼ/(2πrᵢⱼ)",
       "distractors": [
-        "induced by all other vortices via Biot-Savart: v\u1d62 = \u03a3\u2c7c\u2260\u1d62 \u0393\u2c7c/(3\u03c0r\u1d62\u2c7c)",
-        "induced by all other vortices via Biot-Savart: v\u1d62 = \u03a3\u2c7c\u2260\u1d62 \u0393\u2c7c/(\u03c0r\u1d62\u2c7c)",
-        "induced by all other vortices via Biot-Savart: v\u1d62 = \u03a3\u2c7c\u2260\u1d62 \u0393\u2c7c/(2r\u1d62\u2c7c)"
+        "determined entirely by its own circulation strength and local curvature",
+        "proportional to the gradient of the background potential flow field",
+        "governed by the time derivative of the global angular momentum vector"
       ]
     },
     {
@@ -53,39 +47,39 @@
       "context": "The K invariant's remarkable conservation comes from:",
       "truth": "distance and angular variations canceling in the total (K_dist + K_angle)",
       "distractors": [
-        "distance and angular variations adding in the total (K_dist + K_angle)",
-        "distance variations alone cancelling in the total (K_dist)",
-        "angular variations alone cancelling in the total (K_angle)"
+        "a direct consequence of Noether's theorem for the Kirchhoff Hamiltonian",
+        "the Kelvin circulation theorem applied to each vortex path individually",
+        "an exact discrete symmetry of the point-vortex equations under reversal"
       ]
     },
     {
       "id": "k06_numerical",
-      "context": "Numerical verification of K = \u03a3 \u0393\u1d62 v\u1d62\u00b2 in N=3,4,5 vortex systems shows:",
-      "truth": "frac_var ~ 10\u207b\u2075 to 10\u207b\u2077 (well conserved across configurations)",
+      "context": "Numerical verification of K = Σ Γᵢ vᵢ² in N=3,4,5 vortex systems shows:",
+      "truth": "frac_var ~ 10⁻⁵ to 10⁻⁷ (well conserved across all configurations)",
       "distractors": [
-        "frac_var ~ 0.1 (not conserved)",
-        "frac_var ~ 10\u207b\u00b9\u00b2 (exactly conserved)",
-        "varies wildly between configurations"
+        "frac_var ~ 0.1 to 0.3 indicating poor conservation in actual dynamics",
+        "frac_var depends strongly on integration scheme and timestep chosen",
+        "frac_var ~ 10⁻¹² matching exact analytical conservation to precision"
       ]
     },
     {
       "id": "k07_vs_qf",
       "context": "Fitting K to Q_f powers (Q_{-2}, Q_{-1}, Q_1, Q_2) gives:",
-      "truth": "R\u00b2 ~ 0.05 (poor fit, K is genuinely independent)",
+      "truth": "R² ~ 0.05 (poor fit, confirming K is genuinely independent of Q_f)",
       "distractors": [
-        "R\u00b2 ~ 0.25 (moderate fit, K is partially dependent)",
-        "R\u00b2 ~ 0.75 (strong fit, K is highly dependent)",
-        "R\u00b2 ~ 0.50 (average fit, K is moderately dependent)"
+        "R² ~ 0.99 indicating K is well-captured by Q_f power combinations",
+        "R² ~ 0.50 showing moderate overlap between K and the Q_f basis set",
+        "the fit is undefined because K and Q_f have incompatible dimensions"
       ]
     },
     {
       "id": "k08_physical",
-      "context": "The physical interpretation of K = \u03a3 \u0393\u1d62 v\u1d62\u00b2 is:",
-      "truth": "circulation-weighted sum of squared velocities (kinetic-like)",
+      "context": "The physical interpretation of K = Σ Γᵢ vᵢ² is:",
+      "truth": "circulation-weighted sum of squared velocities (kinetic-like quantity)",
       "distractors": [
-        "kinetic energy distribution",
-        "momentum-weighted velocity",
-        "viscosity-adjusted velocity"
+        "total kinetic energy of the background fluid including irrotational part",
+        "angular momentum projected onto the axis of maximum vorticity strength",
+        "Casimir invariant arising from the Lie-Poisson bracket of fluid motion"
       ]
     }
   ]
