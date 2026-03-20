@@ -1,16 +1,22 @@
 # Scripts
 
-## Active
+## 27B Work Scripts (local compute — the workhorse)
 
 | Script | Purpose |
 |--------|---------|
-| `research_runner.py` | Autonomous 27B oracle evaluation loop. Discovers domains, evaluates facts, tracks progress, stops when idle. |
-| `train_from_facts.py` | Train 4B LoRA adapters from fact files (the adapter pipeline) |
+| `adapter_trainer.py` | **PRIMARY** — Train 4B adapters on failing domains using escalation ladder |
+| `train_from_facts.py` | Train single 4B LoRA adapter from a fact file |
 | `train_missing_adapters.py` | Fill gaps in 4B adapter coverage |
-| `train_with_proven_methods.py` | Adapter training using escalation ladder (staged, orthogonal, etc.) |
-| `discovery_grader.py` | Grade discovery clusters for paper readiness |
+| `train_with_proven_methods.py` | Analyze domain + recommend training technique (staged/orthogonal/etc.) |
+| `research_runner.py` | Oracle evaluation — **DONE** (111 domains complete, do not restart) |
+
+## Claude Code Scripts (needs internet/reasoning)
+
+| Script | Purpose |
+|--------|---------|
 | `paper_prospector.py` | Scan for paper-ready clusters across domains |
 | `paper_watchdog.py` | Monitor paper pipeline progress |
+| `discovery_grader.py` | Grade discovery clusters for paper readiness |
 | `research_dashboard.py` | Serve live HTML dashboard on port 8050 |
 | `hardware_profile.py` | Detect hardware capabilities (MLX, CUDA, CPU) |
 | `job_tracker.py` | Track long-running job status |
@@ -18,20 +24,17 @@
 ## Usage
 
 ```bash
-# Start autonomous evaluation (polls for new V2 files, stops when idle)
-python scripts/research_runner.py
+# Train 4B adapters on all failing domains (the 27B's main job now)
+python scripts/adapter_trainer.py
 
-# Single sweep then exit
-python scripts/research_runner.py --once
+# Train one domain and exit
+python scripts/adapter_trainer.py --once
 
-# Check status without running
-python scripts/research_runner.py --status
+# Check which domains need adapter training
+python scripts/adapter_trainer.py --status
 
-# Run specific domain
-python scripts/research_runner.py --domain protein_structure
-
-# Show open escalations
-python scripts/research_runner.py --escalations
+# Train specific domain
+python scripts/adapter_trainer.py --domain knot_invariants
 ```
 
 ## Archive

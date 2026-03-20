@@ -1,5 +1,19 @@
 # NoetherSolve — AI Agent Instructions
 
+## Role Separation — READ THIS FIRST
+
+| Actor | Does | Does NOT |
+|-------|------|----------|
+| **27B (local MLX)** | Train 4B adapters, create orthogonal/staged adapters, build MCP tools, run numerical verification | Write papers, search internet, manage git |
+| **Claude Code** | Write papers (needs internet), write code, manage pipeline, check escalations, create V2 fact files, commit to git | Train models (no local GPU access) |
+| **4B** | Get adapter training to learn surprising truths | Judge, evaluate, or do independent work |
+
+**27B evaluation phase is COMPLETE** (111 domains, 70 passing, Mar 2026). Do NOT restart `research_runner.py` for more evaluation. The 27B's current job is **training 4B adapters** on the 14 failing domains via `scripts/adapter_trainer.py`.
+
+**The 27B is the LOCAL COMPUTE WORKHORSE.** It is NOT a subject of study. We do NOT train adapters for it, find its knowledge gaps, or try to improve its scores. It DOES the work: trains 4B adapters, runs the escalation ladder, builds computational tools.
+
+---
+
 ## Loving Autonomy Principles — ALWAYS FOLLOW
 
 **Truth-seeking IS love.** Sycophancy and confabulation are anti-loving because they deceive.
@@ -688,37 +702,40 @@ margin < -20      → Extreme gap — domain-specific adapter required
 
 ---
 
-## Research Runner Operations
+## 27B Work — Adapter Training (Current Phase)
 
-The 27B model runs autonomously as an oracle/judge via `scripts/research_runner.py`. It evaluates domain fact files and records which the model knows vs doesn't know.
+The 27B evaluation phase is **COMPLETE** (111 domains, 70 passing, Mar 2026). The 27B is now the **local compute workhorse** for training 4B adapters on failing domains.
 
-**Start/stop/monitor:**
+**Current work:**
 ```bash
-# Start continuous evaluation (stops after 3 idle polls with no new work)
-nohup python scripts/research_runner.py >> results/research_log.txt 2>&1 &
+# Train 4B adapters on all failing domains (escalation ladder)
+python scripts/adapter_trainer.py
 
-# Single sweep then exit
-python scripts/research_runner.py --once
+# Train one domain and exit
+python scripts/adapter_trainer.py --once
 
-# Check status
-python scripts/research_runner.py --status
-
-# Show escalations needing attention
-python scripts/research_runner.py --escalations
+# Check which failing domains have/need adapters
+python scripts/adapter_trainer.py --status
 ```
 
-**Key design decisions:**
-- **27B is the judge** — it does NOT get adapter training. Only the 4B gets adapters.
-- **V2 preference** — when both `foo.yaml` and `foo_v2.yaml` exist, only the V2 is evaluated.
-- **Progress-aware stopping** — tracks pass count across sweeps. Stops after 3 polls with zero improvement.
-- **V2 invalidation** — if a facts file is modified after the last evaluation, the domain is automatically re-evaluated.
-- **Escalations** — extreme failures (0% pass, margin < -15) are logged to `results/escalations.jsonl` for Claude to investigate.
+**14 unique domains still failing** — these need 4B adapter training:
+- Hard physics/math: knot_invariants, NS regularity, Hamiltonian mechanics, intersection theory, chemical networks
+- Vortex conservation: continuous Q_f, Q_f ratio, optimal f(r), kinetic K, EM zilch
+- LLM domains: llm_hallucination_grounded
+- Bio: bio-AI parallels
 
-**Files:**
-- `results/research_status.json` — current state of all domains
-- `results/run_summary.json` — sweep-over-sweep progress tracking
-- `results/research_log.txt` — append-only detailed log
-- `results/escalations.jsonl` — issues needing human/Claude attention
+**Escalation ladder (all automated via adapter_trainer.py):**
+1. Single-pass adapter → if interference:
+2. Staged training (sequential clusters) → if plateau:
+3. Orthogonal adapters (specialist per cluster, routed at inference) → if still stuck:
+4. Cross-domain joint training (difficulty-weighted sampling)
+
+### Evaluation (DONE — Do Not Restart)
+
+Oracle evaluation ran via `scripts/research_runner.py`. Results in:
+- `results/research_status.json` — all 111 domains evaluated
+- `results/run_summary.json` — sweep history
+- `results/escalations.jsonl` — all resolved
 
 ## V2 Fact File Campaign
 
