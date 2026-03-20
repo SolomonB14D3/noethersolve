@@ -226,14 +226,21 @@ def train_single_adapter(domain_name, facts_file, output_path=None):
 
     if result.returncode != 0:
         print(f"  FAILED: {result.stderr[:300]}")
-        return False
+        return False, None, None
 
+    output = result.stdout + result.stderr
+    baseline, adapted = parse_training_output(output)
     print(f"  Done: {output_path.name}")
-    return True
+    if baseline is not None and adapted is not None:
+        print(f"  4B scores: baseline={baseline:.0%} → adapted={adapted:.0%}")
+    return True, baseline, adapted
 
 
 def escalate_training(domain_name, facts_file, current_status):
-    """Escalate training technique based on what's already been tried."""
+    """Escalate training technique based on what's already been tried.
+
+    Returns (success: bool, baseline_rate: float|None, adapted_rate: float|None).
+    """
 
     if not current_status["has_single"]:
         # Level 1: Single-pass
@@ -259,9 +266,9 @@ def escalate_training(domain_name, facts_file, current_status):
 
         if result.returncode != 0:
             print(f"  Staged training failed: {result.stderr[:300]}")
-            return False
+            return False, None, None
         print(f"  Staged training complete")
-        return True
+        return True, None, None
 
     elif not current_status["has_orthogonal"]:
         # Level 3: Orthogonal adapters
@@ -272,18 +279,34 @@ def escalate_training(domain_name, facts_file, current_status):
                        "Single-pass and staged training insufficient. "
                        "Needs orthogonal cluster adapters — requires Claude Code to analyze "
                        "fact clusters and create routing config.")
-        return False
+        return False, None, None
 
     else:
         print(f"  All escalation levels attempted. Needs manual investigation.")
         log_escalation(domain_name, "all_levels_exhausted",
                        "All automated escalation levels tried. "
                        "Needs Claude Code to investigate and design custom approach.")
-        return False
+        return False, None, None
 
 
 def log_escalation(domain_name, reason, details):
-    """Log an escalation for Claude Code to handle."""
+    """Log an escalation for Claude Code to handle. Deduplicates by domain+reason."""
+    esc_path = RESULTS_DIR / "escalations.jsonl"
+
+    # Check for existing open escalation with same domain+reason
+    if esc_path.exists():
+        with open(esc_path) as f:
+            for line in f:
+                try:
+                    e = json.loads(line)
+                    if (e.get("domain") == domain_name and
+                        e.get("reason") == reason and
+                        e.get("status") == "open"):
+                        print(f"  Escalation already logged: {reason}")
+                        return
+                except json.JSONDecodeError:
+                    continue
+
     escalation = {
         "domain": domain_name,
         "reason": reason,
@@ -291,36 +314,33 @@ def log_escalation(domain_name, reason, details):
         "timestamp": datetime.now().isoformat(),
         "status": "open",
     }
-    esc_path = RESULTS_DIR / "escalations.jsonl"
     with open(esc_path, "a") as f:
         f.write(json.dumps(escalation) + "\n")
     print(f"  Escalation logged: {reason}")
 
 
-def evaluate_after_training(yaml_file, adapter_path=None):
-    """Re-evaluate domain on 27B after training to measure improvement."""
-    if yaml_file is None:
-        return None
+def parse_training_output(output):
+    """Parse train_from_facts.py output to extract baseline and final pass rates.
 
-    cmd = [
-        PYTHON, str(PROJECT / "oracle_wrapper.py"),
-        "--problem", str(yaml_file),
-        "--model", EVAL_MODEL,
-    ]
-    if adapter_path:
-        cmd.extend(["--adapter", str(adapter_path)])
+    Output format:
+      baseline: 5/16 (31.2%)  avg_margin=-3.05
+      adapted: 1/16 (6.2%)  avg_margin=-180.56
 
-    try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300, cwd=str(PROJECT))
-        import re
-        pass_matches = re.findall(r'Pass rate:\s+(\d+)/(\d+)', result.stdout + result.stderr)
-        if pass_matches:
-            passed, total = int(pass_matches[-1][0]), int(pass_matches[-1][1])
-            return passed / total if total > 0 else 0
-    except Exception as e:
-        print(f"  Evaluation error: {e}")
+    Returns (baseline_rate, adapted_rate) or (None, None).
+    """
+    import re
+    baseline = None
+    adapted = None
 
-    return None
+    for line in output.split("\n"):
+        m = re.search(r'baseline:\s+(\d+)/(\d+)', line)
+        if m:
+            baseline = int(m.group(1)) / int(m.group(2)) if int(m.group(2)) > 0 else 0
+        m = re.search(r'adapted:\s+(\d+)/(\d+)', line)
+        if m:
+            adapted = int(m.group(1)) / int(m.group(2)) if int(m.group(2)) > 0 else 0
+
+    return baseline, adapted
 
 
 def print_status():
@@ -422,36 +442,38 @@ def run_work_loop(domain_filter=None):
 
             # Train / escalate
             t0 = time.time()
-            success = escalate_training(name, facts_file, status)
+            success, baseline, adapted = escalate_training(name, facts_file, status)
             duration = time.time() - t0
 
             if success:
                 sweep_trained += 1
                 total_trained += 1
 
-                # Re-evaluate on 27B to measure improvement
-                if yaml_file is not None:
-                    print(f"  Verifying improvement on 27B...")
-                    new_rate = evaluate_after_training(yaml_file)
-                    if new_rate is not None:
-                        delta = new_rate - rate
-                        improved = delta > 0
-                        print(f"  Result: {rate:.0%} → {new_rate:.0%} ({'+' if delta >= 0 else ''}{delta:.0%})")
-                        if improved:
-                            sweep_improved += 1
-                            total_improved += 1
+                # Report improvement from training output
+                if baseline is not None and adapted is not None:
+                    delta = adapted - baseline
+                    improved = delta > 0
+                    print(f"  4B result: {baseline:.0%} → {adapted:.0%} ({'+' if delta >= 0 else ''}{delta:.0%})")
+                    if improved:
+                        sweep_improved += 1
+                        total_improved += 1
 
-                        save_training_log({
-                            "domain": name,
-                            "old_rate": rate,
-                            "new_rate": new_rate,
-                            "delta": delta,
-                            "level": "staged" if status["has_single"] else "single",
-                            "duration_seconds": duration,
-                            "timestamp": datetime.now().isoformat(),
-                        })
-                    else:
-                        print(f"  Evaluation failed — cannot verify improvement")
+                    save_training_log({
+                        "domain": name,
+                        "baseline_4b": baseline,
+                        "adapted_4b": adapted,
+                        "delta": delta,
+                        "level": "staged" if status["has_single"] else "single",
+                        "duration_seconds": duration,
+                        "timestamp": datetime.now().isoformat(),
+                    })
+                else:
+                    save_training_log({
+                        "domain": name,
+                        "level": "staged" if status["has_single"] else "single",
+                        "duration_seconds": duration,
+                        "timestamp": datetime.now().isoformat(),
+                    })
             else:
                 total_escalated += 1
 
@@ -513,13 +535,10 @@ def main():
         name, rate, facts_file, yaml_file = trainable[0]
         print(f"Training: {name} (current: {rate:.0%})")
         status = get_adapter_status(name)
-        success = escalate_training(name, facts_file, status)
+        success, baseline, adapted = escalate_training(name, facts_file, status)
 
-        if success and yaml_file:
-            print(f"Verifying on 27B...")
-            new_rate = evaluate_after_training(yaml_file)
-            if new_rate is not None:
-                print(f"Result: {rate:.0%} → {new_rate:.0%}")
+        if success and baseline is not None and adapted is not None:
+            print(f"4B result: {baseline:.0%} → {adapted:.0%}")
         return
 
     # Default: continuous work loop
