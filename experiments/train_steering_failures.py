@@ -148,10 +148,18 @@ def main():
     parser.add_argument("--max-domains", type=int, default=500)
     parser.add_argument("--min-facts", type=int, default=6)
     parser.add_argument("--steps", type=int, default=2000)
+    parser.add_argument("--model", default="Qwen/Qwen3-4B-Base", help="Model to train adapters for")
     args = parser.parse_args()
 
-    # Load steering results to find failures
-    results_file = RESULTS_DIR / "steering_vectors_v2.json"
+    # Model-specific paths
+    model_short = args.model.split("/")[-1].lower().replace("-", "_")
+    results_file = RESULTS_DIR / f"steering_vectors_{model_short}.json"
+    adapters_dir = ADAPTERS_DIR / model_short
+    adapters_dir.mkdir(parents=True, exist_ok=True)
+
+    if not results_file.exists():
+        # Fall back to v2 results
+        results_file = RESULTS_DIR / "steering_vectors_v2.json"
     if not results_file.exists():
         print("No steering results found. Run extract_vectors_fast.py first.")
         return
@@ -163,12 +171,11 @@ def main():
     failures = [r for r in steering_results if r.get("improvement", 0) <= 0]
     print(f"Steering failures: {len(failures)} domains")
     print(f"Training adapters with {args.steps} steps each")
-
-    ADAPTERS_DIR.mkdir(exist_ok=True)
+    print(f"Model: {args.model}")
 
     from mlx_lm import load
-    print("\nLoading Qwen/Qwen3-4B-Base...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    print(f"\nLoading {args.model}...")
+    model, tokenizer = load(args.model)
 
     adapter_results = []
     total_start = time.time()
@@ -196,12 +203,13 @@ def main():
         if len(valid) < args.min_facts:
             continue
 
-        # Split train/test
+        # Cap at 30 total (15 train / 15 test) — more is waste
         np.random.seed(42)
         idx = np.random.permutation(len(valid))
-        split = len(valid) // 2
-        train = [valid[j] for j in idx[:split]]
-        test = [valid[j] for j in idx[split:]]
+        capped = [valid[j] for j in idx[:30]]
+        split = len(capped) // 2
+        train = capped[:split]
+        test = capped[split:]
         if len(test) < 2:
             test = train
 
@@ -216,10 +224,14 @@ def main():
         acc, c, t = evaluate_adapter(model, tokenizer, test, params)
         elapsed = time.time() - start
 
-        # Save adapter
+        # Save adapter — flatten nested param dict, float16 to save space
         import mlx.core as mx
-        flat = {k: np.array(v.astype(mx.float32)) for k, v in params.items() if hasattr(v, 'shape')}
-        np.savez(str(adapter_path), **flat)
+        from mlx.utils import tree_flatten
+        flat = {}
+        for k, v in tree_flatten(params):
+            arr = np.array(v.astype(mx.float32) if hasattr(v, 'astype') else v)
+            flat[k] = arr.astype(np.float16)  # 111MB -> 56MB per adapter
+        np.savez_compressed(str(adapter_path), **flat)  # compressed: ~30MB
         adapter_bytes = adapter_path.stat().st_size
 
         improvement = acc - baseline

@@ -21,9 +21,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 PROJECT = Path(__file__).parent.parent
 BANK_DIR = PROJECT / "steering_bank"
 VECTORS_DIR = PROJECT / "steering_vectors"
-RESULTS_FILE = PROJECT / "results" / "steering_vectors_v2.json"
+results_file = PROJECT / "results" / "steering_vectors_v2.json"
 
-LAYERS = [10, 15, 20]
+LAYERS = [10, 15, 20]  # Overridden per-model in main() if needed
 ALPHAS = [0.25, 0.50, 0.75, 1.0, 1.5]
 MIN_FACTS = 6  # need at least 3 train + 3 test
 
@@ -53,27 +53,41 @@ def gather_all_domains():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--start-from", type=int, default=0, help="Skip first N domains (for resuming)")
+    parser.add_argument("--model", default="Qwen/Qwen3-4B-Base", help="Model to extract vectors from")
     args = parser.parse_args()
 
     import mlx.core as mx
     from mlx_lm import load
 
-    VECTORS_DIR.mkdir(exist_ok=True)
+    # Model-specific output dirs
+    model_short = args.model.split("/")[-1].lower().replace("-", "_")
+    vectors_dir = VECTORS_DIR / model_short
+    results_file = PROJECT / "results" / f"steering_vectors_{model_short}.json"
+    vectors_dir.mkdir(parents=True, exist_ok=True)
 
     domain_files = gather_all_domains()
     print(f"Found {len(domain_files)} domain files")
     print(f"Layers: {LAYERS}, Alphas: {ALPHAS}")
     print(f"Starting from index {args.start_from}")
 
-    print("\nLoading Qwen/Qwen3-4B-Base...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    print(f"\nLoading {args.model}...")
+    model, tokenizer = load(args.model)
     n_layers = len(model.model.layers)
     print(f"Model loaded: {n_layers} layers")
 
+    # Adjust sweep layers based on model depth
+    global LAYERS
+    if n_layers >= 40:
+        LAYERS = [15, 20, 25]  # Deeper models: sweep mid-to-upper layers
+    elif n_layers >= 30:
+        LAYERS = [10, 15, 20]  # 4B/7B
+    else:
+        LAYERS = [5, 10, 15]   # Small models
+
     # Load existing results for resuming
     existing_results = []
-    if RESULTS_FILE.exists():
-        with open(RESULTS_FILE) as f:
+    if results_file.exists():
+        with open(results_file) as f:
             existing_results = json.load(f)
     existing_domains = {r["domain"] for r in existing_results}
 
@@ -222,7 +236,7 @@ def main():
 
         # Save best vector
         if best_sv is not None:
-            vec_path = VECTORS_DIR / f"{domain}_best.npy"
+            vec_path = vectors_dir / f"{domain}_best.npy"
             np.save(vec_path, best_sv)
             vec_bytes = vec_path.stat().st_size
         else:
@@ -250,7 +264,7 @@ def main():
 
         # Save checkpoint every 25 domains
         if processed % 25 == 0:
-            with open(RESULTS_FILE, "w") as f:
+            with open(results_file, "w") as f:
                 json.dump(results, f, indent=2)
             total_elapsed = time.time() - total_start
             rate = processed / total_elapsed * 60
@@ -259,7 +273,7 @@ def main():
             print(f"    CHECKPOINT: {processed} done, {skipped} skipped, {rate:.1f}/min, ETA {eta:.0f}min")
 
     # Final save
-    with open(RESULTS_FILE, "w") as f:
+    with open(results_file, "w") as f:
         json.dump(results, f, indent=2)
 
     total_elapsed = time.time() - total_start
@@ -278,9 +292,12 @@ def main():
         for r in sorted(improved, key=lambda x: -x["improvement"])[:20]:
             print(f"  {r['domain']:<45s} {r['baseline']:.0%}->{r['best_steered']:.0%} (+{r['improvement']:.0%}) L{r['best_layer']}")
 
-    vectors = list(VECTORS_DIR.glob("*_best.npy"))
+    vectors = list(vectors_dir.glob("*_best.npy"))
     total_kb = sum(v.stat().st_size for v in vectors) / 1024
     print(f"\nVectors: {len(vectors)} files, {total_kb:.0f} KB total")
+    print(f"Model: {args.model}")
+    print(f"Vectors dir: {vectors_dir}")
+    print(f"Results: {results_file}")
 
 
 if __name__ == "__main__":

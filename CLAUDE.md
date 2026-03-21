@@ -776,34 +776,33 @@ python experiments/train_steering_failures.py
 
 The 27B evaluation phase is **COMPLETE** (111 domains, 70 passing, Mar 2026). The 27B is now the **local compute workhorse** for training 4B adapters on failing domains.
 
-**Current pipeline (triage-first):**
+**Current pipeline (triage-first, any model):**
 ```bash
 # Step 1: Extract steering vectors (fast, covers all domains)
-python experiments/extract_vectors_fast.py
+python experiments/extract_vectors_fast.py                          # 4B default
+python experiments/extract_vectors_fast.py --model Qwen/Qwen3-14B-Base  # 14B
 
 # Step 2: Train adapters only on steering failures
-python experiments/train_steering_failures.py
+python experiments/train_steering_failures.py --steps 2000
 
 # Step 3: Legacy adapter trainer for hand-crafted domains
 python scripts/adapter_trainer.py --status
 ```
 
-**35 unique domains still failing** (expanded from 14 after merging research_status.json):
-- Hard physics/math: knot_invariants, NS regularity, Hamiltonian mechanics, intersection theory, chemical networks
-- Vortex conservation: continuous Q_f, Q_f ratio, optimal f(r), kinetic K, EM zilch
-- LLM domains: llm_hallucination_grounded, llm_alignment, llm_context_memory
-- Bio: bio-AI parallels, immune_evasion, disease_targets
-- Math: millennium_problems, proof_techniques, computational_conjectures
-- Plus ~300 benchmark domains where steering failed (MMLU-Pro, GPQA, MedMCQA, etc.)
+**Fact budget:** 30 facts max per domain. 10-15 training facts converge to 100%. More is waste. All scripts enforce this cap.
+
+**Steering bank:** 523+ domains from MMLU (57), MMLU-Pro (127), GPQA, TruthfulQA, MedMCQA (20), ARC, BoolQ, CommonsenseQA, WinoGrande, HellaSwag, RACE, COPA, + 84 custom. Stored in `steering_bank/`, capped at 30 facts each. Total: ~13K facts.
+
+**Multi-model support:** Scripts accept `--model` flag. Vectors stored in `steering_vectors/{model_short}/`. Larger models (14B, 70B) need fewer adapters because more domains are "mute not dumb" (latent knowledge surfaced by steering). 14B loads on Apple Silicon M3 Ultra in ~6.5 min (40 layers, d_model=5120, same vocab 151936).
 
 **Escalation ladder (all automated via adapter_trainer.py):**
 1. Steering vector (0.1 KB, seconds) → if no improvement:
-2. Single-pass adapter (4000 steps, lr=4e-6) → if interference:
-3. Intensive adapter (5000 steps, lr=3e-6) → if plateau:
-4. Staged training (3000 steps/cluster, lr=4e-6) → if see-saw:
-5. Orthogonal adapters (4000 steps/cluster, lr=4e-6, routing config)
+2. Single-pass adapter (2000 steps, lr=4e-6) → if interference:
+3. Intensive adapter (3000 steps, lr=3e-6) → if plateau:
+4. Staged training (2000 steps/cluster, lr=4e-6) → if see-saw:
+5. Orthogonal adapters (2000 steps/cluster, lr=4e-6, routing config)
 
-**CRITICAL: Do NOT use lr > 1e-5 for adapter training.** Proven range is 3e-6 to 4e-6 with 3000-5000 steps. Higher lr (1e-4, 2e-4) destabilizes — confirmed 2026-03-20.
+**CRITICAL: Do NOT use lr > 1e-5 for adapter training.** Proven range is 3e-6 to 4e-6. Higher lr destabilizes. Max 2000-3000 steps — adapters converge by step 500 with 15 training facts.
 
 ### Evaluation (DONE — Do Not Restart)
 

@@ -217,8 +217,12 @@ def get_failing_domains():
     return failing
 
 
-def load_facts(facts_file):
-    """Load facts from JSON. Returns list of dicts with id, context, truth, distractors, cluster."""
+def load_facts(facts_file, max_facts=30):
+    """Load facts from JSON. Returns list of dicts with id, context, truth, distractors, cluster.
+
+    Capped at max_facts (default 30) — more is waste. 10-15 facts suffice for
+    adapter training to 100%. Keeping it lean speeds up training dramatically.
+    """
     with open(facts_file) as f:
         data = json.load(f)
 
@@ -239,6 +243,14 @@ def load_facts(facts_file):
                 "distractors": distractors,
                 "cluster": fact.get("cluster", None),
             })
+
+    # Cap at max_facts — shuffle deterministically to get variety
+    if len(facts) > max_facts:
+        import random
+        rng = random.Random(42)
+        rng.shuffle(facts)
+        facts = facts[:max_facts]
+
     return facts
 
 
@@ -377,7 +389,7 @@ def save_adapter(adapter, path):
 
 
 def train_adapter(model, lm_head, tokenizer, facts, adapter=None,
-                  steps=4000, lr=4e-6, margin_target=2.0, d_inner=64,
+                  steps=2000, lr=4e-6, margin_target=2.0, d_inner=64,
                   label="", quiet=False):
     """Train an adapter on the given facts. Returns the trained adapter.
 
@@ -563,7 +575,7 @@ def run_domain_pipeline(model, lm_head, tokenizer, domain_name, facts_file,
         print("\n--- L1: Single-pass adapter (4000 steps, lr=4e-6) ---")
         adapter = train_adapter(
             model, lm_head, tokenizer, facts,
-            steps=4000, lr=4e-6, margin_target=2.0, label="L1-single"
+            steps=2000, lr=4e-6, margin_target=2.0, label="L1-single"
         )
         l1_path = ADAPTERS_DIR / f"{base}_adapter.npz"
         save_adapter(adapter, l1_path)
@@ -614,7 +626,7 @@ def run_domain_pipeline(model, lm_head, tokenizer, domain_name, facts_file,
         print("\n--- L2: Intensive adapter (5000 steps, lr=3e-6) ---")
         adapter_l2 = train_adapter(
             model, lm_head, tokenizer, facts,
-            steps=5000, lr=3e-6, margin_target=2.5, label="L2-intensive"
+            steps=3000, lr=3e-6, margin_target=2.5, label="L2-intensive"
         )
         l2_path = ADAPTERS_DIR / f"{base}_intensive_adapter.npz"
         save_adapter(adapter_l2, l2_path)
@@ -678,7 +690,7 @@ def run_domain_pipeline(model, lm_head, tokenizer, domain_name, facts_file,
 
             staged_adapter = train_adapter(
                 model, lm_head, tokenizer, cluster_facts_list, adapter=staged_adapter,
-                steps=3000, lr=4e-6, margin_target=2.5,
+                steps=2000, lr=4e-6, margin_target=2.5,
                 label=f"stage-{cluster_name}"
             )
 
@@ -754,7 +766,7 @@ def run_orthogonal_pipeline(model, lm_head, tokenizer, facts, base,
         print(f"\n  Training orthogonal adapter: {cluster_name}")
         adapter = train_adapter(
             model, lm_head, tokenizer, cluster_facts_list,
-            steps=4000, lr=4e-6, margin_target=2.5,
+            steps=2000, lr=4e-6, margin_target=2.5,
             label=f"orthogonal-{cluster_name}"
         )
 

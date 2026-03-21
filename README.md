@@ -176,16 +176,23 @@ The triage: steering vectors catch the 25% that are "mute not dumb" for free. Ad
 ### Usage
 
 ```bash
-# Extract steering vectors for all domains
-python experiments/extract_vectors_fast.py
+# Extract steering vectors for all domains (any model)
+python experiments/extract_vectors_fast.py                          # 4B (default)
+python experiments/extract_vectors_fast.py --model Qwen/Qwen3-14B-Base  # 14B
+
+# Train adapters only on domains where steering failed
+python experiments/train_steering_failures.py                       # 4B (default)
+python experiments/train_steering_failures.py --model Qwen/Qwen3-14B-Base
 
 # Apply a steering vector at inference
 import numpy as np
-sv = np.load("steering_vectors/truthfulqa_best.npy")
+sv = np.load("steering_vectors/qwen3_4b_base/truthfulqa_best.npy")
 # Add sv * alpha to hidden state at layer 20 during forward pass
 ```
 
-Vectors are stored in `steering_vectors/` as `.npy` files. Metadata in `results/steering_vectors_v2.json`.
+Vectors are stored in `steering_vectors/{model}/` as `.npy` files. Metadata in `results/steering_vectors_{model}.json`.
+
+Each domain needs only ~10 fact pairs (30 max). Training facts are capped at 30 per domain — more is waste. Adapters converge to 100% with 15 training facts and 2000 steps.
 
 ### Surround and Discover
 
