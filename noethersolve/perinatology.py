@@ -7,7 +7,6 @@ preeclampsia screening, gestational age estimation, and amniotic fluid index.
 
 from dataclasses import dataclass
 from typing import Optional
-import math
 
 
 # ---------------------------------------------------------------------------

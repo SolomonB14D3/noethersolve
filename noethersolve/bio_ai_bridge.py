@@ -18,36 +18,11 @@ Tools provided:
 """
 
 from dataclasses import dataclass, field
-from typing import Optional, List, Tuple, Dict, Union
+from typing import Optional, List, Dict, Union
 from enum import Enum
-import math
 
-# Import sibling modules for comparisons
-try:
-    from .chemotaxis_model import (
-        check_perfect_adaptation,
-        simulate_chemotaxis,
-        compare_to_rl_agent as chemotaxis_rl_compare
-    )
-    from .c_elegans_behavior import (
-        detect_foraging_phase,
-        simulate_escape_response,
-        drift_diffusion_decision,
-        compare_to_ai_agent as elegans_ai_compare
-    )
-    from .neural_rl_analogy import (
-        validate_dopamine_rpe,
-        compare_hebbian_backprop,
-        map_striatum_to_actor_critic
-    )
-    from .collective_behavior import (
-        swarm_consensus,
-        flock_formation,
-        bacterial_quorum_sensing
-    )
-except ImportError:
-    # Allow standalone usage for testing
-    pass
+# Sibling modules available for comparisons (imported dynamically when needed)
+# These are imported on-demand in comparison functions to avoid circular imports
 
 
 class Verdict(Enum):
@@ -123,7 +98,7 @@ class ArchitectureMapping:
 
     def __str__(self) -> str:
         lines = [
-            f"Architecture Mapping:",
+            "Architecture Mapping:",
             f"  {self.biological_system} -> {self.ai_architecture}",
             f"  Confidence: {self.confidence:.2f}",
         ]

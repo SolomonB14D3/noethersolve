@@ -388,11 +388,11 @@ def source_coding_bound(probs: List[float], code_lengths: Optional[List[int]] = 
         )
 
     # Check Kraft inequality
-    kraft_sum = sum(2**(-l) for l in code_lengths)
+    kraft_sum = sum(2**(-length) for length in code_lengths)
     kraft_satisfied = kraft_sum <= 1
 
     # Average length
-    L = sum(p * l for p, l in zip(probs, code_lengths))
+    L = sum(p * length for p, length in zip(probs, code_lengths))
     efficiency = H / L if L > 0 else 0
 
     if not kraft_satisfied:

@@ -85,7 +85,7 @@ class LyapunovReport:
             "=" * 60,
             "  Lyapunov Exponents",
             "=" * 60,
-            f"  Exponents: {', '.join(f'{l:.4f}' for l in self.exponents)}",
+            f"  Exponents: {', '.join(f'{exp:.4f}' for exp in self.exponents)}",
             f"  Dimension: {self.dimension}",
             "-" * 60,
             f"  Sum of positive: {self.sum_positive:.6f}",
@@ -508,7 +508,7 @@ def lyapunov_analysis(
     dimension = len(sorted_exp)
 
     # Sum of positive exponents
-    sum_positive = sum(l for l in sorted_exp if l > 0)
+    sum_positive = sum(exp for exp in sorted_exp if exp > 0)
 
     # Kaplan-Yorke dimension
     ky_dim = _kaplan_yorke_dimension(sorted_exp)
@@ -559,8 +559,8 @@ def _kaplan_yorke_dimension(exponents: list[float]) -> float:
     cumsum = 0.0
     j = 0
 
-    for i, l in enumerate(exponents):
-        cumsum += l
+    for i, lyap_exp in enumerate(exponents):
+        cumsum += lyap_exp
         if cumsum >= 0:
             j = i + 1
         else:

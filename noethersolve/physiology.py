@@ -14,7 +14,6 @@ Usage:
 
 from dataclasses import dataclass
 from typing import Optional
-import math
 
 
 # ---------------------------------------------------------------------------
@@ -457,7 +456,7 @@ class AlveolarGasResult:
 
     def __str__(self) -> str:
         lines = [
-            f"Alveolar Gas Equation",
+            "Alveolar Gas Equation",
             f"  FiO2: {self.fio2:.2f}, PaCO2: {self.paco2:.1f} mmHg",
             f"  Patm: {self.patm:.0f} mmHg, RQ: {self.rq:.2f}",
             f"  PAO2 (alveolar): {self.pao2_alveolar:.1f} mmHg",
@@ -509,7 +508,7 @@ def calc_alveolar_gas(
             "suggests V/Q mismatch, shunt, or diffusion impairment"
         )
     elif expected_aa is not None:
-        parts.append(f"A-a gradient within expected range for age — if hypoxemic, consider hypoventilation")
+        parts.append("A-a gradient within expected range for age — if hypoxemic, consider hypoventilation")
     else:
         if aa_grad <= 15:
             parts.append("A-a gradient normal (<15 mmHg on room air)")
@@ -623,7 +622,7 @@ class AnionGapResult:
 
     def __str__(self) -> str:
         lines = [
-            f"Anion Gap Analysis",
+            "Anion Gap Analysis",
             f"  Na: {self.na:.0f}, Cl: {self.cl:.0f}, HCO3: {self.hco3:.0f} mEq/L",
             f"  Albumin: {self.albumin:.1f} g/dL",
             f"  Anion Gap: {self.anion_gap:.1f} mEq/L",
@@ -710,7 +709,7 @@ class OsmolalityResult:
 
     def __str__(self) -> str:
         lines = [
-            f"Serum Osmolality",
+            "Serum Osmolality",
             f"  Na: {self.na:.0f} mEq/L, Glucose: {self.glucose:.0f} mg/dL, BUN: {self.bun:.0f} mg/dL",
         ]
         if self.ethanol > 0:

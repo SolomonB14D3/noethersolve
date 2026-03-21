@@ -32,7 +32,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, Callable
 import json
-import os
 import time
 
 import numpy as np
@@ -349,7 +348,7 @@ class TeacherStudentResearch:
         result.teacher_verdict = "PASS"
 
         # Step 2: Get student baseline
-        print(f"[Student] Baseline scoring...")
+        print("[Student] Baseline scoring...")
         student_baseline = self.score_with_student(facts)
         result.student_baseline_margin = student_baseline["mean_margin"]
 
@@ -371,7 +370,7 @@ class TeacherStudentResearch:
         )
 
         # Step 4: Measure improvement
-        print(f"[Student] Measuring improvement...")
+        print("[Student] Measuring improvement...")
         student_adapted = self.score_with_student(facts, adapter=adapter)
         result.student_adapted_margin = student_adapted["mean_margin"]
         result.adapter_path = adapter_path
@@ -407,7 +406,7 @@ class TeacherStudentResearch:
         adapters_dir.mkdir(parents=True, exist_ok=True)
 
         print(f"\n{'='*60}")
-        print(f"Teacher-Student Autonomous Research")
+        print("Teacher-Student Autonomous Research")
         print(f"Teacher: {self.config.teacher_model}")
         print(f"Student: {self.config.student_model}")
         print(f"Max iterations: {max_iterations}")

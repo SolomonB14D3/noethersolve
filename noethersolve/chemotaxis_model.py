@@ -120,12 +120,10 @@ def check_perfect_adaptation(
         )
 
     # Find peak response after perturbation
-    peak_idx = 0
     peak_val = post_samples[0]
-    for i, val in enumerate(post_samples):
+    for val in post_samples:
         if abs(val - baseline) > abs(peak_val - baseline):
             peak_val = val
-            peak_idx = i
 
     post_perturbation = peak_val
 
@@ -185,7 +183,7 @@ class TumbleBiasResult:
             "=" * 50,
             "",
             f"Optimal bias: {self.optimal_bias:.3f}",
-            f"  (0 = always run/exploit, 1 = always tumble/explore)",
+            "  (0 = always run/exploit, 1 = always tumble/explore)",
             f"Gradient efficiency: {self.gradient_efficiency:.3f}",
             f"Exploration score: {self.exploration_score:.3f}",
             f"Best for: {self.optimal_for}",
@@ -406,7 +404,7 @@ def simulate_chemotaxis(
 
     # Calculate metrics
     final_c = concentration(x, y)
-    initial_c = concentration(*initial_position)
+    # initial_c not used - gradient_following metric uses displacement instead
 
     # Net displacement toward source
     sx, sy = source_position

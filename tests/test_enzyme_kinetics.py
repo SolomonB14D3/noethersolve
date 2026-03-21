@@ -79,26 +79,26 @@ class TestMichaelisMenten:
 class TestInhibition:
     def test_competitive_km_increases(self):
         """Competitive: Km_app = Km*(1 + [I]/Ki), Vmax unchanged."""
-        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode="competitive")
+        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode="competitive")
         assert isinstance(r, InhibitionReport)
         expected_Km_app = 5 * (1 + 4 / 2)  # 15
         assert abs(r.Km_app - expected_Km_app) < 1e-10
         assert abs(r.Vmax_app - 100) < 1e-10
 
     def test_competitive_vmax_unchanged(self):
-        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode="competitive")
+        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode="competitive")
         assert r.Vmax_app == 100
 
     def test_noncompetitive_vmax_decreases(self):
         """Noncompetitive: Vmax_app = Vmax/(1 + [I]/Ki), Km unchanged."""
-        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode="noncompetitive")
+        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode="noncompetitive")
         expected_Vmax_app = 100 / (1 + 4 / 2)  # 33.33
         assert abs(r.Vmax_app - expected_Vmax_app) < 1e-10
         assert abs(r.Km_app - 5) < 1e-10
 
     def test_uncompetitive_both_decrease(self):
         """Uncompetitive: both Km and Vmax decrease by same factor."""
-        r = inhibition(Vmax=100, Km=10, S=10, Ki=5, I=5, mode="uncompetitive")
+        r = inhibition(Vmax=100, Km=10, S=10, Ki=5, I_conc=5, mode="uncompetitive")
         alpha = 1 + 5 / 5  # 2
         assert abs(r.Km_app - 10 / alpha) < 1e-10
         assert abs(r.Vmax_app - 100 / alpha) < 1e-10
@@ -106,7 +106,7 @@ class TestInhibition:
         assert abs(r.Vmax_app / r.Km_app - 100 / 10) < 1e-10
 
     def test_mixed_inhibition(self):
-        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode="mixed", Ki_prime=3)
+        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode="mixed", Ki_prime=3)
         alpha = 1 + 4 / 2      # 3
         alpha_p = 1 + 4 / 3    # 2.333
         assert abs(r.Km_app - 5 * alpha / alpha_p) < 1e-10
@@ -114,40 +114,40 @@ class TestInhibition:
 
     def test_mixed_requires_ki_prime(self):
         with pytest.raises(ValueError, match="Ki_prime"):
-            inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode="mixed")
+            inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode="mixed")
 
     def test_unknown_mode_raises(self):
         with pytest.raises(ValueError, match="Unknown inhibition mode"):
-            inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode="allosteric")
+            inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode="allosteric")
 
     def test_inhibition_percentage(self):
-        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode="competitive")
+        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode="competitive")
         assert r.percent_inhibition > 0
         assert r.percent_inhibition < 100
         assert r.V0_inhibited < r.V0_uninhibited
 
     def test_no_inhibitor(self):
         """With [I]=0, inhibited velocity equals uninhibited."""
-        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I=0, mode="competitive")
+        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=0, mode="competitive")
         assert abs(r.V0_inhibited - r.V0_uninhibited) < 1e-10
         assert abs(r.percent_inhibition) < 1e-10
 
     def test_negative_ki_raises(self):
         with pytest.raises(ValueError, match="Ki must be positive"):
-            inhibition(Vmax=100, Km=5, S=10, Ki=-1, I=4, mode="competitive")
+            inhibition(Vmax=100, Km=5, S=10, Ki=-1, I_conc=4, mode="competitive")
 
     def test_case_insensitive_mode(self):
-        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode="Competitive")
+        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode="Competitive")
         assert r.mode == "competitive"
 
     def test_str_output(self):
-        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode="competitive")
+        r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode="competitive")
         s = str(r)
         assert "Competitive" in s
         assert "Km" in s
 
     def test_heavy_inhibition_note(self):
-        r = inhibition(Vmax=100, Km=5, S=10, Ki=1, I=100, mode="competitive")
+        r = inhibition(Vmax=100, Km=5, S=10, Ki=1, I_conc=100, mode="competitive")
         assert any("heavily inhibited" in n for n in r.notes)
 
 
@@ -339,7 +339,7 @@ class TestIntegration:
         """Inhibited velocity should always be <= uninhibited."""
         r_mm = michaelis_menten(Vmax=100, Km=5, S=10)
         for mode in ["competitive", "noncompetitive", "uncompetitive"]:
-            r_inh = inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode=mode)
+            r_inh = inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode=mode)
             assert r_inh.V0_inhibited <= r_mm.V0 + 1e-10, f"{mode} failed"
 
     def test_lineweaver_burk_recovers_mm_params(self):
@@ -364,7 +364,7 @@ class TestIntegration:
         assert r_eff.kcat_over_Km > 0
 
         # Step 4: Test an inhibitor
-        r_inh = inhibition(Vmax=500, Km=2e-4, S=1e-3, Ki=1e-5, I=5e-5, mode="competitive")
+        r_inh = inhibition(Vmax=500, Km=2e-4, S=1e-3, Ki=1e-5, I_conc=5e-5, mode="competitive")
         assert r_inh.percent_inhibition > 0
 
     def test_cooperativity_vs_mm_at_khalf(self):

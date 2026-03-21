@@ -32,18 +32,8 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional, Any
 from enum import Enum
 
-# Import domain-specific modules where available
-try:
-    from noethersolve.cold_fusion import STANDARD_CLAIMS as COLD_FUSION_CLAIMS
-    HAS_COLD_FUSION = True
-except ImportError:
-    HAS_COLD_FUSION = False
-
-try:
-    from noethersolve.fact_checker import fact_check, ClaimCategory
-    HAS_FACT_CHECKER = True
-except ImportError:
-    HAS_FACT_CHECKER = False
+# Domain-specific modules are imported dynamically when needed
+# to avoid circular imports and unused import warnings
 
 
 class Domain(Enum):

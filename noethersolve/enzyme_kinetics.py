@@ -20,7 +20,7 @@ Usage:
     print(r)  # V0 = 66.7 µM/s, 66.7% Vmax
 
     # Competitive inhibition
-    r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I=4, mode="competitive")
+    r = inhibition(Vmax=100, Km=5, S=10, Ki=2, I_conc=4, mode="competitive")
     print(r)  # Km_app = 15, V0 = 40.0 µM/s
 
     # Catalytic efficiency
@@ -76,7 +76,7 @@ class InhibitionReport:
     Km: float
     S: float
     Ki: float
-    I: float               # inhibitor concentration
+    I_conc: float          # inhibitor concentration [I]
     Vmax_app: float        # apparent Vmax
     Km_app: float          # apparent Km
     V0_uninhibited: float  # V0 without inhibitor
@@ -88,7 +88,7 @@ class InhibitionReport:
     def __str__(self) -> str:
         lines = ["=" * 60, f"  {self.mode.capitalize()} Inhibition", "=" * 60]
         lines.append(f"  Vmax = {self.Vmax:.4g}    Km = {self.Km:.4g}    Ki = {self.Ki:.4g}")
-        lines.append(f"  [S] = {self.S:.4g}    [I] = {self.I:.4g}")
+        lines.append(f"  [S] = {self.S:.4g}    [I] = {self.I_conc:.4g}")
         if self.Ki_prime is not None:
             lines.append(f"  Ki' = {self.Ki_prime:.4g} (mixed)")
         lines.append("-" * 60)
@@ -304,7 +304,7 @@ def inhibition(
     Km: float,
     S: float,
     Ki: float,
-    I: float,
+    I_conc: float,
     mode: str = "competitive",
     Ki_prime: Optional[float] = None,
 ) -> InhibitionReport:
@@ -321,7 +321,7 @@ def inhibition(
         Km: Michaelis constant
         S: substrate concentration
         Ki: inhibition constant (dissociation of E-I complex)
-        I: inhibitor concentration
+        I_conc: inhibitor concentration [I]
         mode: "competitive", "noncompetitive", "uncompetitive", or "mixed"
         Ki_prime: for mixed inhibition, dissociation of ES-I complex
 
@@ -330,11 +330,11 @@ def inhibition(
     """
     if Ki <= 0:
         raise ValueError(f"Ki must be positive, got {Ki}")
-    if I < 0:
-        raise ValueError(f"[I] must be non-negative, got {I}")
+    if I_conc < 0:
+        raise ValueError(f"[I] must be non-negative, got {I_conc}")
 
     mode = mode.lower().strip()
-    alpha = 1 + I / Ki  # competitive factor
+    alpha = 1 + I_conc / Ki  # competitive factor
 
     if mode == "competitive":
         Km_app = Km * alpha
@@ -350,7 +350,7 @@ def inhibition(
             raise ValueError("Mixed inhibition requires Ki_prime parameter")
         if Ki_prime <= 0:
             raise ValueError(f"Ki_prime must be positive, got {Ki_prime}")
-        alpha_prime = 1 + I / Ki_prime
+        alpha_prime = 1 + I_conc / Ki_prime
         Km_app = Km * alpha / alpha_prime
         Vmax_app = Vmax / alpha_prime
     else:
@@ -364,11 +364,11 @@ def inhibition(
     notes = []
     if mode == "competitive" and S > 10 * Km_app:
         notes.append("At high [S], competitive inhibition is largely overcome")
-    if I > 10 * Ki:
+    if I_conc > 10 * Ki:
         notes.append(f"[I] >> Ki: enzyme is heavily inhibited ({pct_inh:.0f}%)")
 
     return InhibitionReport(
-        mode=mode, Vmax=Vmax, Km=Km, S=S, Ki=Ki, I=I,
+        mode=mode, Vmax=Vmax, Km=Km, S=S, Ki=Ki, I_conc=I_conc,
         Vmax_app=Vmax_app, Km_app=Km_app,
         V0_uninhibited=V0_uninh, V0_inhibited=V0_inh,
         percent_inhibition=pct_inh,

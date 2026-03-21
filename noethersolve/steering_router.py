@@ -131,7 +131,6 @@ class SteeringRouter:
         **kwargs,
     ) -> "SteeringRouter":
         """Build steering bank with centroids (routing) and steering vectors (correction)."""
-        import mlx.core as mx
 
         facts_path = Path(facts_dir)
         steering_bank = {}
@@ -336,7 +335,7 @@ def quick_test(query: str, steering_bank_path: str = "steering_bank.npz"):
     result = router.route_and_steer(model, tokenizer, query)
 
     if result:
-        print(f"\nSteering needed:")
+        print("\nSteering needed:")
         for d, w in result.domain_weights.items():
             print(f"  {d}: {w:.2%}")
     else:

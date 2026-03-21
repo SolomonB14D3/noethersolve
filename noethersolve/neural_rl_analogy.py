@@ -117,7 +117,7 @@ class ActorCriticMapping:
 
     def __str__(self) -> str:
         lines = [
-            f"Striatal-Actor-Critic Mapping:",
+            "Striatal-Actor-Critic Mapping:",
             f"  Region: {self.striatal_region} -> {self.ac_component}",
             f"  Confidence: {self.mapping_confidence:.2f}",
             f"  Pathway: {self.pathway}",

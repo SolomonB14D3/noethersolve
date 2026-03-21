@@ -14,13 +14,89 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="296 computational tools for physics, math, genetics, chemistry, pharmacokinetics, "
-                 "epidemiology, climate physics, turbulence, topological phases, ergodic theory, optimization, "
-                 "numerical PDEs, MHD conservation, GR constraints, seismic waves, plasma adiabatic invariants, "
-                 "intersection theory, physiology, perinatology, hematology, sociology, catalysis, drug databases, "
-                 "autonomy analysis, metacognition, and LLM science — verified calculators "
+    instructions="300+ tools including a trained 4B oracle model for claim verification. "
+                 "The oracle (verify_claim) uses domain-specific adapters to verify factual claims "
+                 "with high accuracy on unseen facts. Plus 230+ computational tools for physics, math, "
+                 "genetics, chemistry, pharmacokinetics, epidemiology, climate physics, turbulence, "
+                 "topological phases, ergodic theory, optimization, numerical PDEs, MHD, GR, seismology, "
+                 "plasma physics, autonomy analysis, metacognition, and LLM science — verified calculators "
                  "from first principles, not guesses.",
 )
+
+
+# ── Oracle Verification (4B Model + Adapters) ────────────────────────
+
+@mcp.tool()
+def verify_claim(
+    claim: str,
+    domain: str = "general",
+    distractors: list[str] = None,
+    context: str = "",
+) -> str:
+    """Verify a factual claim using the trained 4B oracle model.
+
+    This tool uses a fine-tuned Qwen3-4B model with domain-specific adapters
+    to verify factual claims. It returns a verdict (TRUE/FALSE/UNCERTAIN),
+    confidence score, and explanation.
+
+    Args:
+        claim: The factual statement to verify
+        domain: Domain for adapter selection (e.g., "chemistry", "physics",
+                "biochemistry", "mathematics", "clinical_translation")
+        distractors: Alternative claims to compare against (improves accuracy)
+        context: Optional context for the claim
+
+    Returns:
+        Verification result with verdict, confidence, margin, and explanation.
+
+    Example:
+        verify_claim(
+            claim="Water boils at 100°C at sea level",
+            domain="chemistry"
+        )
+        # → Verdict: TRUE (confidence: 94%)
+    """
+    from noethersolve.oracle_tool import verify_claim as _verify
+    result = _verify(claim, domain, distractors, context)
+    return str(result)
+
+
+@mcp.tool()
+def get_oracle_domains() -> str:
+    """List all domains supported by the oracle verification tool.
+
+    Returns domains that have trained adapters, along with expected accuracy.
+    Domains with adapters have higher verification confidence.
+    """
+    from noethersolve.oracle_tool import list_supported_domains, get_domain_confidence
+
+    domains = list_supported_domains()
+    lines = ["Supported Oracle Domains:", ""]
+
+    for domain in domains[:30]:  # Limit output
+        info = get_domain_confidence(domain)
+        acc = info.get("expected_accuracy", "?")
+        lines.append(f"  • {domain}: {acc}")
+
+    if len(domains) > 30:
+        lines.append(f"  ... and {len(domains) - 30} more")
+
+    lines.append("")
+    lines.append(f"Total: {len(domains)} domains with trained adapters")
+
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def check_domain_confidence(domain: str) -> str:
+    """Check oracle confidence and adapter availability for a specific domain.
+
+    Returns whether an adapter is available, expected accuracy, and recommendations.
+    """
+    from noethersolve.oracle_tool import get_domain_confidence
+    import json
+    info = get_domain_confidence(domain)
+    return json.dumps(info, indent=2)
 
 
 # ── Conservation Law Monitors ─────────────────────────────────────────
@@ -1204,7 +1280,7 @@ def calc_enzyme_inhibition(
     Km: float,
     S: float,
     Ki: float,
-    I: float,
+    inhibitor_conc: float,
     mode: str = "competitive",
     Ki_prime: float = 0,
 ) -> str:
@@ -1218,7 +1294,7 @@ def calc_enzyme_inhibition(
     Km: Michaelis constant
     S: substrate concentration
     Ki: inhibition constant
-    I: inhibitor concentration
+    inhibitor_conc: inhibitor concentration [I]
     mode: "competitive", "noncompetitive", "uncompetitive", or "mixed"
     Ki_prime: for mixed inhibition only (ES-I dissociation constant)
 
@@ -1229,7 +1305,7 @@ def calc_enzyme_inhibition(
     kw = {}
     if Ki_prime > 0:
         kw["Ki_prime"] = Ki_prime
-    return str(inhibition(Vmax=Vmax, Km=Km, S=S, Ki=Ki, I=I, mode=mode, **kw))
+    return str(inhibition(Vmax=Vmax, Km=Km, S=S, Ki=Ki, I_conc=inhibitor_conc, mode=mode, **kw))
 
 
 @mcp.tool()
@@ -7691,6 +7767,91 @@ def fetch_cyp_inhibition_chembl(drug_name: str, cyp_enzyme: str = None) -> str:
     if not results:
         return f"No CYP inhibition data found for '{drug_name}'"
     return "\n".join(str(r) for r in results)
+
+
+# ── UniProt Protein Database API ──────────────────────────────────────
+
+@mcp.tool()
+def fetch_protein_info(gene_or_accession: str) -> str:
+    """Fetch protein information from UniProt for a human gene or accession.
+
+    Returns accession, gene name, protein name, sequence length, subcellular
+    location, function description, GO terms, and disease associations.
+    Falls back to local cache for common proteins (TP53, BRCA1, EGFR, INS,
+    HBB, ACE2, CFTR, HTT) when the API is unreachable.
+    """
+    from noethersolve.uniprot_api import fetch_protein_info as _fetch
+    result = _fetch(gene_or_accession)
+    if result is None:
+        return f"Protein '{gene_or_accession}' not found in UniProt"
+    return str(result)
+
+
+@mcp.tool()
+def fetch_protein_variants(gene_or_accession: str) -> str:
+    """Fetch known variant/mutation annotations for a human protein from UniProt.
+
+    Returns position, amino acid change, description, and clinical significance
+    for each annotated natural variant. Useful for checking pathogenic mutations,
+    polymorphisms, and disease-associated variants.
+    """
+    from noethersolve.uniprot_api import fetch_protein_variants as _fetch
+    results = _fetch(gene_or_accession)
+    if not results:
+        return f"No variant annotations found for '{gene_or_accession}'"
+    return "\n".join(str(r) for r in results)
+
+
+# ── PubChem Compound Database API ─────────────────────────────────────
+
+@mcp.tool()
+def fetch_compound_info(name_or_cid: str) -> str:
+    """Fetch compound information from PubChem by name or CID.
+
+    Returns CID, IUPAC name, molecular formula, molecular weight, SMILES,
+    InChI key, XLogP, TPSA, H-bond donors/acceptors, and rotatable bonds.
+    Includes local fallback cache for 10 common drugs.
+
+    Examples: 'aspirin', 'ibuprofen', '2244' (CID for aspirin)
+    """
+    from noethersolve.pubchem_api import fetch_compound_info as _fetch
+    result = _fetch(name_or_cid)
+    if result is None:
+        return f"Compound '{name_or_cid}' not found in PubChem"
+    return str(result)
+
+
+@mcp.tool()
+def check_drug_lipinski(name_or_cid: str) -> str:
+    """Check Lipinski Rule of 5 drug-likeness for a compound via PubChem.
+
+    Evaluates: MW < 500, HBD <= 5, HBA <= 10, XLogP <= 5.
+    A compound with <= 1 violation is considered drug-like.
+    Returns pass/fail with specific violations listed.
+
+    Examples: 'aspirin', 'atorvastatin', 'metformin'
+    """
+    from noethersolve.pubchem_api import check_lipinski as _check
+    result = _check(name_or_cid)
+    if result is None:
+        return f"Could not fetch properties for '{name_or_cid}' from PubChem"
+    return str(result)
+
+
+@mcp.tool()
+def fetch_compound_safety(name_or_cid: str) -> str:
+    """Fetch GHS safety classification for a compound from PubChem.
+
+    Returns signal word (Danger/Warning), GHS hazard statements (H-codes),
+    and safety pictograms. Requires compound CID resolution.
+
+    Examples: 'methanol', 'acetone', 'sulfuric acid'
+    """
+    from noethersolve.pubchem_api import fetch_compound_safety as _fetch
+    result = _fetch(name_or_cid)
+    if result is None:
+        return f"Compound '{name_or_cid}' not found in PubChem"
+    return str(result)
 
 
 # ── Entry Point ───────────────────────────────────────────────────────

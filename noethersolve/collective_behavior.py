@@ -21,7 +21,7 @@ Tools provided:
 """
 
 from dataclasses import dataclass, field
-from typing import Optional, List, Tuple, Dict, Set
+from typing import Optional, List, Tuple, Dict
 from enum import Enum
 import math
 import random
@@ -63,7 +63,7 @@ class SlimeMoldResult:
 
     def __str__(self) -> str:
         lines = [
-            f"Slime Mold Optimization Result:",
+            "Slime Mold Optimization Result:",
             f"  Optimal edges: {len(self.optimal_edges)}",
             f"  Total length: {self.total_length:.2f}",
             f"  Efficiency: {self.efficiency:.2%}",
@@ -89,7 +89,7 @@ class AntColonyResult:
 
     def __str__(self) -> str:
         lines = [
-            f"Ant Colony Optimization Result:",
+            "Ant Colony Optimization Result:",
             f"  Best path: {' -> '.join(map(str, self.best_path))}",
             f"  Path length: {self.path_length:.2f}",
             f"  Iterations: {self.iterations}",
@@ -253,7 +253,7 @@ def _minimum_spanning_tree(nodes: List[Tuple[float, float]], required: List[int]
     if len(required) < 2:
         return []
 
-    n = len(nodes)
+    # Build MST over required nodes using Prim's algorithm
     in_tree = {required[0]}
     edges = []
 
@@ -675,8 +675,8 @@ def bacterial_quorum_sensing(
     if seed is not None:
         random.seed(seed)
 
-    # Initialize bacteria with random positions in unit square
-    positions = [(random.random(), random.random()) for _ in range(n_bacteria)]
+    # Initialize bacteria - positions not tracked (well-mixed assumption)
+    # Each bacterium contributes equally to global signal pool
     activated = [False] * n_bacteria
     local_signals = [0.0] * n_bacteria
 

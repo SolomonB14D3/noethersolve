@@ -40,7 +40,7 @@ from __future__ import annotations
 import json
 import urllib.request
 import urllib.error
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional
 
 # ---- Constants ----------------------------------------------------------------

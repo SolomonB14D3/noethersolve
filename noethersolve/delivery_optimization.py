@@ -7,7 +7,7 @@ safety stock calculation, and bin packing bounds.
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
 
@@ -611,11 +611,10 @@ class BinPackingReport:
             f"  L2 lower bound: {self.l2_lower_bound} bins",
             f"  FFD heuristic: {self.ffd_bins_used} bins",
             f"  {self.gap}",
-            f"  FFD assignment:",
+            "  FFD assignment:",
         ]
         for i, b in enumerate(self.ffd_assignment):
             items_str = ", ".join(str(idx) for idx in b)
-            bin_total = sum(self._sizes[idx] for idx in b) if hasattr(self, '_sizes') else 0
             lines.append(f"    Bin {i}: items [{items_str}]")
         return "\n".join(lines)
 
@@ -678,7 +677,6 @@ def _first_fit_decreasing(sizes: List[float], capacity: float) -> Tuple[int, Lis
     Sort items by decreasing size, then place each into the first bin that fits.
     Returns (num_bins, assignment) where assignment[bin_idx] = [item_indices].
     """
-    n = len(sizes)
     # Sort by size descending, keep original indices
     indexed = sorted(enumerate(sizes), key=lambda x: -x[1])
 

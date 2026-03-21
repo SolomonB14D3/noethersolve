@@ -361,7 +361,7 @@ class PaperAgent:
             ev = brief.get("evidence", {})
             total = ev.get("candidates_total", 0)
             flipped = ev.get("flipped", 0)
-            passing = ev.get("passing", 0)
+            # passing count tracked but not needed for maturity calculation
 
             # Also count findings as evidence
             n_findings = len(brief.get("findings", []))
@@ -522,7 +522,7 @@ class PaperAgent:
         for i, f in enumerate(findings):
             # Extract key content (skip the title line)
             lines = f["content"].split("\n")
-            body = "\n".join(l for l in lines if not l.startswith("# "))
+            body = "\n".join(line for line in lines if not line.startswith("# "))
             # Truncate very long findings
             if len(body) > 3000:
                 body = body[:3000] + "\n\n[...truncated for brevity]"

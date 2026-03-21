@@ -19,7 +19,7 @@ Cross-domain adapters make margins worse (21× degradation).
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Tuple
+from typing import Dict, List
 import math
 
 
@@ -196,8 +196,8 @@ def check_detailed_balance_pagerank(
 
     if is_detailed:
         interpretation = (
-            f"Detailed balance SATISFIED (α=1.0). "
-            f"Pure random walk, no driving. Distribution is thermal equilibrium."
+            "Detailed balance SATISFIED (α=1.0). "
+            "Pure random walk, no driving. Distribution is thermal equilibrium."
         )
     else:
         interpretation = (
