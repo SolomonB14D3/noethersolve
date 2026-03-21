@@ -1,6 +1,10 @@
 """Tests for noethersolve.reaction_engine — organic chemistry reaction engine."""
 
 import pytest
+
+# Skip entire module if RDKit is not available
+pytest.importorskip("rdkit", reason="RDKit required for reaction engine tests")
+
 from noethersolve.reaction_engine import (
     analyze_molecule,
     predict_selectivity,
