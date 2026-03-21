@@ -34,8 +34,15 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Optional
 
-import mlx.core as mx
 import numpy as np
+
+# MLX is Apple Silicon only - conditionally import
+try:
+    import mlx.core as mx
+    HAS_MLX = True
+except ImportError:
+    mx = None  # type: ignore
+    HAS_MLX = False
 
 
 @dataclass
@@ -89,6 +96,8 @@ class AdapterRouter:
         Uses model.model(tokens) — the transformer backbone without lm_head.
         Returns a 1-D numpy array of shape (d_model,).
         """
+        if not HAS_MLX:
+            raise RuntimeError("AdapterRouter requires MLX (Apple Silicon only)")
         tokens = mx.array(tokenizer.encode(text))[None, :]
         h = model.model(tokens)  # [1, seq, d_model]
         mx.eval(h)

@@ -5,6 +5,10 @@ import os
 import tempfile
 
 import numpy as np
+import pytest
+
+# Skip entire module if MLX is not available (Apple Silicon only)
+pytest.importorskip("mlx", reason="MLX required (Apple Silicon only)")
 
 from noethersolve.adapter_router import (
     AdapterRouter,
