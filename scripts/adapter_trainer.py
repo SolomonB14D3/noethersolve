@@ -16,10 +16,10 @@ The ADAPTER targets the 4B (dimensions = 4B's vocab=151936, d_model=2560).
 The training forward/backward passes go through the 4B model loaded locally.
 
 Escalation ladder (all automated, no Claude Code needed):
-  L1: Single-pass adapter (500 steps, lr=2e-4, margin=1.5)
-  L2: Intensive adapter (800 steps, lr=1e-4, margin=2.0)
-  L3: Staged training (cluster facts, train sequentially with regression checks)
-  L4: Orthogonal adapters (one per cluster, routing config for inference)
+  L1: Single-pass adapter (4000 steps, lr=4e-6, margin=2.0)
+  L2: Intensive adapter (5000 steps, lr=3e-6, margin=2.5)
+  L3: Staged training (3000 steps/cluster, lr=4e-6, margin=2.5)
+  L4: Orthogonal adapters (4000 steps/cluster, lr=4e-6, margin=2.5)
 
 Usage:
     python scripts/adapter_trainer.py           # Train all failing domains
@@ -78,6 +78,22 @@ DOMAIN_TO_FACTS = {
     "reduced_navier_stokes_vortex_conservation_unsolved": "vortex_pair",
     "optimal_fr_combination": "optimal_f",
     "optimal_f_r_combination": "optimal_f",
+    # Additional mappings for full domain coverage
+    "kinetic_invariant_k": "kinetic_k",
+    "elliptic_curve_theory": "elliptic_curve",
+    "ns_regularity_and_stretchresistant_q_f": "ns_regularity",
+    "ns_regularity_and_stretch_resistant_q_f": "ns_regularity",
+    "hamiltonian_mechanics_invariants": "hamiltonian",
+    "chemical_reaction_network_conservation": "chemical_conservation",
+    "information_theory": "information_theory",
+    "3body_conservation": "3body_conservation",
+    "llm_hallucination_grounded": "llm_hallucination_balanced",
+    "physics_fundamentals": "physics_fundamentals_2d_turbulence",
+    "organic_chemistry": "chemistry",
+    "clinical_biochemistry": "biochemistry",
+    "biology": "aging_biology",
+    "geophysics_seismic": "geophysics_seismic",
+    "pathophysiology": "pathophysiology",
 }
 
 
@@ -86,16 +102,34 @@ DOMAIN_TO_FACTS = {
 # ═══════════════════════════════════════════════════════════════════════
 
 def load_run_summary():
-    """Load domain pass rates from the latest sweep."""
+    """Load domain pass rates from all available sources.
+
+    Merges run_summary.json (sweep results) with research_status.json
+    (full evaluation results) to get the complete picture.
+    """
+    rates = {}
+
+    # Source 1: run_summary.json (original sweep data)
     summary_path = RESULTS_DIR / "run_summary.json"
-    if not summary_path.exists():
-        return {}
-    with open(summary_path) as f:
-        data = json.load(f)
-    for sweep in reversed(data.get("sweeps", [])):
-        if sweep.get("domain_pass_rates"):
-            return sweep["domain_pass_rates"]
-    return {}
+    if summary_path.exists():
+        with open(summary_path) as f:
+            data = json.load(f)
+        for sweep in reversed(data.get("sweeps", [])):
+            if sweep.get("domain_pass_rates"):
+                rates.update(sweep["domain_pass_rates"])
+                break
+
+    # Source 2: research_status.json (full evaluation — may have more domains)
+    status_path = RESULTS_DIR / "research_status.json"
+    if status_path.exists():
+        with open(status_path) as f:
+            data = json.load(f)
+        for name, r in data.get("domain_results", {}).items():
+            oracle_rate = r.get("oracle_rate", None)
+            if oracle_rate is not None and name not in rates:
+                rates[name] = oracle_rate
+
+    return rates
 
 
 def normalize_domain_name(name):
@@ -116,14 +150,7 @@ def get_failing_domains():
         print("No run_summary.json found. Run research_runner.py first.")
         return []
 
-    # Group by normalized base domain, keep best version
-    best = {}
-    for name, rate in rates.items():
-        base = normalize_domain_name(name)
-        if base not in best or rate > best[base][1]:
-            best[base] = (name, rate)
-
-    # Build facts file map
+    # Build facts file map (V2 preferred over V1 for same stem)
     facts_map = {}
     for ff in sorted(PROBLEMS_DIR.glob("*_facts*.json"), reverse=True):
         try:
@@ -138,7 +165,17 @@ def get_failing_domains():
         except (json.JSONDecodeError, KeyError):
             continue
 
+    # Deduplicate: group by normalized name, keep the LOWEST rate version
+    # (we want to train the hardest variant, not skip it because a V2 passed)
+    best = {}
+    for name, rate in rates.items():
+        base = normalize_domain_name(name)
+        # Keep the FAILING version if any variant fails
+        if base not in best or rate < best[base][1]:
+            best[base] = (name, rate)
+
     failing = []
+    seen_facts = set()  # Avoid training same facts file twice
     for base, (name, rate) in sorted(best.items(), key=lambda x: x[1][1]):
         if rate >= 0.5:
             continue
@@ -168,6 +205,11 @@ def get_failing_domains():
                     break
 
         if facts_file is not None and facts_file.exists():
+            # Skip if we'd be training on the exact same facts file
+            ff_key = str(facts_file)
+            if ff_key in seen_facts:
+                continue
+            seen_facts.add(ff_key)
             failing.append((name, rate, facts_file))
         else:
             failing.append((name, rate, None))
@@ -271,7 +313,7 @@ def evaluate_facts(model, lm_head, tokenizer, facts, adapter=None, label=""):
 # ═══════════════════════════════════════════════════════════════════════
 
 def mc_hinge_loss(adapter, lm_head, model, prompt, truth, distractors, tokenizer,
-                  margin_target=1.5):
+                  margin_target=2.0):
     """Differentiable hinge loss: max(0, margin_target - (truth_lp - best_dist_lp))."""
     def lp(text):
         prompt_ids = tokenizer.encode(prompt)
@@ -335,7 +377,7 @@ def save_adapter(adapter, path):
 
 
 def train_adapter(model, lm_head, tokenizer, facts, adapter=None,
-                  steps=500, lr=2e-4, margin_target=1.5, d_inner=64,
+                  steps=4000, lr=4e-6, margin_target=2.0, d_inner=64,
                   label="", quiet=False):
     """Train an adapter on the given facts. Returns the trained adapter.
 
@@ -518,10 +560,10 @@ def run_domain_pipeline(model, lm_head, tokenizer, domain_name, facts_file,
 
     # ── L1: Single-pass adapter ──
     if not status["has_single"]:
-        print("\n--- L1: Single-pass adapter (500 steps) ---")
+        print("\n--- L1: Single-pass adapter (4000 steps, lr=4e-6) ---")
         adapter = train_adapter(
             model, lm_head, tokenizer, facts,
-            steps=500, lr=2e-4, margin_target=1.5, label="L1-single"
+            steps=4000, lr=4e-6, margin_target=2.0, label="L1-single"
         )
         l1_path = ADAPTERS_DIR / f"{base}_adapter.npz"
         save_adapter(adapter, l1_path)
@@ -569,10 +611,10 @@ def run_domain_pipeline(model, lm_head, tokenizer, domain_name, facts_file,
 
     # ── L2: Intensive adapter ──
     if not status["has_intensive"]:
-        print("\n--- L2: Intensive adapter (800 steps, lower LR) ---")
+        print("\n--- L2: Intensive adapter (5000 steps, lr=3e-6) ---")
         adapter_l2 = train_adapter(
             model, lm_head, tokenizer, facts,
-            steps=800, lr=1e-4, margin_target=2.0, label="L2-intensive"
+            steps=5000, lr=3e-6, margin_target=2.5, label="L2-intensive"
         )
         l2_path = ADAPTERS_DIR / f"{base}_intensive_adapter.npz"
         save_adapter(adapter_l2, l2_path)
@@ -636,7 +678,7 @@ def run_domain_pipeline(model, lm_head, tokenizer, domain_name, facts_file,
 
             staged_adapter = train_adapter(
                 model, lm_head, tokenizer, cluster_facts_list, adapter=staged_adapter,
-                steps=400, lr=1e-4, margin_target=2.0,
+                steps=3000, lr=4e-6, margin_target=2.5,
                 label=f"stage-{cluster_name}"
             )
 
@@ -712,7 +754,7 @@ def run_orthogonal_pipeline(model, lm_head, tokenizer, facts, base,
         print(f"\n  Training orthogonal adapter: {cluster_name}")
         adapter = train_adapter(
             model, lm_head, tokenizer, cluster_facts_list,
-            steps=600, lr=2e-4, margin_target=2.0,
+            steps=4000, lr=4e-6, margin_target=2.5,
             label=f"orthogonal-{cluster_name}"
         )
 
@@ -845,12 +887,31 @@ def print_status():
 # Section 8: Main Work Loop
 # ═══════════════════════════════════════════════════════════════════════
 
+def write_pid_file():
+    """Write PID file so the dashboard can detect us."""
+    pid_file = RESULTS_DIR / "adapter_train.pid"
+    pid_file.write_text(str(os.getpid()))
+    return pid_file
+
+
+def remove_pid_file():
+    """Clean up PID file on exit."""
+    pid_file = RESULTS_DIR / "adapter_train.pid"
+    try:
+        pid_file.unlink(missing_ok=True)
+    except Exception:
+        pass
+
+
 def run_work_loop(domain_filter=None):
     """Continuous work loop: load model once, process all failing domains."""
+    pid_file = write_pid_file()
+
     print(f"{'='*70}")
     print(f"  Adapter Trainer — Full Autonomous Pipeline")
     print(f"  Training model: {TRAIN_MODEL} (4B student — adapter target)")
     print(f"  27B provides compute; adapter dimensions match 4B")
+    print(f"  PID: {os.getpid()} (written to {pid_file.name})")
     print(f"  Started: {datetime.now().isoformat()}")
     print(f"{'='*70}\n")
 
@@ -936,6 +997,8 @@ def run_work_loop(domain_filter=None):
     print(f"  Errors: {len(errors)}")
     print(f"  Finished: {datetime.now().isoformat()}")
     print(f"{'='*70}")
+
+    remove_pid_file()
 
 
 def main():

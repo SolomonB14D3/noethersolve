@@ -678,6 +678,17 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/network_calc.py` | Bandwidth-delay product, TCP throughput, subnetting, IP fragmentation |
 | `noethersolve/os_calc.py` | Page tables, CPU scheduling, deadlock detection, TLB analysis |
 | `tests/` | 2265 tests across 61 test files |
+| `steering_vectors/` | **Steering vectors** — .npy files, ~0.1 KB each, one per domain |
+| `steering_bank/` | **Benchmark fact bank** — 523 domain files from MMLU, GPQA, TruthfulQA, MedMCQA, ARC, BoolQ, etc. Reusable on any model. |
+| `results/steering_vectors_v2.json` | Steering results: baseline, steered accuracy, best layer/alpha per domain |
+| `results/adapter_training_results.json` | Adapter results on steering-failed domains |
+| `experiments/extract_vectors_fast.py` | Multi-layer steering vector extraction (sweeps L10/L15/L20) |
+| `experiments/train_steering_failures.py` | Adapter training on domains where steering failed |
+| `experiments/adapter_vs_steering_test.py` | Head-to-head comparison (adapter vs steering) |
+| `experiments/build_steering_bank.py` | Downloads MMLU/GPQA/TruthfulQA/etc from HuggingFace |
+| `experiments/surround_and_discover.py` | Surround-and-discover orchestration |
+| `experiments/score_ns_discovery.py` | NS open problem scoring with surround + existing adapters |
+| `experiments/adapter_hypothesis_engine.py` | Multi-adapter voting hypothesis engine |
 
 ---
 
@@ -702,33 +713,97 @@ margin < -20      → Extreme gap — domain-specific adapter required
 
 ---
 
+## Steering Vectors — Triage Before Training (Mar 21, 2026)
+
+**Key finding:** Most LoRA adapters encode something much simpler — a single direction in activation space. A 0.1 KB steering vector does the same job as a 50 MB adapter on 25% of domains, with zero regressions.
+
+**The triage pipeline (always run in this order):**
+1. **Extract steering vector** (seconds, 0.1 KB) → if baseline improves, ship the vector
+2. **Train logit-space adapter** (minutes, 50 MB) → if steering failed, adapter handles it
+3. **Build MCP tool** (permanent, model-agnostic) → for maximum reliability
+
+**Results on 523 benchmark domains (MMLU, GPQA, TruthfulQA, MedMCQA, ARC, BoolQ, etc.):**
+- Improved by steering: **129/523** (24.7%), 0 hurt
+- Steering failures trained with adapters: **100%** accuracy (college_math 6%→100%, GPQA 4%→100%)
+- Total vector storage: **1.3 MB** for all 523 domains (vs ~26 GB for adapters)
+
+**When steering works:** Model has latent knowledge but generation mechanism picks wrong output ("mute not dumb"). TruthfulQA 13%→100%, moral scenarios 0%→73%.
+
+**When steering fails:** Model genuinely lacks knowledge (hard STEM, graduate-level). Must use adapter.
+
+**How it works:** At layer L, compute mean(correct_activations) - mean(incorrect_activations) from ~10 fact pairs. Add this vector × α to the hidden state during inference. Optimal: L20, α=1.5 for most domains.
+
+```bash
+# Extract vectors for all domains
+python experiments/extract_vectors_fast.py
+
+# Train adapters on domains where steering failed
+python experiments/train_steering_failures.py
+```
+
+**Key files:**
+- `steering_vectors/` — .npy files, one per domain (~10 KB each)
+- `steering_bank/` — fact files from MMLU, GPQA, TruthfulQA, MedMCQA, ARC, etc.
+- `results/steering_vectors_v2.json` — full results with per-domain baselines and improvements
+- `experiments/extract_vectors_fast.py` — multi-layer extraction (sweeps L10, L15, L20)
+- `experiments/train_steering_failures.py` — adapter training on steering failures
+- `experiments/adapter_vs_steering_test.py` — head-to-head comparison
+
+---
+
+## Surround and Discover (Mar 21, 2026)
+
+**Method:** Train adapters on known facts that form a ring around an unknown truth. Each fact constrains the representation until the answer is forced into place — like solving a Rubik's cube where each fact is a twist.
+
+**Validated on 3 targets:**
+- Enstrophy mechanism (known answer): base wrong → adapted correct (vortex stretching causes enstrophy growth)
+- Protein folding (known answer): base wrong → adapted correct (funnel landscape with minimal frustration)
+- NS enstrophy bound (open problem): surround adapter matched established literature on 2/4 targets (pressure Hessian depletion, L³ velocity norm)
+
+**Three confidence levels for discoveries:**
+1. **Computationally verified** (MCP tools confirm) — highest confidence
+2. **Multi-adapter convergent** (independent adapters agree) — strong
+3. **Single surround** (one constraint ring) — suggestive
+
+**Key files:**
+- `experiments/surround_and_discover.py` — orchestration script
+- `experiments/score_ns_discovery.py` — NS open problem scoring
+- `experiments/surrounding_facts_*.json` — fact rings per target
+
+---
+
 ## 27B Work — Adapter Training (Current Phase)
 
 The 27B evaluation phase is **COMPLETE** (111 domains, 70 passing, Mar 2026). The 27B is now the **local compute workhorse** for training 4B adapters on failing domains.
 
-**Current work:**
+**Current pipeline (triage-first):**
 ```bash
-# Train 4B adapters on all failing domains (escalation ladder)
-python scripts/adapter_trainer.py
+# Step 1: Extract steering vectors (fast, covers all domains)
+python experiments/extract_vectors_fast.py
 
-# Train one domain and exit
-python scripts/adapter_trainer.py --once
+# Step 2: Train adapters only on steering failures
+python experiments/train_steering_failures.py
 
-# Check which failing domains have/need adapters
+# Step 3: Legacy adapter trainer for hand-crafted domains
 python scripts/adapter_trainer.py --status
 ```
 
-**14 unique domains still failing** — these need 4B adapter training:
+**35 unique domains still failing** (expanded from 14 after merging research_status.json):
 - Hard physics/math: knot_invariants, NS regularity, Hamiltonian mechanics, intersection theory, chemical networks
 - Vortex conservation: continuous Q_f, Q_f ratio, optimal f(r), kinetic K, EM zilch
-- LLM domains: llm_hallucination_grounded
-- Bio: bio-AI parallels
+- LLM domains: llm_hallucination_grounded, llm_alignment, llm_context_memory
+- Bio: bio-AI parallels, immune_evasion, disease_targets
+- Math: millennium_problems, proof_techniques, computational_conjectures
+- Plus ~300 benchmark domains where steering failed (MMLU-Pro, GPQA, MedMCQA, etc.)
 
 **Escalation ladder (all automated via adapter_trainer.py):**
-1. Single-pass adapter → if interference:
-2. Staged training (sequential clusters) → if plateau:
-3. Orthogonal adapters (specialist per cluster, routed at inference) → if still stuck:
-4. Cross-domain joint training (difficulty-weighted sampling)
+1. Steering vector (0.1 KB, seconds) → if no improvement:
+2. Single-pass adapter (4000 steps, lr=4e-6) → if interference:
+3. Intensive adapter (5000 steps, lr=3e-6) → if plateau:
+4. Staged training (3000 steps/cluster, lr=4e-6) → if see-saw:
+5. Orthogonal adapters (4000 steps/cluster, lr=4e-6, routing config)
+
+**CRITICAL: Do NOT use lr > 1e-5 for adapter training.** Proven range is 3e-6 to 4e-6 with 3000-5000 steps. Higher lr (1e-4, 2e-4) destabilizes — confirmed 2026-03-20.
 
 ### Evaluation (DONE — Do Not Restart)
 

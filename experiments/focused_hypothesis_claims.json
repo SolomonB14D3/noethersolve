@@ -1,0 +1,146 @@
+[
+  {
+    "id": "fhyp01_3body_horseshoe_stability",
+    "domain": "3body",
+    "context": "In the circular restricted 3-body problem, horseshoe orbits (co-orbital motion like Saturn's Janus and Epimetheus) are:",
+    "candidates": [
+      "stable for mass ratios below a critical threshold that depends on the eccentricity of the secondary",
+      "always unstable but can persist for billions of years due to extremely slow chaotic diffusion",
+      "stable for all mass ratios below the Routh critical value mu_R = 0.03852...",
+      "stable only in the planar case and immediately destabilized by any vertical perturbation"
+    ],
+    "adapter_prefix": "3body"
+  },
+  {
+    "id": "fhyp02_3body_capture_mechanism",
+    "domain": "3body",
+    "context": "Temporary satellite capture in the 3-body problem (like Jupiter's irregular moons) requires:",
+    "candidates": [
+      "passage through the L1 or L2 Lagrange point neck with velocity within a narrow energy band",
+      "a close encounter that dissipates enough energy through tidal interaction to become bound",
+      "chaotic motion in the Hill sphere boundary layer where the zero-velocity surface is barely open",
+      "resonant interaction with existing satellites that transfers angular momentum to the captured body"
+    ],
+    "adapter_prefix": "3body"
+  },
+  {
+    "id": "fhyp03_qf_viscous_decay",
+    "domain": "continuous",
+    "context": "When viscosity is added to 2D point vortex dynamics (Navier-Stokes), the approximately conserved quantity Q_f decays as:",
+    "candidates": [
+      "Q_f(t) ~ Q_f(0) * exp(-C*nu*t) where the decay rate C depends on the choice of f and vortex configuration",
+      "Q_f(t) is exactly conserved even with viscosity because it depends only on vortex positions not velocities",
+      "Q_f(t) ~ Q_f(0) * (1 - nu*t)^alpha with a universal power alpha independent of f",
+      "Q_f(t) undergoes sudden jumps when vortex merging events change the topology of the configuration"
+    ],
+    "adapter_prefix": "continuous"
+  },
+  {
+    "id": "fhyp04_qf_compressible",
+    "domain": "continuous",
+    "context": "Extending the Q_f = Sum Gamma_i*Gamma_j*f(r_ij) framework to compressible flows where density varies:",
+    "candidates": [
+      "requires replacing circulations with potential vorticity and f(r) with the compressible Green's function",
+      "fails completely because the Hamiltonian structure breaks down in compressible flow",
+      "works identically because Q_f depends only on vortex positions which are well-defined in any flow",
+      "requires adding a pressure correction term Q_f -> Q_f + integral of p*div(v)*f over the domain"
+    ],
+    "adapter_prefix": "continuous"
+  },
+  {
+    "id": "fhyp05_protein_fold_speed",
+    "domain": "protein",
+    "context": "The fastest-folding proteins (like villin headpiece, ~microseconds) fold quickly because:",
+    "candidates": [
+      "their folding landscape has a single dominant funnel with minimal frustration and no significant traps",
+      "they are small enough that the conformational search space can be exhaustively sampled by thermal fluctuations",
+      "their native contacts form cooperatively in a single nucleation event without intermediate states",
+      "their amino acid composition creates an unusually smooth energy surface with low barriers between all states"
+    ],
+    "adapter_prefix": "protein"
+  },
+  {
+    "id": "fhyp06_protein_misfolding_prion",
+    "domain": "protein",
+    "context": "Prion propagation (PrP^Sc templating PrP^C conversion) works because:",
+    "candidates": [
+      "the misfolded form acts as a template that lowers the activation barrier for the native-to-misfolded transition",
+      "PrP^Sc directly unfolds PrP^C through physical contact and then guides refolding into the misfolded state",
+      "the misfolded form catalyzes a covalent modification (disulfide rearrangement) that locks the new conformation",
+      "PrP^Sc oligomers create a local environment with altered pH and ionic conditions favoring misfolding"
+    ],
+    "adapter_prefix": "protein"
+  },
+  {
+    "id": "fhyp07_disease_synthetic_lethality",
+    "domain": "disease",
+    "context": "Synthetic lethality in cancer therapy (e.g., PARP inhibitors in BRCA-mutant tumors) fails in some patients because:",
+    "candidates": [
+      "secondary mutations restore the originally disrupted DNA repair pathway (reversion mutations)",
+      "tumor heterogeneity means a subpopulation never had the sensitizing mutation",
+      "upregulation of alternative repair pathways compensates for both the original and synthetic lethal defects",
+      "the drug achieves insufficient tumor concentration due to efflux pump overexpression"
+    ],
+    "adapter_prefix": "disease"
+  },
+  {
+    "id": "fhyp08_llm_chain_of_thought",
+    "domain": "llm",
+    "context": "Chain-of-thought prompting improves LLM reasoning accuracy primarily because:",
+    "candidates": [
+      "it allocates more serial computation steps, allowing the model to solve problems beyond single-pass capacity",
+      "it activates latent reasoning circuits that exist in the weights but aren't triggered by direct answer prompts",
+      "it reduces the effective problem complexity by decomposing into subproblems the model can solve individually",
+      "it provides in-context examples of the reasoning format that the model pattern-matches against"
+    ],
+    "adapter_prefix": "llm"
+  },
+  {
+    "id": "fhyp09_llm_knowledge_cutoff",
+    "domain": "llm",
+    "context": "When an LLM is asked about events after its training cutoff, the primary failure mode is:",
+    "candidates": [
+      "confident confabulation — generating plausible but fabricated details consistent with pre-cutoff patterns",
+      "honest uncertainty — the model recognizes the gap and says it doesn't know",
+      "temporal blending — mixing pre-cutoff facts with hallucinated post-cutoff details seamlessly",
+      "refusal — the model detects the temporal boundary and declines to answer"
+    ],
+    "adapter_prefix": "llm"
+  },
+  {
+    "id": "fhyp10_ns_enstrophy_blowup",
+    "domain": "ns_regularity",
+    "context": "In 3D Navier-Stokes, enstrophy (integral of |omega|^2) can grow without bound. The dominant mechanism for enstrophy growth is:",
+    "candidates": [
+      "vortex stretching — the omega dot grad(u) term amplifies vorticity along the strain direction",
+      "energy cascade — nonlinear transfer concentrates energy at small scales where enstrophy is measured",
+      "boundary layer instability — viscous layers generate high vorticity gradients that feed the bulk flow",
+      "pressure-strain correlation — pressure forces alignment between vorticity and rate-of-strain eigenvectors"
+    ],
+    "adapter_prefix": "ns_regularity"
+  },
+  {
+    "id": "fhyp11_genetics_offtarget",
+    "domain": "genetics",
+    "context": "The dominant mechanism for CRISPR-Cas9 off-target editing in therapeutic applications is:",
+    "candidates": [
+      "partial guide RNA complementarity allowing binding at sites with 1-3 mismatches especially in the PAM-distal region",
+      "Cas9 protein conformational flexibility that enables cleavage even when the RNA-DNA hybrid is imperfect",
+      "chromatin accessibility — off-targets cluster in open chromatin regions regardless of sequence similarity",
+      "guide RNA secondary structure creating alternative binding conformations that recognize different sequences"
+    ],
+    "adapter_prefix": "genetics"
+  },
+  {
+    "id": "fhyp12_delivery_bbb",
+    "domain": "delivery",
+    "context": "The primary bottleneck for nanoparticle drug delivery across the blood-brain barrier (BBB) is:",
+    "candidates": [
+      "tight junctions between endothelial cells that restrict paracellular transport of particles above 1nm",
+      "rapid opsonization and clearance by the mononuclear phagocyte system before particles reach the brain",
+      "efflux transporters (P-glycoprotein, BCRP) that actively pump internalized particles back to blood",
+      "the lack of fenestrations and low transcytosis rate in brain capillary endothelial cells"
+    ],
+    "adapter_prefix": "delivery"
+  }
+]

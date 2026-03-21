@@ -1,0 +1,76 @@
+{
+  "examples": [
+    {
+      "context": "In 2D Navier-Stokes (no z-component), enstrophy is:",
+      "truth": "bounded and decreasing \u2014 there is no mechanism to amplify vorticity in 2D",
+      "distractors": [
+        "growing without bound due to the energy cascade to small scales",
+        "conserved exactly like energy in 2D inviscid flow at all Reynolds numbers",
+        "oscillating between growth and decay phases with a fixed period"
+      ]
+    },
+    {
+      "context": "The key term present in the 3D vorticity equation but absent in 2D is:",
+      "truth": "(omega dot nabla)u \u2014 the vorticity-velocity coupling that allows vortex lines to be deformed",
+      "distractors": [
+        "nabla^2 omega \u2014 the viscous diffusion term that smooths vorticity gradients",
+        "(u dot nabla)omega \u2014 the advection term that transports vorticity with the flow",
+        "nabla x (omega x u) \u2014 the Lamb vector cross product that generates helicity"
+      ]
+    },
+    {
+      "context": "When a vortex tube is stretched along its axis by the strain field, its vorticity magnitude:",
+      "truth": "increases because angular momentum conservation in the thinning tube concentrates circulation into a smaller area",
+      "distractors": [
+        "decreases because the tube stores energy in elastic potential rather than kinetic rotation",
+        "stays constant because Kelvin's circulation theorem prevents changes to the total circulation",
+        "increases only if the Reynolds number exceeds a critical threshold for instability"
+      ]
+    },
+    {
+      "context": "In turbulent 3D flows, vorticity vectors tend to align with:",
+      "truth": "the intermediate eigenvector of the strain rate tensor, creating persistent stretching",
+      "distractors": [
+        "the maximum compression eigenvector, leading to vortex sheet formation and rapid dissipation",
+        "the velocity gradient direction, producing uniform shear layers throughout the flow domain",
+        "random orientations with no preferential alignment at any Reynolds number"
+      ]
+    },
+    {
+      "context": "The Beale-Kato-Majda criterion for 3D Euler blowup states that singularity occurs if and only if:",
+      "truth": "the time integral of the maximum vorticity diverges \u2014 blowup requires unbounded vorticity concentration",
+      "distractors": [
+        "the kinetic energy exceeds a critical threshold determined by the initial enstrophy value",
+        "the velocity field develops a discontinuity in at least one spatial direction simultaneously",
+        "the pressure minimum reaches negative infinity causing cavitation-like collapse of the fluid"
+      ]
+    },
+    {
+      "context": "The enstrophy production term in the enstrophy evolution equation d/dt integral |omega|^2 has the form:",
+      "truth": "integral of omega_i * S_ij * omega_j \u2014 a quadratic form coupling vorticity to strain",
+      "distractors": [
+        "integral of |nabla u|^2 \u2014 the square of the full velocity gradient tensor",
+        "integral of omega dot (nabla x f) \u2014 the curl of the external body force dotted with vorticity",
+        "integral of p * nabla dot omega \u2014 the pressure-dilatation coupling with vorticity divergence"
+      ]
+    },
+    {
+      "context": "Enstrophy is exactly conserved in 2D inviscid flow because:",
+      "truth": "the (omega dot nabla)u stretching term vanishes identically when omega is perpendicular to the flow plane",
+      "distractors": [
+        "Kelvin's circulation theorem directly implies enstrophy conservation in all dimensions",
+        "the 2D Euler equations have an infinite family of Casimir invariants including all powers of omega",
+        "energy conservation combined with the inverse cascade prevents enstrophy from changing"
+      ]
+    },
+    {
+      "context": "In 3D turbulence, the Kolmogorov energy cascade transfers energy from large to small scales. This cascade:",
+      "truth": "is driven by the nonlinear advection term, not by vortex stretching \u2014 stretching amplifies enstrophy but energy transfer is a separate mechanism",
+      "distractors": [
+        "is identical to enstrophy production because energy and enstrophy cascade together at all scales",
+        "occurs because vortex stretching directly transfers kinetic energy from large vortices to small ones",
+        "requires viscosity to operate \u2014 in inviscid Euler flow there is no energy cascade mechanism"
+      ]
+    }
+  ]
+}

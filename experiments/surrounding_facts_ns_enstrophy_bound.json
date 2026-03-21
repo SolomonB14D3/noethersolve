@@ -1,0 +1,126 @@
+{
+  "problem": "ns_enstrophy_bound_discovery",
+  "description": "Surrounding facts constraining what kind of approximate invariant could bound enstrophy growth in 3D Navier-Stokes. The target is a genuine open question: what functional constrains the vortex stretching rate?",
+  "facts": [
+    {
+      "id": "ns_surr01_energy_conservation",
+      "context": "In 3D incompressible Navier-Stokes, the total kinetic energy E = (1/2) integral |u|^2 satisfies:",
+      "truth": "dE/dt = -nu * integral |omega|^2, so energy decays monotonically and is bounded by initial energy",
+      "distractors": [
+        "dE/dt = 0 exactly because incompressibility prevents any energy dissipation mechanism",
+        "dE/dt = -nu * integral |nabla u|^2 + integral p * div(u) with the pressure term potentially adding energy",
+        "dE/dt depends on the boundary conditions and can increase even in viscous flow"
+      ]
+    },
+    {
+      "id": "ns_surr02_enstrophy_growth",
+      "context": "The enstrophy Omega = (1/2) integral |omega|^2 in 3D Navier-Stokes evolves as:",
+      "truth": "dOmega/dt = integral omega_i * S_ij * omega_j - nu * integral |nabla omega|^2, where the first term (stretching) can overwhelm dissipation",
+      "distractors": [
+        "dOmega/dt = -nu * integral |nabla omega|^2 only, so enstrophy always decreases like energy",
+        "dOmega/dt = integral |omega|^2 * |S|^2 - nu * Omega, a simple ODE in terms of enstrophy alone",
+        "dOmega/dt is bounded above by C * Omega^2 / nu which immediately gives global regularity by Gronwall"
+      ]
+    },
+    {
+      "id": "ns_surr03_helicity",
+      "context": "Helicity H = integral u dot omega is conserved in inviscid 3D flow because:",
+      "truth": "it measures the topological linking of vortex lines, which is preserved by smooth evolution of the Euler equations",
+      "distractors": [
+        "it equals the total angular momentum of the flow which is always conserved by Noether's theorem",
+        "the helicity integrand u dot omega is a Casimir invariant of the 3D Euler equations",
+        "helicity conservation follows from energy conservation plus the constraint div(u) = 0"
+      ]
+    },
+    {
+      "id": "ns_surr04_bkm",
+      "context": "The Beale-Kato-Majda criterion states that a smooth solution of 3D Euler blows up at time T* if and only if:",
+      "truth": "integral from 0 to T* of ||omega(t)||_infinity dt = infinity — the maximum vorticity must become unbounded",
+      "distractors": [
+        "the kinetic energy exceeds a critical threshold E* that depends on the domain geometry",
+        "the enstrophy grows faster than exponential, specifically faster than exp(exp(t))",
+        "any single component of vorticity exceeds the initial maximum vorticity at any point in the domain"
+      ]
+    },
+    {
+      "id": "ns_surr05_stretching_geometry",
+      "context": "The enstrophy production integral omega_i S_ij omega_j can be bounded by:",
+      "truth": "||omega||_infinity * Omega (vorticity sup-norm times enstrophy), but this bound is not sharp — the actual production depends on alignment between omega and eigenvectors of S",
+      "distractors": [
+        "Omega^(3/2) by Cauchy-Schwarz alone, giving a closed ODE that proves regularity via Gronwall",
+        "||S||_2 * Omega exactly, because vorticity always aligns with the maximum strain eigenvector",
+        "E * Omega / nu by dimensional analysis, which gives a bound depending only on conserved quantities"
+      ]
+    },
+    {
+      "id": "ns_surr06_depletion",
+      "context": "The depletion of nonlinearity phenomenon in 3D Navier-Stokes refers to:",
+      "truth": "the observed tendency for vorticity to align with the intermediate eigenvector of strain rather than the stretching eigenvector, reducing the actual enstrophy production below the worst-case bound",
+      "distractors": [
+        "the fact that viscosity becomes more effective at small scales, depleting the energy available for nonlinear transfer",
+        "a mathematical cancellation in the nonlinear term (u dot nabla)u when the flow has any degree of symmetry",
+        "the observation that turbulent flows spontaneously organize into 2D structures where stretching is absent"
+      ]
+    },
+    {
+      "id": "ns_surr07_q_f_framework",
+      "context": "The Q_f = Sum Gamma_i * Gamma_j * f(r_ij) framework for approximate conservation in vortex dynamics shows that:",
+      "truth": "the optimal f is the Green's function of the Laplacian, and Q_G equals the kinetic energy — the unique optimal pairwise invariant is already known",
+      "distractors": [
+        "there exist infinitely many independent optimal invariants, each corresponding to a different eigenfunction of the Laplacian",
+        "the optimal f depends on the number of vortices and changes qualitatively above N = 4",
+        "Q_f is exactly conserved for any smooth f, so the framework gives exact, not approximate, invariants"
+      ]
+    },
+    {
+      "id": "ns_surr08_palinstrophy",
+      "context": "Palinstrophy P = (1/2) integral |nabla omega|^2 appears in the enstrophy equation because:",
+      "truth": "it is the dissipation rate of enstrophy: the -nu * P term damps enstrophy, while palinstrophy itself can grow even faster than enstrophy",
+      "distractors": [
+        "it is a conserved quantity in inviscid 3D flow that provides an independent constraint on vorticity growth",
+        "it bounds enstrophy production above via P >= (1/nu) * |dOmega/dt|, preventing enstrophy from growing",
+        "it is the Legendre transform of enstrophy with respect to viscosity, connecting inviscid and viscous dynamics"
+      ]
+    },
+    {
+      "id": "ns_surr09_dimension_2d_vs_3d",
+      "context": "Enstrophy is bounded in 2D Navier-Stokes (global regularity is proven) but potentially unbounded in 3D because:",
+      "truth": "the stretching term omega_i S_ij omega_j is identically zero in 2D — vortex stretching requires three dimensions",
+      "distractors": [
+        "2D flows have an inverse energy cascade that prevents concentration at small scales where enstrophy lives",
+        "the 2D vorticity equation is a scalar transport equation with no amplification mechanism possible",
+        "Kelvin's circulation theorem is stronger in 2D and directly implies enstrophy conservation"
+      ]
+    },
+    {
+      "id": "ns_surr10_geometric_regularity",
+      "context": "Geometric regularity criteria (Constantin-Fefferman, 1993) show that blowup is prevented if:",
+      "truth": "the direction of vorticity varies slowly — specifically if |nabla(omega/|omega|)| stays bounded, the solution remains regular",
+      "distractors": [
+        "the velocity field remains bounded in L^infinity regardless of what happens to vorticity",
+        "the vortex lines remain smooth curves without developing cusps or corners",
+        "the strain tensor eigenvalues maintain a fixed ratio throughout the evolution"
+      ]
+    },
+    {
+      "id": "ns_surr11_critical_spaces",
+      "context": "The 3D Navier-Stokes equations have the scaling symmetry u(x,t) -> lambda*u(lambda*x, lambda^2*t). The critical Sobolev space under this scaling is:",
+      "truth": "L^3(R^3) or equivalently H^(1/2)(R^3) — spaces where the norm is invariant under the NS scaling",
+      "distractors": [
+        "L^2(R^3) the energy space, which is subcritical and therefore sufficient for regularity",
+        "H^1(R^3) the enstrophy space, which is supercritical and not controlled by the energy inequality",
+        "L^infinity(R^3) which is supercritical and too strong to be useful for regularity"
+      ]
+    },
+    {
+      "id": "ns_surr12_type_I_blowup",
+      "context": "A Type I blowup for Navier-Stokes would have ||u(t)||_infinity ~ C / sqrt(T* - t). Current results show:",
+      "truth": "Type I blowup has been ruled out for axisymmetric flows (Chen-Hou-Huang 2022 approach), but remains open for general 3D flows",
+      "distractors": [
+        "Type I blowup has been completely ruled out for all 3D flows by the Prodi-Serrin conditions",
+        "Type I blowup has been proven to occur for specific initial data with vortex tube configurations",
+        "Type I and Type II blowup are equivalent in 3D by a rescaling argument"
+      ]
+    }
+  ]
+}

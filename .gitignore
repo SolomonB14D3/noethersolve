@@ -13,6 +13,9 @@ adapters/**/*.npz
 adapters/**/*.safetensors
 adapters/**/*.bin
 
+# Steering vectors (model-specific, regenerate with extract_vectors_fast.py)
+steering_vectors/*.npy
+
 # Router state (built locally from adapters + facts)
 router_state.npz
 

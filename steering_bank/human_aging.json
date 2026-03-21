@@ -1,0 +1,2236 @@
+{
+  "domain": "human_aging",
+  "n_facts": 223,
+  "facts": [
+    {
+      "context": "The study of older adults and aging is referred to as",
+      "truth": "Gerontology",
+      "distractors": [
+        "Geropsychiatry",
+        "Geriatrics",
+        "Gero-education"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following factors is associated with a decreased risk of Alzheimer's?",
+      "truth": "Eating fish",
+      "distractors": [
+        "Being African or Hispanic American",
+        "A lower level of education",
+        "Being married"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The docility hypothesis is that",
+      "truth": "Those with low capabilities are more vulnerable to environmental demands",
+      "distractors": [
+        "Those who experience high environmental demands become more docile",
+        "Those who experience high environmental demands become less docile",
+        "Those with less capability are less vulnerable to environmental demands"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Normal memory seems to be improved by",
+      "truth": "Aerobic exercise",
+      "distractors": [
+        "Taking acetylcholine",
+        "Taking gingko",
+        "Increasing social contacts"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The perspective that development is embedded in history means that",
+      "truth": "Sociocultural conditions must always be considered",
+      "distractors": [
+        "Change can always occur regardless of age",
+        "Development in any particular areas (e.g., social) is tied to development in other areas (e.g., cognitive)",
+        "Some characteristics change with age while others do not"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The answer \"both play an important role\" is clearly applicable to the question of",
+      "truth": "All of these questions",
+      "distractors": [
+        "Nature vs. nurture",
+        "Mechanistic vs organismic",
+        "Continuity vs. discontinuity"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following does NOT usually occur to the lens of the eye as one grows older?",
+      "truth": "It fills with fluid",
+      "distractors": [
+        "It becomes thicker",
+        "It yellows",
+        "It becomes clouded"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The houses of the future may allow you to operate virtually everything in the house from a central terminal; such a house is already in production and is referred to as",
+      "truth": "Smarthouse",
+      "distractors": [
+        "Technohouse",
+        "Compuhouse",
+        "Futurehouse"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The reaction time difference between younger and older adults is reduced when older adults",
+      "truth": "Practice regular aerobic exercise",
+      "distractors": [
+        "Lift weights on a regular schedule",
+        "Consume large quantities of vitamins",
+        "Practice Tai chi"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A major difference between programmed and unprogrammed theories of senescence is that programmed theories",
+      "truth": "Claim that senescence follows a predetermined plan",
+      "distractors": [
+        "Attribute senescence only to environmental factors",
+        "Are far too difficulty to test",
+        "Rely too heavily on computer models"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "One reason that older adults show high levels of optimism is that",
+      "truth": "Many pessimists die at a younger age",
+      "distractors": [
+        "They do not really know what is going on",
+        "This may be a warning sign for dementia",
+        "Our measures have low validity"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Bu is often late for appointments but says it's because she had more important things on her mind. This is an example of which coping strategy?",
+      "truth": "Immunization",
+      "distractors": [
+        "Accommodation",
+        "Avoidance",
+        "Assimilation"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following is most strongly associated with loss of bone density?",
+      "truth": "Lifestyle factors like not exercising",
+      "distractors": [
+        "Genetic factors",
+        "Hormonal factors such as loss of estrogen",
+        "Cohort factors"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "That super sweet iced tea that your grandmother gives you might be that way because she",
+      "truth": "Has lost a lot of sweet taste buds and cannot taste sweetness as well anymore",
+      "distractors": [
+        "Is a member of that cohort that really enjoys sweets",
+        "Is trying to get you to be a little sweeter than you have been in the past",
+        "Has experienced damage in her parietal lobe where sweet sensations are directed"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A shortage of these two vitamins can produce symptoms that mimic dementia:",
+      "truth": "B6 and B12",
+      "distractors": [
+        "A and C",
+        "B6 and D",
+        "B12 and E"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following is one of McAdam's levels of personality?",
+      "truth": "Identity",
+      "distractors": [
+        "Control",
+        "Generativity",
+        "Assimilation"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "In this chapter's Senior View, Dr. Donham told us that mental stimulation, exercise, diet, and what other factor is important for long life?",
+      "truth": "Good genes",
+      "distractors": [
+        "Moderate amounts of alcohol",
+        "Social support",
+        "Avoiding stress"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Surveys of older adults who are living together show that they tend to view cohabitation as",
+      "truth": "An alternative to marriage",
+      "distractors": [
+        "A first step toward eventual marriage",
+        "A way to save on expenses",
+        "Their swan song"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Older adults may be more attached to a place than younger adults because",
+      "truth": "That place holds many memories",
+      "distractors": [
+        "It's much harder to move when you're older",
+        "Young adults pay less attention to place then do older adults",
+        "That place represents transcendence"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The Hayflick number for human cells is",
+      "truth": "Between 45 and 55",
+      "distractors": [
+        "Unknown",
+        "Less than 30",
+        "More than 60"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "High levels of self-care behaviors have been associated with high levels of",
+      "truth": "Agreeableness",
+      "distractors": [
+        "Neuroticism",
+        "Extraversion",
+        "Secondary control"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Research has offered some longitudinal as well as cross sectional support for the theory put forth by",
+      "truth": "Erikson",
+      "distractors": [
+        "Peck",
+        "Foos",
+        "Levenson"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following is more likely to be a cohort, rather than an age, difference?",
+      "truth": "A smaller proportion of older women report dreams about sex",
+      "distractors": [
+        "A higher proportion of older women have completed menopause",
+        "A higher proportion of older men are bald",
+        "A higher proportion of older men and women are victims of cancer"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Fear of aging has been associated with high levels of",
+      "truth": "Neuroticism",
+      "distractors": [
+        "Introversion",
+        "Rigidity",
+        "Mid-life crisis"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "In which dementia are cognitive symptoms less likely?",
+      "truth": "Parkinson's",
+      "distractors": [
+        "Pick's",
+        "Huntington's",
+        "NeuroAIDS"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "In this chapter's Senior View, Dr. Shealy advises you to",
+      "truth": "Stay in school",
+      "distractors": [
+        "Eat the right foods",
+        "Get plenty of exercise",
+        "Find a high paying job"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "When your sister Patricia was feeling depressed, you comforted her and reminisced about happier times. You provided which type of social support?",
+      "truth": "Emotional",
+      "distractors": [
+        "Instrumental",
+        "Informational",
+        "Friendly"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Hearing loss occurs more frequently for",
+      "truth": "Men than women",
+      "distractors": [
+        "Women than men",
+        "People who already have some loss of vision",
+        "People who are obese"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Continued stress is damaging to health and longevity because it leads to",
+      "truth": "Suppression of the immune system",
+      "distractors": [
+        "Over exercising which causes physical damage",
+        "Less eating and, in many cases, severe eating disorders",
+        "Risky behaviors such as speeding and not using a seat belt"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "One difference that seems to be mostly cohort rather than age is the difference in ____ for different age groups",
+      "truth": "Personality traits",
+      "distractors": [
+        "Coping strategies",
+        "Work productivity",
+        "Rates of dementia"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "According to Tat Kleckley of this chapter's Senior View, the most important part of the healing process for those who are bereaved is to",
+      "truth": "Talk about your loss",
+      "distractors": [
+        "Stay away from other people for a while",
+        "Get out and be active",
+        "Make new friends who don't know about your loss"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Social support is most likely to have a positive influence on health and well being when it is",
+      "truth": "Perceived as support",
+      "distractors": [
+        "Very emotional",
+        "Unexpected",
+        "External rather than internal"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Free radicals are produced by",
+      "truth": "Normal metabolism",
+      "distractors": [
+        "Excess consumption of Vitamins A and C",
+        "Lack of sunlight",
+        "A weakened immune system"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Prejudice or bias against older adults is referred to as",
+      "truth": "Ageism",
+      "distractors": [
+        "Oldism",
+        "Age bigotry",
+        "Senilism"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The program that takes over care for those with 6 or fewer months to live, attempts to keep them at home, provides pain relief, and ends all life-prolonging technologies is called",
+      "truth": "Hospice",
+      "distractors": [
+        "Euthanasia",
+        "Cryonics",
+        "Medicare"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Loss of smell for adults 80 and older is",
+      "truth": "Very frequent (more than 75%)",
+      "distractors": [
+        "Very infrequent (less than 15%)",
+        "Infrequent (less than 40%)",
+        "Frequent (close to 50%)"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Activation of a class of genes called sirtuins may help to",
+      "truth": "Prevent some diseases",
+      "distractors": [
+        "Ward off dementias",
+        "Increase memory and intelligence",
+        "Produce emotional stability"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Elder abuse most frequently comes from the older adult's",
+      "truth": "Children",
+      "distractors": [
+        "Spouse",
+        "Grandchildren",
+        "Neighbors"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Projective tests generally ___ than objective tests of personality.",
+      "truth": "Are more visual",
+      "distractors": [
+        "Have higher reliability",
+        "Are more valid",
+        "Provide more information"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Cells in the eye that respond to low levels of illumination are called",
+      "truth": "Rods",
+      "distractors": [
+        "Cones",
+        "Retinal cells",
+        "Nocturnal detectors"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Some work on age stereotypes suggests that",
+      "truth": "Negative ones are stronger",
+      "distractors": [
+        "Positive ones are stronger",
+        "They never last very long",
+        "They are very rare"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following could very well be a cohort difference rather than a change that occurs with age?",
+      "truth": "Differences in weight",
+      "distractors": [
+        "Shrinkage of the thymus gland",
+        "Enlargement of the heart",
+        "Increasing size of nose and ears"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The major question concerning aging and personality is:",
+      "truth": "Does personality change with age?",
+      "distractors": [
+        "Do older adults still have personalities?",
+        "Does personality decline as we grow older?",
+        "Does personality increase of decrease with age?"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A researcher who wants to examine both age and cohort differences is advised to use a _____ design.",
+      "truth": "Cross-sequential",
+      "distractors": [
+        "Cross-sectional",
+        "Correlational",
+        "Quasi-experimental"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following is NOT one of the most rewarding aspects of being a grandparent as reported by grandparents?",
+      "truth": "Having others to wait on you",
+      "distractors": [
+        "Feelings of immortality",
+        "Spoiling the grandchildren",
+        "Remembering when they were grandchildren"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Of the following animals, which has the longest life span by current measures?",
+      "truth": "Blue whale",
+      "distractors": [
+        "Gorilla",
+        "Dog",
+        "Queen honey bee"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "One advantage of an expected death over an unexpected death is that",
+      "truth": "One can make funeral and estate plans with the loved one",
+      "distractors": [
+        "One can use up some grief before the actual loss",
+        "One can find ways to avoid having the same death for themselves",
+        "One can assist the terminally ill person in speeding their death"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Changes in the reproductive system are more _____ for men but not for women",
+      "truth": "Continuous",
+      "distractors": [
+        "Mechanistic",
+        "Organismic",
+        "Nurturant"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following hormones has not yet been claimed to ward off senescence?",
+      "truth": "Viasterol",
+      "distractors": [
+        "DHEA",
+        "Human growth hormone",
+        "Melatonin"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The majority of older widows live",
+      "truth": "Alone",
+      "distractors": [
+        "With children",
+        "With a friend",
+        "In an institution"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Centenarians are people who",
+      "truth": "Are 100 or more years old",
+      "distractors": [
+        "Were born before the centennial",
+        "Study old age and older adults",
+        "Have not yet reached old age"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Quantitative analyses of TV shows have shown that",
+      "truth": "The proportion of older women is particularly low",
+      "distractors": [
+        "Older adults are almost always portrayed in a negative way",
+        "The more positive portrayals occur during commercials",
+        "The proportion of older men is particularly low"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following groups of Americans have the lowest rate of alcohol abuse?",
+      "truth": "Asian-American",
+      "distractors": [
+        "African-American",
+        "White",
+        "Native-American"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "If you believe that changes occur slowly and steadily throughout life, you would be holding the _____ side of this view of development.",
+      "truth": "Continuity",
+      "distractors": [
+        "Mechanistic",
+        "Organismic",
+        "Stability"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "All other things being equal, which of the following persons is likely to live the longest?",
+      "truth": "A white woman",
+      "distractors": [
+        "A black man",
+        "A white man",
+        "A black woman"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following age differences could be, in part, a cohort effect? Differences in",
+      "truth": "Alcoholism",
+      "distractors": [
+        "Depression",
+        "Dementia",
+        "Suicide"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Clifford and Lucia Pauling, in Senior View, told us that physical changes",
+      "truth": "Take a long time",
+      "distractors": [
+        "Are rapid and frightening",
+        "Can be offset by meditation",
+        "Should not be discussed in public"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The biggest and most dangerous changes in the cardiovascular system take place in the",
+      "truth": "Blood vessels",
+      "distractors": [
+        "Heart",
+        "Red blood cells",
+        "Plasma"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Older adults generally perform very well when their _____ memory is tested.",
+      "truth": "Semantic",
+      "distractors": [
+        "Episodic",
+        "Working",
+        "Retrospective"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "With respect to marital satisfaction, most long lasting marriages",
+      "truth": "Show lower levels during the years when children are present",
+      "distractors": [
+        "Show high satisfaction through all the years of marriage",
+        "Show high satisfaction that steadily declines as the years pass",
+        "Show ups and downs throughout the marriage"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Theories",
+      "truth": "Attempt to explain findings and guide future research",
+      "distractors": [
+        "Are not very important in aging research",
+        "Have never been adequately tested",
+        "Have been around for a long time but have only recently been tested"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The least favored theory of senescence among researchers is the _____ theory",
+      "truth": "Wear and tear",
+      "distractors": [
+        "Free radical",
+        "Biological clock",
+        "Garbage accumulation"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A researcher finds that age is negatively correlated with cigarette smoking; this means that",
+      "truth": "Older adults smoke less than younger adults",
+      "distractors": [
+        "Older adults experience more negative effects from smoking that do younger adults",
+        "Older adults smoke more than younger adults",
+        "Older and younger adults smoke about the same number of cigarettes and both experience negative effects"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "When a researcher takes part in the situation he or she is observing, he or she is said to be a(n)",
+      "truth": "Participant observer",
+      "distractors": [
+        "Active observer",
+        "Indiscreet observer",
+        "Meddling observer"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The term \"work-family conflict\" for middle-aged adults can occur when they must",
+      "truth": "Care for an ailing parent while continuing to work",
+      "distractors": [
+        "Work a high stress job while their children are at home",
+        "Pay for nursing home care by sacrificing their own care",
+        "Serving as an executor of their parent's estate while still working full time"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Do traits change with age?",
+      "truth": "They change a little",
+      "distractors": [
+        "No",
+        "Only for women",
+        "They change quite a lot"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The cause of Alzheimer's appears to be",
+      "truth": "Mostly genetic",
+      "distractors": [
+        "Mostly environmental",
+        "Aluminum",
+        "Apo-E 4"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Older married men have been found to have",
+      "truth": "Lower levels of negative emotions",
+      "distractors": [
+        "Higher levels of positive emotions",
+        "Lower levels of positive emotions",
+        "Higher levels of negative emotions"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Within the United States, which location has the longest life expectancy?",
+      "truth": "Hawaii",
+      "distractors": [
+        "California",
+        "Florida",
+        "Alaska"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The largest proportion of older adults living alone reside in",
+      "truth": "Washington, DC",
+      "distractors": [
+        "Hawaii",
+        "Florida",
+        "California"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which level of personality description appears to show the most change with age?",
+      "truth": "Personal concerns",
+      "distractors": [
+        "Traits",
+        "Coping strategies",
+        "Identity"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The positive relationship between religion and physical health is NOT thought to be due to",
+      "truth": "The benefits of knowing that others are praying for you",
+      "distractors": [
+        "Social support derived from a religious community",
+        "The rules of some religions which forbid unhealthy behaviors",
+        "The stress reducing effects of prayerful meditation"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Human factors examines the performance of different tasks by examining",
+      "truth": "The interaction between human and environment",
+      "distractors": [
+        "The factors that influence performance",
+        "The human side of the equation",
+        "The effects of environmental changes on humans"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Prospective memory refers to memory",
+      "truth": "To do something in the future",
+      "distractors": [
+        "For some recent event",
+        "For something that happened a long time ago",
+        "For the context and source of remembered information"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The total number of people who have some disorder divided by the total number of people gives you the ____ rate.",
+      "truth": "Prevalence",
+      "distractors": [
+        "Incidence",
+        "Incipient",
+        "Diseased"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Remarriages are",
+      "truth": "Typically less successful",
+      "distractors": [
+        "More frequent for woman than men",
+        "Typically more successful",
+        "Most common among those who have never been married before"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "With respect to job training, younger workers",
+      "truth": "Receive more opportunities than older workers",
+      "distractors": [
+        "Perform better on the job than trained older workers",
+        "Always learn faster than older workers",
+        "Prefer to have classes by themselves"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "About how many grieving individuals seem to require some professional help?",
+      "truth": "About 25%",
+      "distractors": [
+        "Less than 10%",
+        "Nearly half",
+        "More than 50%"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "People with which of the following forms of control are least likely to have accessibility problems where they live?",
+      "truth": "Internal",
+      "distractors": [
+        "External",
+        "Primary",
+        "Total"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following has been found to improve balance for older adults?",
+      "truth": "Tai chi",
+      "distractors": [
+        "Aerobic exercise",
+        "Weight lifting",
+        "Walking briskly"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The most frequent chronic condition for older adults is",
+      "truth": "Arthritis",
+      "distractors": [
+        "Hypertension",
+        "Diabetes",
+        "Cataracts"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Hypokinesia refers to",
+      "truth": "Loss of muscle strength and bone density",
+      "distractors": [
+        "Severe obesity",
+        "Increased sensitivity to stress",
+        "Social isolation and lack of support"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "What percentage of older adults report feeling very or often lonely?",
+      "truth": "10%",
+      "distractors": [
+        "25%",
+        "50%",
+        "75%"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "An example of a discontinuous change over the adult years is the change in",
+      "truth": "Female hormone levels",
+      "distractors": [
+        "Personality",
+        "Working memory",
+        "Male sexuality"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which leg of the three-legged stool do most retirees have",
+      "truth": "Social security",
+      "distractors": [
+        "Pension",
+        "Savings",
+        "Assets"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "One of the most important points made in this chapter is that physical changes",
+      "truth": "Occur more for some and less for others and, within the same person, more for some systems and less for others",
+      "distractors": [
+        "Occur for everyone",
+        "Usually occur for very old people but not for very young people",
+        "Can be totally avoided if one learns enough about gerontology"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following forms of dementia has the highest prevalence rate?",
+      "truth": "Alzheimer's",
+      "distractors": [
+        "Vascular",
+        "Parkinson's",
+        "Fronto-temporal lobe"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "High levels of social support are strongly associated with",
+      "truth": "Longevity",
+      "distractors": [
+        "Internal control",
+        "Culture",
+        "Education"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The term \"cohort\" refers to",
+      "truth": "A generation of people who lived through major events",
+      "distractors": [
+        "An individual's chronological age",
+        "A person's gender",
+        "A group of people living in the same culture"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Middle-aged adults appear to be more ____ than older or younger adults",
+      "truth": "Generative",
+      "distractors": [
+        "Neurotic",
+        "Agreeable",
+        "Certain"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following improves attitudes toward aging and older adults?",
+      "truth": "Education about older adults",
+      "distractors": [
+        "Staying away from older adults",
+        "Travelling to older communities",
+        "Watching the portrayals of older adults in movies and on TV"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A problem for immune system theories of senescence is",
+      "truth": "Determining what first causes the senescence in the immune system",
+      "distractors": [
+        "Auto-immune disorders are far too rare",
+        "That the immune system does not decline with age",
+        "The lack of information about senescence in general"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Those more likely to experience depression after a loss are those who",
+      "truth": "Are young survivors",
+      "distractors": [
+        "Have not previously experienced depression",
+        "Have been married more than 40 years",
+        "Are in poor health themselves"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following appears to lower bad cholesterol?",
+      "truth": "Niacin",
+      "distractors": [
+        "Vitamin D",
+        "Thiamine",
+        "Riboflavin"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Most people who have used physician assisted suicide have had",
+      "truth": "Health insurance",
+      "distractors": [
+        "Alzheimer's",
+        "No family",
+        "Clinical depression"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A researcher who is interested in the differences between two or more groups of people is most likely to use which of the following approaches?",
+      "truth": "Quasi-experimental",
+      "distractors": [
+        "Longitudinal",
+        "Correlational",
+        "Cross-sequential"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Being in bright light during the later parts of the day seems to",
+      "truth": "Restore normal circadian rhythm",
+      "distractors": [
+        "Increase insomnia",
+        "Restore deep sleep",
+        "Have no real influence on sleep or dreams"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A major reason for studying human aging is that",
+      "truth": "All of the above",
+      "distractors": [
+        "We are all growing older",
+        "The number and proportion of older adults is increasing",
+        "More job opportunities are available for those with some knowledge of aging"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The model of social support that says that those who are close to you now are likely to be close for the rest of your days is called the ____ model",
+      "truth": "Convoy",
+      "distractors": [
+        "Consistency",
+        "Attachment",
+        "Train"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "When older and younger workers have lost their jobs, older workers typically",
+      "truth": "Take longer to find a new job",
+      "distractors": [
+        "Find a job quicker because of their greater experience",
+        "Retire rather than search for a new job",
+        "Sue the company using the ADEA"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Our social network refers to",
+      "truth": "Those who are closest to us",
+      "distractors": [
+        "Everyone we know",
+        "Those who we have not yet met",
+        "Family members"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Those who survive the loss of another are called the",
+      "truth": "Bereaved",
+      "distractors": [
+        "Survivors",
+        "Grieving",
+        "Family and friends"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Financial adjustment to retirement has been most difficult for",
+      "truth": "Single women",
+      "distractors": [
+        "Married couples",
+        "Single men",
+        "Older adults"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Socioemotional selectivity theory says that older adults have smaller social networks because they",
+      "truth": "Are more concerned with those closest to them",
+      "distractors": [
+        "Select new network members based on emotional factors",
+        "Can no longer get out to select new network members",
+        "Are too emotionally involved to spend time with others"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The gender gap is likely to be associated with male/female differences in",
+      "truth": "All of the above",
+      "distractors": [
+        "Hormones",
+        "Risky behaviors and occupations",
+        "Proportion who smoke"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Those cells that build bone are called",
+      "truth": "Osteoblasts",
+      "distractors": [
+        "Osteoclasts",
+        "Osteostructs",
+        "Osteopori"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "An increase in neuroticism later in life is a strong predictor of",
+      "truth": "Mortality",
+      "distractors": [
+        "Loss of social support",
+        "Cognitive decline",
+        "Independence"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following countries has the longest life expectancy?",
+      "truth": "Japan",
+      "distractors": [
+        "U. S. A.",
+        "Sweden",
+        "Saudi Arabia"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which type of reaction time results in the biggest age differences?",
+      "truth": "Complex",
+      "distractors": [
+        "Simple",
+        "Choice",
+        "Elaborate"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Gary says he won $1000 in the lottery because he really knows how to pick those numbers. Gary would be said to have a strong ____ locus of control",
+      "truth": "Internal",
+      "distractors": [
+        "External, powerful others",
+        "External, chance",
+        "Secondary"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The advanced directive where one specifies the types of medical intervention that are and are not desired is called a",
+      "truth": "Living will",
+      "distractors": [
+        "DNH",
+        "DNR",
+        "Durable power of attorney"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "If links between various diseases are found, then future older adults will probably",
+      "truth": "Take fewer medications",
+      "distractors": [
+        "Be able to avoid certain diseases",
+        "Pay far less for pharmaceuticals",
+        "Pick and choose the disease(s) they want"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "With respect to hair loss",
+      "truth": "Men are more systematic than women",
+      "distractors": [
+        "Men lose but women do not",
+        "Women lose hair less frequently but more rapidly than men",
+        "Environmental factors are the main causes"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "In this chapter's\u00a0Senior View, Pat Shelley told us that you shouldn't retire if",
+      "truth": "You can't do it right",
+      "distractors": [
+        "You're younger than 60",
+        "Your family wants you to keep working",
+        "You have no hobbies"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A person who is not very well organized, rarely sets goals, and frequently puts things off until the last minute would be said to be low on which trait?",
+      "truth": "Conscientiousness",
+      "distractors": [
+        "Agreeableness",
+        "Openness",
+        "Neuroticism"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "As working people get closer to retirement they are more likely to",
+      "truth": "Do some informal planning",
+      "distractors": [
+        "Be absent from work",
+        "Invest in craft and hobby books",
+        "Become irritated and anxious"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Older adults may show less major depression than younger adults because they",
+      "truth": "Have learned to cope with loss",
+      "distractors": [
+        "See major depression as a stigma",
+        "Have very different brain biochemistry",
+        "Are no longer concerned with emotional matters"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The different components of memory should be thought of as",
+      "truth": "Working as a system",
+      "distractors": [
+        "Being very independent",
+        "Working one at a time",
+        "Taking turns"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Very rapid disposal of the body, before sundown on the day of the death, is typical of which religion?",
+      "truth": "Hindu",
+      "distractors": [
+        "Islam",
+        "Jewish",
+        "Tao"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "An example of an objective test of personality is the",
+      "truth": "MMPI",
+      "distractors": [
+        "TAT",
+        "Rorschach ink blot test",
+        "McAdams test of levels"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "When a measure actually quantifies what it claims to measure, we say that it has good",
+      "truth": "Validity",
+      "distractors": [
+        "Accuracy",
+        "Reliability",
+        "Associative value"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "In which country do most individuals choose to be cremated?",
+      "truth": "Japan",
+      "distractors": [
+        "U. S. A.",
+        "Kenya",
+        "Mexico"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A possible positive effect of moderate alcohol consumption is that it may",
+      "truth": "Keep blood vessels from stiffening",
+      "distractors": [
+        "Inhibit the growth of cancers",
+        "Promote healing from injuries and illnesses",
+        "Result in relaxation and lower blood pressure"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The environmental design that brings pets and plants to nursing homes and young people and children as regular visitors is referred to as",
+      "truth": "The Eden Alternative",
+      "distractors": [
+        "Instrumental Living Design",
+        "The Humanistic Choice",
+        "Human-Environment Congruence"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Excess disability refers to symptoms that are",
+      "truth": "Not due to the disease but due instead to malignant social psychology",
+      "distractors": [
+        "In excess of the average for that particular disorder",
+        "Found only in the last stage of Alzheimer's",
+        "Those that can be successfully treated by medicine if they are caught early enough"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Well being for younger adults is positively related to which form of control?",
+      "truth": "Primary",
+      "distractors": [
+        "Positive reappraisal",
+        "Lowering of aspirations",
+        "Internal"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following is NOT one of the major reasons for the increase in numbers of older adults?",
+      "truth": "The steadily increasing birth rate",
+      "distractors": [
+        "The Baby Boom generation",
+        "Increases in life expectancy at birth",
+        "Increases in life expectancy at a specified age"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Before we can collect data from other human beings we must make sure that they",
+      "truth": "Are informed about our study and give their consent to participate",
+      "distractors": [
+        "Have information that will be worth our effort to collect",
+        "Are going to be honest and forthright",
+        "Have been granted permission to participate by the IRB"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "In this chapter's\u00a0Senior View, May Lee told us that we should all respect our elders because",
+      "truth": "They raised us",
+      "distractors": [
+        "They are much older than we are",
+        "They lived through difficult times",
+        "They ask nothing in return"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "One line of evidence against antagonistic pleiotropy is that",
+      "truth": "Women who have more children tend to live longer",
+      "distractors": [
+        "Some animals show little or no senescence",
+        "Even tissue cells with longer telomere strands can show senescence",
+        "Exercise increases rather than decreases longevity"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Loss of muscle fiber may be due to loss of neurons which may be due to",
+      "truth": "Clogged blood vessels",
+      "distractors": [
+        "Loss of bone density",
+        "Changes in hormone levels",
+        "Loss of collagen"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "After losing a spouse, the surviving spouse often dies within the first year because of",
+      "truth": "Stress and loss of social support",
+      "distractors": [
+        "Having the same disorder as the deceased",
+        "The inability to remarry quickly",
+        "They have the same defective genes"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following factors has NOT received as much support as the others in research investigating why social support is related to better health?",
+      "truth": "Behavioral",
+      "distractors": [
+        "Social",
+        "Psychological",
+        "Gerontological"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Older adults' coping strategies are generally",
+      "truth": "Variable as they have more strategies",
+      "distractors": [
+        "Ineffective at solving problems",
+        "Persistent as they use the same strategy over and over",
+        "Narrow as they ignore many aspects of the problem"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Men are more likely than women to die from",
+      "truth": "Suicide",
+      "distractors": [
+        "Septicemia",
+        "Stroke",
+        "Influenza"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The slowing that occurs with advanced age appears to be centered in",
+      "truth": "The brain",
+      "distractors": [
+        "The sense organs themselves",
+        "The muscle fibers",
+        "The peripheral nervous system"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "One possible reason that time seems to pass more rapidly for older adults is that",
+      "truth": "They have fewer novel experiences",
+      "distractors": [
+        "Their memories are poor so they forget to check the time",
+        "They pay less attention to important events in life",
+        "Their lives are full of events which they don't recall at a later time"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "If we found that adult age was significantly and positively correlated with consumption of herbal teas, we could conclude that",
+      "truth": "Older adults drink more herbal tea than do younger adults",
+      "distractors": [
+        "Drinking herbal teas makes one grow older more slowly",
+        "Becoming older causes one to begin or increase consumption of herbal teas",
+        "Older adults drink less herbal tea than do younger adults"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The initials ADL stand for",
+      "truth": "Activities of Daily Living",
+      "distractors": [
+        "American Disease Legion",
+        "Always Delay Learning",
+        "Ancient Dependent Ladies"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The dementia that results from a long-term deficiency of thiamine is one type of ____ dementia",
+      "truth": "Korsakoff's",
+      "distractors": [
+        "Alzheimer's",
+        "Creutzfeldt-Jakob",
+        "Lewy body"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The initial length of telomere stand for members of a species is",
+      "truth": "Determined genetically",
+      "distractors": [
+        "Always the same",
+        "Dependent upon climate and time of year at birth",
+        "Determined by parent diet and exercise"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The current record for longest lived human being is held by",
+      "truth": "Jeanne Calment",
+      "distractors": [
+        "Maggie Kuhn",
+        "Maria Esther de Capovilla",
+        "M. Cherie Clark"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Glaucoma refers to the condition in which",
+      "truth": "Fluid pressure in the eye is above normal",
+      "distractors": [
+        "Inner and outer layers of the retina separate",
+        "The lens becomes cloudy and opaque",
+        "The central part of the retina no longer functions"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Workers in which of the following jobs still have mandatory retirements once they reach a certain age?",
+      "truth": "Fire fighters",
+      "distractors": [
+        "Cab drivers",
+        "Insurance regulators",
+        "Computer programmers"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Validation therapy refers to treatments in which the person with dementia",
+      "truth": "Is treated like a fellow human being",
+      "distractors": [
+        "Is carefully monitored day and night",
+        "Is left alone to die peacefully",
+        "Is given double or triple doses of medication"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Surveys of bereaved individuals have found that one of the things that is reported as being most helpful is when others",
+      "truth": "Remain in close contact",
+      "distractors": [
+        "Avoid any discussion of the deceased",
+        "Stay away and let the person grieve",
+        "Change the home environment for the bereaved"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "An example of a gain, rather than a loss, that occurs as we grow older is our gain in",
+      "truth": "Perspective",
+      "distractors": [
+        "Quickness",
+        "Size of our social networks",
+        "Certainty"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following appears to remain relatively stable over the adult years?",
+      "truth": "Sensory memories",
+      "distractors": [
+        "Personal concerns",
+        "Marital strain",
+        "Job satisfaction"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following is always the longest?",
+      "truth": "Life span",
+      "distractors": [
+        "Life expectancy at birth (LEAB)",
+        "Life expectancy at a specified age (LEASA)",
+        "There is no way of knowing"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Of the following, which is the more frequent stereotype of older adults?",
+      "truth": "Confused and disoriented",
+      "distractors": [
+        "Full of wisdom and knowledge",
+        "Healthy and independent",
+        "Sleepy and lazy"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "One reason that older adults may have difficulty in retrieving memories is that",
+      "truth": "There are many more memories to search through to find the one that is sought",
+      "distractors": [
+        "Long-term memory often discards older and unused memories",
+        "Older adults quit searching because they have more important things to do",
+        "Memory is less well organized as we grow older and finding a memory can be quite difficult"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Even a small amount of sleep deprivation seems to",
+      "truth": "Improve sleep quality",
+      "distractors": [
+        "Increase weight",
+        "Disrupt attention the next day",
+        "Increase irritability"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "NEAT may be one way in which some people are able to maintain a healthy BMI; NEAT refers to",
+      "truth": "Daily activities like walking, gesturing, and even fidgeting",
+      "distractors": [
+        "Eating the right kinds of low calorie foods",
+        "Intense aerobic exercise practiced at least 3 times a week",
+        "Surgical removal of fatty tissue"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Over the last decade or two, which of the following causes of death has shown a huge increase?",
+      "truth": "Alzheimer's",
+      "distractors": [
+        "Cancer",
+        "Cardiovascular diseases",
+        "Homicide"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following statements is TRUE concerning older workers' job performance?",
+      "truth": "Job performance for older workers depends both upon the decline of skills and the benefits of experience",
+      "distractors": [
+        "Older workers always perform better because of their vast experience",
+        "Older workers never perform better than younger workers because with age, a worker's skills decline.",
+        "Most jobs are performed better by younger adults but a few are performed better by older adults"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Older adults' negative beliefs about their own memories seem to be more influenced by _____ than by their actual performance on memory tests",
+      "truth": "Negative stereotypes about older memory",
+      "distractors": [
+        "Time of day and weather conditions",
+        "Who they are speaking with",
+        "Their slower processing speed"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following is NOT one of the more frequently named activities by those who are retired?",
+      "truth": "Redoing the home",
+      "distractors": [
+        "Volunteering",
+        "Travel",
+        "Household chores"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The retirement phase that occurs least frequently is the ____ phase",
+      "truth": "Disenchantment",
+      "distractors": [
+        "Honeymoon",
+        "Retirement routine",
+        "Preretirement"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following is the most important variable for gerontological researchers?",
+      "truth": "Age",
+      "distractors": [
+        "Gender",
+        "Cohort",
+        "Time of measurement"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following does NOT increase the risk of falling?",
+      "truth": "Having no emotional support",
+      "distractors": [
+        "Taking many prescription medications",
+        "Visual impairment",
+        "A change in walking style or gait"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The main reason given by men and women for their long lasting marriage is that",
+      "truth": "They are best friends",
+      "distractors": [
+        "They must fulfill their vows",
+        "They agree on almost everything",
+        "They owe it to their children"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "An older adult who has received a message (e.g., it's going to rain tomorrow) would be most likely to remember what when telling another person?",
+      "truth": "The contents of the message",
+      "distractors": [
+        "The person who told them it would rain",
+        "Where they were when they received the message",
+        "The time of day that the message was received"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The lifespan perspective says that development is composed of gains and losses; this means that",
+      "truth": "We gain some things and lose others at every age",
+      "distractors": [
+        "We gain while we are younger but lose when we are older",
+        "For every aspect of development there is no overall change since each gain is offset by loss",
+        "Gains are far more important than losses but losses occur too"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Identity refers to one's",
+      "truth": "Coherent sense of self",
+      "distractors": [
+        "Use of a particular coping strategy",
+        "Control over one's own life story",
+        "Physical appearance and overall personality"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Current estimates of how many people exercise on a regular basis suggest that _____ do",
+      "truth": "Less than 50%",
+      "distractors": [
+        "More than 75%",
+        "Less than 25%",
+        "More than 50%"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "An increased frequency of urination in older adults is most likely caused by",
+      "truth": "Smaller bladder",
+      "distractors": [
+        "Prostate cancer",
+        "Kidney problems",
+        "Gall stone(s)"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Some research has found that later cognitive decline is predicted by earlier",
+      "truth": "Loss of muscle strength",
+      "distractors": [
+        "Cardiovascular problems",
+        "Immune system decline",
+        "Graying of hair"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The law that requires all healthcare institutions that receive Medicaid funds to inform patients about advance directives is called the",
+      "truth": "Patient Self-Determination Act",
+      "distractors": [
+        "Informed Consent Act",
+        "Advance Directive",
+        "Medicaid Directive Information Act"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following is NOT among the top 10 causes of death in the U. S.?",
+      "truth": "AIDS",
+      "distractors": [
+        "Kidney diseases",
+        "Septicemia",
+        "Accidents"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Presbyopia refers to",
+      "truth": "The point of clearest vision moving farther from the eye",
+      "distractors": [
+        "The point of clearest vision moving closer to the eye",
+        "The decline in vision with advanced age",
+        "The loss of hearing for higher pitch as one grows older"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The design of products and environments to fit the capabilities of people who use them or live there is called _____ design",
+      "truth": "Ergonomic",
+      "distractors": [
+        "Environmental",
+        "Ecological",
+        "Eclectic"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The insurance program for poor people of all ages is called",
+      "truth": "Medicaid",
+      "distractors": [
+        "Hospice",
+        "Medicare",
+        "Respite"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "When damage to the brain is irreversible and increasing we refer to the disorder as",
+      "truth": "Dementia",
+      "distractors": [
+        "Delirium",
+        "MCI",
+        "Pick's"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Grandparents with grandchildren in college report feeling especially loved when such grandchildren",
+      "truth": "Pay a surprise visit and ask for advice",
+      "distractors": [
+        "Ask about their satisfaction with life and offer to help",
+        "Visit during the holidays and bring gifts",
+        "Invite the grandparents over to their place and cook a good meal"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The influence of genetics on longevity is estimated to be about",
+      "truth": "33%",
+      "distractors": [
+        "20%",
+        "50%",
+        "75%"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Older adults are most likely to be involved in a traffic accident when they are",
+      "truth": "On foot",
+      "distractors": [
+        "Driving in a new location",
+        "A passenger in a younger person's car",
+        "Alone"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Life stories are more likely for people who have a sense of",
+      "truth": "Personal control",
+      "distractors": [
+        "Well being",
+        "Generativity",
+        "Humor"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The idea that the ability to complete a task depends on the fit between the environment and the person undertaking the task is a basic tenet of which of the following theories of aging?",
+      "truth": "Ecological",
+      "distractors": [
+        "Environmental",
+        "Fitness",
+        "Congruence"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Neuroticism has been found to be correlated with which of the following?",
+      "truth": "Anger and guilt",
+      "distractors": [
+        "Apathy and indifference",
+        "Deceit and cunning",
+        "Mania and hypertension"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The Apo-E 2 protein is very prevalent in people who",
+      "truth": "Live to be 100 or older",
+      "distractors": [
+        "Die young",
+        "Have healthy immune systems",
+        "Also have high levels of Apo-E 4"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Information coming into our cognitive system is thought to first enter a",
+      "truth": "Sensory memory",
+      "distractors": [
+        "Perceptual processor",
+        "Working memory",
+        "Meta-memory"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Omega 3 appears to reduce the risk of",
+      "truth": "Cardiovascular disease",
+      "distractors": [
+        "Some cancers",
+        "Arthritis",
+        "Insomnia"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The term \"senescence\" refers to",
+      "truth": "An increased vulnerability",
+      "distractors": [
+        "The process of becoming older",
+        "The loss of mental abilities",
+        "Biological aging"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following is caused by a prion?",
+      "truth": "Creutzfeldt-Jakob",
+      "distractors": [
+        "Vascular dementia",
+        "Alzheimer's",
+        "Huntington's"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A difference between the social networks of older and younger adults is that older adults have",
+      "truth": "Smaller outer circles",
+      "distractors": [
+        "Larger inner circles",
+        "Larger outer circles",
+        "Smaller inner circles"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The first person to measure and compare the response times of young and old was",
+      "truth": "Francis Galton",
+      "distractors": [
+        "William James",
+        "Michelle Meer",
+        "Tom Penge"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "About what percentage of people who have had bridge jobs say it was better than their career job?",
+      "truth": "More than 50%",
+      "distractors": [
+        "Less than 25%",
+        "Less than 50%",
+        "More than 75%"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "We want our measures to be as reliable as possible; reliability refers to",
+      "truth": "Whether our measure is consistent in the information it provides",
+      "distractors": [
+        "Whether our measure really measure anything at all",
+        "Whether our measure is really measuring what it claims to measure",
+        "Whether our measure has or has not been used before"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A problem in comparing older adults' memory for recent events and events that happened a long time ago is that recent events",
+      "truth": "Can be verified while older events often cannot",
+      "distractors": [
+        "May be very well rehearsed",
+        "Are far more meaningful",
+        "Have no denominator to help in computing an average"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Of the following types of memory, which shows the biggest deficit with advanced age?",
+      "truth": "Episodic memory",
+      "distractors": [
+        "Sensory memory",
+        "Semantic memory",
+        "Procedural memory"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The loss of a ____ is regarded in the U. S. as the most severe loss and frequently produces guilt in addition to other emotions.",
+      "truth": "Child",
+      "distractors": [
+        "Spouse",
+        "Parent",
+        "Sibling"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "DNA damage/repair theory claims that senescence is due to cells getting incorrect instructions from DNA damaged by sources such as",
+      "truth": "Free radicals and sunlight",
+      "distractors": [
+        "Radiation from anti-oxidants",
+        "Metabolic processes",
+        "Telomerase"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Comorbidity is a problem for older adults because it",
+      "truth": "Makes correct diagnoses difficult",
+      "distractors": [
+        "Increases funeral costs",
+        "Is very contagious",
+        "Cannot, at present, be cured"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "With respect to theories of senescence, it's probably safe to say that",
+      "truth": "Many theories will have to be combined to explain senescence",
+      "distractors": [
+        "Programmed theories are the best we have at present",
+        "The evidence for these theories is direct and quickly accumulating",
+        "All of these theories are merely speculation at this point"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Current life expectancy in the United States is about",
+      "truth": "78",
+      "distractors": [
+        "82",
+        "68",
+        "75"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A burial site where the body is allowed to decompose naturally without a casket is called a _____ cemetery",
+      "truth": "Green",
+      "distractors": [
+        "Naturalistic",
+        "Rapid decay",
+        "Sunshine"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Older adults with higher education and self-esteem are more likely to be",
+      "truth": "Sexually active",
+      "distractors": [
+        "Socially isolated",
+        "Lonely as they grow older",
+        "Married for a long time"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "BMI is regarded as a better measure of health than weight by itself because BMI is based on weight and",
+      "truth": "Height",
+      "distractors": [
+        "Bone structure",
+        "Immune Function",
+        "Diet and exercise"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Morbidity refers to",
+      "truth": "Increased disability and declining health",
+      "distractors": [
+        "Death",
+        "Social and emotional isolation",
+        "A period of intense personal loss"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Older adults are able to improve their memories and reduce their anxiety about declining memory when",
+      "truth": "They learn about memory and aging and learn some techniques",
+      "distractors": [
+        "They simply learn a number of memory improvement techniques",
+        "They learn that many aspects of memory do not decline and some even get better",
+        "Older adults cannot do either of these"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Hearing loss for higher pitch is referred to as",
+      "truth": "Presbycusis",
+      "distractors": [
+        "Presbyopia",
+        "Pitch deafness",
+        "Conductive loss"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "In this chapter's Senior View, Tolly Kleckley told us that personality",
+      "truth": "Pretty much stays the same",
+      "distractors": [
+        "Changes a lot past age 50",
+        "Doesn't change past age 50",
+        "Changes more for women than for men"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The Kingbergs give us several keys to successful aging; which of the following is one that they did not name?",
+      "truth": "Party at least once a month",
+      "distractors": [
+        "Eat the correct food but not too much.",
+        "Respect each other",
+        "Make long-range plans"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Those who have lost a close family member to suicide most often experience",
+      "truth": "A lack of support from others",
+      "distractors": [
+        "A desire to kill themselves",
+        "Feelings of relief and release",
+        "Severe but temporary cognitive impairment"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Our bodies have a natural, built in defense against free radicals that is referred to as",
+      "truth": "SOD",
+      "distractors": [
+        "AFR",
+        "Vitamin C",
+        "Telomerase"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Open-ended questions on a survey often make it difficult to",
+      "truth": "Interpret the answers you get from people",
+      "distractors": [
+        "Get people to fill the survey out",
+        "Collect data in a timely manner",
+        "Get anyone to believe your results"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following groups is likely to have the more positive view of aging and older adults?",
+      "truth": "Other older adults",
+      "distractors": [
+        "Children younger than 10",
+        "Young adults",
+        "Adolescents"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The paradox of well-being refers to the finding of high levels of happiness among",
+      "truth": "Older adults",
+      "distractors": [
+        "Unhappy people",
+        "People with very low SES",
+        "Terminally ill people"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The Supreme Court has now ruled that older workers need no longer prove _____________ to win a job discrimination suit.",
+      "truth": "Intention",
+      "distractors": [
+        "Discrimination",
+        "Age bias",
+        "Negative impact"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The decline in working memory with advanced age seems to be due to",
+      "truth": "A loss of resources and slower processing speed",
+      "distractors": [
+        "An increase in the inhibition of relevant information",
+        "A general decline in the ability to process information",
+        "A severe loss of neural connections and decreased blood flow"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "A disadvantage of institutional care is that the staff frequently teach older residents to be",
+      "truth": "Dependent",
+      "distractors": [
+        "Rude",
+        "Independent",
+        "Selfish"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "If you believe that we are mostly in control of our own development and that our behaviors, good or bad, determine how successful our aging with be, you would be said to have which of the following perspectives?",
+      "truth": "Organismic",
+      "distractors": [
+        "Nurture",
+        "Continuity",
+        "Mechanistic"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The age at which one can receive full benefits from social security",
+      "truth": "Has been increasing",
+      "distractors": [
+        "Is 62",
+        "Is 65",
+        "Will never change"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Loss of stomach lining can lead to symptoms that resemble",
+      "truth": "Dementia",
+      "distractors": [
+        "Anorexia",
+        "Senescence",
+        "Hepatitis"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Which of the following has NOT been shown to be an effective treatment for depression in older adults?",
+      "truth": "Mental stimulation",
+      "distractors": [
+        "Rigorous exercise",
+        "Life review",
+        "Anti-depressant drugs"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The term Baby Boom Generation refers to people who",
+      "truth": "Were born right after WW II",
+      "distractors": [
+        "Were born before WW II",
+        "Have had an extraordinary number of offspring",
+        "Have raised their children in small villages"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Older workers are more likely to",
+      "truth": "Be laid off",
+      "distractors": [
+        "Be absent from work",
+        "Be dissatisfied with their jobs",
+        "Be less productive"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Mabel Davis, in this chapter's Senior View, would agree with which of the following?",
+      "truth": "Time seems to speed up when you grow older",
+      "distractors": [
+        "Exercise keeps your mind sharp",
+        "Women are tougher than men",
+        "Glasses and hearing aids should be avoided"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The information stored in memory, according to research and our Senior View interviewees, is",
+      "truth": "Our own interpretation",
+      "distractors": [
+        "True to life",
+        "Always exaggerated",
+        "Never accurate"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "When speaking with an older adults with some hearing loss, you should",
+      "truth": "Face them so they can watch your lips",
+      "distractors": [
+        "Speak a little slower than normal",
+        "Speak loudly into their best ear",
+        "Ask another person to translate"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "Longevity is strongly associated with higher levels of",
+      "truth": "Social support",
+      "distractors": [
+        "BMI",
+        "Alcohol use",
+        "Supplement use"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The hypothesis that says adults will remain healthy until very old age and then quickly become ill and die is the ____ hypothesis",
+      "truth": "Compression of morbidity",
+      "distractors": [
+        "Terminal drop",
+        "Klagmore-Rensfeldt",
+        "Decline avoidance"
+      ],
+      "source": "mmlu"
+    },
+    {
+      "context": "The woman who conducted a longitudinal study on herself and found increased retrieval difficulty as she got older was named",
+      "truth": "Smith",
+      "distractors": [
+        "Clark",
+        "Whitebear",
+        "Ebbinghaus"
+      ],
+      "source": "mmlu"
+    }
+  ]
+}

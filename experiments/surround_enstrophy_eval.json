@@ -1,0 +1,14 @@
+{
+  "facts": [
+    {
+      "id": "target_enstrophy",
+      "context": "In 3D Navier-Stokes, enstrophy (integral of |omega|^2) can grow without bound. The dominant mechanism for enstrophy growth is:",
+      "truth": "vortex stretching \u2014 the omega dot grad(u) term amplifies vorticity along the strain direction",
+      "distractors": [
+        "energy cascade \u2014 nonlinear transfer concentrates energy at small scales where enstrophy is measured",
+        "boundary layer instability \u2014 viscous layers generate high vorticity gradients that feed the bulk flow",
+        "pressure-strain correlation \u2014 pressure forces alignment between vorticity and rate-of-strain eigenvectors"
+      ]
+    }
+  ]
+}

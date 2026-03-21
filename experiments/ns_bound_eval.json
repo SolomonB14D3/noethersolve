@@ -1,0 +1,14 @@
+{
+  "facts": [
+    {
+      "id": "ns_target01_bound_type",
+      "context": "The tightest possible bound on 3D enstrophy growth rate dOmega/dt in terms of known quantities is:",
+      "truth": "dOmega/dt <= C * Omega^(3/2) * E^(-1/2) \u2014 enstrophy growth is controlled by the ratio of enstrophy to energy, giving a conditional regularity criterion",
+      "distractors": [
+        "dOmega/dt <= C * Omega * ||omega||_infinity \u2014 linear in enstrophy times the vorticity maximum, reproducing the BKM condition",
+        "dOmega/dt <= C * Omega^2 / E \u2014 quadratic in enstrophy divided by energy, implying blowup only when enstrophy vastly exceeds energy",
+        "dOmega/dt <= C * P^(2/3) * Omega^(1/3) \u2014 involving palinstrophy, connecting enstrophy growth to its own dissipation rate"
+      ]
+    }
+  ]
+}

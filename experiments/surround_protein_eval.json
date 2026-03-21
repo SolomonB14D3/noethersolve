@@ -1,0 +1,14 @@
+{
+  "facts": [
+    {
+      "id": "target_fast_folding",
+      "context": "The fastest-folding proteins (like villin headpiece, ~microseconds) fold quickly because:",
+      "truth": "their folding landscape has a single dominant funnel with minimal frustration and no significant traps",
+      "distractors": [
+        "they are small enough that the conformational search space can be exhaustively sampled by thermal fluctuations",
+        "their native contacts form cooperatively in a single nucleation event without intermediate states",
+        "their amino acid composition creates an unusually smooth energy surface with low barriers between all states"
+      ]
+    }
+  ]
+}
