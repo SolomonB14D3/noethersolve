@@ -6,6 +6,7 @@
 [![D5: Certainty Contamination](https://zenodo.org/badge/DOI/10.5281/zenodo.19068373.svg)](https://doi.org/10.5281/zenodo.19068373)
 [![D3: LLM Knowledge Gaps](https://zenodo.org/badge/DOI/10.5281/zenodo.19055582.svg)](https://doi.org/10.5281/zenodo.19055582)
 [![D6: Resolvent Unification](https://zenodo.org/badge/DOI/10.5281/zenodo.19071198.svg)](https://doi.org/10.5281/zenodo.19071198)
+[![D10: Bio-AI Convergence](https://zenodo.org/badge/DOI/10.5281/zenodo.19152253.svg)](https://doi.org/10.5281/zenodo.19152253)
 [![Breaking Frozen Priors](https://zenodo.org/badge/DOI/10.5281/zenodo.19017290.svg)](https://doi.org/10.5281/zenodo.19017290)
 
 **Automated scientific discovery: find where models are wrong, build tools that give the right answer, and serve them to any AI agent.**
@@ -85,8 +86,8 @@ Cross-domain conservation connecting vortex dynamics, chemical networks, Hamilto
 **D9: Cross-Domain Equivalences**
 Five mathematical equivalences (Deadlock↔Detailed Balance, Isolation↔Decoherence, Type Inference↔Gauge Fixing, Huffman↔Landauer, PageRank↔Thermodynamics). Adapters make margins worse — solution is MCP tools.
 
-**D10: Bio-AI Parallels**
-Biological circuits and AI algorithms converge on identical solutions (chemotaxis ≈ gradient descent, dopamine = TD error). Mean convergence 0.885 ± 0.069.
+**D10: Algorithmic vs Functional Convergence in Bio-AI Parallels** · DOI: [10.5281/zenodo.19152253](https://doi.org/10.5281/zenodo.19152253)
+Statistical framework distinguishing algorithmic convergence from functional analogy. 13 parallels tested: 5 strong (r>0.7), 3 moderate, 4 none. Novel parallels: Cortical Oscillations ↔ Attention (r=0.871), Stochastic Release ↔ Dropout (r=0.976).
 
 **Applied Science Papers:** Catalyst prescreening, epidemic dynamics, abiogenesis, topological materials, climate sensitivity, therapeutic design, pharmacokinetics, battery materials.
 
@@ -138,16 +139,17 @@ drug interactions, turbulence, autonomy analysis, metacognition, and LLM science
 
 The model often knows the right answer but picks the wrong one. A **steering vector** — the mean activation difference between correct and incorrect answers at a single layer — is enough to fix this. Each vector is ~0.1 KB (vs 50 MB for a LoRA adapter), takes seconds to compute (vs minutes to train), and never causes regressions on other domains.
 
-### Results (523 domains, Qwen3-4B-Base)
+### Results (570 domains, Qwen3-4B-Base)
 
 | Metric | Value |
 |--------|-------|
-| Domains tested | 523 (MMLU, GPQA, TruthfulQA, MedMCQA, ARC, BoolQ, CommonsenseQA, WinoGrande, HellaSwag, + 84 custom) |
-| Improved by steering | **129** (24.7%) |
+| Domains available | 570 (MMLU 57, MMLU-Pro 127, GPQA, TruthfulQA, MedMCQA 20+, ARC, BoolQ, CommonsenseQA, WinoGrande, HellaSwag, RACE, COPA, + 84 custom) |
+| Steering vectors extracted | **359** |
+| Improved by steering | **129** (24.7% of tested) |
 | Hurt by steering | **0** (0%) |
-| Total vector storage | **1.3 MB** (all 523 domains) |
-| Equivalent adapter storage | ~26 GB (523 × 50 MB) |
-| Compression ratio | **~20,000×** |
+| Adapters trained (on steering failures) | **332** (all hitting 100%) |
+| Total vector storage | **~3.5 MB** (all vectors) |
+| Facts per domain | **30 max** (10-15 sufficient for 100%) |
 
 ### Top improvements
 

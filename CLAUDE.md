@@ -722,10 +722,19 @@ margin < -20      → Extreme gap — domain-specific adapter required
 2. **Train logit-space adapter** (minutes, 50 MB) → if steering failed, adapter handles it
 3. **Build MCP tool** (permanent, model-agnostic) → for maximum reliability
 
-**Results on 523 benchmark domains (MMLU, GPQA, TruthfulQA, MedMCQA, ARC, BoolQ, etc.):**
-- Improved by steering: **129/523** (24.7%), 0 hurt
-- Steering failures trained with adapters: **100%** accuracy (college_math 6%→100%, GPQA 4%→100%)
-- Total vector storage: **1.3 MB** for all 523 domains (vs ~26 GB for adapters)
+**Results on 570 benchmark domains (MMLU 57, MMLU-Pro 127, GPQA, TruthfulQA, MedMCQA 20+, ARC, BoolQ, CommonsenseQA, WinoGrande, HellaSwag, RACE, COPA, + 84 custom):**
+- Steering vectors extracted: **359/570** (ongoing)
+- Improved by steering: **129** (24.7% of tested), **0 hurt**
+- Steering failures trained with adapters: **332 adapters**, all hitting **100%** accuracy
+- Total vector storage: **~3.5 MB** for all vectors
+- Facts per domain: **30 max** (10-15 sufficient for 100% — more is waste)
+- Adapter size: **33 MB** each (float16 compressed, down from 111 MB float32)
+
+**Data sources (all auto-downloaded from HuggingFace):**
+- MMLU (57 subjects), MMLU-Pro (14 categories × sub-splits = 127), GPQA (448 graduate-level)
+- TruthfulQA (817), MedMCQA (20 medical subjects), ARC Challenge + Easy (6 science topics)
+- BoolQ (3270), CommonsenseQA (1221), WinoGrande (1267), HellaSwag (10K), RACE (600), COPA (500)
+- All capped at 30 facts per domain. Bank stored in `steering_bank/`, ~13K total facts.
 
 **When steering works:** Model has latent knowledge but generation mechanism picks wrong output ("mute not dumb"). TruthfulQA 13%→100%, moral scenarios 0%→73%.
 
@@ -742,8 +751,8 @@ python experiments/train_steering_failures.py
 ```
 
 **Key files:**
-- `steering_vectors/` — .npy files, one per domain (~10 KB each)
-- `steering_bank/` — fact files from MMLU, GPQA, TruthfulQA, MedMCQA, ARC, etc.
+- `steering_vectors/` — .npy files, ~10 KB each. Organized by model: `steering_vectors/{model_short}/`
+- `steering_bank/` — 439 domain fact files from MMLU, MMLU-Pro, GPQA, TruthfulQA, MedMCQA, ARC, BoolQ, CommonsenseQA, WinoGrande, HellaSwag, RACE, COPA. All capped at 30 facts.
 - `results/steering_vectors_v2.json` — full results with per-domain baselines and improvements
 - `experiments/extract_vectors_fast.py` — multi-layer extraction (sweeps L10, L15, L20)
 - `experiments/train_steering_failures.py` — adapter training on steering failures
@@ -791,7 +800,7 @@ python scripts/adapter_trainer.py --status
 
 **Fact budget:** 30 facts max per domain. 10-15 training facts converge to 100%. More is waste. All scripts enforce this cap.
 
-**Steering bank:** 523+ domains from MMLU (57), MMLU-Pro (127), GPQA, TruthfulQA, MedMCQA (20), ARC, BoolQ, CommonsenseQA, WinoGrande, HellaSwag, RACE, COPA, + 84 custom. Stored in `steering_bank/`, capped at 30 facts each. Total: ~13K facts.
+**Steering bank:** 570 domains from MMLU (57), MMLU-Pro (127), GPQA, TruthfulQA, MedMCQA (20+), ARC, BoolQ, CommonsenseQA, WinoGrande, HellaSwag, RACE, COPA, + 84 custom. Stored in `steering_bank/`, capped at 30 facts each. Total: ~13K facts. Downloaded via `experiments/build_steering_bank.py`.
 
 **Multi-model support:** Scripts accept `--model` flag. Vectors stored in `steering_vectors/{model_short}/`. Larger models (14B, 70B) need fewer adapters because more domains are "mute not dumb" (latent knowledge surfaced by steering). 14B loads on Apple Silicon M3 Ultra in ~6.5 min (40 layers, d_model=5120, same vocab 151936).
 
