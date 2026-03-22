@@ -298,3 +298,6 @@ vp_dQf_theory	dQ_f/dt derivation	theory	8300x improvement from weighting	theoret
 2026-03-17	Optimal weight search	5.82e-3	random	NULL	Standard ΓᵢΓⱼ is optimal; alternatives all worse
 2026-03-17	Q_r conservation N>3	degrading	random	NEGATIVE	Conservation WORSENS with N: N=3 1e-3, N=8 4e-2
 2026-03-17	Q_osc = Σ ΓᵢΓⱼ sin(kr)/r	varies by k	random	FAIL	Only k→0 conserves (trivial); k>0.1 all FAIL
+2026-03-21	linked_ring_helicity	NOVEL	Helicity sign (H = Γ₁Γ₂×Lk) controls Q_f conservation: H>0 → 3.45e-04, H<0 → 4.36e-03 (13× worse). Counter-rotating linked rings conserve Q_{1/r} nearly as well as unlinked.
+2026-03-21	trefoil_writhe_conservation	CONFIRMED	Trefoil knots follow same pattern as linked rings: positive writhe (Wr=+3.36) → frac_var 5.46e-05, negative writhe (Wr=-3.36) → 2.96e-04 (5× worse). Unified: positive helicity preserves Q_f.
+2026-03-21	higher_linking_numbers	COMPLEX	Torus links (Lk=1,2,3): Same-sign BETTER (opposite of Hopf!). Same-sign degrades monotonically with |Lk|. Geometry matters: localized interaction → counter-rot wins; distributed → same-sign wins.
