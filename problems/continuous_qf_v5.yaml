@@ -1,0 +1,23 @@
+problem: continuous_qf_v5
+description: >
+  V5 of continuous Q_f facts with shorter, more assertive phrasing.
+  Targets borderline failures from V3/V4.
+
+verification_set: continuous_qf_facts_v5.json
+pass_threshold: 0.5
+
+notes: >
+  V2 results: 3/12 (25.0%), mean margin -13.98, worst -35.5
+  V3 results: 4/12 (33.3%), mean margin -5.27, worst -29.6
+  V4 results: 4/12 (33.3%), mean margin -3.45, worst -27.8
+  V5 results: 6/12 (50.0%), mean margin -0.26, worst -21.9
+
+  Key changes in V5:
+    - Shorter truths (7-10 words vs 15-20)
+    - qf02: "the kinetic energy of the flow" (simple, direct)
+    - qf10: "exactly conserved in 2D inviscid flow" (textbook)
+    - Weaker distractors (obviously wrong, not plausibly wrong)
+
+  Remaining failures (6) need adapter training:
+    - qf04, qf08: deeply resistant (-21.9, -12.4)
+    - qf05, qf07, qf09, qf11: borderline (-3.8 to -7.8)

@@ -1,0 +1,21 @@
+{
+  "domain": "continuous_qf",
+  "clusters": {
+    "2d_conservation": {
+      "adapter": "continuous_qf_2d_conservation_adapter.npz",
+      "facts": ["qf01", "qf02", "qf03", "qf10"]
+    },
+    "theory": {
+      "adapter": "continuous_qf_theory_adapter.npz",
+      "facts": ["qf04", "qf09"]
+    },
+    "3d_stretching": {
+      "adapter": "continuous_qf_3d_stretching_adapter.npz",
+      "facts": ["qf06", "qf07", "qf08"]
+    },
+    "applications": {
+      "adapter": "continuous_qf_extension_adapter.npz",
+      "facts": ["qf05", "qf11", "qf12"]
+    }
+  }
+}
