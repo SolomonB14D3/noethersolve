@@ -1,0 +1,166 @@
+{
+  "problem": "chemical_conservation_v5",
+  "description": "V5 of chemical conservation facts. Targeted fixes for stubborn failures.",
+  "facts": [
+    {
+      "id": "chem01_source",
+      "context": "Conservation laws in a chemical reaction network are found in:",
+      "truth": "the left null space of the stoichiometry matrix",
+      "distractors": [
+        "the right null space of the stoichiometry matrix",
+        "the column space of the stoichiometry matrix",
+        "the row space of the stoichiometry matrix"
+      ]
+    },
+    {
+      "id": "chem02_simple_AB",
+      "context": "For a reversible reaction A <-> B, the conserved quantity is:",
+      "truth": "[A] + [B] = constant (total mass conservation)",
+      "distractors": [
+        "[A] - [B] = constant (net difference conservation)",
+        "[A] / [B] = constant (equilibrium ratio preserved)",
+        "[A] * [B] = constant (product coupling invariant)"
+      ]
+    },
+    {
+      "id": "chem03_enzyme",
+      "context": "In Michaelis-Menten enzyme kinetics E + S <-> ES -> E + P, the conserved quantities are:",
+      "truth": "[E] + [ES] = constant (total enzyme) and [S] + [ES] + [P] = constant (total substrate)",
+      "distractors": [
+        "[E] + [S] = constant (free enzyme plus substrate) and [ES] + [P] = constant (bound complex plus product)",
+        "[E] * [S] / [ES] = constant (binding equilibrium ratio) and [S] - [P] = constant (net substrate balance)",
+        "[E] + [P] = constant (enzyme plus product pool) and [S] + [ES] - [P] = constant (modified substrate sum)"
+      ]
+    },
+    {
+      "id": "chem04_nullspace_dim",
+      "context": "The dimension of the conservation law space equals:",
+      "truth": "number of species minus rank of stoichiometry matrix",
+      "distractors": [
+        "number of reactions minus rank of stoichiometry matrix",
+        "number of complexes minus rank of Jacobian matrix",
+        "number of species minus number of reactions"
+      ]
+    },
+    {
+      "id": "chem05_glycolysis_atp",
+      "context": "In glycolysis, [ATP] + [ADP] is:",
+      "truth": "conserved as the total adenine nucleotide pool",
+      "distractors": [
+        "variable depending on the glycolytic flux rate",
+        "exchanged with oxidative phosphorylation pools",
+        "determined by the cellular energy charge ratio"
+      ]
+    },
+    {
+      "id": "chem06_glycolysis_nad",
+      "context": "In glycolysis, [NAD+] + [NADH] is:",
+      "truth": "conserved as the total nicotinamide pool",
+      "distractors": [
+        "variable depending on the glycolytic flux rate",
+        "exchanged with mitochondrial electron carriers",
+        "determined by the cellular redox potential"
+      ]
+    },
+    {
+      "id": "chem07_open_systems",
+      "context": "In open chemical systems with external species exchange:",
+      "truth": "conservation laws break down due to boundary fluxes",
+      "distractors": [
+        "conservation laws remain valid at all times",
+        "new conservation laws arise from boundaries",
+        "conservation laws hold at steady state only"
+      ]
+    },
+    {
+      "id": "chem08_mass_action",
+      "context": "Under mass-action kinetics, the rate of reaction A + B -> C is:",
+      "truth": "k * [A] * [B] where k is the rate constant",
+      "distractors": [
+        "k * [C] / ([A] + [B]) as the reverse equilibrium",
+        "k * ([A] + [B]) where k is the rate constant",
+        "k * [A]^2 * [B]^2 scaled by stoichiometric factors"
+      ]
+    },
+    {
+      "id": "chem09_lotka",
+      "context": "The Lotka-Volterra equations, viewed as a reaction network, have:",
+      "truth": "zero stoichiometric conservation laws",
+      "distractors": [
+        "one stoichiometric conservation law",
+        "two stoichiometric conservation laws",
+        "infinitely many conservation laws"
+      ]
+    },
+    {
+      "id": "chem10_brusselator",
+      "context": "The Brusselator oscillating reaction conserves:",
+      "truth": "certain linear combinations of intermediate and product concentrations",
+      "distractors": [
+        "the total concentration of all species summed at every time point",
+        "the ratio of intermediate to product concentrations at equilibrium",
+        "the squared amplitude of oscillations throughout the reaction cycle"
+      ]
+    },
+    {
+      "id": "chem11_deficiency",
+      "context": "The deficiency of a chemical reaction network measures:",
+      "truth": "the difference between complexes minus linkage classes minus stoichiometric rank",
+      "distractors": [
+        "the difference between species minus reactions minus Jacobian rank",
+        "the difference between reactions minus linkage classes minus complexes",
+        "the difference between stoichiometric rank minus species plus components"
+      ]
+    },
+    {
+      "id": "chem12_complex_conserv",
+      "context": "Glycolysis has conservation laws for:",
+      "truth": "adenine nucleotides (ATP+ADP) and nicotinamide (NAD+NADH)",
+      "distractors": [
+        "each of the fourteen molecular species separately",
+        "each of the twelve reaction steps separately",
+        "none because glycolysis is thermodynamically open"
+      ]
+    },
+    {
+      "id": "chem13_verify_numerical",
+      "context": "To verify a conservation law w*c = constant:",
+      "truth": "simulate the system and check that w*c(t) is constant",
+      "distractors": [
+        "compute the Jacobian eigenvalues for stability",
+        "evaluate the determinant of the stoichiometry matrix",
+        "check that reaction rates balance at t=0"
+      ]
+    },
+    {
+      "id": "chem14_physical_meaning",
+      "context": "Stoichiometric conservation laws physically represent:",
+      "truth": "chemical groups that rearrange but are never created or destroyed",
+      "distractors": [
+        "thermodynamic constraints limiting feasible reactions",
+        "equilibrium constants from microscopic reversibility",
+        "rate limits imposed by enzyme saturation kinetics"
+      ]
+    },
+    {
+      "id": "chem15_compatibility",
+      "context": "A stoichiometric compatibility class contains:",
+      "truth": "all concentrations reachable from an initial condition",
+      "distractors": [
+        "all equilibria achievable with different rate constants",
+        "all initial states leading to the same equilibrium",
+        "all networks with the same number of conservation laws"
+      ]
+    },
+    {
+      "id": "chem16_nontrivial",
+      "context": "A non-trivial conservation law in a large network is typically:",
+      "truth": "a linear combination of many species with non-obvious coefficients",
+      "distractors": [
+        "a pairwise sum of exactly two species with unit weights",
+        "a product of concentration ratios forming a dimensionless quantity",
+        "a quadratic polynomial of concentrations with integer exponents"
+      ]
+    }
+  ]
+}

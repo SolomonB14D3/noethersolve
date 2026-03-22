@@ -1,0 +1,22 @@
+problem: chemical_conservation_v5
+description: >
+  V5 of chemical conservation facts with shorter, more assertive phrasing.
+  Targets stubborn failures with concrete examples.
+
+verification_set: chemical_conservation_facts_v5.json
+pass_threshold: 0.5
+
+notes: >
+  V2 results: 4/16 (25.0%), mean margin -4.61, worst -37.1
+  V3 results: 6/16 (37.5%), mean margin -0.47, worst -18.3
+  V5 results: 8/16 (50.0%), mean margin +0.59, worst -12.5
+
+  Key changes in V5:
+    - chem09: "zero stoichiometric conservation laws" (simple, no explanation)
+    - chem12: "adenine nucleotides (ATP+ADP) and nicotinamide (NAD+NADH)" (concrete)
+    - chem13: "simulate the system and check that w*c(t) is constant" (direct)
+    - Shorter distractors throughout
+
+  Remaining failures (8) need adapter training:
+    - chem06, chem04: hardest (-12.5, -8.0)
+    - chem05, chem07, chem01, chem14, chem09, chem15: borderline (-2.4 to -4.8)
