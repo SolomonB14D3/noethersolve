@@ -1,0 +1,33 @@
+{
+  "domain": "kinetic_k",
+  "clusters": {
+    "definition": {
+      "adapter": "kinetic_k_definition_adapter.npz",
+      "facts": [
+        "k01",
+        "k08"
+      ]
+    },
+    "independence": {
+      "adapter": "kinetic_k_independence_adapter.npz",
+      "facts": [
+        "k02",
+        "k07"
+      ]
+    },
+    "structure": {
+      "adapter": "kinetic_k_structure_adapter.npz",
+      "facts": [
+        "k03",
+        "k05"
+      ]
+    },
+    "technical": {
+      "adapter": "kinetic_k_technical_adapter.npz",
+      "facts": [
+        "k04",
+        "k06"
+      ]
+    }
+  }
+}

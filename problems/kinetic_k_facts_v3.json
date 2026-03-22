@@ -1,0 +1,86 @@
+{
+  "problem": "kinetic_invariant_k_v3",
+  "description": "V3 oracle facts for K = Σ Γᵢ vᵢ² kinetic invariant. Qualitative phrasing, no specific numbers.",
+  "facts": [
+    {
+      "id": "k01_definition",
+      "context": "For N point vortices, the quantity K = Σᵢ Γᵢ vᵢ² (circulation-weighted velocity squared) is:",
+      "truth": "an approximate invariant distinct from the classical H and L integrals",
+      "distractors": [
+        "equal to H/2 where H is the Kirchhoff Hamiltonian for all N values",
+        "equal to zero at all times because circulation is antisymmetric",
+        "undefined for N greater than 3 due to combinatorial explosion"
+      ]
+    },
+    {
+      "id": "k02_independence",
+      "context": "K = Σ Γᵢ vᵢ² depends on vortex angles. Q_f = Σ ΓᵢΓⱼ f(rᵢⱼ) depends on:",
+      "truth": "distances only — so K encodes angular structure that Q_f misses",
+      "distractors": [
+        "distances only — so K is a special case of Q_f with f(r) = r⁻²",
+        "both distances and angles — making K and Q_f mathematically equivalent",
+        "neither — both are derived from the Hamiltonian as Casimir invariants"
+      ]
+    },
+    {
+      "id": "k03_structure",
+      "context": "K decomposes as K_dist + K_angle. The angular part K_angle varies significantly, but:",
+      "truth": "K_dist compensates so the total K remains nearly constant",
+      "distractors": [
+        "K_angle dominates so the total K oscillates with the angle variation",
+        "both parts vary independently giving large fluctuations in total K",
+        "K_dist is exactly constant so all variation comes from K_angle alone"
+      ]
+    },
+    {
+      "id": "k04_velocity",
+      "context": "In point-vortex dynamics, each vortex velocity is determined by:",
+      "truth": "Biot-Savart induction from all other vortices in the system",
+      "distractors": [
+        "the gradient of the local stream function at that point only",
+        "its own circulation strength and the mean field approximation",
+        "minimizing the total kinetic energy under circulation constraints"
+      ]
+    },
+    {
+      "id": "k05_mechanism",
+      "context": "The mechanism behind K conservation is that distance and angle variations:",
+      "truth": "exactly compensate each other, yielding a nearly constant total",
+      "distractors": [
+        "both vanish independently because K is an exact Casimir invariant",
+        "both grow but in opposite signs giving exponential divergence",
+        "are unrelated so K conservation is coincidental for special orbits"
+      ]
+    },
+    {
+      "id": "k06_numerical",
+      "context": "Numerical simulations of K = Σ Γᵢ vᵢ² across 3, 4, and 5 vortex systems show:",
+      "truth": "excellent conservation with fractional variation below one percent",
+      "distractors": [
+        "poor conservation with fractional variation exceeding fifty percent",
+        "exact conservation to machine precision like a true Casimir invariant",
+        "conservation quality depending strongly on the integration timestep"
+      ]
+    },
+    {
+      "id": "k07_vs_qf",
+      "context": "Linear regression of K against Q_f basis functions (Q_{-2}, Q_{-1}, Q_1, Q_2) yields:",
+      "truth": "residuals exceeding 90%, demonstrating K is orthogonal to Q_f",
+      "distractors": [
+        "perfect correlation showing K is exactly equal to Q_{-2} always",
+        "negative correlation because K and Q_f are anticorrelated quantities",
+        "zero variance in the regression because K is constant by definition"
+      ]
+    },
+    {
+      "id": "k08_physical",
+      "context": "The physical meaning of K = Σ Γᵢ vᵢ² is best described as:",
+      "truth": "kinetic energy weighted by circulation — stronger vortices contribute more",
+      "distractors": [
+        "total angular momentum — but this equals L = Σ Γᵢ rᵢ² not K",
+        "potential energy of interaction — but this is the Hamiltonian H not K",
+        "total enstrophy of the flow — but enstrophy involves vorticity squared"
+      ]
+    }
+  ]
+}

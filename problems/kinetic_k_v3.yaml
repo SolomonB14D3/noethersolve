@@ -1,0 +1,12 @@
+problem: kinetic_invariant_k_v3
+description: >
+  V3 of K invariant facts with qualitative phrasing.
+  Removes specific numbers that model gets wrong.
+
+verification_set: kinetic_k_facts_v3.json
+pass_threshold: 0.5
+
+notes: >
+  V1 mean margin: -45.8
+  V2 mean margin: -23.8
+  V3 uses qualitative descriptions instead of specific numbers like "10⁻⁷"
