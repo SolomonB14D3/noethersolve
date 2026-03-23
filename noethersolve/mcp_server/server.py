@@ -62,6 +62,42 @@ def verify_claim(
 
 
 @mcp.tool()
+def verify_fact(
+    context: str,
+    truth: str,
+    distractors: list[str],
+    domain: str = "general",
+) -> str:
+    """Verify a fact using direct completion format (matches adapter training).
+
+    This is the recommended tool for verifying facts in domains with trained adapters.
+    Uses the same prompt format as adapter training: context → completion.
+
+    Args:
+        context: The context/prompt (e.g., "APOE4 carriers with HSV-1 reactivation...")
+        truth: The correct completion to verify
+        distractors: Alternative (wrong) completions to compare against
+        domain: Domain for adapter selection (e.g., "hsv_apoe4_alzheimers_direct")
+
+    Returns:
+        Verification result with verdict (TRUE/FALSE/UNCERTAIN), confidence,
+        margin, and explanation.
+
+    Example:
+        verify_fact(
+            context="APOE4 carriers with HSV-1 reactivation have Alzheimer's risk increased by:",
+            truth="3-4 fold (HR 3.28-3.68 in prospective studies)",
+            distractors=["no significant increase", "1.2-1.5 fold", "10-20 fold"],
+            domain="hsv_apoe4_alzheimers_direct"
+        )
+        # → Verdict: TRUE (confidence: 99%)
+    """
+    from noethersolve.oracle_tool import verify_fact as _verify_fact
+    result = _verify_fact(context, truth, distractors, domain)
+    return str(result)
+
+
+@mcp.tool()
 def get_oracle_domains() -> str:
     """List all domains supported by the oracle verification tool.
 

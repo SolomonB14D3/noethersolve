@@ -98,18 +98,59 @@ def _load_adapter(adapter_path: Path):
     return adapter
 
 
-def _get_log_prob(model, tokenizer, prompt: str, completion: str) -> float:
-    """Get log probability of completion given prompt."""
+def _get_log_prob(model, tokenizer, prompt: str, completion: str,
+                  adapter_weights: dict = None) -> float:
+    """Get log probability of completion given prompt.
+
+    If adapter_weights is provided, applies logit-space adapter shifts.
+
+    Note: Tokenizes prompt and completion separately, then concatenates token IDs.
+    This matches how adapters are trained and ensures consistent tokenization behavior.
+    """
     import mlx.core as mx
     import mlx.nn as nn
+    import numpy as np
 
-    full_text = prompt + completion
+    # Tokenize separately and concatenate (matches training script behavior)
     prompt_tokens = tokenizer.encode(prompt)
-    full_tokens = tokenizer.encode(full_text)
+    comp_tokens = tokenizer.encode(completion)
+    full_tokens = prompt_tokens + comp_tokens
 
-    # Get logits
-    input_ids = mx.array([full_tokens[:-1]])
-    logits = model(input_ids)
+    if not comp_tokens:
+        return -999.0
+
+    # Get hidden states and base logits
+    input_ids = mx.array([full_tokens])[..., :-1]  # All but last token
+
+    if adapter_weights is not None:
+        # Get hidden states from the model backbone
+        h = model.model(input_ids)
+        # Get base logits from lm_head
+        if hasattr(model, 'lm_head'):
+            base_logits = model.lm_head(h)
+        else:
+            base_logits = h @ model.model.embed_tokens.weight.T
+
+        # Apply adapter: logit shifts = down_proj(SiLU(gate_proj(logits) * up_proj(logits)))
+        gate_proj = mx.array(adapter_weights['gate_proj.weight'])  # (d_inner, vocab)
+        up_proj = mx.array(adapter_weights['up_proj.weight'])      # (d_inner, vocab)
+        down_proj = mx.array(adapter_weights['down_proj.weight'])  # (vocab, d_inner)
+
+        # SwiGLU-style adapter forward pass
+        gate = base_logits @ gate_proj.T  # (batch, seq, d_inner)
+        up = base_logits @ up_proj.T      # (batch, seq, d_inner)
+        hidden = nn.silu(gate) * up  # SiLU(gate) * up
+        shifts = hidden @ down_proj.T  # (batch, seq, vocab)
+
+        # Center shifts and apply
+        shifts = shifts - mx.mean(shifts, axis=-1, keepdims=True)
+        logits = base_logits + shifts
+
+        # Softcap for stability
+        LOGIT_SOFTCAP = 30.0
+        logits = LOGIT_SOFTCAP * mx.tanh(logits / LOGIT_SOFTCAP)
+    else:
+        logits = model(input_ids)
 
     # Calculate log probs for completion tokens only
     log_probs = nn.log_softmax(logits, axis=-1)
@@ -122,6 +163,81 @@ def _get_log_prob(model, tokenizer, prompt: str, completion: str) -> float:
         total_log_prob += log_probs[0, i, token_id].item()
 
     return total_log_prob
+
+
+def verify_fact(
+    context: str,
+    truth: str,
+    distractors: list[str],
+    domain: str = "general",
+) -> VerificationResult:
+    """Verify a fact using direct completion format (matches training).
+
+    This is the format used by NoetherSolve adapter training:
+    - Prompt = context
+    - Completions = " truth" or " distractor" (with leading space)
+
+    Args:
+        context: The context/prompt (e.g., "APOE4 carriers with HSV-1...")
+        truth: The correct completion
+        distractors: Alternative (wrong) completions
+        domain: Domain for adapter selection
+
+    Returns:
+        VerificationResult with verdict, confidence, and explanation
+    """
+    model, tokenizer = _load_model()
+
+    # Find and load adapter
+    adapter_path = _find_adapter(domain)
+    adapter_used = None
+    adapter_weights = None
+    if adapter_path:
+        adapter_used = adapter_path.stem
+        adapter_weights = _load_adapter(adapter_path)
+
+    # Get log prob for truth (with leading space, matching training format)
+    truth_lp = _get_log_prob(model, tokenizer, context, f" {truth}", adapter_weights)
+
+    # Get log probs for distractors
+    dist_lps = []
+    for d in distractors:
+        d_lp = _get_log_prob(model, tokenizer, context, f" {d}", adapter_weights)
+        dist_lps.append((d, d_lp))
+
+    best_distractor, best_distractor_lp = max(dist_lps, key=lambda x: x[1])
+
+    # Calculate margin
+    margin = truth_lp - best_distractor_lp
+
+    # Determine verdict
+    if margin > 1.5:
+        verdict = "TRUE"
+        confidence = min(0.99, 0.5 + margin / 10)
+    elif margin < -1.5:
+        verdict = "FALSE"
+        confidence = min(0.99, 0.5 + abs(margin) / 10)
+    else:
+        verdict = "UNCERTAIN"
+        confidence = 0.5 + abs(margin) / 20
+
+    # Build explanation
+    if verdict == "FALSE":
+        explanation = f"Model prefers: '{best_distractor}' over the truth"
+    elif verdict == "TRUE":
+        explanation = "Model confidence supports this claim"
+    else:
+        explanation = "Insufficient confidence to determine truth value"
+
+    return VerificationResult(
+        claim=truth,
+        verdict=verdict,
+        confidence=confidence,
+        domain=domain,
+        adapter_used=adapter_used,
+        margin=margin,
+        explanation=explanation,
+    )
 
 
 def verify_claim(
@@ -146,9 +262,10 @@ def verify_claim(
     # Find and load adapter
     adapter_path = _find_adapter(domain)
     adapter_used = None
+    adapter_weights = None
     if adapter_path:
         adapter_used = adapter_path.stem
-        # TODO: Apply adapter weights to model
+        adapter_weights = _load_adapter(adapter_path)
 
     # Build prompt
     if context:
@@ -157,7 +274,7 @@ def verify_claim(
         prompt = f"Which is correct?\nA) {claim}\n"
 
     # Get log prob for the claim
-    claim_lp = _get_log_prob(model, tokenizer, prompt, "A")
+    claim_lp = _get_log_prob(model, tokenizer, prompt, "A", adapter_weights)
 
     # Compare against distractors if provided
     best_distractor_lp = float('-inf')
@@ -167,7 +284,7 @@ def verify_claim(
         for i, d in enumerate(distractors):
             letter = chr(ord('B') + i)
             prompt_with_d = prompt + f"{letter}) {d}\n"
-            d_lp = _get_log_prob(model, tokenizer, prompt_with_d, letter)
+            d_lp = _get_log_prob(model, tokenizer, prompt_with_d, letter, adapter_weights)
             if d_lp > best_distractor_lp:
                 best_distractor_lp = d_lp
                 best_distractor = d
