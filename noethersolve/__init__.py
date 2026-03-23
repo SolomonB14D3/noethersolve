@@ -39,6 +39,13 @@ _LAZY_IMPORTS: dict[str, tuple[str, str | None]] = {
     "get_domain_confidence": ("noethersolve.oracle_tool", None),
     "list_supported_domains": ("noethersolve.oracle_tool", None),
 
+    # derivation_verifier.py — multi-step mathematical reasoning checker
+    "verify_derivation": ("noethersolve.derivation_verifier", None),
+    "verify_step": ("noethersolve.derivation_verifier", None),
+    "quick_verify": ("noethersolve.derivation_verifier", None),
+    "DerivationReport": ("noethersolve.derivation_verifier", None),
+    "StepResult": ("noethersolve.derivation_verifier", None),
+
     # monitor.py
     "frac_var": ("noethersolve.monitor", None),
     "MonitorReport": ("noethersolve.monitor", None),

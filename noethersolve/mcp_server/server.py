@@ -99,6 +99,65 @@ def check_domain_confidence(domain: str) -> str:
     return json.dumps(info, indent=2)
 
 
+# ── Mathematical Derivation Verification ────────────────────────────────
+
+
+@mcp.tool()
+def verify_derivation(steps: list[str]) -> str:
+    """Verify a multi-step mathematical derivation.
+
+    Parses each step, checks derivatives, integrals, and algebraic equalities,
+    and reports which steps are valid and which contain errors.
+
+    Args:
+        steps: List of mathematical equations/statements to verify.
+               Examples:
+               - "d/dx(x**3) = 3*x**2" (derivative)
+               - "∫x**2 dx = x**3/3 + C" (integral)
+               - "x**2 - 1 = (x-1)*(x+1)" (algebraic equality)
+               - "d/dx(sin(x**2)) = 2*x*cos(x**2)" (chain rule)
+
+    Returns:
+        Full verification report showing which steps passed/failed and why.
+
+    Examples:
+        >>> verify_derivation(["d/dx(x**3) = 3*x**2", "∫3*x**2 dx = x**3 + C"])
+        "✓ All 2 steps verified correct..."
+
+        >>> verify_derivation(["d/dx(cos(x)) = sin(x)"])  # WRONG
+        "✗ Found 1 error(s)... Derivative incorrect: d/dx(cos(x)) = -sin(x), not sin(x)"
+    """
+    from noethersolve.derivation_verifier import verify_derivation as _verify_derivation
+
+    report = _verify_derivation(steps)
+    return str(report)
+
+
+@mcp.tool()
+def verify_equation(equation: str) -> str:
+    """Quick check if a mathematical equation is valid.
+
+    Verifies derivatives, integrals, or algebraic equalities.
+
+    Args:
+        equation: A single mathematical equation to verify.
+                  Examples:
+                  - "d/dx(sin(x)) = cos(x)"
+                  - "x**2 - 1 = (x-1)*(x+1)"
+                  - "∫exp(x) dx = exp(x) + C"
+
+    Returns:
+        Verification result: valid (True/False) and reason.
+    """
+    from noethersolve.derivation_verifier import verify_step
+
+    result = verify_step(equation)
+    if result.valid:
+        return f"✓ Valid: {result.reason}"
+    else:
+        return f"✗ Invalid: {result.reason}"
+
+
 # ── Conservation Law Monitors ─────────────────────────────────────────
 
 @mcp.tool()
