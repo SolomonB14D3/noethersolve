@@ -1,0 +1,262 @@
+{
+  "metadata": {
+    "domain": "sociology_economy_tipping",
+    "description": "Relationship between economic systems, inequality, and tipping practices",
+    "num_facts": 20,
+    "research_angles": [
+      "cross_national_economics",
+      "income_inequality_effects",
+      "labor_market_dynamics",
+      "service_sector_structure",
+      "behavioral_mechanisms",
+      "historical_contexts",
+      "demographic_variation",
+      "psychological_pricing"
+    ],
+    "creation_date": "2026-03-22",
+    "version": "2.0",
+    "notes": "V2 uses length-matched distractors (ratio 0.8-1.2) and balanced certainty levels. All truths and shortest distractors within target ratio."
+  },
+  "facts": [
+    {
+      "id": "econ_tipping_01",
+      "angle": "cross_national_economics",
+      "truth": "Higher minimum wages correlate with lower tipping norms.",
+      "distractors": [
+        "Higher minimum wages require explicit legal tipping compliance requirements.",
+        "Minimum wage levels show no correlation with tipping practices.",
+        "Tipping culture strengthens when minimum wages increase substantially."
+      ],
+      "context": "Comparative study of tipping norms across OECD economies.",
+      "difficulty": 0.65
+    },
+    {
+      "id": "econ_tipping_02",
+      "angle": "labor_market_dynamics",
+      "truth": "Tipping lets employers externalize wage costs onto customer discretion.",
+      "distractors": [
+        "Employers actively discourage tipping to maintain wage predictability throughout.",
+        "Tipping systems require employers to pay the full minimum wages.",
+        "Tipping creates balanced cost-sharing between employers and customers overall."
+      ],
+      "context": "Labor economics perspective on cost allocation mechanisms.",
+      "difficulty": 0.62
+    },
+    {
+      "id": "econ_tipping_03",
+      "angle": "income_inequality_effects",
+      "truth": "Tipping reinforces class hierarchies through asymmetric power relationships.",
+      "distractors": [
+        "Tipping systems reduce income inequality by redistributing to workers.",
+        "Class distinctions disappear when customers participate in tipping.",
+        "Tipping creates egalitarian relationships between all individual participants."
+      ],
+      "context": "Bourdieu's theory of social capital and tipping as class reproduction.",
+      "difficulty": 0.68
+    },
+    {
+      "id": "econ_tipping_04",
+      "angle": "service_sector_structure",
+      "truth": "Tip-dependent workers experience higher income volatility and unpredictability.",
+      "distractors": [
+        "Income volatility is lower in tipping systems than other sectors.",
+        "Tipping guarantees stable and predictable income for workers.",
+        "Tipping eliminates all economic uncertainty in hospitality work."
+      ],
+      "context": "Empirical studies of income stability in tipping vs. salaried service work.",
+      "difficulty": 0.58
+    },
+    {
+      "id": "econ_tipping_05",
+      "angle": "behavioral_mechanisms",
+      "truth": "Social pressure in face-to-face transactions increases tips beyond rational levels.",
+      "distractors": [
+        "Customers tip less when service providers observe the transaction directly.",
+        "Tipping amounts reflect pure service quality assessment and cost-benefit.",
+        "Social expectations have virtually negligible effects on tipping behavior overall."
+      ],
+      "context": "Behavioral economics and public good provision theory.",
+      "difficulty": 0.61
+    },
+    {
+      "id": "econ_tipping_06",
+      "angle": "demographic_variation",
+      "truth": "Female servers face higher baseline expectations based on attractiveness judgments.",
+      "distractors": [
+        "Attractiveness has no measurable impact at all on customer tip decisions.",
+        "Tipping rates are identical for male and female service workers.",
+        "Male servers consistently receive systematically higher tip amounts overall."
+      ],
+      "context": "Empirical research on gender wage gaps in tipped occupations.",
+      "difficulty": 0.70
+    },
+    {
+      "id": "econ_tipping_07",
+      "angle": "psychological_pricing",
+      "truth": "Menu prices are lower in high-tipping regions because total cost shifts to tips.",
+      "distractors": [
+        "Restaurants maintain identical menu prices in all regions regardless of tipping cultural norms.",
+        "Menu prices systematically increase in regions where tipping is culturally very prevalent.",
+        "Price-setting decisions in restaurants remain completely independent of all regional tipping norms."
+      ],
+      "context": "Pricing strategy and behavioral anchoring in service industries.",
+      "difficulty": 0.64
+    },
+    {
+      "id": "econ_tipping_08",
+      "angle": "historical_contexts",
+      "truth": "Post-WWII tipping expansion reflects employer cost-externalization strategy.",
+      "distractors": [
+        "Tipping expanded due to increased customer wealth and spontaneous generosity.",
+        "Tipping traditions predate any modern wage regulation frameworks.",
+        "Wage regulation periods eliminated tipping through legal prohibition."
+      ],
+      "context": "Historical analysis of tipping norms relative to labor law changes.",
+      "difficulty": 0.67
+    },
+    {
+      "id": "econ_tipping_09",
+      "angle": "service_sector_structure",
+      "truth": "Occupational racial segregation correlates with tip income gaps in service sectors.",
+      "distractors": [
+        "All racial discrimination in tipping has been entirely eliminated in modern hospitality services.",
+        "Tipping amounts are uniformly distributed across all racial groups in service work.",
+        "Service workers of all races receive identical average tip incomes consistently."
+      ],
+      "context": "Empirical studies of racial disparities in tipped service sector earnings.",
+      "difficulty": 0.72
+    },
+    {
+      "id": "econ_tipping_10",
+      "angle": "income_inequality_effects",
+      "truth": "Tipping service sectors concentrate poverty wages among non-degree holders.",
+      "distractors": [
+        "Tipping eliminates the educational wage premium effects entirely and permanently.",
+        "Tipping creates well-compensated career paths for workers without degrees.",
+        "Service sector wages distribute equally regardless of educational background."
+      ],
+      "context": "Labor market stratification and intergenerational mobility.",
+      "difficulty": 0.63
+    },
+    {
+      "id": "econ_tipping_11",
+      "angle": "psychological_pricing",
+      "truth": "Customer guilt responses to visible workers increase tips beyond rational levels.",
+      "distractors": [
+        "Guilt reduces tip amounts as customers resist social pressure dynamics.",
+        "Tipping amounts reflect only objective service quality metrics without any emotional factors.",
+        "Emotional responses to service workers have zero impact on tips."
+      ],
+      "context": "Psychology of prosocial behavior and social obligation.",
+      "difficulty": 0.59
+    },
+    {
+      "id": "econ_tipping_12",
+      "angle": "cross_national_economics",
+      "truth": "Strong social safety nets correlate with lower tipping because work is unionized.",
+      "distractors": [
+        "Strong social safety net strength demonstrates no significant or meaningful relationship to tipping culture whatsoever.",
+        "Strong social safety nets actually increase tipping to compensate worker hardship.",
+        "Unionized service work actually increases overall tip dependence and tipping percentages substantially."
+      ],
+      "context": "Comparative welfare state analysis and labor market outcomes.",
+      "difficulty": 0.66
+    },
+    {
+      "id": "econ_tipping_13",
+      "angle": "behavioral_mechanisms",
+      "truth": "Automated payment systems reduce tipping compared to face-to-face collection.",
+      "distractors": [
+        "Customers actually tip more when social pressure is removed via anonymity.",
+        "Digital payment systems increase tipping amounts due to convenience features.",
+        "Automated and face-to-face payment systems produce identical tip rates."
+      ],
+      "context": "Technology adoption and prosocial behavior modification.",
+      "difficulty": 0.60
+    },
+    {
+      "id": "econ_tipping_14",
+      "angle": "labor_market_dynamics",
+      "truth": "Tip-dependent structures reduce bargaining power by fragmenting accountability.",
+      "distractors": [
+        "Tipping workers have stronger collective wage negotiation leverage.",
+        "Tipping increases worker bargaining power by creating individual revenues.",
+        "Tip income creates transparent wage structures for labor disputes."
+      ],
+      "context": "Labor process theory and control mechanisms in service work.",
+      "difficulty": 0.64
+    },
+    {
+      "id": "econ_tipping_15",
+      "angle": "demographic_variation",
+      "truth": "Age bias in tipping creates lower expectations for elderly service workers.",
+      "distractors": [
+        "Worker age provides no variation at all in tip income across service sectors.",
+        "Older servers receive systematically higher tips due to their perceived wisdom and experience.",
+        "Customer tipping decisions are completely and entirely unaffected by worker age or seniority."
+      ],
+      "context": "Age discrimination in paid and unpaid service work.",
+      "difficulty": 0.68
+    },
+    {
+      "id": "econ_tipping_16",
+      "angle": "historical_contexts",
+      "truth": "Medieval systems expected gratuities to supplement employer-provided servant wages.",
+      "distractors": [
+        "Feudal tipping systems explicitly guaranteed minimum supplemental compensation to servants.",
+        "Tipping originated in modern market economies as purely voluntary rewards.",
+        "Medieval systems actively prohibited gratuities to maintain wage clarity."
+      ],
+      "context": "Medieval and early modern economic history of service compensation.",
+      "difficulty": 0.71
+    },
+    {
+      "id": "econ_tipping_17",
+      "angle": "psychological_pricing",
+      "truth": "Tip percentages signal status and cultural sophistication rather than service quality.",
+      "distractors": [
+        "Status signaling actually reduces rather than increases overall tip amounts and percentages consistently.",
+        "Tipping percentages reflect only pure and objective service quality evaluation metrics and assessment.",
+        "Customers completely ignore all social norms and cultural expectations when determining tip amounts."
+      ],
+      "context": "Veblen's conspicuous consumption theory applied to tipping.",
+      "difficulty": 0.62
+    },
+    {
+      "id": "econ_tipping_18",
+      "angle": "service_sector_structure",
+      "truth": "Migrant workers face language barriers that reduce tip income relative to native workers.",
+      "distractors": [
+        "Cultural differences enhance overall tipping rates significantly in diverse service settings overall.",
+        "Language barriers increase tips as customers actively reward worker service effort consistently.",
+        "Migrant and native-born service workers earn consistently identical and equal average tips throughout all regions nationwide."
+      ],
+      "context": "Immigration effects on wage stratification in low-wage service work.",
+      "difficulty": 0.69
+    },
+    {
+      "id": "econ_tipping_19",
+      "angle": "income_inequality_effects",
+      "truth": "Restaurants pass business risk to workers, concentrating volatility among poor workers.",
+      "distractors": [
+        "Employer-absorbed financial risk increases significantly when tipping becomes the primary compensation mechanism.",
+        "Tip-dependent service workers experience significantly less income volatility than salaried employees overall.",
+        "Tipping systems distribute business risks equally between workers and employers."
+      ],
+      "context": "Precarity theory and risk distribution in capitalist labor markets.",
+      "difficulty": 0.65
+    },
+    {
+      "id": "econ_tipping_20",
+      "angle": "behavioral_mechanisms",
+      "truth": "Tipping scripts anchor behavior, reducing calculation and increasing total transfers.",
+      "distractors": [
+        "Tipping scripts completely eliminate all social influence on payment decisions.",
+        "Customers independently calculate tips without any reference to social norms.",
+        "Suggested tip percentages actually decrease customer monetary contributions below their natural levels."
+      ],
+      "context": "Behavioral anchoring and nudge theory in economic transactions.",
+      "difficulty": 0.61
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-20T17:48:12.355176",
+  "timestamp": "2026-03-21T10:59:09.559306",
   "grades": [
     {
       "cluster_id": "d1_vortex_conservation",
@@ -577,6 +577,33 @@
       "next_action": "strengthen results, run ablations, add baselines"
     },
     {
+      "cluster_id": "d10_bio_ai_convergence",
+      "title": "Algorithmic vs Functional Convergence: A Statistical Framework for Evaluating Bio-AI Parallels",
+      "grade": "GEM",
+      "grade_rank": 4,
+      "paper_priority": 30.0,
+      "domains": [
+        "Bio-AI Computational Parallels"
+      ],
+      "n_domains_passing": 1,
+      "n_domains_failing": 0,
+      "n_facts_flipped": 0,
+      "mean_margin": 0.0,
+      "has_doi": true,
+      "doi": "10.5281/zenodo.19152253",
+      "status": "on_zenodo",
+      "paper_readiness": 50,
+      "current_stage": "zenodo",
+      "stages_complete": [
+        "discovery",
+        "evidence",
+        "writing",
+        "zenodo"
+      ],
+      "bottleneck": "Submitted to journal/venue",
+      "next_action": "submit to target venue"
+    },
+    {
       "cluster_id": "bio_ai_parallels",
       "title": "Computational Parallels Between Biological and Artificial Intelligence",
       "grade": "ORE",
@@ -623,17 +650,17 @@
     }
   ],
   "summary": {
-    "total_clusters": 20,
+    "total_clusters": 21,
     "by_grade": {
       "NOBEL": 0,
       "EUREKA": 5,
-      "GEM": 10,
+      "GEM": 11,
       "SOLID": 2,
       "NUGGET": 1,
       "ORE": 2
     },
     "paper_ready": 0,
-    "in_progress": 17,
+    "in_progress": 18,
     "raw_ore": 3
   }
 }

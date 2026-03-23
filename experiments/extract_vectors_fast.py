@@ -65,9 +65,10 @@ def main():
     results_file = PROJECT / "results" / f"steering_vectors_{model_short}.json"
     vectors_dir.mkdir(parents=True, exist_ok=True)
 
+    global LAYERS  # Will be adjusted based on model depth
+
     domain_files = gather_all_domains()
     print(f"Found {len(domain_files)} domain files")
-    print(f"Layers: {LAYERS}, Alphas: {ALPHAS}")
     print(f"Starting from index {args.start_from}")
 
     print(f"\nLoading {args.model}...")
@@ -76,13 +77,14 @@ def main():
     print(f"Model loaded: {n_layers} layers")
 
     # Adjust sweep layers based on model depth
-    global LAYERS
     if n_layers >= 40:
         LAYERS = [15, 20, 25]  # Deeper models: sweep mid-to-upper layers
     elif n_layers >= 30:
         LAYERS = [10, 15, 20]  # 4B/7B
     else:
         LAYERS = [5, 10, 15]   # Small models
+
+    print(f"Layers: {LAYERS}, Alphas: {ALPHAS}")
 
     # Load existing results for resuming
     existing_results = []

@@ -1,0 +1,44 @@
+domain: sociology_economy_tipping_v2
+description: |
+  Economic systems, inequality, and tipping practices.
+  V2: All 20 facts rebalanced with length-matched distractors (ratio 0.8-1.2).
+  Addresses r=-0.742 length-ratio bias discovered in Information Theory and
+  other frontier domains. Token-precise truth/distractor matching.
+
+research_angles:
+  - cross_national_economics
+  - income_inequality_effects
+  - labor_market_dynamics
+  - service_sector_structure
+  - behavioral_mechanisms
+  - historical_contexts
+  - demographic_variation
+  - psychological_pricing
+
+facts_file: problems/sociology_economy_tipping_facts_v2.json
+
+oracle:
+  scoring_method: sum
+  required_margin: 0.5
+  model: Qwen/Qwen3-4B-Base
+
+trainer:
+  steps: 2000
+  learning_rate: 4e-6
+  batch_size: 4
+  escalation_ladder:
+    - single_pass
+    - intensive
+    - staged_anchored
+
+next_interesting_targets:
+  - "Explore cross-cultural tipping variation: countries with tipping (USA 15-20%, Canada 15%) vs. no-tipping (Japan 0%, France 0%) and partially-tipping (UK 10-15%, Australia 10%)"
+  - "Investigate precarity mechanisms: gig economy adoption rates vs. tipping norm expansion (Uber/DoorDash vs. traditional service)"
+  - "Measure gender wage gap persistence: female servers earning 60-70% of male server equivalents in tip-dependent sectors"
+  - "Model the feedback loop: low minimum wages → tipping culture strengthens → employers reduce base wages further"
+  - "Test algorithmic tipping: when payment systems suggest percentages (15%, 18%, 22%), how does baseline psychology change?"
+
+metadata:
+  version: "2.0"
+  creation_date: "2026-03-22"
+  notes: "V2 length-matched rebalancing completed. Ready for oracle baseline evaluation."

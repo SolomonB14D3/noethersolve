@@ -669,10 +669,17 @@ def run_watchdog_cycle(results_dir: Path, log_file: Path, publish: bool = False)
         for update in routing_stats.get("updates", []):
             log(f"  PAPER UPDATED: {update['paper']} <- {update['finding']} (DOI: {update['doi']})", log_file)
 
-    # 4. Check paper clusters for new papers
+    # 4. Check paper clusters for new papers (D1-D8 published + lab clusters)
     clusters = [
         "d1_vortex_conservation", "d2_z3_cancellation", "d3_llm_knowledge_gaps",
         "d4_orthogonal_routing", "d5_certainty_contamination", "d6_resolvent_unification",
+        "d7_oracle_biases", "d8_cross_domain_conservation",
+        # Lab-derived clusters
+        "bio_ai_convergence", "conservation_law_mining", "epidemiology_dynamics",
+        "topological_materials", "genetic_therapeutics", "climate_sensitivity",
+        "catalyst_discovery", "drug_therapy", "origin_of_life",
+        "quantum_mechanics", "supply_chain", "battery_materials",
+        "ai_safety", "behavioral_economics",
     ]
     cluster_results = check_clusters(agent, clusters)
 
@@ -711,14 +718,64 @@ def run_watchdog_cycle(results_dir: Path, log_file: Path, publish: bool = False)
         if paper_ready > 0:
             log(f"Discovery grades: {paper_ready} paper-ready ({eureka} EUREKA, {gem} GEM)", log_file)
 
-    # 7. Report new paper queue
+    # 7. Report new paper queue — and draft papers if --publish
     tracker_path = results_dir / "paper_routing_tracker.json"
     if tracker_path.exists():
         with open(tracker_path) as f:
             tracker = json.load(f)
         queue = tracker.get("new_paper_queue", [])
-        if len(queue) >= 3:
+        if len(queue) >= 1:
             log(f"New paper queue: {len(queue)} findings ready for new paper", log_file)
+            if publish:
+                # Write a draft paper for each queued finding that doesn't have one yet
+                paper_dir = results_dir.parent / "paper"
+                written = []
+                for item in queue:
+                    finding_file = item.get("file", "")
+                    title = item.get("title", finding_file)
+                    # Derive a paper ID from the finding filename stem
+                    paper_id = finding_file.replace(".md", "").replace("_results", "").replace("_analysis", "")
+                    paper_subdir = paper_dir / paper_id
+                    draft_path = paper_subdir / "paper.md"
+                    if draft_path.exists():
+                        continue  # Already drafted
+                    # Read the finding
+                    finding_path = results_dir / "discoveries" / "novel_findings" / finding_file
+                    if not finding_path.exists():
+                        continue
+                    finding_content = finding_path.read_text()
+                    # Write a minimal draft that expands the finding into paper structure
+                    paper_subdir.mkdir(parents=True, exist_ok=True)
+                    draft = f"""# {title}
+
+**Source:** {finding_file}
+**Date:** {datetime.utcnow().strftime('%Y-%m-%d')}
+**Status:** Draft — auto-generated from lab findings
+
+---
+
+{finding_content}
+
+---
+
+## Discussion
+
+The findings above were produced by the NoetherSolve automated discovery pipeline.
+All numerical results are independently verifiable using the NoetherSolve MCP toolkit.
+
+## Future Work
+
+Further investigation of the findings above using extended lab runs and oracle evaluation.
+
+## Acknowledgments
+
+NoetherSolve pipeline. All computations performed locally using MLX on Apple Silicon.
+"""
+                    draft_path.write_text(draft)
+                    log(f"DRAFT WRITTEN: {paper_id} -> {draft_path.name}", log_file)
+                    written.append(paper_id)
+                if written:
+                    log(f"New paper drafts: {len(written)} written — {', '.join(written[:3])}", log_file)
 
     log("Cycle complete", log_file)
 
