@@ -46,6 +46,22 @@ _LAZY_IMPORTS: dict[str, tuple[str, str | None]] = {
     "DerivationReport": ("noethersolve.derivation_verifier", None),
     "StepResult": ("noethersolve.derivation_verifier", None),
 
+    # code_verifiers.py — code verification tools
+    "verify_complexity": ("noethersolve.code_verifiers", None),
+    "generate_edge_cases": ("noethersolve.code_verifiers", None),
+    "check_numerical_stability": ("noethersolve.code_verifiers", None),
+    "verify_regex": ("noethersolve.code_verifiers", None),
+    "check_sql_injection": ("noethersolve.code_verifiers", None),
+    "verify_sort": ("noethersolve.code_verifiers", None),
+    "check_physics_simulation": ("noethersolve.code_verifiers", None),
+    "ComplexityResult": ("noethersolve.code_verifiers", None),
+    "EdgeCases": ("noethersolve.code_verifiers", None),
+    "StabilityResult": ("noethersolve.code_verifiers", None),
+    "RegexTestResult": ("noethersolve.code_verifiers", None),
+    "SQLInjectionResult": ("noethersolve.code_verifiers", None),
+    "SortVerificationResult": ("noethersolve.code_verifiers", None),
+    "PhysicsCodeResult": ("noethersolve.code_verifiers", None),
+
     # monitor.py
     "frac_var": ("noethersolve.monitor", None),
     "MonitorReport": ("noethersolve.monitor", None),

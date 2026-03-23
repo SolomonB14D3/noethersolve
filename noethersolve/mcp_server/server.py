@@ -158,6 +158,92 @@ def verify_equation(equation: str) -> str:
         return f"✗ Invalid: {result.reason}"
 
 
+# ── Code Verification Tools ─────────────────────────────────────────────
+
+
+@mcp.tool()
+def generate_edge_cases(type_name: str) -> str:
+    """Generate edge cases for testing functions that accept a given type.
+
+    Returns a comprehensive list of edge case inputs that often reveal bugs:
+    empty values, boundary values, special characters, injection attacks, etc.
+
+    Args:
+        type_name: Type to generate edge cases for.
+                   Supported: int, float, str, list, dict, bool, None, bytes
+
+    Returns:
+        List of edge cases with descriptions
+
+    Examples:
+        >>> generate_edge_cases("str")
+        "Edge cases for str:
+          • empty: ''
+          • SQL injection: '; DROP TABLE users; --
+          • unicode: héllo wörld 🌍
+          ..."
+    """
+    from noethersolve.code_verifiers import generate_edge_cases as _generate
+
+    result = _generate(type_name)
+    return str(result)
+
+
+@mcp.tool()
+def verify_regex(
+    pattern: str,
+    test_cases: list[tuple[str, bool]] = None,
+    pattern_type: str = "",
+) -> str:
+    """Verify a regex pattern against test cases.
+
+    Checks syntax, tests against provided cases, and warns about common issues.
+
+    Args:
+        pattern: The regex pattern to test
+        test_cases: List of (test_string, should_match) tuples
+        pattern_type: Optional hint for auto-generated tests: "email", "url", "phone", "ip"
+
+    Returns:
+        Verification results showing failures and edge case warnings
+
+    Examples:
+        >>> verify_regex(r"^\\d+$", [("123", True), ("abc", False)])
+        "✓ All tests passed"
+
+        >>> verify_regex(r".*@.*", pattern_type="email")
+        "✗ Failed: matches invalid emails..."
+    """
+    from noethersolve.code_verifiers import verify_regex as _verify
+
+    result = _verify(pattern, test_cases, pattern_type if pattern_type else None)
+    return str(result)
+
+
+@mcp.tool()
+def check_sql_injection(code: str) -> str:
+    """Check code for potential SQL injection vulnerabilities.
+
+    Analyzes code for dangerous patterns like string formatting in SQL queries.
+
+    Args:
+        code: Source code to analyze (Python, JavaScript, etc.)
+
+    Returns:
+        List of vulnerable lines with fix recommendations
+
+    Examples:
+        >>> check_sql_injection('query = f"SELECT * FROM users WHERE id = {id}"')
+        "✗ Found 1 SQL injection vulnerability:
+          Line 1: f-string in SQL context
+          Recommendation: Use parameterized queries"
+    """
+    from noethersolve.code_verifiers import check_sql_injection as _check
+
+    result = _check(code)
+    return str(result)
+
+
 # ── Conservation Law Monitors ─────────────────────────────────────────
 
 @mcp.tool()
