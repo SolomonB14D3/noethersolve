@@ -7999,6 +7999,152 @@ def fetch_compound_safety(name_or_cid: str) -> str:
     return str(result)
 
 
+# ── Therapeutic Design Lab ─────────────────────────────────────────────
+
+@mcp.tool()
+def design_therapeutic(
+    disease: str,
+    pathophysiology: str,
+    max_candidates: int = 10,
+) -> str:
+    """Full therapeutic design pipeline from disease description to ranked candidates.
+
+    Takes a disease name and pathophysiology description, identifies molecular
+    targets, scores druggability, selects optimal modalities, generates candidates
+    using existing NoetherSolve tools (CRISPR, mRNA, antibody, neoantigen), and
+    ranks by efficacy, safety, developability, manufacturing, and regulatory factors.
+
+    Oracle verification is applied at each pipeline step when available.
+
+    Args:
+        disease: Disease name (e.g., "Cystic Fibrosis", "KRAS-mutant pancreatic cancer")
+        pathophysiology: Natural language description of disease mechanism
+        max_candidates: Maximum number of candidates to return (default 10)
+
+    Returns:
+        Ranked therapeutic candidates with recommendations and disclaimers.
+
+    Example:
+        design_therapeutic(
+            disease="Cystic Fibrosis",
+            pathophysiology="CFTR chloride channel loss-of-function mutation "
+                           "causing thick mucus in lungs and pancreas. F508del "
+                           "is the most common mutation causing protein misfolding."
+        )
+
+    DISCLAIMER: Computational predictions only. All candidates require experimental
+    validation including in vitro/in vivo testing and clinical trials.
+    """
+    from noethersolve.therapeutic_lab import TherapeuticDesignLab
+
+    lab = TherapeuticDesignLab(use_oracle=True, verbose=False)
+    result = lab.design(disease, pathophysiology, max_candidates)
+    return str(result)
+
+
+@mcp.tool()
+def parse_pathophysiology(description: str, disease_name: str = "") -> str:
+    """Extract molecular targets and mechanisms from disease description.
+
+    Parses natural language pathophysiology text to identify:
+    - Molecular targets (genes, proteins, enzymes, receptors)
+    - Disease mechanisms (loss-of-function, gain-of-function, overexpression, etc.)
+    - Affected tissues and cell types
+    - Causal relationships between targets and disease
+
+    Uses pattern matching for gene names (capitalized 2-7 letter codes) and
+    mechanism keywords. Oracle verification validates extracted claims.
+
+    Args:
+        description: Natural language description of disease mechanism
+        disease_name: Optional disease name for context
+
+    Returns:
+        PathophysiologyExtraction with targets, mechanisms, and oracle verifications.
+
+    Example:
+        parse_pathophysiology(
+            "BCR-ABL fusion protein causes constitutive kinase activity in CML",
+            disease_name="Chronic Myeloid Leukemia"
+        )
+    """
+    from noethersolve.therapeutic_lab import parse_pathophysiology as _parse
+
+    result = _parse(description, disease_name)
+    return str(result)
+
+
+@mcp.tool()
+def score_target_druggability(target_name: str, target_type: str = "") -> str:
+    """Assess druggability of a therapeutic target.
+
+    Scores a target for tractability based on:
+    - Target type (enzyme, kinase, receptor, ion_channel, secreted, transcription_factor)
+    - Structural features (binding pockets, surface accessibility)
+    - Existing drugs targeting this gene/protein
+    - Per-modality scores (small molecule, antibody, mRNA, CRISPR, ASO, gene therapy)
+
+    Higher scores indicate more druggable targets. Kinases and enzymes typically
+    score highest for small molecules; receptors for antibodies; transcription
+    factors are generally challenging except via knockdown strategies.
+
+    Args:
+        target_name: Gene or protein name (e.g., "EGFR", "CFTR", "KRAS")
+        target_type: Optional hint (enzyme, kinase, receptor, ion_channel, secreted,
+                     transcription_factor, structural, protease)
+
+    Returns:
+        DruggabilityReport with overall score, per-modality scores, and rationale.
+
+    Example:
+        score_target_druggability("EGFR", "kinase")
+        score_target_druggability("TNF", "secreted")
+    """
+    from noethersolve.therapeutic_lab import score_target
+
+    result = score_target(target_name, target_type if target_type else None)
+    return str(result)
+
+
+@mcp.tool()
+def recommend_modality(
+    target_name: str,
+    mechanism: str,
+    tissue: str = "systemic",
+) -> str:
+    """Recommend therapeutic modality for a target.
+
+    Uses decision rules based on target type and mechanism to recommend
+    optimal therapeutic modalities:
+    - Enzyme + gain_of_function → small_molecule, antibody
+    - Enzyme + loss_of_function → mrna, gene_therapy
+    - Receptor → antibody, small_molecule
+    - Transcription factor → aso, crispr
+    - Secreted + deficiency → mrna, gene_therapy
+
+    Each recommendation includes advantages, challenges, and precedent drugs.
+
+    Args:
+        target_name: Gene or protein name
+        mechanism: Disease mechanism (loss_of_function, gain_of_function,
+                   overexpression, mutation, misfolding)
+        tissue: Target tissue (systemic, lung, liver, brain, etc.)
+
+    Returns:
+        List of ModalityRecommendation with scores and rationale.
+
+    Example:
+        recommend_modality("CFTR", "loss_of_function", "lung")
+        recommend_modality("KRAS", "mutation", "pancreas")
+    """
+    from noethersolve.therapeutic_lab import recommend_modality as _recommend
+
+    results = _recommend(target_name, mechanism, tissue)
+    if not results:
+        return "No modality recommendations found for this target/mechanism combination"
+    return "\n\n".join(str(r) for r in results)
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():

@@ -1,138 +1,182 @@
 {
   "problem": "pathophysiology",
-  "description": "Disease mechanisms across cardiovascular, pulmonary, renal, and hematologic systems.",
+  "description": "Facts about disease mechanisms, molecular targets, and pathophysiology for therapeutic design",
   "facts": [
     {
-      "id": "path01_cardiogenic_shock",
-      "context": "The hemodynamic profile of cardiogenic shock shows:",
-      "truth": "low CO, high SVR, elevated CVP and elevated PCWP",
+      "id": "patho01",
+      "context": "In Cystic Fibrosis, the primary molecular defect is:",
+      "truth": "loss of CFTR chloride channel function causing thick mucus",
       "distractors": [
-        "high CO, low SVR, elevated CVP and elevated PCWP",
-        "low CO, low SVR, decreased CVP and decreased PCWP",
-        "normal CO, high SVR, decreased CVP and normal PCWP"
+        "overactive CFTR sodium channel causing dehydration",
+        "CFTR gain-of-function causing excess mucus secretion",
+        "mitochondrial CFTR dysfunction causing energy depletion"
       ],
-      "cluster": "shock"
+      "cluster": "ion_channel"
     },
     {
-      "id": "path02_distributive_shock",
-      "context": "Distributive shock from sepsis presents with:",
-      "truth": "low SVR, high or normal CO, and elevated serum lactate",
+      "id": "patho02",
+      "context": "BCR-ABL fusion protein causes CML through:",
+      "truth": "constitutive tyrosine kinase activity driving uncontrolled proliferation",
       "distractors": [
-        "high SVR, low CO, and markedly decreased serum lactate",
-        "normal SVR, normal CO, and undetectable serum lactate",
-        "low SVR, absent cardiac output, and normal serum lactate"
+        "constitutive phosphatase activity blocking apoptosis signals",
+        "loss of kinase activity allowing checkpoint escape",
+        "receptor internalization and lysosomal degradation"
       ],
-      "cluster": "shock"
+      "cluster": "kinase"
     },
     {
-      "id": "path03_type1_resp_failure",
-      "context": "Type I respiratory failure is characterized by:",
-      "truth": "hypoxemia with normal or low PaCO2 from V/Q mismatch",
+      "id": "patho03",
+      "context": "HER2-positive breast cancer is driven by:",
+      "truth": "HER2 receptor overexpression causing excessive growth signaling",
       "distractors": [
-        "hypoxemia with elevated PaCO2 from airway obstruction",
-        "normal PaO2 with elevated PaCO2 from pump failure",
-        "isolated hypercapnia with preserved oxygenation status"
+        "HER2 underexpression causing loss of contact inhibition",
+        "HER2 mutation causing constitutive nuclear translocation",
+        "HER2 truncation causing dominant-negative receptor interference"
       ],
-      "cluster": "pulmonary"
+      "cluster": "receptor"
     },
     {
-      "id": "path04_type2_resp_failure",
-      "context": "Type II respiratory failure is characterized by:",
-      "truth": "hypoxemia with hypercapnia from ventilatory failure",
+      "id": "patho04",
+      "context": "Huntington's disease pathology results from:",
+      "truth": "polyglutamine expansion in huntingtin causing toxic protein aggregation",
       "distractors": [
-        "isolated hypoxemia with low PaCO2 from shunt",
-        "normal PaO2 with isolated metabolic acidosis only",
-        "hypercapnia with normal PaO2 from diffusion block"
+        "polyalanine expansion causing protein mislocalization to cytoplasm",
+        "polyglutamine contraction causing accelerated protein degradation",
+        "huntingtin loss-of-function causing synaptic vesicle depletion"
       ],
-      "cluster": "pulmonary"
+      "cluster": "aggregation"
     },
     {
-      "id": "path05_dic",
-      "context": "Disseminated intravascular coagulation (DIC) produces:",
-      "truth": "simultaneous consumption of fibrinogen and platelets, elevating D-dimer",
+      "id": "patho05",
+      "context": "Type 1 diabetes is caused by:",
+      "truth": "autoimmune destruction of pancreatic beta cells stopping insulin production",
       "distractors": [
-        "isolated platelet destruction with normal fibrinogen and low D-dimer",
-        "selective fibrinogen elevation with preserved platelet count",
-        "increased clotting factor production with decreased D-dimer levels"
+        "insulin resistance in peripheral tissues despite normal production",
+        "glucagon hypersecretion from alpha cells overwhelming insulin",
+        "autoimmune destruction of pancreatic alpha cells"
       ],
-      "cluster": "hematologic"
+      "cluster": "autoimmune"
     },
     {
-      "id": "path06_raas",
-      "context": "RAAS activation in heart failure produces:",
-      "truth": "angiotensin II causing vasoconstriction and aldosterone-mediated sodium retention",
+      "id": "patho06",
+      "context": "KRAS G12C mutation drives cancer by:",
+      "truth": "locking the protein in GTP-bound active state causing constitutive signaling",
       "distractors": [
-        "angiotensin II causing vasodilation and aldosterone-mediated potassium retention",
-        "renin directly causing vasodilation independent of angiotensin production",
-        "aldosterone suppression with angiotensin-mediated sodium excretion in kidneys"
+        "locking the protein in GDP-bound inactive state blocking apoptosis",
+        "enhancing GTPase activity promoting rapid cycling",
+        "causing membrane dissociation preventing all signal transduction"
       ],
-      "cluster": "cardiovascular"
+      "cluster": "oncogene"
     },
     {
-      "id": "path07_hepatorenal",
-      "context": "Hepatorenal syndrome develops from:",
-      "truth": "renal vasoconstriction driven by splanchnic vasodilation in cirrhosis",
+      "id": "patho07",
+      "context": "Duchenne muscular dystrophy is caused by:",
+      "truth": "dystrophin loss destabilizing the sarcolemma during muscle contraction",
       "distractors": [
-        "direct hepatotoxin damage to renal tubular epithelial cells",
-        "renal vasodilation from portal hypertension in liver disease",
-        "autoimmune attack on glomeruli triggered by hepatic fibrosis"
+        "dystrophin overexpression causing fiber hypertrophy",
+        "dystrophin gain-of-function causing uncontrolled calcium influx",
+        "utrophin loss causing neuromuscular junction failure"
       ],
-      "cluster": "renal"
+      "cluster": "structural"
     },
     {
-      "id": "path08_anion_gap_acidosis",
-      "context": "Elevated anion gap metabolic acidosis causes include:",
-      "truth": "methanol, uremia, DKA, propylene glycol, INH, lactate, ethylene glycol, salicylates",
+      "id": "patho08",
+      "context": "Familial hypercholesterolemia results from:",
+      "truth": "LDLR loss-of-function reducing LDL clearance from blood",
       "distractors": [
-        "normal saline infusion, diarrhea, renal tubular acidosis, acetazolamide use",
-        "hyperchloremia, pancreatic fistula, ureteral diversion, and cholestyramine",
-        "aldosterone excess, Cushing syndrome, licorice ingestion, and amphotericin B"
+        "LDLR gain-of-function increasing endogenous cholesterol synthesis",
+        "PCSK9 loss-of-function accelerating receptor degradation",
+        "ApoB overexpression saturating clearance receptors"
       ],
-      "cluster": "renal"
+      "cluster": "receptor"
     },
     {
-      "id": "path09_prerenal_aki",
-      "context": "Pre-renal AKI is identified by laboratory findings of:",
-      "truth": "BUN/Cr ratio > 20:1, FeNa < 1%, and urine osmolality > 500",
+      "id": "patho09",
+      "context": "Sickle cell disease pathology arises from:",
+      "truth": "hemoglobin S polymerization under low oxygen causing cell sickling",
       "distractors": [
-        "BUN/Cr ratio < 10:1, FeNa > 3%, and urine osmolality < 300",
-        "BUN/Cr ratio > 20:1, FeNa > 2%, and urine osmolality < 350",
-        "BUN/Cr ratio < 15:1, FeNa < 1%, and urine osmolality < 250"
+        "hemoglobin S degradation under normal oxygen conditions",
+        "hemoglobin S overproduction causing erythrocyte lysis",
+        "fetal hemoglobin loss causing oxygen delivery failure"
       ],
-      "cluster": "renal"
+      "cluster": "hemoglobin"
     },
     {
-      "id": "path10_atn",
-      "context": "Acute tubular necrosis (ATN) is diagnosed by:",
-      "truth": "muddy brown casts on urinalysis, FeNa > 2%, urine osmolality < 350",
+      "id": "patho10",
+      "context": "Parkinson's disease neurodegeneration involves:",
+      "truth": "alpha-synuclein aggregation forming Lewy bodies in dopaminergic neurons",
       "distractors": [
-        "hyaline casts on urinalysis, FeNa < 1%, urine osmolality > 500",
-        "red blood cell casts, FeNa > 2%, and urine osmolality > 600",
-        "waxy casts on urinalysis, FeNa < 0.5%, urine osmolality = 300"
+        "alpha-synuclein degradation causing dopamine hypersecretion",
+        "tau aggregation causing cholinergic neuron death",
+        "alpha-synuclein activation causing glutamate excitotoxicity"
       ],
-      "cluster": "renal"
+      "cluster": "aggregation"
     },
     {
-      "id": "path11_pe",
-      "context": "Pulmonary embolism causes right heart strain with:",
-      "truth": "elevated RV pressure and interventricular septal bowing (D-shaped septum)",
+      "id": "patho11",
+      "context": "Hemophilia A bleeding disorder is caused by:",
+      "truth": "Factor VIII deficiency preventing proper clot formation",
       "distractors": [
-        "decreased RV pressure and leftward interventricular septal shift",
-        "bilateral ventricular dilation with normal septal position on echo",
-        "isolated left ventricular failure with decreased pulmonary pressures"
+        "Factor VIII overactivity causing excessive clot formation",
+        "Factor IX deficiency preventing platelet aggregation",
+        "von Willebrand factor deficiency blocking Factor VIII binding"
       ],
-      "cluster": "cardiovascular"
+      "cluster": "secreted"
     },
     {
-      "id": "path12_tamponade",
-      "context": "Cardiac tamponade presents with:",
-      "truth": "Beck's triad (hypotension, JVD, muffled sounds) and pulsus paradoxus > 10 mmHg",
+      "id": "patho12",
+      "context": "Rheumatoid arthritis joint destruction is driven by:",
+      "truth": "TNF-alpha overexpression causing chronic synovial inflammation",
       "distractors": [
-        "Virchow's triad (stasis, injury, hypercoagulability) and pulsus alternans",
-        "Beck's triad (hypertension, JVD, loud sounds) and pulsus paradoxus < 5 mmHg",
-        "Cushing's triad (hypertension, bradycardia, irregular respirations) plus JVD"
+        "TNF-alpha deficiency causing cartilage overgrowth",
+        "IL-10 overexpression driving bone resorption",
+        "TGF-beta activation promoting fibrotic joint fusion"
       ],
-      "cluster": "cardiovascular"
+      "cluster": "cytokine"
+    },
+    {
+      "id": "patho13",
+      "context": "Spinal muscular atrophy motor neuron loss results from:",
+      "truth": "SMN1 loss reducing survival motor neuron protein levels",
+      "distractors": [
+        "SMN2 overexpression causing motor neuron hyperactivity",
+        "SMN1 gain-of-function causing axonal overgrowth",
+        "dystrophin loss causing neuromuscular junction failure"
+      ],
+      "cluster": "splicing"
+    },
+    {
+      "id": "patho14",
+      "context": "Wet age-related macular degeneration is caused by:",
+      "truth": "VEGF overexpression driving abnormal choroidal vessel growth",
+      "distractors": [
+        "VEGF deficiency causing retinal atrophy",
+        "PDGF overexpression causing photoreceptor death",
+        "complement deficiency blocking drusen clearance"
+      ],
+      "cluster": "angiogenesis"
+    },
+    {
+      "id": "patho15",
+      "context": "Multiple sclerosis pathology involves:",
+      "truth": "autoimmune demyelination of central nervous system axons",
+      "distractors": [
+        "autoimmune hypermyelination of peripheral nervous system axons",
+        "infectious demyelination of autonomic nervous system fibers",
+        "metabolic demyelination of cerebellar Purkinje cell dendrites"
+      ],
+      "cluster": "autoimmune"
+    },
+    {
+      "id": "patho16",
+      "context": "Gaucher disease storage disorder results from:",
+      "truth": "glucocerebrosidase deficiency causing glucocerebroside accumulation",
+      "distractors": [
+        "glucocerebrosidase overactivity causing lipid depletion",
+        "sphingomyelinase deficiency causing cholesterol accumulation",
+        "hexosaminidase deficiency causing ganglioside accumulation"
+      ],
+      "cluster": "lysosomal"
     }
   ]
 }

@@ -1,0 +1,182 @@
+{
+  "problem": "modality_selection",
+  "description": "Facts about therapeutic modality selection for different target types and mechanisms",
+  "facts": [
+    {
+      "id": "mod01",
+      "context": "For secreted protein deficiency diseases, the optimal modality is:",
+      "truth": "mRNA therapy or gene therapy to restore endogenous production",
+      "distractors": [
+        "small molecule inhibitors to block residual activity",
+        "antisense oligonucleotides to further reduce expression",
+        "antibodies to neutralize the deficient protein"
+      ],
+      "cluster": "replacement"
+    },
+    {
+      "id": "mod02",
+      "context": "For dominant-negative mutations, gene therapy should:",
+      "truth": "silence the mutant allele while preserving wild-type expression",
+      "distractors": [
+        "amplify both mutant and wild-type allele expression",
+        "replace only the wild-type allele with additional copies",
+        "delete both alleles and provide exogenous protein"
+      ],
+      "cluster": "gene_therapy"
+    },
+    {
+      "id": "mod03",
+      "context": "Small molecule kinase inhibitors are preferred when:",
+      "truth": "the target has an ATP-binding pocket accessible to competitive inhibitors",
+      "distractors": [
+        "the kinase is secreted into extracellular space",
+        "the kinase has no catalytic activity",
+        "the target requires gene-level silencing"
+      ],
+      "cluster": "small_molecule"
+    },
+    {
+      "id": "mod04",
+      "context": "Antibody therapeutics are optimal for:",
+      "truth": "extracellular targets like receptors or secreted proteins",
+      "distractors": [
+        "intracellular enzymes with active sites",
+        "nuclear transcription factors",
+        "cytoplasmic signaling molecules"
+      ],
+      "cluster": "antibody"
+    },
+    {
+      "id": "mod05",
+      "context": "Antisense oligonucleotides (ASOs) are ideal for:",
+      "truth": "reducing expression of overexpressed or toxic proteins",
+      "distractors": [
+        "increasing expression of deficient proteins",
+        "replacing mutated genes with wild-type",
+        "blocking enzyme active sites"
+      ],
+      "cluster": "knockdown"
+    },
+    {
+      "id": "mod06",
+      "context": "CRISPR gene editing is most suitable when:",
+      "truth": "permanent correction of a genetic defect is needed",
+      "distractors": [
+        "temporary knockdown for safety testing is required",
+        "the mutation cannot be precisely targeted",
+        "reversible modulation is preferred"
+      ],
+      "cluster": "gene_editing"
+    },
+    {
+      "id": "mod07",
+      "context": "mRNA therapeutics have advantages over gene therapy because:",
+      "truth": "they avoid genomic integration risks while enabling protein expression",
+      "distractors": [
+        "they permanently modify the genome",
+        "they require viral vectors for delivery",
+        "they cause long-term immunogenicity concerns"
+      ],
+      "cluster": "mrna"
+    },
+    {
+      "id": "mod08",
+      "context": "For ion channel loss-of-function, treatment options include:",
+      "truth": "potentiators or correctors (small molecules) or gene replacement",
+      "distractors": [
+        "channel blockers to prevent residual activity",
+        "antibodies to the channel extracellular domain",
+        "antisense oligonucleotides to reduce expression"
+      ],
+      "cluster": "ion_channel"
+    },
+    {
+      "id": "mod09",
+      "context": "Neoantigen vaccines are appropriate for:",
+      "truth": "cancer immunotherapy targeting tumor-specific mutated peptides",
+      "distractors": [
+        "infectious disease prevention",
+        "autoimmune disease suppression",
+        "genetic disease correction"
+      ],
+      "cluster": "immunotherapy"
+    },
+    {
+      "id": "mod10",
+      "context": "ADCs (antibody-drug conjugates) combine:",
+      "truth": "antibody targeting specificity with cytotoxic payload delivery",
+      "distractors": [
+        "small molecule inhibition with gene silencing",
+        "mRNA expression with protein degradation",
+        "viral vectors with antisense oligonucleotides"
+      ],
+      "cluster": "conjugate"
+    },
+    {
+      "id": "mod11",
+      "context": "CAR-T cell therapy is most effective for:",
+      "truth": "hematological malignancies with surface antigen targets",
+      "distractors": [
+        "solid tumors with intracellular targets",
+        "genetic diseases requiring enzyme replacement",
+        "autoimmune conditions requiring tolerance induction"
+      ],
+      "cluster": "cell_therapy"
+    },
+    {
+      "id": "mod12",
+      "context": "Exon skipping using antisense oligonucleotides treats:",
+      "truth": "frameshift mutations by restoring reading frame through exon exclusion",
+      "distractors": [
+        "point mutations by correcting single nucleotides",
+        "gene duplications by removing extra copies",
+        "chromosomal translocations by rejoining segments"
+      ],
+      "cluster": "splicing"
+    },
+    {
+      "id": "mod13",
+      "context": "Bispecific antibodies are advantageous because they:",
+      "truth": "engage two targets simultaneously enabling novel mechanisms",
+      "distractors": [
+        "have twice the half-life of standard antibodies",
+        "avoid all immunogenicity concerns",
+        "penetrate cell membranes unlike standard antibodies"
+      ],
+      "cluster": "antibody"
+    },
+    {
+      "id": "mod14",
+      "context": "Gene therapy using AAV vectors is limited by:",
+      "truth": "pre-existing immunity and packaging capacity constraints",
+      "distractors": [
+        "inability to transduce any cell types",
+        "requirement for repeated daily dosing",
+        "exclusive nuclear localization of transgene"
+      ],
+      "cluster": "gene_therapy"
+    },
+    {
+      "id": "mod15",
+      "context": "Enzyme replacement therapy requires:",
+      "truth": "repeated infusions of recombinant enzyme with appropriate targeting",
+      "distractors": [
+        "single dose permanent correction",
+        "oral administration of protein therapeutics",
+        "gene editing to restore enzyme function"
+      ],
+      "cluster": "replacement"
+    },
+    {
+      "id": "mod16",
+      "context": "Small interfering RNA (siRNA) therapeutics work by:",
+      "truth": "inducing mRNA degradation through RISC complex for target knockdown",
+      "distractors": [
+        "directly inhibiting protein active sites",
+        "integrating into genomic DNA",
+        "blocking ribosome binding to all mRNAs"
+      ],
+      "cluster": "knockdown"
+    }
+  ]
+}

@@ -18,7 +18,7 @@ theory, optimization convergence, numerical PDEs, MHD conservation, GR constrain
 This module uses lazy loading for fast startup. Imports happen on first access.
 """
 
-__version__ = "1.23.0"
+__version__ = "1.24.0"
 
 # ---------------------------------------------------------------------------
 # Lazy Loading Infrastructure
@@ -1022,6 +1022,25 @@ _LAZY_IMPORTS: dict[str, tuple[str, str | None]] = {
     "RNAFoldingReport": ("noethersolve.origin_of_life", None),
     "miller_urey_yield": ("noethersolve.origin_of_life", None),
     "MillerUreyReport": ("noethersolve.origin_of_life", None),
+
+    # therapeutic_lab — pathophysiology to therapeutic candidates
+    "TherapeuticDesignLab": ("noethersolve.therapeutic_lab", None),
+    "design_therapeutic": ("noethersolve.therapeutic_lab", None),
+    "parse_pathophysiology": ("noethersolve.therapeutic_lab", None),
+    "score_target": ("noethersolve.therapeutic_lab", None),
+    "recommend_modality": ("noethersolve.therapeutic_lab", None),
+    "MolecularTarget": ("noethersolve.therapeutic_lab", None),
+    "PathophysiologyExtraction": ("noethersolve.therapeutic_lab", None),
+    "DruggabilityReport": ("noethersolve.therapeutic_lab", None),
+    "ModalityRecommendation": ("noethersolve.therapeutic_lab", None),
+    "TherapeuticCandidate": ("noethersolve.therapeutic_lab", None),
+    "RankedCandidate": ("noethersolve.therapeutic_lab", None),
+    "DesignReport": ("noethersolve.therapeutic_lab", None),
+    "OracleVerification": ("noethersolve.therapeutic_lab", None),
+    "TargetType": ("noethersolve.therapeutic_lab", None),
+    "Mechanism": ("noethersolve.therapeutic_lab", None),
+    "Modality": ("noethersolve.therapeutic_lab", None),
+    "ValidationLevel": ("noethersolve.therapeutic_lab", None),
 }
 
 # Cache for loaded modules and attributes
