@@ -359,6 +359,44 @@ Notable methods used: staged anchored training (Hamiltonian, 5 stages), orthogon
 
 **Negative result:** Base-trained adapters do NOT transfer to Instruct models. Tested across 6 domains: Instruct baseline (17.0%) is worse than Base baseline (20.5%) on oracle facts, and adapters that lift Base (e.g., Hamiltonian 1→16) have zero effect on Instruct (1→1). RLHF damages the representation space that adapters target. Use Base for the research oracle.
 
+### Dual Adapter Architecture — Logit-Space + Hidden-State
+
+**Always train BOTH adapter types for every model and domain.** They serve different functions:
+
+**Logit-space adapters** (snap-on format, Paper 8):
+- Operate on logits after lm_head projection
+- Best for: log-probability margin evaluation, oracle scoring, fact verification
+- Architecture: bottleneck MLP on logits (d_vocab → d_inner → d_vocab)
+- Cannot produce coherent free generation (correction too diffuse across 151K vocab)
+- Fast to evaluate, small footprint
+
+**Hidden-state adapters** (post-transformer, pre-logit):
+- Operate on hidden states before lm_head projection
+- Best for: generation correction, coherent text output, reducing censorship in free text
+- Architecture: SwiGLU or linear bottleneck (d_model → d_inner → d_model)
+- MUST apply at last position only during generation (all-positions corrupts KV cache)
+- For log-prob evaluation, can apply at all positions safely (no autoregressive drift)
+
+**Training both for every domain:**
+```bash
+# Logit-space (for oracle scoring)
+python scripts/adapter_trainer.py --domain my_domain --type logit
+
+# Hidden-state (for generation correction)
+python scripts/adapter_trainer.py --domain my_domain --type hidden-state
+```
+
+**The generation discovery (Mar 2026):** Hidden-state adapters applied at the prediction position only produce coherent, less censored text on Qwen3-14B-Instruct. The adapter modifies what the model "thinks" at the decision point without corrupting the generation machinery. Logit-space adapters fail at generation because the correction is spread across 151,936 vocabulary dimensions. This establishes hidden-state intervention as the correct level for generation correction.
+
+**Gradient bug (MLX):** The pattern `nn.value_and_grad(model, fn)(model.parameters())` silently returns zero gradients. The correct pattern is `nn.value_and_grad(model, fn)(model, data)`. Always verify gradient norms > 0 in the first training step. See Paper D8 (DOI: 10.5281/zenodo.19211466).
+
+**For all models in the pipeline:**
+- 4B-Base: both adapter types for oracle + generation experiments
+- 8B-Base: both adapter types
+- 14B-Base: both adapter types
+- 14B-Instruct: hidden-state adapters for generation experiments (logit-space confirmed to fail)
+- Future models: always train both on first integration
+
 ---
 
 ## Tool Development Pipeline
@@ -663,6 +701,10 @@ Copy `problems/problem_template.yaml` and add three files: `my_domain.yaml` + `m
 | `noethersolve/conjecture_status.py` | Mathematical conjecture status checker (~63 conjectures) |
 | `noethersolve/proof_barriers.py` | Proof technique barrier checker (10 barriers) |
 | `noethersolve/number_theory.py` | Number theory conjecture numerical verifier |
+| `noethersolve/goldbach_variance.py` | Goldbach representation variance analysis (31% cooperative effect) |
+| `noethersolve/goldbach_conservation.py` | Goldbach conservation law (exact identity, anti-bunching, sub-Poisson) |
+| `noethersolve/goldbach_lattice.py` | Goldbach CRT lattice coverage analysis (sieve monotonicity) |
+| `noethersolve/ns_functional.py` | NS functional conservation checker (Q_{r^{-2}} vs helicity) |
 | `noethersolve/reductions.py` | Computational reduction chain validator |
 | `noethersolve/pde_regularity.py` | PDE regularity and Sobolev embedding checker |
 | `noethersolve/dimension_physics.py` | Dimension-dependent physics (2D vs 3D Green's functions, cascades, etc.) |

@@ -108,14 +108,18 @@ def main():
         except Exception:
             continue
 
-        domain = data.get("domain", df.stem.replace("_facts_v2", "").replace("_facts", ""))
+        # Handle both dict format {"domain": ..., "facts": [...]} and list format [...]
+        if isinstance(data, list):
+            domain = df.stem.replace("_facts_v2", "").replace("_facts", "")
+            facts = data
+        else:
+            domain = data.get("domain", df.stem.replace("_facts_v2", "").replace("_facts", ""))
+            facts = data.get("facts", data.get("verifications", []))
 
         # Skip if already done
         if domain in existing_domains:
             skipped += 1
             continue
-
-        facts = data.get("facts", data.get("verifications", []))
 
         # Filter to facts that have distractors
         valid = [f for f in facts if f.get("distractors")]

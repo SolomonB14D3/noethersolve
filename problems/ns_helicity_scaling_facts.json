@@ -1,0 +1,114 @@
+{
+  "facts": [
+    {
+      "id": "ns_hel01",
+      "context": "Helicity conservation in 3D Euler",
+      "truth": "Helicity H = integral(u dot omega) is exactly conserved for smooth solutions of 3D inviscid incompressible Euler equations.",
+      "distractors": [
+        "Helicity is approximately conserved but decays slowly in Euler flow.",
+        "Helicity conservation requires additional assumptions beyond incompressibility.",
+        "Helicity is only conserved in 2D Euler, not 3D."
+      ]
+    },
+    {
+      "id": "ns_hel02",
+      "context": "Helicity scaling under NS rescaling",
+      "truth": "Helicity is scaling-critical under the NS rescaling u_lambda = lambda u(lambda x, lambda^2 t), with scaling exponent zero.",
+      "distractors": [
+        "Helicity is scaling-supercritical under NS rescaling.",
+        "Helicity is scaling-subcritical under NS rescaling.",
+        "Helicity scaling exponent is +1 (subcritical)."
+      ]
+    },
+    {
+      "id": "ns_hel03",
+      "context": "Helicity sign-definiteness",
+      "truth": "Helicity is NOT sign-definite: u perpendicular to omega everywhere gives H=0 for arbitrarily large velocity fields.",
+      "distractors": [
+        "Helicity magnitude always bounds the enstrophy from below.",
+        "Helicity is always positive for incompressible flows.",
+        "Helicity is sign-definite for divergence-free vector fields."
+      ]
+    },
+    {
+      "id": "ns_hel04",
+      "context": "H^{1/2} norm conservation in Euler",
+      "truth": "The H^{1/2} Sobolev norm is NOT conserved in 3D Euler flow. Only energy and helicity are conserved.",
+      "distractors": [
+        "The H^{1/2} norm is exactly conserved in 3D inviscid Euler.",
+        "The H^{1/2} norm is conserved because it equals helicity.",
+        "All Sobolev norms are conserved in inviscid Euler."
+      ]
+    },
+    {
+      "id": "ns_hel05",
+      "context": "L^3 velocity norm conservation",
+      "truth": "The L^3 norm of velocity is scaling-critical and sign-definite but NOT conserved in 3D Euler or Navier-Stokes.",
+      "distractors": [
+        "The L^3 velocity norm is conserved, scaling-critical, and sign-definite.",
+        "The L^3 norm is supercritical for 3D NS.",
+        "The L^3 norm is conserved in inviscid Euler."
+      ]
+    },
+    {
+      "id": "ns_hel06",
+      "context": "Energy scaling classification for 3D NS",
+      "truth": "Energy (L^2 norm squared) is scaling-supercritical for 3D NS with exponent -1, meaning it grows under rescaling toward smaller scales.",
+      "distractors": [
+        "Energy is scaling-critical for 3D NS.",
+        "Energy is scaling-subcritical for 3D NS.",
+        "Energy scaling exponent is zero (critical) in all dimensions."
+      ]
+    },
+    {
+      "id": "ns_hel07",
+      "context": "Caffarelli-Kohn-Nirenberg theorem",
+      "truth": "CKN (1982) proves that singular points of suitable weak solutions of 3D NS have one-dimensional parabolic Hausdorff measure zero.",
+      "distractors": [
+        "CKN only applies to 2D Navier-Stokes.",
+        "CKN proves full regularity for 3D NS.",
+        "CKN shows singularities must be dense in space-time."
+      ]
+    },
+    {
+      "id": "ns_hel08",
+      "context": "Prodi-Serrin regularity condition",
+      "truth": "The Prodi-Serrin condition for 3D NS regularity is 2/p + 3/q = 1 with q > 3, meaning u in L^p_t L^q_x implies smoothness.",
+      "distractors": [
+        "The Prodi-Serrin condition requires 2/p + 3/q = 2.",
+        "The Prodi-Serrin condition only works for q less than 3.",
+        "The Prodi-Serrin condition proves unconditional regularity."
+      ]
+    },
+    {
+      "id": "ns_hel09",
+      "context": "Tao averaged Navier-Stokes result",
+      "truth": "Tao (2016) proved finite-time blowup for an averaged version of 3D NS, showing regularity proofs must use specific nonlinear structure, not just scaling.",
+      "distractors": [
+        "Tao proved regularity for averaged NS.",
+        "Tao's result applies to actual NS, not an averaged version.",
+        "Tao showed scaling alone suffices to prove regularity."
+      ]
+    },
+    {
+      "id": "ns_hel10",
+      "context": "Geometric depletion of nonlinearity",
+      "truth": "Geometric depletion means vortex stretching is reduced below its dimensional bound because vorticity and strain align in ways that limit effective stretching.",
+      "distractors": [
+        "Geometric depletion means vorticity and strain are always perpendicular.",
+        "Geometric depletion only occurs in 2D flows.",
+        "Vortex stretching always achieves its dimensional upper bound."
+      ]
+    },
+    {
+      "id": "ns_hel11",
+      "context": "Impossible triangle for 3D NS regularity",
+      "truth": "No known quantity in 3D NS is simultaneously conserved, scaling-critical, and sign-definite. Energy is conserved but supercritical. Helicity is conserved and critical but not sign-definite.",
+      "distractors": [
+        "The L^3 velocity norm has all three properties.",
+        "Energy is conserved, critical, and sign-definite in 3D.",
+        "Enstrophy has all three properties in 3D NS."
+      ]
+    }
+  ]
+}

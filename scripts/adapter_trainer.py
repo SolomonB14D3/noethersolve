@@ -47,6 +47,7 @@ sys.path.insert(0, str(PROJECT))
 
 from noethersolve.adapter import SnapOnConfig, create_adapter
 from noethersolve import train_utils as t3
+from noethersolve.verify_facts import verify_or_warn
 
 ADAPTERS_DIR = PROJECT / "adapters"
 PROBLEMS_DIR = PROJECT / "problems"
@@ -532,9 +533,26 @@ def get_adapter_status(domain_name):
 
 
 def run_domain_pipeline(model, lm_head, tokenizer, domain_name, facts_file,
-                        d_model, vocab_size):
+                        d_model, vocab_size, skip_verify=False):
     """Full autonomous pipeline for one domain. Returns training log dict."""
     base = normalize_domain_name(domain_name)
+
+    # ── Fact verification gate ──
+    if not skip_verify:
+        try:
+            verify_or_warn(str(facts_file), strict=True)
+        except ValueError as e:
+            print(f"\n  FACT VERIFICATION BLOCKED TRAINING:")
+            print(f"  {e}")
+            print(f"  Fix the contradicted facts or use --skip-verify to override.\n")
+            return {
+                "domain": domain_name,
+                "status": "blocked_verification",
+                "reason": str(e),
+            }
+    else:
+        print(f"  [WARN] Fact verification skipped (--skip-verify)")
+
     facts = load_facts(facts_file)
 
     if len(facts) < 3:
@@ -915,7 +933,7 @@ def remove_pid_file():
         pass
 
 
-def run_work_loop(domain_filter=None):
+def run_work_loop(domain_filter=None, skip_verify=False):
     """Continuous work loop: load model once, process all failing domains."""
     pid_file = write_pid_file()
 
@@ -967,7 +985,7 @@ def run_work_loop(domain_filter=None):
         try:
             result = run_domain_pipeline(
                 model, lm_head, tokenizer, name, facts_file,
-                d_model, vocab_size
+                d_model, vocab_size, skip_verify=skip_verify
             )
             result["duration_seconds"] = time.time() - t_start
             save_training_log(result)
@@ -1019,6 +1037,8 @@ def main():
     parser.add_argument("--status", action="store_true", help="Show training status only")
     parser.add_argument("--once", action="store_true", help="Train one domain and exit")
     parser.add_argument("--domain", help="Train specific domain")
+    parser.add_argument("--skip-verify", action="store_true",
+                        help="Skip computational fact verification (NOT recommended)")
     args = parser.parse_args()
 
     os.makedirs(ADAPTERS_DIR, exist_ok=True)
@@ -1052,7 +1072,8 @@ def main():
         print(f"  Loaded in {time.time()-t0:.1f}s\n")
 
         result = run_domain_pipeline(model, lm_head, tokenizer, name, facts_file,
-                                     d_model, vocab_size)
+                                     d_model, vocab_size,
+                                     skip_verify=args.skip_verify)
         result["duration_seconds"] = time.time() - t0
         save_training_log(result)
 
@@ -1060,7 +1081,7 @@ def main():
         return
 
     # Default: continuous work loop
-    run_work_loop(domain_filter=args.domain)
+    run_work_loop(domain_filter=args.domain, skip_verify=args.skip_verify)
 
 
 if __name__ == "__main__":

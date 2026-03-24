@@ -8181,6 +8181,142 @@ def recommend_modality(
     return "\n\n".join(str(r) for r in results)
 
 
+# ── NS Scaling-Critical Functionals ───────────────────────────────────
+
+@mcp.tool()
+def analyze_ns_functional(
+    config: str = "taylor_green",
+    grid_size: int = 32,
+    viscosity: float = 1e-3,
+    amplitude: float = 1.0,
+) -> str:
+    """Analyze scaling-critical pairwise vorticity functionals for 3D Navier-Stokes.
+
+    Computes Q_f[ω] = ∫∫|ω(x)||ω(y)| f(|x-y|) dx dy for different kernels f(r)
+    and their time derivatives. Tests which kernel gives the best approximate
+    conservation under the NS evolution including vortex stretching.
+
+    The scaling-critical kernel f(r) = r^{-2} is the key candidate. If Q_{r^{-2}}
+    is approximately conserved, it controls the critical Sobolev norm H^{1/2}
+    and regularity follows.
+
+    Args:
+        config: "taylor_green" or "vortex_tube"
+        grid_size: Grid points per dimension (32, 64)
+        viscosity: Kinematic viscosity ν
+        amplitude: Vorticity amplitude
+
+    Returns:
+        Full analysis of enstrophy, energy, helicity, stretching rate,
+        and pairwise functionals with their conservation ratios.
+
+    Example:
+        analyze_ns_functional("taylor_green", grid_size=32, viscosity=1e-3)
+    """
+    from noethersolve.ns_functional import analyze_ns_functional as _analyze
+    return _analyze(config, grid_size, viscosity, amplitude)
+
+
+# ── Goldbach Variance Analysis ────────────────────────────────────────
+
+@mcp.tool()
+def analyze_goldbach_variance(
+    limit: int = 10000,
+) -> str:
+    """Analyze Goldbach representation variance beyond Hardy-Littlewood.
+
+    Key finding: the standard deviation of normalized Goldbach residuals
+    r(n)/E(n) decreases multiplicatively with the number of distinct odd
+    prime factors of n, at ~31% per factor (steeper than CLT).
+
+    Also reports: HL overestimation (~16-18%), mod-6 residual structure,
+    hardest numbers, and minimum representation counts by range.
+
+    Args:
+        limit: Upper bound (even numbers 4 to limit). Keep <= 50000 for speed.
+
+    Returns:
+        Full variance analysis report.
+
+    Example:
+        analyze_goldbach_variance(20000)
+    """
+    from noethersolve.goldbach_variance import analyze_goldbach_variance as _analyze
+    return str(_analyze(limit))
+
+
+# ── Goldbach Conservation Laws ────────────────────────────────────────
+
+@mcp.tool()
+def analyze_goldbach_conservation(
+    N: int = 10000,
+    W: int = 2000,
+) -> str:
+    """Analyze Goldbach conservation laws within a window [N, N+W].
+
+    Computes five metrics:
+    1. Conservation identity: verifies sum r(n) = (1/2) sum capacity(q)
+       (exact double-counting identity for Goldbach representations).
+    2. Anti-bunching: lag-1 autocorrelation of C(n)-normalized residuals.
+       Negative = consecutive residuals repel, not cluster.
+    3. Sub-Poisson factor: Var(normalized) / (1/Mean(r)). Below 1 means
+       less variance than Poisson — representations are self-regulating.
+    4. Capacity distribution: statistics on prime pairing capacity per prime.
+    5. Windowed conservation: CV of sub-window sums vs independence prediction.
+
+    Args:
+        N: Start of window (even, >= 4). Default 10000.
+        W: Window width. Default 2000. Keep <= 4000 for fast results.
+
+    Returns:
+        Full conservation law analysis report.
+
+    Example:
+        analyze_goldbach_conservation(10000, 2000)
+    """
+    from noethersolve.goldbach_conservation import GoldbachConservationReport
+    return str(GoldbachConservationReport(N=N, W=W))
+
+
+# ── Goldbach Lattice Analysis ─────────────────────────────────────────
+
+@mcp.tool()
+def analyze_goldbach_lattice(
+    t: int,
+    modulus_depth: int = 3,
+    expansion_k: int = 10,
+) -> str:
+    """Analyze Goldbach's conjecture via CRT lattice class structure.
+
+    Instead of asking "are there enough primes near t/2?", this tool asks
+    "do the CRT residue classes that COULD contain Goldbach pairs actually
+    contain them?" Decomposes the pair space modulo a primorial M into
+    valid lattice classes and measures coverage.
+
+    Five analyses:
+    1. Blocking: fraction of pairs eliminated by each small prime.
+    2. CRT lattice classes: valid classes (both residues coprime to M),
+       with actual Goldbach pair counts per class.
+    3. Class occupancy: min/max/mean pairs per class, sparse class count.
+    4. Sieve monotonicity: whether sieving never creates a transient zero.
+    5. Expansion ratio: |N(S)|/|S| for k contiguous even targets.
+
+    Args:
+        t: Target even number (>= 4). Keep <= 50000 for fast results.
+        modulus_depth: Primes for CRT (1->mod 2, 2->mod 6, 3->mod 30,
+                       4->mod 210, 5->mod 2310). Default 3.
+        expansion_k: Contiguous even numbers for expansion check. Default 10.
+
+    Returns:
+        Full lattice analysis report.
+
+    Example:
+        analyze_goldbach_lattice(10000, modulus_depth=3, expansion_k=10)
+    """
+    from noethersolve.goldbach_lattice import analyze_goldbach_lattice as _analyze
+    return str(_analyze(t, modulus_depth, expansion_k))
+
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 def main():
