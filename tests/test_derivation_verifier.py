@@ -1,6 +1,10 @@
 """Tests for the derivation verifier tool."""
 
 import pytest
+
+# Skip entire module if sympy is not available
+pytest.importorskip("sympy", reason="sympy required for derivation verification")
+
 from noethersolve.derivation_verifier import (
     verify_derivation,
     verify_step,
