@@ -5,11 +5,10 @@ These tools let AI agents verify their own code, catching errors that
 models systematically miss.
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Callable, Any, Optional
 import re
 import time
-import math
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -343,7 +342,6 @@ def check_numerical_stability(
         ...     return sum(x**2 for x in arr)/len(arr) - (sum(arr)/len(arr))**2
         >>> check_numerical_stability(naive_variance, [1e8, 1e8+1, 1e8+2])
     """
-    import numpy as np
 
     # Get baseline result
     try:
@@ -372,7 +370,7 @@ def check_numerical_stability(
                     if baseline != 0:
                         rel_change = abs(result - baseline) / abs(baseline)
                         perturbations.append(rel_change / perturbation)
-                except:
+                except Exception:
                     pass
     elif isinstance(test_input, (int, float)):
         perturbed = test_input * (1 + perturbation)
@@ -381,7 +379,7 @@ def check_numerical_stability(
             if baseline != 0:
                 rel_change = abs(result - baseline) / abs(baseline)
                 perturbations.append(rel_change / perturbation)
-        except:
+        except Exception:
             pass
 
     if not perturbations:
@@ -804,14 +802,14 @@ def verify_sort(
     try:
         result = run_sort(test)
         preserves = sorted(result) == sorted(test)
-    except:
+    except Exception:
         preserves = False
 
     # Test 5: Duplicates
     try:
         result = run_sort([1, 1, 1, 2, 2, 3])
         handles_dups = result == [1, 1, 1, 2, 2, 3]
-    except:
+    except Exception:
         handles_dups = False
         failures.append("Failed on duplicates")
 
@@ -819,10 +817,10 @@ def verify_sort(
     try:
         # Use tuples where first element is the key
         stable_test = [(1, 'a'), (2, 'b'), (1, 'c'), (2, 'd')]
-        sorted_test = run_sort([x[0] for x in stable_test])
+        _sorted_test = run_sort([x[0] for x in stable_test])  # noqa: F841
         # Can't easily test stability without access to original indices
         stable = None  # Unknown
-    except:
+    except Exception:
         stable = None
 
     return SortVerificationResult(
@@ -922,7 +920,7 @@ def check_physics_simulation(
     # Initial values
     E0 = kinetic_energy()
     P0 = momentum()
-    L0 = angular_momentum()
+    _L0 = angular_momentum()  # noqa: F841 - computed for potential future use
 
     # Run simulation
     energies = [E0]

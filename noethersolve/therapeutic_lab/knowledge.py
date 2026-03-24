@@ -4,7 +4,7 @@ Built-in knowledge base for therapeutic design.
 Contains common targets, mechanisms, and disease associations.
 """
 
-from typing import Dict, List, Set
+from typing import Dict, List
 
 # ── Gene/Protein Recognition ─────────────────────────────────────────
 

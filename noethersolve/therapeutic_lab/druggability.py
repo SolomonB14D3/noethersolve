@@ -4,21 +4,16 @@ Target Druggability Scorer — Assess tractability of therapeutic targets.
 Scores targets based on type, structure, existing drugs, and mechanism.
 """
 
-from typing import Dict, List, Optional
+from typing import Dict
 
 from .types import (
     MolecularTarget,
     DruggabilityReport,
-    OracleVerification,
     TargetType,
     Mechanism,
 )
 from .knowledge import (
-    KNOWN_TARGETS,
-    MODALITY_PREFERENCES,
-    MECHANISM_MODALITY_PREFERENCES,
     get_known_target_info,
-    get_modality_preferences,
 )
 
 

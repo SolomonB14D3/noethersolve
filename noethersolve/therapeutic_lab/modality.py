@@ -4,7 +4,7 @@ Modality Selector — Recommend therapeutic modalities for targets.
 Decision rules based on target type, mechanism, and disease context.
 """
 
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 
 from .types import (
     MolecularTarget,
@@ -14,7 +14,6 @@ from .types import (
     TargetType,
     Mechanism,
 )
-from .knowledge import get_modality_preferences
 
 
 class ModalitySelector:

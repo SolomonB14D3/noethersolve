@@ -6,7 +6,7 @@ Optionally verifies extractions with the 4B oracle.
 """
 
 import re
-from typing import List, Optional, Tuple
+from typing import List
 
 from .types import (
     MolecularTarget,
@@ -17,11 +17,8 @@ from .types import (
     ValidationLevel,
 )
 from .knowledge import (
-    KNOWN_TARGETS,
-    GENE_ALIASES,
     MECHANISM_KEYWORDS,
     TISSUE_KEYWORDS,
-    DISEASE_TARGETS,
     resolve_gene_alias,
     get_known_target_info,
     get_disease_targets,

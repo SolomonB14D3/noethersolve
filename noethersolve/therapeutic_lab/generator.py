@@ -4,8 +4,7 @@ Candidate Generator — Generate therapeutic candidates using NoetherSolve tools
 Routes to existing CRISPR, mRNA, antibody, neoantigen, and PK tools.
 """
 
-from typing import List, Optional, Dict, Any
-import hashlib
+from typing import List
 
 from .types import (
     MolecularTarget,

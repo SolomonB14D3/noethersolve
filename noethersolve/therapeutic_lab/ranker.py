@@ -4,7 +4,7 @@ Candidate Ranker — Multi-criteria ranking with oracle verification.
 Evaluates candidates on efficacy, safety, developability, manufacturing, and regulatory.
 """
 
-from typing import List, Dict, Optional
+from typing import List, Dict
 
 from .types import (
     TherapeuticCandidate,
@@ -12,7 +12,6 @@ from .types import (
     PathophysiologyExtraction,
     Modality,
     Mechanism,
-    OracleVerification,
 )
 
 
@@ -236,8 +235,8 @@ class CandidateRanker:
             )
             distractors = [
                 f"{candidate.modality.value} is unlikely to succeed for this target",
-                f"Alternative modalities are much more promising",
-                f"There are significant biological barriers to this approach",
+                "Alternative modalities are much more promising",
+                "There are significant biological barriers to this approach",
             ]
 
             result = self.oracle.verify_claim(
@@ -333,7 +332,7 @@ class CandidateRanker:
 
         For use with MCP tool interface.
         """
-        from .types import MolecularTarget, TargetType, Mechanism
+        from .types import MolecularTarget, TargetType
 
         parsed_candidates = []
 

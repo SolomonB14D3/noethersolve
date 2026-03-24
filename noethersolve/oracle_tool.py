@@ -109,7 +109,6 @@ def _get_log_prob(model, tokenizer, prompt: str, completion: str,
     """
     import mlx.core as mx
     import mlx.nn as nn
-    import numpy as np
 
     # Tokenize separately and concatenate (matches training script behavior)
     prompt_tokens = tokenizer.encode(prompt)
