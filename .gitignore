@@ -1,4 +1,16 @@
-# Python
+# ============================================================
+# NoetherSolve .gitignore
+#
+# POLICY: Only the tool source code and materials supporting
+# papers on arXiv are public. Everything else stays local
+# until a paper is submitted. This keeps the repo a menu
+# (what the tool does) not a buffet (every finding).
+#
+# To make something public: submit the paper to arXiv first,
+# then remove the specific gitignore line.
+# ============================================================
+
+# === Python ===
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -7,110 +19,106 @@ build/
 .venv/
 *.egg
 
-# Adapter weights (large binary files — train locally)
-adapters/*.npz
-adapters/**/*.npz
-adapters/**/*.safetensors
-adapters/**/*.bin
-
-# Steering vectors (model-specific, regenerate with extract_vectors_fast.py)
-steering_vectors/*.npy
-
-# Router state (built locally from adapters + facts)
-router_state.npz
-
-# Hunt results (regenerated)
-results/hunt_results.json
-
-# Dashboard (regenerated from candidates.tsv)
-results/charts/
-results/dashboard.html
-
-# Paper drafts, submissions, and figures — NEVER track while under review
-paper/*.pdf
-paper/*.md
-paper/d*/
-paper/p*/
-paper/prior_work/
-figures/
-
-# Secrets
+# === Secrets ===
 .env
 *.key
 
-# macOS
+# === macOS / IDE ===
 .DS_Store
-
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb
-
-# IDE
 .vscode/
 .idea/
 *.swp
+.ipynb_checkpoints/
+*.ipynb
+nohup.out
 
-# open_questions.jsonl — TRACKED (shared AI-generated hypothesis queue)
-# If you want to gitignore it, uncomment:
-# results/open_questions.jsonl
+# ============================================================
+# UNPUBLISHED RESEARCH — gitignore until paper is on arXiv
+# ============================================================
 
-# Oracle gem investigation (false lead — confidence reduction, not suppression removal)
+# --- All paper drafts, figures, submissions ---
+paper/
+figures/
+
+# --- All experimental results ---
+# (Specific numbers belong in papers, not in the repo)
+results/
+
+# --- Steering bank (440 files, ~13K facts from HuggingFace benchmarks) ---
+# Regenerate with: python experiments/build_steering_bank.py
+steering_bank/
+
+# --- Steering vectors (model-specific, regenerate locally) ---
+steering_vectors/
+
+# --- Adapter weights (large binaries, train locally) ---
+adapters/
+router_state.npz
+
+# --- Training data (generated from fact files) ---
+training/
+
+# --- Research scripts (one-off investigations) ---
+research/
+
+# --- Experiment scripts (not part of the tool) ---
+experiments/
+
+# --- Lab infrastructure ---
+labs/
+monitors/
+
+# --- Problem definitions (fact files for oracle) ---
+# Keep problem YAMLs but not the fact JSONs (those have unpublished data)
+problems/*.json
+problems/*_facts*.json
+problems/*_v2.json
+
+# --- One-off scripts not part of the tool ---
+oracle_wrapper.py
+vortex_checker.py
+conservation_checker.py
+autonomy_loop.py
+dashboard.py
+run_teacher_student.py
+run_haiku_benchmark.py
+test_haiku_tools.py
 oracle_gem_publishable_benchmark.py
 benchmark_oracle_gem.py
 ORACLE_GEM_DELIVERY.txt
-experiments/confound_decomposition_test.py
-experiments/oracle_gem_mechanism_test.py
-results/ORACLE_GEM_RESEARCH_REPORT.md
-results/ORACLE_GEM_SHARE.txt
-results/READY_TO_SHARE.md
-results/oracle_gem_benchmark_results.json
-results/oracle_gem_mechanism_results.json
-results/confound_decomposition_results.json
-
-# Benchmark outputs (regenerated locally)
-results/benchmark_all_domains.json
-results/benchmark_all_domains_v2.json
-results/benchmark_core_4_domains.json
-
-# Meta-router training data (regenerated from outcomes)
-results/meta_router_outcomes.jsonl
-results/meta_router_training.jsonl
-results/meta_router.json
-results/stage_discovery_guided.json
-results/train_missing_adapters.log
-results/train_missing_adapters_v2.log
-
-# Collaboration infrastructure (retained locally, not tracked)
 claim.py
 claims.json
+download_27b.py
+em_checker.py
+noether_monitor.py
+
+# --- Documentation that references unpublished results ---
+ORACLE_METHODOLOGY.md
 CONTRIBUTING.md
+CLAUDE.md
 
-# Research runner outputs (regenerated locally)
-results/research_status.json
-results/research_log.txt
-results/run_summary.json
-results/escalations.jsonl
-results/coordinator_log.txt
-results/orchestrator_*.json
-results/orchestrator_*.txt
-results/*.log
-results/*.pid
-results/lab_registry.json
-results/lab_watchdog.log
-results/paper_watchdog.*
-results/paper_routing_tracker.json
-results/paper_briefs/
-results/labs/
-results/prospector_log.txt
-results/training_scan_*.log
-results/training_scan_*.md
-nohup.out
+# --- Problem fact data (unpublished research data) ---
+# Keep .yaml (domain plugin structure) but not .json (actual facts)
+problems/*.json
 
-# Hardware profile cache
-scripts/hardware_profile.json
+# --- Data caches ---
+data/
 
-# Training data (generated from facts)
-training/data/
+# --- Scripts (internal tooling, not part of the package) ---
+scripts/
 
-# Archived scripts
-scripts/archive/
+# ============================================================
+# PUBLIC — these stay tracked
+# ============================================================
+# noethersolve/          — tool source code (the product)
+# tests/                 — test suite (validates the tools)
+# pyproject.toml         — package metadata
+# README.md              — describes what the tool does
+# CHANGELOG.md           — release history (generic, no numbers)
+# LICENSE                — MIT
+# .mcp.json              — MCP server config
+# .github/               — CI workflows
+# requirements.txt       — dependencies
+# problems/*.yaml        — domain plugin definitions (structure, not data)
+# .claude/settings.json  — Claude Code config
+# .env.example           — env var template

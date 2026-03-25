@@ -1,9 +1,0 @@
-{
-  "examples": [
-    {
-      "context": "RAG actually:",
-      "truth": "reduces but does not eliminate hallucination",
-      "distractors": ["eliminates hallucination completely", "guarantees factual accuracy"]
-    }
-  ]
-}
