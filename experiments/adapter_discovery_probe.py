@@ -205,10 +205,10 @@ VORTEX_ADJACENT_PROBE_FACTS = [
 
 
 def load_model_and_adapter(adapter_path=None, d_inner=64):
-    """Load Qwen3-4B-Base and optionally an adapter."""
-    print("Loading Qwen3-4B-Base...")
+    """Load Qwen3-14B-Base and optionally an adapter."""
+    print("Loading Qwen3-14B-Base...")
     t0 = time.time()
-    model, tokenizer = mlx_lm.load("Qwen/Qwen3-4B-Base")
+    model, tokenizer = mlx_lm.load("Qwen/Qwen3-14B-Base")
     print(f"  Model loaded in {time.time()-t0:.1f}s")
 
     adapter = None
@@ -324,7 +324,7 @@ def main():
     args = parser.parse_args()
 
     # Auto-detect adapters
-    adapter_dir = os.path.join(ROOT, "adapters")
+    adapter_dir = os.path.join(ROOT, "adapters", "qwen3_4b_base")
     ham_adapter = args.adapter or os.path.join(adapter_dir, "hamiltonian_stage5.npz")
     if not os.path.exists(ham_adapter):
         # Try other adapter names

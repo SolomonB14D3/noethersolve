@@ -64,7 +64,7 @@ import yaml
 _HERE = os.path.dirname(os.path.abspath(__file__))
 
 CANDIDATES_TSV = os.path.join(_HERE, "results", "candidates.tsv")
-ADAPTERS_DIR   = os.path.join(_HERE, "adapters")
+ADAPTERS_DIR   = os.path.join(_HERE, "adapters", "qwen3_4b_base")
 os.makedirs(ADAPTERS_DIR, exist_ok=True)
 os.makedirs(os.path.join(_HERE, "results"), exist_ok=True)
 
@@ -516,7 +516,7 @@ def _main_legacy():  # noqa: F811
     problem      = load_problem(problem_path)
 
     hunt_cfg     = problem.get("hunt_config", {})
-    model_name   = args.model or problem.get("model", "Qwen/Qwen3-4B-Base")
+    model_name   = args.model or problem.get("model", "Qwen/Qwen3-14B-Base")
     threshold    = float(hunt_cfg.get("numerical_threshold", 0.005))
     ic_priority  = hunt_cfg.get("ic_priority", ["equal_pair"])
     checker_type = detect_checker_type(problem)
@@ -1037,7 +1037,7 @@ def cmd_rebuild_router(args):
 
     router_path = args.router_path or os.path.join(_HERE, "router_state.npz")
     problems_dir = os.path.join(_HERE, "problems")
-    adapters_dir = os.path.join(_HERE, "adapters")
+    adapters_dir = os.path.join(_HERE, "adapters", "qwen3_4b_base")
 
     print(f"  Loading {args.model}...")
     model, tokenizer = mlx_lm.load(args.model)
@@ -1066,7 +1066,7 @@ The YAML should include:
   name: short_snake_case_name
   description: |
     2-3 sentences describing the physical system and target.
-  model: "Qwen/Qwen3-4B-Base"
+  model: "Qwen/Qwen3-14B-Base"
   oracle: "stem_margin"
   verification_set: "<name>_facts.json"
   pass_threshold: 0.8
@@ -1215,7 +1215,7 @@ Examples:
     # ── rebuild-router ─────────────────────────────────────────────────────────
     rr = sub.add_parser("rebuild-router",
                         help="Rebuild adapter router from all facts/adapters")
-    rr.add_argument("--model", default="Qwen/Qwen3-4B-Base")
+    rr.add_argument("--model", default="Qwen/Qwen3-14B-Base")
     rr.add_argument("--router-path", default=None)
 
     # ── propose-problem ───────────────────────────────────────────────────────
@@ -1294,7 +1294,7 @@ def _run_loop(args):
     problem      = load_problem(problem_path)
 
     hunt_cfg     = problem.get("hunt_config", {})
-    model_name   = args.model or problem.get("model", "Qwen/Qwen3-4B-Base")
+    model_name   = args.model or problem.get("model", "Qwen/Qwen3-14B-Base")
     threshold    = float(hunt_cfg.get("numerical_threshold", 0.005))
     ic_priority  = hunt_cfg.get("ic_priority", ["equal_pair"])
     checker_type = detect_checker_type(problem)
@@ -1425,7 +1425,7 @@ def _run_loop(args):
             else:
                 # Build from scratch if adapters/ and problems/ exist
                 problems_dir = os.path.join(_HERE, "problems")
-                adapters_dir = os.path.join(_HERE, "adapters")
+                adapters_dir = os.path.join(_HERE, "adapters", "qwen3_4b_base")
                 if os.path.isdir(problems_dir) and os.path.isdir(adapters_dir):
                     print("  Building adapter router (first run)...")
                     router = AdapterRouter.build(

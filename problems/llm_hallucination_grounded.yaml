@@ -1,6 +1,6 @@
 name: "llm_hallucination_grounded"
 description: "Oracle test for LLM hallucination with tool-grounding context"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "llm_hallucination_grounded_facts.json"
 pass_threshold: 0.5

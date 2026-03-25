@@ -182,7 +182,7 @@ def run_hunt(problem_path: str, max_candidates: int = 200, skip_oracle: bool = F
     # Load model and adapter for oracle (unless skipping)
     model, tokenizer, adapter, lm_head = None, None, None, None
     if not skip_oracle:
-        model_name = problem.get("model", "Qwen/Qwen3-4B-Base")
+        model_name = problem.get("model", "Qwen/Qwen3-14B-Base")
         adapter_path = problem.get("adapter")
         if adapter_path and not os.path.isabs(adapter_path):
             adapter_path = os.path.join(os.path.dirname(problem_path), adapter_path)

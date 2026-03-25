@@ -16,7 +16,7 @@ description: |
   What would a correct answer look like? What domain does it live in?
 
 # Model to use as the oracle base
-model: "Qwen/Qwen3-4B-Base"              # or Qwen2.5-1.5B for faster iteration
+model: "Qwen/Qwen3-14B-Base"              # or Qwen2.5-1.5B for faster iteration
 
 # Oracle method (always stem_margin for now)
 oracle: "stem_margin"

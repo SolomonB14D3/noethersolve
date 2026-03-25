@@ -33,7 +33,7 @@ from typing import Any
 # Map of exported names to their source modules and import type
 # Format: "name": ("module", "import_name" or None for same name)
 _LAZY_IMPORTS: dict[str, tuple[str, str | None]] = {
-    # oracle_tool.py — 4B model + adapters as verification service
+    # oracle_tool.py — 14B model + adapters as verification service
     "verify_claim": ("noethersolve.oracle_tool", None),
     "VerificationResult": ("noethersolve.oracle_tool", None),
     "get_domain_confidence": ("noethersolve.oracle_tool", None),

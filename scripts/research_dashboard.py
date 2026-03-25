@@ -41,7 +41,7 @@ ESCALATION_FILE = RESULTS / "escalations.jsonl"
 HTML_OUTPUT = RESULTS / "dashboard.html"
 GRADES_FILE = RESULTS / "discovery_grades.json"
 ADAPTER_LOG = RESULTS / "adapter_training_log.jsonl"
-ADAPTERS_DIR = _HERE / "adapters"
+ADAPTERS_DIR = _HERE / "adapters" / "qwen3_4b_base"
 ADAPTER_TRAINER_LOG = _HERE / "logs" / "adapter_trainer_v2.log"
 
 
@@ -119,7 +119,7 @@ def count_domains() -> dict:
             n = len(data) if isinstance(data, list) else len(data.get("facts", []))
             domains[prob.get("name", yaml_path.stem)] = {
                 "facts": n,
-                "model": prob.get("model", "Qwen/Qwen3-4B-Base"),
+                "model": prob.get("model", "Qwen/Qwen3-14B-Base"),
                 "threshold": prob.get("pass_threshold", 0.5),
             }
         except Exception:
@@ -795,7 +795,7 @@ def generate_html() -> str:
                 break
             elif "Adapter" in a.get("name", ""):
                 model_running = True
-                model_label = "Qwen3-4B-Base (adapter training)"
+                model_label = "Qwen3-14B-Base (adapter training)"
                 break
     # Also check by process name (27B or 4B)
     if not model_running:
@@ -810,7 +810,7 @@ def generate_html() -> str:
             r = subprocess.run(["pgrep", "-f", "adapter_trainer"], capture_output=True)
             if r.returncode == 0:
                 model_running = True
-                model_label = "Qwen3-4B-Base (adapter training)"
+                model_label = "Qwen3-14B-Base (adapter training)"
         except Exception:
             pass
     current_domain = status.get("current_domain", "idle")

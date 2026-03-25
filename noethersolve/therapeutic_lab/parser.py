@@ -2,7 +2,7 @@
 Pathophysiology Parser — Extract molecular targets from disease descriptions.
 
 Uses regex patterns and keyword matching to identify genes, mechanisms, and tissues.
-Optionally verifies extractions with the 4B oracle.
+Optionally verifies extractions with the 14B oracle.
 """
 
 import re

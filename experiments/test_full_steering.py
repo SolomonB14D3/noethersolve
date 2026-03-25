@@ -66,7 +66,7 @@ def generate_with_steering(model, tokenizer, prompt, steering_result, layer=15, 
 
 def main():
     print("Loading model...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    model, tokenizer = load("Qwen/Qwen3-14B-Base")
 
     print("Loading steering bank...")
     router = SteeringRouter.load("steering_bank.npz")

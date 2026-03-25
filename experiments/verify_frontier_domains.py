@@ -14,9 +14,9 @@ from noethersolve.adapter import SnapOnConfig, SnapOnLogitMLP
 from noethersolve.train_utils import get_lm_head_fn
 from noethersolve.oracle import score_fact_mc
 
-MODEL_ID = "Qwen/Qwen3-4B-Base"
+MODEL_ID = "Qwen/Qwen3-14B-Base"
 PROBLEMS_DIR = Path(__file__).resolve().parent.parent / "problems"
-ADAPTER_DIR = Path(__file__).resolve().parent.parent / "adapters"
+ADAPTER_DIR = Path(__file__).resolve().parent.parent / "adapters" / "qwen3_4b_base"
 
 DOMAINS = [
     "battery_technology",

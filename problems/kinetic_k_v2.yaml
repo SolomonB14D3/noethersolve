@@ -1,4 +1,4 @@
 name: "kinetic_k_v2"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "kinetic_k_facts_v2.json"
 pass_threshold: 0.5

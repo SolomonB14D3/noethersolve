@@ -1,6 +1,6 @@
 name: "quantum_mechanics"
 description: "Oracle test for quantum_mechanics domain"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "quantum_mechanics_facts.json"
 pass_threshold: 0.5

@@ -8,7 +8,7 @@
 - **Sweep summaries**: Each sweep writes to `results/run_summary.json` with progress delta, improved domains, and timing.
 - **`--once` flag**: Run a single sweep and exit (for cron/scheduled use).
 - **Cleaner error handling**: Timeout and crash on one domain doesn't block the rest.
-- **Removed adapter training from 27B**: The 27B is the oracle/judge. Only 4B gets adapters.
+- **Removed adapter training from 27B**: The 27B is the local compute workhorse. 14B is the oracle (upgraded from 4B on 2026-03-25). Only 4B gets adapters.
 
 ### Script Cleanup
 - Archived 19 dead/superseded scripts to `scripts/archive/`

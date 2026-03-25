@@ -103,7 +103,7 @@ def find_adapters(adapters_dir: Path, domain: str) -> List[Path]:
 class MLXOracle:
     """Oracle using MLX log-prob scoring with adapter support."""
 
-    def __init__(self, model_name: str = "Qwen/Qwen3-4B-Base"):
+    def __init__(self, model_name: str = "Qwen/Qwen3-14B-Base"):
         if not HAS_MLX:
             raise RuntimeError("MLX not available")
 
@@ -375,7 +375,7 @@ def main():
 
     base_dir = Path(__file__).parent.parent
     problems_dir = base_dir / "problems"
-    adapters_dir = base_dir / "adapters"
+    adapters_dir = base_dir / "adapters" / "qwen3_4b_base"
 
     # Determine which domains to run
     if args.domain:

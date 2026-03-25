@@ -1,6 +1,6 @@
 name: "condensed_matter_frontiers"
 description: "Oracle test for condensed_matter_frontiers domain - cutting edge physics"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "condensed_matter_frontiers_facts.json"
 pass_threshold: 0.5

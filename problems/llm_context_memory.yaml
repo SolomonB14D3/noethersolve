@@ -1,6 +1,6 @@
 name: "llm_context_memory"
 description: "Oracle test for llm_context_memory"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "llm_context_memory_facts.json"
 pass_threshold: 0.5

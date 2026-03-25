@@ -7,6 +7,6 @@ description: |
 
   Dominant terms: e^(-r/2), tanh(r), sin(r)
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "optimal_f_facts.json"
 pass_threshold: 0.5

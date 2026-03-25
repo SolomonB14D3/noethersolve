@@ -1,6 +1,6 @@
 name: "quantum_computing"
 description: "Oracle test for quantum_computing"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "quantum_computing_facts.json"
 pass_threshold: 0.5

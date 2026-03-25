@@ -432,7 +432,7 @@ HTML_TEMPLATE = """\
 </div>
 
 <div class="card" style="margin-bottom:24px">
-  <h2>4B Oracle Margins — Top Failures &amp; Wins (Qwen3-4B-Base + adapters)</h2>
+  <h2>14B Oracle Margins — Top Failures &amp; Wins (Qwen3-14B-Base + adapters)</h2>
   {chart_margin}
 </div>
 

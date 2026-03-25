@@ -23,7 +23,7 @@ sys.path.insert(0, ROOT)
 from noethersolve.adapter import SnapOnConfig, create_adapter
 from noethersolve import train_utils as t3
 
-ADAPTERS_DIR = os.path.join(ROOT, "adapters")
+ADAPTERS_DIR = os.path.join(ROOT, "adapters", "qwen3_4b_base")
 
 
 def load_adapter(model, path):
@@ -82,8 +82,8 @@ def main():
     with open(facts_path) as f:
         facts_data = json.load(f)
 
-    print("Loading Qwen/Qwen3-4B-Base...")
-    model, tokenizer = mlx_lm.load("Qwen/Qwen3-4B-Base")
+    print("Loading Qwen/Qwen3-14B-Base...")
+    model, tokenizer = mlx_lm.load("Qwen/Qwen3-14B-Base")
     model.freeze()
     lm_head = t3.get_lm_head_fn(model)
 

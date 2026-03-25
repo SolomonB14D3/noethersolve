@@ -256,9 +256,9 @@ class HypothesisResult:
 
 def load_model():
     """Load base model."""
-    print("Loading Qwen3-4B-Base...")
+    print("Loading Qwen3-14B-Base...")
     t0 = time.time()
-    model, tokenizer = mlx_lm.load("Qwen/Qwen3-4B-Base")
+    model, tokenizer = mlx_lm.load("Qwen/Qwen3-14B-Base")
     print(f"  Loaded in {time.time()-t0:.1f}s")
     return model, tokenizer
 
@@ -374,7 +374,7 @@ def select_adapters_for_claim(claim, adapter_dir, max_domain=5, max_cross=5):
 
 def run_hypothesis_engine(claims, verify=False):
     """Run the full hypothesis engine."""
-    adapter_dir = os.path.join(ROOT, "adapters")
+    adapter_dir = os.path.join(ROOT, "adapters", "qwen3_4b_base")
     model, tokenizer = load_model()
 
     results = []
@@ -555,7 +555,7 @@ def select_adapters_by_prefix(adapter_dir, prefix, max_adapters=15):
 
 def run_focused_engine(claims_path, verify=False):
     """Run hypothesis engine with focused claims that specify adapter_prefix."""
-    adapter_dir = os.path.join(ROOT, "adapters")
+    adapter_dir = os.path.join(ROOT, "adapters", "qwen3_4b_base")
     model, tokenizer = load_model()
 
     with open(claims_path) as f:

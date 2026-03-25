@@ -600,7 +600,7 @@ multiple initial conditions.
 ### 2.2 Oracle Pipeline
 
 Knowledge gaps are detected using log-probability multiple-choice evaluation
-on Qwen3-4B-Base. Each fact is formatted as a context + 4 choices (1 correct,
+on Qwen3-14B-Base. Each fact is formatted as a context + 4 choices (1 correct,
 3 distractors). The margin = log P(truth) - log P(best distractor) quantifies
 model confidence. Negative margins indicate the model prefers a wrong answer.
 
@@ -637,7 +637,7 @@ sub-topics are most affected.
 
 ### 4.2 Limitations
 
-- Oracle evaluation uses a single base model (Qwen3-4B-Base). Results may
+- Oracle evaluation uses a single base model (Qwen3-14B-Base). Results may
   differ on other architectures or scales.
 - Numerical verification is limited to the initial conditions tested.
   Conservation laws verified on N configurations may not hold universally.

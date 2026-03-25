@@ -16,6 +16,6 @@ description: |
   - Confusing K² for cubic surface (it's 3, not -3)
   - Thinking 27 lines is approximate rather than exact
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "intersection_theory_facts.json"
 pass_threshold: 0.5

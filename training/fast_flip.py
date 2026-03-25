@@ -222,7 +222,7 @@ def main():
     from mlx_lm import load
 
     print("Loading model...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    model, tokenizer = load("Qwen/Qwen3-14B-Base")
 
     # Collect facts files
     facts_files = []

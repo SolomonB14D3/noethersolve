@@ -129,7 +129,7 @@ def load_adapter_for_model(model, adapter_path: str, d_inner: int = 64):
 # Ranking adapter support
 # --------------------------------------------------------------------------
 
-RANKING_ADAPTER_PATH = os.path.join(HERE, "adapters", "ranking_v2_best.npz")
+RANKING_ADAPTER_PATH = os.path.join(HERE, "adapters", "qwen3_4b_base", "ranking_v2_best.npz")
 
 
 def run_oracle_with_ranking(model, tokenizer, facts: list,
@@ -311,14 +311,14 @@ def main():
     problem_dir = os.path.dirname(os.path.abspath(args.problem))
     problem = load_problem(args.problem)
     facts = load_verification_set(problem, problem_dir)
-    model_name = args.model or problem.get("model", "Qwen/Qwen3-4B-Base")
+    model_name = args.model or problem.get("model", "Qwen/Qwen3-14B-Base")
     threshold = float(problem.get("pass_threshold", 1.0))
 
     # Reward config from problem yaml (optional)
     reward_cfg  = problem.get("reward", {})
     gap_trigger = float(reward_cfg.get("knowledge_gap_trigger", KNOWLEDGE_GAP_DELTA_THRESHOLD))
 
-    mixed_adapter_path = os.path.join(HERE, "adapters", "adapter_mixed.npz")
+    mixed_adapter_path = os.path.join(HERE, "adapters", "qwen3_4b_base", "adapter_mixed.npz")
 
     print(f"\nProblem:  {problem.get('name', args.problem)}")
     print(f"Model:    {model_name}")

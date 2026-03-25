@@ -87,7 +87,7 @@ def find_domain_adapters(adapters_dir: Path, domain: str) -> List[Path]:
 class OracleEvaluator:
     """Evaluates facts with adapters."""
 
-    def __init__(self, model_name: str = "Qwen/Qwen3-4B-Base"):
+    def __init__(self, model_name: str = "Qwen/Qwen3-14B-Base"):
         print(f"Loading model {model_name}...")
         self.model, self.tokenizer = mlx_lm.load(model_name)
         self.model.freeze()
@@ -144,7 +144,7 @@ def main():
 
     base_dir = Path(__file__).parent.parent
     problems_dir = base_dir / "problems"
-    adapters_dir = base_dir / "adapters"
+    adapters_dir = base_dir / "adapters" / "qwen3_4b_base"
 
     # Find domains with facts
     domain_facts = {}

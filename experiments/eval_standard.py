@@ -182,7 +182,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--task", default="truthfulqa_mc1", help="Task to evaluate")
     parser.add_argument("--limit", type=int, default=50, help="Max problems")
-    parser.add_argument("--model", default="Qwen/Qwen3-4B-Base")
+    parser.add_argument("--model", default="Qwen/Qwen3-14B-Base")
     parser.add_argument("--steering", default=None, help="Domain name for steering vector")
     parser.add_argument("--alphas", default="0.0,0.25,0.5,0.75,1.0,1.5", help="Alpha values to test")
     args = parser.parse_args()

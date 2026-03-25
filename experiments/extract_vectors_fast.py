@@ -53,7 +53,7 @@ def gather_all_domains():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--start-from", type=int, default=0, help="Skip first N domains (for resuming)")
-    parser.add_argument("--model", default="Qwen/Qwen3-4B-Base", help="Model to extract vectors from")
+    parser.add_argument("--model", default="Qwen/Qwen3-14B-Base", help="Model to extract vectors from")
     args = parser.parse_args()
 
     import mlx.core as mx

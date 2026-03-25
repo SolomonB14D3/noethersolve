@@ -39,8 +39,8 @@ from noethersolve.train_utils import (
 
 # ── Configuration ────────────────────────────────────────────────────────
 
-MODEL_ID = "Qwen/Qwen3-4B-Base"
-ADAPTER_DIR = Path(__file__).resolve().parent.parent / "adapters"
+MODEL_ID = "Qwen/Qwen3-14B-Base"
+ADAPTER_DIR = Path(__file__).resolve().parent.parent / "adapters" / "qwen3_4b_base"
 RESULTS_DIR = Path(__file__).resolve().parent.parent / "results" / "transfer_benchmark"
 
 MMLU_CATEGORIES = {

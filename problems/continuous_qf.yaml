@@ -18,7 +18,7 @@ description: |
   - Q_f family for general f: Likely FAIL (novel discovery)
   - Stretching effects: Likely FAIL (subtle 3D dynamics)
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "continuous_qf_facts.json"
 pass_threshold: 0.6
 

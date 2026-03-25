@@ -4,7 +4,7 @@ description: |
   molecular biology, and signaling pathways. Testing model knowledge of
   established biochemical principles.
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "biochemistry_facts.json"
 pass_threshold: 0.5

@@ -22,13 +22,13 @@ Usage
   # Train a vortex domain adapter
   python noethersolve_torch.py train-adapter \\
       --data problems/vortex_aligned_30.json \\
-      --model Qwen/Qwen3-4B-Base \\
+      --model Qwen/Qwen3-14B-Base \\
       --out adapters/vortex_q_adapter_cuda.npz
 
   # Run oracle on a verification set
   python noethersolve_torch.py eval-oracle \\
       --problem problems/vortex_pair_conservation.yaml \\
-      --model Qwen/Qwen3-4B-Base
+      --model Qwen/Qwen3-14B-Base
 
   # With adapter
   python noethersolve_torch.py eval-oracle \\
@@ -372,7 +372,7 @@ def cmd_train(args):
         margin_target=args.margin, device=device,
     )
 
-    out_path = args.out or os.path.join(HERE, "adapters",
+    out_path = args.out or os.path.join(HERE, "adapters", "qwen3_4b_base",
                                          os.path.splitext(os.path.basename(args.data))[0]
                                          + "_adapter.npz")
     save_adapter(adapter, out_path)
@@ -411,7 +411,7 @@ def cmd_eval(args):
     with open(vset_path) as f:
         facts = json.load(f)["facts"]
 
-    model_name = args.model or problem.get("model", "Qwen/Qwen3-4B-Base")
+    model_name = args.model or problem.get("model", "Qwen/Qwen3-14B-Base")
     model, tokenizer, vocab_size = load_model(model_name, device)
 
     # Load adapter if provided
@@ -461,7 +461,7 @@ def main():
     p_train = sub.add_parser("train-adapter", help="Train a logit adapter")
     p_train.add_argument("--data",         required=True,
                           help="Training data JSON (problems/*.json)")
-    p_train.add_argument("--model",        default="Qwen/Qwen3-4B-Base")
+    p_train.add_argument("--model",        default="Qwen/Qwen3-14B-Base")
     p_train.add_argument("--steps",        type=int,   default=800)
     p_train.add_argument("--lr",           type=float, default=1e-6)
     p_train.add_argument("--d-inner",      type=int,   default=64)

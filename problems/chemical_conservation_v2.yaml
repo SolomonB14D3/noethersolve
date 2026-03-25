@@ -1,5 +1,5 @@
 name: "Chemical Reaction Network Conservation V2"
 description: "V2 facts with length-matched distractors to fix length ratio bias"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "chemical_conservation_facts_v2.json"
 pass_threshold: 0.5

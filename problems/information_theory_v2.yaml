@@ -1,5 +1,5 @@
 name: "Information Theory V2"
 description: "Same facts with length-matched distractors (32B generated)"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "information_theory_facts_v2.json"
 pass_threshold: 0.5

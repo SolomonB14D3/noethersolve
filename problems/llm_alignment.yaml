@@ -1,6 +1,6 @@
 name: "llm_alignment"
 description: "Oracle test for llm_alignment domain"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "llm_alignment_facts.json"
 pass_threshold: 0.5

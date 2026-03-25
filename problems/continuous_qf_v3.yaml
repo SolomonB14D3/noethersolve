@@ -1,0 +1,19 @@
+problem: continuous_qf_v3
+description: >
+  V3 of continuous Q_f facts with qualitative phrasing.
+  Removes specific numbers that model gets wrong.
+
+verification_set: continuous_qf_facts_v3.json
+pass_threshold: 0.5
+
+notes: >
+  V2 results:
+    Pass rate: 3/12 (25.0%)
+    Mean margin: -13.98
+    Worst margin: -35.5 (qf03 with "frac_var ~ 10⁻³")
+
+  V3 changes:
+    - "frac_var ~ 10⁻³" → "excellent precision"
+    - "10000x better (frac_var 10⁻⁵ vs 10⁻¹)" → "dramatically better"
+    - Shortened verbose distractors
+    - Removed parenthetical asides

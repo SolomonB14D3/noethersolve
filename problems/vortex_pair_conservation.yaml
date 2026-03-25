@@ -10,7 +10,7 @@ description: |
   with frac_var < 5e-3 on vortex-pair flows that the base model does not recognize.
   Priority ICs: restricted 3-vortex (2 strong + 1 weak test vortex), perturbed equilateral.
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "vortex_pair_facts.json"
 pass_threshold: 0.8

@@ -13,6 +13,6 @@ description: |
   This tests whether the oracle knows the deep structure of classical mechanics
   beyond basic energy conservation.
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "hamiltonian_facts_v2.json"
 pass_threshold: 0.5

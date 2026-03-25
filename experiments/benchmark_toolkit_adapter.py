@@ -28,9 +28,9 @@ from noethersolve.adapter import SnapOnConfig, SnapOnLogitMLP
 from noethersolve.train_utils import get_lm_head_fn
 from noethersolve.oracle import score_fact_mc
 
-MODEL_ID = "Qwen/Qwen3-4B-Base"
+MODEL_ID = "Qwen/Qwen3-14B-Base"
 FACTS_PATH = Path(__file__).resolve().parent.parent / "problems" / "toolkit_facts.json"
-ADAPTER_PATH = Path(__file__).resolve().parent.parent / "adapters" / "toolkit_unified_adapter.npz"
+ADAPTER_PATH = Path(__file__).resolve().parent.parent / "adapters" / "qwen3_4b_base" / "toolkit_unified_adapter.npz"
 
 
 def load_adapter(path, vocab_size, d_inner=64):

@@ -63,7 +63,7 @@ class TherapeuticDesignLab:
     ranked therapeutic candidates.
 
     Args:
-        use_oracle: Whether to use 4B oracle for verification
+        use_oracle: Whether to use 14B oracle for verification
         verbose: Whether to print progress
 
     Example:

@@ -161,8 +161,8 @@ def main():
 
     alphas = [0.01, 0.025, 0.05, 0.10, 0.25, 0.50, 0.75, 1.0]
 
-    print("Loading Qwen/Qwen3-4B-Base...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    print("Loading Qwen/Qwen3-14B-Base...")
+    model, tokenizer = load("Qwen/Qwen3-14B-Base")
 
     VECTORS_DIR.mkdir(exist_ok=True)
 

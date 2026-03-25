@@ -5,8 +5,11 @@
 | Actor | Does | Does NOT |
 |-------|------|----------|
 | **27B (local MLX)** | Train 4B adapters, create orthogonal/staged adapters, build MCP tools, run numerical verification | Write papers, search internet, manage git |
+| **14B (oracle)** | Verify claims, evaluate factual accuracy, benchmark knowledge gaps via `verify_claim` | Get trained, run adapters (too smart for steering vectors — 80.7% baseline) |
 | **Claude Code** | Write papers (needs internet), write code, manage pipeline, check escalations, create V2 fact files, commit to git | Train models (no local GPU access) |
 | **4B** | Get adapter training to learn surprising truths | Judge, evaluate, or do independent work |
+
+**Oracle model: Qwen3-14B-Base** (upgraded from 4B on 2026-03-25). The 14B gets 7/8 established physics claims correct where the 4B got 0/8. When the 14B says something is wrong, it's a genuine knowledge hole worth investigating — not capacity noise. Steering vectors don't help the 14B (already too smart). Override via `NOETHERSOLVE_ORACLE_MODEL` env var.
 
 **27B evaluation phase is COMPLETE** (111 domains, 70 passing, Mar 2026). Do NOT restart `research_runner.py` for more evaluation. The 27B's current job is **training 4B adapters** on the 14 failing domains via `scripts/adapter_trainer.py`.
 
@@ -391,7 +394,7 @@ python scripts/adapter_trainer.py --domain my_domain --type hidden-state
 **Gradient bug (MLX):** The pattern `nn.value_and_grad(model, fn)(model.parameters())` silently returns zero gradients. The correct pattern is `nn.value_and_grad(model, fn)(model, data)`. Always verify gradient norms > 0 in the first training step. See Paper D8 (DOI: 10.5281/zenodo.19211466).
 
 **For all models in the pipeline:**
-- 4B-Base: both adapter types for oracle + generation experiments
+- 4B-Base: adapter training target (27B trains adapters FOR 4B). NOT the oracle.
 - 8B-Base: both adapter types
 - 14B-Base: both adapter types
 - 14B-Instruct: hidden-state adapters for generation experiments (logit-space confirmed to fail)

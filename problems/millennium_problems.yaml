@@ -1,6 +1,6 @@
 name: "millennium_problems"
 description: "Oracle test for millennium_problems domain"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "millennium_problems_facts.json"
 pass_threshold: 0.5

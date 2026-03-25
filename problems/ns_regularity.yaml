@@ -21,7 +21,7 @@ description: |
   - R_f ratio: Likely FAIL (completely novel)
   - NS millennium connection: May PASS (well-publicized)
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "ns_regularity_facts.json"
 pass_threshold: 0.5
 

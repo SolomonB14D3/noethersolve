@@ -100,7 +100,7 @@ def main():
     print()
 
     print("Loading model...")
-    model, tokenizer = mlx_lm.load("Qwen/Qwen3-4B-Base")
+    model, tokenizer = mlx_lm.load("Qwen/Qwen3-14B-Base")
     model.freeze()
     lm_head = t3.get_lm_head_fn(model)
 

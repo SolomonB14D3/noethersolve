@@ -1,6 +1,6 @@
 name: "c10_repair_v2"
 description: "V2 length-matched oracle test for C10 e2 symmetric polynomial"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "c10_repair_facts_v2.json"
 pass_threshold: 0.5

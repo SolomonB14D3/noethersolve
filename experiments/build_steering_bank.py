@@ -171,8 +171,8 @@ def extract_vectors(layer=15):
         domain_files += sorted(BANK_DIR.glob("*.json"))
     domain_files += sorted((PROJECT / "problems").glob("*_facts*.json"))
 
-    print(f"\nLoading Qwen/Qwen3-4B-Base...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    print(f"\nLoading Qwen/Qwen3-14B-Base...")
+    model, tokenizer = load("Qwen/Qwen3-14B-Base")
     print(f"Extracting vectors from {len(domain_files)} domain files, layer {layer}")
     print(f"{'='*80}")
 

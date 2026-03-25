@@ -24,7 +24,7 @@ mcp = FastMCP(
 )
 
 
-# ── Oracle Verification (4B Model + Adapters) ────────────────────────
+# ── Oracle Verification (14B Model + Adapters) ───────────────────────
 
 @mcp.tool()
 def verify_claim(
@@ -33,9 +33,9 @@ def verify_claim(
     distractors: list[str] = None,
     context: str = "",
 ) -> str:
-    """Verify a factual claim using the trained 4B oracle model.
+    """Verify a factual claim using the 14B oracle model.
 
-    This tool uses a fine-tuned Qwen3-4B model with domain-specific adapters
+    This tool uses Qwen3-14B-Base (80.7% baseline) with domain-specific adapters
     to verify factual claims. It returns a verdict (TRUE/FALSE/UNCERTAIN),
     confidence score, and explanation.
 

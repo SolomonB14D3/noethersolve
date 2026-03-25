@@ -1,6 +1,6 @@
 name: "multi_messenger_astro"
 description: "Oracle test for multi_messenger_astro"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "multi_messenger_astro_facts.json"
 pass_threshold: 0.5

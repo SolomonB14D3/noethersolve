@@ -20,7 +20,7 @@ facts_file: problems/sociology_economy_tipping_facts_v2.json
 oracle:
   scoring_method: sum
   required_margin: 0.5
-  model: Qwen/Qwen3-4B-Base
+  model: Qwen/Qwen3-14B-Base
 
 trainer:
   steps: 2000

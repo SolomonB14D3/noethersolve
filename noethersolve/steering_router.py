@@ -325,7 +325,7 @@ def quick_test(query: str, steering_bank_path: str = "steering_bank.npz"):
     from mlx_lm import load
 
     print("Loading model...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    model, tokenizer = load("Qwen/Qwen3-14B-Base")
 
     print("Loading steering bank...")
     router = SteeringRouter.load(steering_bank_path)

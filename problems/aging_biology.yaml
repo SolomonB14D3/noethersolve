@@ -1,6 +1,6 @@
 name: "aging_biology"
 description: "Oracle test for aging_biology domain"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "aging_biology_facts.json"
 pass_threshold: 0.5

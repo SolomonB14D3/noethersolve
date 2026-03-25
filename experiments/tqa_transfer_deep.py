@@ -29,8 +29,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from noethersolve.adapter import SnapOnConfig, SnapOnLogitMLP
 from noethersolve.train_utils import LOGIT_SOFTCAP, get_lm_head_fn
 
-MODEL_ID = "Qwen/Qwen3-4B-Base"
-ADAPTER_DIR = Path(__file__).resolve().parent.parent / "adapters"
+MODEL_ID = "Qwen/Qwen3-14B-Base"
+ADAPTER_DIR = Path(__file__).resolve().parent.parent / "adapters" / "qwen3_4b_base"
 RESULTS_DIR = Path(__file__).resolve().parent.parent / "results" / "transfer_benchmark"
 
 # Only load domains that showed positive TQA signal and don't OOM

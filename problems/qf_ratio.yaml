@@ -7,6 +7,6 @@ description: |
 
   Combined frac_var: 0.006 (vs 0.03 for standard Q_f)
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "qf_ratio_facts.json"
 pass_threshold: 0.5

@@ -132,7 +132,7 @@ def find_best_vectors(model_short):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", default="Qwen/Qwen3-4B-Base")
+    parser.add_argument("--model", default="Qwen/Qwen3-14B-Base")
     parser.add_argument("--vector", default=None, help="Specific vector domain to use")
     parser.add_argument("--n-problems", type=int, default=20, help="Number of problems to test")
     parser.add_argument("--alphas", default="0.0,0.25,0.5,0.75,1.0", help="Alpha values")

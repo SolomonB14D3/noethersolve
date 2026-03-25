@@ -17,6 +17,6 @@ description: |
   - Claiming 11 is a valid torsion order (Mazur excludes it)
   - Overstating BSD proof status (only ranks 0 and 1 proven)
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "elliptic_curves_facts.json"
 pass_threshold: 0.5

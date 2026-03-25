@@ -31,8 +31,8 @@ from noethersolve.oracle import score_fact_mc
 
 
 def load_model():
-    print("Loading Qwen3-4B-Base...")
-    model, tokenizer = mlx_lm.load("Qwen/Qwen3-4B-Base")
+    print("Loading Qwen3-14B-Base...")
+    model, tokenizer = mlx_lm.load("Qwen/Qwen3-14B-Base")
     return model, tokenizer
 
 
@@ -87,7 +87,7 @@ def get_compatible_adapters(adapter_dir, prefixes, max_per_prefix=5):
 
 def main():
     model, tokenizer = load_model()
-    adapter_dir = os.path.join(ROOT, "adapters")
+    adapter_dir = os.path.join(ROOT, "adapters", "qwen3_4b_base")
 
     # Load target claims
     with open(os.path.join(HERE, "ns_enstrophy_bound_target.json")) as f:

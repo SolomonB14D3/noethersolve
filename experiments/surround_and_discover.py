@@ -46,9 +46,9 @@ TARGET_CLAIM = {
 
 
 def load_model():
-    print("Loading Qwen3-4B-Base...")
+    print("Loading Qwen3-14B-Base...")
     t0 = time.time()
-    model, tokenizer = mlx_lm.load("Qwen/Qwen3-4B-Base")
+    model, tokenizer = mlx_lm.load("Qwen/Qwen3-14B-Base")
     print(f"  Loaded in {time.time()-t0:.1f}s")
     return model, tokenizer
 
@@ -119,7 +119,7 @@ def train_inline(facts_path, adapter_out, steps=3000, lr=4e-6):
     facts = data["facts"]
 
     # Load model
-    model, tokenizer = mlx_lm.load("Qwen/Qwen3-4B-Base")
+    model, tokenizer = mlx_lm.load("Qwen/Qwen3-14B-Base")
     vocab_size = model.model.embed_tokens.weight.shape[0]
     d_model = model.model.layers[0].self_attn.q_proj.weight.shape[0]
 
@@ -216,7 +216,7 @@ def train_inline(facts_path, adapter_out, steps=3000, lr=4e-6):
 def main():
     # Paths
     facts_path = os.path.join(HERE, "surrounding_facts_enstrophy.json")
-    adapter_out = os.path.join(ROOT, "adapters", "surround_enstrophy_adapter.npz")
+    adapter_out = os.path.join(ROOT, "adapters", "qwen3_4b_base", "surround_enstrophy_adapter.npz")
 
     print("="*70)
     print("  SURROUND AND DISCOVER")
@@ -238,7 +238,7 @@ def main():
 
     # Phase 2: Score with existing NS adapters (for comparison)
     print("\n--- Phase 2: Existing NS adapters on target claim ---")
-    adapter_dir = os.path.join(ROOT, "adapters")
+    adapter_dir = os.path.join(ROOT, "adapters", "qwen3_4b_base")
     ns_adapters = [f for f in os.listdir(adapter_dir)
                    if 'ns_regularity' in f and f.endswith('.npz')]
 

@@ -10,6 +10,6 @@ description: |
   This is a completely different domain from vortex dynamics but uses the same
   dual-filter pipeline: numerical ODE integration + oracle verification.
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "chemical_conservation_facts.json"
 pass_threshold: 0.5

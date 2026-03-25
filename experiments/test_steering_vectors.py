@@ -245,7 +245,7 @@ def test_steering(
     from mlx_lm import load
 
     print(f"Loading model...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    model, tokenizer = load("Qwen/Qwen3-14B-Base")
 
     print(f"Loading facts for {domain}...")
     facts = load_facts(domain)

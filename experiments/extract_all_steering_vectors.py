@@ -189,8 +189,8 @@ def main():
 
     from mlx_lm import load
 
-    print("Loading Qwen/Qwen3-4B-Base...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    print("Loading Qwen/Qwen3-14B-Base...")
+    model, tokenizer = load("Qwen/Qwen3-14B-Base")
 
     # Find all domains with facts
     facts_map = find_all_fact_files()

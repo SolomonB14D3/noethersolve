@@ -1,6 +1,6 @@
 name: "organic_chemistry"
 description: "Oracle test for organic_chemistry domain"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "organic_chemistry_facts.json"
 pass_threshold: 0.5

@@ -4,7 +4,7 @@ description: |
   neutrino physics, BSM searches. Focus on recent experimental results
   where model has inverted beliefs about confirmations vs contradictions.
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "particle_physics_frontiers_facts.json"
 pass_threshold: 0.8

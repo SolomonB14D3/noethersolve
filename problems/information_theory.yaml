@@ -1,6 +1,6 @@
 name: "Information Theory"
 description: "Exact formulas for channel capacity, rate-distortion, source coding"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "information_theory_facts.json"
 pass_threshold: 0.5
 

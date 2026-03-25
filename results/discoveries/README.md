@@ -23,9 +23,9 @@ Domain-agnostic discoveries that generalize beyond any specific model. These are
 | 3D Green's function principle | `qf_3d_green_function.md` | Q_{1/r} optimal in 3D (= kinetic energy); universal principle: optimal Q_f = Laplacian Green's function in each dimension |
 | Continuous Q_f exponential | `continuous_qf_exponential.md` | Q_{e^(-r)} best for continuous 2D Euler (beats -ln(r)) — no r=0 regularization, rapid spectral decay |
 
-## `model_specific/` — Qwen3-4B-Base Adapter Results (13 files)
+## `model_specific/` — Adapter Results (13 files)
 
-Results specific to the Qwen3-4B-Base oracle model. Adapter training outcomes, margin improvements, and routing strategies. Useful for reproducing experiments but not publishable science on their own.
+Results from adapter training and oracle evaluation. Originally evaluated on Qwen3-4B-Base; oracle upgraded to Qwen3-14B-Base on 2026-03-25. Results below were measured on 4B and may improve on 14B. Adapter training outcomes, margin improvements, and routing strategies.
 
 Key findings:
 - **Hybrid routing** (adapter_combination_findings.md): 82.1% by picking best of joint vs orthogonal per fact

@@ -13,7 +13,7 @@ description: |
   If oracle fails on chirality/helicity but passes on energy/momentum,
   this indicates frozen priors limited to basic EM.
 
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 verification_set: "em_zilch_facts.json"
 pass_threshold: 0.8
 

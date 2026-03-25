@@ -81,8 +81,8 @@ def load_model():
     import mlx_lm
     from noethersolve.train_utils import get_lm_head_fn
 
-    print("Loading Qwen/Qwen3-4B-Base...")
-    model, tokenizer = mlx_lm.load("Qwen/Qwen3-4B-Base")
+    print("Loading Qwen/Qwen3-14B-Base...")
+    model, tokenizer = mlx_lm.load("Qwen/Qwen3-14B-Base")
     lm_head = get_lm_head_fn(model)
     return model, tokenizer, lm_head
 

@@ -1,6 +1,6 @@
 name: "computational_conjectures"
 description: "Oracle test for computational_conjectures"
-model: "Qwen/Qwen3-4B-Base"
+model: "Qwen/Qwen3-14B-Base"
 oracle: "stem_margin"
 verification_set: "computational_conjectures_facts.json"
 pass_threshold: 0.5

@@ -335,7 +335,7 @@ BENCHMARKS = {
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--bench", default="all", help="Benchmark to run (mmlu, truthfulqa, winogrande, boolq, all)")
-    parser.add_argument("--model", default="Qwen/Qwen3-4B-Base")
+    parser.add_argument("--model", default="Qwen/Qwen3-14B-Base")
     args = parser.parse_args()
 
     import mlx.core as mx

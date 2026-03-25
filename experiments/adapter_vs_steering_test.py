@@ -176,8 +176,8 @@ def main():
     import mlx.core as mx
     from mlx_lm import load
 
-    print("Loading Qwen/Qwen3-4B-Base...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    print("Loading Qwen/Qwen3-14B-Base...")
+    model, tokenizer = load("Qwen/Qwen3-14B-Base")
 
     for domain in ["college_mathematics", "gpqa_main"]:
         print(f"\n{'='*70}")

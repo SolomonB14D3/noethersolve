@@ -12,7 +12,7 @@ from noethersolve.steering_router import SteeringRouter
 
 def main():
     print("Loading model...")
-    model, tokenizer = load("Qwen/Qwen3-4B-Base")
+    model, tokenizer = load("Qwen/Qwen3-14B-Base")
 
     print("Loading steering bank...")
     router = SteeringRouter.load("steering_bank.npz")
