@@ -14,9 +14,9 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "NoetherSolve",
-    instructions="300+ tools including a trained 4B oracle model for claim verification. "
-                 "The oracle (verify_claim) uses domain-specific adapters to verify factual claims "
-                 "with high accuracy on unseen facts. Plus 230+ computational tools for physics, math, "
+    instructions="300+ tools including a 14B oracle model for claim verification. "
+                 "The oracle (verify_claim) uses Qwen3-14B-Base (80.7% baseline) to verify factual claims "
+                 "with high accuracy. Plus 230+ computational tools for physics, math, "
                  "genetics, chemistry, pharmacokinetics, epidemiology, climate physics, turbulence, "
                  "topological phases, ergodic theory, optimization, numerical PDEs, MHD, GR, seismology, "
                  "plasma physics, autonomy analysis, metacognition, and LLM science — verified calculators "

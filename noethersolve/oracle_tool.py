@@ -1,9 +1,15 @@
-"""Oracle Tool — expose the 4B model + steering vectors + adapters as a verification service.
+"""Oracle Tool — expose the oracle model + steering vectors + adapters as a verification service.
 
-This wraps the trained Qwen3-4B-Base model with a triage pipeline:
+Default oracle: Qwen3-14B-Base (upgraded from 4B on 2026-03-25).
+14B baseline 80.7% vs 4B ~40% — when 14B says something is wrong, it's
+genuinely interesting, not capacity noise.
+
+Triage pipeline:
 1. Try steering vector first (0.1 KB, instant, covers "mute not dumb" domains)
 2. Fall back to domain adapter if no vector or vector doesn't cover domain
 3. Use base model if neither is available
+
+Set NOETHERSOLVE_ORACLE_MODEL env var to override (e.g., "Qwen/Qwen3-4B-Base").
 
 Usage:
     from noethersolve.oracle_tool import verify_claim, get_domain_confidence
@@ -16,9 +22,21 @@ Usage:
 """
 
 import json
+import os
 from pathlib import Path
 from typing import Optional
 from dataclasses import dataclass
+
+# Oracle model configuration
+_DEFAULT_MODEL = "Qwen/Qwen3-14B-Base"
+_ORACLE_MODEL = os.environ.get("NOETHERSOLVE_ORACLE_MODEL", _DEFAULT_MODEL)
+
+# Model short name for adapter/vector directory lookup
+_MODEL_SHORT_MAP = {
+    "Qwen/Qwen3-4B-Base": "qwen3_4b_base",
+    "Qwen/Qwen3-14B-Base": "qwen3_14b_base",
+    "Qwen/Qwen3-8B-Base": "qwen3_8b_base",
+}
 
 # Lazy imports to avoid loading MLX until needed
 _model = None
@@ -26,6 +44,7 @@ _tokenizer = None
 _adapters = {}
 _steering_vectors = {}
 _steering_meta = None  # Cached steering results (which domains benefit from steering)
+_current_model_name = None  # Track which model is loaded
 
 
 @dataclass
@@ -50,16 +69,22 @@ class VerificationResult:
         )
 
 
+def _model_short():
+    """Get the short name for the current oracle model (for directory lookup)."""
+    return _MODEL_SHORT_MAP.get(_ORACLE_MODEL, _ORACLE_MODEL.split("/")[-1].lower().replace("-", "_"))
+
+
 def _load_model():
     """Lazy-load the model and tokenizer."""
-    global _model, _tokenizer
-    if _model is not None:
+    global _model, _tokenizer, _current_model_name
+    if _model is not None and _current_model_name == _ORACLE_MODEL:
         return _model, _tokenizer
 
     try:
         from mlx_lm import load
 
-        _model, _tokenizer = load("Qwen/Qwen3-4B-Base")
+        _model, _tokenizer = load(_ORACLE_MODEL)
+        _current_model_name = _ORACLE_MODEL
         return _model, _tokenizer
     except ImportError:
         raise RuntimeError(
@@ -74,7 +99,12 @@ def _load_steering_meta() -> dict:
     if _steering_meta is not None:
         return _steering_meta
 
-    meta_file = Path(__file__).parent.parent / "results" / "steering_vectors_v2.json"
+    # Try model-specific results file first, fall back to v2
+    model_short = _model_short()
+    meta_file = Path(__file__).parent.parent / "results" / f"steering_vectors_{model_short}.json"
+    if not meta_file.exists():
+        meta_file = Path(__file__).parent.parent / "results" / "steering_vectors_v2.json"
+
     if meta_file.exists():
         with open(meta_file) as f:
             entries = json.load(f)
@@ -103,7 +133,11 @@ def _find_steering_vector(domain: str) -> Optional[tuple]:
     """
     meta = _load_steering_meta()
 
-    vectors_dir = Path(__file__).parent.parent / "steering_vectors"
+    # Model-specific vector directory, fall back to generic
+    model_short = _model_short()
+    vectors_dir = Path(__file__).parent.parent / "steering_vectors" / model_short
+    if not vectors_dir.exists():
+        vectors_dir = Path(__file__).parent.parent / "steering_vectors"
 
     def _try_find_vec(meta_domain, info):
         """Try to find vector file, checking metadata layer first then any layer."""
@@ -213,7 +247,11 @@ def _get_log_prob_steered(model, tokenizer, prompt: str, completion: str,
 
 def _find_adapter(domain: str) -> Optional[Path]:
     """Find the best adapter for a domain."""
-    adapters_dir = Path(__file__).parent.parent / "adapters"
+    model_short = _model_short()
+    adapters_dir = Path(__file__).parent.parent / "adapters" / model_short
+    if not adapters_dir.exists():
+        # Fall back to 4B adapters only if vocab matches (both Qwen3 use 151936)
+        adapters_dir = Path(__file__).parent.parent / "adapters" / "qwen3_4b_base"
     if not adapters_dir.exists():
         return None
 
@@ -486,33 +524,33 @@ def verify_claim(
     intervention = _triage_intervention(domain)
     adapter_used = intervention["label"]
 
-    # Build prompt
+    # Build single MC prompt with all options (forces model to compare simultaneously)
+    all_options = [claim] + (distractors or [])
+    labels = [chr(ord('A') + i) for i in range(len(all_options))]
+
     if context:
-        prompt = f"{context}\n\nWhich is correct?\nA) {claim}\n"
+        prompt = f"{context}\n\nWhich statement is most accurate?\n"
     else:
-        prompt = f"Which is correct?\nA) {claim}\n"
+        prompt = "Which statement is most accurate?\n"
 
-    # Score the claim
-    claim_scores = _score_completions(
-        model, tokenizer, prompt, [("claim", "A")], intervention
-    )
-    claim_lp = claim_scores[0][1]
+    for i, (label, option) in enumerate(zip(labels, all_options)):
+        prompt += f"{label}) {option}\n"
+    prompt += "Answer:"
 
-    # Compare against distractors if provided
+    # Score each answer letter in the same prompt context
+    completions = [(labels[i], f" {labels[i]}") for i in range(len(all_options))]
+    scores = _score_completions(model, tokenizer, prompt, completions, intervention)
+
+    # Extract claim score and best distractor score
+    claim_lp = scores[0][1]
     best_distractor_lp = float('-inf')
     best_distractor = None
 
     if distractors:
-        for i, d in enumerate(distractors):
-            letter = chr(ord('B') + i)
-            prompt_with_d = prompt + f"{letter}) {d}\n"
-            d_scores = _score_completions(
-                model, tokenizer, prompt_with_d, [(d, letter)], intervention
-            )
-            d_lp = d_scores[0][1]
-            if d_lp > best_distractor_lp:
-                best_distractor_lp = d_lp
-                best_distractor = d
+        for i, (label, lp) in enumerate(scores[1:], 1):
+            if lp > best_distractor_lp:
+                best_distractor_lp = lp
+                best_distractor = all_options[i]
 
     # Calculate margin and verdict
     if distractors:
@@ -593,8 +631,11 @@ def list_supported_domains() -> list[str]:
     """List all domains with trained adapters or steering vectors."""
     domains = set()
 
-    # Adapter domains
-    adapters_dir = Path(__file__).parent.parent / "adapters"
+    # Adapter domains (try model-specific first, then 4B fallback)
+    model_short = _model_short()
+    adapters_dir = Path(__file__).parent.parent / "adapters" / model_short
+    if not adapters_dir.exists():
+        adapters_dir = Path(__file__).parent.parent / "adapters" / "qwen3_4b_base"
     if adapters_dir.exists():
         for adapter in adapters_dir.glob("*.npz"):
             name = adapter.stem
